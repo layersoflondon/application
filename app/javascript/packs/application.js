@@ -7,4 +7,8 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-console.log('Hello World from Webpacker')
+import Main from '../components/main.js';
+let m = new Main();
+
+import Map from '../components/map/map';
+console.log("This is an instance of Map created at the pack entry point in application.js", new Map());
