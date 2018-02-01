@@ -1,24 +1,8 @@
-# README
+# Layers of London Application
+This is the repository of code for the Layers of London application, which will live at http://www.layersoflondon.org
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+As the project progresses, we'll write more of a README file :-)
 
-Things you may want to cover:
+# Licence
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The project is licenced GPL3
