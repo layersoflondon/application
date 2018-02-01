@@ -7,8 +7,15 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import Main from '../components/main.js';
-let m = new Main();
+import React from 'react'
+import ReactDOM from 'react-dom'
 
 import Map from '../components/map/map';
 console.log("This is an instance of Map created at the pack entry point in application.js", new Map());
+
+document.addEventListener('DOMContentLoaded', () => {
+  ReactDOM.render(
+    <Map name="React" />,
+    document.body.appendChild(document.createElement('div')),
+  )
+});
