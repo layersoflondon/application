@@ -51,6 +51,7 @@ Once docker is installed, install Kitematic from the dropdown menu item
     * Click ... and change the selected tag from "latest" to "5.6.37"
     * Once installed, go to its settings tab in Kitematic and add an environment variable
         * Key ```MYSQL_ROOT_PASSWORD``` value ```root```
+    * Under hostname/ports set the Published IP:Port to 3306 (so we can access 127.0.0.1:3306)
 * Redis (use the latest official container)
 
 ##### Create ElasticSearch container  
