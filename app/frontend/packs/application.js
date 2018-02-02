@@ -11,7 +11,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Map from '../components/map/map';
-console.log("This is an instance of Map created at the pack entry point in application.js", new Map());
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
