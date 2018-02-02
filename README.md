@@ -87,16 +87,17 @@ _You cant attach to the docker instances as they dont run their processes on the
 `docker ps -a`
 
 #### Attaching to a container
-We can't use `overmind c` to connect to a docker process, we need to use docker itself. 
-To start access the `redis-cli` on the Redis container, just run:  
+We can't use `overmind c` to connect to a docker process, we need to use docker itself.  
+
+To access the `redis-cli` on the Redis container, just run:  
 ```docker exec -it redis redis-cli```
 
 Similarly, you can start a bash session with:  
 ```docker exec -it redis bash```
 
-To start a mysql console
-```docker exec -it mysql bash```
-``` # mysql -uroot -proot ```  
+To start a mysql console  
+```docker exec -it mysql bash```  
+```> mysql -uroot -proot ```  
 _(use the root password we set in the MYSQL_ROOT_PASSWORD environment variable above)_  
 
 #### Stopping our containers
