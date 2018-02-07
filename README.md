@@ -107,6 +107,7 @@ _(use the root password we set in the MYSQL_ROOT_PASSWORD environment variable a
 
 ## Setup with docker-compose
 
+We first need a valid dump file of the db. Copy the sql file in `{project}/data/dump.sql`
 
 ###  Steps to run the project
 
