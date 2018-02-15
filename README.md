@@ -113,23 +113,9 @@ We first need a valid dump file of the db. Copy the sql file in `{project}/data/
 
 ```bash
 # Build containers
-$ docker-compose build
-```
-```bash
-# Install project dependencies
-$ docker-compose run ruby yarn install
-```
-```bash
-# Spin up containers
-$ docker-compose up -d
-```
-```bash
-# Get in the container 
-$ docker exec -it application_ruby_1 bash
-```
-```bash
-# run webpack command
-bin/webpack-dev-server
+$ docker-compose up -d --build
+# Run weback
+$ docker-compose run ruby bin/webpack-dev-server
 ```
 
 Now in browser check whether is working http://localhost:3000/`

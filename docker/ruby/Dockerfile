@@ -1,37 +1,30 @@
 FROM ruby:2.5
 
-RUN apt-get update \
-    && apt-get -y install \
-    build-essential  \
+# Install dependencies:
+# - build-essential: To ensure certain gems can be compiled
+# - nodejs: Compile assets
+# - npm: Install node modules
+# - yarn: Install & manage node modules [should make npm obsolete]
+# - libpq-dev
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && \
+    apt-get install -qq -y build-essential nodejs yarn \
     libpq-dev \
     mysql-client \
-    sqlite3 \
-    apt-transport-https
-
-
-# Add Yarn repository
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-# Update
-RUN apt-get update -y
-
-# Install Yarn
-RUN apt-get install yarn -y
-
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
-
-RUN apt-get install nodejs
-
+    sqlite3
 
 RUN mkdir /app
+COPY . /app
 
 WORKDIR /app
 
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
-
-COPY . /app
-
 RUN bundle install
 
+# install node dependencies
+RUN yarn install
+
+COPY ./docker/ruby/start.sh /start.sh
+
+RUN chmod +x /start.sh

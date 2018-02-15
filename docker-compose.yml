@@ -1,37 +1,52 @@
-version: '3'
+version: '3.3'
 
 networks:
-  erra:
+  error-network:
+      driver: bridge
 
 services:
   ruby:
     build:
       context: .
       dockerfile: docker/ruby/Dockerfile
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
-    volumes:
-      - .:/app
+    networks:
+      - error-network
     ports:
       - "3000:3000"
     depends_on:
       - mysql
-    networks:
-      erra:
+      - redis
+    entrypoint:
+      - /start.sh
   mysql:
+    image: mysql:5.7
     ports:
       - "3306:3306"
-    image: mysql:5.7
     volumes:
-      - db-data:/var/lib/mysql
-      - ./data/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./database/data:/var/lib/mysql
+      - ./database/import:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=layers-app_development
       - MYSQL_USER=user
       - MYSQL_PASSWORD=root
     networks:
-      erra:
+      - error-network
+  redis:
+    image: redis:3.2
+    networks:
+      - error-network
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 1s
+      retries: 300
+
 
 volumes:
-  db-data:
-    driver: local
+  redis: {}
+  elasticsearch: {}
