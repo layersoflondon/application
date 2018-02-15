@@ -15,16 +15,11 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     mysql-client \
     sqlite3
 
-RUN mkdir /app
-COPY . /app
-
+# Set working directory
+RUN mkdir -p /app
 WORKDIR /app
 
+# bundle gem dependencies
+COPY ./Gemfile /app/
+COPY ./Gemfile.lock /app/
 RUN bundle install
-
-# install node dependencies
-RUN yarn install
-
-COPY ./docker/ruby/start.sh /start.sh
-
-RUN chmod +x /start.sh

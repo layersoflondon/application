@@ -4,18 +4,28 @@ networks:
   error-network:
       driver: bridge
 
+volumes:
+  esdata:
+    driver: local
+
 services:
   ruby:
     build:
       context: .
       dockerfile: docker/ruby/Dockerfile
+    volumes:
+      - .:/app
+      - ./docker/ruby/start.sh:/start.sh
     networks:
       - error-network
     ports:
       - "3000:3000"
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
     depends_on:
       - mysql
       - redis
+      - elasticsearch
     entrypoint:
       - /start.sh
   mysql:
@@ -23,7 +33,6 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./database/data:/var/lib/mysql
       - ./database/import:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -32,21 +41,43 @@ services:
       - MYSQL_PASSWORD=root
     networks:
       - error-network
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 1s
+      timeout: 1s
+      retries: 300
   redis:
     image: redis:3.2
     networks:
       - error-network
     ports:
       - "6379:6379"
-    volumes:
-      - redis:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 1s
       timeout: 1s
       retries: 300
-
-
-volumes:
-  redis: {}
-  elasticsearch: {}
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.1
+    networks:
+      - error-network
+    ports:
+      - "9200:9200"
+    environment:
+      LOGSPOUT: 'ignore'
+      ES_JAVA_OPTS: '-Xms1024m -Xmx1024m'
+      bootstrap.memory_lock: 'false'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD", "curl", "-SsfL", "127.0.0.1:9200/_cat/health?h=status"]
+      interval: 1s
+      timeout: 1s
+      retries: 300

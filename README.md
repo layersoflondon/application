@@ -113,8 +113,8 @@ We first need a valid dump file of the db. Copy the sql file in `{project}/data/
 
 ```bash
 # Build containers
-$ docker-compose up -d --build
-# Run weback
+$ docker-compose up -d
+# Run weback server
 $ docker-compose run ruby bin/webpack-dev-server
 ```
 
