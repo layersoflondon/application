@@ -117,5 +117,10 @@ $ docker-compose up -d
 # Run weback server
 $ docker-compose run ruby bin/webpack-dev-server
 ```
+Elastic search
+
+```bash
+$ docker-compose -f docker-compose.es.yml up -d 
+```
 
 Now in browser check whether is working http://localhost:3000/`
