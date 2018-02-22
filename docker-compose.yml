@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.1'
 
 networks:
   error-network:
@@ -22,6 +22,8 @@ services:
       - "3000:3000"
     entrypoint:
       - /start.sh
+    depends_on:
+      - mysql
   mysql:
     image: mysql:5.7
     ports:
@@ -37,17 +39,6 @@ services:
       - error-network
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      interval: 1s
-      timeout: 1s
-      retries: 300
-  redis:
-    image: redis:3.2
-    networks:
-      - error-network
-    ports:
-      - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
       interval: 1s
       timeout: 1s
       retries: 300

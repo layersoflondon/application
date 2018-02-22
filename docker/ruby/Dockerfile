@@ -20,6 +20,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # bundle gem dependencies
-COPY ./src/Gemfile /app/
-COPY ./src/Gemfile.lock /app/
+ADD ./src/Gemfile /app/
+ADD ./src/Gemfile.lock /app/
 RUN bundle install
+ADD ./src /app
