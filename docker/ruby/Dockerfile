@@ -23,4 +23,3 @@ WORKDIR /app
 ADD ./src/Gemfile /app/
 ADD ./src/Gemfile.lock /app/
 RUN bundle install
-ADD ./src /app
