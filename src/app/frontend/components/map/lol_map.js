@@ -6,15 +6,20 @@ class LoLMap extends Component {
     super(props);
   }
 
+  dragged() {
+    console.log("DRAGGED", this.refs.map);
+  }
+
+  zoomed() {
+    console.log("ZOOMED", this.refs.map);
+  }
+
   render() {
     const position = [51.505, -0.09];
 
     return <div id="lol-map-container">
-      <Map center={position} zoom={13}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-        />
+      <Map center={position} zoom={13} ref='map' onDragEnd={this.dragged.bind(this)} onZoomEnd={this.zoomed.bind(this)}>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
         <Marker position={position}>
           <Popup>
             <span>A pretty CSS3 popup.<br />Easily customizable.</span>
