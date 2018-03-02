@@ -13,7 +13,18 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     apt-get install -qq -y build-essential nodejs yarn \
     libpq-dev \
     mysql-client \
-    sqlite3
+    sqlite3 \
+    openssl \
+    openssh-server
+
+RUN mkdir /root/.ssh
+RUN echo "root:root" | chpasswd
+# RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
+# RUN mkdir /var/run/sshd
+
+ADD ./src/Gemfile /opt/debugging/debugger
+ADD ./src/Gemfile.lock /opt/debugging/debugger.pub
+RUN cat /opt/debugging/debugger.pub > /root/.ssh/authorized_keys
 
 # Set working directory
 RUN mkdir -p /app
