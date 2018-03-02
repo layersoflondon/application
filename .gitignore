@@ -30,7 +30,7 @@
 /src/yarn-debug.log*
 /src/yarn-error.log*
 /src/.yarn-integrity
-.idea/*
+.idea
 
 # Docker
 /src/database/data/*

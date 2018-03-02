@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  resources :demos, only: :show
+  resources :map, only: :show
+
+  root "map#show"
 end

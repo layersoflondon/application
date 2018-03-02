@@ -10,11 +10,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Map from '../components/map/map';
+import Main from '../components/main';
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <Map name="React" />,
-    document.body.appendChild(document.createElement('div')),
-  )
+  ReactDOM.render(<Main />, document.getElementById("map-root"));
 });

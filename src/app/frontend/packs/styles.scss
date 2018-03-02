@@ -1,1 +1,36 @@
 @import "../styles/modules/m-map";
+
+* {
+  box-sizing: border-box;
+}
+
+#map-root {
+}
+#main-container {
+  position: relative;
+  height: 800px;
+}
+
+#tools-container {
+}
+
+#map-container {
+  height: 100%;
+
+  &>div {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    height: 100%;
+  }
+}
+
+#tray-container {
+}
+#lol-map-container {
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}

@@ -12,4 +12,6 @@
  *
  *= require_tree .
  *= require_self
+ # fixme - this should be moved in the app/frontend stylesheet pack somehow, and the stylesheet_include_tag in the application layout removed
+ *= require leaflet/leaflet
  */

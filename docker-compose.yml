@@ -19,8 +19,9 @@ services:
       - error-network
     ports:
       - "3000:3000"
-#   command: bundle exec rails s -p 3000 -b '0.0.0.0'
-    command: bundle exec rdebug-ide --host '0.0.0.0' --port 1234 --dispatcher-port 26162 -- /app/bin/rails s -b '0.0.0.0' -p 3000 -e development
+      - "3035:3035"
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    #command: bundle exec rdebug-ide --host '0.0.0.0' --port 1234 --dispatcher-port 26162 -- /app/bin/rails s -b '0.0.0.0' -p 3000 -e development
     depends_on:
       - node
       - mysql
