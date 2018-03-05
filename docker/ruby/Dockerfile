@@ -19,6 +19,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
 
 # Setup ssh server
 RUN mkdir /var/run/sshd
+RUN mkdir /root/.ssh
 RUN echo 'root:root' | chpasswd
 
 # Set working directory

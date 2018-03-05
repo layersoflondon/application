@@ -30,7 +30,11 @@
 /src/yarn-debug.log*
 /src/yarn-error.log*
 /src/.yarn-integrity
+
+# Ignore IDE Rubymine project files
 .idea/*
+/src/*.iml
+.generators
 
 # Docker
 /src/database/data/*

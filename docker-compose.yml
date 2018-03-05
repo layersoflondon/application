@@ -56,12 +56,3 @@ services:
       interval: 1s
       timeout: 1s
       retries: 300
-#  node:
-#    build:
-#      context: .
-#      dockerfile: docker/node/Dockerfile
-#    volumes:
-#      - ./src:/usr/src/app
-#      - ./docker/node/entrypoint.sh:/entrypoint.sh
-#    entrypoint:
-#      - /entrypoint.sh
