@@ -17,14 +17,9 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     openssl \
     openssh-server
 
-RUN mkdir /root/.ssh
-RUN echo "root:root" | chpasswd
-# RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
-# RUN mkdir /var/run/sshd
-
-ADD ./src/Gemfile /opt/debugging/debugger
-ADD ./src/Gemfile.lock /opt/debugging/debugger.pub
-RUN cat /opt/debugging/debugger.pub > /root/.ssh/authorized_keys
+# Setup ssh server
+RUN mkdir /var/run/sshd
+RUN echo 'root:root' | chpasswd
 
 # Set working directory
 RUN mkdir -p /app
@@ -34,3 +29,5 @@ WORKDIR /app
 ADD ./src/Gemfile /app/
 ADD ./src/Gemfile.lock /app/
 RUN bundle install
+
+

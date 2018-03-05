@@ -14,6 +14,9 @@ services:
       context: .
       dockerfile: docker/ruby/Dockerfile
     volumes:
+      - ./docker/ruby/debugging:/opt/debugging
+      - ./docker/ruby/ssh/sshd_config:/etc/ssh/sshd_config
+      - ./docker/ruby/entrypoint.sh:/entrypoint.sh
       - ./src:/app
     networks:
       - error-network
@@ -22,7 +25,9 @@ services:
       - "2222:22"
     stdin_open: true
     tty: true
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    entrypoint:
+      - /entrypoint.sh
+#    command: bundle exec rails s -p 3000 -b '0.0.0.0'
 #    command: bundle exec rdebug-ide --host '0.0.0.0' --port 1234 --dispatcher-port 26162 -- /app/bin/rails s -b '0.0.0.0' -p 3000 -e development
     depends_on:
       - mysql
@@ -51,12 +56,12 @@ services:
       interval: 1s
       timeout: 1s
       retries: 300
-  node:
-    build:
-      context: .
-      dockerfile: docker/node/Dockerfile
-    volumes:
-      - ./src:/usr/src/app
-      - ./docker/node/entrypoint.sh:/entrypoint.sh
-    entrypoint:
-      - /entrypoint.sh
+#  node:
+#    build:
+#      context: .
+#      dockerfile: docker/node/Dockerfile
+#    volumes:
+#      - ./src:/usr/src/app
+#      - ./docker/node/entrypoint.sh:/entrypoint.sh
+#    entrypoint:
+#      - /entrypoint.sh
