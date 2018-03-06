@@ -3,10 +3,10 @@ class Collection < ApplicationRecord
   has_many :collection_records
   has_many :records, through: :collection_records
 
-  enum read_state: [ :public_read, :private_read ]
-  enum write_state: [ :everyone, :team, :creator ]
+  enum read_state: [:public_read, :private_read]
+  enum write_state: [:everyone, :team, :creator]
 
   validates :title, :description, presence:true
-  validates :title, length: { in: 3..255 }
-  validates :description, length: { minimum: 3 }
+  validates :title, length: {in: 3..255}
+  validates :description, length: {minimum: 3}
 end

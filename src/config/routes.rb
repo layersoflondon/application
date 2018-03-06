@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  resources :demos, only: :show
+  resources :records
+  resources :collections do
+    resources :records, controller: 'collection_records'
+  end
 end

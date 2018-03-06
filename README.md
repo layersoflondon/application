@@ -15,7 +15,7 @@ Elastic search is composed independently, to spin up the elastic search containe
 $ docker-compose -f docker-compose.es.yml up -d 
 ```
 
-Launch in browser http://localhost:3000/`
+Launch in browser http://localhost:3000/
 
 ### Development
 
