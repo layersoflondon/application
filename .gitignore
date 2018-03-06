@@ -33,7 +33,7 @@
 
 # Ignore IDE Rubymine project files
 .idea/*
-/src/*.iml
+/src/src.iml
 .generators
 
 # Docker
