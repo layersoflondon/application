@@ -8,3 +8,6 @@ json.deleted record.deleted
 json.lat record.lat
 json.lng record.lng
 json.date record.date
+json.collectons do
+  json.array! record.collections, partial: 'records/record_collections',  as: :collection
+end

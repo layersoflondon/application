@@ -1,1 +1,1 @@
-json.partial! 'collections/collection', lolCollection: @collection
+json.partial! 'collections/collection', locals: {collection: @collection}

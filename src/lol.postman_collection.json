@@ -1,0 +1,189 @@
+{
+	"info": {
+		"name": "LoL",
+		"_postman_id": "e74ffb5c-7304-43cb-bd9a-c4f8b50be51e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Collections",
+			"description": "",
+			"item": [
+				{
+					"name": "Index Collections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/collections",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"collections"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Collection",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"collection\" : {\n\t\t\"title\" : \"test\",\n\t\t\"description\" : \"test description\",\n\t\t\"read_state\" : \"public_read\",\n\t\t\"private_read\" : \"everyone\",\n\t\t\"attachment_id\" : 1\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/collections",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"collections"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Collection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/collections/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"collections",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Records",
+			"description": "",
+			"item": [
+				{
+					"name": "Index Records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Record",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"record\" : {\n\t\t\"title\" : \"recod test x\",\n\t\t\"description\" : \"record description\",\n\t\t\"state\" : \"published\",\n\t\t\"lat\" : 15,\n\t\t\"lng\" : 20,\n\t\t\"date\" : \"2017-01-01\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/records",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update record",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"record\" : {\n\t\t\"title\" : \"record title 1\",\n\t\t\"description\" : \"record desc 1\",\n\t\t\"state\" : \"published\",\n\t\t\"lat\" : 15,\n\t\t\"lng\" : 20,\n\t\t\"date\" : \"2017-01-01\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/records/29",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"29"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Record",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/29",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"29"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

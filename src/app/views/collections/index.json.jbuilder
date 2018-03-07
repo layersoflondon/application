@@ -1,1 +1,1 @@
-json.partial! 'collections/collection', collection: @collections, as: :lolCollection
+json.partial! 'collections/collection', collection: @collections, as: :collection
