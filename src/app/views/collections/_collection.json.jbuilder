@@ -1,4 +1,5 @@
 json.id collection.id
+json.title collection.title
 json.description collection.description
 json.attachment_id collection.attachment_id
 json.read_state collection.read_state

@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2018_03_01_211432) do
 
-  create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "attachment_type"
     t.integer "state"
     t.text "attachment_data"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2018_03_01_211432) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "collection_records", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "collection_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "collection_id"
     t.bigint "record_id"
     t.datetime "created_at", null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2018_03_01_211432) do
     t.index ["record_id"], name: "index_collection_records_on_record_id"
   end
 
-  create_table "collections", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "collections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.string "owner_type"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2018_03_01_211432) do
     t.index ["owner_type", "owner_id"], name: "index_collections_on_owner_type_and_owner_id"
   end
 
-  create_table "record_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "record_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "record_id"
     t.bigint "attachment_id"
     t.boolean "primary_image"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2018_03_01_211432) do
     t.index ["record_id"], name: "index_record_attachments_on_record_id"
   end
 
-  create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "like_count", default: 0
@@ -69,10 +69,9 @@ ActiveRecord::Schema.define(version: 2018_03_01_211432) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "team_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

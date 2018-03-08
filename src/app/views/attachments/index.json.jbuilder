@@ -1,0 +1,1 @@
+json.partial! 'attachments/attachment', collection: @attachments, as: :attachment

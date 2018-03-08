@@ -1,5 +1,4 @@
 class RecordsController < ApplicationController
-
   skip_before_action :verify_authenticity_token
 
   def index
@@ -8,33 +7,43 @@ class RecordsController < ApplicationController
 
   def create
     @record = Record.new(record_params)
-
-    unless @record.save
-      render json: @record.errors, status: :unprocessable_entity
-    end
+    return @record if @record.save
+    render json: @record.errors, status: :unprocessable_entity
   end
 
   def show
-    @record = Record.find(params[:id])
+    @record = Record.find_by_id(params[:id])
+    render json: '', status: :not_found unless @record
   end
 
   def update
-    @record = Record.find(params[:id])
+    @record = Record.find_by_id(params[:id])
+    render json: '', status: :not_found unless @record
     update_record_params = record_params.to_h
     @record.assign_attributes(update_record_params)
-    unless @record.save
-      return render json: @record.errors, status: :unprocessable_entity
-    end
+    return @record if @record.save
+    render json: @record.errors, status: :unprocessable_entity
+  end
+
+  def destroy
+    @record = Record.find_by_id(params[:id])
+    return render json: '', status: :not_found unless @record
+    # @TODO: check user delete permissions
+    # clear associations
+    @record.collections = []
+    @record.save
+    return render json: '', status: :no_content if @record.destroy
+    render json: @record.errors, status: :unauthorized
   end
 
   def record_params
     params.require(:record).permit(
-        :title,
-        :description,
-        :state,
-        :lat,
-        :lng,
-        :date
+      :title,
+      :description,
+      :state,
+      :lat,
+      :lng,
+      :date
     )
   end
 end
