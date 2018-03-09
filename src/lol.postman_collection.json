@@ -505,13 +505,63 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "localhost:3000/collections",
+							"raw": "localhost:3000/attachments",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"collections"
+								"attachments"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Collection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/attachments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"attachments",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Attachment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/attachments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"attachments",
+								"1"
 							]
 						},
 						"description": ""
