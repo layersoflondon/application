@@ -10,16 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_01_211432) do
+ActiveRecord::Schema.define(version: 2018_03_09_135947) do
 
-  create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "attachment_type"
-    t.integer "state"
-    t.text "attachment_data"
-    t.string "mime_type"
-    t.integer "file_size"
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
   create_table "collection_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -45,16 +56,6 @@ ActiveRecord::Schema.define(version: 2018_03_01_211432) do
     t.index ["owner_type", "owner_id"], name: "index_collections_on_owner_type_and_owner_id"
   end
 
-  create_table "record_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "record_id"
-    t.bigint "attachment_id"
-    t.boolean "primary_image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["attachment_id"], name: "index_record_attachments_on_attachment_id"
-    t.index ["record_id"], name: "index_record_attachments_on_record_id"
-  end
-
   create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -78,6 +79,4 @@ ActiveRecord::Schema.define(version: 2018_03_01_211432) do
 
   add_foreign_key "collection_records", "collections"
   add_foreign_key "collection_records", "records"
-  add_foreign_key "record_attachments", "attachments"
-  add_foreign_key "record_attachments", "records"
 end

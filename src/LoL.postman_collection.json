@@ -140,6 +140,95 @@
 			]
 		},
 		{
+			"name": "CollectionRecords",
+			"description": "",
+			"item": [
+				{
+					"name": "Index Collection Records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/collections/1/records",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"collections",
+								"1",
+								"records"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Collection Records",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : 1\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/collections/1/records",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"collections",
+								"1",
+								"records"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Collection Record",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/collections/1/records/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"collections",
+								"1",
+								"records",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Records",
 			"description": "",
 			"item": [
@@ -273,25 +362,25 @@
 			]
 		},
 		{
-			"name": "CollectionRecords",
+			"name": "Record Images",
 			"description": "",
 			"item": [
 				{
-					"name": "Index Collection Records",
+					"name": "Index Record Images",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "localhost:3000/collections/1/records",
+							"raw": "localhost:3000/records/1/images",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"collections",
+								"records",
 								"1",
-								"records"
+								"images"
 							]
 						},
 						"description": ""
@@ -299,29 +388,35 @@
 					"response": []
 				},
 				{
-					"name": "Create Collection Records",
+					"name": "Create Record Image",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json"
+								"value": "application/x-www-form-urlencoded"
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\" : 1\n}"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "record[images][]",
+									"description": "",
+									"type": "file"
+								}
+							]
 						},
 						"url": {
-							"raw": "localhost:3000/collections/1/records",
+							"raw": "localhost:3000/records/1/images",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"collections",
+								"records",
 								"1",
-								"records"
+								"images"
 							]
 						},
 						"description": ""
@@ -329,7 +424,30 @@
 					"response": []
 				},
 				{
-					"name": "Delete Collection Record",
+					"name": "Show Record Image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/1/images/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"images",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Attachment",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -343,21 +461,43 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/collections/1/records/1",
+							"raw": "localhost:3000/records/1/images/1",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"collections",
-								"1",
 								"records",
+								"1",
+								"images",
 								"1"
 							]
 						},
 						"description": ""
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "42e9833f-e17d-47ca-aad9-5be019e8574f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b3e4314-bd08-42de-b805-f76ee57dd84b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -486,82 +626,6 @@
 							"path": [
 								"teams",
 								"4"
-							]
-						},
-						"description": ""
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Attachments",
-			"description": "",
-			"item": [
-				{
-					"name": "Index Attachment",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "localhost:3000/attachments",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"attachments"
-							]
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Show Collection",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "localhost:3000/attachments/1",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"attachments",
-								"1"
-							]
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Attachment",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "localhost:3000/attachments/1",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"attachments",
-								"1"
 							]
 						},
 						"description": ""

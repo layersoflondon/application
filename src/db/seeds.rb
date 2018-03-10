@@ -52,16 +52,3 @@ end
     description: Faker::Company.bs
   )
 end
-attachment_type = %w[video image uri file geojson]
-attachment_state = %w[published pending uploaded flagged deleted]
-attachment_mime_type = %w[application/pdf]
-# create attachments
-3.times do |_i|
-  Attachment.create(
-    attachment_type: attachment_type[Faker::Number.between(0, 4)],
-    state: attachment_state[Faker::Number.between(0, 4)],
-    attachment_data: "asdf",
-    mime_type: attachment_mime_type[Faker::Number.between(0, 0)],
-    file_size: 123
-  )
-end

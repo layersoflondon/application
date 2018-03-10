@@ -1,6 +1,9 @@
 # Layers of London Application
 This is the repository of code for the Layers of London application, which will live at http://www.layersoflondon.org
 
+Rails 5.2.0.rc1
+ruby 2.5.0p0
+
 ###  Steps to run the project
 
 ```bash
