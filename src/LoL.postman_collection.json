@@ -447,7 +447,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Attachment",
+					"name": "Delete Document",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -470,6 +470,146 @@
 								"records",
 								"1",
 								"images",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "42e9833f-e17d-47ca-aad9-5be019e8574f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b3e4314-bd08-42de-b805-f76ee57dd84b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Record Documents",
+			"description": "",
+			"item": [
+				{
+					"name": "Index Record Documents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/1/documents",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"documents"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Record Document",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "record[documents][]",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/documents",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"documents"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Record Document",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/1/documents/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"documents",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Document",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/documents/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"documents",
 								"1"
 							]
 						},

@@ -1,0 +1,2 @@
+module RecordDocumentsHelper
+end
