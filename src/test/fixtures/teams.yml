@@ -3,9 +3,7 @@
 one:
   name: MyString
   description: MyText
-  team_type: 1
 
 two:
   name: MyString
   description: MyText
-  team_type: 1

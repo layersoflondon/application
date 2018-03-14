@@ -1,8 +1,10 @@
 class Record < ApplicationRecord
   has_many :collection_records
   has_many :collections, through: :collection_records
-  has_many_attached :images
-  has_many_attached :documents
+
+  has_many :associated_attachments
+  #has_many :data_attachments, through: :associated_attachments
+  has_many :file_attachments, through: :associated_attachments
 
   enum state: %i[draft published pending_review flagged]
 

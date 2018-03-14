@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RecordDocumentsControllerTest < ActionDispatch::IntegrationTest
+class FileAttachmentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -7,7 +7,6 @@ class CollectionRecordsController < ApplicationController
   end
 
   def create
-    # @collection = Collection.includes(:records).find(params[:collection_id])
     @collection = Collection.find_by_id(params[:collection_id])
     @record = Record.find_by_id(params[:id])
     return render json: '', status: :not_found unless @record

@@ -1,1 +1,0 @@
-json.partial! 'record_documents/document', document: @document

@@ -1,1 +1,0 @@
-json.partial! 'record_documents/document', collection: @record.documents, as: :document
