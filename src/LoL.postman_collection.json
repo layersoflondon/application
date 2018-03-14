@@ -642,6 +642,243 @@
 			]
 		},
 		{
+			"name": "Record Attachments",
+			"description": "",
+			"item": [
+				{
+					"name": "Index Record Attachments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/1/attachments",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"attachments"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create Record Attachment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachment[name]",
+									"value": "name yyyy",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[caption]",
+									"value": "caption",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[credits]",
+									"value": "credits",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[description]",
+									"value": "description",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[type_attachment]",
+									"value": "image",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[content]",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/attachments",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"attachments"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Update Record Attachment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachment[name]",
+									"value": "name update",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[caption]",
+									"value": "caption",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[credits]",
+									"value": "credits",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[description]",
+									"value": "description",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[type_attachment]",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[content]",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/attachments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"attachments",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Record Document",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/1/attachments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"attachments",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Document",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/attachments/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"attachments",
+								"2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "42e9833f-e17d-47ca-aad9-5be019e8574f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b3e4314-bd08-42de-b805-f76ee57dd84b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
 			"name": "Teams",
 			"description": "",
 			"item": [
