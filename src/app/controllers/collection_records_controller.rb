@@ -11,9 +11,7 @@ class CollectionRecordsController < ApplicationController
     @record = Record.find_by_id(params[:id])
     return render json: '', status: :not_found unless @record
     # @TODO: check whether user can associate record to collection or not
-    unless @collection.records.exists?(@record.id)
-      @collection.records << @record
-    end
+    @collection.records << @record unless @collection.records.exists?(@record.id)
   end
 
   def destroy

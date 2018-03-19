@@ -14,10 +14,11 @@ services:
       context: .
       dockerfile: docker/ruby/Dockerfile
     volumes:
-      - ./docker/ruby/debugging:/opt/debugging
-      - ./docker/ruby/ssh/sshd_config:/etc/ssh/sshd_config
-      - ./docker/ruby/entrypoint.sh:/entrypoint.sh
-      - ./src:/app
+#      - ./docker/ruby/debugging:/opt/debugging
+#      - ./docker/ruby/ssh/sshd_config:/etc/ssh/sshd_config
+#      - ./docker/ruby/entrypoint.sh:/entrypoint.sh
+      - ./src:/home/app/lol
+      - /home/app/lol/node_modules
     networks:
       - error-network
     ports:
@@ -25,12 +26,14 @@ services:
       - "2222:22"
     stdin_open: true
     tty: true
-    entrypoint:
-      - /entrypoint.sh
-#    command: bundle exec rails s -p 3000 -b '0.0.0.0' -e development
+#    entrypoint:
+#      - /entrypoint.sh
+    command: bundle exec rails s -p 3000 -b '0.0.0.0' -e development
 #    command: bundle exec rdebug-ide --host '0.0.0.0' --port 1234 --dispatcher-port 26162 -- /app/bin/rails s -b '0.0.0.0' -p 3000 -e development
     depends_on:
       - mysql
+    labels:
+      - maintainer="jordi@error.agency"
   mysql:
     image: mysql:5.7
     restart: always
@@ -45,6 +48,8 @@ services:
       - MYSQL_PASSWORD=root
     networks:
       - error-network
+    labels:
+      - maintainer="jordi@error.agency"
   redis:
     image: redis:3.2
     networks:
@@ -56,3 +61,5 @@ services:
       interval: 1s
       timeout: 1s
       retries: 300
+    labels:
+      - maintainer="jordi@error.agency"

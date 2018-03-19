@@ -3,7 +3,7 @@ class Record < ApplicationRecord
   has_many :collections, through: :collection_records
 
   has_many :associated_attachments
-  #has_many :data_attachments, through: :associated_attachments
+  # has_many :data_attachments, through: :associated_attachments
   has_many :file_attachments, through: :associated_attachments
 
   enum state: %i[draft published pending_review flagged]
@@ -17,8 +17,6 @@ class Record < ApplicationRecord
   validate :date_is_in_the_past
 
   def date_is_in_the_past
-    if date.present? && Date.today < date
-      errors.add(:date, 'date is not in the past')
-    end
+    errors.add(:date, 'date is not in the past') if date.present? && Date.today < date
   end
 end

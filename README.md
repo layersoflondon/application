@@ -14,6 +14,21 @@ $ docker-compose run ruby bin/webpack-dev-server
 ```
 Elastic search is composed independently, to spin up the elastic search container run:
 
+### Setup pre-commit
+
+```bash
+./src/scripts/setup-pre-commit.sh
+```
+This script add pre-commit file to the git directory
+
+### Tests
+
+BDD with Postman collections and newman
+
+```bash
+newman run LoL.postman_collection.json --globals LoL.postman_globals.json
+```
+
 ```bash
 $ docker-compose -f docker-compose.es.yml up -d 
 ```

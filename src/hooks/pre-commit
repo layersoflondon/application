@@ -1,0 +1,42 @@
+#!/bin/sh
+# ref: https://github.com/IcaliaLabs/guides/wiki/Ruby-applications-with-git-pre-commit-hook
+
+pass=true
+RED='\033[1;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+# Spin up containers
+docker-compose up -d
+echo "Running Linters:"
+
+# Run rubocop and get the output and return code
+rubocop=$(docker-compose exec -T ruby rubocop -c .rubocop.yml)
+return_code=$?
+
+if [ $return_code != 0 ]; then
+	echo "$rubocop\n"
+	printf "\n${RED}Rubocop failed"
+	pass=false
+else
+	printf "${GREEN}Rubocop passed.${NC}\n"
+fi
+
+# Run newman and get the output and return code
+newman=$(docker-compose exec -T ruby newman run LoL.postman_collection.json --globals LoL.postman_globals.json --environment Local.postman_environment.json)
+return_code=$?
+
+if [ $return_code != 0 ]; then
+	echo "Newman\n"
+	printf "\n${RED}Newman failed"
+	pass=false
+else
+	printf "${GREEN}Newman passed.${NC}\n"
+fi
+
+# If you reach this point, everything was cool and means you are a good player
+#if $pass; then
+#	exit 0
+#fi
+
+#exit 1
