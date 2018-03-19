@@ -26,12 +26,17 @@ services:
       - "2222:22"
     stdin_open: true
     tty: true
-#    entrypoint:
-#      - /entrypoint.sh
     command: bundle exec rails s -p 3000 -b '0.0.0.0' -e development
 #    command: bundle exec rdebug-ide --host '0.0.0.0' --port 1234 --dispatcher-port 26162 -- /app/bin/rails s -b '0.0.0.0' -p 3000 -e development
+#    entrypoint:
+#      - /entrypoint.sh
     depends_on:
       - mysql
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:3000"]
+      interval: 2s
+      timeout: 20s
+      retries: 2
     labels:
       - maintainer="jordi@error.agency"
   mysql:

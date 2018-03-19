@@ -1,8 +1,12 @@
 # Layers of London Application
 This is the repository of code for the Layers of London application, which will live at http://www.layersoflondon.org
 
-Rails 5.2.0.rc1
-ruby 2.5.0p0
+Tech stack:
+* Ruby: 2.5.0p0
+* Rails: 5.2.0.rc1
+* Mysql: 5.7
+* Redis: 3.2
+* Elasticsearch: 6.2.1
 
 ###  Steps to run the project
 
@@ -12,8 +16,14 @@ $ docker-compose up -d
 # Run weback server
 $ docker-compose run ruby bin/webpack-dev-server
 ```
+
+Launch in browser http://localhost:3000/
+
 Elastic search is composed independently, to spin up the elastic search container run:
 
+```bash
+$ docker-compose -f docker-compose.es.yml up -d 
+```
 ### Setup pre-commit
 
 ```bash
@@ -26,14 +36,8 @@ This script add pre-commit file to the git directory
 BDD with Postman collections and newman
 
 ```bash
-newman run LoL.postman_collection.json --globals LoL.postman_globals.json
+docker-compose exec -T ruby newman run LoL.postman_collection.json --globals LoL.postman_globals.json --environment Local.postman_environment.json
 ```
-
-```bash
-$ docker-compose -f docker-compose.es.yml up -d 
-```
-
-Launch in browser http://localhost:3000/
 
 ### Development
 
