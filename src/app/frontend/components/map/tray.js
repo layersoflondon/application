@@ -1,24 +1,44 @@
-import React, {PureComponent} from 'react';
-import RecordCard from './record_card';
+import React,{Component} from 'react';
 
-class Tray extends PureComponent {
+import {observer} from "mobx-react";
+
+import CardStore from '../../stores/card_store';
+
+import Card from './card';
+
+@observer class Tray extends Component {
   constructor(props) {
     super(props);
+  }
 
-    this.state = {cart_objects: [
-        {id: 1, name: "An example"},
-        {id: 2, name: "Another example"},
-        {id: 3, name: "Hello world"},
-        {id: 4, name: "the last example"}
-    ]};
+  addCards(event) {
+    const count = parseInt(event.target.dataset.add, 10);
+
+    const cards = Array(count).fill().map((_, i) => {
+      const create_card = (i) => ({
+        id: i,
+        name: faker.commerce.productName(),
+        record: {id: i, name: faker.commerce.productName()}
+      });
+
+      return create_card(faker.random.number());
+    });
+
+    cards.map( (c) => CardStore.all_cards.push(c) );
   }
 
   render() {
-    const cards = this.state.cart_objects.map( (c) => {return <RecordCard key={c.id} name={c.name} />});
-    return <div id="tray-container">
-      tray:
-      <hr/>
+    const cards = CardStore.cards.map( (c) => {return <Card key={c.id} card={c} />});
+
+    return <div id="tray-container" style={{position: 'relative'}}>
       {cards}
+
+      <div style={{position: 'absolute', left: '10px', bottom: '10px'}}>
+        <button onClick={this.addCards.bind(this)} data-add="1">+ Add 1 card</button>
+        <button onClick={this.addCards.bind(this)} data-add="5">+ Add 5 cards</button>
+        <button>Move map</button>
+        <button>Bounce Pin of first record</button>
+      </div>
     </div>;
   }
 }

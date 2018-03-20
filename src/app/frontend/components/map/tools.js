@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
+import {observer} from "mobx-react";
 
-class Tools extends Component {
+@observer class Tools extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {

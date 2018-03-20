@@ -1,24 +1,31 @@
 import React, {Component} from 'react';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
-class LoLMap extends Component {
+import {observer} from "mobx-react";
+
+import MapState from '../../stores/map_view_store';
+
+@observer class LoLMap extends Component {
   constructor(props) {
     super(props);
   }
 
   dragged() {
-    console.log("DRAGGED", this.refs.map);
+    console.log("DRAGGED");
   }
 
   zoomed() {
-    console.log("ZOOMED", this.refs.map);
+    console.log("ZOOMED");
   }
 
   render() {
-    const position = [51.505, -0.09];
+    // console.log(MapState.center.toJS, MapState.zoom);
+
+    let position = MapState.center.toJS();
+    let map_zoom = MapState.zoom;
 
     return <div id="lol-map-container">
-      <Map center={position} zoom={13} ref='map' onDragEnd={this.dragged.bind(this)} onZoomEnd={this.zoomed.bind(this)}>
+      <Map center={position} zoom={map_zoom} ref='map' onDragEnd={this.dragged.bind(this)} onZoomEnd={this.zoomed.bind(this)}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
         <Marker position={position}>
           <Popup>
