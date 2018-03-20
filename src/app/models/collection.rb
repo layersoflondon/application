@@ -3,7 +3,8 @@ class Collection < ApplicationRecord
   has_many :collection_records
   has_many :records, through: :collection_records
 
-  # TODO permissions for reading and writing should go in a Pundit policy (see https://github.com/varvet/pundit). I think we still need these enums though.
+  # TODO: permissions for reading and writing should go in a Pundit policy (see https://github.com/varvet/pundit).
+  # I think we still need these enums though.
   enum read_state: %i[public_read private_read]
   enum write_state: %i[everyone team creator]
 
