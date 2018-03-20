@@ -22,7 +22,7 @@ Launch in browser http://localhost:3000/
 Elastic search is composed independently, to spin up the elastic search container run:
 
 ```bash
-$ docker-compose -f docker-compose.es.yml up -d 
+$ docker-compose -f docker-compose.elk.yml up -d 
 ```
 ### Setup pre-commit
 

@@ -1,0 +1,61 @@
+version: '3.1'
+
+networks:
+  error-network:
+      driver: bridge
+
+volumes:
+  esdata:
+    driver: local
+
+services:
+#  ruby:
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: 'udp://localhost:12201'
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.1
+    networks:
+      - error-network
+    ports:
+      - "9200:9200"
+    environment:
+      LOGSPOUT: 'ignore'
+      ES_JAVA_OPTS: '-Xms1024m -Xmx1024m'
+      bootstrap.memory_lock: 'false'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD", "curl", "-SsfL", "127.0.0.1:9200/_cat/health?h=status"]
+      interval: 1s
+      timeout: 1s
+      retries: 300
+  logstash:
+    build:
+      context: .
+      dockerfile: docker/logstash/Dockerfile
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
+    networks:
+      - error-network
+    ports:
+      - "12201:12201/udp"
+  kibana:
+    build:
+      context: .
+      dockerfile: docker/kibana/Dockerfile
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_URL: 'http://127.0.0.1:9200'
+    networks:
+      - error-network
+    ports:
+      - "5601:5601"
