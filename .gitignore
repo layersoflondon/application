@@ -39,3 +39,5 @@
 # Docker
 /src/database/data/*
 /src/database/import/*.sql
+tmp
+log
