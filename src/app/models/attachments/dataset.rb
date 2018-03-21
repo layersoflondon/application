@@ -1,8 +1,7 @@
 class Attachments::Dataset < ApplicationRecord
-  include SharedValidations
+  include Attachments::SharedValidations
+  include Attachments::AttachedFile
   has_one :attachment, as: :attachable
-
-
 
 
 end

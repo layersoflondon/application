@@ -12,19 +12,10 @@ class RecordAttachmentsController < ApplicationController
   def create
     record = Record.find_by_id(params[:record_id])
 
-    if params.key?(:file)
-      file_attachment = FileAttachment.new
-      file = params[:file]
-      file_attachment.file.attach(file)
-      record.file_attachments << file_attachment
-      @attachment = build_attachment(file_attachment, false)
-    else
-      data_attachment = DataAttachment.new
-      content = params[:content]
-      data_attachment.content = content
-      record.data_attachments << data_attachment
-      @attachment = build_attachment(false, data_attachment)
-    end
+    @attachment = record.attachments.build(attachment_params)
+    return @attachment if @attachment.save
+    render json: @attachment.errors.full_messages, status: :unprocessable_entity
+
   end
 
   def show; end
@@ -62,13 +53,13 @@ class RecordAttachmentsController < ApplicationController
   end
 
   def attachment_params
-    params.require(:attachment).permit(
-      :name,
-      :caption,
-      :credits,
-      :description,
-      :attachable_type,
-      :file
+    params.permit( :attachment_type,
+                   attachable_attributes: [
+                     :title,
+                     :caption,
+                     :credit,
+                     :file
+                   ]
     )
   end
 

@@ -1,14 +1,12 @@
 {
 	"info": {
 		"name": "LoL",
-		"_postman_id": "e74ffb5c-7304-43cb-bd9a-c4f8b50be51e",
-		"description": "",
+		"_postman_id": "176568ce-a3c1-2316-7566-59c1d03ce813",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Collections",
-			"description": "",
 			"item": [
 				{
 					"name": "Index Collections",
@@ -41,7 +39,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{protocol}}{{domain}}:{{port}}/collections",
 							"host": [
@@ -51,8 +52,7 @@
 							"path": [
 								"collections"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -106,8 +106,7 @@
 							"path": [
 								"collections"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -148,8 +147,7 @@
 								"collections",
 								"14"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -171,7 +169,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{protocol}}{{domain}}:{{port}}/collections/1",
 							"host": [
@@ -182,8 +183,7 @@
 								"collections",
 								"1"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -224,8 +224,7 @@
 								"collections",
 								"4"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				}
@@ -233,14 +232,16 @@
 		},
 		{
 			"name": "CollectionRecords",
-			"description": "",
 			"item": [
 				{
 					"name": "Index Collection Records",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "localhost:3000/collections/1/records",
 							"host": [
@@ -252,8 +253,7 @@
 								"1",
 								"records"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -282,8 +282,7 @@
 								"1",
 								"records"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -313,8 +312,7 @@
 								"records",
 								"1"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				}
@@ -322,14 +320,16 @@
 		},
 		{
 			"name": "Records",
-			"description": "",
 			"item": [
 				{
 					"name": "Index Records",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "localhost:3000/records",
 							"host": [
@@ -339,8 +339,7 @@
 							"path": [
 								"records"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -367,8 +366,7 @@
 							"path": [
 								"records"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -377,7 +375,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "localhost:3000/records/26",
 							"host": [
@@ -388,8 +389,7 @@
 								"records",
 								"26"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -417,8 +417,7 @@
 								"records",
 								"26"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -446,8 +445,7 @@
 								"records",
 								"16"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				}
@@ -455,14 +453,16 @@
 		},
 		{
 			"name": "Record Images",
-			"description": "",
 			"item": [
 				{
 					"name": "Index Record Images",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "localhost:3000/records/1/images",
 							"host": [
@@ -474,8 +474,7 @@
 								"1",
 								"images"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -494,8 +493,8 @@
 							"formdata": [
 								{
 									"key": "record[images][]",
-									"description": "",
-									"type": "file"
+									"type": "file",
+									"value": ""
 								}
 							]
 						},
@@ -510,8 +509,7 @@
 								"1",
 								"images"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -520,7 +518,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "localhost:3000/records/1/images/1",
 							"host": [
@@ -533,8 +534,7 @@
 								"images",
 								"1"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -564,8 +564,7 @@
 								"images",
 								"1"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				}
@@ -595,14 +594,16 @@
 		},
 		{
 			"name": "Record Documents",
-			"description": "",
 			"item": [
 				{
 					"name": "Index Record Documents",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "localhost:3000/records/1/documents",
 							"host": [
@@ -614,8 +615,7 @@
 								"1",
 								"documents"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -634,8 +634,8 @@
 							"formdata": [
 								{
 									"key": "record[documents][]",
-									"description": "",
-									"type": "file"
+									"type": "file",
+									"value": ""
 								}
 							]
 						},
@@ -650,8 +650,7 @@
 								"1",
 								"documents"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -660,7 +659,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "localhost:3000/records/1/documents/1",
 							"host": [
@@ -673,8 +675,7 @@
 								"documents",
 								"1"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -704,8 +705,7 @@
 								"documents",
 								"1"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				}
@@ -735,14 +735,16 @@
 		},
 		{
 			"name": "Record Attachments",
-			"description": "",
 			"item": [
 				{
 					"name": "Index Record Attachments",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "localhost:3000/records/1/attachments",
 							"host": [
@@ -754,8 +756,7 @@
 								"1",
 								"attachments"
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -775,37 +776,32 @@
 								{
 									"key": "attachment[name]",
 									"value": "name yyyy",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "attachment[caption]",
 									"value": "caption",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "attachment[credits]",
 									"value": "credits",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "attachment[description]",
 									"value": "description",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "attachment[type_attachment]",
 									"value": "image",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "attachment[content]",
-									"description": "",
-									"type": "file"
+									"type": "file",
+									"value": ""
 								}
 							]
 						},
@@ -820,8 +816,7 @@
 								"1",
 								"attachments"
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -841,37 +836,32 @@
 								{
 									"key": "attachment[name]",
 									"value": "name update",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "attachment[caption]",
 									"value": "caption",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "attachment[credits]",
 									"value": "credits",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "attachment[description]",
 									"value": "description",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "attachment[type_attachment]",
 									"value": "1",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "attachment[content]",
-									"description": "",
-									"type": "file"
+									"type": "file",
+									"value": ""
 								}
 							]
 						},
@@ -887,8 +877,7 @@
 								"attachments",
 								"1"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -897,7 +886,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "localhost:3000/records/1/attachments/1",
 							"host": [
@@ -910,8 +902,7 @@
 								"attachments",
 								"1"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -941,8 +932,7 @@
 								"attachments",
 								"2"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				}
@@ -972,7 +962,6 @@
 		},
 		{
 			"name": "Teams",
-			"description": "",
 			"item": [
 				{
 					"name": "Create Team",
@@ -997,8 +986,7 @@
 							"path": [
 								"teams"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -1007,7 +995,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "localhost:3000/teams/4",
 							"host": [
@@ -1018,8 +1009,7 @@
 								"teams",
 								"4"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -1047,8 +1037,7 @@
 								"teams",
 								"4"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
@@ -1076,8 +1065,7 @@
 								"teams",
 								"4"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				}
@@ -1113,15 +1101,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{protocol}}{{domain}}:{{port}}",
 					"host": [
 						"{{protocol}}{{domain}}"
 					],
 					"port": "{{port}}"
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		}
