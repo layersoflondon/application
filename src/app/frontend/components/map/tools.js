@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {observer} from "mobx-react";
 
-@observer class Tools extends Component {
+@observer export default class Tools extends Component {
   constructor(props) {
     super(props);
   }
@@ -12,5 +12,3 @@ import {observer} from "mobx-react";
     </div>;
   }
 }
-
-export default Tools;

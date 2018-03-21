@@ -5,7 +5,7 @@ import {observer} from "mobx-react";
 
 import MapState from '../../stores/map_view_store';
 
-@observer class LoLMap extends Component {
+@observer export default class LoLMap extends Component {
   constructor(props) {
     super(props);
   }
@@ -36,5 +36,3 @@ import MapState from '../../stores/map_view_store';
     </div>;
   }
 }
-
-export default LoLMap;

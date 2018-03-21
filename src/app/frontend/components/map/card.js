@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {observer} from "mobx-react";
 
-@observer class Card extends Component {
+@observer export default class Card extends Component {
   constructor(props) {
     super(props);
 
@@ -39,5 +39,3 @@ import {observer} from "mobx-react";
     );
   }
 }
-
-export default Card;

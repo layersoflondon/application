@@ -1,4 +1,4 @@
-import {observable, computed} from 'mobx';
+import {observable} from 'mobx';
 import faker from 'faker';
 import CardModel from '../models/card_model';
 

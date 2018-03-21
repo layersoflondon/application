@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 
 import Card from './card';
 
-@observer class Tray extends Component {
+@observer export default class Tray extends Component {
   constructor(props) {
     super(props);
   }
@@ -29,5 +29,3 @@ import Card from './card';
     </div>;
   }
 }
-
-export default Tray;

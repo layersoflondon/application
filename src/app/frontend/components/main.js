@@ -8,7 +8,7 @@ import Tools from './map/tools';
 import Tray from './map/tray';
 import LoLMap from './map/lol_map';
 
-@observer export default class Main extends Component {
+@observer class Main extends Component {
   render() {
     return <div id="main-container">
       <Devtools/>
@@ -23,7 +23,9 @@ import LoLMap from './map/lol_map';
   }
 }
 
-// Main.propTypes = {
-//   cardStore: PropTypes.object.isRequired,
-//   mapViewStore: PropTypes.object.isRequired
-// };
+Main.propTypes = {
+  cardStore: PropTypes.object.isRequired,
+  mapViewStore: PropTypes.object.isRequired
+};
+
+export default Main;
