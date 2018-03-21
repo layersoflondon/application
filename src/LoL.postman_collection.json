@@ -1,12 +1,14 @@
 {
 	"info": {
 		"name": "LoL",
-		"_postman_id": "176568ce-a3c1-2316-7566-59c1d03ce813",
+		"_postman_id": "b922c2b3-af0c-4011-b7db-12ee9b555962",
+		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Collections",
+			"description": null,
 			"item": [
 				{
 					"name": "Index Collections",
@@ -52,7 +54,8 @@
 							"path": [
 								"collections"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -106,7 +109,8 @@
 							"path": [
 								"collections"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -147,7 +151,8 @@
 								"collections",
 								"14"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -183,7 +188,8 @@
 								"collections",
 								"1"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -224,7 +230,8 @@
 								"collections",
 								"4"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				}
@@ -232,6 +239,7 @@
 		},
 		{
 			"name": "CollectionRecords",
+			"description": null,
 			"item": [
 				{
 					"name": "Index Collection Records",
@@ -253,7 +261,8 @@
 								"1",
 								"records"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -282,7 +291,8 @@
 								"1",
 								"records"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -312,7 +322,8 @@
 								"records",
 								"1"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				}
@@ -320,6 +331,7 @@
 		},
 		{
 			"name": "Records",
+			"description": null,
 			"item": [
 				{
 					"name": "Index Records",
@@ -339,7 +351,8 @@
 							"path": [
 								"records"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -366,7 +379,8 @@
 							"path": [
 								"records"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -389,7 +403,8 @@
 								"records",
 								"26"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -417,7 +432,8 @@
 								"records",
 								"26"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -445,7 +461,8 @@
 								"records",
 								"16"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				}
@@ -453,6 +470,7 @@
 		},
 		{
 			"name": "Record Images",
+			"description": null,
 			"item": [
 				{
 					"name": "Index Record Images",
@@ -474,7 +492,8 @@
 								"1",
 								"images"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -509,7 +528,8 @@
 								"1",
 								"images"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -534,7 +554,8 @@
 								"images",
 								"1"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -564,7 +585,8 @@
 								"images",
 								"1"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				}
@@ -594,6 +616,7 @@
 		},
 		{
 			"name": "Record Documents",
+			"description": null,
 			"item": [
 				{
 					"name": "Index Record Documents",
@@ -615,7 +638,8 @@
 								"1",
 								"documents"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -650,7 +674,8 @@
 								"1",
 								"documents"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -675,7 +700,8 @@
 								"documents",
 								"1"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -705,7 +731,8 @@
 								"documents",
 								"1"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				}
@@ -735,6 +762,7 @@
 		},
 		{
 			"name": "Record Attachments",
+			"description": null,
 			"item": [
 				{
 					"name": "Index Record Attachments",
@@ -756,7 +784,8 @@
 								"1",
 								"attachments"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -774,34 +803,40 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "attachment[name]",
+									"key": "attachable_attributes[title]",
 									"value": "name yyyy",
 									"type": "text"
 								},
 								{
-									"key": "attachment[caption]",
+									"key": "attachable_attributes[caption]",
 									"value": "caption",
 									"type": "text"
 								},
 								{
-									"key": "attachment[credits]",
+									"key": "attachable_attributes[credit]",
 									"value": "credits",
 									"type": "text"
 								},
 								{
-									"key": "attachment[description]",
+									"key": "attachable_attributes[description]",
 									"value": "description",
 									"type": "text"
 								},
 								{
-									"key": "attachment[type_attachment]",
-									"value": "image",
+									"key": "attachment_type",
+									"value": "url",
 									"type": "text"
 								},
 								{
-									"key": "attachment[content]",
+									"key": "attachable_attributes[url]",
+									"value": "localhost:3000/records/1/attachments",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "file",
 									"type": "file",
-									"value": ""
+									"disabled": true
 								}
 							]
 						},
@@ -816,7 +851,8 @@
 								"1",
 								"attachments"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -877,7 +913,8 @@
 								"attachments",
 								"1"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -902,7 +939,8 @@
 								"attachments",
 								"1"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -932,7 +970,8 @@
 								"attachments",
 								"2"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				}
@@ -962,6 +1001,7 @@
 		},
 		{
 			"name": "Teams",
+			"description": null,
 			"item": [
 				{
 					"name": "Create Team",
@@ -986,7 +1026,8 @@
 							"path": [
 								"teams"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -1009,7 +1050,8 @@
 								"teams",
 								"4"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -1037,7 +1079,8 @@
 								"teams",
 								"4"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -1065,7 +1108,8 @@
 								"teams",
 								"4"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				}
@@ -1111,7 +1155,8 @@
 						"{{protocol}}{{domain}}"
 					],
 					"port": "{{port}}"
-				}
+				},
+				"description": null
 			},
 			"response": []
 		}

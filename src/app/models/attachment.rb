@@ -1,9 +1,9 @@
 class Attachment < ApplicationRecord
   belongs_to :attachable, polymorphic: true
   attr_writer :attachment_type
-
+  # TODO: not sure whether url and file methods should be included in attachable, for instance
+  # when deleting an url, gives the error: undefined method `file' for <Attachment ..
   delegate :title, :caption, :credit, :url, :file, to: :attachable
-
   accepts_nested_attributes_for :attachable
 
   def build_attachable(params)
