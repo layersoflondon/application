@@ -5,18 +5,39 @@ export default class CardModel {
   store;
   id;
   record;
-  @observable current;
+  @observable highlighted;
+  @observable active;
 
-  constructor(store, id, name, record, current) {
+  constructor(store, card) {
     this.store = store;
-    this.id = id;
-    this.name = name;
-    this.record = new RecordModel(store, record.id, record.name);
-    this.current = current;
+
+    this.id = card.id;
+    this.name = card.name;
+    this.description = card.description;
+    this.period = card.period;
+    this.image = card.image;
+
+    this.record = new RecordModel(store, card.record);
+    
+    this.highlighted = false;
+    this.active = false;
   }
 
-  toggleCurrent() {
-    this.store.cards.map( (c) => { if( c.current ) c.current=false; } );
-    this.current = !this.current;
+  toJS() {
+    return {id: this.id, name: this.name, description: this.description, period: this.period, image: this.image, record: this.record.toJS() };
+  }
+
+  toggleHighlighted() {
+    this.highlighted = !this.highlighted;
+  }
+
+  toggleActive() {
+    this.active = !this.active;
+
+    console.log(`Setting card ${this.id} as active`);
+  }
+
+  static fromJS(store, object) {
+    return new CardModel(store, object);
   }
 }

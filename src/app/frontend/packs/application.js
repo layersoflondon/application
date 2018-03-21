@@ -10,71 +10,16 @@
 import React,{Component} from 'react'
 import ReactDOM from 'react-dom'
 
+import CardStore from '../stores/card_store';
+import MapViewStore from '../stores/map_view_store';
+import CollectionStore from '../stores/collection_store';
+
 import Main from '../components/main';
 
+const cardStore = new CardStore();
+const mapViewStore = 1;//new MapViewStore();
+const collectionStore = 1;//new CollectionStore();
+
 document.addEventListener('DOMContentLoaded', () => {
-
-  ReactDOM.render(<Main />, document.getElementById("map-root") );
-
-  // const state = observable({
-  //   count: 0
-  // });
-  // state.inc = function() {console.log(this); this.count++;};
-
-  // class FooState {
-  //   @observable count = 0;
-  //
-  //   inc() {
-  //     this.count++;
-  //   }
-  // }
-  //
-  // @observer class Foo extends React.Component {
-  //   render() {
-  //     console.log("Rendering with ", this.props.store.count );
-  //     return <div>
-  //       count: {this.props.store.count}.
-  //       <hr/>
-  //
-  //       <button onClick={this.props.store.inc.bind(this)}>+</button>
-  //       <button onClick={this.props.store.inc}>++</button>
-  //     </div>
-  //   }
-  // }
-  //
-  // const store = new FooState();
-  // ReactDOM.render(<Foo store={store} />, document.getElementById("map-root"));
-  // class Store {
-  //   @observable todos = [{id: 1, title: "test 1", done: false}, {id: 2, title: "Hello world", done: false}];
-  //   @observable filter = "";
-  // }
-  //
-  // const store = window.store = new Store();
-
-  // const store = observable({
-  //   todos: [{id: 1, title: "test 1", done: false}, {id: 2, title: "Hello world", done: false}],
-  //   filter: ""
-  // });
-  // window.store = store;
-  //
-  // @observer class ListItem extends React.Component {
-  //   render() {
-  //     return <div>
-  //       <span>{this.props.todo.title}</span> - {this.props.todo.done ? 'done' : 'not done'}
-  //     </div>
-  //   }
-  // }
-  //
-  // @observer class TodoList extends React.Component {
-  //   render() {
-  //     const todos = this.props.store.todos.map( (t) => {return <ListItem key={t.id} todo={t}/>});
-  //
-  //     return <div>
-  //       <Devtools/>
-  //       {todos}
-  //     </div>
-  //   }
-  // }
-  //
-  // ReactDOM.render(<TodoList store={store} />, document.getElementById("map-root"));
+  ReactDOM.render( <Main cardStore={cardStore} mapViewStore={mapViewStore} collectionStore={collectionStore} />, document.getElementById("map-root") );
 });
