@@ -33,6 +33,7 @@
 
 # Ignore IDE Rubymine project files
 .idea/*
+/src/.idea
 /src/src.iml
 .generators
 
