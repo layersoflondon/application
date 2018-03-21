@@ -1,0 +1,1129 @@
+{
+	"info": {
+		"name": "LoL",
+		"_postman_id": "e74ffb5c-7304-43cb-bd9a-c4f8b50be51e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Collections",
+			"description": "",
+			"item": [
+				{
+					"name": "Index Collections",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7b0cb856-4504-4de1-895b-f2167eb8c6b2",
+								"type": "text/javascript",
+								"exec": [
+									"// https://www.getpostman.com/docs/v6/postman/scripts/test_scripts",
+									"// http://blog.getpostman.com/2017/07/28/api-testing-tips-from-a-postman-professional/",
+									"",
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"console.log(postman.getResponseHeader(\"Content-Type\"));",
+									"",
+									"describe('Index collections', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});4"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b0bb9047-c971-40f8-bc2b-8e5bd2b8150b",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"",
+									"  it('should match the collection schema', () => {",
+									"    var schema = JSON.parse(environment.collectionSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"collection\" : {\n\t\t\"title\" : \"test\",\n\t\t\"description\" : \"test description\",\n\t\t\"read_state\" : \"public_read\",\n\t\t\"write_state\" : \"everyone\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8f375910-90bf-47e1-b1a1-3b77e685dee7",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"collection\" : {\n\t\t\"title\" : \"test\",\n\t\t\"description\" : \"test description\",\n\t\t\"read_state\" : \"public_read\",\n\t\t\"write_state\" : \"everyone\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/14",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections",
+								"14"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a7229065-bfa8-4f99-878f-75999a7aad1e",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/1",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "df497258-9787-497b-96ce-48509c013c45",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/4",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections",
+								"4"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CollectionRecords",
+			"description": "",
+			"item": [
+				{
+					"name": "Index Collection Records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/collections/1/records",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"collections",
+								"1",
+								"records"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Collection Records",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : 1\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/collections/1/records",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"collections",
+								"1",
+								"records"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Collection Record",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/collections/1/records/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"collections",
+								"1",
+								"records",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Records",
+			"description": "",
+			"item": [
+				{
+					"name": "Index Records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Record",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"record\" : {\n\t\t\"title\" : \"record title\",\n\t\t\"description\" : \"record description\",\n\t\t\"state\" : \"published\",\n\t\t\"lat\" : 15,\n\t\t\"lng\" : 20,\n\t\t\"date\" : \"2017-01-01\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/records",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Record",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/26",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"26"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update record",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"record\" : {\n\t\t\"title\" : \"record title update\",\n\t\t\"description\" : \"record description update\",\n\t\t\"state\" : \"published\",\n\t\t\"lat\" : 15,\n\t\t\"lng\" : 20,\n\t\t\"date\" : \"2017-01-01\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/records/26",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"26"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Record",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/records/16",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"16"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Record Images",
+			"description": "",
+			"item": [
+				{
+					"name": "Index Record Images",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/1/images",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"images"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Record Image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "record[images][]",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/images",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"images"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Record Image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/1/images/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"images",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Document",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/images/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"images",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "42e9833f-e17d-47ca-aad9-5be019e8574f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b3e4314-bd08-42de-b805-f76ee57dd84b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Record Documents",
+			"description": "",
+			"item": [
+				{
+					"name": "Index Record Documents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/1/documents",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"documents"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Record Document",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "record[documents][]",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/documents",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"documents"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Record Document",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/1/documents/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"documents",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Document",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/documents/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"documents",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "42e9833f-e17d-47ca-aad9-5be019e8574f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b3e4314-bd08-42de-b805-f76ee57dd84b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Record Attachments",
+			"description": "",
+			"item": [
+				{
+					"name": "Index Record Attachments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/1/attachments",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"attachments"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create Record Attachment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachment[name]",
+									"value": "name yyyy",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[caption]",
+									"value": "caption",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[credits]",
+									"value": "credits",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[description]",
+									"value": "description",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[type_attachment]",
+									"value": "image",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[content]",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/attachments",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"attachments"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Update Record Attachment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachment[name]",
+									"value": "name update",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[caption]",
+									"value": "caption",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[credits]",
+									"value": "credits",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[description]",
+									"value": "description",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[type_attachment]",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachment[content]",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/attachments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"attachments",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Record Document",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/records/1/attachments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"attachments",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Document",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/records/1/attachments/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"1",
+								"attachments",
+								"2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "42e9833f-e17d-47ca-aad9-5be019e8574f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b3e4314-bd08-42de-b805-f76ee57dd84b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Team",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"team\" : {\n\t\t\"name\" : \"test\",\n\t\t\"description\" : \"test description\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/teams",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"teams"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Show Team",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/teams/4",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"teams",
+								"4"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Team",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"team\" : {\n\t\t\"name\" : \"test update\",\n\t\t\"description\" : \"test description update\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/teams/4",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"teams",
+								"4"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Team",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/teams/4",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"teams",
+								"4"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "First Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7280cf47-f34d-460d-a226-55d073333c4e",
+						"type": "text/javascript",
+						"exec": [
+							"// https://www.getpostman.com/docs/v6/postman/scripts/test_scripts",
+							"// http://blog.getpostman.com/2017/07/28/api-testing-tips-from-a-postman-professional/",
+							"",
+							"postman.setGlobalVariable(\"commonTests\", () => {",
+							"  // The Content-Type must be JSON",
+							"  tests[\"Content-Type header is set\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json; charset=utf-8\";",
+							"",
+							"  // The response time must be less than 500 milliseconds",
+							"  tests[\"Response time is acceptable\"] = responseTime < 500;",
+							"",
+							"  // The response body must include an \"id\" property",
+							"  // var data = JSON.parse(responseBody);",
+							"  // tests[\"Response has an ID\"] = data.id !== undefined;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}{{domain}}:{{port}}",
+					"host": [
+						"{{protocol}}{{domain}}"
+					],
+					"port": "{{port}}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

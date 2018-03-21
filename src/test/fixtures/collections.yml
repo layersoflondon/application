@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  attachment_id: 1
+  read_state: 1
+  write_state: 1
+  creator_id: 1
+
+two:
+  title: MyString
+  description: MyText
+  attachment_id: 1
+  read_state: 1
+  write_state: 1
+  creator_id: 1

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  like_count: 1
+  view_count: 1
+  state: 1
+  deleted: false
+
+two:
+  title: MyString
+  description: MyText
+  like_count: 1
+  view_count: 1
+  state: 1
+  deleted: false
