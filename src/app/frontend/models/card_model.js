@@ -1,12 +1,13 @@
-import {observable} from 'mobx';
+// import {observable} from 'mobx';
+
 import RecordModel from './record_model';
 
 export default class CardModel {
   store;
   id;
   record;
-  @observable highlighted;
-  @observable active;
+  highlighted;
+  active;
 
   constructor(store, card) {
     this.store = store;

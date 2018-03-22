@@ -10,38 +10,38 @@ export default class CardStore {
   constructor() {
     // TODO: remove this. conditionally instantiate cards from json in page
     const demo_cards = [
-      // {
-      //   id: 1,
-      //   name: `${faker.commerce.productName()}`,
-      //   description: faker.lorem.paragraphs(2),
-      //   image: faker.image.dataUri(),
-      //   period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
-      //   record: {id: 1, name: `${faker.commerce.productName()} record!`, position: [51.1, -0.11]}
-      // },
-      // {
-      //   id: 2,
-      //   name: `${faker.commerce.productName()}`,
-      //   description: faker.lorem.paragraphs(2),
-      //   image: faker.image.dataUri(),
-      //   period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
-      //   record: {id: 2, name: `${faker.commerce.productName()} record!`, position: [51.2, -0.12]}
-      // },
-      // {
-      //   id: 3,
-      //   name: `${faker.commerce.productName()}`,
-      //   description: faker.lorem.paragraphs(2),
-      //   image: faker.image.dataUri(),
-      //   period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
-      //   record: {id: 3, name: `${faker.commerce.productName()} record!`, position: [51.3, -0.13]}
-      // },
-      // {
-      //   id: 4,
-      //   name: `${faker.commerce.productName()}`,
-      //   description: faker.lorem.paragraphs(2),
-      //   image: faker.image.dataUri(),
-      //   period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
-      //   record: {id: 4, name: `${faker.commerce.productName()} record!`, position: [51.4, -0.14]}
-      // }
+      {
+        id: 1,
+        name: `${faker.commerce.productName()}`,
+        description: faker.lorem.paragraphs(2),
+        image: faker.image.dataUri(),
+        period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
+        record: {id: 1, name: `${faker.commerce.productName()} record!`, position: [51.1, -0.11]}
+      },
+      {
+        id: 2,
+        name: `${faker.commerce.productName()}`,
+        description: faker.lorem.paragraphs(2),
+        image: faker.image.dataUri(),
+        period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
+        record: {id: 2, name: `${faker.commerce.productName()} record!`, position: [51.2, -0.12]}
+      },
+      {
+        id: 3,
+        name: `${faker.commerce.productName()}`,
+        description: faker.lorem.paragraphs(2),
+        image: faker.image.dataUri(),
+        period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
+        record: {id: 3, name: `${faker.commerce.productName()} record!`, position: [51.3, -0.13]}
+      },
+      {
+        id: 4,
+        name: `${faker.commerce.productName()}`,
+        description: faker.lorem.paragraphs(2),
+        image: faker.image.dataUri(),
+        period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
+        record: {id: 4, name: `${faker.commerce.productName()} record!`, position: [51.4, -0.14]}
+      }
     ];
 
     demo_cards.map( (dc) => {

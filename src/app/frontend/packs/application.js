@@ -17,8 +17,12 @@ import CollectionStore from '../stores/collection_store';
 import Main from '../components/main';
 
 const cardStore = new CardStore();
-const mapViewStore = 1;//new MapViewStore();
-const collectionStore = 1;//new CollectionStore();
+const mapViewStore = new MapViewStore();
+const collectionStore = new CollectionStore();
+
+window.cardStore = cardStore;
+window.mapViewStore = mapViewStore;
+window.collectionStore = collectionStore;
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render( <Main cardStore={cardStore} mapViewStore={mapViewStore} collectionStore={collectionStore} />, document.getElementById("map-root") );

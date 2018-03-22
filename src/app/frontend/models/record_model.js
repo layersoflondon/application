@@ -4,7 +4,7 @@ export default class RecordModel {
   store;
   id;
   name;
-  @observable position;
+  position;
 
   constructor(store, record) {
     this.store = store;

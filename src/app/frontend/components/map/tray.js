@@ -8,23 +8,19 @@ import Card from './card';
     super(props);
   }
 
-  addCards(event) {
-    const count = parseInt(event.target.dataset.add, 10);
-    this.props.cardStore.addCards(count);
-  }
-
   render() {
     const {cardStore} = this.props;
     const cards = cardStore.cards.map( (c) => {return <Card key={c.id} card={c} />});
 
-    return <div id="tray-container" style={{position: 'relative', marginTop: '100px'}}>
-      {cards}
+    return <div className="m-tray-area" id="tray-container">
+      <div className="open-close">
+        <span>Close</span>
+      </div>
 
-      <div style={{position: 'fixed', left: '10px', top: '40px', padding: '10px', background: '#ccc'}}>
-        <button onClick={this.addCards.bind(this)} data-add="1">+ Add 1 card</button>
-        <button onClick={this.addCards.bind(this)} data-add="5">+ Add 5 cards</button>
-        <button>Move map</button>
-        <button>Bounce Pin of first record</button>
+      <div className="window">
+        <div className="s-tray-area--introduction is-showing">
+          {cards}
+        </div>
       </div>
     </div>;
   }

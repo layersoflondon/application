@@ -17,10 +17,10 @@ import {observer} from "mobx-react";
   }
 
   render() {
-    let styles = {border: '1px solid #ccc; margin: 10px;'};
+    let styles = {border: '1px solid #ccc', margin: '10px'};
 
     if( this.state.highlighted ) {
-      styles = {background: 'red'};
+      styles.background = 'red';
     }
 
     return (
