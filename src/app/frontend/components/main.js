@@ -12,12 +12,24 @@ import RecordView from './map/record_view';
 @observer export default class Main extends Component {
   constructor(props) {
     super(props);
-    this.mapViewRef = null;
   }
 
   addCards(event) {
     const count = parseInt(event.target.dataset.add, 10);
     this.props.cardStore.addCards(count);
+  }
+
+  removeCard(){
+    this.props.cardStore.removeCard();
+  }
+
+  setMapViewCards() {
+    const cards = this.props.cardStore.cards;
+    this.props.mapViewStore.records = cards;
+  }
+
+  componentDidUpdate() {
+    console.log("did update")
   }
 
   render() {
@@ -27,12 +39,13 @@ import RecordView from './map/record_view';
       <div style={{position: 'fixed', zIndex: '99999', right: '20px', top: '40px', padding: '10px', background: '#ccc'}}>
         <button onClick={this.addCards.bind(this)} data-add="1">+ Add 1 card</button>
         <button onClick={this.addCards.bind(this)} data-add="5">+ Add 5 cards</button>
+        <button onClick={this.removeCard.bind(this)}>- Remove card</button>
       </div>
 
       <Tools />
 
       <MapView cardStore={this.props.cardStore} mapViewStore={this.props.mapViewStore} />
-      <Tray cardStore={this.props.cardStore} />
+      <Tray cardStore={this.props.cardStore} mapViewStore={this.props.mapViewStore} />
     </div>
   }
 }

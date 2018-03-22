@@ -19,12 +19,15 @@ import {observer} from "mobx-react";
   }
 
   render() {
-
     const position = this.props.mapViewStore.center.toJS();
     const map_zoom = this.props.mapViewStore.zoom;
 
-    const markers = this.props.cardStore.cards.map( (c) => {
-      return <MarkerContainer key={c.id} card={c} />;
+    let markers = [];
+    console.log("Rendering mapview cards:", this.props.mapViewStore.currentCardStore.cards.toJS());
+    this.props.mapViewStore.currentCardStore.cards.map( (c) => {
+      c.records.map( (r) => {
+        markers.push( <MarkerContainer key={r.id} record={r} /> );
+      })
     });
 
     const layers = <span>

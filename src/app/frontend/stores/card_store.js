@@ -8,13 +8,13 @@ export default class CardStore {
   @observable cards = [];
 
   /**
-   * TODO: remove this - just for dev to debug rendering
+   * TODO: remove this - just for dev to debug rendering and state
    * @param count
    */
   addCards(count) {
     const create_card = (i) => {
       let position = [(51 + Math.random() * 1), (Math.floor(Math.random()*100)/100) - 0.5];
-      let record = {id: i, name: faker.commerce.productName(), position: position};
+      let record = {id: i, name: faker.commerce.productName(), description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: position};
 
       return {id: i, name: faker.commerce.productName(), description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, records: [record]};
     };
@@ -25,6 +25,14 @@ export default class CardStore {
   }
 
   /**
+   * TODO: remove this - just for dev to debug rendering and state
+   */
+  removeCard() {
+    const cards = this.cards;
+    this.cards = cards.slice(1);
+  }
+
+  /**
    * return an instance of the store populated with the array of Card objects
    * @param array
    */
@@ -32,7 +40,31 @@ export default class CardStore {
     const store = new CardStore();
     store.cards = array.map( (c) => CardModel.fromJS(store, c) );
 
-    console.log("settings store card: ", store.cards);
+    console.log(store);
+    return store;
+  }
+
+  /**
+   * Given a Card instance, we need to return a store of Cards, built up using the initial card's
+   * records
+   *
+   * @param card - Collection with .records
+   */
+  static fromCollection(card) {
+    const store = new CardStore();
+    store.cards = card.records.map( (c) => {
+      let card = {
+        id: c.id,
+        name: c.name,
+        description: c.description,
+        period: c.period,
+        image: c.image,
+        records: [c]
+      };
+      return CardModel.fromJS(store, card)
+    } );
+
+    console.log(store);
     return store;
   }
 }

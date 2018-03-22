@@ -10,16 +10,25 @@ export default class RecordModel {
 
   constructor(store, record, card) {
     this.store = store;
+    this.card = card;
+
     this.id = record.id;
     this.name = record.name;
+    this.description = record.description;
+    this.image = record.image;
     this.position = record.position;
 
     this.visible = false;
   }
 
-  toggleVisibility() {
-    console.log(`Setting record as visible ${!this.visible}`);
-    this.visible = !this.visible
+  latlng(object=false) {
+    const ll = this.position;
+
+    if( object ){
+      return {lat: ll[0], lng: ll[1]}
+    }
+
+    return ll;
   }
 
   toJS() {

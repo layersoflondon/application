@@ -1,9 +1,17 @@
 import React,{Component} from 'react';
 import {observer} from "mobx-react";
+import CardStore from "../../stores/card_store";
 
 @observer export default class Card extends Component {
   constructor(props) {
     super(props);
+  }
+
+  handleClick() {
+    if( this.props.card.is_collection ) {
+      let collectionCardStore = CardStore.fromCollection(this.props.card);
+      this.props.mapViewStore.currentCardStore = collectionCardStore;
+    }
   }
 
   render() {
@@ -13,10 +21,15 @@ import {observer} from "mobx-react";
       styles.background = 'red';
     }
 
+    let collection_label;
+    if( this.props.card.is_collection ) {
+      collection_label = <span style={{background: 'red', padding: '4px'}}>Collection</span>
+    }
+
     return (
-      <div id="record-card-container" style={styles} onMouseEnter={()=>this.props.card.highlighted=true} onMouseOut={()=>this.props.card.highlighted=false}>
+      <div onClick={this.handleClick.bind(this)} id="record-card-container" style={styles} onMouseEnter={()=>this.props.card.highlighted=true} onMouseOut={()=>this.props.card.highlighted=false}>
         <h4>
-          {this.props.card.name}
+          {this.props.card.name} {collection_label}
         </h4>
 
         <span>{this.props.card.period}</span>

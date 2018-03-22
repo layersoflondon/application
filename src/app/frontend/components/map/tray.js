@@ -6,24 +6,18 @@ import Card from './card';
 @observer export default class Tray extends Component {
   constructor(props) {
     super(props);
-    this.state = {isShowing: true}
-  }
-
-  toggleTrayState() {
-    this.setState({isShowing: ! this.state.isShowing});
   }
 
   render() {
-    const {cardStore} = this.props;
-    const cards = cardStore.cards.map( (c) => {return <Card key={c.id} card={c} />});
+    const {cardStore, mapViewStore} = this.props;
+    const cards = mapViewStore.currentCardStore.cards.map( (c) => {return <Card key={c.id} card={c} cardStore={this.props.cardStore} mapViewStore={this.props.mapViewStore} />});
+
+    console.log(`Rendering Tray ${mapViewStore.currentCardStore.cards.length} cards`);
 
     let trayClassName = "m-tray-area";
-    if( !this.state.isShowing ) {
-      trayClassName += " is-closed";
-    }
 
     return <div className={trayClassName} id="tray-container">
-      <div className="open-close" onClick={this.toggleTrayState.bind(this)}>
+      <div className="open-close">
         <span>Close</span>
       </div>
 

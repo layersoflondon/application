@@ -14,12 +14,6 @@ import L from 'leaflet';
     super(props);
   }
 
-  setCardVisibility() {
-    if( !this.props.card.visible ) {
-      this.props.card.toggleVisibility();
-    }
-  }
-
   render() {
     const default_icon = new L.Icon({
       iconUrl: require('../../assets/images/marker-icon.png'),
@@ -31,13 +25,13 @@ import L from 'leaflet';
       iconRetinaUrl: require('../../assets/images/highlighted-marker-icon-2x.png')
     });
 
-    let icon = this.props.card.highlighted ? highlighted_icon : default_icon;
+    let icon = this.props.record.card.highlighted ? highlighted_icon : default_icon;
 
-    const position = this.props.card.latlng();
+    const position = this.props.record.latlng();
 
     return <Marker position={position} icon={icon}>
-      <Popup onClick={this.setCardVisibility.bind(this)}>
-        <span>{this.props.card.name}</span>
+      <Popup>
+        <span>{this.props.record.name}</span>
       </Popup>
     </Marker>;
   }
