@@ -12,7 +12,6 @@ import {observer} from "mobx-react";
 
   dragged() {
     console.log("DRAGGED");
-    window.map = this.refs.map;
   }
 
   zoomed() {

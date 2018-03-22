@@ -16,7 +16,26 @@ import CollectionStore from '../stores/collection_store';
 
 import Main from '../components/main';
 
-const cardStore = new CardStore();
+import faker from 'faker';
+
+const cards = [
+  {
+    id: 1,
+    name: `${faker.commerce.productName()}`,
+    description: faker.lorem.paragraphs(2),
+    image: faker.image.dataUri(),
+    records: [{id: 1, name: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, position: [51.1, -0.11]}]
+  },
+  {
+    id: 2,
+    name: `${faker.commerce.productName()}`,
+    description: faker.lorem.paragraphs(2),
+    image: faker.image.dataUri(),
+    records: [{id: 2, name: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, position: [51.21, -0.51]}]
+  }
+];
+
+const cardStore = CardStore.fromJS(cards); //new CardStore();
 const mapViewStore = new MapViewStore();
 const collectionStore = new CollectionStore();
 

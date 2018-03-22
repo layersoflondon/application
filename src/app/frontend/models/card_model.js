@@ -10,7 +10,7 @@ export default class CardModel {
   collection;
 
   @observable highlighted;
-  @observable active;
+  active;
 
   constructor(store, card) {
     this.store = store;
@@ -21,7 +21,7 @@ export default class CardModel {
     this.period = card.period;
     this.image = card.image;
 
-    this.record = new RecordModel(store, card.record);
+    this.records = card.records.map((r) => new RecordModel(store, r, card));
 
     this.collection = false;
     
@@ -30,7 +30,7 @@ export default class CardModel {
   }
 
   latlng(object=false) {
-    const ll = this.collection ? this.collection.latlng : this.record.position;
+    const ll = this.collection ? this.collection.latlng : this.records[0].position;
 
     if( object ){
       return {lat: ll[0], lng: ll[1]}
@@ -40,13 +40,11 @@ export default class CardModel {
   }
 
   toJS() {
-    return {id: this.id, name: this.name, description: this.description, period: this.period, image: this.image, record: this.record.toJS() };
+    return {id: this.id, name: this.name, description: this.description, period: this.period, image: this.image, records: this.records.toJS() };
   }
 
   toggleHighlighted() {
     this.highlighted = !this.highlighted;
-
-    console.log(`Setting card ${this.id} as highlighted`);
   }
 
   toggleActive() {

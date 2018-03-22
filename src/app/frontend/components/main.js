@@ -7,6 +7,7 @@ import {observer} from "mobx-react/index";
 import Tools from './map/tools';
 import Tray from './map/tray';
 import MapView from './map/map_view';
+import RecordView from './map/record_view';
 
 @observer export default class Main extends Component {
   constructor(props) {
@@ -19,16 +20,6 @@ import MapView from './map/map_view';
     this.props.cardStore.addCards(count);
   }
 
-  moveMap(event) {
-    // move the map to a random card's record
-    const card = this.props.cardStore.cards[Math.floor(Math.random() * cardStore.cards.length)];
-    this.props.mapViewStore.center = card.record.position;
-  }
-
-  bindMapView(component) {
-    window._map = component.refs.map;
-  }
-
   render() {
     return <div className="m-map-wrapper" id="main-container">
       <Devtools />
@@ -36,12 +27,11 @@ import MapView from './map/map_view';
       <div style={{position: 'fixed', zIndex: '99999', right: '20px', top: '40px', padding: '10px', background: '#ccc'}}>
         <button onClick={this.addCards.bind(this)} data-add="1">+ Add 1 card</button>
         <button onClick={this.addCards.bind(this)} data-add="5">+ Add 5 cards</button>
-        <button onClick={this.moveMap.bind(this)}>Move map</button>
       </div>
 
       <Tools />
 
-      <MapView cardStore={this.props.cardStore} mapViewStore={this.props.mapViewStore} ref={this.bindMapView.bind(this)} />
+      <MapView cardStore={this.props.cardStore} mapViewStore={this.props.mapViewStore} />
       <Tray cardStore={this.props.cardStore} />
     </div>
   }

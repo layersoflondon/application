@@ -6,17 +6,6 @@ import {observer} from "mobx-react";
     super(props);
   }
 
-  toggleHighlightedState(event) {
-    // window._map.leafletElement._layers.find( (layer) => {
-    //
-    // });
-    this.props.card.toggleHighlighted();
-  }
-
-  toggleActiveState(event) {
-    this.props.card.toggleActive();
-  }
-
   render() {
     let styles = {border: '1px solid #ccc', margin: '10px'};
 
@@ -25,7 +14,7 @@ import {observer} from "mobx-react";
     }
 
     return (
-      <div id="record-card-container" style={styles} onClick={this.toggleActiveState.bind(this)} onMouseEnter={this.toggleHighlightedState.bind(this)} onMouseOut={this.toggleHighlightedState.bind(this)}>
+      <div id="record-card-container" style={styles} onMouseEnter={()=>this.props.card.highlighted=true} onMouseOut={()=>this.props.card.highlighted=false}>
         <h4>
           {this.props.card.name}
         </h4>

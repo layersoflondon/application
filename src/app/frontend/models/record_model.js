@@ -6,11 +6,20 @@ export default class RecordModel {
   name;
   position;
 
-  constructor(store, record) {
+  @observable visible;
+
+  constructor(store, record, card) {
     this.store = store;
     this.id = record.id;
     this.name = record.name;
     this.position = record.position;
+
+    this.visible = false;
+  }
+
+  toggleVisibility() {
+    console.log(`Setting record as visible ${!this.visible}`);
+    this.visible = !this.visible
   }
 
   toJS() {
