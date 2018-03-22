@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import { Marker, Popup } from 'react-leaflet'
 import Icon from 'leaflet';
@@ -36,3 +37,7 @@ import L from 'leaflet';
     </Marker>;
   }
 }
+
+MarkerContainer.propTypes = {
+  record: PropTypes.object.isRequired
+};

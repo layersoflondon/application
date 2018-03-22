@@ -23,11 +23,6 @@ import RecordView from './map/record_view';
     this.props.cardStore.removeCard();
   }
 
-  setMapViewCards() {
-    const cards = this.props.cardStore.cards;
-    this.props.mapViewStore.records = cards;
-  }
-
   componentDidUpdate() {
     console.log("did update")
   }
@@ -44,8 +39,8 @@ import RecordView from './map/record_view';
 
       <Tools />
 
-      <MapView cardStore={this.props.cardStore} mapViewStore={this.props.mapViewStore} />
-      <Tray cardStore={this.props.cardStore} mapViewStore={this.props.mapViewStore} />
+      <MapView mapViewStore={this.props.mapViewStore} />
+      <Tray mapViewStore={this.props.mapViewStore} />
     </div>
   }
 }

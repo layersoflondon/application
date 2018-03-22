@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 
 import Card from './card';
@@ -9,8 +10,7 @@ import Card from './card';
   }
 
   render() {
-    const {cardStore, mapViewStore} = this.props;
-    const cards = mapViewStore.currentCardStore.cards.map( (c) => {return <Card key={c.id} card={c} cardStore={this.props.cardStore} mapViewStore={this.props.mapViewStore} />});
+    const cards = this.props.mapViewStore.currentCardStore.cards.map( (c) => {return <Card key={c.id} card={c} mapViewStore={this.props.mapViewStore} />});
 
     console.log(`Rendering Tray ${mapViewStore.currentCardStore.cards.length} cards`);
 
@@ -29,3 +29,7 @@ import Card from './card';
     </div>;
   }
 }
+
+Tray.propTypes = {
+  mapViewStore: PropTypes.object.isRequired
+};

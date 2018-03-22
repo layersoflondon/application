@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import CardStore from "../../stores/card_store";
 
@@ -42,3 +43,8 @@ import CardStore from "../../stores/card_store";
     );
   }
 }
+
+Card.propTypes = {
+  card: PropTypes.object.isRequired,
+  mapViewStore: PropTypes.object.isRequired
+};

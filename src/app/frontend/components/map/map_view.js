@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
 import MarkerContainer from './marker_container';
@@ -23,7 +24,6 @@ import {observer} from "mobx-react";
     const map_zoom = this.props.mapViewStore.zoom;
 
     let markers = [];
-    console.log("Rendering mapview cards:", this.props.mapViewStore.currentCardStore.cards.toJS());
     this.props.mapViewStore.currentCardStore.cards.map( (c) => {
       c.records.map( (r) => {
         markers.push( <MarkerContainer key={r.id} record={r} /> );
@@ -43,3 +43,7 @@ import {observer} from "mobx-react";
     </div>;
   }
 }
+
+MapView.propTypes = {
+  mapViewStore: PropTypes.object.isRequired
+};
