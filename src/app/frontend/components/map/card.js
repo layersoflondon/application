@@ -4,12 +4,13 @@ import {observer} from "mobx-react";
 @observer export default class Card extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {};
   }
 
   toggleHighlightedState(event) {
-    this.setState({highlighted: !this.state.highlighted});
+    // window._map.leafletElement._layers.find( (layer) => {
+    //
+    // });
+    this.props.card.toggleHighlighted();
   }
 
   toggleActiveState(event) {
@@ -19,12 +20,12 @@ import {observer} from "mobx-react";
   render() {
     let styles = {border: '1px solid #ccc', margin: '10px'};
 
-    if( this.state.highlighted ) {
+    if( this.props.card.highlighted ) {
       styles.background = 'red';
     }
 
     return (
-      <div id="record-card-container" style={styles} onClick={this.toggleActiveState.bind(this)} onMouseOver={this.toggleHighlightedState.bind(this)} onMouseOut={this.toggleHighlightedState.bind(this)}>
+      <div id="record-card-container" style={styles} onClick={this.toggleActiveState.bind(this)} onMouseEnter={this.toggleHighlightedState.bind(this)} onMouseOut={this.toggleHighlightedState.bind(this)}>
         <h4>
           {this.props.card.name}
         </h4>

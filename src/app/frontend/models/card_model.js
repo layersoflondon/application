@@ -1,4 +1,4 @@
-// import {observable} from 'mobx';
+import {observable} from 'mobx';
 
 import RecordModel from './record_model';
 
@@ -6,8 +6,11 @@ export default class CardModel {
   store;
   id;
   record;
-  highlighted;
-  active;
+
+  collection;
+
+  @observable highlighted;
+  @observable active;
 
   constructor(store, card) {
     this.store = store;
@@ -19,9 +22,21 @@ export default class CardModel {
     this.image = card.image;
 
     this.record = new RecordModel(store, card.record);
+
+    this.collection = false;
     
     this.highlighted = false;
     this.active = false;
+  }
+
+  latlng(object=false) {
+    const ll = this.collection ? this.collection.latlng : this.record.position;
+
+    if( object ){
+      return {lat: ll[0], lng: ll[1]}
+    }
+
+    return ll;
   }
 
   toJS() {
@@ -30,6 +45,8 @@ export default class CardModel {
 
   toggleHighlighted() {
     this.highlighted = !this.highlighted;
+
+    console.log(`Setting card ${this.id} as highlighted`);
   }
 
   toggleActive() {

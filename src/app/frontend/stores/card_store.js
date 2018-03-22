@@ -62,7 +62,8 @@ export default class CardStore {
     };
 
     const cards = Array(count).fill().map( (_, i) => create_card(faker.random.number() ) );
-    cards.map( (c) => {this.cards.push(c) });
+
+    cards.map( (c) => {this.cards.push( new CardModel( this, c ) ) });
   }
 
   /**

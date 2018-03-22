@@ -9,6 +9,11 @@ import Tray from './map/tray';
 import MapView from './map/map_view';
 
 @observer export default class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.mapViewRef = null;
+  }
+
   addCards(event) {
     const count = parseInt(event.target.dataset.add, 10);
     this.props.cardStore.addCards(count);
@@ -17,16 +22,18 @@ import MapView from './map/map_view';
   moveMap(event) {
     // move the map to a random card's record
     const card = this.props.cardStore.cards[Math.floor(Math.random() * cardStore.cards.length)];
-    console.log(card);
-
     this.props.mapViewStore.center = card.record.position;
+  }
+
+  bindMapView(component) {
+    window._map = component.refs.map;
   }
 
   render() {
     return <div className="m-map-wrapper" id="main-container">
       <Devtools />
 
-      <div style={{position: 'fixed', left: '100px', top: '20px', padding: '10px', background: '#ccc'}}>
+      <div style={{position: 'fixed', zIndex: '99999', right: '20px', top: '40px', padding: '10px', background: '#ccc'}}>
         <button onClick={this.addCards.bind(this)} data-add="1">+ Add 1 card</button>
         <button onClick={this.addCards.bind(this)} data-add="5">+ Add 5 cards</button>
         <button onClick={this.moveMap.bind(this)}>Move map</button>
@@ -34,10 +41,8 @@ import MapView from './map/map_view';
 
       <Tools />
 
-        <Tray cardStore={this.props.cardStore} />
-        <MapView cardStore={this.props.cardStore} mapViewStore={this.props.mapViewStore} />
-      <div id="map-container">
-      </div>
+      <MapView cardStore={this.props.cardStore} mapViewStore={this.props.mapViewStore} ref={this.bindMapView.bind(this)} />
+      <Tray cardStore={this.props.cardStore} />
     </div>
   }
 }

@@ -12,6 +12,7 @@ import {observer} from "mobx-react";
 
   dragged() {
     console.log("DRAGGED");
+    window.map = this.refs.map;
   }
 
   zoomed() {
@@ -19,6 +20,7 @@ import {observer} from "mobx-react";
   }
 
   render() {
+
     const position = this.props.mapViewStore.center.toJS();
     const map_zoom = this.props.mapViewStore.zoom;
 
