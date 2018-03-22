@@ -1,0 +1,25 @@
+// Overlay subnavigation
+
+.m-overlay-subnavigation {
+  max-width: 900px;
+  margin: 100px auto 10px;
+}
+
+.m-overlay-subnavigation ul {
+  @include unlist;
+}
+
+.m-overlay-subnavigation li {
+  display: inline-block;
+}
+
+.m-overlay-subnavigation li a {
+  padding: 10px 16px;
+  font-weight: bold;
+}
+
+.m-overlay-subnavigation li.is-current a {
+  background: white;
+  display: inline-block;
+  color: #333;
+}

@@ -1,0 +1,40 @@
+// Accordion
+
+.m-accordion {
+
+}
+
+.m-accordion .section {
+  border-bottom:1px solid #ddd;
+}
+
+.m-accordion .section:last-child {
+  border-bottom:0;
+}
+
+.m-accordion .pane {
+  display:none;
+  margin-bottom:30px;
+}
+
+.m-accordion .pane > *:first-child {
+  margin-top:0;
+}
+
+.m-accordion .pane.is-showing {
+  display:block;
+}
+
+.m-accordion .title {
+  color:$link-color;
+  cursor:pointer;
+}
+
+.m-accordion .title:hover {
+  color:$link-hover-color;
+}
+
+.m-accordion .title:after {
+  content:"+";
+  float:right;
+}

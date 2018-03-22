@@ -1,0 +1,14 @@
+
+// Social status
+
+.m-social-status button {
+  @include icon-button;
+  background:#eee;
+  display:block;
+  margin: 0 auto 14px;
+}
+
+.m-social-status button.like:before {
+  content: "\f164";
+  font-size: 40px;
+}
