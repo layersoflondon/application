@@ -1,8 +1,8 @@
 import {observable} from 'mobx';
+
+import MapViewStore from './map_view_store';
 import CardModel from '../models/card_model';
 import faker from 'faker';
-
-window.faker = faker;
 
 export default class CardStore {
   @observable cards = [];
@@ -40,7 +40,6 @@ export default class CardStore {
     const store = new CardStore();
     store.cards = array.map( (c) => CardModel.fromJS(store, c) );
 
-    console.log(store);
     return store;
   }
 
@@ -50,21 +49,20 @@ export default class CardStore {
    *
    * @param card - Collection with .records
    */
-  static fromCollection(card) {
-    const store = new CardStore();
-    store.cards = card.records.map( (c) => {
-      let card = {
-        id: c.id,
-        name: c.name,
-        description: c.description,
-        period: c.period,
-        image: c.image,
-        records: [c]
-      };
-      return CardModel.fromJS(store, card)
-    } );
+  static fromCollectionCard(card) {
+    const store = CardStore.fromJS(card.records);
+    // store.cards = card.records.map( (c) => {
+    //   let card = {
+    //     id: c.id,
+    //     name: c.name,
+    //     description: c.description,
+    //     period: c.period,
+    //     image: c.image,
+    //     records: [c]
+    //   };
+    //   return CardModel.fromJS(store, card)
+    // } );
 
-    console.log(store);
     return store;
   }
 }

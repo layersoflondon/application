@@ -12,6 +12,7 @@ import ReactDOM from 'react-dom'
 
 import CardStore from '../stores/card_store';
 import MapViewStore from '../stores/map_view_store';
+import TrayViewStore from '../stores/tray_view_store';
 
 import Main from '../components/main';
 
@@ -24,7 +25,8 @@ const cards = [
     description: faker.lorem.paragraphs(2),
     image: faker.image.dataUri(),
     is_collection: false,
-    records: [{id: 1, name: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: [51.1, -0.11]}]
+    period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
+    position: [51.1, -0.11]
   },
   {
     id: 2,
@@ -41,13 +43,16 @@ const cards = [
   }
 ];
 
-const cardStore = CardStore.fromJS(cards); //new CardStore();
-const mapViewStore = new MapViewStore();
-mapViewStore.currentCardStore = cardStore;
+/**
+ * Create a CardStore from our dummy data, a TrayViewStore to pass
+ * into the React App, and set the initial data for the trayViewStore
+ * which will be rendered in the Tray component
+ */
 
-window.cardStore = cardStore;
-window.mapViewStore = mapViewStore;
+const cardStore = CardStore.fromJS(cards);
+const trayViewStore = new TrayViewStore();
+trayViewStore.cardStore = cardStore;
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render( <Main cardStore={cardStore} mapViewStore={mapViewStore} />, document.getElementById("map-root") );
+  ReactDOM.render( <Main trayViewStore={trayViewStore} />, document.getElementById("map-root") );
 });

@@ -9,12 +9,21 @@ import Card from './card';
     super(props);
   }
 
-  render() {
-    const cards = this.props.mapViewStore.currentCardStore.cards.map( (c) => {return <Card key={c.id} card={c} mapViewStore={this.props.mapViewStore} />});
+  switchToPreviousCardStore() {
+    this.props.trayViewStore.cardStore = this.props.trayViewStore.previousCardStore;
+  }
 
-    console.log(`Rendering Tray ${mapViewStore.currentCardStore.cards.length} cards`);
+  render() {
+    const cards = this.props.trayViewStore.cardStore.cards.map( (c) => {return <Card key={c.id} card={c} trayViewStore={this.props.trayViewStore} />});
 
     let trayClassName = "m-tray-area";
+
+    let trayDetails = "";
+    if(this.props.trayViewStore.previousCardStore) {
+      trayDetails = <p onClick={this.switchToPreviousCardStore.bind(this)}>
+        Previously showing a store with {this.props.trayViewStore.previousCardStore.cards.length} cards.
+      </p>
+    }
 
     return <div className={trayClassName} id="tray-container">
       <div className="open-close">
@@ -22,6 +31,8 @@ import Card from './card';
       </div>
 
       <div className="window">
+        {trayDetails}
+
         <div className="s-tray-area--introduction is-showing">
           {cards}
         </div>
@@ -30,6 +41,6 @@ import Card from './card';
   }
 }
 
-Tray.propTypes = {
-  mapViewStore: PropTypes.object.isRequired
-};
+// Tray.propTypes = {
+//   cardStore: PropTypes.object.isRequired
+// };

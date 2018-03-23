@@ -1,4 +1,12 @@
-import {observable} from 'mobx';
+import {observable, observe, computed} from 'mobx';
 
-@observable export default class TrayViewStore {
+export default class TrayViewStore {
+  @observable cardStore = null;
+  previousCardStore = null;
+
+  constructor() {
+    observe(this, 'cardStore', (change) => {
+      this.previousCardStore = change.oldValue;
+    });
+  }
 }

@@ -20,15 +20,29 @@ import {observer} from "mobx-react";
   }
 
   render() {
-    const position = this.props.mapViewStore.center.toJS();
-    const map_zoom = this.props.mapViewStore.zoom;
+    const position = [51.1, -0.11];// this.props.mapViewStore.center.toJS();
+    const map_zoom = 13; //this.props.mapViewStore.zoom;
 
     let markers = [];
-    this.props.mapViewStore.currentCardStore.cards.map( (c) => {
-      c.records.map( (r) => {
-        markers.push( <MarkerContainer key={r.id} record={r} /> );
-      })
+
+    this.props.trayViewStore.cardStore.cards.map((c) => {
+      console.log(c);
+      console.log("\n\n");
+
+      if( c.is_collection ) {
+        // c.cards.map((c)=>markers.push( <MarkerContainer key={c.id} card={c} /> ))
+        // console.log(c);
+      }else {
+        // markers.push(c.toJS());
+        markers.push( <MarkerContainer key={c.id} card={c} /> )
+      }
     });
+
+    // this.props.cardStore.cards.map( (c) => {
+    //   // c.records.map( (r) => {
+    //   //   markers.push( <MarkerContainer key={r.id} record={r} /> );
+    //   // })
+    // });
 
     const layers = <span>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
@@ -44,6 +58,6 @@ import {observer} from "mobx-react";
   }
 }
 
-MapView.propTypes = {
-  mapViewStore: PropTypes.object.isRequired
-};
+// MapView.propTypes = {
+//   mapViewStore: PropTypes.object.isRequired
+// };

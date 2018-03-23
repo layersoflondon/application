@@ -39,13 +39,12 @@ import RecordView from './map/record_view';
 
       <Tools />
 
-      <MapView mapViewStore={this.props.mapViewStore} />
-      <Tray mapViewStore={this.props.mapViewStore} />
+      <MapView trayViewStore={this.props.trayViewStore} />
+      <Tray trayViewStore={this.props.trayViewStore} />
     </div>
   }
 }
 
 Main.propTypes = {
-  cardStore: PropTypes.object.isRequired,
-  mapViewStore: PropTypes.object.isRequired
+  trayViewStore: PropTypes.object.isRequired
 };

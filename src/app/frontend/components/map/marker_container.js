@@ -26,18 +26,18 @@ import L from 'leaflet';
       iconRetinaUrl: require('../../assets/images/highlighted-marker-icon-2x.png')
     });
 
-    let icon = this.props.record.card.highlighted ? highlighted_icon : default_icon;
+    let icon = this.props.card.highlighted ? highlighted_icon : default_icon;
 
-    const position = this.props.record.latlng();
+    const position = this.props.card.latlng();
 
     return <Marker position={position} icon={icon}>
       <Popup>
-        <span>{this.props.record.name}</span>
+        <span>{this.props.card.name}</span>
       </Popup>
     </Marker>;
   }
 }
 
 MarkerContainer.propTypes = {
-  record: PropTypes.object.isRequired
+  card: PropTypes.object.isRequired
 };

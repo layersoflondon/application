@@ -10,8 +10,8 @@ import CardStore from "../../stores/card_store";
 
   handleClick() {
     if( this.props.card.is_collection ) {
-      let collectionCardStore = CardStore.fromCollection(this.props.card);
-      this.props.mapViewStore.currentCardStore = collectionCardStore;
+      const collectionCardStore = CardStore.fromCollectionCard(this.props.card);
+      this.props.trayViewStore.cardStore = collectionCardStore;
     }
   }
 
@@ -46,5 +46,5 @@ import CardStore from "../../stores/card_store";
 
 Card.propTypes = {
   card: PropTypes.object.isRequired,
-  mapViewStore: PropTypes.object.isRequired
+  // mapViewStore: PropTypes.object.isRequired
 };
