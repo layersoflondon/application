@@ -1,22 +1,28 @@
 class RecordsController < ApplicationController
+  # TODO we shouldn't have to do this. We should be able to send the authenticity token which is in a meta tag on the html page
   skip_before_action :verify_authenticity_token
   before_action :set_record, only: %i[show update destroy]
+  skip_before_action :authenticate_user!, only: [:show, :index]
 
   def index
     @records = Record.all
   end
 
   def create
-    @record = Record.new(record_params)
+    @record = Record.new(record_params.merge(user: current_user))
+    authorize(@record) #passes @record and current_user into the RecordPolicy and calls .create?() on it
     return @record if @record.save
     render json: @record.errors, status: :unprocessable_entity
   end
 
-  def show; end
+  def show
+    authorize(@record)
+  end
 
   def update
     update_record_params = record_params.to_h
     @record.assign_attributes(update_record_params)
+    authorize(@record)
     return @record if @record.save
     render json: @record.errors, status: :unprocessable_entity
   end
@@ -25,6 +31,7 @@ class RecordsController < ApplicationController
     # @TODO: check user delete permissions
     # @TODO: check when record has associated collections, Error:
     # Mysql2::Error: Cannot delete or update a parent row: a foreign key constraint fails ...
+    authorize(@record)
     return render json: '', status: :no_content if @record.destroy
     render json: @record.errors, status: :unauthorized
   end

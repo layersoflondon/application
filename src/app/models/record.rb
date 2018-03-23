@@ -2,6 +2,7 @@ class Record < ApplicationRecord
   has_many :collection_records
   has_many :collections, through: :collection_records
   has_many :attachments
+  belongs_to :user
   accepts_nested_attributes_for :attachments
 
   # TODO: use the AASM gem to make this a proper state machine. Uses a string column called aasm
@@ -17,7 +18,18 @@ class Record < ApplicationRecord
   # TODO: is there a standard rails validator for dates? not sure.
   validate :date_is_in_the_past
 
+  validates :user, presence: true#, unless: ->(r) {r.orphan?}
+
+  scope :orphan, ->() {
+    where(user: nil)
+  }
+
   def date_is_in_the_past
     errors.add(:date, 'date is not in the past') if date.present? && Date.today < date
+  end
+
+  # TODO - replace with AASM state machine
+  def published?
+    true
   end
 end
