@@ -17,7 +17,6 @@ class Attachment < ApplicationRecord
   def has_url?
     attachable.respond_to?(:url)
   end
-
 end
 
 
