@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DataAttachmentTest < ActiveSupport::TestCase
+class Attachments::ImageTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -2,8 +2,6 @@ class Record < ApplicationRecord
   has_many :collection_records
   has_many :collections, through: :collection_records
   has_many :attachments
-  has_many :file_attachments, through: :attachments, source: :attachable, source_type: 'FileAttachment'
-  has_many :data_attachments, through: :attachments, source: :attachable, source_type: 'DataAttachment'
   accepts_nested_attributes_for :attachments
 
   # TODO: use the AASM gem to make this a proper state machine. Uses a string column called aasm

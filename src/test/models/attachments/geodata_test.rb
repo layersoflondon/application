@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FileAttachmentTest < ActiveSupport::TestCase
+class Attachments::GeodataTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
