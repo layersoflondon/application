@@ -7,7 +7,6 @@ import {observer} from "mobx-react/index";
 import Tools from './map/tools';
 import Tray from './map/tray';
 import MapView from './map/map_view';
-import RecordView from './map/record_view';
 
 @observer export default class Main extends Component {
   constructor(props) {
@@ -21,10 +20,6 @@ import RecordView from './map/record_view';
 
   removeCard(){
     this.props.cardStore.removeCard();
-  }
-
-  componentDidUpdate() {
-    console.log("did update")
   }
 
   render() {

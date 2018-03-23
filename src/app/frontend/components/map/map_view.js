@@ -26,23 +26,14 @@ import {observer} from "mobx-react";
     let markers = [];
 
     this.props.trayViewStore.cardStore.cards.map((c) => {
-      console.log(c);
-      console.log("\n\n");
-
       if( c.is_collection ) {
-        // c.cards.map((c)=>markers.push( <MarkerContainer key={c.id} card={c} /> ))
-        // console.log(c);
+        c.records.map((r)=>{
+          markers.push( <MarkerContainer key={r.id} position={r.position} card={c} /> )
+        })
       }else {
-        // markers.push(c.toJS());
-        markers.push( <MarkerContainer key={c.id} card={c} /> )
+        markers.push( <MarkerContainer key={c.id} position={c.position} card={c} /> )
       }
     });
-
-    // this.props.cardStore.cards.map( (c) => {
-    //   // c.records.map( (r) => {
-    //   //   markers.push( <MarkerContainer key={r.id} record={r} /> );
-    //   // })
-    // });
 
     const layers = <span>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />

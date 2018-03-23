@@ -28,7 +28,7 @@ import L from 'leaflet';
 
     let icon = this.props.card.highlighted ? highlighted_icon : default_icon;
 
-    const position = this.props.card.latlng();
+    const position = this.props.position;
 
     return <Marker position={position} icon={icon}>
       <Popup>
