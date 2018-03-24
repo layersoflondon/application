@@ -12,7 +12,15 @@ recordStates = %w[draft published pending_review flagged]
 
 collectionReadState = %w[public_read private_read]
 collectionWriteState = %w[everyone team creator]
-collectionWriteState = %w[everyone team creator]
+
+user = User.new(
+    :email                 => 'test@error.agency',
+    :password              => '123456',
+    :password_confirmation => '123456',
+    :encrypted_password    => '#$taawktljasktlw4aaglj'
+)
+
+user.save!
 
 10.times do |_i|
   Record.create(

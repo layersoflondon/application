@@ -1,7 +1,7 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: %i[show update destroy]
-  skip_before_action :authenticate_user!, only: [:show, :index]
-  skip_after_action :verify_authorized, only: [:show, :index]
+  skip_before_action :authenticate_user!, only: %i[show index]
+  skip_after_action :verify_authorized, only: %i[show index]
 
   def index
     @records = Record.all
@@ -9,7 +9,7 @@ class RecordsController < ApplicationController
 
   def create
     @record = Record.new(record_params.merge(user: current_user))
-    authorize(@record) #passes @record and current_user into the RecordPolicy and calls .create?() on it
+    authorize(@record)
     return @record if @record.save
     render json: @record.errors, status: :unprocessable_entity
   end
