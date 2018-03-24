@@ -1,8 +1,7 @@
 class RecordsController < ApplicationController
-  # TODO we shouldn't have to do this. We should be able to send the authenticity token which is in a meta tag on the html page
-  skip_before_action :verify_authenticity_token
   before_action :set_record, only: %i[show update destroy]
   skip_before_action :authenticate_user!, only: [:show, :index]
+  skip_after_action :verify_authorized, only: [:show, :index]
 
   def index
     @records = Record.all

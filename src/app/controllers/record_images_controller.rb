@@ -1,5 +1,4 @@
 class RecordImagesController < ApplicationController
-  skip_before_action :verify_authenticity_token
   before_action :set_record, only: %i[index create show update destroy]
 
   def index; end

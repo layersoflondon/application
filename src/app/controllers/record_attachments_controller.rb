@@ -1,5 +1,4 @@
 class RecordAttachmentsController < ApplicationController
-  skip_before_action :verify_authenticity_token
   before_action :set_record_and_attachment, only: %i[update]
 
   def index

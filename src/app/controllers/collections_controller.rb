@@ -1,6 +1,7 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, only: %i[show update destroy]
-  skip_before_action :verify_authenticity_token
+  skip_before_action :authenticate_user!, only: [:show, :index]
+  skip_after_action :verify_authorized, only: [:show, :index]
 
   def index
     @collections = Collection.all

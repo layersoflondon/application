@@ -1,6 +1,4 @@
 class CollectionRecordsController < ApplicationController
-  skip_before_action :verify_authenticity_token
-
   def index
     @collection = Collection.find_by_id(params[:collection_id])
     render json: '', status: :not_found unless @collection
