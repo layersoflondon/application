@@ -20,7 +20,7 @@ class RecordPolicy < ApplicationPolicy
   end
 
   def update?
-    true if user.present? && record.user_id == user.id
+    create?
   end
 
   def destroy?
