@@ -5,8 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :records, dependent: :nullify
-  has_many :user_teams
-  has_many :teams, through: :user_teams
+  has_many :team_users
+  has_many :teams, through: :team_users
 
   # TODO: - users should change the state of their records before being deleted.
   # before_destroy do

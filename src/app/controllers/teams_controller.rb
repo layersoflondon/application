@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[show update destroy]
-  skip_before_action :authenticate_user!, only: %i[show index]
-  skip_after_action :verify_authorized, only: [:index]
+  skip_before_action :authenticate_user!, only: %i[index show]
+  skip_after_action :verify_authorized, only: %i[index show]
 
   def index
     @teams = Team.all
@@ -9,21 +9,16 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    @team.team_users << TeamUser.new(user: current_user, role: 'leader')
     authorize(@team)
-    if @team.save
-      @team.users << current_user
-      return @team
-    end
+    return @team if @team.save
     render json: @team.errors, status: :unprocessable_entity
   end
 
-  def show
-    authorize(@team)
-  end
+  def show; end
 
   def update
-    @team = Team.find_by_id(params[:id])
-    authorize(@team)
+    authorize(@team_user)
     return render json: '', status: :no_content unless @team
     update_params = team_params.to_h
     @team.assign_attributes(update_params)
@@ -32,20 +27,17 @@ class TeamsController < ApplicationController
   end
 
   def destroy
-    @team = Team.find_by_id(params[:id])
-    authorize(@team)
-    return render json: '', status: :no_content unless @team
-    # @TODO: check user delete permissions
+    authorize(@team_user)
     return render json: '', status: :no_content if @team.destroy
-    render json: @team.errors, status: :unauthorized
+    render json: @team.errors, status: :unprocessable_entity
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_team
     @team = Team.find_by_id(params[:id])
     render json: '', status: :not_found unless @team
+    @team_user = @team.team_users.find_by(user_id: current_user.id)
   end
 
   def team_params
