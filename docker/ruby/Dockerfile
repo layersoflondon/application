@@ -38,3 +38,5 @@ USER app
 RUN bundle install
 # Install yarn dependencies
 RUN yarn install --no-cache --frozen-lockfile
+# Migrate database
+RUN rails db:migrate

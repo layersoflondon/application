@@ -1,11 +1,15 @@
 class TeamUserPolicy < ApplicationPolicy
 
-  def update?
+  def create?
     user.present? && record.user_id == user.id && record.role == 'leader'
   end
 
+  def update?
+    create?
+  end
+
   def destroy?
-    update?
+    create?
   end
 
   class Scope < Scope

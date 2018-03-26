@@ -1,5 +1,5 @@
 class CollectionRecordsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[show index]
+  skip_before_action :authenticate_user!, only: %i[index show]
   skip_after_action :verify_authorized, only: [:index]
   def index
     @collection = Collection.find_by_id(params[:collection_id])
