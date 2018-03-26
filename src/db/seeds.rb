@@ -1,3 +1,4 @@
+require 'bcrypt'
 # frozen_string_literal: true
 
 # This file should contain all the record creation needed to seed the database with its default values.
@@ -8,16 +9,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 # create 10 records that aren’t in a collection
-recordStates = %w[draft published pending_review flagged]
+record_states = %w[draft published pending_review flagged]
 
-collectionReadState = %w[public_read private_read]
-collectionWriteState = %w[everyone team creator]
-
+collection_read_state = %w[public_read private_read]
+collection_write_state = %w[everyone team creator]
+password = 123456
 user = User.new(
     :email                 => 'test@error.agency',
-    :password              => '123456',
-    :password_confirmation => '123456',
-    :encrypted_password    => '#$taawktljasktlw4aaglj'
+    :password              => password,
+    :password_confirmation => password,
+    :encrypted_password    => BCrypt::Password.create(password).to_s
 )
 
 user.save!
@@ -26,10 +27,11 @@ user.save!
   Record.create(
     title: Faker::Company.catch_phrase,
     description: Faker::Company.bs,
-    state: recordStates[Faker::Number.between(1, 3)],
+    state: record_states[Faker::Number.between(0, 3)],
     lat: Faker::Address.latitude,
     lng: Faker::Address.longitude,
-    date: Faker::Date.between(10.year.ago, Date.today)
+    date: Faker::Date.between(10.year.ago, Date.today),
+    user: user
   )
 end
 
@@ -38,14 +40,14 @@ end
   collection = Collection.create(
     title: Faker::Company.catch_phrase,
     description: Faker::Company.bs,
-    read_state: collectionReadState[Faker::Number.between(1, 3)],
-    write_state: collectionWriteState[Faker::Number.between(1, 3)]
+    read_state: collection_read_state[Faker::Number.between(0, 1)],
+    write_state: collection_write_state[Faker::Number.between(0, 1)]
   )
   5.times do |_ri|
     collection.records.create(
       title: Faker::Company.catch_phrase,
       description: Faker::Company.bs,
-      state: recordStates[Faker::Number.between(1, 3)],
+      state: record_states[Faker::Number.between(0, 3)],
       lat: Faker::Address.latitude,
       lng: Faker::Address.longitude,
       date: Faker::Date.between(10.year.ago, Date.today)
