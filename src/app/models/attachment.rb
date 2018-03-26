@@ -4,7 +4,6 @@ class Attachment < ApplicationRecord
   # TODO: not sure whether url and file methods should be included in attachable, for instance
   # when deleting an url, gives the error: undefined method `file' for <Attachment ..
   delegate :title, :caption, :credit, to: :attachable
-  
   accepts_nested_attributes_for :attachable
   validates_associated :attachable
 
@@ -27,14 +26,4 @@ class Attachment < ApplicationRecord
   def url
     has_url? ? attachable.url : nil
   end
-
-
-
-
-
 end
-
-
-
-
-

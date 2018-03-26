@@ -10,9 +10,10 @@ require 'bcrypt'
 #   Character.create(name: 'Luke', movie: movies.first)
 # create 10 records that aren’t in a collection
 record_states = %w[draft published pending_review flagged]
-
 collection_read_state = %w[public_read private_read]
 collection_write_state = %w[everyone team creator]
+
+# Create user
 password = 123456
 user = User.new(
     :email                 => 'test@error.agency',
@@ -23,7 +24,7 @@ user = User.new(
 
 user.save!
 
-10.times do |_i|
+5.times do |_i|
   Record.create(
     title: Faker::Company.catch_phrase,
     description: Faker::Company.bs,
@@ -35,14 +36,15 @@ user.save!
   )
 end
 
-# create 3 collections
-3.times do |_i|
+# Create collections
+5.times do |_i|
   collection = Collection.create(
     title: Faker::Company.catch_phrase,
     description: Faker::Company.bs,
     read_state: collection_read_state[Faker::Number.between(0, 1)],
     write_state: collection_write_state[Faker::Number.between(0, 1)]
   )
+  # Create collection records
   5.times do |_ri|
     collection.records.create(
       title: Faker::Company.catch_phrase,
@@ -56,7 +58,7 @@ end
 end
 
 # create teams
-3.times do |_i|
+5.times do |_i|
   Team.create(
     name: Faker::Company.catch_phrase,
     description: Faker::Company.bs

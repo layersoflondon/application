@@ -1,4 +1,6 @@
 class CollectionRecordsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[show index]
+  skip_after_action :verify_authorized, only: [:index]
   def index
     @collection = Collection.find_by_id(params[:collection_id])
     render json: '', status: :not_found unless @collection
@@ -6,6 +8,7 @@ class CollectionRecordsController < ApplicationController
 
   def create
     @collection = Collection.find_by_id(params[:collection_id])
+    authorize(@collection)
     @record = Record.find_by_id(params[:id])
     return render json: '', status: :not_found unless @record
     # @TODO: check whether user can associate record to collection or not

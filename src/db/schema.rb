@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_23_143532) do
+ActiveRecord::Schema.define(version: 2018_03_26_105845) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -137,6 +137,15 @@ ActiveRecord::Schema.define(version: 2018_03_23_143532) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_user_teams_on_team_id"
+    t.index ["user_id"], name: "index_user_teams_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -157,4 +166,6 @@ ActiveRecord::Schema.define(version: 2018_03_23_143532) do
   add_foreign_key "attachments", "records"
   add_foreign_key "collection_records", "collections"
   add_foreign_key "collection_records", "records"
+  add_foreign_key "user_teams", "teams"
+  add_foreign_key "user_teams", "users"
 end
