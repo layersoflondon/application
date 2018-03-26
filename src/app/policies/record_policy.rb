@@ -1,4 +1,11 @@
 class RecordPolicy < ApplicationPolicy
+  def index?
+    if record.published?
+      true
+    else
+      user.present? && record.user_id == user.id
+    end
+  end
 
   def show?
     if record.published?
@@ -12,14 +19,12 @@ class RecordPolicy < ApplicationPolicy
     user.present? && record.user_id == user.id
   end
 
-  # TODO record editors should be able to update
   def update?
-    create?
+    true if user.present? && record.user_id == user.id
   end
 
-  # TODO should record editors be able to destroy? don't know.
   def destroy?
-    create?
+    update?
   end
 
   class Scope < Scope
