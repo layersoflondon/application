@@ -1,5 +1,7 @@
 class RecordAttachmentsController < ApplicationController
   before_action :set_record_and_attachment, only: %i[update]
+  skip_before_action :authenticate_user!, only: %i[index show]
+  skip_after_action :verify_authorized, only: %i[index show]
 
   def index
     record = Record.find_by_id(params[:record_id])
@@ -9,6 +11,7 @@ class RecordAttachmentsController < ApplicationController
 
   def create
     record = Record.find_by_id(params[:record_id])
+    authorize(@record)
     @attachment = record.attachments.build(attachment_params)
     @attachment.file.attach(params[:file]) if params[:file]
     return @attachment if @attachment.save
