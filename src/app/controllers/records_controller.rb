@@ -1,10 +1,10 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: %i[show update destroy]
   skip_before_action :authenticate_user!, only: %i[show index]
-  skip_after_action :verify_authorized, only: %i[show index]
-
+  skip_after_action :verify_authorized, only: [:index]
   def index
-    @records = Record.all
+    # TODO: show records from the current user as well
+    @records = Record.where(state: 'published')
   end
 
   def create
