@@ -89,6 +89,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -130,6 +145,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -142,14 +172,14 @@
 							"raw": "{\n\t\"collection\" : {\n\t\t\"title\" : \"test\",\n\t\t\"description\" : \"test description\",\n\t\t\"read_state\" : \"public_read\",\n\t\t\"write_state\" : \"everyone\"\n\t}\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}{{domain}}:{{port}}/collections/14",
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/5",
 							"host": [
 								"{{protocol}}{{domain}}"
 							],
 							"port": "{{port}}",
 							"path": [
 								"collections",
-								"14"
+								"5"
 							]
 						},
 						"description": null
@@ -209,6 +239,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -221,14 +266,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{protocol}}{{domain}}:{{port}}/collections/4",
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/1",
 							"host": [
 								"{{protocol}}{{domain}}"
 							],
 							"port": "{{port}}",
 							"path": [
 								"collections",
-								"4"
+								"1"
 							]
 						},
 						"description": null
@@ -269,6 +314,21 @@
 				{
 					"name": "Create Collection Records",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -359,6 +419,21 @@
 				{
 					"name": "Create Record",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -394,14 +469,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/records/26",
+							"raw": "localhost:3000/records/1",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"records",
-								"26"
+								"1"
 							]
 						},
 						"description": null
@@ -411,6 +486,21 @@
 				{
 					"name": "Update record",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -423,14 +513,14 @@
 							"raw": "{\n\t\"record\" : {\n\t\t\"title\" : \"record title update\",\n\t\t\"description\" : \"record description update\",\n\t\t\"state\" : \"published\",\n\t\t\"lat\" : 15,\n\t\t\"lng\" : 20,\n\t\t\"date\" : \"2017-01-01\"\n\t}\n}"
 						},
 						"url": {
-							"raw": "localhost:3000/records/26",
+							"raw": "localhost:3000/records/1",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"records",
-								"26"
+								"1"
 							]
 						},
 						"description": null
@@ -440,6 +530,21 @@
 				{
 					"name": "Delete Record",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -465,298 +570,6 @@
 						"description": null
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Record Images",
-			"description": null,
-			"item": [
-				{
-					"name": "Index Record Images",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "localhost:3000/records/1/images",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"records",
-								"1",
-								"images"
-							]
-						},
-						"description": null
-					},
-					"response": []
-				},
-				{
-					"name": "Create Record Image",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "record[images][]",
-									"type": "file",
-									"value": ""
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:3000/records/1/images",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"records",
-								"1",
-								"images"
-							]
-						},
-						"description": null
-					},
-					"response": []
-				},
-				{
-					"name": "Show Record Image",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "localhost:3000/records/1/images/1",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"records",
-								"1",
-								"images",
-								"1"
-							]
-						},
-						"description": null
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Document",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "localhost:3000/records/1/images/1",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"records",
-								"1",
-								"images",
-								"1"
-							]
-						},
-						"description": null
-					},
-					"response": []
-				}
-			],
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "42e9833f-e17d-47ca-aad9-5be019e8574f",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "6b3e4314-bd08-42de-b805-f76ee57dd84b",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			]
-		},
-		{
-			"name": "Record Documents",
-			"description": null,
-			"item": [
-				{
-					"name": "Index Record Documents",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "localhost:3000/records/1/documents",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"records",
-								"1",
-								"documents"
-							]
-						},
-						"description": null
-					},
-					"response": []
-				},
-				{
-					"name": "Create Record Document",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "record[documents][]",
-									"type": "file",
-									"value": ""
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:3000/records/1/documents",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"records",
-								"1",
-								"documents"
-							]
-						},
-						"description": null
-					},
-					"response": []
-				},
-				{
-					"name": "Show Record Document",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "localhost:3000/records/1/documents/1",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"records",
-								"1",
-								"documents",
-								"1"
-							]
-						},
-						"description": null
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Document",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "localhost:3000/records/1/documents/1",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"records",
-								"1",
-								"documents",
-								"1"
-							]
-						},
-						"description": null
-					},
-					"response": []
-				}
-			],
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "42e9833f-e17d-47ca-aad9-5be019e8574f",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "6b3e4314-bd08-42de-b805-f76ee57dd84b",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
 				}
 			]
 		},
@@ -792,6 +605,21 @@
 				{
 					"name": "Create Record Attachment",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -859,6 +687,21 @@
 				{
 					"name": "Update Record Attachment",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -870,39 +713,45 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "attachment[name]",
-									"value": "name update",
+									"key": "attachable_attributes[title]",
+									"value": "name yyyy",
 									"type": "text"
 								},
 								{
-									"key": "attachment[caption]",
+									"key": "attachable_attributes[caption]",
 									"value": "caption",
 									"type": "text"
 								},
 								{
-									"key": "attachment[credits]",
+									"key": "attachable_attributes[credit]",
 									"value": "credits",
 									"type": "text"
 								},
 								{
-									"key": "attachment[description]",
+									"key": "attachable_attributes[description]",
 									"value": "description",
 									"type": "text"
 								},
 								{
-									"key": "attachment[type_attachment]",
-									"value": "1",
+									"key": "attachment_type",
+									"value": "url",
 									"type": "text"
 								},
 								{
-									"key": "attachment[content]",
+									"key": "attachable_attributes[url]",
+									"value": "localhost:3000/records/1/attachments",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "file",
 									"type": "file",
-									"value": ""
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/records/1/attachments/1",
+							"raw": "localhost:3000/records/1/attachments/6",
 							"host": [
 								"localhost"
 							],
@@ -911,7 +760,7 @@
 								"records",
 								"1",
 								"attachments",
-								"1"
+								"6"
 							]
 						},
 						"description": null
@@ -947,6 +796,21 @@
 				{
 					"name": "Delete Document",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -959,7 +823,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/records/1/attachments/2",
+							"raw": "localhost:3000/records/1/attachments/1",
 							"host": [
 								"localhost"
 							],
@@ -968,7 +832,7 @@
 								"records",
 								"1",
 								"attachments",
-								"2"
+								"1"
 							]
 						},
 						"description": null
@@ -1004,8 +868,46 @@
 			"description": null,
 			"item": [
 				{
+					"name": "Index Teams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/teams",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"teams"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
 					"name": "Create Team",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -1034,6 +936,21 @@
 				{
 					"name": "Show Team",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -1041,14 +958,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/teams/4",
+							"raw": "localhost:3000/teams/6",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"teams",
-								"4"
+								"6"
 							]
 						},
 						"description": null
@@ -1058,6 +975,21 @@
 				{
 					"name": "Update Team",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -1070,14 +1002,14 @@
 							"raw": "{\n\t\"team\" : {\n\t\t\"name\" : \"test update\",\n\t\t\"description\" : \"test description update\"\n\t}\n}"
 						},
 						"url": {
-							"raw": "localhost:3000/teams/4",
+							"raw": "localhost:3000/teams/6",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"teams",
-								"4"
+								"6"
 							]
 						},
 						"description": null
@@ -1087,6 +1019,21 @@
 				{
 					"name": "Delete Team",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -1099,14 +1046,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/teams/4",
+							"raw": "localhost:3000/teams/8",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"teams",
-								"4"
+								"8"
 							]
 						},
 						"description": null
