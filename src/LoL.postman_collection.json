@@ -135,11 +135,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8f375910-90bf-47e1-b1a1-3b77e685dee7",
+								"id": "6ce52a0e-f07f-43af-bcd5-0f08f23ebaf6",
 								"type": "text/javascript",
 								"exec": [
 									"eval(globals.postmanBDD);",
-									"eval(globals.commonTests)();"
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
 								]
 							}
 						}
@@ -172,14 +180,14 @@
 							"raw": "{\n\t\"collection\" : {\n\t\t\"title\" : \"test\",\n\t\t\"description\" : \"test description\",\n\t\t\"read_state\" : \"public_read\",\n\t\t\"write_state\" : \"everyone\"\n\t}\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}{{domain}}:{{port}}/collections/5",
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/1",
 							"host": [
 								"{{protocol}}{{domain}}"
 							],
 							"port": "{{port}}",
 							"path": [
 								"collections",
-								"5"
+								"1"
 							]
 						},
 						"description": null
@@ -192,11 +200,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a7229065-bfa8-4f99-878f-75999a7aad1e",
+								"id": "669fb802-a62a-4066-868d-d6412f4d4c6c",
 								"type": "text/javascript",
 								"exec": [
 									"eval(globals.postmanBDD);",
-									"eval(globals.commonTests)();"
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
 								]
 							}
 						}
@@ -229,11 +245,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "df497258-9787-497b-96ce-48509c013c45",
+								"id": "e94f28e7-208a-4dce-b51f-ae700949e4e5",
 								"type": "text/javascript",
 								"exec": [
 									"eval(globals.postmanBDD);",
-									"eval(globals.commonTests)();"
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
 								]
 							}
 						}
@@ -266,14 +290,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{protocol}}{{domain}}:{{port}}/collections/1",
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/6",
 							"host": [
 								"{{protocol}}{{domain}}"
 							],
 							"port": "{{port}}",
 							"path": [
 								"collections",
-								"1"
+								"6"
 							]
 						},
 						"description": null
@@ -288,6 +312,29 @@
 			"item": [
 				{
 					"name": "Index Collection Records",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5b268247-b2b9-464e-b0b1-2750111faddf",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"console.log(postman.getResponseHeader(\"Content-Type\"));",
+									"",
+									"describe('Index collections', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});4"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -313,6 +360,28 @@
 				},
 				{
 					"name": "Create Collection Records",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4c90dc44-ab30-4afb-8ec6-c7cadecf0679",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -714,7 +783,7 @@
 							"formdata": [
 								{
 									"key": "attachable_attributes[title]",
-									"value": "name yyyy",
+									"value": "nameaa",
 									"type": "text"
 								},
 								{
@@ -1054,6 +1123,128 @@
 							"path": [
 								"teams",
 								"8"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Team Users",
+			"description": null,
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/teams/1/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"teams",
+								"1",
+								"users"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : 2\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/teams/1/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"teams",
+								"1",
+								"users"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/teams/1/users/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"teams",
+								"1",
+								"users",
+								"2"
 							]
 						},
 						"description": null
