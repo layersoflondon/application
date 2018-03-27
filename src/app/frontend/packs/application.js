@@ -10,6 +10,9 @@
 import React,{Component} from 'react'
 import ReactDOM from 'react-dom'
 
+import Record from '../sources/record';
+console.log(Record.all());
+
 import CardStore from '../stores/card_store';
 import MapViewStore from '../stores/map_view_store';
 import TrayViewStore from '../stores/tray_view_store';
