@@ -10,14 +10,18 @@ Tech stack:
 
 ###  Steps to run the project
 
+Add to your `/etc/hosts` file, the following line:
+
+```
+127.0.0.1      webpack
+```
+Spin up the containers
+
 ```bash
-# Spin up containers
 $ docker-compose up -d
-# Run weback server
-$ docker-compose run ruby bin/webpack-dev-server
 ```
 
-Launch in browser http://localhost:3000/
+Hit http://localhost:3000/
 
 Elastic search is composed independently, to spin up the elastic search container run:
 
@@ -43,22 +47,8 @@ docker-compose exec -T ruby newman run LoL.postman_collection.json --globals LoL
 
 #### Setup remote interpreter
 
-  ```bash
-    # Get the Gateway of the ruby service container
-    # run following command and find the value at the bottom of the output under 
-    # "NetworkSettings" > "Networks" > "Gateway"
-    docker inspect $(docker-compose ps -q ruby)
-  ```
-File > Settings > Languages & Frameworks > Ruby SDK and Gems
-Under src folder add a new remote interpreter
+File > Settings > Languages & Frameworks > Ruby SDK and Gems > + > Select interpreter Path > New remote > Configure Remote Ruby interpreter > Dockerfile
 
-```
-Host: CONTAINER_GATEWAY_VALUE
-Port: 2222
-User name:root
-Auth type: root
-Ruby interpreter path: /usr/local/bin/ruby
-```
 # Licence
 
 The project is licenced GPL3
