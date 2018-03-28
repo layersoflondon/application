@@ -21,6 +21,10 @@ Spin up the containers
 $ docker-compose up -d
 ```
 
+Known issue: 
+
+* When spin up containers for first time with `docker-compose up -d`, the migration in the entrypoint of the ruby service, might fail since the mysql service didn't finish the warm up. Solved by running `docker-compose up -d` again
+
 Hit http://localhost:3000/
 
 Elastic search is composed independently, to spin up the elastic search container run:

@@ -29,7 +29,7 @@ RUN useradd --user-group --create-home --shell /bin/false app
 ENV HOME=/home/app
 # Copy files into the container
 COPY ./src/Gemfile ./src/Gemfile.lock $HOME/lol/
-COPY ./src/package.json $HOME/lol/
+COPY ./src/package.json ./src/yarn.lock $HOME/lol/
 # Chown copies files
 RUN chown -R app:app $HOME/*
 # Set working directory
@@ -39,4 +39,4 @@ USER app
 # Install ruby gem dependencies
 RUN bundle install
 # Install yarn dependencies
-RUN yarn install --no-cache --frozen-lockfile
+RUN yarn install
