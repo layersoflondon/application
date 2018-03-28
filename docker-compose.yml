@@ -67,3 +67,18 @@ services:
       retries: 300
     labels:
       - maintainer="jordi@error.agency"
+  webpack:
+    build:
+      context: .
+      dockerfile: docker/webpack/Dockerfile
+    env_file:
+      - '.env.docker'
+    networks:
+      - error-network
+    command: bin/webpack-dev-server --host 0.0.0.0
+    volumes:
+      - ./src:/home/app/lol
+    ports:
+      - '3035:3035'
+    labels:
+      - maintainer="jordi@error.agency"
