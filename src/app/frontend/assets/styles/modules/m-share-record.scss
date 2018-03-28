@@ -1,0 +1,14 @@
+
+// Share record
+
+.m-share-record button {
+  @include icon-button;
+  background:#eee;
+  display:block;
+  margin: 0 auto 14px;
+}
+
+.m-share-record button:before {
+  content: "\f1e0";
+  font-size: 32px;
+}

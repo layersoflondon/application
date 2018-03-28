@@ -1,0 +1,212 @@
+/* Base */
+
+/*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
+
+html,
+button,
+input,
+select,
+textarea {
+  color: #222;
+  //font-family: 'Work Sans', sans-serif;
+  font-family: 'Nunito', sans-serif;
+
+}
+
+html {
+  font-size: 1em;
+  line-height: 1.4;
+  //-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+audio,
+canvas,
+img,
+video {
+  vertical-align: middle;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+/* Buttons */
+
+body {
+  background: #eee;
+  min-width: 320px;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+  @include transition(color .2s);
+}
+
+a:hover {
+  color: $link-hover-color;
+}
+
+.grid {
+  @include grid;
+}
+
+.grid > div {
+  @include grid-item (1, 5);
+  margin-bottom: 20px
+}
+
+.grid > div:first-child {
+  @include grid-item (2, 5);
+  @include grid-item-offset (2, 5);
+}
+
+.grid a {
+  background: red;
+  display: block;
+  height: 100px;
+}
+
+.container-thing {
+  width: 800px;
+  background: orange;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+div[class^='s-'] {
+  display: none;
+}
+
+div[class^='s-'].is-showing {
+  display: block;
+}
+
+input[type="submit"] {
+  background: $link-color;
+  color: white;
+  &:hover {
+    background: $link-hover-color;
+  }
+}
+
+.random-image {
+  background-size: cover;
+  background-position: center;
+}
+
+button {
+  @include lozenge-button;
+}
+
+input[type="text"],
+input[type="tel"] {
+border:none;
+  background:white;
+  padding:10px;
+}
+
+input[type="submit"] {
+  border:none;
+  padding:10px;
+}
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+  img {
+    max-width: 100% !important;
+  }
+  @page {
+    margin: 0.5cm;
+  }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}

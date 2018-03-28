@@ -1,0 +1,107 @@
+// Layer tools
+
+.m-layer-tools {
+}
+
+.m-layer-tools {
+  font-size: 14px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 50;
+  width: 50%;
+  max-width:320px;
+}
+
+.m-layer-tools.is-closed > button {
+  display: block;
+}
+
+.m-layer-tools > button {
+  display: none;
+}
+
+.m-layer-tools .panel {
+  display: block;
+  background: white;
+  padding: 10px;
+  overflow:hidden;
+}
+
+.m-layer-tools.is-closed .panel {
+  display: none;
+}
+
+.m-layer-tools .panel h1 {
+  font-size: 16px;
+  margin: 0 0 10px 0;
+  float: left;
+}
+
+.m-layer-tools .panel button {
+  float: right;
+  background:none;
+  padding:0;
+}
+
+.m-layer-tools .panel button span {
+  display:none;
+}
+
+.m-layer-tools .panel button:after {
+  content: "\f00d";
+  font: normal normal normal 12px/1 FontAwesome;
+  color:$link-color;
+}
+
+.m-layer-tools .panel a {
+  float:right;
+}
+
+.m-layer-tools .layer {
+  clear: both;
+  margin: 5px 0;
+}
+
+.m-layer-tools .layer .dragger:after {
+  content: "\f0c9";
+  font: normal normal normal 12px/1 FontAwesome;
+  opacity: 0.5;
+  margin-right: 5px;
+}
+
+.m-layer-tools .dragger {
+  display: inline-block;
+}
+
+.m-layer-tools .name {
+  display: inline-block;
+  min-width:200px;
+  min-width: 130px;
+}
+
+.m-layer-tools .slider {
+  width: 100px;
+  display: inline-block;
+  position: relative;
+  top:-5px;
+}
+
+.m-layer-tools .slider:before {
+  content: "";
+  width: 100px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-bottom: 2px solid #333;
+}
+
+.m-layer-tools .slider .handle {
+  background: #333;
+  border-radius: 100px;
+  position: absolute;
+  top: -4px;
+  left: 45%;
+  width: 12px;
+  height:12px;
+}

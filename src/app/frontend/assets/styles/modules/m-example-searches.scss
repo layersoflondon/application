@@ -1,0 +1,61 @@
+// Example searches
+
+.m-example-searches {
+  clear: both;
+}
+
+.m-example-searches h2 {
+  @include caps-subtitle;
+}
+
+.m-example-searches .example-search {
+  margin-bottom: 20px;
+  position:relative;
+
+}
+
+.m-example-searches .example-search a {
+  color: inherit;
+  display: block;
+  background: #e6e5e5;
+  transition: all .2s;
+}
+
+.m-example-searches .example-search a:hover {
+  background: darken(#e6e5e5, 10%);
+  color: lighten(#222, 10%);
+}
+
+.m-example-searches .example-search .image {
+  width: 30%;
+  padding-bottom: 20%;
+  float: right;
+
+  width: 30%;
+  padding-bottom: 20%;
+  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.m-example-searches .example-search .text-content {
+  padding: 10px;
+  @include top-and-tail;
+  margin-right: 30%;
+}
+
+.m-example-searches .example-search h3 {
+  font-size: 26px;
+  margin-top: 0;
+  margin-bottom: 6px;
+  clear: left;
+}
+
+.m-example-searches .example-search .details {
+  font-size: 16px;
+  margin-top: 3px !important;
+  margin-bottom: 6px;
+  clear: left;
+}

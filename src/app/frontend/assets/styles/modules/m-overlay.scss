@@ -1,0 +1,40 @@
+// Overlay
+
+.m-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  z-index: 1000;
+  overflow: scroll;
+  display:none;
+}
+
+.m-overlay .wrap {
+  max-width:700px;
+  margin:70px auto;
+  color:white;
+  @include clearfix;
+}
+
+.m-overlay.is-showing {
+  display:block;
+}
+
+.m-overlay .close {
+  display:block;
+}
+
+.m-overlay .close button {
+  @include icon-button;
+}
+
+.m-overlay .close {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.m-overlay .close button:before {
+  content: "\f00d";
+}

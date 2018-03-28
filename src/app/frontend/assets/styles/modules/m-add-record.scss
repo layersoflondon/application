@@ -1,0 +1,54 @@
+// Add record
+
+.m-add-record .wrap {
+  background: white;
+  color: #333;
+  padding: 40px;
+  max-width: 900px;
+  margin-top: 50px;
+}
+
+.m-add-record .wrap h1 {
+  margin-top: 0;
+}
+
+.m-add-record .form-group--date {
+  width: 300px;
+  float: right;
+}
+
+.m-add-record .form-group--date input {
+  width: 96px;
+  display: inline-block;
+}
+
+.m-add-record .form-group--title {
+  width: calc(100% - 300px);
+  display: inline-block;
+  padding-right: 30px;
+}
+
+.m-add-record button.delete {
+  display: none;
+
+}
+
+.m-add-record.is-edit-mode button.delete {
+  display: inline-block;
+}
+
+
+.m-add-record .form-group--date .helper-text {
+  font-size:14px;
+  padding-top: 6px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.m-add-record .end-date-link {
+  font-size:14px;
+}
+
+.m-add-record .end-date {
+  display:none;
+}
