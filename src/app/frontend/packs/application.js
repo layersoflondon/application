@@ -9,9 +9,20 @@
 
 import React,{Component} from 'react'
 import ReactDOM from 'react-dom'
-
 import Record from '../sources/record';
-console.log(Record.all());
+
+Record.all().then((response)=>{
+  console.log("Request succeeded: \n\n")
+  console.log("Response", response);
+  console.log("Response status", response.status);
+  console.log("Response statusText", response.statusText);
+  console.log("Response data", response.data); // the record objects
+  // console.log(response.headers);
+  // console.log(response.request);
+  // console.log(response.config);
+}).catch((error) => {
+  console.log("Request error: ", error);
+});
 
 import CardStore from '../stores/card_store';
 import MapViewStore from '../stores/map_view_store';
