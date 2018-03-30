@@ -113,7 +113,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"collection\" : {\n\t\t\"title\" : \"test\",\n\t\t\"description\" : \"test description\",\n\t\t\"read_state\" : \"public_read\",\n\t\t\"write_state\" : \"everyone\"\n\t}\n}"
+							"raw": "{\n  \"collection\" : {\n    \"title\" : \"test\",\n    \"description\" : \"test description\",\n    \"read_state\" : \"public_read\",\n    \"write_state\" : \"everyone\"\n  }\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}{{domain}}:{{port}}/collections",
@@ -177,7 +177,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"collection\" : {\n\t\t\"title\" : \"test\",\n\t\t\"description\" : \"test description\",\n\t\t\"read_state\" : \"public_read\",\n\t\t\"write_state\" : \"everyone\"\n\t}\n}"
+							"raw": "{\n  \"collection\" : {\n    \"title\" : \"test\",\n    \"description\" : \"test description\",\n    \"read_state\" : \"public_read\",\n    \"write_state\" : \"everyone\"\n  }\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}{{domain}}:{{port}}/collections/1",
@@ -407,7 +407,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\" : 1\n}"
+							"raw": "{\n  \"id\" : 1\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/collections/1/records",
@@ -428,6 +428,21 @@
 				{
 					"name": "Delete Collection Record",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -512,7 +527,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"record\" : {\n\t\t\"title\" : \"record title\",\n\t\t\"description\" : \"record description\",\n\t\t\"state\" : \"published\",\n\t\t\"lat\" : 15,\n\t\t\"lng\" : 20,\n\t\t\"date\" : \"2017-01-01\"\n\t}\n}"
+							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title\",\n    \"description\" : \"record description\",\n    \"state\" : \"published\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\"\n  }\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/records",
@@ -579,7 +594,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"record\" : {\n\t\t\"title\" : \"record title update\",\n\t\t\"description\" : \"record description update\",\n\t\t\"state\" : \"published\",\n\t\t\"lat\" : 15,\n\t\t\"lng\" : 20,\n\t\t\"date\" : \"2017-01-01\"\n\t}\n}"
+							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title update\",\n    \"description\" : \"record description update\",\n    \"state\" : \"published\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\"\n  }\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/records/1",
@@ -733,6 +748,7 @@
 								{
 									"key": "file",
 									"type": "file",
+									"value": "",
 									"disabled": true
 								}
 							]
@@ -986,7 +1002,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"team\" : {\n\t\t\"name\" : \"test\",\n\t\t\"description\" : \"test description\"\n\t}\n}"
+							"raw": "{\n  \"team\" : {\n    \"name\" : \"test\",\n    \"description\" : \"test description\"\n  }\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/teams",
@@ -1068,7 +1084,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"team\" : {\n\t\t\"name\" : \"test update\",\n\t\t\"description\" : \"test description update\"\n\t}\n}"
+							"raw": "{\n  \"team\" : {\n    \"name\" : \"test update\",\n    \"description\" : \"test description update\"\n  }\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/teams/6",
