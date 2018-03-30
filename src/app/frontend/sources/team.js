@@ -1,8 +1,8 @@
 import LoLHTTPBase from './lol_http_base';
 import axios from 'axios';
 
-export default class Record extends LoLHTTPBase {
-  static resource_path = '/records';
+export default class Team extends LoLHTTPBase {
+  static resource_path = '/teams';
 
   static post(params) {
       console.log(`CREATE: ${this.resource_path}\n\n`);
