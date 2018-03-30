@@ -24,7 +24,7 @@ class RecordPolicy < ApplicationPolicy
   end
 
   def destroy?
-    update?
+    create?
   end
 
   class Scope < Scope
