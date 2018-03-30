@@ -10,19 +10,164 @@
 import React,{Component} from 'react'
 import ReactDOM from 'react-dom'
 import Record from '../sources/record';
+import Collection from '../sources/collection';
+import CollectionRecords from '../sources/collection_records';
+import Team from '../sources/team';
+import TeamUsers from '../sources/team_users';
 
-Record.all().then((response)=>{
-  console.log("Request succeeded: \n\n")
-  console.log("Response", response);
-  console.log("Response status", response.status);
-  console.log("Response statusText", response.statusText);
-  console.log("Response data", response.data); // the record objects
-  // console.log(response.headers);
-  // console.log(response.request);
-  // console.log(response.config);
-}).catch((error) => {
-  console.log("Request error: ", error);
-});
+function eatest(response, status, id = null){
+    if (response.status != status) {
+        console.log("Expected", status, ' got:' , response.status);
+    }
+}
+// ####################################################
+// RECORD #############################################
+// ####################################################
+Record.all()
+    .then((response)=>{ eatest(response, 200);})
+    .catch((error) => {console.log("Request error: ", error);});
+Record.post(
+    {
+        "record" : {
+            "title" : "record title",
+            "description" : "record description",
+            "state" : "published",
+            "lat" : 15,
+            "lng" : 20,
+            "date" : "2017-01-01"
+        }
+    }
+).then((response)=>{
+    eatest(response, 200);
+    Record.find(response.data.id)
+        .then((response)=>{eatest(response, 200);})
+        .catch((error) => {console.log("Request error: ", error);});
+    Record.put(response.data.id,
+            {
+                "record" : {
+                    "title" : "record title update",
+                    "description" : "record description update",
+                    "state" : "published",
+                    "lat" : 15,
+                    "lng" : 20,
+                    "date" : "2017-01-01"
+                }
+            }
+        )
+        .then((response)=>{eatest(response, 200);})
+        .catch((error) => {console.log("Request error: ", error);
+    });
+    Record.destroy(response.data.id)
+        .then((response)=>{eatest(response, 204);})
+        .catch((error) => {console.log("Request error: ", error);
+    });
+}).catch((error) => {console.log("Request error: ", error);});
+// // ####################################################
+// // COLLECTION #########################################
+// // ####################################################
+Collection.all()
+    .then((response)=>{ eatest(response, 200);})
+    .catch((error) => {console.log("Request error: ", error);});
+Collection.post(
+    {
+        "collection" : {
+            "title" : "test",
+            "description" : "test description",
+            "read_state" : "public_read",
+            "write_state" : "everyone"
+        }
+    }
+).then((response)=>{
+    eatest(response, 200);
+    Collection.find(response.data.id)
+        .then((response)=>{eatest(response, 200);})
+        .catch((error) => {console.log("Request error: ", error);});
+    Collection.put(response.data.id,
+        {
+            "collection" : {
+                "title" : "test",
+                "description" : "test description",
+                "read_state" : "public_read",
+                "write_state" : "everyone"
+            }
+        }
+    )
+        .then((response)=>{eatest(response, 200);})
+        .catch((error) => {console.log("Request error: ", error);});
+    Collection.destroy(response.data.id)
+        .then((response)=>{eatest(response, 204);})
+        .catch((error) => {console.log("Request error: ", error);});
+}).catch((error) => {console.log("Request error: ", error);});
+// ####################################################
+// COLLECTION RECORD ##################################
+// ####################################################
+var collection_id = 1;
+CollectionRecords.all(collection_id)
+    .then((response)=>{ eatest(response, 200);})
+    .catch((error) => {console.log("Request error: ", error);});
+CollectionRecords.post(collection_id,
+    {
+        "id" : 1
+    }
+).then((response)=>{
+    eatest(response, 200);
+    CollectionRecords.destroy(collection_id, response.data[0].id)
+        .then((response)=>{eatest(response, 204);})
+        .catch((error) => {console.log("Request error: ", error);});
+}).catch((error) => {console.log("Request error: ", error);});
+// ####################################################
+// TEAM ###############################################
+// ####################################################
+Team.all()
+    .then((response)=>{ eatest(response, 200);})
+    .catch((error) => {console.log("Request error: ", error);});
+Team.post(
+    {
+        "team" : {
+            "name" : "test",
+            "description" : "test description"
+        }
+    }
+).then((response)=>{
+    eatest(response, 200);
+    Team.find(response.data.id)
+        .then((response)=>{eatest(response, 200);})
+        .catch((error) => {console.log("Request error: ", error);});
+    Team.put(response.data.id,
+            {
+                "team" : {
+                    "name" : "test",
+                    "description" : "test description"
+                }
+            }
+        )
+        .then((response)=>{eatest(response, 200);})
+        .catch((error) => {console.log("Request error: ", error);
+    });
+    Team.destroy(response.data.id)
+        .then((response)=>{eatest(response, 204);})
+        .catch((error) => {console.log("Request error: ", error);
+    });
+}).catch((error) => {console.log("Request error: ", error);});
+// ####################################################
+// TEAM USERS #########################################
+// ####################################################
+var team_id = 1;
+TeamUsers.all(team_id)
+    .then((response)=>{ eatest(response, 200);})
+    .catch((error) => {console.log("Request error: ", error);});
+TeamUsers.post(team_id,
+    {
+        "id" : 2
+    }
+).then((response)=>{
+    eatest(response, 200);
+    TeamUsers.destroy(team_id, response.data[response.data.length - 1].id)
+        .then((response)=>{eatest(response, 204);})
+        .catch((error) => {console.log("Request error: ", error.response.body);});
+}).catch((error) => {console.log("Request error: ", error);});
+
+
 
 import CardStore from '../stores/card_store';
 import MapViewStore from '../stores/map_view_store';
