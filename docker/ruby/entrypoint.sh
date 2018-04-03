@@ -1,5 +1,7 @@
 #!/bin/sh
 
-# migrate db if necessary
-rails db:migrate
+# install yarn dependencies
+yarn install
+# migrate db if necessary 
+rails db:migrate # TODO: check whether mysql service is already running
 bundle exec rails s -p 3000 -b '0.0.0.0' -e development

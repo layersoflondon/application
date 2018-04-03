@@ -1,5 +1,5 @@
 # Use oficial Ruby 2.5
-FROM ruby:2.5
+FROM ruby:2.5.1
 # Install dependencies:
 # - build-essential: To ensure certain gems can be compiled
 # - nodejs for a JS runtime
@@ -38,5 +38,3 @@ WORKDIR $HOME/lol
 USER app
 # Install ruby gem dependencies
 RUN bundle install
-# Install yarn dependencies
-RUN yarn install
