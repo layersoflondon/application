@@ -3,22 +3,40 @@ import axios from 'axios';
 axios.defaults.headers.delete['auth'] = {username: 'test@error.agency', password: '123456'};
 
 export default class LoLHTTPBase {
-  static all() {
-    console.log(`INDEX: ${this.resource_path}\n\n`);
+
+  static setResourcePath(resource_id, id, method){
+
+      if (resource_id) {
+          this.resourceIdPath(resource_id);
+      }
+      if (id) {
+          this.resource_path = this.path + `/${id}`;
+      }
+      console.log(`${method}: ${this.resource_path}\n\n`);
+  }
+
+  static index(resource_id, id) {
+    this.setResourcePath(resource_id, id, 'INDEX');
     return axios.get(`${this.resource_path}`);
   }
 
-  static find(id) {
-    console.log(`SHOW ${this.resource_path}/${id}\n\n`);
-    return axios.get(`${this.resource_path}/${id}`);
+  static create(resource_id, params) {
+    this.setResourcePath(resource_id, null, 'CREATE');
+    return axios.post(`${this.resource_path}`, params);
   }
 
-  static where(params) {
-    console.log(`GET ${this.resource_path}\n\n`);
+  static show(resource_id, id) {
+    this.setResourcePath(resource_id, id, 'SHOW');
+    return axios.get(`${this.resource_path}`);
   }
 
-  static destroy(id) {
-    console.log(`DESTROY ${this.resource_path}/${id}\n\n`);
-    return axios.delete(`${this.resource_path}/${id}`);
+  static update(resource_id, id, params) {
+    this.setResourcePath(resource_id, id, 'UPDATE');
+    return axios.put(`${this.resource_path}`, params);
+  }
+
+  static destroy(resource_id, id) {
+    this.setResourcePath(resource_id, id, 'DELETE');
+    return axios.delete(`${this.resource_path}`);
   }
 }

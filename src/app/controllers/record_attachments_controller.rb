@@ -12,7 +12,7 @@ class RecordAttachmentsController < ApplicationController
     authorize(@record)
     @attachment = @record.attachments.build(attachment_params)
     @attachment.file.attach(params[:file]) if params[:file]
-    return @attachment if @attachment.save
+    return @attachments = @record.attachments if @attachment.save
     render json: @attachment.errors.full_messages, status: :unprocessable_entity
   end
 
@@ -52,9 +52,12 @@ class RecordAttachmentsController < ApplicationController
 
   def attachment_params
     params.permit(:attachment_type,
+                  :record_id,
+                  :record_attachment,
                   attachable_attributes: %i[
                     title
-                    caption
+                    caption,
+                    description,
                     credit
                     url
                   ])
