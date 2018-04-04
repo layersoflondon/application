@@ -7,7 +7,7 @@ Rails.application.routes.draw do
                unlocks: 'users/unlocks',
                passwords: 'users/passwords',
                registrations: 'users/registrations'
-             }, skip: [:invitations] #TODO do we need the invitation routes or are we creating the invitations manually in the controller?
+             }, skip: [:invitations] # TODO do we need the invitation routes or are we creating the invitations manually in the controller?
   resources :records, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]
   end

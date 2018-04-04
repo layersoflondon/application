@@ -1,11 +1,17 @@
 class RecordAttachmentsController < ApplicationController
   before_action :set_record, only: %i[index create show update destroy]
   before_action :set_record_attachment, only: %i[show update destroy]
-  skip_before_action :authenticate_user!, only: %i[index show]
-  skip_after_action :verify_authorized, only: %i[index show]
+  # TODO: remove new action here when finish testing uploads
+  skip_before_action :authenticate_user!, only: %i[index show new]
+  skip_after_action :verify_authorized, only: %i[index show new]
 
   def index
     @attachments = @record.attachments
+  end
+
+  # TODO: remove this when we finish testing uploads
+  def new
+    @attachment = Attachments::Dataset.new
   end
 
   def create

@@ -21,176 +21,197 @@ function eatest(response, status, id = null){
         console.log("Expected", status, ' got:' , response.status);
     }
 }
-// ####################################################
-// RECORD #############################################
-// ####################################################
-Record.index()
-    .then((response)=>{ eatest(response, 200);})
-    .catch((error) => {console.log("Request error: ", error);});
-Record.create(null,
-    {
-        "record" : {
-            "title" : "record title",
-            "description" : "record description",
-            "state" : "published",
-            "lat" : 15,
-            "lng" : 20,
-            "date" : "2017-01-01"
-        }
-    }
-).then((response)=>{
-    eatest(response, 200);
-    Record.show(null, response.data.id)
-        .then((response)=>{eatest(response, 200);})
-        .catch((error) => {console.log("Request error: ", error);});
-    Record.update(null, response.data.id,
-            {
-                "record" : {
-                    "title" : "record title update",
-                    "description" : "record description update",
-                    "state" : "published",
-                    "lat" : 15,
-                    "lng" : 20,
-                    "date" : "2017-01-01"
-                }
-            }
-        )
-        .then((response)=>{eatest(response, 200);})
-        .catch((error) => {console.log("Request error: ", error);
-    });
-    Record.destroy(null, response.data.id)
-        .then((response)=>{eatest(response, 204);})
-        .catch((error) => {console.log("Request error: ", error);
-    });
-}).catch((error) => {console.log("Request error: ", error);});
-// ####################################################
-// COLLECTION #########################################
-// ####################################################
-Collection.index()
-    .then((response)=>{ eatest(response, 200);})
-    .catch((error) => {console.log("Request error: ", error);});
-Collection.create(null,
-    {
-        "collection" : {
-            "title" : "test",
-            "description" : "test description",
-            "read_state" : "public_read",
-            "write_state" : "everyone"
-        }
-    }
-).then((response)=>{
-    eatest(response, 200);
-    Collection.show(null, response.data.id)
-        .then((response)=>{eatest(response, 200);})
-        .catch((error) => {console.log("Request error: ", error);});
-    Collection.update(null, response.data.id,
-        {
-            "collection" : {
-                "title" : "test",
-                "description" : "test description",
-                "read_state" : "public_read",
-                "write_state" : "everyone"
-            }
-        }
-    )
-        .then((response)=>{eatest(response, 200);})
-        .catch((error) => {console.log("Request error: ", error);});
-    Collection.destroy(null, response.data.id)
-        .then((response)=>{eatest(response, 204);})
-        .catch((error) => {console.log("Request error: ", error);});
-}).catch((error) => {console.log("Request error: ", error);});
-// ####################################################
-// COLLECTION RECORD ##################################
-// ####################################################
-var collection_id = 1;
-CollectionRecords.index(collection_id)
-    .then((response)=>{ eatest(response, 200);})
-    .catch((error) => {console.log("Request error: ", error);});
-CollectionRecords.create(collection_id,
-    {
-        "id" : 1
-    }
-).then((response)=>{
-    eatest(response, 200);
-    CollectionRecords.destroy(collection_id, response.data[0].id)
-        .then((response)=>{eatest(response, 204);})
-        .catch((error) => {console.log("Request error: ", error);});
-}).catch((error) => {console.log("Request error: ", error);});
-// ####################################################
-// TEAM ###############################################
-// ####################################################
-Team.index()
-    .then((response)=>{ eatest(response, 200);})
-    .catch((error) => {console.log("Request error: ", error);});
-Team.create(
-    null,
-    {
-        "team" : {
-            "name" : "test",
-            "description" : "test description"
-        }
-    }
-).then((response)=>{
-    eatest(response, 200);
-    Team.show(null, response.data.id)
-        .then((response)=>{eatest(response, 200);})
-        .catch((error) => {console.log("Request error: ", error);});
-    Team.update(null, response.data.id,
-            {
-                "team" : {
-                    "name" : "test",
-                    "description" : "test description"
-                }
-            }
-        )
-        .then((response)=>{eatest(response, 200);})
-        .catch((error) => {console.log("Request error: ", error);
-    });
-    Team.destroy(null, response.data.id)
-        .then((response)=>{eatest(response, 204);})
-        .catch((error) => {console.log("Request error: ", error);
-    });
-}).catch((error) => {console.log("Request error: ", error);});
-// ####################################################
-// TEAM USERS #########################################
-// ####################################################
-var team_id = 1;
-TeamUsers.index(team_id)
-    .then((response)=>{ eatest(response, 200);})
-    .catch((error) => {console.log("Request error: ", error);});
-TeamUsers.create(team_id,
-    {
-        "id" : 2
-    }
-).then((response)=>{
-    eatest(response, 200);
-    TeamUsers.destroy(team_id, response.data[response.data.length - 1].id)
-        .then((response)=>{eatest(response, 204);})
-        .catch((error) => {console.log("Request error: ", error.response.body);});
-}).catch((error) => {console.log("Request error: ", error);});
-// ####################################################
-// RECORD ATTACHMENTS #################################
-// ####################################################
-var record_id = 1;
-RecordAttachments.index(record_id)
-    .then((response)=>{ eatest(response, 200);})
-    .catch((error) => {console.log("Request error: ", error);});
-RecordAttachments.create(record_id,
-    {
-        "attachment_type" : "url",
-        "attachable_attributes" : {
-            "title" : "title",
-            "caption" : "caption",
-            "description" : "description",
-            "url" : "http://localhost:3000/records/1/attachments",
-        }
-    }
-).then((response)=>{
-    eatest(response, 200);
-    RecordAttachments.destroy(record_id, response.data[response.data.length - 1].id)
-        .then((response)=>{eatest(response, 204);})
-        .catch((error) => {console.log("Request error: ", error.response.body);});
-}).catch((error) => {console.log("Request error: ", error);});
+// // ####################################################
+// // RECORD #############################################
+// // ####################################################
+// Record.index()
+//     .then((response)=>{ eatest(response, 200);})
+//     .catch((error) => {console.log("Request error: ", error);});
+// Record.create(null,
+//     {
+//         "record" : {
+//             "title" : "record title",
+//             "description" : "record description",
+//             "state" : "published",
+//             "lat" : 15,
+//             "lng" : 20,
+//             "date" : "2017-01-01"
+//         }
+//     }
+// ).then((response)=>{
+//     eatest(response, 200);
+//     Record.show(null, response.data.id)
+//         .then((response)=>{eatest(response, 200);})
+//         .catch((error) => {console.log("Request error: ", error);});
+//     Record.update(null, response.data.id,
+//             {
+//                 "record" : {
+//                     "title" : "record title update",
+//                     "description" : "record description update",
+//                     "state" : "published",
+//                     "lat" : 15,
+//                     "lng" : 20,
+//                     "date" : "2017-01-01"
+//                 }
+//             }
+//         )
+//         .then((response)=>{eatest(response, 200);})
+//         .catch((error) => {console.log("Request error: ", error);
+//     });
+//     Record.destroy(null, response.data.id)
+//         .then((response)=>{eatest(response, 204);})
+//         .catch((error) => {console.log("Request error: ", error);
+//     });
+// }).catch((error) => {console.log("Request error: ", error);});
+// // ####################################################
+// // COLLECTION #########################################
+// // ####################################################
+// Collection.index()
+//     .then((response)=>{ eatest(response, 200);})
+//     .catch((error) => {console.log("Request error: ", error);});
+// Collection.create(null,
+//     {
+//         "collection" : {
+//             "title" : "test",
+//             "description" : "test description",
+//             "read_state" : "public_read",
+//             "write_state" : "everyone"
+//         }
+//     }
+// ).then((response)=>{
+//     eatest(response, 200);
+//     Collection.show(null, response.data.id)
+//         .then((response)=>{eatest(response, 200);})
+//         .catch((error) => {console.log("Request error: ", error);});
+//     Collection.update(null, response.data.id,
+//         {
+//             "collection" : {
+//                 "title" : "test",
+//                 "description" : "test description",
+//                 "read_state" : "public_read",
+//                 "write_state" : "everyone"
+//             }
+//         }
+//     )
+//         .then((response)=>{eatest(response, 200);})
+//         .catch((error) => {console.log("Request error: ", error);});
+//     Collection.destroy(null, response.data.id)
+//         .then((response)=>{eatest(response, 204);})
+//         .catch((error) => {console.log("Request error: ", error);});
+// }).catch((error) => {console.log("Request error: ", error);});
+// // ####################################################
+// // COLLECTION RECORD ##################################
+// // ####################################################
+// var collection_id = 1;
+// CollectionRecords.index(collection_id)
+//     .then((response)=>{ eatest(response, 200);})
+//     .catch((error) => {console.log("Request error: ", error);});
+// CollectionRecords.create(collection_id,
+//     {
+//         "id" : 1
+//     }
+// ).then((response)=>{
+//     eatest(response, 200);
+//     CollectionRecords.destroy(collection_id, response.data[0].id)
+//         .then((response)=>{eatest(response, 204);})
+//         .catch((error) => {console.log("Request error: ", error);});
+// }).catch((error) => {console.log("Request error: ", error);});
+// // ####################################################
+// // TEAM ###############################################
+// // ####################################################
+// Team.index()
+//     .then((response)=>{ eatest(response, 200);})
+//     .catch((error) => {console.log("Request error: ", error);});
+// Team.create(
+//     null,
+//     {
+//         "team" : {
+//             "name" : "test",
+//             "description" : "test description"
+//         }
+//     }
+// ).then((response)=>{
+//     eatest(response, 200);
+//     Team.show(null, response.data.id)
+//         .then((response)=>{eatest(response, 200);})
+//         .catch((error) => {console.log("Request error: ", error);});
+//     Team.update(null, response.data.id,
+//             {
+//                 "team" : {
+//                     "name" : "test",
+//                     "description" : "test description"
+//                 }
+//             }
+//         )
+//         .then((response)=>{eatest(response, 200);})
+//         .catch((error) => {console.log("Request error: ", error);
+//     });
+//     Team.destroy(null, response.data.id)
+//         .then((response)=>{eatest(response, 204);})
+//         .catch((error) => {console.log("Request error: ", error);
+//     });
+// }).catch((error) => {console.log("Request error: ", error);});
+// // ####################################################
+// // TEAM USERS #########################################
+// // ####################################################
+// var team_id = 1;
+// TeamUsers.index(team_id)
+//     .then((response)=>{ eatest(response, 200);})
+//     .catch((error) => {console.log("Request error: ", error);});
+// TeamUsers.create(team_id,
+//     {
+//         "id" : 2
+//     }
+// ).then((response)=>{
+//     eatest(response, 200);
+//     TeamUsers.destroy(team_id, response.data[response.data.length - 1].id)
+//         .then((response)=>{eatest(response, 204);})
+//         .catch((error) => {console.log("Request error: ", error.response.body);});
+// }).catch((error) => {console.log("Request error: ", error);});
+// // ####################################################
+// // RECORD ATTACHMENTS #################################
+// // ####################################################
+// var record_id = 1;
+// RecordAttachments.index(record_id)
+//     .then((response)=>{ eatest(response, 200);})
+//     .catch((error) => {console.log("Request error: ", error);});
+// RecordAttachments.create(record_id,
+//     {
+//         "attachment_type" : "url",
+//         "attachable_attributes" : {
+//             "title" : "title",
+//             "caption" : "caption",
+//             "description" : "description",
+//             "url" : "http://localhost:3000/records/1/attachments",
+//         }
+//     }
+// ).then((response)=>{
+//     eatest(response, 200);
+//     RecordAttachments.destroy(record_id, response.data[response.data.length - 1].id)
+//         .then((response)=>{eatest(response, 204);})
+//         .catch((error) => {console.log("Request error: ", error.response.body);});
+// }).catch((error) => {console.log("Request error: ", error);});
+// to test following snippet we should remove the default format of the route -defaults: {format: :json}- and
+// add upload new file via form in http://localhost:3000/records/1/attachments/new and add new action
+// document.addEventListener('DOMContentLoaded', () => {
+//     var output = document.getElementById('output');
+//     document.getElementById('upload').onclick = function () {
+//         var data = new FormData();
+//         data.append('attachable_attributes[title]', 'title');
+//         data.append('attachable_attributes[caption]', 'caption');
+//         data.append('attachable_attributes[credit]', 'credit');
+//         data.append('attachable_attributes[description]', 'description');
+//         data.append('attachment_type', 'dataset');
+//         data.append('file', document.getElementById('file').files[0]);
+//         RecordAttachments.create(1, data).then((response)=>{
+//             eatest(response, 200);
+//             RecordAttachments.destroy(record_id, response.data[response.data.length - 1].id)
+//                 .then((response)=>{eatest(response, 204);})
+//                 .catch((error) => {console.log("Request error: ", error.response.body);});
+//         }).catch((error) => {console.log("Request error: ", error);});
+//     };
+// });
+
 
 
 import CardStore from '../stores/card_store';
@@ -239,3 +260,4 @@ trayViewStore.cardStore = cardStore;
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render( <Main trayViewStore={trayViewStore} />, document.getElementById("map-root") );
 });
+
