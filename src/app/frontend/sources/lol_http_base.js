@@ -1,6 +1,32 @@
 import axios from 'axios';
 
-axios.defaults.headers.delete['auth'] = {username: 'test@error.agency', password: '123456'};
+// axios.defaults.headers.delete['auth'] = {username: 'test@error.agency', password: '123456'};
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+}
+console.log(getCookie('_layers_app_session'));
+
+// console.log(document.head.querySelector("[name=csrf-param]").content);
+// console.log(document.head.querySelector("[name=csrf-token]").content);
+axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector("[name=csrf-token]").content;
+axios.post('/collections',
+    {
+        "collection" : {
+            "title" : "test",
+            "description" : "test description",
+            "read_state" : "public_read",
+            "write_state" : "everyone"
+        }
+    },
+    {
+    headers: {
+        Cookie: document.cookie
+    }
+});
+
+
 
 export default class LoLHTTPBase {
 
