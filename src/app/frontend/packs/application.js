@@ -27,42 +27,42 @@ function eatest(response, status, id = null){
 // Record.index()
 //     .then((response)=>{ eatest(response, 200);})
 //     .catch((error) => {console.log("Request error: ", error);});
-// Record.create(null,
-//     {
-//         "record" : {
-//             "title" : "record title",
-//             "description" : "record description",
-//             "state" : "published",
-//             "lat" : 15,
-//             "lng" : 20,
-//             "date" : "2017-01-01"
-//         }
-//     }
-// ).then((response)=>{
-//     eatest(response, 200);
-//     Record.show(null, response.data.id)
-//         .then((response)=>{eatest(response, 200);})
-//         .catch((error) => {console.log("Request error: ", error);});
-//     Record.update(null, response.data.id,
-//             {
-//                 "record" : {
-//                     "title" : "record title update",
-//                     "description" : "record description update",
-//                     "state" : "published",
-//                     "lat" : 15,
-//                     "lng" : 20,
-//                     "date" : "2017-01-01"
-//                 }
-//             }
-//         )
-//         .then((response)=>{eatest(response, 200);})
-//         .catch((error) => {console.log("Request error: ", error);
-//     });
-//     Record.destroy(null, response.data.id)
-//         .then((response)=>{eatest(response, 204);})
-//         .catch((error) => {console.log("Request error: ", error);
-//     });
-// }).catch((error) => {console.log("Request error: ", error);});
+Record.create(null,
+    {
+        "record" : {
+            "title" : "record title",
+            "description" : "record description",
+            "state" : "published",
+            "lat" : 15,
+            "lng" : 20,
+            "date" : "2017-01-01"
+        }
+    }
+).then((response)=>{
+    eatest(response, 200);
+    // Record.show(null, response.data.id)
+    //     .then((response)=>{eatest(response, 200);})
+    //     .catch((error) => {console.log("Request error: ", error);});
+    Record.update(null, response.data.id,
+            {
+                "record" : {
+                    "title" : "record title update",
+                    "description" : "record description update",
+                    "state" : "published",
+                    "lat" : 15,
+                    "lng" : 20,
+                    "date" : "2017-01-01"
+                }
+            }
+        )
+        .then((response)=>{eatest(response, 200);})
+        .catch((error) => {console.log("Request error: ", error);
+    });
+    // Record.destroy(null, response.data.id)
+    //     .then((response)=>{eatest(response, 204);})
+    //     .catch((error) => {console.log("Request error: ", error);
+    // });
+}).catch((error) => {console.log("Request error: ", error);});
 // // ####################################################
 // // COLLECTION #########################################
 // // ####################################################

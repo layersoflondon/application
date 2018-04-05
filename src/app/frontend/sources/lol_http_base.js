@@ -19,12 +19,8 @@ axios.post('/collections',
             "read_state" : "public_read",
             "write_state" : "everyone"
         }
-    },
-    {
-    headers: {
-        Cookie: document.cookie
     }
-});
+);
 
 
 

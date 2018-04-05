@@ -29,11 +29,11 @@ services:
       - /entrypoint.sh
     depends_on:
       - mysql
-    healthcheck:
-      test: ['CMD', 'curl', 'http://localhost:3000']
-      interval: 20s
-      timeout: 40s
-      retries: 2
+#    healthcheck:
+#      test: ['CMD', 'curl', 'http://localhost:3000']
+#      interval: 20s
+#      timeout: 40s
+#      retries: 2
     labels:
       - maintainer='jordi@error.agency'
   mysql:
