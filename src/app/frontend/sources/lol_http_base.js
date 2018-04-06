@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+axios.defaults.headers.delete['auth'] = {username: 'test@error.agency', password: '123456'};
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector("[name=csrf-token]").content;
 
 export default class LoLHTTPBase {
