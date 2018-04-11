@@ -9,7 +9,7 @@ class TeamUserPolicy < ApplicationPolicy
   end
 
   def destroy?
-    create?
+    user.present? && record.user_id == user.id
   end
 
   class Scope < Scope

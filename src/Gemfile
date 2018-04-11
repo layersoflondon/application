@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.0'
+ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0.rc1'
@@ -21,7 +21,7 @@ gem 'webpacker'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -42,11 +42,11 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'awesome_print'
-  gem 'debase'
+  # gem 'debase'
   gem 'faker'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rubocop'
-  gem 'ruby-debug-ide'
+  # gem 'ruby-debug-ide'
   gem 'web-console', '>= 3.3.0'
 end
 
@@ -65,4 +65,9 @@ gem 'devise'
 gem 'devise_invitable'
 
 gem 'pundit'
+
+gem 'rooftop-rails'
+gem 'rooftop-rails-extras'
+
+gem 'draper'
 

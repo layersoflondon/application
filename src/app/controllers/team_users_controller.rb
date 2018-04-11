@@ -12,6 +12,7 @@ class TeamUsersController < ApplicationController
     team_user = @team.team_users.find_by(user_id: current_user.id)
     authorize(team_user)
     @team.users << @user unless @team.users.exists?(@user.id)
+    @users = @team.users
   end
 
   def destroy

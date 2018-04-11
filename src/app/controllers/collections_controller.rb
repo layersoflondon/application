@@ -9,6 +9,7 @@ class CollectionsController < ApplicationController
   end
 
   def create
+    Rails.logger.debug("*** #{current_user} ***")
     @collection = Collection.new(collection_params)
     authorize(@collection)
     return @collection if @collection.save

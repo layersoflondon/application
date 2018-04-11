@@ -1,18 +1,24 @@
 class RecordAttachmentsController < ApplicationController
   before_action :set_record, only: %i[index create show update destroy]
   before_action :set_record_attachment, only: %i[show update destroy]
-  skip_before_action :authenticate_user!, only: %i[index show]
-  skip_after_action :verify_authorized, only: %i[index show]
+  # TODO: remove new action here when finish testing uploads
+  skip_before_action :authenticate_user!, only: %i[index show new]
+  skip_after_action :verify_authorized, only: %i[index show new]
 
   def index
     @attachments = @record.attachments
+  end
+
+  # TODO: remove this when we finish testing uploads
+  def new
+    @attachment = Attachments::Dataset.new
   end
 
   def create
     authorize(@record)
     @attachment = @record.attachments.build(attachment_params)
     @attachment.file.attach(params[:file]) if params[:file]
-    return @attachment if @attachment.save
+    return @attachments = @record.attachments if @attachment.save
     render json: @attachment.errors.full_messages, status: :unprocessable_entity
   end
 
@@ -52,9 +58,12 @@ class RecordAttachmentsController < ApplicationController
 
   def attachment_params
     params.permit(:attachment_type,
+                  :record_id,
+                  :record_attachment,
                   attachable_attributes: %i[
                     title
-                    caption
+                    caption,
+                    description,
                     credit
                     url
                   ])

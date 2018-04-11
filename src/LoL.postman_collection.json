@@ -16,7 +16,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7b0cb856-4504-4de1-895b-f2167eb8c6b2",
+								"id": "3c561ba9-f0cd-425e-859c-330728a50e77",
 								"type": "text/javascript",
 								"exec": [
 									"// https://www.getpostman.com/docs/v6/postman/scripts/test_scripts",
@@ -25,15 +25,13 @@
 									"eval(globals.postmanBDD);",
 									"eval(globals.commonTests)();",
 									"",
-									"console.log(postman.getResponseHeader(\"Content-Type\"));",
-									"",
 									"describe('Index collections', () => {",
 									"  it('should return a valid response', () => {",
 									"    response.should.have.status(200);",
 									"    response.should.be.json;",
 									"    response.body.should.not.be.empty;",
 									"  });",
-									"});4"
+									"});"
 								]
 							}
 						}
@@ -65,7 +63,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b0bb9047-c971-40f8-bc2b-8e5bd2b8150b",
+								"id": "f0c9ff58-c232-4b30-bbed-0363f8ffa8b0",
 								"type": "text/javascript",
 								"exec": [
 									"eval(globals.postmanBDD);",
@@ -76,6 +74,7 @@
 									"    response.should.have.status(200);",
 									"    response.should.be.json;",
 									"    response.body.should.not.be.empty;",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', JSON.parse(responseBody).id);",
 									"  });",
 									"",
 									"  it('should match the collection schema', () => {",
@@ -113,7 +112,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"collection\" : {\n\t\t\"title\" : \"test\",\n\t\t\"description\" : \"test description\",\n\t\t\"read_state\" : \"public_read\",\n\t\t\"write_state\" : \"everyone\"\n\t}\n}"
+							"raw": "{\n  \"collection\" : {\n    \"title\" : \"test\",\n    \"description\" : \"test description\",\n    \"read_state\" : \"public_read\",\n    \"write_state\" : \"everyone\"\n  }\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}{{domain}}:{{port}}/collections",
@@ -130,23 +129,78 @@
 					"response": []
 				},
 				{
-					"name": "Update Collection",
+					"name": "Show Collection",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "6ce52a0e-f07f-43af-bcd5-0f08f23ebaf6",
+								"id": "839a4a8f-753a-4fc8-adeb-c55bc42ca887",
 								"type": "text/javascript",
 								"exec": [
 									"eval(globals.postmanBDD);",
 									"eval(globals.commonTests)();",
 									"",
-									"describe('Create collection', () => {",
+									"describe('Show collection', () => {",
 									"  it('should return a valid response', () => {",
 									"    response.should.have.status(200);",
 									"    response.should.be.json;",
 									"    response.body.should.not.be.empty;",
 									"  });",
+									"  ",
+									"  it('should match the collection schema', () => {",
+									"    var schema = JSON.parse(environment.collectionSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Update Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a24f1593-9e1f-4679-b3f2-29e62201de8a",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Update collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the collection schema', () => {",
+									"    var schema = JSON.parse(environment.collectionSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
 									"});"
 								]
 							}
@@ -177,62 +231,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"collection\" : {\n\t\t\"title\" : \"test\",\n\t\t\"description\" : \"test description\",\n\t\t\"read_state\" : \"public_read\",\n\t\t\"write_state\" : \"everyone\"\n\t}\n}"
+							"raw": "{\n  \"collection\" : {\n    \"title\" : \"test\",\n    \"description\" : \"test description\",\n    \"read_state\" : \"public_read\",\n    \"write_state\" : \"everyone\"\n  }\n}"
 						},
 						"url": {
-							"raw": "{{protocol}}{{domain}}:{{port}}/collections/1",
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/{{lastResourceCreatedId}}",
 							"host": [
 								"{{protocol}}{{domain}}"
 							],
 							"port": "{{port}}",
 							"path": [
 								"collections",
-								"1"
-							]
-						},
-						"description": null
-					},
-					"response": []
-				},
-				{
-					"name": "Show Collection",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "669fb802-a62a-4066-868d-d6412f4d4c6c",
-								"type": "text/javascript",
-								"exec": [
-									"eval(globals.postmanBDD);",
-									"eval(globals.commonTests)();",
-									"",
-									"describe('Create collection', () => {",
-									"  it('should return a valid response', () => {",
-									"    response.should.have.status(200);",
-									"    response.should.be.json;",
-									"    response.body.should.not.be.empty;",
-									"  });",
-									"});"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{protocol}}{{domain}}:{{port}}/collections/1",
-							"host": [
-								"{{protocol}}{{domain}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"collections",
-								"1"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -245,17 +254,14 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e94f28e7-208a-4dce-b51f-ae700949e4e5",
+								"id": "1bf3cadc-03b9-4bf7-a762-afc943fd3e8c",
 								"type": "text/javascript",
 								"exec": [
 									"eval(globals.postmanBDD);",
-									"eval(globals.commonTests)();",
 									"",
-									"describe('Create collection', () => {",
+									"describe('Delete collection', () => {",
 									"  it('should return a valid response', () => {",
 									"    response.should.have.status(204);",
-									"    response.should.be.json;",
-									"    response.body.should.not.be.empty;",
 									"  });",
 									"});"
 								]
@@ -290,14 +296,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{protocol}}{{domain}}:{{port}}/collections/6",
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/{{lastResourceCreatedId}}",
 							"host": [
 								"{{protocol}}{{domain}}"
 							],
 							"port": "{{port}}",
 							"path": [
 								"collections",
-								"6"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -316,21 +322,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5b268247-b2b9-464e-b0b1-2750111faddf",
+								"id": "dd102319-735d-4a7a-b296-138bca879dcb",
 								"type": "text/javascript",
 								"exec": [
 									"eval(globals.postmanBDD);",
 									"eval(globals.commonTests)();",
 									"",
-									"console.log(postman.getResponseHeader(\"Content-Type\"));",
-									"",
-									"describe('Index collections', () => {",
+									"describe('Index collections records', () => {",
 									"  it('should return a valid response', () => {",
 									"    response.should.have.status(200);",
 									"    response.should.be.json;",
 									"    response.body.should.not.be.empty;",
 									"  });",
-									"});4"
+									"});"
 								]
 							}
 						}
@@ -359,22 +363,24 @@
 					"response": []
 				},
 				{
-					"name": "Create Collection Records",
+					"name": "Add Record to Collection",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "4c90dc44-ab30-4afb-8ec6-c7cadecf0679",
+								"id": "e26df642-f8e1-427b-9320-98e03f60306d",
 								"type": "text/javascript",
 								"exec": [
 									"eval(globals.postmanBDD);",
 									"eval(globals.commonTests)();",
 									"",
-									"describe('Create collection', () => {",
+									"describe('add record to collection', () => {",
 									"  it('should return a valid response', () => {",
 									"    response.should.have.status(200);",
 									"    response.should.be.json;",
 									"    response.body.should.not.be.empty;",
+									"    var data = JSON.parse(responseBody);",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', data[data.length - 1].id);",
 									"  });",
 									"});",
 									""
@@ -407,7 +413,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\" : 1\n}"
+							"raw": "{\n  \"id\" : 1\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/collections/1/records",
@@ -426,8 +432,41 @@
 					"response": []
 				},
 				{
-					"name": "Delete Collection Record",
+					"name": "Delete Record from Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "276f2ba0-9c9d-4500-ae6c-d9367808ce86",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete record from collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -440,7 +479,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/collections/1/records/1",
+							"raw": "localhost:3000/collections/1/records/{{lastResourceCreatedId}}",
 							"host": [
 								"localhost"
 							],
@@ -449,7 +488,7 @@
 								"collections",
 								"1",
 								"records",
-								"1"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -464,6 +503,27 @@
 			"item": [
 				{
 					"name": "Index Records",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e8667d7-88ee-4541-9d4c-6c8bd572ff81",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Index records', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -487,6 +547,34 @@
 				},
 				{
 					"name": "Create Record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "766e9f71-c3bd-4c0d-bf10-a2303609ac72",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create record', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', JSON.parse(responseBody).id);",
+									"  });",
+									"",
+									"  it('should match the record schema', () => {",
+									"    var schema = JSON.parse(environment.recordSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -512,7 +600,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"record\" : {\n\t\t\"title\" : \"record title\",\n\t\t\"description\" : \"record description\",\n\t\t\"state\" : \"published\",\n\t\t\"lat\" : 15,\n\t\t\"lng\" : 20,\n\t\t\"date\" : \"2017-01-01\"\n\t}\n}"
+							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title\",\n    \"description\" : \"record description\",\n    \"state\" : \"published\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\"\n  }\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/records",
@@ -530,6 +618,32 @@
 				},
 				{
 					"name": "Show Record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "13eb0ebd-4c14-46ab-a650-197c084e7fde",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Show record', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the record schema', () => {",
+									"    var schema = JSON.parse(environment.recordSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -538,14 +652,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/records/1",
+							"raw": "localhost:3000/records/{{lastResourceCreatedId}}",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"records",
-								"1"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -554,6 +668,32 @@
 				},
 				{
 					"name": "Update record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "feb120f8-076f-45ec-9ed9-cefaaaace41d",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Update record', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the record schema', () => {",
+									"    var schema = JSON.parse(environment.recordSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -579,17 +719,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"record\" : {\n\t\t\"title\" : \"record title update\",\n\t\t\"description\" : \"record description update\",\n\t\t\"state\" : \"published\",\n\t\t\"lat\" : 15,\n\t\t\"lng\" : 20,\n\t\t\"date\" : \"2017-01-01\"\n\t}\n}"
+							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title update\",\n    \"description\" : \"record description update\",\n    \"state\" : \"published\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\"\n  }\n}"
 						},
 						"url": {
-							"raw": "localhost:3000/records/1",
+							"raw": "localhost:3000/records/{{lastResourceCreatedId}}",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"records",
-								"1"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -598,6 +738,24 @@
 				},
 				{
 					"name": "Delete Record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c1a26356-c51b-4fa2-a6ea-c8b0576f0762",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete record', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -626,14 +784,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/records/16",
+							"raw": "localhost:3000/records/{{lastResourceCreatedId}}",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"records",
-								"16"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -673,6 +831,30 @@
 				},
 				{
 					"name": "Create Record Attachment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6df7f9d2-be48-431c-bb60-9cd53b65fa9b",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create record attachment', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"    var data = JSON.parse(responseBody);",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', data[data.length - 1].id);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -733,6 +915,14 @@
 								{
 									"key": "file",
 									"type": "file",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"description": "",
+									"type": "text",
 									"disabled": true
 								}
 							]
@@ -755,6 +945,29 @@
 				},
 				{
 					"name": "Update Record Attachment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "068bf2b8-8d29-4315-b11d-41df2532c41c",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Update record attachment', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -820,7 +1033,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/records/1/attachments/6",
+							"raw": "localhost:3000/records/1/attachments/{{lastResourceCreatedId}}",
 							"host": [
 								"localhost"
 							],
@@ -829,7 +1042,7 @@
 								"records",
 								"1",
 								"attachments",
-								"6"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -837,7 +1050,29 @@
 					"response": []
 				},
 				{
-					"name": "Show Record Document",
+					"name": "Show Record Attachment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "24552235-3d89-4bd2-8cf4-1dbbb0f3a77e",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('show record attachment', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -846,7 +1081,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/records/1/attachments/1",
+							"raw": "localhost:3000/records/1/attachments/{{lastResourceCreatedId}}",
 							"host": [
 								"localhost"
 							],
@@ -855,7 +1090,7 @@
 								"records",
 								"1",
 								"attachments",
-								"1"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -864,6 +1099,24 @@
 				},
 				{
 					"name": "Delete Document",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e123e57f-e438-4a8d-9ec3-dd985b9b9914",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete record attachment', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -892,7 +1145,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/records/1/attachments/1",
+							"raw": "localhost:3000/records/1/attachments/{{lastResourceCreatedId}}",
 							"host": [
 								"localhost"
 							],
@@ -901,7 +1154,7 @@
 								"records",
 								"1",
 								"attachments",
-								"1"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -961,6 +1214,34 @@
 				},
 				{
 					"name": "Create Team",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "429eaa98-2cb1-4e3b-a2d9-e9c8fa4e3de4",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create team', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', JSON.parse(responseBody).id);",
+									"  });",
+									"",
+									"  it('should match the team schema', () => {",
+									"    var schema = JSON.parse(environment.teamSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -986,7 +1267,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"team\" : {\n\t\t\"name\" : \"test\",\n\t\t\"description\" : \"test description\"\n\t}\n}"
+							"raw": "{\n  \"team\" : {\n    \"name\" : \"test\",\n    \"description\" : \"test description\"\n  }\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/teams",
@@ -1004,6 +1285,32 @@
 				},
 				{
 					"name": "Show Team",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c079c487-2675-4109-a221-5a4669eaa189",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Show team', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the team schema', () => {",
+									"    var schema = JSON.parse(environment.teamSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1027,14 +1334,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/teams/6",
+							"raw": "localhost:3000/teams/{{lastResourceCreatedId}}",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"teams",
-								"6"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -1043,6 +1350,32 @@
 				},
 				{
 					"name": "Update Team",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9e81e5a-8103-49c8-9bd5-dd7b138a6979",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Update team', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the team schema', () => {",
+									"    var schema = JSON.parse(environment.teamSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1068,17 +1401,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"team\" : {\n\t\t\"name\" : \"test update\",\n\t\t\"description\" : \"test description update\"\n\t}\n}"
+							"raw": "{\n  \"team\" : {\n    \"name\" : \"test update\",\n    \"description\" : \"test description update\"\n  }\n}"
 						},
 						"url": {
-							"raw": "localhost:3000/teams/6",
+							"raw": "localhost:3000/teams/{{lastResourceCreatedId}}",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"teams",
-								"6"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -1087,6 +1420,24 @@
 				},
 				{
 					"name": "Delete Team",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "81343d5e-5ed0-459b-a7af-3819ae05c1f5",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete team', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1115,14 +1466,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/teams/8",
+							"raw": "localhost:3000/teams/{{lastResourceCreatedId}}",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"teams",
-								"8"
+								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -1137,6 +1488,27 @@
 			"item": [
 				{
 					"name": "Index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f631a0e-2e3a-484c-b8c0-487fb4e76511",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Index team users', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -1162,6 +1534,30 @@
 				},
 				{
 					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cfa41417-ab48-4016-b9d6-03dc0439e648",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('add team users', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"    var data = JSON.parse(responseBody);",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', data[data.length - 1].id);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1207,6 +1603,24 @@
 				},
 				{
 					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f078c11a-64dc-4777-b1c0-287a941111da",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete team users', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",

@@ -16,7 +16,7 @@ services:
     volumes:
       - ./docker/ruby/entrypoint.sh:/entrypoint.sh
       - ./src:/home/app/lol
-      - /home/app/lol/node_modules
+#      - /home/app/lol/node_modules
     networks:
       - error-network
     ports:
@@ -29,11 +29,11 @@ services:
       - /entrypoint.sh
     depends_on:
       - mysql
-    healthcheck:
-      test: ['CMD', 'curl', 'http://localhost:3000']
-      interval: 20s
-      timeout: 40s
-      retries: 2
+#    healthcheck:
+#      test: ['CMD', 'curl', 'http://localhost:3000']
+#      interval: 20s
+#      timeout: 40s
+#      retries: 2
     labels:
       - maintainer='jordi@error.agency'
   mysql:

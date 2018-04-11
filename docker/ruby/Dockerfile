@@ -1,29 +1,25 @@
-# Use oficial Ruby 2.5
-FROM ruby:2.5
+# Use oficial Ruby 2.5.1
+FROM ruby:2.5.1
 # Install dependencies:
 # - build-essential: To ensure certain gems can be compiled
 # - nodejs for a JS runtime
 # - yarn: Install & manage node modules [should make npm obsolete]
+# - mysql-client: Database client
 # - libpq-dev
 # - libxml2-dev libxslt1-dev for nokogiri
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
-    apt-get install -qq -y build-essential nodejs yarn \
+    apt-get install -qq -y build-essential \
+    nodejs \
+    yarn \
+    mysql-client \
     libpq-dev \
     libxml2-dev \
-    libxslt1-dev \
-    mysql-client \
-    sqlite3 \
-    openssl \
-    openssh-server
+    libxslt1-dev
 # Command line collection runner for Postman
 RUN npm install -g newman
-# Setup ssh server
-RUN mkdir /var/run/sshd
-RUN mkdir /root/.ssh
-RUN echo 'root:root' | chpasswd
 # Create unprivileged user, prosaically called app
 RUN useradd --user-group --create-home --shell /bin/false app
 ENV HOME=/home/app
@@ -38,5 +34,3 @@ WORKDIR $HOME/lol
 USER app
 # Install ruby gem dependencies
 RUN bundle install
-# Install yarn dependencies
-RUN yarn install
