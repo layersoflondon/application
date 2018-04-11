@@ -1,9 +1,17 @@
 import axios from 'axios';
 
-axios.defaults.headers.delete['auth'] = {username: 'test@error.agency', password: '123456'};
-axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector("[name=csrf-token]").content;
+axios.defaults.auth = {username: 'test@error.agency', password: '123456'};
+axios.defaults.proxy = { port: 3000 };
+//axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector("[name=csrf-token]").content;
 
 export default class LoLHTTPBase {
+
+  // static login(){
+  //     var data = new FormData();
+  //     data.append('user[email]' , 'test@error.agency');
+  //     data.append('user[password]' , '123456');
+  //     return axios.post('/users/sign_in', data);
+  // }
 
   static setResourcePath(resource_id, id, method){
 
@@ -13,7 +21,7 @@ export default class LoLHTTPBase {
       if (id) {
           this.resource_path = this.path + `/${id}`;
       }
-      console.log(`${method}: ${this.resource_path}\n\n`);
+      //console.log(`${method}: ${this.resource_path}\n\n`);
   }
 
   static index(resource_id, id) {

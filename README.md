@@ -47,6 +47,14 @@ BDD with Postman collections and newman
 docker-compose exec -T ruby newman run LoL.postman_collection.json --globals LoL.postman_globals.json --environment Local.postman_environment.json
 ```
 
+Mocha tests
+
+
+```bash
+docker-compose exec ruby yarn run test
+```
+
+
 ### Development
 
 #### Setup remote interpreter

@@ -4,7 +4,7 @@ class RecordsController < ApplicationController
   skip_after_action :verify_authorized, only: [:index]
   def index
     # TODO: show records from the current user as well
-    @records = Record.where(state: 'published')
+    @records = Record.where(state: 'published', deleted: false)
   end
 
   def create
@@ -27,18 +27,16 @@ class RecordsController < ApplicationController
   end
 
   def destroy
-    # @TODO: check user delete permissions
-    # @TODO: check when record has associated collections, Error:
-    # Mysql2::Error: Cannot delete or update a parent row: a foreign key constraint fails ...
     authorize(@record)
-    return render json: '', status: :no_content if @record.destroy
+    @record.deleted = true
+    return render json: '', status: :no_content if @record.save
     render json: @record.errors, status: :unauthorized
   end
 
   private
 
   def set_record
-    @record = Record.find_by_id(params[:id])
+    @record = Record.where(id: params[:id], deleted: false).first
     render json: '', status: :not_found unless @record
   end
 
