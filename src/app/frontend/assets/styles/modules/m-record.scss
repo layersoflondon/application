@@ -1,9 +1,7 @@
 // Record
 
 .m-record .wrap {
-  background: white;
-  color: #333;
-  padding: 40px;
+  @include overlay-wrap-white;
   max-width: 900px;
   margin-top: 50px;
 }

@@ -21,7 +21,7 @@ import {observer} from "mobx-react";
 
   render() {
     const position = [51.1, -0.11];// this.props.mapViewStore.center.toJS();
-    const map_zoom = 13; //this.props.mapViewStore.zoom;
+    const map_zoom = 9; //this.props.mapViewStore.zoom;
 
     let markers = [];
 

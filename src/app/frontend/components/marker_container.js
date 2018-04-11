@@ -17,13 +17,13 @@ import L from 'leaflet';
 
   render() {
     const default_icon = new L.Icon({
-      iconUrl: require('../../assets/images/marker-icon.png'),
-      iconRetinaUrl: require('../../assets/images/marker-icon-2x.png')
+      iconUrl: require('../assets/images/marker-icon.png'),
+      iconRetinaUrl: require('../assets/images/marker-icon-2x.png')
     });
 
     const highlighted_icon = new L.Icon({
-      iconUrl: require('../../assets/images/highlighted-marker-icon.png'),
-      iconRetinaUrl: require('../../assets/images/highlighted-marker-icon-2x.png')
+      iconUrl: require('../assets/images/highlighted-marker-icon.png'),
+      iconRetinaUrl: require('../assets/images/highlighted-marker-icon-2x.png')
     });
 
     let icon = this.props.card.highlighted ? highlighted_icon : default_icon;

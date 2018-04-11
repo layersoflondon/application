@@ -1,5 +1,9 @@
 // Date range overlay
 
+.m-date-range-overlay {
+  @include overlay-wrap-transparent;
+}
+
 .m-date-range-overlay .header {
   @include top-and-tail;
   padding-bottom: 50px;
@@ -15,27 +19,27 @@
 
 .m-date-range-overlay .date-box {
   padding: 20px;
-  background: white;
-  color: #333;
-  width: 322px;
+  width: calc(50% - 50px);
+  border-radius:$default-border-radius;
+  border:2px solid $bright-accent;
   float: left;
   position: relative;
 }
 
 .m-date-range-overlay .date-box + .date-box {
-  margin-left: 50px;
+  margin-left: 100px;
 }
 
 .m-date-range-overlay .date-box + .date-box:before {
   content: "";
   display: block;
-  border-left: 20px solid white;
+  border-left: 20px solid darken($darker-base, 5%);
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;
   position: absolute;
-  top: 64px;
+  top: 38px;
   left: 0;
-  margin-left: -33px;
+  margin-left: -61px;
 }
 
 .m-date-range-overlay .picker-icon {
@@ -54,13 +58,11 @@
 }
 
 .m-date-range-overlay .date-box h2 {
-  margin-top: 0;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 
 .m-date-range-overlay .date-box input {
-  padding: 20px;
-  background: #eee;
-  border: 0;
   width: 100%;
   display: inline-block;
 }

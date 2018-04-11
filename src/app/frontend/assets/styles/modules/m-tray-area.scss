@@ -1,21 +1,26 @@
 // Tray area
 
 .m-tray-area {
-  width: calc(50% - 40px);
+  width: calc(60% - 20px);
   height: 100%;
   position: absolute;
   top: 0;
-  left: 80px;
-  background: white;
+  left: 60px;
+  background: #f4f7f6;
   z-index: 10;
   @include top-and-tail;
 }
 
 .m-tray-area .window {
   padding: 20px;
+  padding-left:0;
   overflow: scroll;
   height: 100%;
   box-shadow: 0 0 80px rgba(0, 0, 0, 0.1);
+  background:#333;
+  background:#280028;
+  background:#000c2a;
+  background:#000;
 }
 
 .m-tray-area .open-close {
@@ -30,6 +35,8 @@
   width: 40px;
   cursor: pointer;
   @include transition(color, .2s);
+  background:#280028;
+  background:#000c2a;
 }
 
 .m-tray-area .open-close:hover {
@@ -42,6 +49,7 @@
   margin-top: 27px;
   margin-left: 14px;
   display: block;
+  color:white;
 }
 
 .tray-is-closed .m-tray-area .open-close:before {

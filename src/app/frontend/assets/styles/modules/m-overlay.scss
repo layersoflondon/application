@@ -4,25 +4,36 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.85);
+  //background: rgba(0, 0, 0, 0.85);
+  //background: rgba(49, 14, 77, 0.9215686274509803);
+  background: transparentize($darker-base, 0.1);
   z-index: 1000;
   overflow: scroll;
-  display:none;
+  visibility:hidden;
+  opacity:0;
+  transition:visibility 0s linear 0.2s,opacity 0.2s linear;
+
+
+
+  background: rgba(49,14,77,0.93);
+  background: -moz-linear-gradient(top, rgba(49,14,77,0.93) 0%, rgba(103,11,117,0.93) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(49,14,77,0.93)), color-stop(100%, rgba(103,11,117,0.93)));
+  background: -webkit-linear-gradient(top, rgba(49,14,77,0.93) 0%, rgba(103,11,117,0.93) 100%);
+  background: -o-linear-gradient(top, rgba(49,14,77,0.93) 0%, rgba(103,11,117,0.93) 100%);
+  background: -ms-linear-gradient(top, rgba(49,14,77,0.93) 0%, rgba(103,11,117,0.93) 100%);
+  background: linear-gradient(to bottom, rgba(49,14,77,0.93) 0%, rgba(103,11,117,0.93) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#310e4d', endColorstr='#670b75', GradientType=0 );
 }
 
-.m-overlay .wrap {
-  max-width:700px;
-  margin:70px auto;
-  color:white;
-  @include clearfix;
-}
 
 .m-overlay.is-showing {
-  display:block;
+  visibility:visible;
+  opacity:1;
+  transition-delay:0s;
 }
 
 .m-overlay .close {
-  display:block;
+  display: block;
 }
 
 .m-overlay .close button {

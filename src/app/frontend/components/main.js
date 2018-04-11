@@ -4,9 +4,15 @@ import PropTypes from 'prop-types';
 import Devtools from 'mobx-react-devtools';
 import {observer} from "mobx-react/index";
 
-import Tools from './map/tools';
-import Tray from './map/tray';
-import MapView from './map/map_view';
+import Tools from './tools';
+import Tray from './tray';
+import MapView from './map_view';
+import Search from './search';
+
+import CollectionForm from './forms/collections/collection_form';
+import RecordForm from './forms/records/record_form';
+
+import RecordFormStore from '../stores/record_form_store';
 
 @observer export default class Main extends Component {
   constructor(props) {
@@ -22,17 +28,19 @@ import MapView from './map/map_view';
     this.props.cardStore.removeCard();
   }
 
+  componentWillMount() {
+    this.recordFormStore = new RecordFormStore();
+  }
+
   render() {
     return <div className="m-map-wrapper" id="main-container">
       <Devtools />
 
-      <div style={{position: 'fixed', zIndex: '99999', right: '20px', top: '40px', padding: '10px', background: '#ccc'}}>
-        <button onClick={this.addCards.bind(this)} data-add="1">+ Add 1 card</button>
-        <button onClick={this.addCards.bind(this)} data-add="5">+ Add 5 cards</button>
-        <button onClick={this.removeCard.bind(this)}>- Remove card</button>
-      </div>
+      <Search mapViewStore={this.props.mapViewStore} />
+      <CollectionForm mapViewStore={this.props.mapViewStore} />
+      <RecordForm mapViewStore={this.props.mapViewStore} recordFormStore={this.recordFormStore} />
 
-      <Tools />
+      <Tools mapViewStore={this.props.mapViewStore} />
 
       <MapView trayViewStore={this.props.trayViewStore} />
       <Tray trayViewStore={this.props.trayViewStore} />
@@ -41,5 +49,6 @@ import MapView from './map/map_view';
 }
 
 Main.propTypes = {
-  trayViewStore: PropTypes.object.isRequired
+  trayViewStore: PropTypes.object.isRequired,
+  mapViewStore: PropTypes.object.isRequired
 };

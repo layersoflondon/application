@@ -1,9 +1,7 @@
 // Layers picker
 
 .m-layers-picker {
-}
-
-.m-layers-picker .wrap {
+  @include overlay-wrap-transparent;
   max-width: 1000px;
 }
 

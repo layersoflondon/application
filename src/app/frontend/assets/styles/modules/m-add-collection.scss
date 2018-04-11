@@ -1,81 +1,16 @@
 // Add collection
 
-.m-add-collection .wrap {
-  background: white;
+.m-add-collection {
+/*  background: white;
   color: #333;
   padding: 40px;
   max-width: 900px;
-  margin-top: 50px;
+  margin-top: 50px;*/
+  @include overlay-wrap-white;
 }
 
-.m-add-collection .wrap h1 {
+.m-add-collection h1 {
   margin-top: 0;
-}
-
-.form--chunky .form-group {
-  margin-bottom: 20px;
-}
-
-.form--chunky label,
-.form--chunky .label {
-  display: block;
-  text-transform: uppercase;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-.form--chunky input,
-.form--chunky textarea {
-  padding: 20px;
-  background: #eee;
-  border: 0;
-  width: 100%;
-}
-
-.form--chunky input[type="submit"] {
-  @include big-square-button;
-  width: auto;
-  float: right;
-}
-
-.form--chunky .form-group--checkboxes-columns label {
-  width: 33.333333%;
-  display: inline-block;
-  vertical-align: top;
-  margin-right: -3px;
-  text-transform: none;
-  font-size: 16px;
-  padding-left: 25px;
-}
-
-.form--chunky .form-group--checkboxes-columns input {
-  float: left;
-  margin-left: -25px;
-  width: auto;
-}
-
-.form--chunky .form-group--checkboxes-columns label .helper-text {
-  display: block;
-  margin-top: 20px;
-}
-
-.form--chunky .form-group--checkboxes-rows label {
-  display: block;
-  vertical-align: top;
-  margin-right: -3px;
-  text-transform: none;
-  font-size: 16px;
-  padding-left: 25px;
-}
-
-.form--chunky .form-group--checkboxes-rows input {
-  float: left;
-  margin-left: -25px;
-  width: auto;
-}
-
-.form--chunky .in-context-input {
-  margin:0 6px;
 }
 
 .m-add-collection .form-group--checkboxes-rows {

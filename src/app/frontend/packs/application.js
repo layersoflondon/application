@@ -11,7 +11,7 @@ import React,{Component} from 'react'
 import ReactDOM from 'react-dom'
 
 import Record from '../sources/record';
-console.log(Record.all());
+// console.log(Record.all());
 
 import CardStore from '../stores/card_store';
 import MapViewStore from '../stores/map_view_store';
@@ -56,6 +56,8 @@ const cardStore = CardStore.fromJS(cards);
 const trayViewStore = new TrayViewStore();
 trayViewStore.cardStore = cardStore;
 
+const mapViewStore = new MapViewStore();
+
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render( <Main trayViewStore={trayViewStore} />, document.getElementById("map-root") );
+  ReactDOM.render( <Main trayViewStore={trayViewStore} mapViewStore={mapViewStore} />, document.getElementById("map-root") );
 });

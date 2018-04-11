@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
-import CardStore from "../../stores/card_store";
+import CardStore from "../stores/card_store";
 
 @observer export default class Card extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ import CardStore from "../../stores/card_store";
     }
 
     return (
-      <div onClick={this.handleClick.bind(this)} id="record-card-container" style={styles} onMouseEnter={()=>this.props.card.highlighted=true} onMouseOut={()=>this.props.card.highlighted=false}>
+      <div onClick={this.handleClick.bind(this)} className="record-card-container" style={styles} onMouseEnter={()=>this.props.card.highlighted=true} onMouseOut={()=>this.props.card.highlighted=false}>
         <h4>
           {this.props.card.name} {collection_label}
         </h4>

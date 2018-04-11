@@ -8,8 +8,10 @@ input,
 select,
 textarea {
   color: #222;
-  //font-family: 'Work Sans', sans-serif;
   font-family: 'Nunito', sans-serif;
+}
+
+h1 {
 
 }
 
@@ -123,16 +125,10 @@ div[class^='s-'] {
 }
 
 div[class^='s-'].is-showing {
-  display: block;
+  display: inline;
 }
 
-input[type="submit"] {
-  background: $link-color;
-  color: white;
-  &:hover {
-    background: $link-hover-color;
-  }
-}
+
 
 .random-image {
   background-size: cover;
@@ -143,16 +139,261 @@ button {
   @include lozenge-button;
 }
 
+
+// Forms
+
 input[type="text"],
-input[type="tel"] {
-border:none;
-  background:white;
-  padding:10px;
+input[type="tel"],
+textarea {
+  border: none;
+  background: white;
+  padding: 10px;
+  border-radius: $default-border-radius;
 }
 
 input[type="submit"] {
-  border:none;
-  padding:10px;
+  border: none;
+  padding: 10px;
+  border-radius: $default-border-radius;
+  background: $bright-accent;
+  @include transition(all .2s);
+  color: white;
+  &:hover {
+    background: darken($bright-accent, 10%);
+  }
+}
+
+.form--over-white input[type="text"],
+.form--over-white input[type="tel"],
+.form--over-white textarea {
+  background: #f5f2f7;
+}
+
+
+
+.form--chunky .form-group {
+  margin-bottom: 20px;
+}
+
+.form--chunky label,
+.form--chunky .label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.form--chunky input,
+.form--chunky textarea {
+  padding: 20px;
+  border: 0;
+  width: 100%;
+}
+
+.form--chunky input[type="submit"] {
+  @include big-square-button;
+  width: auto;
+  float: right;
+}
+
+.form--chunky .form-group--checkboxes-columns label {
+  width: 33.333333%;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: -3px;
+  text-transform: none;
+  font-size: 16px;
+  padding-left: 25px;
+}
+
+.form--chunky .form-group--checkboxes-columns input {
+  float: left;
+  margin-left: -25px;
+  width: auto;
+}
+
+.form--chunky .form-group--checkboxes-columns label .helper-text {
+  display: block;
+  margin-top: 20px;
+}
+
+.form--chunky .form-group--checkboxes-rows label {
+  display: block;
+  vertical-align: top;
+  margin-right: -3px;
+  text-transform: none;
+  font-size: 16px;
+  padding-left: 25px;
+}
+
+.form--chunky .form-group--checkboxes-rows input {
+  float: left;
+  margin-left: -25px;
+  width: auto;
+}
+
+.form--chunky .in-context-input {
+  margin:0 6px;
+}
+
+// Radios & checkboxes
+
+.form-group--replaced-checkboxes label {
+  display: inline-block;
+  position: relative;
+  font-size: 20px;
+  padding: 0 0 0 42px;
+  vertical-align: top;
+  //color: rgba(0,0,0,0.2);
+  cursor: pointer;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+  margin: 0 0 12px 0;
+}
+
+.form-group--replaced-checkboxes input[type="checkbox"],
+.form-group--replaced-checkboxes input[type="radio"],
+.form-group--replaced-checkboxes label span::before {
+  width: 32px;
+  height: 32px;
+  top: 0;
+  left: 0;
+  margin-top: -2px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.form-group--replaced-checkboxes input[type="checkbox"],
+.form-group--replaced-checkboxes input[type="radio"] {
+  opacity: 0;
+  -webkit-appearance: none;
+  display: inline-block;
+  vertical-align: middle;
+  z-index: 100;
+}
+
+.form-group--replaced-checkboxes label span::before {
+  content: '';
+  border: 2px solid $bright-accent;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  border-radius: 6px;
+}
+
+.form-group--replaced-checkboxes input[type="checkbox"]:checked + span,
+.form-group--replaced-checkboxes input[type="radio"]:checked + span {
+  color: #fff;
+}
+
+.form-group--replaced-checkboxes input[type="checkbox"]:checked + span::before,
+.form-group--replaced-checkboxes input[type="radio"]:checked + span::before {
+  //opacity: 0.8;
+}
+
+/* General SVG and path styles */
+
+.form-group--replaced-checkboxes label span {
+  display: block;
+}
+
+.form-group--replaced-checkboxes svg {
+  position: absolute;
+  width: 22px;
+  height: 38px;
+  top: 50%;
+  margin-top: -20px;
+  left: 5px;
+  pointer-events: none;
+}
+
+.form-group--replaced-checkboxes svg path {
+  stroke: #fff;
+  stroke-width: 13px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* Specific input, SVG and path styles */
+
+/*
+!* Circle *!
+.form-group--replaced-checkboxes input[type="checkbox"],
+.form-group--replaced-checkboxes input[type="radio"],
+.form-group--replaced-checkboxes label span::before {
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  left: 10px;
+  position: absolute;
+}
+
+.form-group--replaced-checkboxes label span::before {
+  background-color: #fff;
+  border: none;
+}
+
+.form-group--replaced-checkboxes svg {
+  width: 70px;
+  height: 70px;
+  margin-top: -35px;
+  left: -10px;
+}
+
+.form-group--replaced-checkboxes svg path {
+  stroke-width: 5px;
+}
+
+!* Box Fill *!
+.form-group--replaced-checkboxes svg path {
+  stroke-width: 8px;
+}
+*/
+
+/* Swirl */
+.ac-swirl svg path {
+  stroke-width: 8px;
+}
+
+/* List */
+.ac-list ol {
+  list-style: decimal;
+  list-style-position: inside;
+}
+
+.ac-list ol li {
+  font-size: 2em;
+  padding: 1em 1em 0 2em;
+  text-indent: -40px;
+}
+
+.ac-list ol li label {
+  font-size: 1em;
+  text-indent: 0;
+  padding-left: 30px;
+}
+
+.ac-list label::before {
+  display: none;
+}
+
+.ac-list svg {
+  width: 100%;
+  height: 80px;
+  left: 0;
+  top: 1.2em;
+  margin-top: 0px;
+}
+
+.ac-list svg path {
+  stroke-width: 4px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 50em) {
+  section {
+    font-size: 80%;
+  }
 }
 
 /* ==========================================================================

@@ -1,17 +1,14 @@
 // Account page
 
 .m-account-page {
-  padding: 40px;
+/*  padding: 40px;
   background: white;
   max-width: 900px;
-  margin: 0 auto 100px;
+  margin: 0 auto 100px;*/
   @include clearfix;
-}
-
-.m-account-page .wrap {
-  color: #333;
-  margin: 0;
-  max-width: none;
+  @include overlay-wrap-white;
+  max-width: 900px;
+  margin-top:0;
 }
 
 .m-account-page .section {
