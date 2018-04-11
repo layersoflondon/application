@@ -6,7 +6,8 @@ import Dates from './dates';
 class Details extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+
+    this.state = {title: ''};
   }
 
   render() {
@@ -14,12 +15,12 @@ class Details extends Component {
       <div>
         <div className="form-group form-group--title">
           <label>Title</label>
-          <input type="text" data-name="name" value={this.state.name} onKeyUp={this.handleChange} />
+          <input type="text" name="title" value={this.state.title} onChange={this.handleOnChange} />
         </div>
 
         <div className="form-group">
           <label>Description</label>
-          <textarea rows="10" placeholder="">
+          <textarea rows="10" placeholder="" name="description" value={this.state.description} onChange={this.handleOnChange}>
           </textarea>
         </div>
       </div>

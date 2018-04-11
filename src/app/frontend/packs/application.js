@@ -257,7 +257,8 @@ const cardStore = CardStore.fromJS(cards);
 const trayViewStore = new TrayViewStore();
 trayViewStore.cardStore = cardStore;
 
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render( <Main trayViewStore={trayViewStore} />, document.getElementById("map-root") );
-});
+const mapViewStore = new MapViewStore();
 
+document.addEventListener('DOMContentLoaded', () => {
+  ReactDOM.render( <Main trayViewStore={trayViewStore} mapViewStore={mapViewStore} />, document.getElementById("map-root") );
+});

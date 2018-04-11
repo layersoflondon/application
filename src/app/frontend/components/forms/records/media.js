@@ -45,9 +45,10 @@ import {observer} from "mobx-react";
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
 
-    const media_items = this.state.items.map((item,i) => {
-      return <MediaItem {...item} {...this.props} key={i} />
-    });
+    // const media_items = this.state.items.map((item,i) => {
+    //   return <MediaItem {...item} {...this.props} key={i} />
+    // });
+    const media_items = [];
 
     return (
       <div className="section">
