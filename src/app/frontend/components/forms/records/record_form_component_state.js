@@ -8,6 +8,7 @@ export default class RecordFormComponentState {
 
         this.state = Object.assign({}, this.state);
         this.handleOnChange = this.handleOnChange.bind(this);
+        this.togglePaneVisibility = this.togglePaneVisibility.bind(this);
       }
 
       handleOnChange(event) {
@@ -15,6 +16,14 @@ export default class RecordFormComponentState {
         this.setState({
           [name]: value
         });
+      }
+
+      togglePaneVisibility(event) {
+        if( this.props.recordFormStore.visible_pane === event.target.dataset.name ) {
+          this.props.recordFormStore.visible_pane = null;
+        }else {
+          this.props.recordFormStore.visible_pane = event.target.dataset.name;
+        }
       }
 
       render() {

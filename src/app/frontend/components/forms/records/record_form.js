@@ -5,12 +5,21 @@ import {observer} from "mobx-react";
 import Details from './details';
 import Dates from './dates';
 import Media from './media';
+import Links from './links';
+import Collection from './collection';
+import Team from './team';
 
 @observer export default class RecordForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
+  }
+
+  outputState(event) {
+    event.preventDefault();
+
+    console.log("Current Media item title attribute: ", this.props.recordFormStore.media.map((i)=>i.title), this.props.recordFormStore);
   }
 
   render() {
@@ -30,7 +39,13 @@ import Media from './media';
 
               <div className="m-accordion">
                 <Media {...this.props} />
+                <Links {...this.props} />
+                <Collection {...this.props} />
+                <Team {...this.props} />
               </div>
+
+              <button onClick={this.outputState.bind(this)}>ok</button>
+
             </form>
           </div>
         </div>

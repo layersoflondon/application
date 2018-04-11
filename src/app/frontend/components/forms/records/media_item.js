@@ -10,16 +10,15 @@ import {observer} from "mobx-react";
     this.state = {data: this.props.data, type: this.props.type, title: this.props.title, description: this.props.description, credit: this.props.credit};
   }
 
-  setAsCurrentMediaItem(event) {
+  setCurrentMediaItem(event) {
     event.preventDefault();
-
-
+    this.props.recordFormStore.current_media_item_index = this.props.index;
   }
 
   render() {
     const style = {backgroundImage: `url("${this.state.data}")`};
     return (
-      <li className="type-image" onClick={()=>this.props.recordFormStore.current_media_item = this}>
+      <li className="type-image" onClick={this.setCurrentMediaItem.bind(this)}>
         <a href="#">
           <span className="image random-image" style={style} />
         </a>
