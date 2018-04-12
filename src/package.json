@@ -28,8 +28,14 @@
     "caniuse-lite": "^1.0.30000697",
     "es2015": "^0.0.0",
     "faker": "^4.1.0",
+    "form-data": "^2.3.2",
+    "jsonschema": "^1.2.4",
     "mobx-react-devtools": "^4.2.15",
+    "mocha": "^5.0.5",
     "webpack": "^2.2.0 || ^3.0.0",
     "webpack-dev-server": "^2.11.1"
+  },
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha ./test/frontend --require babel-core/register"
   }
 }

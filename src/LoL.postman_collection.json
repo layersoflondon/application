@@ -835,7 +835,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6df7f9d2-be48-431c-bb60-9cd53b65fa9b",
+								"id": "1150665a-9df0-462d-a3d6-7bf471a8f41a",
 								"type": "text/javascript",
 								"exec": [
 									"eval(globals.postmanBDD);",
@@ -846,8 +846,7 @@
 									"    response.should.have.status(200);",
 									"    response.should.be.json;",
 									"    response.body.should.not.be.empty;",
-									"    var data = JSON.parse(responseBody);",
-									"    postman.setEnvironmentVariable('lastResourceCreatedId', data[data.length - 1].id);",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', JSON.parse(responseBody).id);",
 									"  });",
 									"});",
 									""
@@ -883,7 +882,7 @@
 							"formdata": [
 								{
 									"key": "attachable_attributes[title]",
-									"value": "name yyyy",
+									"value": "name",
 									"type": "text"
 								},
 								{
@@ -908,7 +907,7 @@
 								},
 								{
 									"key": "attachable_attributes[url]",
-									"value": "localhost:3000/records/1/attachments",
+									"value": "http://localhost:3000/records/1/attachments",
 									"description": "",
 									"type": "text"
 								},
@@ -1707,6 +1706,79 @@
 						"{{protocol}}{{domain}}"
 					],
 					"port": "{{port}}"
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "Log In",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "429eaa98-2cb1-4e3b-a2d9-e9c8fa4e3de4",
+						"type": "text/javascript",
+						"exec": [
+							"eval(globals.postmanBDD);",
+							"eval(globals.commonTests)();",
+							"",
+							"describe('Create team', () => {",
+							"  it('should return a valid response', () => {",
+							"    response.should.have.status(200);",
+							"    response.should.be.json;",
+							"    response.body.should.not.be.empty;",
+							"    postman.setEnvironmentVariable('lastResourceCreatedId', JSON.parse(responseBody).id);",
+							"  });",
+							"",
+							"  it('should match the team schema', () => {",
+							"    var schema = JSON.parse(environment.teamSchema);",
+							"    response.body.should.have.schema(schema);",
+							"  });",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user[email]",
+							"value": "test@error.agency",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "user[password]",
+							"value": "123456",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/users/sign_in",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"sign_in"
+					]
 				},
 				"description": null
 			},

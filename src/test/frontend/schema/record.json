@@ -1,0 +1,43 @@
+{
+  "$schema":"http://json-schema.org/draft-04/schema#",
+  "type":"object",
+  "properties":{
+    "id":{
+      "type":"integer"
+    },
+    "title":{
+      "type":"string"
+    },
+    "description":{
+      "type":"string"
+    },
+    "like_count":{
+      "type":"integer"
+    },
+    "view_count":{
+      "type":"integer"
+    },
+    "state":{
+      "type":"string"
+    },
+    "deleted":{
+      "type":"boolean"
+    },
+    "collections" : {
+      "type":"array"
+    }
+  },
+  "required":[
+    "id",
+    "title",
+    "description",
+    "like_count",
+    "view_count",
+    "state",
+    "deleted",
+    "lat",
+    "lng",
+    "date",
+    "collections"
+  ]
+}

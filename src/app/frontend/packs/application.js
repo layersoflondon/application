@@ -9,188 +9,13 @@
 
 import React,{Component} from 'react'
 import ReactDOM from 'react-dom'
-import Record from '../sources/record';
-import Collection from '../sources/collection';
-import CollectionRecords from '../sources/collection_records';
-import Team from '../sources/team';
-import TeamUsers from '../sources/team_users';
-import RecordAttachments from '../sources/record_attachments';
+import CardStore from '../stores/card_store';
+import MapViewStore from '../stores/map_view_store';
+import TrayViewStore from '../stores/tray_view_store';
+import Main from '../components/main';
+import faker from 'faker';
 
-function eatest(response, status, id = null){
-    if (response.status != status) {
-        console.log("Expected", status, ' got:' , response.status);
-    }
-}
-// // ####################################################
-// // RECORD #############################################
-// // ####################################################
-// Record.index()
-//     .then((response)=>{ eatest(response, 200);})
-//     .catch((error) => {console.log("Request error: ", error);});
-// Record.create(null,
-//     {
-//         "record" : {
-//             "title" : "record title",
-//             "description" : "record description",
-//             "state" : "published",
-//             "lat" : 15,
-//             "lng" : 20,
-//             "date" : "2017-01-01"
-//         }
-//     }
-// ).then((response)=>{
-//     eatest(response, 200);
-//     // Record.show(null, response.data.id)
-//     //     .then((response)=>{eatest(response, 200);})
-//     //     .catch((error) => {console.log("Request error: ", error);});
-//     Record.update(null, response.data.id,
-//             {
-//                 "record" : {
-//                     "title" : "record title update",
-//                     "description" : "record description update",
-//                     "state" : "published",
-//                     "lat" : 15,
-//                     "lng" : 20,
-//                     "date" : "2017-01-01"
-//                 }
-//             }
-//         )
-//         .then((response)=>{eatest(response, 200);})
-//         .catch((error) => {console.log("Request error: ", error);
-//     });
-//     // Record.destroy(null, response.data.id)
-//     //     .then((response)=>{eatest(response, 204);})
-//     //     .catch((error) => {console.log("Request error: ", error);
-//     // });
-// }).catch((error) => {console.log("Request error: ", error);});
-// // ####################################################
-// // COLLECTION #########################################
-// // ####################################################
-// Collection.index()
-//     .then((response)=>{ eatest(response, 200);})
-//     .catch((error) => {console.log("Request error: ", error);});
-// Collection.create(null,
-//     {
-//         "collection" : {
-//             "title" : "test",
-//             "description" : "test description",
-//             "read_state" : "public_read",
-//             "write_state" : "everyone"
-//         }
-//     }
-// ).then((response)=>{
-//     eatest(response, 200);
-//     Collection.show(null, response.data.id)
-//         .then((response)=>{eatest(response, 200);})
-//         .catch((error) => {console.log("Request error: ", error);});
-//     Collection.update(null, response.data.id,
-//         {
-//             "collection" : {
-//                 "title" : "test",
-//                 "description" : "test description",
-//                 "read_state" : "public_read",
-//                 "write_state" : "everyone"
-//             }
-//         }
-//     )
-//         .then((response)=>{eatest(response, 200);})
-//         .catch((error) => {console.log("Request error: ", error);});
-//     Collection.destroy(null, response.data.id)
-//         .then((response)=>{eatest(response, 204);})
-//         .catch((error) => {console.log("Request error: ", error);});
-// }).catch((error) => {console.log("Request error: ", error);});
-// // ####################################################
-// // COLLECTION RECORD ##################################
-// // ####################################################
-// var collection_id = 1;
-// CollectionRecords.index(collection_id)
-//     .then((response)=>{ eatest(response, 200);})
-//     .catch((error) => {console.log("Request error: ", error);});
-// CollectionRecords.create(collection_id,
-//     {
-//         "id" : 1
-//     }
-// ).then((response)=>{
-//     eatest(response, 200);
-//     CollectionRecords.destroy(collection_id, response.data[0].id)
-//         .then((response)=>{eatest(response, 204);})
-//         .catch((error) => {console.log("Request error: ", error);});
-// }).catch((error) => {console.log("Request error: ", error);});
-// // ####################################################
-// // TEAM ###############################################
-// // ####################################################
-// Team.index()
-//     .then((response)=>{ eatest(response, 200);})
-//     .catch((error) => {console.log("Request error: ", error);});
-// Team.create(
-//     null,
-//     {
-//         "team" : {
-//             "name" : "test",
-//             "description" : "test description"
-//         }
-//     }
-// ).then((response)=>{
-//     eatest(response, 200);
-//     Team.show(null, response.data.id)
-//         .then((response)=>{eatest(response, 200);})
-//         .catch((error) => {console.log("Request error: ", error);});
-//     Team.update(null, response.data.id,
-//             {
-//                 "team" : {
-//                     "name" : "test",
-//                     "description" : "test description"
-//                 }
-//             }
-//         )
-//         .then((response)=>{eatest(response, 200);})
-//         .catch((error) => {console.log("Request error: ", error);
-//     });
-//     Team.destroy(null, response.data.id)
-//         .then((response)=>{eatest(response, 204);})
-//         .catch((error) => {console.log("Request error: ", error);
-//     });
-// }).catch((error) => {console.log("Request error: ", error);});
-// // ####################################################
-// // TEAM USERS #########################################
-// // ####################################################
-// var team_id = 1;
-// TeamUsers.index(team_id)
-//     .then((response)=>{ eatest(response, 200);})
-//     .catch((error) => {console.log("Request error: ", error);});
-// TeamUsers.create(team_id,
-//     {
-//         "id" : 2
-//     }
-// ).then((response)=>{
-//     eatest(response, 200);
-//     TeamUsers.destroy(team_id, response.data[response.data.length - 1].id)
-//         .then((response)=>{eatest(response, 204);})
-//         .catch((error) => {console.log("Request error: ", error.response.body);});
-// }).catch((error) => {console.log("Request error: ", error);});
-// // ####################################################
-// // RECORD ATTACHMENTS #################################
-// // ####################################################
-// var record_id = 1;
-// RecordAttachments.index(record_id)
-//     .then((response)=>{ eatest(response, 200);})
-//     .catch((error) => {console.log("Request error: ", error);});
-// RecordAttachments.create(record_id,
-//     {
-//         "attachment_type" : "url",
-//         "attachable_attributes" : {
-//             "title" : "title",
-//             "caption" : "caption",
-//             "description" : "description",
-//             "url" : "http://localhost:3000/records/1/attachments",
-//         }
-//     }
-// ).then((response)=>{
-//     eatest(response, 200);
-//     RecordAttachments.destroy(record_id, response.data[response.data.length - 1].id)
-//         .then((response)=>{eatest(response, 204);})
-//         .catch((error) => {console.log("Request error: ", error.response.body);});
-// }).catch((error) => {console.log("Request error: ", error);});
+
 // to test following snippet we should remove the default format of the route -defaults: {format: :json}- and
 // add upload new file via form in http://localhost:3000/records/1/attachments/new and add new action
 // document.addEventListener('DOMContentLoaded', () => {
@@ -204,23 +29,12 @@ function eatest(response, status, id = null){
 //         data.append('attachment_type', 'dataset');
 //         data.append('file', document.getElementById('file').files[0]);
 //         RecordAttachments.create(1, data).then((response)=>{
-//             eatest(response, 200);
 //             RecordAttachments.destroy(record_id, response.data[response.data.length - 1].id)
-//                 .then((response)=>{eatest(response, 204);})
-//                 .catch((error) => {console.log("Request error: ", error.response.body);});
-//         }).catch((error) => {console.log("Request error: ", error);});
+//                 .then((response)=>{})
+//                 .catch((error) => {});
+//         }).catch((error) => {});
 //     };
 // });
-
-
-
-import CardStore from '../stores/card_store';
-import MapViewStore from '../stores/map_view_store';
-import TrayViewStore from '../stores/tray_view_store';
-
-import Main from '../components/main';
-
-import faker from 'faker';
 
 const cards = [
   {
