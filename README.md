@@ -49,8 +49,8 @@ docker-compose exec -T ruby newman run LoL.postman_collection.json --globals LoL
 
 Mocha tests
 
-
 ```bash
+docker-compose exec ruby rails RAILS_ENV=test db:migrate
 docker-compose exec ruby yarn run test
 ```
 

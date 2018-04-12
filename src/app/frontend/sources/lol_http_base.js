@@ -1,8 +1,13 @@
 import axios from 'axios';
 
-axios.defaults.auth = {username: 'test@error.agency', password: '123456'};
-axios.defaults.proxy = { port: 3000 };
-//axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector("[name=csrf-token]").content;
+var isMochaTest = typeof document === "undefined";
+
+if (isMochaTest) {
+    axios.defaults.proxy = { port: 3000 };
+    axios.defaults.auth = {username: 'test@error.agency', password: '123456'};
+}else{
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector("[name=csrf-token]").content;
+}
 
 export default class LoLHTTPBase {
 

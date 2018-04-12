@@ -9,12 +9,12 @@
 
 import React,{Component} from 'react'
 import ReactDOM from 'react-dom'
-import RecordAttachments from '../sources/record_attachments';
 import CardStore from '../stores/card_store';
 import MapViewStore from '../stores/map_view_store';
 import TrayViewStore from '../stores/tray_view_store';
 import Main from '../components/main';
 import faker from 'faker';
+
 
 // to test following snippet we should remove the default format of the route -defaults: {format: :json}- and
 // add upload new file via form in http://localhost:3000/records/1/attachments/new and add new action
