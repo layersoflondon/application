@@ -1,0 +1,36 @@
+{
+  "$schema":"http://json-schema.org/draft-04/schema#",
+  "type":"object",
+  "properties":{
+    "id":{
+      "type":"integer"
+    },
+    "title":{
+      "type":"string"
+    },
+    "caption":{
+      "type":["string", "null"]
+    },
+    "credit":{
+      "type":"string"
+    },
+    "attachable_type":{
+      "type":"string"
+    },
+    "content_type":{
+      "type":["string", "null"]
+    },
+    "url":{
+      "type":"string"
+    }
+  },
+  "required":[
+    "id",
+    "title",
+    "caption",
+    "credit",
+    "attachable_type",
+    "content_type",
+    "url"
+  ]
+}

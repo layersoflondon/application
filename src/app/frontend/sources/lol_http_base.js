@@ -6,13 +6,6 @@ axios.defaults.proxy = { port: 3000 };
 
 export default class LoLHTTPBase {
 
-  // static login(){
-  //     var data = new FormData();
-  //     data.append('user[email]' , 'test@error.agency');
-  //     data.append('user[password]' , '123456');
-  //     return axios.post('/users/sign_in', data);
-  // }
-
   static setResourcePath(resource_id, id, method){
 
       if (resource_id) {

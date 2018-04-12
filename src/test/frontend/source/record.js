@@ -67,6 +67,13 @@ describe('Record', function() {
                 assert.equal("application/json; charset=utf-8", response.headers['content-type']);
                 assert.equal(validate(response.data, schema).errors.length, 0);
                 assert.equal(200, response.status);
+                assert.equal(tempResourceId, response.data.id);
+                assert.equal(createJSON.record.title, response.data.title);
+                assert.equal(createJSON.record.description, response.data.description);
+                assert.equal(createJSON.record.state, response.data.state);
+                assert.equal(createJSON.record.lat, response.data.lat);
+                assert.equal(createJSON.record.lng, response.data.lng);
+                assert.equal(createJSON.record.date, response.data.date);
                 done();
             })
             .catch((response) => {done(response);});
@@ -77,6 +84,7 @@ describe('Record', function() {
             .then((response)=>{
                 assert.equal(validate(response.data, schema).errors.length, 0);
                 assert.equal(200, response.status);
+                assert.equal(tempResourceId, response.data.id);
                 assert.equal(updateJSON.record.title, response.data.title);
                 assert.equal(updateJSON.record.description, response.data.description);
                 assert.equal(updateJSON.record.state, response.data.state);

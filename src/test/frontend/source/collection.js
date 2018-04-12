@@ -61,6 +61,11 @@ describe('Collection', function() {
                 assert.equal("application/json; charset=utf-8", response.headers['content-type']);
                 assert.equal(validate(response.data, schema).errors.length, 0);
                 assert.equal(200, response.status);
+                assert.equal(tempResourceId, response.data.id);
+                assert.equal(createJSON.collection.title, response.data.title);
+                assert.equal(createJSON.collection.description, response.data.description);
+                assert.equal(createJSON.collection.read_state, response.data.read_state);
+                assert.equal(createJSON.collection.write_state, response.data.write_state);
                 done();
             })
             .catch((response) => {done(response);});
@@ -71,6 +76,7 @@ describe('Collection', function() {
             .then((response)=>{
                 assert.equal(validate(response.data, schema).errors.length, 0);
                 assert.equal(200, response.status);
+                assert.equal(tempResourceId, response.data.id);
                 assert.equal(updateJSON.collection.title, response.data.title);
                 assert.equal(updateJSON.collection.description, response.data.description);
                 assert.equal(updateJSON.collection.read_state, response.data.read_state);
