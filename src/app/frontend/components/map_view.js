@@ -5,6 +5,7 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import MarkerContainer from './marker_container';
 
 import {observer} from "mobx-react";
+import RecordForm from "./forms/records/record_form";
 
 @observer export default class MapView extends Component {
   constructor(props) {
@@ -28,10 +29,10 @@ import {observer} from "mobx-react";
     this.props.trayViewStore.cardStore.cards.map((c) => {
       if( c.is_collection ) {
         c.records.map((r)=>{
-          markers.push( <MarkerContainer key={r.id} position={r.position} card={c} /> )
+          markers.push( <MarkerContainer key={r.id} position={r.position} card={c} mapViewStore={this.props.mapViewStore} /> )
         })
       }else {
-        markers.push( <MarkerContainer key={c.id} position={c.position} card={c} /> )
+        markers.push( <MarkerContainer key={c.id} position={c.position} card={c} mapViewStore={this.props.mapViewStore} /> )
       }
     });
 

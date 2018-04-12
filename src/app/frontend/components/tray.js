@@ -14,7 +14,7 @@ import Card from './card';
   }
 
   render() {
-    const cards = this.props.trayViewStore.cardStore.cards.map( (c) => {return <Card key={c.id} card={c} trayViewStore={this.props.trayViewStore} />});
+    const cards = this.props.trayViewStore.cardStore.cards.map( (c) => {return <Card key={c.id} card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />});
 
     let trayClassName = "m-tray-area";
 
@@ -40,7 +40,3 @@ import Card from './card';
     </div>;
   }
 }
-
-// Tray.propTypes = {
-//   cardStore: PropTypes.object.isRequired
-// };

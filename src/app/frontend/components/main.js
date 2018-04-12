@@ -8,6 +8,7 @@ import Tools from './tools';
 import Tray from './tray';
 import MapView from './map_view';
 import Search from './search';
+import RecordView from './record_view';
 
 import CollectionForm from './forms/collections/collection_form';
 import RecordForm from './forms/records/record_form';
@@ -42,8 +43,10 @@ import RecordFormStore from '../stores/record_form_store';
 
       <Tools mapViewStore={this.props.mapViewStore} />
 
-      <MapView trayViewStore={this.props.trayViewStore} />
-      <Tray trayViewStore={this.props.trayViewStore} />
+      {this.props.mapViewStore.visible_record_id && <RecordView {...this.props} record_id={this.props.mapViewStore.visible_record_id} />}
+
+      <MapView trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
+      <Tray trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
     </div>
   }
 }

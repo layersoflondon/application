@@ -13,6 +13,13 @@ import L from 'leaflet';
 @observer export default class MarkerContainer extends Component {
   constructor(props) {
     super(props);
+
+    console.log("Image", this.props.card.image);
+  }
+
+  handleOnClick(event) {
+    event.preventDefault();
+    this.props.mapViewStore.visible_record_id = this.props.card.id;
   }
 
   render() {
@@ -32,7 +39,15 @@ import L from 'leaflet';
 
     return <Marker position={position} icon={icon}>
       <Popup>
-        <span>{this.props.card.name}</span>
+        <div onClick={this.handleOnClick.bind(this)}>
+          <img src="http://placehold.it/200x100" alt=""/>
+          <h1>
+            {this.props.card.name}
+          </h1>
+          <p>
+            {this.props.card.description}
+          </p>
+        </div>
       </Popup>
     </Marker>;
   }
