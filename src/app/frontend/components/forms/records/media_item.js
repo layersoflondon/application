@@ -17,6 +17,12 @@ import {observer} from "mobx-react";
 
   render() {
     const style = {backgroundImage: `url("${this.state.data}")`};
+
+    if( this.props.recordFormStore.current_media_item_index === this.props.index ) {
+      style['border'] = '1px solid #222';
+      style['marginTop'] = '-1px';
+    }
+
     return (
       <li className="type-image" onClick={this.setCurrentMediaItem.bind(this)}>
         <a href="#">
