@@ -9,7 +9,8 @@ class Record < ApplicationRecord
   # state by default. See https://github.com/aasm/aasm
   enum state: %i[draft published pending_review flagged]
 
-  validates :title, :description, :state, :lat, :lng, :date, presence: true
+  validates :title, :state, :lat, :lng, presence: true
+  validates :description, :date, presence: true
   validates :title, length: { in: 3..255 }
   validates :description, length: { minimum: 3 }
   validates :lat, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }
