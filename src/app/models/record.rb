@@ -18,11 +18,11 @@ class Record < ApplicationRecord
   # TODO: is there a standard rails validator for dates? not sure.
   validate :date_is_in_the_past
 
-  validates :user, presence: true#, unless: ->(r) {r.orphan?}
+  validates :user, presence: true # , unless: ->(r) {r.orphan?}
 
   serialize :location, Hash
 
-  scope :orphan, ->() {
+  scope :orphan, -> {
     where(user: nil)
   }
 
@@ -30,13 +30,15 @@ class Record < ApplicationRecord
     errors.add(:date, 'date is not in the past') if date.present? && Date.today < date
   end
 
-  # TODO - replace with AASM state machine
+  # TODO: - replace with AASM state machine
   def published?
     true
   end
 
   def primary_image
-    # attachments.where(primary: true).first || attachments.where(type: 'image').first
-    "http://placehold.it/900x400"
+    # TODO: get primary image or first found
+    # attachments.where(attachable_type: 'Attachments::Image').first
+    # attachments.images.where(primary: true).first || attachments.images.first
+    'http://placehold.it/900x400s'
   end
 end

@@ -30,7 +30,6 @@
     "caption",
     "credit",
     "attachable_type",
-    "content_type",
-    "url"
+    "content_type"
   ]
 }

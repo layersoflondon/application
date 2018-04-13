@@ -48,7 +48,10 @@ class RecordsController < ApplicationController
       :state,
       :lat,
       :lng,
-      :date
+      :date,
+      location: %i[
+        address
+      ]
     )
   end
 end

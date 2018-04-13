@@ -38,6 +38,7 @@ User.create(
       lng: Faker::Address.longitude,
       date: Faker::Date.between(10.year.ago, Date.today),
       user: user_test,
+      location: {:address => Faker::Address.street_address},
       attachments_attributes:[{
             attachment_type: 'url',
             attachable_attributes: {
@@ -67,7 +68,8 @@ end
         lat: Faker::Address.latitude,
         lng: Faker::Address.longitude,
         date: Faker::Date.between(10.year.ago, Date.today),
-        user: user_test
+        user: user_test,
+        location: {:address => Faker::Address.street_address}
     )
   end
 end

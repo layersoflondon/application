@@ -600,7 +600,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title\",\n    \"description\" : \"record description\",\n    \"state\" : \"published\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\"\n  }\n}"
+							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title\",\n    \"description\" : \"record description\",\n    \"state\" : \"published\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\",\n    \"location\" : {\"address\" : \"address\"}\n  }\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/records",
@@ -896,9 +896,17 @@
 									"type": "text"
 								},
 								{
-									"key": "attachable_attributes[description]",
-									"value": "description",
-									"type": "text"
+									"key": "attachable_attributes[youtube_id]",
+									"value": "12345",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "attachable_attributes[primary]",
+									"value": "1",
+									"description": "",
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "attachment_type",
@@ -914,14 +922,6 @@
 								{
 									"key": "file",
 									"type": "file",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "",
-									"value": "",
-									"description": "",
-									"type": "text",
 									"disabled": true
 								}
 							]
@@ -1701,83 +1701,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{protocol}}{{domain}}:{{port}}",
+					"raw": "{{protocol}}{{domain}}:{{port}}/collections",
 					"host": [
 						"{{protocol}}{{domain}}"
 					],
-					"port": "{{port}}"
-				},
-				"description": null
-			},
-			"response": []
-		},
-		{
-			"name": "Log In",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "429eaa98-2cb1-4e3b-a2d9-e9c8fa4e3de4",
-						"type": "text/javascript",
-						"exec": [
-							"eval(globals.postmanBDD);",
-							"eval(globals.commonTests)();",
-							"",
-							"describe('Create team', () => {",
-							"  it('should return a valid response', () => {",
-							"    response.should.have.status(200);",
-							"    response.should.be.json;",
-							"    response.body.should.not.be.empty;",
-							"    postman.setEnvironmentVariable('lastResourceCreatedId', JSON.parse(responseBody).id);",
-							"  });",
-							"",
-							"  it('should match the team schema', () => {",
-							"    var schema = JSON.parse(environment.teamSchema);",
-							"    response.body.should.have.schema(schema);",
-							"  });",
-							"});",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "user[email]",
-							"value": "test@error.agency",
-							"description": "",
-							"type": "text"
-						},
-						{
-							"key": "user[password]",
-							"value": "123456",
-							"description": "",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "localhost:3000/users/sign_in",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
+					"port": "{{port}}",
 					"path": [
-						"users",
-						"sign_in"
+						"collections"
 					]
 				},
 				"description": null
