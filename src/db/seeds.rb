@@ -34,10 +34,11 @@ User.create(
       title: Faker::Company.catch_phrase,
       description: Faker::Company.bs,
       state: record_states[Faker::Number.between(0, 3)],
-      lat: Faker::Address.latitude,
-      lng: Faker::Address.longitude,
+      lat: rand(51.400..51.700),
+      lng: (-1 + rand(0.80..1.00)).round(2),
       date: Faker::Date.between(10.year.ago, Date.today),
       user: user_test,
+      deleted: false,
       attachments_attributes:[{
             attachment_type: 'url',
             attachable_attributes: {
@@ -64,8 +65,8 @@ end
         title: Faker::Company.catch_phrase,
         description: Faker::Company.bs,
         state: record_states[Faker::Number.between(0, 3)],
-        lat: Faker::Address.latitude,
-        lng: Faker::Address.longitude,
+        lat: rand(51.400..51.700),
+        lng: (-1 + rand(0.80..1.00)).round(2),
         date: Faker::Date.between(10.year.ago, Date.today),
         user: user_test
     )
