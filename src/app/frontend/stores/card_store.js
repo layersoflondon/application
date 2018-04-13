@@ -1,8 +1,6 @@
 import {observable} from 'mobx';
 
-import MapViewStore from './map_view_store';
-import CardModel from '../models/card_model';
-import faker from 'faker';
+import CardModel from './tray_card_model';
 
 export default class CardStore {
   @observable cards = [];

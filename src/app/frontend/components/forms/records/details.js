@@ -15,7 +15,7 @@ class Details extends Component {
       <div>
         <div className="form-group form-group--title">
           <label>Title</label>
-          <input type="text" name="title" value={this.state.title} onChange={this.handleOnChange} />
+          <input type="text" name="title" value={this.state.title} onChange={this.handleOnChange} onBlur={this.createDraftRecord} />
         </div>
 
         <div className="form-group">

@@ -12,12 +12,16 @@ import RecordForm from "./forms/records/record_form";
     super(props);
   }
 
-  dragged() {
+  handleOnDragEnd() {
     console.log("DRAGGED");
   }
 
-  zoomed() {
+  handleOnZoomEnd() {
     console.log("ZOOMED");
+  }
+
+  handleOnClick(event) {
+    this.props.mapView.mapViewStore.latlng = event.latlng;
   }
 
   render() {
@@ -41,7 +45,7 @@ import RecordForm from "./forms/records/record_form";
     </span>;
 
     return <div className="m-map-area" id="lol-map-container">
-      <Map center={position} zoom={map_zoom} ref='map' onDragEnd={this.dragged.bind(this)} onZoomEnd={this.zoomed.bind(this)}>
+      <Map center={position} zoom={map_zoom} ref='map' onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
         {layers}
 
         {markers}

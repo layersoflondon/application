@@ -5,4 +5,6 @@ export default class MapViewStore {
   @observable zoom = 1;
   @observable overlay = null;
   @observable visible_record_id = null;
+
+  @observable latlng = null;
 }

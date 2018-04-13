@@ -15,7 +15,6 @@ import TrayViewStore from '../stores/tray_view_store';
 import Main from '../components/main';
 import faker from 'faker';
 
-
 // to test following snippet we should remove the default format of the route -defaults: {format: :json}- and
 // add upload new file via form in http://localhost:3000/records/1/attachments/new and add new action
 // document.addEventListener('DOMContentLoaded', () => {
@@ -36,27 +35,28 @@ import faker from 'faker';
 //     };
 // });
 
+
 const cards = [
   {
     id: 1,
-    name: `${faker.commerce.productName()}`,
+    title: `${faker.commerce.productName()}`,
     description: faker.lorem.paragraphs(2),
     image: faker.image.dataUri(),
     is_collection: false,
     period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
-    position: [51.1, -0.11]
+    position: {lat: 51.1, lng: -0.11}
   },
   {
     id: 2,
-    name: `${faker.commerce.productName()}`,
+    title: `${faker.commerce.productName()}`,
     description: faker.lorem.paragraphs(2),
     image: faker.image.dataUri(),
     is_collection: true,
     records: [
-      {id: 2, name: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: [51.21, -0.51]},
-      {id: 3, name: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: [51.41, -0.59]},
-      {id: 4, name: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: [51.81, -0.39]},
-      {id: 5, name: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: [50.91, -0.49]}
+      {id: 2, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: {lat: 51.21, lng: -0.51}},
+      {id: 3, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: {lat: 51.41, lng: -0.59}},
+      {id: 4, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: {lat: 51.81, lng: -0.39}},
+      {id: 5, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: {lat: 50.91, lng: -0.49}}
     ]
   }
 ];

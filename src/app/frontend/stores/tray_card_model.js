@@ -1,7 +1,5 @@
 import {observable} from 'mobx';
 
-import RecordModel from './record_model';
-
 export default class CardModel {
   store;
   id;
@@ -10,7 +8,6 @@ export default class CardModel {
   collection;
 
   @observable highlighted;
-  visible;
 
   constructor(store, card) {
     this.store = store;
@@ -24,8 +21,6 @@ export default class CardModel {
     this.is_collection = card.is_collection;
 
     this.highlighted = false;
-    this.visible = false;
-
     if( this.is_collection ) {
       this.records = card.records;
     }else {

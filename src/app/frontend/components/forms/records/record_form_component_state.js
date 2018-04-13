@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import Record from '../../../sources/record';
 
 export default class RecordFormComponentState {
   static bindComponent(component) {
@@ -7,8 +8,20 @@ export default class RecordFormComponentState {
         super(props);
 
         this.state = Object.assign({}, this.state);
+
+        this.createDraftRecord = this.createDraftRecord.bind(this);
+
         this.handleOnChange = this.handleOnChange.bind(this);
         this.togglePaneVisibility = this.togglePaneVisibility.bind(this);
+      }
+
+      createDraftRecord(event) {
+        if( !this.props.recordFormStore.id ) {
+          console.log("Create draft record!");
+          this.props.recordFormStore.id = 1;
+        }else {
+          console.log("Already got id for this record");
+        }
       }
 
       handleOnChange(event) {

@@ -14,7 +14,9 @@ export default class RecordView extends Component {
     Record.show(null, this.props.record_id).then((response) => {
       let state = response.data;
       state.loading = false;
-      this.setState(state)
+      this.setState(state);
+
+      console.log(state);
     });
   }
 
@@ -45,7 +47,7 @@ export default class RecordView extends Component {
 
             <div className="m-social-status">
               <button className="like">Like</button>
-              173 views, 54 likes
+              {this.state.view_count} views, {this.state.like_count} likes
             </div>
 
             <div className="m-share-record">
@@ -59,7 +61,6 @@ export default class RecordView extends Component {
               <span className="date start-date"> {this.state.date}</span>
             </div>
 
-            <div className="creator">Created by <a href="#">Abigail Winters</a></div>
             <div className="m-record-hero">
               <div className="image random-image" style={{'backgroundImage': 'url(http://placehold.it/900x400)'}}>
               </div>
@@ -101,7 +102,3 @@ export default class RecordView extends Component {
     return this[`render_state_loading_${this.state.loading}`]();
   }
 }
-
-RecordView.propTypes = {
-  card: PropTypes.object.isRequired
-};
