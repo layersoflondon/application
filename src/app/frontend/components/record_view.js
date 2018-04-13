@@ -61,6 +61,8 @@ export default class RecordView extends Component {
               <span className="date start-date"> {this.state.date}</span>
             </div>
 
+            <div className="creator">Created by <a href={`/users/${this.state.user_details.id}`}>{this.state.user_details.name}</a></div>
+
             <div className="m-record-hero">
               <div className="image random-image" style={{'backgroundImage': 'url(http://placehold.it/900x400)'}}>
               </div>
@@ -81,7 +83,7 @@ export default class RecordView extends Component {
 
             <div className="attribution">
               <ul>
-                <li><h4>Created:</h4> 22nd June 2017</li>
+                <li><h4>Created:</h4> {this.state.created_at}</li>
                 <li><h4>Credits:</h4> Curabitur eu euismod risus</li>
               </ul>
             </div>

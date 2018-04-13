@@ -35,28 +35,29 @@ import faker from 'faker';
 //     };
 // });
 
-
 const cards = [
   {
     id: 1,
     title: `${faker.commerce.productName()}`,
     description: faker.lorem.paragraphs(2),
-    image: faker.image.dataUri(),
-    is_collection: false,
+    primary_image: faker.image.dataUri(),
     period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
-    position: {lat: 51.1, lng: -0.11}
+    lat: 51.1, lng: -0.12,
+    is_collection: false
   },
   {
     id: 2,
     title: `${faker.commerce.productName()}`,
     description: faker.lorem.paragraphs(2),
-    image: faker.image.dataUri(),
+    primary_image: faker.image.dataUri(),
+    read_state: "public_read",
+    write_state: "everyone",
     is_collection: true,
     records: [
-      {id: 2, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: {lat: 51.21, lng: -0.51}},
-      {id: 3, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: {lat: 51.41, lng: -0.59}},
-      {id: 4, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: {lat: 51.81, lng: -0.39}},
-      {id: 5, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: {lat: 50.91, lng: -0.49}}
+      {id: 2, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), primary_image: faker.image.dataUri(), lat: 51.21, lng: -0.51},
+      {id: 3, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), primary_image: faker.image.dataUri(), lat: 51.41, lng: -0.59},
+      {id: 4, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), primary_image: faker.image.dataUri(), lat: 51.81, lng: -0.39},
+      {id: 5, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), primary_image: faker.image.dataUri(), lat: 50.91, lng: -0.49}
     ]
   }
 ];

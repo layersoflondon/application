@@ -5,5 +5,6 @@ class MapController < ApplicationController
   end
 
   def show
+    @cards = Record.limit(2)
   end
 end

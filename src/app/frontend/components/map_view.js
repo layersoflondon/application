@@ -32,7 +32,7 @@ import RecordForm from "./forms/records/record_form";
 
     this.props.trayViewStore.cardStore.cards.map((c) => {
       if( c.is_collection ) {
-        c.records.map((r)=>{
+        c.records.map((r)=> {
           markers.push( <MarkerContainer key={r.id} position={r.position} card={c} mapViewStore={this.props.mapViewStore} /> )
         })
       }else {
