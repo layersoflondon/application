@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2018_04_13_100144) do
     t.index ["record_id"], name: "index_attachments_on_record_id"
   end
 
-  create_table "attachments_datasets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "attachments_datasets", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2018_04_13_100144) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_documents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "attachments_documents", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2018_04_13_100144) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_geodata", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "attachments_geodata", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 2018_04_13_100144) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "attachments_images", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2018_04_13_100144) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_urls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "attachments_urls", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2018_04_13_100144) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_videos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "attachments_videos", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -115,24 +115,13 @@ ActiveRecord::Schema.define(version: 2018_04_13_100144) do
     t.index ["owner_type", "owner_id"], name: "index_collections_on_owner_type_and_owner_id"
   end
 
-  create_table "data_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "file_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "like_count", default: 0
     t.integer "view_count", default: 0
     t.integer "state"
-    t.boolean "deleted"
+    t.boolean "deleted", default: false, null: false
     t.float "lat"
     t.float "lng"
     t.date "date"
@@ -142,7 +131,7 @@ ActiveRecord::Schema.define(version: 2018_04_13_100144) do
     t.text "location"
   end
 
-  create_table "team_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "team_users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "team_id"
     t.bigint "user_id"
     t.integer "role"
@@ -159,7 +148,7 @@ ActiveRecord::Schema.define(version: 2018_04_13_100144) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

@@ -9,7 +9,6 @@ class CollectionsController < ApplicationController
   end
 
   def create
-    Rails.logger.debug("*** #{current_user} ***")
     @collection = Collection.new(collection_params)
     authorize(@collection)
     return @collection if @collection.save
@@ -34,7 +33,7 @@ class CollectionsController < ApplicationController
     @collection = Collection.find_by_id(params[:id])
     authorize(@collection)
     return render json: '', status: :not_found unless @collection
-    # @TODO: check when collections has associated records, Error:
+    # @TODO: delete collections that are associated to records
     # Mysql2::Error: Cannot delete or update a parent row: a foreign key constraint fails ...
     return render json: '', status: :no_content if @collection.destroy
     render json: @collection.errors, status: :unauthorized

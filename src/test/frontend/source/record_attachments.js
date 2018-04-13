@@ -203,6 +203,7 @@ describe('RecordAttachments', function() {
             .catch((response) => {done(response);});
     });
 
+    // TODO: doesn't update, just create another attachment. Action update needs to be fixed, is already placed a TODO there
     it.skip('should update a record attachment', function(done) {
         RecordAttachments.update(null, tempResourceId, updateJSON)
             .then((response)=>{
