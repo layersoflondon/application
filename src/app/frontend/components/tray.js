@@ -14,7 +14,10 @@ import Card from './card';
   }
 
   render() {
-    const cards = this.props.trayViewStore.cardStore.cards.map( (c) => {return <Card key={c.id} card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />});
+    const cards = this.props.trayViewStore.cardStore.cards.map( (c) => {
+      const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;
+      return <Card key={key} card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
+    });
 
     let trayClassName = "m-tray-area";
 

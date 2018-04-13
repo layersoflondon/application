@@ -24,18 +24,16 @@ import CardStore from "../stores/card_store";
       styles.background = 'red';
     }
 
-    let collection_label;
-    if( this.props.card.is_collection ) {
-      collection_label = <span style={{background: 'red', padding: '4px'}}>Collection</span>
-    }
-
     return (
       <div onClick={this.handleClick.bind(this)} className="record-card-container" style={styles} onMouseEnter={()=>this.props.card.highlighted=true} onMouseOut={()=>this.props.card.highlighted=false}>
         <h4>
-          {this.props.card.name} {collection_label}
+          {this.props.card.is_collection && <span style={{background: 'red', padding: '4px'}}>Collection</span>}
+          {this.props.card.title}
         </h4>
 
         <span>{this.props.card.period}</span>
+
+        <hr/>
         <p>
           {this.props.card.description}
         </p>

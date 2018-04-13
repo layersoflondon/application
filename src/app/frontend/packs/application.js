@@ -35,45 +35,28 @@ import faker from 'faker';
 //     };
 // });
 
-const cards = [
-  {
-    id: 1,
-    title: `${faker.commerce.productName()}`,
-    description: faker.lorem.paragraphs(2),
-    primary_image: faker.image.dataUri(),
-    period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`,
-    lat: 51.1, lng: -0.12,
-    is_collection: false
-  },
-  {
-    id: 2,
-    title: `${faker.commerce.productName()}`,
-    description: faker.lorem.paragraphs(2),
-    primary_image: faker.image.dataUri(),
-    read_state: "public_read",
-    write_state: "everyone",
-    is_collection: true,
-    records: [
-      {id: 2, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), primary_image: faker.image.dataUri(), lat: 51.21, lng: -0.51},
-      {id: 3, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), primary_image: faker.image.dataUri(), lat: 51.41, lng: -0.59},
-      {id: 4, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), primary_image: faker.image.dataUri(), lat: 51.81, lng: -0.39},
-      {id: 5, title: `${faker.commerce.productName()} record!`, period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, description: faker.lorem.paragraphs(2), primary_image: faker.image.dataUri(), lat: 50.91, lng: -0.49}
-    ]
-  }
-];
-
 /**
  * Create a CardStore from our dummy data, a TrayViewStore to pass
  * into the React App, and set the initial data for the trayViewStore
  * which will be rendered in the Tray component
  */
 
-const cardStore = CardStore.fromJS(cards);
-const trayViewStore = new TrayViewStore();
-trayViewStore.cardStore = cardStore;
-
-const mapViewStore = new MapViewStore();
 
 document.addEventListener('DOMContentLoaded', () => {
+  const card_data = [];
+
+  window.lol_app_data.records.map((o) => {
+    card_data.push(o);
+  });
+  window.lol_app_data.collections.map((o)=> {
+    card_data.push(o);
+  });
+
+  console.log(card_data);
+  const cardStore = CardStore.fromJS(card_data);
+  const trayViewStore = new TrayViewStore();
+  trayViewStore.cardStore = cardStore;
+
+  const mapViewStore = new MapViewStore();
   ReactDOM.render( <Main trayViewStore={trayViewStore} mapViewStore={mapViewStore} />, document.getElementById("map-root") );
 });

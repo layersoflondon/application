@@ -5,6 +5,7 @@ export default class TrayCardData {
 
   constructor(store, card) {
     this.store = store;
+    this.card = card;
 
     this.id = card.id;
     this.title = card.title;
@@ -12,10 +13,9 @@ export default class TrayCardData {
     this.period = card.period;
     this.primary_image = card.primary_image;
 
-    this.is_collection = card.is_collection;
-
     this.highlighted = false;
     if( this.is_collection ) {
+      console.log("Collection records", card.records);
       this.records = card.records.map((r) => new TrayCardData(store, r));
     }else {
       // this.lat = card.lat
@@ -26,6 +26,10 @@ export default class TrayCardData {
 
   @computed get position() {
     return [this.lat, this.lng];
+  }
+
+  @computed get is_collection() {
+    return this.card.hasOwnProperty('records');
   }
 
   toJS() {
