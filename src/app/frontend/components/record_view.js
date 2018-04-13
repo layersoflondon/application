@@ -101,7 +101,3 @@ export default class RecordView extends Component {
     return this[`render_state_loading_${this.state.loading}`]();
   }
 }
-
-RecordView.propTypes = {
-  card: PropTypes.object.isRequired
-};

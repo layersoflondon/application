@@ -20,6 +20,8 @@ class Record < ApplicationRecord
 
   validates :user, presence: true#, unless: ->(r) {r.orphan?}
 
+  serialize :location, Hash
+
   scope :orphan, ->() {
     where(user: nil)
   }
@@ -31,5 +33,10 @@ class Record < ApplicationRecord
   # TODO - replace with AASM state machine
   def published?
     true
+  end
+
+  def primary_image
+    # attachments.where(primary: true).first || attachments.where(type: 'image').first
+    "http://placehold.it/900x400"
   end
 end
