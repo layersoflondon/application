@@ -9,7 +9,7 @@ require 'bcrypt'
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 # create 10 records that aren’t in a collection
-record_states = %w[draft published pending_review flagged]
+record_states = %w[drafted published pending_review flagged]
 collection_read_state = %w[public_read private_read]
 collection_write_state = %w[everyone team creator]
 

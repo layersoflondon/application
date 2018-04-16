@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_13_172620) do
+ActiveRecord::Schema.define(version: 2018_03_26_135148) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -70,9 +70,10 @@ ActiveRecord::Schema.define(version: 2018_04_13_172620) do
     t.string "title"
     t.text "caption"
     t.text "credit"
+    t.boolean "primary", default: false, null: false
+    t.boolean "boolean", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "primary", default: false, null: false
   end
 
   create_table "attachments_urls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -119,17 +120,17 @@ ActiveRecord::Schema.define(version: 2018_04_13_172620) do
   create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.integer "like_count", default: 0
-    t.integer "view_count", default: 0
-    t.integer "state"
+    t.integer "like_count", default: 0, null: false
+    t.integer "view_count", default: 0, null: false
+    t.integer "state", default: 0, null: false
     t.boolean "deleted", default: false, null: false
     t.float "lat"
     t.float "lng"
     t.date "date"
+    t.text "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.text "location", null: false
   end
 
   create_table "team_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
