@@ -71,3 +71,5 @@ gem 'rooftop-rails-extras'
 
 gem 'draper'
 
+# Ruby state machines
+gem 'aasm'

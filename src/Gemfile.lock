@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.12.3)
+      concurrent-ruby (~> 1.0)
     actioncable (5.2.0.rc1)
       actionpack (= 5.2.0.rc1)
       nio4r (~> 2.0)
@@ -73,9 +75,6 @@ GEM
       nokogiri (~> 1.6)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
-    debase (0.2.2)
-      debase-ruby_core_source (>= 0.10.2)
-    debase-ruby_core_source (0.10.2)
     devise (4.4.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -226,8 +225,6 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
-    ruby-debug-ide (0.6.1)
-      rake (>= 0.8.1)
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
@@ -281,12 +278,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   awesome_print
   bootsnap (>= 1.1.0)
   byebug
   capybara (~> 2.15)
   chromedriver-helper
-  debase
   devise
   devise_invitable
   draper
@@ -301,7 +298,6 @@ DEPENDENCIES
   rooftop-rails
   rooftop-rails-extras
   rubocop
-  ruby-debug-ide
   sass-rails (~> 5.0)
   selenium-webdriver
   tzinfo-data
