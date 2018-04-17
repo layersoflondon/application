@@ -2,14 +2,16 @@ class CreateRecords < ActiveRecord::Migration[5.2]
   def change
     create_table :records do |t|
       t.string :title
-      t.text :description
-      t.integer :like_count
-      t.integer :view_count
-      t.integer :state
+      t.text :description, null: true
+      t.integer :like_count, null: false, default: 0
+      t.integer :view_count, null: false, default: 0
+      t.integer :state, null: false, default: false
       t.boolean :deleted, null: false, default: false
-      t.float :lat
-      t.float :lng
-      t.date :date
+      t.float :lat, null: true
+      t.float :lng, null: true
+      t.date :date, null: true
+      t.text :location, null: true
+
       t.timestamps
     end
   end

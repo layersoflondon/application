@@ -14,7 +14,8 @@ var createJSON = {
         "state" : "published",
         "lat" : 15,
         "lng" : 20,
-        "date" : "2017-01-01"
+        "date" : "2017-01-01",
+        "location" : {"address" : "address"}
     }
 };
 var updateJSON = {
@@ -24,7 +25,8 @@ var updateJSON = {
         "state" : "published",
         "lat" : 15,
         "lng" : 20,
-        "date" : "2017-01-01"
+        "date" : "2017-01-01",
+        "location" : {"address" : "address"}
     }
 };
 // used when to store the created resource id to show, update and destroy later
@@ -55,6 +57,7 @@ describe('Record', function() {
                 assert.equal(createJSON.record.lat, response.data.lat);
                 assert.equal(createJSON.record.lng, response.data.lng);
                 assert.equal(createJSON.record.date, response.data.date);
+                assert.equal(createJSON.record.location.address, response.data.location.address);
                 tempResourceId  = response.data.id;
                 done();
             })
@@ -74,6 +77,7 @@ describe('Record', function() {
                 assert.equal(createJSON.record.lat, response.data.lat);
                 assert.equal(createJSON.record.lng, response.data.lng);
                 assert.equal(createJSON.record.date, response.data.date);
+                assert.equal(createJSON.record.location.address, response.data.location.address);
                 done();
             })
             .catch((response) => {done(response);});
@@ -91,6 +95,7 @@ describe('Record', function() {
                 assert.equal(updateJSON.record.lat, response.data.lat);
                 assert.equal(updateJSON.record.lng, response.data.lng);
                 assert.equal(updateJSON.record.date, response.data.date);
+                assert.equal(createJSON.record.location.address, response.data.location.address);
                 done();
             })
             .catch((response) => {done(response);});

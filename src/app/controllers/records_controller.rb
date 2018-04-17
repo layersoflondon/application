@@ -2,6 +2,7 @@ class RecordsController < ApplicationController
   before_action :set_record, only: %i[show update destroy]
   skip_before_action :authenticate_user!, only: %i[show index]
   skip_after_action :verify_authorized, only: [:index]
+
   def index
     # TODO: show records from the current user as well
     @records = Record.where(state: 'published', deleted: false)
@@ -20,6 +21,7 @@ class RecordsController < ApplicationController
 
   def update
     update_record_params = record_params.to_h
+    check_transition(update_record_params[:state])
     @record.assign_attributes(update_record_params)
     authorize(@record)
     return @record if @record.save
@@ -40,15 +42,36 @@ class RecordsController < ApplicationController
     render json: '', status: :not_found unless @record
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def record_params
-    params.require(:record).permit(
-      :title,
-      :description,
-      :state,
-      :lat,
-      :lng,
-      :date
-    )
+    if request.patch?
+      params.require(:record).permit(
+        :state
+      )
+    else
+      params.require(:record).permit(
+        :title,
+        :description,
+        :state,
+        :lat,
+        :lng,
+        :date,
+        location: %i[
+          address
+        ]
+      )
+    end
+  end
+
+  def check_transition(state)
+    case state
+    when 'pending_review'
+      @record.review
+    when 'published'
+      @record.publish
+    when 'flagged'
+      @record.flag
+    when 'drafted'
+      @record.draft
+    end
   end
 end

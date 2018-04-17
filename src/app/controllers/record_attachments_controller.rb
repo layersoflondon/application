@@ -56,10 +56,11 @@ class RecordAttachmentsController < ApplicationController
                   :record_attachment,
                   attachable_attributes: %i[
                     title
-                    caption,
-                    description,
+                    caption
                     credit
                     url
+                    youtube_id
+                    primary
                   ])
   end
 end
