@@ -600,7 +600,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title\",\n    \"state\" : \"drafted\",\n    \"description\" : \"record description\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\",\n    \"location\" : {\"address\" : \"address\"}\n  }\n}"
+							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title\",\n    \"state\" : \"draft\",\n    \"description\" : \"record description\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\",\n    \"location\" : {\"address\" : \"address\"}\n  }\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/records",
@@ -990,7 +990,7 @@
 									"type": "text"
 								},
 								{
-									"key": "file",
+									"key": "attachable_attributes[file]",
 									"type": "file",
 									"disabled": true
 								}

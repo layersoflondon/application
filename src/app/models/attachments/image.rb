@@ -7,7 +7,7 @@ class Attachments::Image < ApplicationRecord
 
   private
 
-  def validate_file
+  def validate_image_file
     errors.add(:attachment, 'File is not image') unless file.try(:image?)
   end
 end

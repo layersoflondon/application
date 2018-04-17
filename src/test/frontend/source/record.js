@@ -11,7 +11,7 @@ var createJSON = {
     "record" : {
         "title" : "record title",
         "description" : "record description",
-        "state" : "published",
+        "state" : "draft",
         "lat" : 15,
         "lng" : 20,
         "date" : "2017-01-01",
@@ -22,7 +22,7 @@ var updateJSON = {
     "record" : {
         "title" : "record title update",
         "description" : "record description update",
-        "state" : "published",
+        "state" : "deleted",
         "lat" : 15,
         "lng" : 20,
         "date" : "2017-01-01",

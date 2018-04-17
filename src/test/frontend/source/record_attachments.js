@@ -62,8 +62,8 @@ describe('RecordAttachments', function() {
         formData.append('attachable_attributes[title]', 'title');
         formData.append('attachable_attributes[caption]', 'caption');
         formData.append('attachable_attributes[credit]', 'credit');
+        formData.append('attachable_attributes[file]', fs.createReadStream('./test/frontend/schema/dummyfile.txt'));
         formData.append('attachment_type', 'dataset');
-        formData.append('file', fs.createReadStream('./test/frontend/schema/dummyfile.txt'));
         formData.submit({
             host: host,
             path: path,
@@ -84,8 +84,8 @@ describe('RecordAttachments', function() {
         formData.append('attachable_attributes[title]', 'title');
         formData.append('attachable_attributes[caption]', 'caption');
         formData.append('attachable_attributes[credit]', 'credit');
+        formData.append('attachable_attributes[file]', fs.createReadStream('./test/frontend/schema/dummyfile.txt'));
         formData.append('attachment_type', 'document');
-        formData.append('file', fs.createReadStream('./test/frontend/schema/dummyfile.txt'));
         formData.submit({
             host: host,
             path: path,
@@ -131,8 +131,8 @@ describe('RecordAttachments', function() {
         formData.append('attachable_attributes[caption]', 'caption');
         formData.append('attachable_attributes[credit]', 'credit');
         formData.append('attachable_attributes[credit]', 'primary');
+        formData.append('attachable_attributes[file]', fs.createReadStream('./test/frontend/schema/dummyimage.png'));
         formData.append('attachment_type', 'image');
-        formData.append('file', fs.createReadStream('./test/frontend/schema/dummyfile.txt'));
         formData.submit({
             host: host,
             path: path,
