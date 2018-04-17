@@ -8,8 +8,6 @@ import L from 'leaflet';
 @observer export default class MarkerContainer extends Component {
   constructor(props) {
     super(props);
-
-    console.log("Card", this.props);
   }
 
   handleOnClick(event) {

@@ -21,7 +21,14 @@ import RecordForm from "./forms/records/record_form";
   }
 
   handleOnClick(event) {
-    this.props.mapView.mapViewStore.latlng = event.latlng;
+    this.props.mapViewStore.latlng = event.latlng;
+
+    if( this.props.mapViewStore.add_record_mode ) {
+      const {lat, lng} = event.latlng;
+      this.props.recordFormStore.latlng = event.latlng;
+
+      this.props.mapViewStore.overlay = "record_form";
+    }
   }
 
   render() {

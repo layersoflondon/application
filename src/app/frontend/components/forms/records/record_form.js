@@ -13,13 +13,12 @@ import Team from './team';
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {errors: []};
   }
 
-  outputState(event) {
+  save(event) {
     event.preventDefault();
-
-    console.log("Current Media item title attribute: ", this.props.recordFormStore.media.map((i)=>i.title), this.props.recordFormStore);
+    this.props.recordFormStore.persist();
   }
 
   render() {
@@ -29,7 +28,9 @@ import Team from './team';
     return (
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
-          <div className="close" />
+          <div className="close">
+            <button className="close" onClick={()=>this.props.mapViewStore.overlay=null}>Close</button>
+          </div>
           <div className="m-add-record">
             <h1>Add record</h1>
 
@@ -44,7 +45,7 @@ import Team from './team';
                 <Team {...this.props} />
               </div>
 
-              <button onClick={this.outputState.bind(this)}>ok</button>
+              <button onClick={this.save.bind(this)}>ok</button>
 
             </form>
           </div>
