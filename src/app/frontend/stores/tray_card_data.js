@@ -15,10 +15,8 @@ export default class TrayCardData {
 
     this.highlighted = false;
     if( this.is_collection ) {
-      console.log("Collection records", card.records);
       this.records = card.records.map((r) => new TrayCardData(store, r));
     }else {
-      // this.lat = card.lat
       this.lat = card.lat;
       this.lng = card.lng;
     }

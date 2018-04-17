@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
 import MediaItem from './media_item';
 import MediaItemEditor from './media_item_editor';
+import MediaItemStore from '../../../stores/media_item_store';
 
 import Dropzone from 'react-dropzone';
 import {observer} from "mobx-react";
@@ -11,7 +12,7 @@ import {observer} from "mobx-react";
     super(props);
 
 
-    this.state = {is_visible: false, items: this.props.recordFormStore.media};
+    this.state = {is_visible: false, items: this.props.recordFormStore.attachments};
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
@@ -19,8 +20,17 @@ import {observer} from "mobx-react";
       const reader = new FileReader();
       reader.onload = (f) => {
         const fileData = reader.result;
+        const attachments = this.props.recordFormStore.attachments.slice();
+        const new_attachment = {file: fileData, title: f.target.fileName, description: '', credit: ''};
 
-        this.props.recordFormStore.media.push({data: fileData, type: f.type, title: f.target.fileName, description: 'the description', credit: 'image credit'});
+        const media_item = new MediaItemStore(this.props.recordFormStore.id, new_attachment);
+        media_item.persist().then((response) => {
+          console.log("Persisted media item", response);
+          // attachments.push(media_item);
+          // this.props.recordFormStore.attachments = attachments;
+        }).catch((error) => {
+          console.log("Error persisting media item", error);
+        });
       };
 
       reader.fileName = file.name;
@@ -31,8 +41,9 @@ import {observer} from "mobx-react";
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
 
-    const media_items = this.state.items.map((item,i) => {
-      return <MediaItem {...item} {...this.props} object={item} key={i} index={i} current_media_item_index={this.props.recordFormStore.current_media_item_index} />
+    const media_items = this.props.recordFormStore.attachments.map((item,i) => {
+      let media_item = new MediaItemStore(this.props.recordFormStore.id, item);
+      return <MediaItem {...item} {...this.props} object={media_item} key={i} index={i} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
     });
 
     return (
@@ -62,7 +73,7 @@ import {observer} from "mobx-react";
               </Dropzone>
             </div>
 
-            <MediaItemEditor {...this.props} current_media_item_index={this.props.recordFormStore.current_media_item_index} />
+            <MediaItemEditor {...this.props} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
           </div>
         </div>
       </div>

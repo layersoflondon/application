@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
     card_data.push(o);
   });
 
-  console.log(card_data);
   const cardStore = CardStore.fromJS(card_data);
   const trayViewStore = new TrayViewStore();
   trayViewStore.cardStore = cardStore;

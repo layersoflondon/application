@@ -7,18 +7,18 @@ import {observer} from "mobx-react";
   constructor(props){
     super(props);
 
-    this.state = {data: this.props.data, type: this.props.type, title: this.props.title, description: this.props.description, credit: this.props.credit};
+    this.state = {file: this.props.file, type: this.props.type, title: this.props.title, description: this.props.description, credit: this.props.credit};
   }
 
   setCurrentMediaItem(event) {
     event.preventDefault();
-    this.props.recordFormStore.current_media_item_index = this.props.index;
+    this.props.recordFormStore.current_attachment_item_index = this.props.index;
   }
 
   render() {
-    const style = {backgroundImage: `url("${this.state.data}")`};
+    const style = {backgroundImage: `url("${this.state.file}")`};
 
-    if( this.props.recordFormStore.current_media_item_index === this.props.index ) {
+    if( this.props.recordFormStore.current_attachment_item_index === this.props.index ) {
       style['border'] = '1px solid #222';
       style['marginTop'] = '-1px';
     }

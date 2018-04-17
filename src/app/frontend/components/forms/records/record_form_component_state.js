@@ -16,12 +16,7 @@ export default class RecordFormComponentState {
       }
 
       createDraftRecord(event) {
-        if( !this.props.recordFormStore.id ) {
-          console.log("Create draft record!");
-          this.props.recordFormStore.id = 1;
-        }else {
-          console.log("Already got id for this record");
-        }
+        this.props.recordFormStore.persist();
       }
 
       handleOnChange(event) {
@@ -29,6 +24,8 @@ export default class RecordFormComponentState {
         this.setState({
           [name]: value
         });
+
+        this.props.recordFormStore[name] = value;
       }
 
       togglePaneVisibility(event) {
