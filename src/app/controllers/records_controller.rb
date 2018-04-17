@@ -4,8 +4,7 @@ class RecordsController < ApplicationController
   skip_after_action :verify_authorized, only: [:index]
 
   def index
-    # TODO: show records from the current user as well
-    @records = Record.where(state: 'published', deleted: false)
+    @records = Record.includes(:user).where(state: %w[published flagged])
   end
 
   def create
@@ -30,7 +29,7 @@ class RecordsController < ApplicationController
 
   def destroy
     authorize(@record)
-    @record.deleted = true
+    @record.state = 'deleted'
     return render json: '', status: :no_content if @record.save
     render json: @record.errors, status: :unauthorized
   end
@@ -38,7 +37,7 @@ class RecordsController < ApplicationController
   private
 
   def set_record
-    @record = Record.where(id: params[:id], deleted: false).first
+    @record = Record.where(id: params[:id]).first
     render json: '', status: :not_found unless @record
   end
 
@@ -64,14 +63,16 @@ class RecordsController < ApplicationController
 
   def check_transition(state)
     case state
-    when 'pending_review'
-      @record.review
     when 'published'
-      @record.publish
+      @record.mark_as_published
+    when 'pending_review'
+      @record.mark_as_pending_review
     when 'flagged'
-      @record.flag
-    when 'drafted'
-      @record.draft
+      @record.mark_as_flagged
+    when 'draft'
+      @record.mark_as_draft
+    when 'delete'
+    @record.mark_as_deleted
     end
   end
 end

@@ -6,7 +6,6 @@ class CreateRecords < ActiveRecord::Migration[5.2]
       t.integer :like_count, null: false, default: 0
       t.integer :view_count, null: false, default: 0
       t.integer :state, null: false, default: false
-      t.boolean :deleted, null: false, default: false
       t.float :lat, null: true
       t.float :lng, null: true
       t.date :date, null: true

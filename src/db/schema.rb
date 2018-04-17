@@ -123,7 +123,6 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.integer "like_count", default: 0, null: false
     t.integer "view_count", default: 0, null: false
     t.integer "state", default: 0, null: false
-    t.boolean "deleted", default: false, null: false
     t.float "lat"
     t.float "lng"
     t.date "date"
