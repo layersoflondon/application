@@ -600,7 +600,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title\",\n    \"description\" : \"record description\",\n    \"state\" : \"published\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\",\n    \"location\" : {\"address\" : \"address\"}\n  }\n}"
+							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title\",\n    \"state\" : \"drafted\",\n    \"description\" : \"record description\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\",\n    \"location\" : {\"address\" : \"address\"}\n  }\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/records",
@@ -610,56 +610,6 @@
 							"port": "3000",
 							"path": [
 								"records"
-							]
-						},
-						"description": null
-					},
-					"response": []
-				},
-				{
-					"name": "Show Record",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "13eb0ebd-4c14-46ab-a650-197c084e7fde",
-								"type": "text/javascript",
-								"exec": [
-									"eval(globals.postmanBDD);",
-									"eval(globals.commonTests)();",
-									"",
-									"describe('Show record', () => {",
-									"  it('should return a valid response', () => {",
-									"    response.should.have.status(200);",
-									"    response.should.be.json;",
-									"    response.body.should.not.be.empty;",
-									"  });",
-									"  ",
-									"  it('should match the record schema', () => {",
-									"    var schema = JSON.parse(environment.recordSchema);",
-									"    response.body.should.have.schema(schema);",
-									"  });  ",
-									"});"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "localhost:3000/records/{{lastResourceCreatedId}}",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"records",
-								"{{lastResourceCreatedId}}"
 							]
 						},
 						"description": null
@@ -719,7 +669,127 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title update\",\n    \"description\" : \"record description update\",\n    \"state\" : \"published\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\"\n  }\n}"
+							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title update\",\n    \"state\" : \"pending_review\",\n    \"description\" : \"record description update\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\",\n    \"location\" : {\"address\" : \"address\"}\n  }\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/records/{{lastResourceCreatedId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Patch record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "feb120f8-076f-45ec-9ed9-cefaaaace41d",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Update record', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the record schema', () => {",
+									"    var schema = JSON.parse(environment.recordSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"record\" : {\n  \t\"title\" : \"record title xxxxx\",\n    \"state\" : \"flagged\"\n  }\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/records/{{lastResourceCreatedId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"records",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Show Record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "13eb0ebd-4c14-46ab-a650-197c084e7fde",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Show record', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the record schema', () => {",
+									"    var schema = JSON.parse(environment.recordSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
 						},
 						"url": {
 							"raw": "localhost:3000/records/{{lastResourceCreatedId}}",
