@@ -4,8 +4,12 @@ module Attachments
 
     included do
       has_one_attached :file
-      # TODO: check why is not validating presence of file
-      validates :file, presence: true
+
+      validate :validate_file
+
+      def validate_file
+        errors.add(:attachment, 'file is not attached') unless file.attached?
+      end
     end
   end
 end

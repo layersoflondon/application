@@ -11,7 +11,6 @@ class RecordAttachmentsController < ApplicationController
   def create
     authorize(@record)
     @attachment = @record.attachments.build(attachment_params)
-    @attachment.file.attach(params[:file]) if params[:file]
     return @attachment if @attachment.save
     render json: @attachment.errors.full_messages, status: :unprocessable_entity
   end
@@ -60,7 +59,8 @@ class RecordAttachmentsController < ApplicationController
                     credit
                     url
                     youtube_id
-                    primary
+                    primary,
+                    file
                   ])
   end
 end
