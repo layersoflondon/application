@@ -125,7 +125,8 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.integer "state", default: 0, null: false
     t.float "lat"
     t.float "lng"
-    t.date "date"
+    t.date "date_from"
+    t.date "date_to"
     t.text "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

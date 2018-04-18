@@ -53,7 +53,7 @@ class RecordsController < ApplicationController
         :state,
         :lat,
         :lng,
-        :date,
+        :date_from, :date_to,
         location: %i[
           address
         ]

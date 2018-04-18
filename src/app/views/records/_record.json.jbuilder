@@ -6,7 +6,8 @@ json.view_count record.view_count
 json.state record.state
 json.lat record.lat
 json.lng record.lng
-json.date record.date
+json.date_from record.date_from
+json.date_to record.date_to
 # TODO: change to use json builder user partial
 json.merge! user: {
     id: record.user.id,

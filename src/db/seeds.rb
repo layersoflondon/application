@@ -36,7 +36,7 @@ User.create(
       state: record_states[Faker::Number.between(0, 3)],
       lat: Faker::Address.latitude,
       lng: Faker::Address.longitude,
-      date: Faker::Date.between(10.year.ago, Date.today),
+      date_from: Faker::Date.between(10.year.ago, Date.today),
       user: user_test,
       location: {:address => Faker::Address.street_address},
       attachments_attributes:[{
@@ -67,7 +67,7 @@ end
         state: record_states[Faker::Number.between(0, 3)],
         lat: Faker::Address.latitude,
         lng: Faker::Address.longitude,
-        date: Faker::Date.between(10.year.ago, Date.today),
+        date_from: Faker::Date.between(10.year.ago, Date.today),
         user: user_test,
         location: {:address => Faker::Address.street_address}
     )

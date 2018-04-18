@@ -8,7 +8,8 @@ class CreateRecords < ActiveRecord::Migration[5.2]
       t.integer :state, null: false, default: false
       t.float :lat, null: true
       t.float :lng, null: true
-      t.date :date, null: true
+      t.date :date_from, null: true
+      t.date :date_to, null: true
       t.text :location, null: true
 
       t.timestamps

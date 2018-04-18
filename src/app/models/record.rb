@@ -43,12 +43,12 @@ class Record < ApplicationRecord
   # enum state: %i[draft published pending_review flagged]
 
   validates :title, :state, presence: true, if: -> { state == 'draft' }
-  validates :title, :description, :state, :lat, :lng, :date, :location, presence: true, if: -> { state != 'draft' }
+  validates :title, :description, :state, :lat, :lng, :date_from, :location, presence: true, if: -> { state != 'draft' }
   validates :title, length: { in: 3..255 }, if: -> { state != 'draft' }
   validates :description, length: { minimum: 3 }, if: -> { state != 'draft' }
   validates :lat, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, if: -> { state != 'draft' }
   validates :lng, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }, if: -> { state != 'draft' }
-  validates_format_of :date, with: /\d{4}-\d{2}-\d{2}/, message: '^Date must be in the following format: yyyy-dd-mm', if: -> { state != 'draft' }
+  validates_format_of :date_from, with: /\d{4}-\d{2}-\d{2}/, message: '^Date must be in the following format: yyyy-dd-mm', if: -> { state != 'draft' }
   # TODO: is there a standard rails validator for dates? not sure.
   validate :date_is_in_the_past, if: -> { state != 'draft' }
 
@@ -61,6 +61,6 @@ class Record < ApplicationRecord
   }
 
   def date_is_in_the_past
-    errors.add(:date, 'date is not in the past') if date.present? && Date.today < date
+    errors.add(:date_from, 'date is not in the past') if date_from.present? && Date.today < date_from
   end
 end

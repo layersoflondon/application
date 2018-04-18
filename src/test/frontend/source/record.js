@@ -14,7 +14,7 @@ var createJSON = {
         "state" : "draft",
         "lat" : 15,
         "lng" : 20,
-        "date" : "2017-01-01",
+        "date_from" : "2017-01-01",
         "location" : {"address" : "address"}
     }
 };
@@ -25,7 +25,7 @@ var updateJSON = {
         "state" : "deleted",
         "lat" : 15,
         "lng" : 20,
-        "date" : "2017-01-01",
+        "date_from" : "2017-01-02",
         "location" : {"address" : "address"}
     }
 };
@@ -56,7 +56,7 @@ describe('Record', function() {
                 assert.equal(createJSON.record.state, response.data.state);
                 assert.equal(createJSON.record.lat, response.data.lat);
                 assert.equal(createJSON.record.lng, response.data.lng);
-                assert.equal(createJSON.record.date, response.data.date);
+                assert.equal(createJSON.record.date_from, response.data.date_from);
                 assert.equal(createJSON.record.location.address, response.data.location.address);
                 tempResourceId  = response.data.id;
                 done();
@@ -76,7 +76,7 @@ describe('Record', function() {
                 assert.equal(createJSON.record.state, response.data.state);
                 assert.equal(createJSON.record.lat, response.data.lat);
                 assert.equal(createJSON.record.lng, response.data.lng);
-                assert.equal(createJSON.record.date, response.data.date);
+                assert.equal(createJSON.record.date_from, response.data.date_from);
                 assert.equal(createJSON.record.location.address, response.data.location.address);
                 done();
             })
@@ -94,7 +94,7 @@ describe('Record', function() {
                 assert.equal(updateJSON.record.state, response.data.state);
                 assert.equal(updateJSON.record.lat, response.data.lat);
                 assert.equal(updateJSON.record.lng, response.data.lng);
-                assert.equal(updateJSON.record.date, response.data.date);
+                assert.equal(updateJSON.record.date_from, response.data.date_from);
                 assert.equal(createJSON.record.location.address, response.data.location.address);
                 done();
             })
