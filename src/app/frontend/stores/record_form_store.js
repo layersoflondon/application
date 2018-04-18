@@ -1,5 +1,6 @@
 import {observable, computed, observe} from 'mobx';
 import Record from '../sources/record';
+import MediaItemStore from './media_item_store';
 
 /**
  * Build a new Record instance
@@ -34,29 +35,6 @@ export default class RecordFormStore {
     return this.latlng.lng;
   }
 
-  constructor() {
-    observe(this, 'attachments', (change) => {
-      const new_files = change.newValue.filter((file) => {
-        return !file.id;
-      });
-
-      const record_attachments_attributes = {attachments_attributes: []};
-      new_files.map((file) => {
-        let data = new FormData();
-        data.append('attachable_attributes[title]', file.title);
-        data.append('attachable_attributes[caption]', file.caption);
-        data.append('attachable_attributes[credit]', file.credit);
-        data.append('attachable_attributes[description]', file.description);
-        data.append('attachment_type', 'image');
-        data.append('file', file.data);
-
-        record_attachments_attributes.attachments_attributes.push(data);
-      });
-
-      console.log("Changed...", new_files);
-    });
-  }
-
   persist() {
     if( !this.id ) {
       Record.create(null, this.toJS()).then((response) => {
@@ -75,10 +53,6 @@ export default class RecordFormStore {
     }
   }
 
-  storeAttachment() {
-    attachments_data = [];
-    // Record.update(this.id, attachments_data);
-  }
 
   toJS() {
     return {

@@ -11,23 +11,25 @@ import {observer} from "mobx-react";
   constructor(props) {
     super(props);
 
-
     this.state = {is_visible: false, items: this.props.recordFormStore.attachments};
   }
 
-  onDrop(acceptedFiles, rejectedFiles) {
+  onDrop(acceptedFiles, rejectedFiles, event) {
     acceptedFiles.forEach(file => {
       const reader = new FileReader();
+
       reader.onload = (f) => {
-        const fileData = reader.result;
+        // const fileData = reader.result; // the base64 encoded string
         const attachments = this.props.recordFormStore.attachments.slice();
-        const new_attachment = {file: fileData, title: f.target.fileName, description: '', credit: ''};
+        const new_attachment = {file: file, url: file.preview, attachment_type: file.type.split("/")[0], title: f.target.fileName, description: '', credit: ''};
 
         const media_item = new MediaItemStore(this.props.recordFormStore.id, new_attachment);
         media_item.persist().then((response) => {
-          console.log("Persisted media item", response);
-          // attachments.push(media_item);
-          // this.props.recordFormStore.attachments = attachments;
+          let data = response.data;
+          media_item.record_id = this.props.recordFormStore.id;
+          media_item.id = data.id;
+          attachments.push(media_item);
+          this.props.recordFormStore.attachments = attachments;
         }).catch((error) => {
           console.log("Error persisting media item", error);
         });
