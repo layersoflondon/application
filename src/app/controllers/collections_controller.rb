@@ -4,7 +4,7 @@ class CollectionsController < ApplicationController
   skip_after_action :verify_authorized, only: %i[index]
 
   def index
-    # TODO: show @collections from the current user as well
+    # TODO: show @collections from the team/user. Not defined polymorphic here
     @collections = Collection.where(read_state: 'public_read')
   end
 

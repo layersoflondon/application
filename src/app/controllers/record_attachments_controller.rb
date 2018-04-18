@@ -59,7 +59,7 @@ class RecordAttachmentsController < ApplicationController
                     credit
                     url
                     youtube_id
-                    primary,
+                    primary
                     file
                   ])
   end

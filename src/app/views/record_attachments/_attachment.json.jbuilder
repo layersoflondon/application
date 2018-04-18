@@ -10,3 +10,7 @@ if attachment.has_file?
 elsif attachment.has_url?
   json.url attachment.url
 end
+
+if attachment.has_image?
+  json.is_primary attachment.is_primary
+end

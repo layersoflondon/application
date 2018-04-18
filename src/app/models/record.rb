@@ -63,11 +63,4 @@ class Record < ApplicationRecord
   def date_is_in_the_past
     errors.add(:date, 'date is not in the past') if date.present? && Date.today < date
   end
-
-  def primary_image
-    # TODO: get primary image or first found
-    # attachments.where(attachable_type: 'Attachments::Image').first
-    # attachments.images.where(primary: true).first || attachments.images.first
-    'http://placehold.it/900x400s'
-  end
 end

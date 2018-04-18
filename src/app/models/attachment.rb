@@ -26,4 +26,12 @@ class Attachment < ApplicationRecord
   def url
     has_url? ? attachable.url : nil
   end
+
+  def has_image?
+    attachable_type ==  "Attachments::Image"
+  end
+
+  def is_primary
+    has_image? ? attachable.primary : nil
+  end
 end
