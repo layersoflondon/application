@@ -17,6 +17,24 @@ import {observer} from "mobx-react";
     this.props.recordFormStore.current_attachment_item[name] = value;
   }
 
+  handleOnBlur(event) {
+    event.preventDefault();
+
+    const current_attachment_item = this.props.recordFormStore.current_attachment_item;
+
+    current_attachment_item.persist().then((response) => {
+      console.log("Saved image");
+    }).catch((error) => {
+      console.log("Error saving image", error);
+    });
+  }
+
+  handleOnClick(event) {
+    event.preventDefault();
+    this.props.recordFormStore.current_attachment_item.is_primary = true;
+    this.props.recordFormStore.current_attachment_item.persist();
+  }
+
   render() {
     if( this.props.recordFormStore.current_attachment_item ) {
       console.log("record_id = ", this.props.recordFormStore.current_attachment_item.record_id);
@@ -29,19 +47,19 @@ import {observer} from "mobx-react";
         <div className="caption">
           <div className="form-group">
             <label>Title</label>
-            <input placeholder="Title" type="text" onChange={this.handleOnChange.bind(this)} name="title" value={this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.title : ''} />
+            <input placeholder="Title" type="text" onChange={this.handleOnChange.bind(this)} name="title" value={this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.title : ''} onBlur={this.handleOnBlur.bind(this)} />
           </div>
           <div className="form-group">
             <label>Caption</label>
-            <textarea rows="5" placeholder="Caption" onChange={this.handleOnChange.bind(this)} name="description" value={this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.description : ''} >
+            <textarea rows="5" placeholder="Caption" onChange={this.handleOnChange.bind(this)} name="description" value={this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.description : ''}onBlur={this.handleOnBlur.bind(this)}  >
             </textarea>
           </div>
           <div className="form-group">
             <label>Credit</label>
-            <input placeholder="Credit" type="text" onChange={this.handleOnChange.bind(this)} name="credit" value={this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.credit : ''} />
+            <input placeholder="Credit" type="text" onChange={this.handleOnChange.bind(this)} name="credit" value={this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.credit : ''} onBlur={this.handleOnBlur.bind(this)} />
           </div>
           <div className="form-group">
-            <button>Set as primary image</button>
+            <button onClick={this.handleOnClick.bind(this)}>Set as primary image</button>
           </div>
         </div>
       </div>

@@ -13,6 +13,15 @@ json.merge! user: {
     id: record.user.id,
     name: record.user.email
 }
+json.attachments do
+  json.array! record.attachments do |attachment|
+    json.url "http://placehold.it/900x400s"
+    json.attachment_type "image"
+    json.title attachment.attachable.title
+    json.description attachment.attachable.description if attachment.attachable.respond_to?(:description)
+    json.caption attachment.attachable.caption
+  end
+end
 json.created_at record.created_at
 json.location record.location
 json.collections do

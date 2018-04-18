@@ -7,7 +7,7 @@ import {observer} from "mobx-react";
   constructor(props){
     super(props);
 
-    this.state = {file: this.props.file, type: this.props.type, title: this.props.title, description: this.props.description, credit: this.props.credit};
+    this.state = {url: this.props.url, type: this.props.type, title: this.props.title, description: this.props.description, credit: this.props.credit};
   }
 
   setCurrentMediaItem(event) {
@@ -16,7 +16,7 @@ import {observer} from "mobx-react";
   }
 
   render() {
-    const style = {backgroundImage: `url("${this.state.file}")`};
+    const style = {backgroundImage: `url("${this.state.url}")`};
 
     if( this.props.recordFormStore.current_attachment_item_index === this.props.index ) {
       style['border'] = '1px solid #222';
