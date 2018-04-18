@@ -8,6 +8,17 @@ class Dates extends Component {
     this.state = {date_to_visible: false}
   }
 
+  end_date_component() {
+    return (
+      <div className="end-date">
+        <label>When did this end?</label>
+        <input placeholder="Day" type="text" name="date_from_day" value={this.state.date_from.getDate()} onChange={this.handleOnChange} />
+        <input placeholder="Month" type="text" name="date_from_month" value={this.state.date_from.getMonth()} onChange={this.handleOnChange} />
+        <input placeholder="Year" type="text" name="date_from_year" value={this.state.date_from.getFullYear()} onChange={this.handleOnChange} />
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="form-group form-group--date">
@@ -20,15 +31,10 @@ class Dates extends Component {
         </div>
 
         <div className="end-date-link">
-          <a onClick={()=>{this.state.date_to_visible = !this.state.date_to_visible}}>Can you add an end date?</a> Useful for events, and places that may no longer exist.
+          <a onClick={()=>{console.log("toggle"); this.setState({date_to_visible: !this.state.date_to_visible})}}>Can you add an end date?</a> Useful for events, and places that may no longer exist.
         </div>
 
-        <div className="end-date">
-          <label>When did this end?</label>
-          <input placeholder="Day" type="text" />
-          <input placeholder="Month" type="text" />
-          <input placeholder="Year" type="text" />
-        </div>
+        {this.state.date_to_visible && this.end_date_component()}
       </div>
     );
   }

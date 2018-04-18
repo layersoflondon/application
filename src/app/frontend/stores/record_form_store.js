@@ -9,8 +9,8 @@ export default class RecordFormStore {
   id = null;
   title = '';
   description = '';
-  date_from = '';
-  date_to = '';
+  date_from_timestamp = null;
+  date_to_timestamp = null;
   latlng = null;
   links = [];
   collection_id = null;
@@ -35,13 +35,28 @@ export default class RecordFormStore {
     return this.latlng.lng;
   }
 
+  @computed get date_from() {
+    console.log("date_from()");
+    return new Date();
+  }
+  set date_from(date) {
+    console.log("set date_from()")
+  }
+  @computed get date_to() {
+    console.log("date_to()");
+    return new Date();
+  }
+  set date_to(date) {
+    console.log("Set date_to()");
+  }
+
   persist() {
     if( !this.id ) {
       Record.create(null, this.toJS()).then((response) => {
         this.assignFromJS(response.data);
       }).catch((error) => {
         // TODO: render validation errors in a component
-        console.log("Validation errors: ", error.response.data);
+        console.log("Validation errors: ", error);
       });
     }else {
       const id = this.toJS().id;
@@ -52,7 +67,6 @@ export default class RecordFormStore {
       });
     }
   }
-
 
   toJS() {
     return {
