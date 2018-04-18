@@ -64,14 +64,6 @@ import {observer} from "mobx-react";
                     <a href="#"><span className="image"></span><em>Drag &amp; drop</em></a>
                   </li>
                 </ul>
-
-                <div className="add-by-url">
-                  <div className="form-group">
-                    <label>Add by URL (Youtube or SoundCloud URL)</label>
-                    <input placeholder="URL" type="text" />
-                  </div>
-                  <button>Add</button>
-                </div>
               </Dropzone>
             </div>
 

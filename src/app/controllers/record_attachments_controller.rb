@@ -19,12 +19,11 @@ class RecordAttachmentsController < ApplicationController
 
   def update
     authorize(@record)
-    update_attachment = @record.attachments.build(attachment_params)
-    update_attachment.file.attach(params[:file]) if params[:file]
-    # TODO: this doesn't update as expected, it just create another attachment
-    @attachment = update_attachment
-    return @attachment if @attachment.save
-    render json: @attachment.errors.full_messages, status: :unprocessable_entity
+
+    @attachment = @record.attachments.find(params[:id])
+    unless @attachment.attachable.update_attributes(attachment_params[:attachable_attributes])
+      render json: @attachment.errors.full_messages, status: :unprocessable_entity
+    end
   end
 
   def destroy
