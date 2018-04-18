@@ -57,7 +57,8 @@ end
       title: Faker::Company.catch_phrase,
       description: Faker::Company.bs,
       read_state: collection_read_state[Faker::Number.between(0, 1)],
-      write_state: collection_write_state[Faker::Number.between(0, 1)]
+      write_state: collection_write_state[Faker::Number.between(0, 1)],
+      owner: user_test
   )
   # Create collection records
   5.times do |_ri|
