@@ -1,9 +1,9 @@
 import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
+import PlaceDetails from './place_details';
+import {observer} from 'mobx-react';
 
-import Dates from './dates';
-
-class Details extends Component {
+@observer class Details extends Component {
   constructor(props) {
     super(props);
 
@@ -17,6 +17,8 @@ class Details extends Component {
           <label>Title</label>
           <input type="text" name="title" value={this.state.title} onChange={this.handleOnChange} onBlur={this.createDraftRecord} />
         </div>
+
+        <PlaceDetails {...this.props} />
 
         <div className="form-group">
           <label>Description</label>
