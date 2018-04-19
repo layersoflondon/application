@@ -1,6 +1,5 @@
 import {observable, computed, observe} from 'mobx';
 import Record from '../sources/record';
-import MediaItemStore from './media_item_store';
 
 /**
  * Build a new Record instance
@@ -24,6 +23,7 @@ export default class RecordFormStore {
 
   @observable date_from_object = {date: '', month: '', year: ''};
   @observable date_to_object = {date: '', month: '', year: ''};
+
   @observable attachments = [];
   @observable visible_pane = null; // which accordion pane is visible
   @observable current_attachment_item_index = this.attachments.length>0 ? 0 : null; //which media item is active (being edited)
