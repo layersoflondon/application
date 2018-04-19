@@ -36,7 +36,7 @@ export default class MediaItemStore {
       return RecordAttachments.update(this.record_id, this.id, data);
     }else {
       data.append('attachment_type', this.attachment_type);
-      data.append('file', this.file);
+      data.append('attachable_attributes[file]', this.file);
       return RecordAttachments.create(this.record_id, data);
     }
   }
