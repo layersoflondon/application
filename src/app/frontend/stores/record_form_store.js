@@ -1,5 +1,6 @@
 import {observable, computed, observe} from 'mobx';
 import Record from '../sources/record';
+import GoogleMapsClient from '../sources/google_maps_client';
 
 /**
  * Build a new Record instance
@@ -104,22 +105,18 @@ export default class RecordFormStore {
   }
 
   startLookup() {
-    if (!this.place) {
-      //  todo implement place lookups
-      setTimeout(() => {
-        console.log("Setting status to true");
-        this.place_lookup_status = true
-      }, 500);
-      setTimeout(() => {
-        console.log("Setting status to 500");
-        this.place_lookup_status = 500
-      }, 1250);
-      setTimeout(() => {
-        console.log("Setting status to true and assigning place");
-        this.place_lookup_status = true;
-        this.place = `Some place | ${this.lat}, ${this.lng}`
-      }, 1750);
-    }
+    this.place_lookup_status = true;
+    GoogleMapsClient.addressLookUp(this.lat, this.lng).then((response)=> {
+      this.place_lookup_status = response.status;
+
+      // console.log(response.status, response.json.results);
+
+      if( response.json.results.length > 0 ) {
+        this.place = response.json.results[0].formatted_address;
+      }else {
+        this.place_lookup_status = 404
+      }
+    }).catch((error)=>{console.log("Google error:", error)});
   }
 
   toJS() {
