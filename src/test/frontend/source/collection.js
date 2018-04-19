@@ -12,7 +12,9 @@ var createJSON = {
         "title" : "test",
         "description" : "test description",
         "read_state" : "public_read",
-        "write_state" : "everyone"
+        "write_state" : "everyone",
+        "owner_id" : 1,
+        "owner_type" : "Team"
     }
 };
 var updateJSON = {
@@ -20,7 +22,9 @@ var updateJSON = {
         "title" : "test update",
         "description" : "test description update",
         "read_state" : "private_read",
-        "write_state" : "team"
+        "write_state" : "team",
+        "owner_id" : 2,
+        "owner_type" : "Team"
     }
 };
 // used when to store the created resource id to show, update and destroy later

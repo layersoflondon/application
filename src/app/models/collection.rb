@@ -1,7 +1,7 @@
 class Collection < ApplicationRecord
-  # belongs_to :owner, polymorphic: true
   has_many :collection_records
   has_many :records, through: :collection_records
+  belongs_to :owner, polymorphic: true
 
   # TODO: permissions for reading and writing should go in a Pundit policy (see https://github.com/varvet/pundit).
   # I think we still need these enums though.

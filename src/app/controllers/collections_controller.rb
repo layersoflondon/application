@@ -5,7 +5,7 @@ class CollectionsController < ApplicationController
 
   def index
     # TODO: show @collections from the team/user. Not defined polymorphic here
-    @collections = Collection.where(read_state: 'public_read')
+    @collections = Collection.includes(:owner).where(read_state: 'public_read')
   end
 
   def create
@@ -53,7 +53,9 @@ class CollectionsController < ApplicationController
       :title,
       :description,
       :read_state,
-      :write_state
+      :write_state,
+      :owner_id,
+      :owner_type
     )
   end
 end

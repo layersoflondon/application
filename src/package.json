@@ -2,6 +2,7 @@
   "name": "layers-app",
   "private": true,
   "dependencies": {
+    "@google/maps": "^0.4.6",
     "@rails/webpacker": "^3.2.1",
     "axios": "^0.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
