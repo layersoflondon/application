@@ -30,8 +30,12 @@ Hit http://localhost:3000/
 Elastic search is composed independently, to spin up the elastic search container run:
 
 ```bash
-$ docker-compose -f docker-compose.elk.yml up -d 
+$ docker-compose -f docker-compose.elk.yml up -d
 ```
+Known issues:
+
+ * Max virtual memory areas vm.max_map_count is too low, change it for amount suggested: `sudo sysctl -w vm.max_map_count=SUGGESTED_AMOUNT`
+ 
 ### Setup pre-commit
 
 ```bash
