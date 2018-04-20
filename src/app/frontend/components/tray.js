@@ -14,6 +14,8 @@ import Card from './card';
   }
 
   render() {
+    console.log(this.props.trayViewStore.cardStore, this.props.trayViewStore.cardStore.cards.toJS());
+
     const cards = this.props.trayViewStore.cardStore.cards.map( (c) => {
       const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;
       return <Card key={key} card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
@@ -21,11 +23,25 @@ import Card from './card';
 
     let trayClassName = "m-tray-area";
 
-    let trayDetails = "";
+    let trayCollectionDetails;
     if(this.props.trayViewStore.previousCardStore && !this.props.trayViewStore.cardStore.rootCardStore) {
-      trayDetails = <p onClick={this.switchToPreviousCardStore.bind(this)}>
-        Previously showing a store with {this.props.trayViewStore.previousCardStore.cards.length} cards.
-      </p>
+      trayCollectionDetails = <div>
+        <div className="m-tray-title-area">
+          <div className="close" onClick={this.switchToPreviousCardStore.bind(this)}>
+            <button className="close">Close</button>
+          </div>
+          <h1>{this.props.trayViewStore.cardStore.title}</h1>
+          <div className="meta">Collection, {this.props.trayViewStore.cardStore.cards.length} records</div>
+
+          {/*<div className="creator-link"><a href="#">Mrs Clark's History Class</a></div>*/}
+        </div>
+
+        <div className="m-tray-introduction">
+          <p>
+            {this.props.trayViewStore.cardStore.description}
+          </p>
+        </div>
+      </div>
     }
 
     return <div className={trayClassName} id="tray-container">
@@ -34,10 +50,13 @@ import Card from './card';
       </div>
 
       <div className="window">
-        {trayDetails}
+        <div className="s-tray-area--collection is-showing">
+          {trayCollectionDetails}
 
-        <div className="s-tray-area--introduction is-showing">
-          {cards}
+          <div className="m-tray-records-list">
+            {cards}
+          </div>
+
         </div>
       </div>
     </div>;

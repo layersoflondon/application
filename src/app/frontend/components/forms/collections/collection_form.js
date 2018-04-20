@@ -1,36 +1,41 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
+import Collection from '../../../sources/collection';
 
 @observer export default class CollectionForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {name: "", description: "", read_state: false, edit_state: "user", team_id: null};
+    this.state = {title: "", description: "", read_state: false, write_state: "creator", team_id: null};
   }
 
   handleOnChange(event) {
-    let state_value;
     let { name, value } = event.target;
 
-    console.log(event.target.type, value, typeof value);
-    switch(event.target.type) {
-      case "checkbox":
-        state_value = value != "false";
-        break;
-      default:
-        state_value = value;
-        break;
+    if( event.target.type === "checkbox" ) {
+      value = event.target.checked;
     }
 
     this.setState({
-      [name]: state_value
+      [name]: value
     });
   }
 
   handleOnSubmit(event) {
     event.preventDefault();
     console.log("Handle submit", event, this.state);
+
+    Collection.create(null, {collection: this.state}).then((response) => {
+      console.log("Collection created", response);
+      this.props.mapViewStore.overlay = null;
+    }).catch((response) => {
+      console.log("Error creating collection", response);
+    });
+  }
+
+  handleOnReadStateChange(event) {
+    this.setState({read_state: event.target.checked ? "private_read" : "public_read"});
   }
 
   render() {
@@ -52,7 +57,7 @@ import {observer} from "mobx-react";
             <form className="form--chunky form--over-white" onSubmit={this.handleOnSubmit.bind(this)}>
               <div className="form-group">
                 <label>Name</label>
-                <input placeholder="" type="text" name="name" value={this.state.name} onChange={this.handleOnChange.bind(this)} />
+                <input placeholder="" type="text" name="title" value={this.state.title} onChange={this.handleOnChange.bind(this)} />
               </div>
 
               <div className="form-group">
@@ -64,7 +69,7 @@ import {observer} from "mobx-react";
               <div className="form-group form-group--checkboxes-rows">
                 <span className="label">Who can see?</span>
                 <label>
-                  <input type="checkbox" name="read_state" value={this.state.read_state} onChange={this.handleOnChange.bind(this)} />
+                  <input type="checkbox" name="read_state" value={this.state.read_state} onChange={this.handleOnReadStateChange.bind(this)} />
                   <span>Keep this collection private <br /> Only you will see this collection (NB: the records within will still be visible)</span>
                 </label>
 
@@ -73,18 +78,18 @@ import {observer} from "mobx-react";
               <div className="form-group form-group--checkboxes-rows">
                 <span className="label">Who can edit?</span>
                 <label>
-                  <input type="radio" name="edit_state" checked={this.state.edit_state=="user"} value="user" onChange={this.handleOnChange.bind(this)} /><span>Just you</span>
+                  <input type="radio" name="write_state" checked={this.state.write_state=="creator"} value="creator" onChange={this.handleOnChange.bind(this)} /><span>Just you</span>
                 </label>
                 <label>
-                  <input type="radio" name="edit_state" checked={this.state.edit_state=="team"} value="team" onChange={this.handleOnChange.bind(this)} /><span>Members of</span>
-                    <select className="in-context-input" placeholder="Team" name="team_id" onChange={this.handleOnChange.bind(this)} disabled={this.state.edit_state!="team"}>
-                      <option checked={this.state.team_id == "1"} onChange={this.handleOnChange.bind(this)}>Team One</option>
-                      <option checked={this.state.team_id == "2"} onChange={this.handleOnChange.bind(this)}>Team Two</option>
-                      <option checked={this.state.team_id == "3"} onChange={this.handleOnChange.bind(this)}>Team Three</option>
+                  <input type="radio" name="write_state" checked={this.state.write_state=="team"} value="team" onChange={this.handleOnChange.bind(this)} /><span>Members of</span>
+                    <select className="in-context-input" placeholder="Team" name="team_id" onChange={this.handleOnChange.bind(this)} disabled={this.state.write_state!="team"}>
+                      <option value="1" checked={this.state.team_id == "1"} onChange={this.handleOnChange.bind(this)}>Team One</option>
+                      <option value="2" checked={this.state.team_id == "2"} onChange={this.handleOnChange.bind(this)}>Team Two</option>
+                      <option value="3" checked={this.state.team_id == "3"} onChange={this.handleOnChange.bind(this)}>Team Three</option>
                     </select>
                 </label>
                 <label>
-                  <input type="radio" name="edit_state" checked={this.state.edit_state=="public"} value="public" onChange={this.handleOnChange.bind(this)} /><span>Anyone</span>
+                  <input type="radio" name="write_state" checked={this.state.write_state=="everyone"} value="everyone" onChange={this.handleOnChange.bind(this)} /><span>Anyone</span>
                 </label>
               </div>
 

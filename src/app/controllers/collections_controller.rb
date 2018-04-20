@@ -9,7 +9,7 @@ class CollectionsController < ApplicationController
   end
 
   def create
-    @collection = Collection.new(collection_params)
+    @collection = current_user.collections.build(collection_params)
     authorize(@collection)
     return @collection if @collection.save
     render json: @collection.errors, status: :unprocessable_entity

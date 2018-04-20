@@ -14,9 +14,18 @@ import TrayCardData from './tray_card_data';
  */
 export default class CardStore {
   @observable cards = [];
+  title;
+  description;
 
   // set to true if rendering a sub-collection
   rootCardStore = false;
+
+  constructor(cards = [], title = '', description = '', rootCardStore = false) {
+    this.cards = cards;
+    this.title = title;
+    this.description = description;
+    this.rootCardStore = rootCardStore
+  }
 
   /**
    * return an instance of the store populated with the array of Card objects
@@ -24,7 +33,7 @@ export default class CardStore {
    */
   static fromJS(array) {
     const store = new CardStore();
-    store.cards = array.map( (c) => TrayCardData.fromJS(store, c) );
+    store.cards = array.map( (c) => TrayCardData.fromJS(c) );
 
     return store;
   }
@@ -35,7 +44,7 @@ export default class CardStore {
    * @param card - Collection with .records
    */
   static fromCollectionCard(card) {
-    const store = CardStore.fromJS(card.records);
+    const store = new CardStore(card.records, card.title, card.description, false);
 
     return store;
   }

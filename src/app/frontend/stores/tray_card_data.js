@@ -3,8 +3,7 @@ import {observable, computed} from 'mobx';
 export default class TrayCardData {
   @observable highlighted;
 
-  constructor(store, card) {
-    this.store = store;
+  constructor(card) {
     this.card = card;
 
     this.id = card.id;
@@ -15,7 +14,7 @@ export default class TrayCardData {
 
     this.highlighted = false;
     if( this.is_collection ) {
-      this.records = card.records.map((r) => new TrayCardData(store, r));
+      this.records = card.records.map((r) => new TrayCardData(r));
     }else {
       this.lat = card.lat;
       this.lng = card.lng;
@@ -30,18 +29,7 @@ export default class TrayCardData {
     return this.card.hasOwnProperty('records');
   }
 
-  toJS() {
-    // let _card = {id: this.id, title: this.title, description: this.description, period: this.period, primary_image: this.primary_image};
-    // if(this.is_collection) {
-    //   _card.records = this.records;
-    // }else {
-    //   _card.position = this.position;
-    // }
-    //
-    // return _card;
-  }
-
-  static fromJS(store, object) {
-    return new TrayCardData(store, object);
+  static fromJS(object) {
+    return new TrayCardData(object);
   }
 }
