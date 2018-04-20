@@ -1,0 +1,40 @@
+/* Highlighted content */
+
+.m-highlighted-content {
+ text-align:center;
+  padding:40px;
+}
+
+.m-highlighted-content h2 {
+  text-transform:uppercase;
+  font-size:14px;
+  margin-top:30px;
+  font-weight:normal;
+}
+
+.m-highlighted-content .highlight {
+  width: 300px;
+  background:white;
+  display:inline-block;
+  text-align:left;
+  margin:20px 10px;
+}
+
+.m-highlighted-content .highlight .image {
+  width: 100%;
+  padding-bottom: 60%;
+  background: #333;
+}
+
+.m-highlighted-content .highlight .indicator {
+  background: white;
+  padding: 4px 10px;
+  float:left;
+  margin-top: -33px;
+  margin-left: -10px;
+  display:inline-block;
+}
+
+.m-highlighted-content .highlight .text-content {
+ padding:10px;
+}

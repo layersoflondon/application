@@ -1,0 +1,17 @@
+/* Content */
+
+.m-content {
+  width: 70%;
+  margin:0 auto;
+  padding: 40px;
+}
+
+.m-sidebar + .m-content {
+  margin:0;
+  float: left;
+}
+
+.m-content .title {
+  margin-top:0;
+  margin-bottom:50px;
+}

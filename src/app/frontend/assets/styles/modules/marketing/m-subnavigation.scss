@@ -1,0 +1,17 @@
+/* Subnavigation */
+
+.m-subnavigation {
+  margin-bottom: 80px;
+}
+
+.m-subnavigation ul {
+  @include unlist;
+}
+
+.m-subnavigation a {
+  padding: 10px 20px;
+  border-radius: 200px;
+  display: block;
+  background: #cde8ff;
+  margin-bottom: 20px;
+}

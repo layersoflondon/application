@@ -1,0 +1,38 @@
+/* Layermaker banner */
+
+.m-layermaker-banner {
+  clear:both;
+  padding:20px;
+  margin:20px 40px;
+  border:3px solid #333;
+  @include clearfix;
+}
+
+
+.m-layermaker-banner .subtitle {
+  font-size:16px;
+  margin:0;
+}
+
+.m-layermaker-banner .title {
+  font-size:40px;
+  margin:0;
+}
+
+.m-layermaker-banner .title-wrapper {
+  float:left;
+  width:40%;
+}
+
+.m-layermaker-banner p {
+  float:left;
+  width:40%;
+  padding-right:40px;
+  margin:0;
+}
+
+.m-layermaker-banner > a {
+  float:left;
+  width:20%;
+  margin-top:10px;
+}

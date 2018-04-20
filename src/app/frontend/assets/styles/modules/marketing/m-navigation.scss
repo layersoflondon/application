@@ -1,0 +1,27 @@
+/* Navigation */
+
+.m-navigation {
+ //float: right;
+}
+
+.m-navigation ul {
+  @include unlist;
+}
+
+.m-navigation li {
+  display: inline;
+  margin-right:20px;
+}
+
+.m-navigation .main-navigation {
+  float: left;
+}
+
+.m-navigation .user-actions {
+  float: right;
+}
+
+.m-navigation .is-current a {
+  color:#333;
+  cursor:default;
+}

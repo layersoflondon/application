@@ -1,0 +1,40 @@
+/* Home CTA Block */
+
+.m-home-cta-block {
+  padding:100px;
+  @include clearfix;
+  border-top:1px solid #ddd;
+}
+
+.m-home-cta-block .image {
+  width:50%;
+  padding-bottom:40%;
+  float:right;
+  background:#ddd;
+}
+
+.m-home-cta-block--flipped .image {
+  float:left;
+}
+
+.m-home-cta-block .text-content {
+  width:50%;
+  float:left;
+  padding-right:50px;
+}
+
+.m-home-cta-block--flipped .text-content {
+  float:right;
+  padding-right:0;
+  padding-left:50px;
+}
+
+.m-home-cta-block h3 {
+  font-size:36px;
+  margin-top: 10px;
+}
+
+
+.m-home-cta-block a.button {
+  margin-top:20px;
+}
