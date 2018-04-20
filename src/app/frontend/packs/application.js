@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const cardStore = CardStore.fromJS(card_data);
+  cardStore.rootCardStore = true;
+
   const trayViewStore = new TrayViewStore();
   trayViewStore.cardStore = cardStore;
 

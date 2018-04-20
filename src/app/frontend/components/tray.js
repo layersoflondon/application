@@ -22,7 +22,7 @@ import Card from './card';
     let trayClassName = "m-tray-area";
 
     let trayDetails = "";
-    if(this.props.trayViewStore.previousCardStore) {
+    if(this.props.trayViewStore.previousCardStore && !this.props.trayViewStore.cardStore.rootCardStore) {
       trayDetails = <p onClick={this.switchToPreviousCardStore.bind(this)}>
         Previously showing a store with {this.props.trayViewStore.previousCardStore.cards.length} cards.
       </p>

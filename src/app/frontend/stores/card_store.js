@@ -15,6 +15,9 @@ import TrayCardData from './tray_card_data';
 export default class CardStore {
   @observable cards = [];
 
+  // set to true if rendering a sub-collection
+  rootCardStore = false;
+
   /**
    * return an instance of the store populated with the array of Card objects
    * @param array
