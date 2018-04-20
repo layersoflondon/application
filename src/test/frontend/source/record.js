@@ -22,11 +22,17 @@ var updateJSON = {
     "record" : {
         "title" : "record title update",
         "description" : "record description update",
-        "state" : "deleted",
+        "state" : "pending_review",
         "lat" : 15,
         "lng" : 20,
-        "date_from" : "2017-01-02",
+        "date_from" : "2017-01-01",
         "location" : {"address" : "address"}
+    }
+};
+
+var patchJSON = {
+    "record" : {
+        "state" : "flagged"
     }
 };
 // used when to store the created resource id to show, update and destroy later
@@ -96,6 +102,18 @@ describe('Record', function() {
                 assert.equal(updateJSON.record.lng, response.data.lng);
                 assert.equal(updateJSON.record.date_from, response.data.date_from);
                 assert.equal(createJSON.record.location.address, response.data.location.address);
+                done();
+            })
+            .catch((response) => {done(response);});
+    });
+
+    it('should change state of the record', function(done) {
+        Record.patch(null, tempResourceId, patchJSON)
+            .then((response)=>{
+                assert.equal(validate(response.data, schema).errors.length, 0);
+                assert.equal(200, response.status);
+                assert.equal(tempResourceId, response.data.id);
+                assert.equal(patchJSON.record.state, response.data.state);
                 done();
             })
             .catch((response) => {done(response);});
