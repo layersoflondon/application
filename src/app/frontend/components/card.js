@@ -13,7 +13,7 @@ import CardStore from "../stores/card_store";
       const collectionCardStore = CardStore.fromCollectionCard(this.props.card);
       this.props.trayViewStore.cardStore = collectionCardStore;
     }else {
-      this.props.mapViewStore.visible_record_id = this.props.card.id;
+      this.props.trayViewStore.visible_record_id = this.props.card.id;
     }
   }
 

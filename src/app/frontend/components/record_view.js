@@ -15,8 +15,6 @@ export default class RecordView extends Component {
       let state = response.data;
       state.loading = false;
       this.setState(state);
-
-      console.log(state);
     });
   }
 
@@ -34,56 +32,64 @@ export default class RecordView extends Component {
       <div className="s-overlay--record is-showing">
         <div className="m-record">
           <div className="next">
-            <button className="next">Next</button>
+            <button className="next" onClick={() => this.props.trayViewStore.moveToNextCard()}>Next</button>
           </div>
           <div className="previous">
-            <button className="previous">Previous</button>
+            <button className="previous" onClick={() => this.props.trayViewStore.moveToPreviousCard()}>Previous</button>
           </div>
           <div className="close">
-            <button className="close" onClick={()=>this.props.mapViewStore.visible_record_id=null}>Close</button>
+            <button className="close" onClick={()=>this.props.trayViewStore.visible_record_id=null}>Close</button>
           </div>
 
           <div className="wrap">
-
-            <div className="m-social-status">
-              <button className="like">Like</button>
-              {this.state.view_count} views, {this.state.like_count} likes
-            </div>
-
-            <div className="m-share-record">
-              <button className="share">Share</button>
-              Share this record
-            </div>
-
-            <h1>{this.state.title}</h1>
-
-            <div className="dates">
-              <span className="date start-date"> {this.state.date}</span>
-            </div>
-
-            <div className="creator">Created by <a href={`/users/${this.state.user.id}`}>{this.state.user.name}</a></div>
-
             <div className="m-record-hero">
               <div className="image random-image" style={{'backgroundImage': 'url(http://placehold.it/900x400)'}}>
               </div>
             </div>
 
+            <div className="title">
+              <h1>{this.state.title}</h1>
+            </div>
+
+            <div className="meta">
+              <div className="dates">
+                <span className="date start-date"> ${this.state.date_from}</span>
+              </div>
+
+              <div className="creator">Created by <a href={`/users/${this.state.user.id}`}>{this.state.user.name}</a></div>
+
+              <div className="social-status">
+                <button className="like">
+                  <span>Like</span>
+                </button>
+                {this.state.view_count} views <br/>
+                {this.state.like_count} likes
+              </div>
+
+              <div className="share-record">
+                <button className="share"><span>Share</span></button>
+                Share this record
+              </div>
+
+            </div>
+
             <div className="place">
               <div className="map">
               </div>
-              <div className="text">
-                Palace St, Westminster, London SW1E | {this.state.lat}, {this.state.lng}
-              </div>
+              <div className="text">Palace St, Westminster, London SW1E | {this.state.lat}, {this.state.lng}</div>
             </div>
 
 
             <div className="m-article">
-              {this.state.description}
+              <p>
+                {this.state.description}
+              </p>
+              <p>PR/IWM</p>
             </div>
 
             <div className="attribution">
               <ul>
-                <li><h4>Created:</h4> {this.state.created_at}</li>
+                <li><h4>Created:</h4> 22nd June 2017</li>
                 <li><h4>Credits:</h4> Curabitur eu euismod risus</li>
               </ul>
             </div>
@@ -94,6 +100,7 @@ export default class RecordView extends Component {
               <button className="flag">Flag</button>
               <button className="edit">Edit</button>
             </div>
+
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ import L from 'leaflet';
 
   handleOnClick(event) {
     event.preventDefault();
-    this.props.mapViewStore.visible_record_id = this.props.card.id;
+    this.props.trayViewStore.visible_record_id = this.props.card.id;
   }
 
   render() {
