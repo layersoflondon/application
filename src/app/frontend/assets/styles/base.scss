@@ -155,11 +155,11 @@ input[type="submit"] {
   border: none;
   padding: 10px;
   border-radius: $default-border-radius;
-  background: $bright-accent;
+  background: $main-accent;
   @include transition(all .2s);
   color: white;
   &:hover {
-    background: darken($bright-accent, 10%);
+    background: darken($main-accent, 10%);
   }
 }
 
@@ -274,7 +274,7 @@ input[type="submit"] {
 
 .form-group--replaced-checkboxes label span::before {
   content: '';
-  border: 2px solid $bright-accent;
+  border: 2px solid $main-accent;
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
   border-radius: 6px;

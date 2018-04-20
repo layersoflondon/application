@@ -1,28 +1,19 @@
 // Record
 
 .m-record .wrap {
-  @include overlay-wrap-white;
+  @include overlay-wrap;
   max-width: 900px;
-  margin-top: 50px;
-}
-
-.m-record .wrap h1 {
+  max-width: 1000px;
   margin-top: 0;
+  color: white;
+  position: relative;
 }
 
-.m-record .close button {
-  @include icon-button;
-}
 
-.m-record .close {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-}
 
-.m-record .close button:before {
+/*.m-record .close button:before {
   content: "\f00d";
-}
+}*/
 
 // Next & previous
 
@@ -33,43 +24,236 @@
 }
 
 .m-record div.next {
-  right: 40px;
+  right: 0;
 }
 
 .m-record div.previous {
-  left: 40px;
+  left: 0;
 }
 
 .m-record div.next button,
 .m-record div.previous button {
-  @include icon-button;
-  background: transparent;
+  background: $other-blue;
+  @include kellum;
+  text-indent: 200%;
+  overflow: hidden;
   color: white;
-  border-radius:0;
-  opacity: 0.3;
+  border-radius: 0;
   @include transition(opacity .2s);
   height: 70px;
+  width: 70px;
 }
 
 .m-record div.next button:hover,
 .m-record div.previous button:hover {
-  opacity: 1;
   color: white;
 }
 
-
 .m-record div.next button:before,
 .m-record div.previous button:before {
-  font: normal normal normal 78px/1 FontAwesome;
-  content: "\f0da";
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 2px solid white;
+  border-width: 0 0 2px 2px;
+  @include transform(rotate(45deg));
+  @include transition(all .2s);
+  opacity:0.7;
+  top: 27px;
+  left: 31px;
+  text-indent: 0;
+
+}
+
+.m-record div.next button:hover:before,
+.m-record div.previous button:hover:before {
+  opacity: 1;
 }
 
 .m-record div.next button:before {
-  content: "\f0da";
+  @include transform(rotate(225deg));
+  left: 25px;
 }
 
-.m-record div.previous button:before {
-  content: "\f0d9";
+
+// Title
+
+.m-record .title {
+  background: $other-blue;
+  padding: 35px 40px;
+  color: #fff;
+  font-size: 26px;
+  width: 400px;
+  height: 370px;
+  float: left;
+  margin-top: -70px;
+  position: relative;
+
+  //margin-left:-100px;
+}
+
+.m-record .title h1 {
+  margin-top: 0;
+  @include font-display;
+  font-weight: 200;
+  margin-bottom: 0;
+  font-size: 40px;
+  position: relative;
+}
+
+.m-record .title h1:after {
+  content: "";
+  height: 1px;
+  width: 40px;
+  background: $main-accent;
+  bottom: -38px;
+  position: absolute;
+  left: 0;
+}
+
+// Meta
+
+$meta-color:$main-accent;
+
+.m-record .meta {
+  border: 2px solid $meta-color;
+  width: 300px;
+  float: right;
+  margin-top: 109px;
+  margin-right: -70px;
+  color: $meta-color;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.m-record .meta .dates {
+  border-bottom: 2px solid $meta-color;
+  padding: 30px 40px;
+  @include font-display;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 200;
+  text-transform: capitalize;
+}
+
+.m-record .meta .creator {
+  border-bottom: 2px solid $meta-color;
+  padding: 30px 40px;
+}
+
+.m-record .meta .creator a {
+  color: $meta-color;
+  text-decoration: underline;
+}
+
+.m-record .social-status {
+  border-right: 2px solid $meta-color;
+  float: left;
+  width: 50%;
+  text-align: center;
+  padding: 20px;
+}
+
+.m-record .social-status button {
+  background: transparent;
+  display: block;
+  margin: 0 auto 14px;
+  color:$meta-color;
+}
+
+.m-record .social-status button.like:before {
+  content: "\f164";
+  font-size: 40px;
+  font: normal normal normal 24px/1 FontAwesome;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  top: 0;
+  left: 0;
+  text-indent: 0;
+  padding: 0;
+}
+
+.m-record .social-status button span {
+  display:none;
+}
+
+.m-record .share-record {
+  padding: 20px;
+  text-align: center;
+  float: left;
+  width: 50%;
+
+}
+
+.m-record .share-record button {
+  background: transparent;
+  display: block;
+  margin: 0 auto 14px;
+  color:$meta-color;
+}
+
+.m-record .share-record button:before {
+  content: "\f1e0";
+  font-size: 32px;
+  font: normal normal normal 24px/1 FontAwesome;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  top: 0;
+  left: 0;
+  text-indent: 0;
+  padding: 0;
+}
+
+.m-record .share-record button span {
+ display:none;
+}
+
+// Place
+
+.m-record .place {
+  float: right;
+  width: 200px;
+  margin-left: 30px;
+  margin-top: -70px;
+  display: none;
+}
+
+.m-record .place .map {
+  width: 100%;
+  padding-bottom: 100%;
+  background: #ddd url(/mini-map.png) center/cover;
+}
+
+.m-record .place .text {
+  background: #eee;
+  padding: 10px 14px;
+}
+
+// Article
+
+.m-record .m-article {
+  background: white;
+  //padding: 50px 60px;
+  padding: 40px 44px;
+  color: #333;
+  width: calc(100% - 400px);
+  float: right;
+}
+
+.m-record .m-article p:first-child {
+  @include font-display;
+  //font-weight: 800;
+  font-size: 20px;
+  margin-top: 0;
 }
 
 // Actions
@@ -80,9 +264,9 @@
 
 .m-record .actions button {
   display: block;
-  float: left;
   padding: 10px 22px;
   margin-right: 20px;
+  margin-bottom: 1px;
 }
 
 .m-record .actions button:before {
@@ -114,7 +298,7 @@
 .m-record .m-share-record,
 .m-record .m-social-status {
   float: right;
-  margin-left:20px;
+  margin-left: 20px;
 }
 
 .m-record .meta ul {
@@ -135,35 +319,42 @@
 }
 
 .m-record .dates {
-  margin-bottom: 10px;
   font-weight: bold;
 }
 
+
+// Hero
+
 .m-record-hero {
   background: #eee;
-  height: 400px;
-  margin: 40px -40px;
+  height: 580px;
 }
 
 .m-record-hero .image {
   width: 100%;
   height: 100%;
+  @include transition(all 3s);
+  filter: grayscale(100%);
+  position:relative;
+  background-position: center;
+  background-size: cover;
 }
 
-.m-record .place {
-  float: right;
-  width: 200px;
-  margin-left: 30px;
-  margin-top: -70px;
+.is-showing .m-record-hero .image {
+  filter: grayscale(0%);
 }
 
-.m-record .place .map {
+.m-record-hero .image:after {
+  height: 100%;
   width: 100%;
-  padding-bottom: 100%;
-  background: #ddd url(/mini-map.png) center/cover;
-}
-
-.m-record .place .text {
-  background: #eee;
-  padding: 10px 14px;
+  content: "";
+  opacity: 0.6;
+  position: absolute;
+  background: -moz-linear-gradient(right, transparent 0%, #000 100%);
+  background: -webkit-gradient(linear, right top, left top, color-stop(0%, transparent), color-stop(100%, #000));
+  background: -webkit-linear-gradient(right, transparent 0%, #000 100%);
+  background: -o-linear-gradient(right, transparent 0%, #000 100%);
+  background: -ms-linear-gradient(right, transparent 0%, #000 100%);
+  background: linear-gradient(to right, transparent 0%, #000 100%);
+  @include transition(all .4s);
 }

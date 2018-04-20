@@ -18,7 +18,7 @@
 }
 
 .m-tray-records-list .m-record-card:nth-child(5n+2) {
-  background:#1f1821;
+  background:$other-blue;
 }
 
 .m-tray-records-list .m-record-card:nth-child(5n+2) .image {
@@ -31,18 +31,18 @@
 }
 
 .m-tray-records-list .m-record-card h1 {
-  font-size: 25px;
   font-size: 20px;
-  font-weight:500;
+  font-weight:400;
   line-height: 1.3;
   position:relative;
+  padding-right:18px;
 }
 
 .m-tray-records-list .m-record-card h1:after {
   content:"";
   height:1px;
   width:40px;
-  background:#ffcf7c;
+  background:$main-accent;
   bottom: -15px;
   position:absolute;
   left:0;

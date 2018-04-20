@@ -23,14 +23,29 @@ $gray: #AAAAAA;
 $black: #111111;
 
 //$bright-accent: #fe751a; // Orange
+
+
+
+
 $bright-accent: #7f0181; // Purple
 $second-accent: #b40ade; // Indigo
 $darker-base: rgb(49, 14, 77);
 $input-over-white: #f9f4f1;
 
-$link-color: $bright-accent;
+
+// New colors
+
+$main-accent:#ffeb57;
+$secondary-accent:#86f5f9;
+$other-blue:#2e3c4e;
+
+
+
+$link-color: $main-accent;
 $link-hover-color: lighten($link-color, 30%);
 
 $interface-border: #eee;
 
 $default-border-radius: 6px;
+
+
