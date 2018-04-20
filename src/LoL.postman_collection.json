@@ -112,7 +112,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"collection\" : {\n    \"title\" : \"test\",\n    \"description\" : \"test description\",\n    \"read_state\" : \"public_read\",\n    \"write_state\" : \"everyone\"\n  }\n}"
+							"raw": "{\n  \"collection\" : {\n    \"title\" : \"test\",\n    \"description\" : \"test description\",\n    \"read_state\" : \"public_read\",\n    \"write_state\" : \"everyone\",\n    \"owner_id\" : 1,\n    \"owner_type\" : \"User\"\n  }\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}{{domain}}:{{port}}/collections",
@@ -669,7 +669,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title update\",\n    \"state\" : \"pending_review\",\n    \"description\" : \"record description update\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\",\n    \"location\" : {\"address\" : \"address\"}\n  }\n}"
+							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title update\",\n    \"state\" : \"pending_review\",\n    \"description\" : \"record description update\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\",\n    \"date_from\": \"2017-01-01\",\n    \"location\" : {\"address\" : \"address\"}\n  }\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/records/{{lastResourceCreatedId}}",
@@ -739,7 +739,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"record\" : {\n  \t\"title\" : \"record title xxxxx\",\n    \"state\" : \"flagged\"\n  }\n}"
+							"raw": "{\n  \"record\" : {\n    \"state\" : \"flagged\"\n  }\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/records/{{lastResourceCreatedId}}",
