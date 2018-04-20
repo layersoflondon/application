@@ -25,7 +25,7 @@
   display:none;
 }
 
-.m-tray-records-list .m-record-card a {
+.m-tray-records-list .m-record-card .wrapper {
   height: 280px;
   color: white;
 }
@@ -74,7 +74,7 @@
   @include transition(all .4s);
 }
 
-.m-tray-records-list .m-record-card a:hover .image:after {
+.m-tray-records-list .m-record-card .wrapper:hover .image:after {
   opacity: 0.7;
 }
 
@@ -88,7 +88,7 @@
   @include transition(all .4s);
 }
 
-.m-tray-records-list .m-record-card a:hover .image:before {
+.m-tray-records-list .m-record-card .wrapper:hover .image:before {
   opacity: 0.4;
 }
 
@@ -105,7 +105,7 @@
   @include transition(all .4s);
 }
 
-.m-tray-records-list .m-record-card a:hover .text-content p {
+.m-tray-records-list .m-record-card .wrapper:hover .text-content p {
   opacity:1;
   //@include transform(translate3d(0,0,0));
 }

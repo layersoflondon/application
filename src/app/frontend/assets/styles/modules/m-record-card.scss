@@ -4,7 +4,7 @@
   font-size: 14px;
 }
 
-.m-record-card a {
+.m-record-card .wrapper {
   color: inherit;
   display: block;
   //background: white;
@@ -22,11 +22,11 @@
   //box-shadow: -9px 9px 0px rgba(0, 0, 0, 0.11);
 }
 
-.m-map-area .m-record-card a {
+.m-map-area .m-record-card .wrapper {
   background: white;
 }
 
-.m-map-area .m-record-card a:hover {
+.m-map-area .m-record-card .wrapper:hover {
   background: #e6e5e5;
 }
 
@@ -51,7 +51,7 @@
   @include font-display;
 }
 
-.m-record-card a:hover h1 {
+.m-record-card .wrapper:hover h1 {
   //color:$second-accent;
 }
 

@@ -51,7 +51,7 @@ import RecordForm from "./forms/records/record_form";
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
     </span>;
 
-    return <div className="m-map-area" id="lol-map-container">
+    return <div className="m-map-area">
       <Map center={position} zoom={map_zoom} ref='map' onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
         {layers}
 

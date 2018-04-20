@@ -35,20 +35,18 @@ import RecordFormStore from '../stores/record_form_store';
   }
 
   render() {
-    return <div className="m-map-wrapper" id="main-container">
+    return <div className="m-map-wrapper">
       <Devtools />
 
-      <Search mapViewStore={this.props.mapViewStore} />
-      <CollectionForm mapViewStore={this.props.mapViewStore} />
-      <RecordForm mapViewStore={this.props.mapViewStore} recordFormStore={this.recordFormStore} />
+      <Tools {...this.props} />
+      <Tray {...this.props} />
+      <MapView {...this.props} recordFormStore={this.recordFormStore} />
 
-      <Tools mapViewStore={this.props.mapViewStore} />
+      <Search {...this.props} />
+      <CollectionForm {...this.props} />
+      <RecordForm {...this.props} recordFormStore={this.recordFormStore} />
 
       {this.props.mapViewStore.visible_record_id && <RecordView {...this.props} record_id={this.props.mapViewStore.visible_record_id} />}
-
-      <MapView trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} recordFormStore={this.recordFormStore} />
-      <Tray trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
-
       {this.props.mapViewStore.add_record_mode && <PlacePicker {...this.props} />}
     </div>
   }

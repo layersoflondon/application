@@ -44,13 +44,13 @@ import Card from './card';
       </div>
     }
 
-    return <div className={trayClassName} id="tray-container">
+    return <div className={trayClassName}>
       <div className="open-close">
         <span>Close</span>
       </div>
 
       <div className="window">
-        <div className="s-tray-area--collection is-showing">
+        <div className="s-tray-area--default is-showing">
           {trayCollectionDetails}
 
           <div className="m-tray-records-list">

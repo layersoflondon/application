@@ -36,12 +36,6 @@ import {observer} from "mobx-react";
   }
 
   render() {
-    if( this.props.recordFormStore.current_attachment_item ) {
-      console.log("record_id = ", this.props.recordFormStore.current_attachment_item.record_id);
-    }else {
-      console.log("no current_attachment_item");
-    }
-
     return (
       <div className="meta">
         <div className="caption">

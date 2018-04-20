@@ -57,3 +57,10 @@
 @import "modules/m-actions";
 @import "modules/m-search-popover";
 @import "modules/m-fixed-logo";*/
+
+.is-showing {
+  &.m-place-picker {
+    display: block !important;
+    z-index: 9999;
+  }
+}
