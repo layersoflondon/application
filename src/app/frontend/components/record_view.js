@@ -1,9 +1,10 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
+import {observer} from "mobx-react";
 
 import Record from '../sources/record';
 
-export default class RecordView extends Component {
+@observer export default class RecordView extends Component {
   constructor(props) {
     super(props);
   }
@@ -11,11 +12,11 @@ export default class RecordView extends Component {
   componentWillMount() {
     this.setState({loading: true});
 
-    Record.show(null, this.props.record_id).then((response) => {
-      let state = response.data;
-      state.loading = false;
-      this.setState(state);
-    });
+    // Record.show(null, this.props.record_id).then((response) => {
+    //   let state = response.data;
+    // });
+    // state.loading = false;
+    this.setState({loading: false});
   }
 
   componentWillUnmount() {
@@ -48,22 +49,22 @@ export default class RecordView extends Component {
             </div>
 
             <div className="title">
-              <h1>{this.state.title}</h1>
+              <h1>{this.props.trayViewStore.visible_record.title}</h1>
             </div>
 
             <div className="meta">
               <div className="dates">
-                <span className="date start-date"> ${this.state.date_from}</span>
+                <span className="date start-date"> ${this.props.trayViewStore.visible_record.date_from}</span>
               </div>
 
-              <div className="creator">Created by <a href={`/users/${this.state.user.id}`}>{this.state.user.name}</a></div>
+              <div className="creator">Created by <a href={`/users/${this.props.trayViewStore.visible_record.user.id}`}>{this.props.trayViewStore.visible_record.user.name}</a></div>
 
               <div className="social-status">
                 <button className="like">
                   <span>Like</span>
                 </button>
-                {this.state.view_count} views <br/>
-                {this.state.like_count} likes
+                {this.props.trayViewStore.visible_record.view_count} views <br/>
+                {this.props.trayViewStore.visible_record.like_count} likes
               </div>
 
               <div className="share-record">
@@ -76,13 +77,13 @@ export default class RecordView extends Component {
             <div className="place">
               <div className="map">
               </div>
-              <div className="text">Palace St, Westminster, London SW1E | {this.state.lat}, {this.state.lng}</div>
+              <div className="text">Palace St, Westminster, London SW1E | {this.props.trayViewStore.visible_record.lat}, {this.props.trayViewStore.visible_record.lng}</div>
             </div>
 
 
             <div className="m-article">
               <p>
-                {this.state.description}
+                {this.props.trayViewStore.visible_record.description}
               </p>
               <p>PR/IWM</p>
             </div>

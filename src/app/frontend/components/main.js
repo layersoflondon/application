@@ -46,7 +46,7 @@ import RecordFormStore from '../stores/record_form_store';
       <CollectionForm {...this.props} />
       <RecordForm {...this.props} recordFormStore={this.recordFormStore} />
 
-      {this.props.trayViewStore.visible_record_id && <RecordView {...this.props} record_id={this.props.trayViewStore.visible_record_id} />}
+      {this.props.trayViewStore.visible_record && <RecordView {...this.props} />}
       {this.props.mapViewStore.add_record_mode && <PlacePicker {...this.props} />}
 
     </div>
