@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import CardStore from "../stores/card_store";
+import Parser from 'html-react-parser';
 
 @observer export default class Card extends Component {
   constructor(props) {
@@ -18,6 +19,8 @@ import CardStore from "../stores/card_store";
   }
 
   render() {
+    const parsed_content = Parser(this.props.card.description);
+
     let container_classes = "m-record-card";
     let image_styles = {background: '#2e3c4e'};
 
@@ -32,7 +35,8 @@ import CardStore from "../stores/card_store";
           <div className="text-content">
             {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
             <h1>{this.props.card.title}</h1>
-            <p>{this.props.card.description}</p>
+
+            {parsed_content[0]}
           </div>
 
           <div className="link-indicator">

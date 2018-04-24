@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
+import Parser from 'html-react-parser';
 
 import Record from '../sources/record';
 
@@ -82,10 +83,7 @@ import Record from '../sources/record';
 
 
             <div className="m-article">
-              <p>
-                {this.props.trayViewStore.visible_record.description}
-              </p>
-              <p>PR/IWM</p>
+              {Parser(this.props.trayViewStore.visible_record.description)}
             </div>
 
             <div className="attribution">
