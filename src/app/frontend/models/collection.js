@@ -1,3 +1,6 @@
+import {observable} from 'mobx';
+import {computed} from "mobx/lib/mobx";
+
 export default class CollectionModel {
   id;
   title;
@@ -5,16 +8,10 @@ export default class CollectionModel {
   read_state;
   write_state;
   owner = {};
-  records = [];
+  @observable records = [];
 
-  constructor(attributes) {
-    this.id = attributes.id;
-    this.title = attributes.title;
-    this.description = attributes.description;
-    this.read_state = attributes.read_state;
-    this.write_state = attributes.write_state;
-    this.owner = attributes.owner;
-    this.records = attributes.records;
+  @computed get position() {
+    return [0, 0];
   }
 
   static fromRecord(attributes) {
@@ -26,5 +23,18 @@ export default class CollectionModel {
     collection.write_state = attributes.write_state;
     collection.owner = attributes.owner;
     collection.records = attributes.records;
+  }
+
+  static fromJS(attributes) {
+    const collection = new CollectionModel();
+    collection.id = attributes.id;
+    collection.title = attributes.title;
+    collection.description = attributes.description;
+    collection.read_state = attributes.read_state;
+    collection.write_state = attributes.write_state;
+    collection.owner = attributes.owner;
+    collection.records = attributes.records;
+
+    return collection;
   }
 }

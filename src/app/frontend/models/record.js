@@ -29,7 +29,8 @@ export default class RecordModel {
   @observable collections = [];
 
   static fromJS(attributes) {
-    const record = new RecordModel();
+    let record = new RecordModel();
+
     record.id = attributes.id;
     record.title = attributes.title;
     record.description = attributes.description;
@@ -64,6 +65,10 @@ export default class RecordModel {
         console.log("1234");
       });
     }
+  }
+
+  @computed get position() {
+    return [this.lat, this.lng];
   }
 
   @computed get date_from() {
@@ -132,11 +137,5 @@ export default class RecordModel {
     this.date_to = object.date_to;
     this.links = object.links;
     this.primary_image = object.primary_image;
-  }
-
-  static fromJS(object) {
-    this.id = object.id;
-    this.title = object.title;
-    this.description = object.description;
   }
 }

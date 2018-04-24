@@ -40,23 +40,42 @@ import Main from '../components/main';
  * which will be rendered in the Tray component
  */
 
+import RecordStore from '../stores/record_store';
+import CollectionStore from '../stores/collection_store';
+
+import RecordModel from '../models/record';
+import CollectionModel from '../models/collection';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const card_data = [];
+  const collection_store = new CollectionStore();
+  const record_store     = new RecordStore();
 
   window.lol_app_data.records.map((o) => {
-    card_data.push(o);
+    let record = RecordModel.fromJS(o);
+    record_store.records.push(record);
   });
+
   window.lol_app_data.collections.map((o)=> {
-    card_data.push(o);
+    let collection = new CollectionModel.fromJS(o);
+    let collection_array = collection_store[`${o.write_state}_collections`].slice();
+    collection_array.push(collection);
+    collection_store[`${o.write_state}_collections`] = collection_array;
   });
 
-  const cardStore = CardStore.fromJS(card_data);
-  cardStore.rootCardStore = true;
+  const cardStore = new CardStore();
+  cardStore.rootCardStore = true; // initialise this as the root store (no close button on the list header)
 
-  const trayViewStore = new TrayViewStore();
-  trayViewStore.cardStore = cardStore;
+  /**
+  the TrayViewStore manages what we're displaying in the tray via its cardStore (the array of cards) that
+  can either be related to a Record, or a Collection with an array of Records.
+  Iterate over our instantiated Record and Collection stores and add their objects to the list of things to initially show
+  */
+  cardStore.addRecords(record_store);
+  cardStore.addCollections(collection_store);
 
-  const mapViewStore = new MapViewStore();
-  ReactDOM.render( <Main trayViewStore={trayViewStore} mapViewStore={mapViewStore} />, document.getElementById("map-root") );
+  const tray_view_store = new TrayViewStore();
+  tray_view_store.cardStore = cardStore;
+
+  const map_view_store = new MapViewStore();
+  ReactDOM.render( <Main trayViewStore={tray_view_store} mapViewStore={map_view_store} collectionStore={collection_store} recordStore={record_store} />, document.getElementById("map-root") );
 });

@@ -14,7 +14,7 @@ import Card from './card';
   }
 
   render() {
-    console.log(this.props.trayViewStore.cardStore, this.props.trayViewStore.cardStore.cards.toJS());
+    // console.log(this.props.trayViewStore.cardStore, this.props.trayViewStore.cardStore.cards.toJS());
 
     const cards = this.props.trayViewStore.cardStore.cards.map( (c) => {
       const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;

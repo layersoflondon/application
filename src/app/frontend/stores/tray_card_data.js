@@ -1,4 +1,5 @@
 import {observable, computed} from 'mobx';
+import RecordModel from "../models/record";
 
 export default class TrayCardData {
   @observable highlighted;
@@ -14,7 +15,10 @@ export default class TrayCardData {
 
     this.highlighted = false;
     if( this.is_collection ) {
-      this.records = card.records.map((r) => new TrayCardData(r));
+      this.records = card.records.map((r) => {
+        let record = new RecordModel.fromJS(r);
+        return new TrayCardData(record);
+      });
     }else {
       this.lat = card.lat;
       this.lng = card.lng;

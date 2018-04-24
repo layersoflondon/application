@@ -27,6 +27,18 @@ export default class CardStore {
     this.rootCardStore = rootCardStore
   }
 
+  addRecords(record_store) {
+    record_store.records.map((r) => {
+      this.cards.push(TrayCardData.fromJS(r));
+    });
+  }
+
+  addCollections(collection_store) {
+    collection_store._collections.map((c) => {
+      this.cards.push(TrayCardData.fromJS(c));
+    });
+  }
+
   /**
    * return an instance of the store populated with the array of Card objects
    * @param array

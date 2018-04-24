@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import Collection from '../../../sources/collection';
+import CollectionModel from '../../../models/collection';
 
 @observer export default class CollectionForm extends Component {
   constructor(props) {
@@ -24,10 +25,11 @@ import Collection from '../../../sources/collection';
 
   handleOnSubmit(event) {
     event.preventDefault();
-    console.log("Handle submit", event, this.state);
 
     Collection.create(null, {collection: this.state}).then((response) => {
-      console.log("Collection created", response);
+      const collection = new CollectionModel.fromJS(response.data);
+      this.props.collectionStore.addCollection(collection);
+
       this.props.mapViewStore.overlay = null;
     }).catch((response) => {
       console.log("Error creating collection", response);

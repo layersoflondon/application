@@ -10,6 +10,7 @@ import RecordModel from '../models/record';
 export default class RecordFormStore {
   id = null;
   record = new RecordModel();
+  collections = [];
 
   @observable latlng;
   @observable visible_pane = null; // which accordion pane is visible
