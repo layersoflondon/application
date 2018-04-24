@@ -11,7 +11,7 @@ import {observer} from "mobx-react";
   constructor(props) {
     super(props);
 
-    this.state = {is_visible: false, items: this.props.recordFormStore.attachments};
+    this.state = {is_visible: false, items: this.props.recordFormStore.record.attachments};
   }
 
   onDrop(acceptedFiles, rejectedFiles, event) {
@@ -20,16 +20,16 @@ import {observer} from "mobx-react";
 
       reader.onload = (f) => {
         // const fileData = reader.result; // the base64 encoded string
-        const attachments = this.props.recordFormStore.attachments.slice();
+        const attachments = this.props.recordFormStore.record.attachments.slice();
         const new_attachment = {file: file, url: file.preview, attachment_type: file.type.split("/")[0], title: f.target.fileName, description: '', credit: ''};
 
-        const media_item = new MediaItemStore(this.props.recordFormStore.id, new_attachment);
+        const media_item = new MediaItemStore(this.props.recordFormStore.record.id, new_attachment);
         media_item.persist().then((response) => {
           let data = response.data;
-          media_item.record_id = this.props.recordFormStore.id;
+          media_item.record_id = this.props.recordFormStore.record.id;
           media_item.id = data.id;
           attachments.push(media_item);
-          this.props.recordFormStore.attachments = attachments;
+          this.props.recordFormStore.record.attachments = attachments;
         }).catch((error) => {
           console.log("Error persisting media item", error);
         });
@@ -43,8 +43,8 @@ import {observer} from "mobx-react";
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
 
-    const media_items = this.props.recordFormStore.attachments.map((item,i) => {
-      let media_item = new MediaItemStore(this.props.recordFormStore.id, item);
+    const media_items = this.props.recordFormStore.record.attachments.map((item,i) => {
+      let media_item = new MediaItemStore(this.props.recordFormStore.record.id, item);
       return <MediaItem {...item} {...this.props} object={media_item} key={i} index={i} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
     });
 

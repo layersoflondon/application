@@ -18,7 +18,7 @@ import Team from './team';
 
   save(event) {
     event.preventDefault();
-    this.props.recordFormStore.persist();
+    this.props.recordFormStore.record.persist();
   }
 
   render() {

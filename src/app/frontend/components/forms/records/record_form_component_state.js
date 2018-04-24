@@ -16,7 +16,7 @@ export default class RecordFormComponentState {
       }
 
       createDraftRecord(event) {
-        this.props.recordFormStore.persist();
+        this.props.recordFormStore.record.persist();
       }
 
       handleOnChange(event) {
@@ -25,7 +25,7 @@ export default class RecordFormComponentState {
           [name]: value
         });
 
-        this.props.recordFormStore[name] = value;
+        this.props.recordFormStore.record[name] = value;
       }
 
       togglePaneVisibility(event) {

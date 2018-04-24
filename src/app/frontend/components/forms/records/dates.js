@@ -10,22 +10,22 @@ import {observer} from 'mobx-react';
   }
 
   handleOnDateChange(event) {
-    let date_object = {...this.props.recordFormStore[event.target.dataset.dateField]};
+    let date_object = {...this.props.recordFormStore.record[event.target.dataset.dateField]};
     date_object[event.target.dataset.dateAttributeName] = event.target.value;
-    this.props.recordFormStore[event.target.dataset.dateField] = date_object;
+    this.props.recordFormStore.record[event.target.dataset.dateField] = date_object;
   }
 
   show_end_date_component() {
-    return this.props.recordFormStore.date_to || this.state.date_to_visible;
+    return this.props.recordFormStore.record.date_to || this.state.date_to_visible;
   }
 
   end_date_component() {
     return (
       <div className="end-date">
         <label>When did this end?</label>
-        <input placeholder="Day" type="text" name="date_to_day" data-date-field="date_to_object" data-date-attribute-name="date" value={this.props.recordFormStore.date_to_object.date} onChange={this.handleOnDateChange.bind(this)} />
-        <input placeholder="Month" type="text" name="date_to_month" data-date-field="date_to_object" data-date-attribute-name="month" value={this.props.recordFormStore.date_to_object.month} onChange={this.handleOnDateChange.bind(this)} />
-        <input placeholder="Year" type="text" name="date_to_year" data-date-field="date_to_object" data-date-attribute-name="year" value={this.props.recordFormStore.date_to_object.year} onChange={this.handleOnDateChange.bind(this)} />
+        <input placeholder="Day" type="text" name="date_to_day" data-date-field="date_to_object" data-date-attribute-name="date" value={this.props.recordFormStore.record.date_to_object.date} onChange={this.handleOnDateChange.bind(this)} />
+        <input placeholder="Month" type="text" name="date_to_month" data-date-field="date_to_object" data-date-attribute-name="month" value={this.props.recordFormStore.record.date_to_object.month} onChange={this.handleOnDateChange.bind(this)} />
+        <input placeholder="Year" type="text" name="date_to_year" data-date-field="date_to_object" data-date-attribute-name="year" value={this.props.recordFormStore.record.date_to_object.year} onChange={this.handleOnDateChange.bind(this)} />
       </div>
     );
   }
@@ -35,9 +35,9 @@ import {observer} from 'mobx-react';
       <div className="form-group form-group--date">
         <div className="start-date">
           <label>When did this happen?</label>
-          <input placeholder="Day" type="text" name="date_from_day" data-date-field="date_from_object" data-date-attribute-name="date" value={this.props.recordFormStore.date_from_object.date} onChange={this.handleOnDateChange.bind(this)} />
-          <input placeholder="Month" type="text" name="date_from_month" data-date-field="date_from_object" data-date-attribute-name="month" value={this.props.recordFormStore.date_from_object.month} onChange={this.handleOnDateChange.bind(this)} />
-          <input placeholder="Year" type="text" name="date_from_year" data-date-field="date_from_object" data-date-attribute-name="year" value={this.props.recordFormStore.date_from_object.year} onChange={this.handleOnDateChange.bind(this)} />
+          <input placeholder="Day" type="text" name="date_from_day" data-date-field="date_from_object" data-date-attribute-name="date" value={this.props.recordFormStore.record.date_from_object.date} onChange={this.handleOnDateChange.bind(this)} />
+          <input placeholder="Month" type="text" name="date_from_month" data-date-field="date_from_object" data-date-attribute-name="month" value={this.props.recordFormStore.record.date_from_object.month} onChange={this.handleOnDateChange.bind(this)} />
+          <input placeholder="Year" type="text" name="date_from_year" data-date-field="date_from_object" data-date-attribute-name="year" value={this.props.recordFormStore.record.date_from_object.year} onChange={this.handleOnDateChange.bind(this)} />
           <span className="helper-text">An estimate is ok - an exact date is fantastic!</span>
         </div>
 
