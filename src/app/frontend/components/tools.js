@@ -36,7 +36,7 @@ import PropTypes from 'prop-types';
       </div>
       <div className="m-actions">
         <div className="m-tool-button m-tool-button--your-account">
-          <button data-label="Your account"><span>Your profile</span></button>
+          <button data-label="Your account" data-overlay="user_form" onClick={this.handleOnClick.bind(this)}><span>Your profile</span></button>
         </div>
       </div>
     </div>;
