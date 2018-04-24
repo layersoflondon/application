@@ -38,12 +38,16 @@ import RecordForm from "./forms/records/record_form";
     let markers = [];
 
     this.props.trayViewStore.cardStore.cards.map((c) => {
+      //const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;
+      let key;
       if( c.is_collection ) {
         c.records.map((r)=> {
-          markers.push( <MarkerContainer key={r.id} position={r.position} card={c} trayViewStore={this.props.trayViewStore} /> )
+          key = `collection_${c.id}_record_${r.id}`;
+          markers.push( <MarkerContainer key={key} position={r.position} card={c} trayViewStore={this.props.trayViewStore} /> )
         })
       }else {
-        markers.push( <MarkerContainer key={c.id} position={c.position} card={c} trayViewStore={this.props.trayViewStore} /> )
+        key = `record_${c.id}`;
+        markers.push( <MarkerContainer key={key} position={c.position} card={c} trayViewStore={this.props.trayViewStore} /> )
       }
     });
 
