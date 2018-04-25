@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :team_users
   has_many :teams, through: :team_users
   has_many :collections, as: :owner
+  has_one_attached :avatar
 
   # TODO: - users should change the state of their records before being deleted.
   # before_destroy do
