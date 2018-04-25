@@ -40,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         set_flash_message :notice, flash_key
       end
       bypass_sign_in resource, scope: resource_name
-      respond_with resource, location: after_update_path_for(resource)
+      redirect_to :action => 'edit'
     else
       clean_up_passwords resource
       set_minimum_password_length
@@ -86,5 +86,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def account_update_params
     params.require(:user).permit(:description, :contact_me, :email, :password, :password_confirmation, :current_password)
+  end
+
+  def after_update_path_for(resource)
+    redirect_to :action => 'update'
   end
 end
