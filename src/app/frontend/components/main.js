@@ -12,6 +12,7 @@ import RecordView from './record_view';
 import PlacePicker from './place_picker';
 
 import CollectionForm from './forms/collections/collection_form';
+import UserForm from './forms/user/user_form';
 import RecordForm from './forms/records/record_form';
 
 import RecordFormStore from '../stores/record_form_store';
@@ -44,6 +45,7 @@ import RecordFormStore from '../stores/record_form_store';
 
       <Search {...this.props} />
       <CollectionForm {...this.props} />
+      <UserForm mapViewStore={this.props.mapViewStore} />
       <RecordForm {...this.props} recordFormStore={this.recordFormStore} />
 
       {this.props.trayViewStore.visible_record && <RecordView {...this.props} />}
