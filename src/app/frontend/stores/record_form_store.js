@@ -45,7 +45,7 @@ export default class RecordFormStore {
       this.place_lookup_status = response.status;
 
       if( response.json.results.length > 0 ) {
-        this.record.place = response.json.results[0].formatted_address;
+        this.record.location = {address: response.json.results[0].formatted_address};
       }else {
         this.place_lookup_status = 404
       }

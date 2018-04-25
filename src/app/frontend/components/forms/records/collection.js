@@ -22,7 +22,10 @@ import {observer} from "mobx-react";
         return <option key={c.id} value={c.id}>{c.title}</option>
       });
 
-      collection_options = <select name="" id="">{options}</select>
+      collection_options = <select name="_collection_ids" onChange={this.handleOnChange}>
+        <option defaultChecked={true}>Choose</option>
+        {options}
+      </select>
     }
 
     return (

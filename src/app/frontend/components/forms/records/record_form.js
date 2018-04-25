@@ -40,9 +40,9 @@ import Team from './team';
 
               <div className="m-accordion">
                 <Media {...this.props} />
-                <Links {...this.props} />
+                {/*<Links {...this.props} />*/}
                 <Collection {...this.props} />
-                <Team {...this.props} />
+                {/*<Team {...this.props} />*/}
               </div>
 
               <button onClick={this.save.bind(this)}>ok</button>

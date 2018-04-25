@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
+import Parser from 'html-react-parser';
 
 import Card from './card';
 
@@ -14,8 +15,6 @@ import Card from './card';
   }
 
   render() {
-    // console.log(this.props.trayViewStore.cardStore, this.props.trayViewStore.cardStore.cards.toJS());
-
     const cards = this.props.trayViewStore.cardStore.cards.map( (c) => {
       const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;
       return <Card key={key} card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
@@ -37,9 +36,7 @@ import Card from './card';
         </div>
 
         <div className="m-tray-introduction">
-          <p>
-            {this.props.trayViewStore.cardStore.description}
-          </p>
+          {Parser(this.props.trayViewStore.cardStore.description)}
         </div>
       </div>
     }

@@ -1,5 +1,6 @@
 import {observable, observe, computed} from 'mobx';
 import Record from '../sources/record';
+import RecordModel from "../models/record";
 
 /**
  * The data store for the TrayView
@@ -21,7 +22,8 @@ export default class TrayViewStore {
     observe(this, 'visible_record_id', (change) => {
       if( change.newValue ) {
         Record.show(null, this.visible_record_id).then((response) => {
-          this.visible_record = response.data
+          let record = RecordModel.fromJS(response.data);
+          this.visible_record = record;
         }).catch((error) => {
           this.visible_record = null;
         });

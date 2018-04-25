@@ -42,6 +42,7 @@ class RecordsController < ApplicationController
   end
 
   def record_params
+    Rails.logger.info("\n\nRequest method: #{request.method}")
     if request.patch?
       params.require(:record).permit(
         :state
@@ -54,6 +55,7 @@ class RecordsController < ApplicationController
         :lat,
         :lng,
         :date_from, :date_to,
+        collection_ids: [],
         location: %i[
           address
         ]
