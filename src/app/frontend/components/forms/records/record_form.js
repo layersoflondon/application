@@ -16,9 +16,16 @@ import Team from './team';
     this.state = {errors: []};
   }
 
-  save(event) {
+  handleClickedOnSave(event) {
     event.preventDefault();
-    this.props.recordFormStore.record.persist();
+    // when successfully updating a Record, we should propagate the updated data throughout the stores that are rendering it.
+    // since the tray and map render their data from a CardStore, we can just overwrite the data there (see insertOrUpdateRecord)
+    this.props.recordFormStore.record.persist().then((response) => {
+      // Object.assign(this.props.recordFormStore.record, response.data);
+      this.props.trayViewStore.cardStore.insertOrUpdateRecord(this.props.recordFormStore.record);
+    }).catch((response) => {
+      console.log("Error Response: ", response);
+    })
   }
 
   render() {
@@ -45,7 +52,7 @@ import Team from './team';
                 {/*<Team {...this.props} />*/}
               </div>
 
-              <button onClick={this.save.bind(this)}>ok</button>
+              <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save" />
 
             </form>
           </div>

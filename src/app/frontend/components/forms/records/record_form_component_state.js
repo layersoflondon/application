@@ -25,7 +25,6 @@ export default class RecordFormComponentState {
           [name]: value
         });
 
-        console.log(`handleOnChange this.props.recordFormStore.record[name] = value; ${name} = ${value}`);
         this.props.recordFormStore.record[name] = value;
       }
 

@@ -9,9 +9,9 @@ import RecordModel from '../models/record';
  */
 export default class RecordFormStore {
   id = null;
-  record = new RecordModel();
   collections = [];
 
+  @observable record = new RecordModel();
   @observable latlng;
   @observable visible_pane = null; // which accordion pane is visible
   @observable current_attachment_item_index = this.record.attachments.length>0 ? 0 : null; //which media item is active (being edited)

@@ -39,6 +39,25 @@ export default class CardStore {
     });
   }
 
+  insertOrUpdateRecord(record) {
+    const cards = this.cards.slice();
+
+    const card = cards.find((c) => {
+      return c.id === record.id;
+    });
+
+    if( card ) {
+      const index = cards.indexOf(card);
+      const tray_card = TrayCardData.fromJS(record.toJS());
+      cards[index] = tray_card;
+    }else {
+      cards.unshift(TrayCardData.fromJS(record.toJS()));
+    }
+    console.log(cards);
+
+    this.cards = cards;
+  }
+
   /**
    * return an instance of the store populated with the array of Card objects
    * @param array

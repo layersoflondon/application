@@ -23,28 +23,32 @@ export default class RecordModel {
   @observable date_to_object = {date: '', month: '', year: ''};
 
   @observable attachments = [];
-  @observable visible_pane = null; // which accordion pane is visible
   @observable current_attachment_item_index = this.attachments.length>0 ? 0 : null; //which media item is active (being edited)
   @observable primary_image = null;
   @observable collections = [];
   @observable collection_ids = [];
 
   persist() {
+    // if( !this.id ) {
+    //   Record.create(null, {record: this.toJS()}).then((response) => {
+    //     Object.assign(this, response.data);
+    //   }).catch((error) => {
+    //     // TODO: render validation errors in a component
+    //     console.log("Validation errors: ", error);
+    //   });
+    // }else {
+    //   const id = this.toJS().id;
+    //   Record.update(null, id, {record: this.toJS()}).then((response) => {
+    //     Object.assign(this, response.data);
+    //   }).catch((error) => {
+    //     console.log("Error", error);
+    //   });
+    // }
+
     if( !this.id ) {
-      Record.create(null, {record: this.toJS()}).then((response) => {
-        Object.assign(this, response.data);
-      }).catch((error) => {
-        // TODO: render validation errors in a component
-        console.log("Validation errors: ", error);
-      });
+      return Record.create(null, {record: this.toJS()});
     }else {
-      const id = this.toJS().id;
-      Record.update(null, id, {record: this.toJS()}).then((response) => {
-        console.log("Updated object", this.toJS(), response);
-        Object.assign(this, response.data);
-      }).catch((error) => {
-        console.log("Error", error);
-      });
+      return Record.update(null, this.id, {record: this.toJS()});
     }
   }
 

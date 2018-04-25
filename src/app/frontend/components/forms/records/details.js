@@ -15,14 +15,14 @@ import {observer} from 'mobx-react';
       <div>
         <div className="form-group form-group--title">
           <label>Title</label>
-          <input type="text" name="title" value={this.state.title} onChange={this.handleOnChange} onBlur={this.createDraftRecord} />
+          <input type="text" name="title" value={this.props.recordFormStore.record.title} onChange={this.handleOnChange} onBlur={this.createDraftRecord} />
         </div>
 
         <PlaceDetails {...this.props} />
 
         <div className="form-group">
           <label>Description</label>
-          <textarea rows="10" placeholder="" name="description" value={this.state.description} onChange={this.handleOnChange}>
+          <textarea rows="10" placeholder="" name="description" value={this.props.recordFormStore.record.description} onChange={this.handleOnChange}>
           </textarea>
         </div>
       </div>

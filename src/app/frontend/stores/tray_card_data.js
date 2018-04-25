@@ -14,6 +14,7 @@ export default class TrayCardData {
     this.primary_image = card.primary_image;
 
     this.highlighted = false;
+
     if( this.is_collection ) {
       this.records = card.records.map((r) => {
         let record = new RecordModel.fromJS(r);

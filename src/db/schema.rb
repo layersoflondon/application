@@ -106,8 +106,8 @@ ActiveRecord::Schema.define(version: 2018_04_20_132135) do
   create_table "collections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.string "owner_type", null: false
-    t.integer "owner_id", null: false
+    t.string "owner_type"
+    t.bigint "owner_id"
     t.integer "attachment_id"
     t.integer "read_state"
     t.integer "write_state"

@@ -45,6 +45,7 @@ import CollectionStore from '../stores/collection_store';
 
 import RecordModel from '../models/record';
 import CollectionModel from '../models/collection';
+import RecordFormStore from "../stores/record_form_store";
 
 document.addEventListener('DOMContentLoaded', () => {
   const collection_store = new CollectionStore();
@@ -77,5 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
   tray_view_store.cardStore = cardStore;
 
   const map_view_store = new MapViewStore();
-  ReactDOM.render( <Main trayViewStore={tray_view_store} mapViewStore={map_view_store} collectionStore={collection_store} recordStore={record_store} />, document.getElementById("map-root") );
+
+  const record_form_store = new RecordFormStore();
+
+  ReactDOM.render( <Main recordFormStore={record_form_store} trayViewStore={tray_view_store} mapViewStore={map_view_store} collectionStore={collection_store} recordStore={record_store} />, document.getElementById("map-root") );
 });

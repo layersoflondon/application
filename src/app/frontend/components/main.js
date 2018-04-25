@@ -22,31 +22,18 @@ import RecordFormStore from '../stores/record_form_store';
     super(props);
   }
 
-  addCards(event) {
-    const count = parseInt(event.target.dataset.add, 10);
-    this.props.cardStore.addCards(count);
-  }
-
-  removeCard(){
-    this.props.cardStore.removeCard();
-  }
-
-  componentWillMount() {
-    this.recordFormStore = new RecordFormStore();
-  }
-
   render() {
     return <div className="m-map-wrapper">
       <Devtools />
 
       <Tools {...this.props} />
       <Tray {...this.props} />
-      <MapView {...this.props} recordFormStore={this.recordFormStore} />
+      <MapView {...this.props} />
 
       <Search {...this.props} />
       <CollectionForm {...this.props} />
       <UserForm mapViewStore={this.props.mapViewStore} />
-      <RecordForm {...this.props} recordFormStore={this.recordFormStore} />
+      <RecordForm {...this.props} />
 
       {this.props.trayViewStore.visible_record && <RecordView {...this.props} />}
       {this.props.mapViewStore.add_record_mode && <PlacePicker {...this.props} />}

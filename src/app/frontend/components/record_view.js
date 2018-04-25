@@ -11,16 +11,16 @@ import Record from '../sources/record';
   }
 
   componentWillMount() {
-    this.setState({loading: true});
-
-    // Record.show(null, this.props.record_id).then((response) => {
-    //   let state = response.data;
-    // });
-    // state.loading = false;
     this.setState({loading: false});
   }
 
-  componentWillUnmount() {
+  switchToEditMode(event) {
+    event.preventDefault();
+
+    const record = this.props.trayViewStore.visible_record;
+    this.props.trayViewStore.visible_record_id = null;
+    this.props.mapViewStore.overlay = "record_form";
+    this.props.recordFormStore.record = record;
   }
 
   render_state_loading_true() {
@@ -55,7 +55,7 @@ import Record from '../sources/record';
 
             <div className="meta">
               <div className="dates">
-                <span className="date start-date"> ${this.props.trayViewStore.visible_record.date_from}</span>
+                <span className="date start-date">{this.props.trayViewStore.visible_record.date_from}</span>
               </div>
 
               <div className="creator">Created by <a href={`/users/${this.props.trayViewStore.visible_record.user.id}`}>{this.props.trayViewStore.visible_record.user.name}</a></div>
@@ -97,7 +97,7 @@ import Record from '../sources/record';
               <button className="add-to-collection">Add to collection</button>
               <button className="contact-owner">Contact owner</button>
               <button className="flag">Flag</button>
-              <button className="edit">Edit</button>
+              <button className="edit" onClick={this.switchToEditMode.bind(this)}>Edit</button>
             </div>
 
           </div>
