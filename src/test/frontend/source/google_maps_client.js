@@ -1,6 +1,5 @@
 // external libs
 var assert = require('assert');
-var fs = require('fs');
 
 // model to test
 import GoogleMapsClientTest from "../../../app/frontend/sources/google_maps_client";
@@ -22,7 +21,6 @@ describe('GoogleMapsClient', function() {
                 if ( ! response.json.results.length ) {
                     done(new Error("No results"));
                 }
-                console.log(add1, '--1--',  response.json.results[0].formatted_address);
                 assert.equal(add1, response.json.results[0].formatted_address);
                 done();
             })
@@ -38,7 +36,6 @@ describe('GoogleMapsClient', function() {
                 if ( ! response.json.results.length ) {
                     done(new Error("No results"));
                 }
-                console.log(add2, '--2--', response.json.results[0].formatted_address);
                 assert.equal(add2, response.json.results[0].formatted_address);
                 done();
             })

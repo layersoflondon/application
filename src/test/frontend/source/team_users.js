@@ -18,7 +18,7 @@ describe('TeamUsers', function() {
     this.slow(200);
 
     it('should list team users', function(done) {
-        TeamUsers.index()
+        TeamUsers.index(resourceId)
             .then((response)=>{
                 assert.equal("application/json; charset=utf-8", response.headers['content-type']);
                 assert.equal(200, response.status);

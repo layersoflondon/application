@@ -11,8 +11,21 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     @team.team_users << TeamUser.new(user: current_user, role: 'leader')
     authorize(@team)
-    return @team if @team.save
-    render json: @team.errors, status: :unprocessable_entity
+
+    # TODO Change me for more readable and usable code :)
+    if @team.save
+      if params[:is_form]
+        redirect_to request.referer
+      else
+        return @team
+      end
+    else
+      if params[:is_form]
+        # TODO redirect / render showing the error
+      else
+        render json: @team.errors, status: :unprocessable_entity
+      end
+    end
   end
 
   def show; end
@@ -43,7 +56,8 @@ class TeamsController < ApplicationController
   def team_params
     params.require(:team).permit(
       :name,
-      :description
+      :description,
+      :is_form
     )
   end
 end
