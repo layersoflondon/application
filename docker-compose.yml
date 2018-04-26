@@ -18,6 +18,7 @@ services:
     volumes:
       - ./docker/ruby/entrypoint.sh:/entrypoint.sh
       - ./src:/home/app/lol
+      - ./docker-key:/home/app/.ssh/id_rsa
     networks:
       - error-network
     ports:
@@ -77,6 +78,7 @@ services:
     command: bin/webpack-dev-server
     volumes:
       - ./src:/home/app/lol # TODO: check whether is need to mount the entire app folder
+      - ./docker-key:/home/app/.ssh/id-rsa
     ports:
       - '3035:3035'
     labels:
