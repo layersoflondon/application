@@ -28,8 +28,8 @@ import Parser from 'html-react-parser';
     });
 
     const highlighted_icon = new L.Icon({
-      iconUrl: require('../assets/images/record-marker.png'),
-      iconRetinaUrl: require('../assets/images/record-marker-x2.png'),
+      iconUrl: require('../assets/images/record-marker-highlighted.png'),
+      iconRetinaUrl: require('../assets/images/record-marker-x2-highlighted.png'),
 
       iconSize: [22, 30],
       shadowSize: [0, 0],

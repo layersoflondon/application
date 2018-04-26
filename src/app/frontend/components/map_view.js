@@ -39,7 +39,7 @@ import RecordForm from "./forms/records/record_form";
 
   render() {
     const position = [51.55227613396215, 0.26617169380187999];// this.props.mapViewStore.center.toJS();
-    const map_zoom = 14; //this.props.mapViewStore.zoom;
+    const map_zoom = 8; //this.props.mapViewStore.zoom;
 
     let markers = [];
 
