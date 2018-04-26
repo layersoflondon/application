@@ -9,6 +9,21 @@
   background: #fff;
 }
 
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: transparent;
+  color: #333;
+  box-shadow: none;
+}
+
+// fixme: remove these once prototype is frozen.
+// we need to override some styles from the prototype
 .m-overlay .close button {
   background: url('../assets/images/icon-close.svg') center no-repeat;
+}
+.m-map-popover {
+  display: block !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  width: 100% !important;
 }

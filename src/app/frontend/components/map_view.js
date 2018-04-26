@@ -10,6 +10,12 @@ import RecordForm from "./forms/records/record_form";
 @observer export default class MapView extends Component {
   constructor(props) {
     super(props);
+
+    this.mapRef = null;
+    this.setMapRef = element => {
+      this.mapRef = element;
+      this.props.mapViewStore.map_ref = this.mapRef;
+    }
   }
 
   handleOnDragEnd() {
@@ -32,8 +38,8 @@ import RecordForm from "./forms/records/record_form";
   }
 
   render() {
-    const position = [51.1, -0.11];// this.props.mapViewStore.center.toJS();
-    const map_zoom = 9; //this.props.mapViewStore.zoom;
+    const position = [51.55227613396215, 0.26617169380187999];// this.props.mapViewStore.center.toJS();
+    const map_zoom = 14; //this.props.mapViewStore.zoom;
 
     let markers = [];
 
@@ -55,7 +61,7 @@ import RecordForm from "./forms/records/record_form";
     </span>;
 
     return <div className="m-map-area">
-      <Map center={position} zoom={map_zoom} ref='map' onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
+      <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
         {layers}
 
         {markers}

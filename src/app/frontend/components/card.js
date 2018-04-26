@@ -18,6 +18,14 @@ import Parser from 'html-react-parser';
     }
   }
 
+  highlightCard() {
+    this.props.card.highlighted = true;
+
+    if( !this.props.card.is_collection ) {
+      this.props.mapViewStore.panTo(this.props.card.lat, this.props.card.lng);
+    }
+  }
+
   render() {
     const parsed_content = Parser(this.props.card.description);
 
@@ -28,7 +36,7 @@ import Parser from 'html-react-parser';
     if( this.props.card.primary_image ) image_styles.backgroundImage = `url('${this.props.card.primary_image}')`;
 
     return (
-      <div onClick={this.handleClick.bind(this)} className={container_classes} onMouseEnter={()=>this.props.card.highlighted=true} onMouseOut={()=>this.props.card.highlighted=false}>
+      <div onClick={this.handleClick.bind(this)} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseOut={()=>this.props.card.highlighted=false}>
         <div className="wrapper">
           <div className="image" style={image_styles}>
           </div>

@@ -4,6 +4,7 @@ import {observer} from "mobx-react";
 import { Marker, Popup } from 'react-leaflet'
 import {Leaflet} from 'react-leaflet';
 import L from 'leaflet';
+import Parser from 'html-react-parser';
 
 @observer export default class MarkerContainer extends Component {
   constructor(props) {
@@ -17,28 +18,42 @@ import L from 'leaflet';
 
   render() {
     const default_icon = new L.Icon({
-      iconUrl: require('../assets/images/marker-icon.png'),
-      iconRetinaUrl: require('../assets/images/marker-icon-2x.png')
+      iconUrl: require('../assets/images/record-marker.png'),
+      iconRetinaUrl: require('../assets/images/record-marker-x2.png'),
+
+      iconSize: [22, 30],
+      shadowSize: [0, 0],
+      iconAnchor: [11, 20],
+      popupAnchor: [0, -33]
     });
 
     const highlighted_icon = new L.Icon({
-      iconUrl: require('../assets/images/highlighted-marker-icon.png'),
-      iconRetinaUrl: require('../assets/images/highlighted-marker-icon-2x.png')
+      iconUrl: require('../assets/images/record-marker.png'),
+      iconRetinaUrl: require('../assets/images/record-marker-x2.png'),
+
+      iconSize: [22, 30],
+      shadowSize: [0, 0],
+      iconAnchor: [11, 20],
+      popupAnchor: [0, 0]
     });
 
     let icon = this.props.card.highlighted ? highlighted_icon : default_icon;
 
     return <Marker position={this.props.position} icon={icon}>
       <Popup>
-        <div onClick={this.handleOnClick.bind(this)}>
-          <img src="http://placehold.it/200x100" alt=""/>
-          <h1>
-            {this.props.card.title}
-          </h1>
-          <p>
-            {this.props.card.description}
-          </p>
+
+        <div className="m-map-popover">
+          <div className="m-record-card">
+            <div className="text-content">
+              <h1>
+                {this.props.card.title}
+              </h1>
+
+              {Parser(this.props.card.description)[0]}
+            </div>
+          </div>
         </div>
+
       </Popup>
     </Marker>;
   }
