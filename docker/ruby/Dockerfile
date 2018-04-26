@@ -25,19 +25,19 @@ RUN useradd --user-group --create-home --shell /bin/false app
 ENV HOME=/home/app
 # Create known_hosts
 RUN mkdir -p $HOME/.ssh && touch $HOME/.ssh/known_hosts
-# Add bitbuckets key
+# Add bitbucket and github key
 RUN ssh-keyscan bitbucket.org >> $HOME/.ssh/known_hosts
 RUN ssh-keyscan github.com >> $HOME/.ssh/known_hosts
 
 # Copy files into the container
 COPY ./src/Gemfile ./src/Gemfile.lock $HOME/lol/
 COPY ./src/package.json ./src/yarn.lock $HOME/lol/
-COPY ./docker-key $HOME/.ssh/id_rsa
+#COPY ./docker-key $HOME/.ssh/id_rsa
 # Chown copies files
-RUN chown -R app:app $HOME && chmod 600 $HOME/.ssh/id_rsa
+RUN chown -R app:app $HOME
 # Set working directory
 WORKDIR $HOME/lol
 # Make user app own files
 USER app
-# Install ruby gem dependencies
-RUN bundle install
+# use the mounted gems container as the location of the gems so we don't have to start from scratch each time.
+#ENV BUNDLE_PATH /gems

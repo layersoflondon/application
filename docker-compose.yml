@@ -75,10 +75,14 @@ services:
       - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
     networks:
       - error-network
-    command: bin/webpack-dev-server
+    entrypoint:
+      - /entrypoint.sh
+    depends_on:
+      - ruby
     volumes:
+      - ./docker/webpack/entrypoint.sh:/entrypoint.sh
       - ./src:/home/app/lol # TODO: check whether is need to mount the entire app folder
-      - ./docker-key:/home/app/.ssh/id-rsa
+      - ./docker-key:/home/app/.ssh/id_rsa
     ports:
       - '3035:3035'
     labels:
