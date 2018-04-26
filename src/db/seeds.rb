@@ -22,12 +22,13 @@ user_test = User.create(
     :encrypted_password    => BCrypt::Password.create(password).to_s
 )
 # Create another user test
-User.create(
+user_test_2 = User.create(
     :email                 => 'test2@error.agency',
     :password              => password,
     :password_confirmation => password,
     :encrypted_password    => BCrypt::Password.create(password).to_s
 )
+users = [user_test, user_test_2]
 
 5.times do |_i|
   Record.create(
@@ -37,7 +38,7 @@ User.create(
       lat: Faker::Address.latitude,
       lng: Faker::Address.longitude,
       date_from: Faker::Date.between(10.year.ago, Date.today),
-      user: user_test,
+      user: users[Faker::Number.between(0, 1)],
       location: {:address => Faker::Address.street_address},
       attachments_attributes:[{
             attachment_type: 'url',
@@ -51,14 +52,32 @@ User.create(
       )
 end
 
+# create teams
+5.times do |_i|
+  team = Team.create(
+      name: Faker::Team.name,
+      description: Faker::Company.bs
+  )
+  team.team_users << TeamUser.new(user: users[Faker::Number.between(0, 1)], role: 'leader')
+end
+
+team = Team.create(
+    name: Faker::Team.name,
+    description: Faker::Company.bs
+)
+team.team_users << TeamUser.new(user: user_test, role: 'leader')
+
 # Create collections
 5.times do |_i|
+
+  user_team = [user_test, team]
+
   collection = Collection.create(
       title: Faker::Company.catch_phrase,
       description: Faker::Company.bs,
       read_state: collection_read_state[Faker::Number.between(0, 1)],
       write_state: collection_write_state[Faker::Number.between(0, 1)],
-      owner: user_test
+      owner: user_team[Faker::Number.between(0, 1)],
   )
   # Create collection records
   5.times do |_ri|
@@ -69,7 +88,7 @@ end
         lat: Faker::Address.latitude,
         lng: Faker::Address.longitude,
         date_from: Faker::Date.between(10.year.ago, Date.today),
-        user: user_test,
+        user: users[Faker::Number.between(0, 1)],
         location: {:address => Faker::Address.street_address}
     )
   end
@@ -81,5 +100,5 @@ end
       name: Faker::Team.name,
       description: Faker::Company.bs
   )
-  team.team_users << TeamUser.new(user: user_test, role: 'leader')
+  team.team_users << TeamUser.new(user: users[Faker::Number.between(0, 1)], role: 'leader')
 end

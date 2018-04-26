@@ -16,7 +16,7 @@
     <div class="form-group form-group--profile-pic">
       <%= f.label :profile_pic %>
       <div class="image" >
-        <%= image_tag(url_for(@user.avatar), style: 'width:200px') %>
+        <%= image_tag(url_for(@user.avatar), style: 'width:200px') if @user.avatar.attached? %>
         <%= f.file_field :avatar %>
       </div>
     </div>
@@ -46,9 +46,10 @@
 
     <div class="form-group">
       <label>Delete account</label>
-      <%= button_to  registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete do %>
-        Delete account
-      <% end %>
+      <button>Delete account</button>
+      <%#= button_to  registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete do %>
+<!--        Delete account-->
+      <%# end %>
     </div>
   <% end %>
 </div>
