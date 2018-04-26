@@ -5,7 +5,7 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import MarkerContainer from './marker_container';
 
 import {observer} from "mobx-react";
-import RecordForm from "./forms/records/record_form";
+import LayerTools from './layer_tools';
 
 @observer export default class MapView extends Component {
   constructor(props) {
@@ -66,6 +66,8 @@ import RecordForm from "./forms/records/record_form";
 
         {markers}
       </Map>
+
+      <LayerTools {...this.props} />
     </div>;
   }
 }

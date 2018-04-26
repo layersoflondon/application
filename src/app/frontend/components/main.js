@@ -10,6 +10,7 @@ import MapView from './map_view';
 import Search from './search';
 import RecordView from './record_view';
 import PlacePicker from './place_picker';
+import LayersOverlay from './layers_overlay';
 
 import CollectionForm from './forms/collections/collection_form';
 import UserForm from './forms/user/user_form';
@@ -24,13 +25,14 @@ import RecordFormStore from '../stores/record_form_store';
 
   render() {
     return <div className="m-map-wrapper">
-      <Devtools />
+      {/*<Devtools />*/}
 
       <Tools {...this.props} />
       <Tray {...this.props} />
       <MapView {...this.props} />
 
       <Search {...this.props} />
+      <LayersOverlay {...this.props} />
       <CollectionForm {...this.props} />
       <UserForm mapViewStore={this.props.mapViewStore} />
       <RecordForm {...this.props} />

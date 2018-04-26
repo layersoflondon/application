@@ -47,6 +47,9 @@ import RecordModel from '../models/record';
 import CollectionModel from '../models/collection';
 import RecordFormStore from "../stores/record_form_store";
 
+import LayerModel from '../models/layer';
+import LayersStore from '../stores/layers_store';
+
 document.addEventListener('DOMContentLoaded', () => {
   const collection_store = new CollectionStore();
   const record_store     = new RecordStore();
@@ -81,5 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const record_form_store = new RecordFormStore();
 
-  ReactDOM.render( <Main recordFormStore={record_form_store} trayViewStore={tray_view_store} mapViewStore={map_view_store} collectionStore={collection_store} recordStore={record_store} />, document.getElementById("map-root") );
+  const layers_data = [
+    {id: 1, title: "Roque map", description: "<p>The Roque Map description</p>", date: new Date(), opacity: 0},
+    {id: 2, title: "Morgan map", description: "<p>The Morgan map description</p>", date: new Date(), opacity: 0}
+  ];
+  const layers = layers_data.map((ld) => LayerModel.fromJS(ld));
+  const layers_store = new LayersStore();
+  layers_store.layers = layers;
+
+  ReactDOM.render( <Main recordFormStore={record_form_store} trayViewStore={tray_view_store} mapViewStore={map_view_store} collectionStore={collection_store} recordStore={record_store} layersStore={layers_store} />, document.getElementById("map-root") );
 });

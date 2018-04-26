@@ -1,0 +1,23 @@
+import {observable} from 'mobx';
+import {computed, observe} from "mobx/lib/mobx";
+
+export default class LayerModel {
+  id = null;
+  title = '';
+  description = '';
+  date = null;
+  @observable opacity = 0;
+  @observable is_active = false;
+
+  static fromJS(object) {
+    let layer = new LayerModel();
+
+    layer.id = object.id;
+    layer.title = object.title;
+    layer.description = object.description;
+    layer.date = object.date;
+    layer.opacity = object.opacity;
+
+    return layer;
+  }
+}
