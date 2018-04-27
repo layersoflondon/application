@@ -1,5 +1,4 @@
-import {observable} from 'mobx';
-import {computed} from "mobx/lib/mobx";
+import {computed, observable} from 'mobx';
 
 export default class CollectionModel {
   id;

@@ -5,7 +5,7 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import MarkerContainer from './marker_container';
 
 import {observer} from "mobx-react";
-import LayerTools from './layer_tools';
+import LayerToolsContainer from './layer_tools_container';
 
 @observer export default class MapView extends Component {
   constructor(props) {
@@ -56,8 +56,12 @@ import LayerTools from './layer_tools';
       }
     });
 
-    const layers = <span>
+    const layers = <span className="tile-layers">
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
+
+      {this.props.layersStore.activeLayers.map((layer, index) => {
+        return <TileLayer key={layer.id} url={layer.url} attribution={layer.attribution} opacity={layer.opacity} zIndex={1000-index} />
+      })}
     </span>;
 
     return <div className="m-map-area">
@@ -67,7 +71,7 @@ import LayerTools from './layer_tools';
         {markers}
       </Map>
 
-      <LayerTools {...this.props} />
+      <LayerToolsContainer {...this.props} />
     </div>;
   }
 }

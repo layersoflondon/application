@@ -1,8 +1,6 @@
+import {observable, computed} from 'mobx';
 import CollectionModel from './collection';
-import {observable} from 'mobx';
-import {computed, observe} from "mobx/lib/mobx";
 import Record from "../sources/record";
-import GoogleMapsClient from "../sources/google_maps_client";
 
 export default class RecordModel {
   id = null;
