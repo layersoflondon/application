@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
   handleOnClickAddRecord(event) {
     this.props.mapViewStore.add_record_mode = true;
 
-    if( !this.props.trayViewStore.tray_is_visible ) {
+    if( this.props.trayViewStore.tray_is_visible ) {
       this.props.trayViewStore.toggleTrayVisibility();
     }
   }

@@ -11,6 +11,8 @@ export default class RecordFormStore {
   id = null;
   collections = [];
 
+  @observable found_places = [];
+
   @observable record = new RecordModel();
   @observable latlng;
   @observable visible_pane = null; // which accordion pane is visible
@@ -46,6 +48,7 @@ export default class RecordFormStore {
 
       if( response.json.results.length > 0 ) {
         this.record.location = {address: response.json.results[0].formatted_address};
+        this.found_places = response.json.results;
       }else {
         this.place_lookup_status = 404
       }

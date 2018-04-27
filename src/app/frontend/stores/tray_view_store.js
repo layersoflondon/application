@@ -37,8 +37,6 @@ export default class TrayViewStore {
     });
 
     observe(this, 'tray_is_visible', (change) => {
-      window.map_ref = this.map_ref;
-      console.log("Changing tray_is_visible", this.map_ref);
       // force leaflet to re-draw its layout so we can resize the mapview and it retains full-width of the container
       setTimeout(() => {
         this.map_ref.leafletElement.invalidateSize();
