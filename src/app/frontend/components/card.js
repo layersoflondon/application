@@ -21,9 +21,10 @@ import Parser from 'html-react-parser';
   highlightCard() {
     this.props.card.highlighted = true;
 
-    if( !this.props.card.is_collection ) {
-      this.props.mapViewStore.panTo(this.props.card.lat, this.props.card.lng);
-    }
+    // // pan the map to this cards' position
+    // if( !this.props.card.is_collection ) {
+    //   this.props.mapViewStore.panTo(this.props.card.lat, this.props.card.lng);
+    // }
   }
 
   render() {

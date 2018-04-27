@@ -47,7 +47,11 @@ import RecordModel from '../models/record';
 import CollectionModel from '../models/collection';
 import RecordFormStore from "../stores/record_form_store";
 
+import LayerModel from '../models/layer';
+import LayersStore from '../stores/layers_store';
+
 document.addEventListener('DOMContentLoaded', () => {
+  if( typeof window.lol_app_data === "undefined" ) return;
   const collection_store = new CollectionStore();
   const record_store     = new RecordStore();
 
@@ -80,6 +84,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const map_view_store = new MapViewStore();
 
   const record_form_store = new RecordFormStore();
+  const layers_data = [
+    {id: 1, title: "Roque map", description: "<p>The Roque Map description</p>", date: new Date(), url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false, base_layer: false},
+    {id: 2, title: "Morgan map", description: "<p>The Morgan map description</p>", date: new Date(), url: "http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false, base_layer: false}
+  ];
 
-  ReactDOM.render( <Main recordFormStore={record_form_store} trayViewStore={tray_view_store} mapViewStore={map_view_store} collectionStore={collection_store} recordStore={record_store} />, document.getElementById("map-root") );
+  // fixme - figure out why layersoflondon-tiles.error.agency is returning 404's
+  // const layers_data = [
+  //   {id: 1, title: "Roque Map", description: "<p>Roque Map description</p>", date: new Date(), url: "https://layersoflondon-tiles.error.agency/rocque/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false, base_layer: false},
+  //   {id: 2, title: "Morgan Map", description: "<p>Morgan Map description</p>", date: new Date(), url: "https://layersoflondon-tiles.error.agency/morgan/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false, base_layer: false},
+  //   {id: 3, title: "Satellite View", description: "<p>Satellite View description</p>", date: new Date(), url: "https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", attribution: "Some Attribution", opacity: 1, enabled: false, base_layer: false}
+  // ];
+
+  const layers = layers_data.reverse().map((ld) => LayerModel.fromJS(ld));
+  const layers_store = new LayersStore();
+  layers_store.layers = layers;
+
+  ReactDOM.render( <Main recordFormStore={record_form_store} trayViewStore={tray_view_store} mapViewStore={map_view_store} collectionStore={collection_store} recordStore={record_store} layersStore={layers_store} />, document.getElementById("map-root") );
 });

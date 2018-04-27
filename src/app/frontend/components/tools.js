@@ -25,7 +25,7 @@ import PropTypes from 'prop-types';
           <button data-label="Date range"><span>Date range</span></button>
         </div>
         <div className="m-tool-button m-tool-button--layers">
-          <button data-label="Layers"><span>Layers</span></button>
+          <button data-label="Layers" data-overlay="layers" onClick={this.handleOnClick.bind(this)}><span>Layers</span></button>
         </div>
         <div className="m-tool-button m-tool-button--add-collection">
           <button data-label="Create collection" data-overlay="collection_form" onClick={this.handleOnClick.bind(this)}><span>Create collection</span></button>

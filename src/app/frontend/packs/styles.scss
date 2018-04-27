@@ -27,3 +27,24 @@
   left: auto !important;
   width: 100% !important;
 }
+.m-layer-tools {
+  z-index: 1099;
+}
+
+@import 'rc-slider/assets/index.css';
+.m-layer-tools .panel h1 {
+  float: none;
+}
+
+.m-layer-tools .panel {
+  position: relative;
+}
+.m-layer-tools .panel button {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+}
+
+.m-layer-tools .panel div[data-react-beautiful-dnd-draggable] {
+  height: 30px;
+}

@@ -12,7 +12,7 @@ class MapController < ApplicationController
 
   private
   def get_json
-    records = Record.all.limit(2) #.all.sample(2)
+    records = Record.published.limit(2) #.all.sample(2)
     collections = Collection.all.limit(1) #.all.sample(1)
     @data = records+collections
   end
