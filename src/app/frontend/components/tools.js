@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 
   handleOnClickAddRecord(event) {
     this.props.mapViewStore.add_record_mode = true;
+    this.props.trayViewStore.toggleTrayVisibility();
   }
 
   render() {
@@ -44,5 +45,6 @@ import PropTypes from 'prop-types';
 }
 
 Tools.propTypes = {
-  mapViewStore: PropTypes.object.isRequired
+  mapViewStore: PropTypes.object.isRequired,
+  trayViewStore: PropTypes.object.isRequired
 };

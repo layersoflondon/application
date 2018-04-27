@@ -11,9 +11,13 @@ export default class TrayViewStore {
   previousCardStore = null;
   @observable visible_record_id = null;
   @observable visible_record = null;
+  @observable tray_is_visible = true;
+
+  // dom reference to the leaflet element
+  map_ref = null;
 
   constructor() {
-    // swapping the cardStore will re-rener the tray with the new array of records
+    // swapping the cardStore will re-render the tray with the new array of records
     observe(this, 'cardStore', (change) => {
       this.previousCardStore = change.oldValue;
     });
@@ -31,6 +35,19 @@ export default class TrayViewStore {
         this.visible_record = null;
       }
     });
+
+    observe(this, 'tray_is_visible', (change) => {
+      window.map_ref = this.map_ref;
+      console.log("Changing tray_is_visible", this.map_ref);
+      // force leaflet to re-draw its layout so we can resize the mapview and it retains full-width of the container
+      setTimeout(() => {
+        this.map_ref.leafletElement.invalidateSize();
+      }, 100);
+    });
+  }
+
+  toggleTrayVisibility(event) {
+    this.tray_is_visible = !this.tray_is_visible;
   }
 
   moveToNextCard() {

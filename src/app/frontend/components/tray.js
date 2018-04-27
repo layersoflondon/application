@@ -21,6 +21,9 @@ import Card from './card';
     });
 
     let trayClassName = "m-tray-area";
+    if( !this.props.trayViewStore.tray_is_visible ) {
+      trayClassName += " is-closed";
+    }
 
     let trayCollectionDetails;
     if(this.props.trayViewStore.previousCardStore && !this.props.trayViewStore.cardStore.rootCardStore) {
@@ -42,7 +45,7 @@ import Card from './card';
     }
 
     return <div className={trayClassName}>
-      <div className="open-close">
+      <div className="open-close" onClick={() => this.props.trayViewStore.toggleTrayVisibility()}>
         <span>Close</span>
       </div>
 

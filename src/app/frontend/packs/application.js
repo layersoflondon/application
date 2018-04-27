@@ -85,15 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const record_form_store = new RecordFormStore();
   const layers_data = [
-    {id: 1, title: "Roque map", description: "<p>The Roque Map description</p>", date: new Date(), url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false, base_layer: false},
-    {id: 2, title: "Morgan map", description: "<p>The Morgan map description</p>", date: new Date(), url: "http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false, base_layer: false}
+    {id: 1, title: "Roque map", description: "<p>The Roque Map description</p>", date: new Date(), url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false},
+    {id: 2, title: "Morgan map", description: "<p>The Morgan map description</p>", date: new Date(), url: "http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false}
   ];
 
   // fixme - figure out why layersoflondon-tiles.error.agency is returning 404's
   // const layers_data = [
-  //   {id: 1, title: "Roque Map", description: "<p>Roque Map description</p>", date: new Date(), url: "https://layersoflondon-tiles.error.agency/rocque/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false, base_layer: false},
-  //   {id: 2, title: "Morgan Map", description: "<p>Morgan Map description</p>", date: new Date(), url: "https://layersoflondon-tiles.error.agency/morgan/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false, base_layer: false},
-  //   {id: 3, title: "Satellite View", description: "<p>Satellite View description</p>", date: new Date(), url: "https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", attribution: "Some Attribution", opacity: 1, enabled: false, base_layer: false}
+  //   {id: 1, title: "Roque Map", description: "<p>Roque Map description</p>", date: new Date(), url: "https://layersoflondon-tiles.error.agency/rocque/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false},
+  //   {id: 2, title: "Morgan Map", description: "<p>Morgan Map description</p>", date: new Date(), url: "https://layersoflondon-tiles.error.agency/morgan/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false},
+  //   {id: 3, title: "Satellite View", description: "<p>Satellite View description</p>", date: new Date(), url: "https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", attribution: "Some Attribution", opacity: 1, enabled: false}
   // ];
 
   const layers = layers_data.reverse().map((ld) => LayerModel.fromJS(ld));

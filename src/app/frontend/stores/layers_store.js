@@ -5,10 +5,10 @@ export default class LayersStore {
   @observable active_layer_ids = [];
 
   constructor() {
-    // when assigning the layers, iterate over them and activate any that are base_layer's or otherwise enabled by default
+    // when assigning the layers, iterate over them and activate any that are enabled by default
     observe(this, 'layers', (change) => {
       change.newValue.map((layer) => {
-        if(layer.base_layer || layer.enabled) {
+        if(layer.enabled) {
           this.toggleLayer(layer.id);
         }
       });

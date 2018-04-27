@@ -21,11 +21,15 @@ import DevTools from 'mobx-react-devtools';
 @observer export default class Main extends Component {
   constructor(props) {
     super(props);
-    console.log("Required props: ", props);
   }
 
   render() {
-    return <div className="m-map-wrapper">
+    let className = "m-map-wrapper";
+    if( !this.props.trayViewStore.tray_is_visible ) {
+      className += " tray-is-closed";
+    }
+
+    return <div className={className}>
       <DevTools position={{bottom: 20, right: 0}} />
 
       <Tools {...this.props} />
@@ -35,7 +39,7 @@ import DevTools from 'mobx-react-devtools';
       <Search {...this.props} />
       <LayersOverlay {...this.props} />
       <CollectionForm {...this.props} />
-      <UserForm mapViewStore={this.props.mapViewStore} />
+      <UserForm {...this.props} />
       <RecordForm {...this.props} />
 
       {this.props.trayViewStore.visible_record && <RecordView {...this.props} />}
@@ -46,6 +50,10 @@ import DevTools from 'mobx-react-devtools';
 }
 
 Main.propTypes = {
-  trayViewStore: PropTypes.object.isRequired,
-  mapViewStore: PropTypes.object.isRequired
+  collectionStore: PropTypes.object.isRequired,
+  layersStore: PropTypes.object.isRequired,
+  mapViewStore: PropTypes.object.isRequired,
+  recordFormStore: PropTypes.object.isRequired,
+  recordStore: PropTypes.object.isRequired,
+  trayViewStore: PropTypes.object.isRequired
 };

@@ -14,7 +14,6 @@ export default class MapViewStore {
   @observable add_record_mode = false;
 
   initial_position = null;
-  map_ref = null;
 
   constructor() {
     // if we render the record_form, we should hide the place_picker component by exiting 'add_record_mode'
@@ -24,10 +23,10 @@ export default class MapViewStore {
       }
     });
 
-    observe(this, 'center', (change) => {
-      window.map_ref = this.map_ref;
-      this.map_ref.leafletElement.panTo(new L.LatLng(...(change.newValue.toJS())))
-    });
+    // observe(this, 'center', (change) => {
+    //   window.map_ref = this.map_ref;
+    //   this.map_ref.leafletElement.panTo(new L.LatLng(...(change.newValue.toJS())))
+    // });
   }
 
   panTo(lat, lng) {

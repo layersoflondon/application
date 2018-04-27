@@ -20,6 +20,9 @@
 .m-overlay .close button {
   background: url('../assets/images/icon-close.svg') center no-repeat;
 }
+.m-map-area {
+  z-index: 1;
+}
 .m-map-popover {
   display: block !important;
   position: relative !important;

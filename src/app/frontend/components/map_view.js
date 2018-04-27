@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
 import MarkerContainer from './marker_container';
@@ -14,7 +13,7 @@ import LayerToolsContainer from './layer_tools_container';
     this.mapRef = null;
     this.setMapRef = element => {
       this.mapRef = element;
-      this.props.mapViewStore.map_ref = this.mapRef;
+      this.props.trayViewStore.map_ref = this.mapRef;
     }
   }
 
@@ -65,17 +64,15 @@ import LayerToolsContainer from './layer_tools_container';
     </span>;
 
     return <div className="m-map-area">
-      <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
-        {layers}
+      <div className="m-map">
+        <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
+          {layers}
 
-        {markers}
-      </Map>
+          {markers}
+        </Map>
+      </div>
 
       <LayerToolsContainer {...this.props} />
     </div>;
   }
 }
-
-// MapView.propTypes = {
-//   mapViewStore: PropTypes.object.isRequired
-// };

@@ -58,7 +58,7 @@ import {observer} from "mobx-react";
           <div className="m-add-media-and-documents">
 
             <div className="thumbs">
-              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '4px solid red'}} accept="image/jpeg, image/png" onDrop={this.onDrop.bind(this)}>
+              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png" onDrop={this.onDrop.bind(this)}>
                 <ul>
                   {media_items}
 
