@@ -36,6 +36,19 @@ import LayerToolsContainer from './layer_tools_container';
     }
   }
 
+  updateClippedLayer(event) {
+    // console.log("updateClippedLayer", event, event.clientX, event.clientY);
+    const leafletElement = this.refs['clipped-tilelayer'].leafletElement;
+    const container_position = leafletElement._container.closest('.m-map').getBoundingClientRect();
+
+    window.leafletElement = leafletElement;
+
+    const x = event.clientX - container_position.x;
+    const y = event.clientY - container_position.y;
+
+    this.refs['clipped-tilelayer'].leafletElement._container.style.clipPath = `circle(200px at ${x}px ${y}px)`
+  }
+
   render() {
     const position = [51.55227613396215, 0.26617169380187999];// this.props.mapViewStore.center.toJS();
     const map_zoom = 8; //this.props.mapViewStore.zoom;
@@ -61,12 +74,15 @@ import LayerToolsContainer from './layer_tools_container';
       {this.props.layersStore.activeLayers.map((layer, index) => {
         return <TileLayer key={layer.id} url={layer.url} attribution={layer.attribution} opacity={layer.opacity} zIndex={1000-index} />
       })}
+
     </span>;
 
-    return <div className="m-map-area">
+    const testlayer = this.props.layersStore.layers[0];
+    return <div className="m-map-area" onMouseMove={this.updateClippedLayer.bind(this)}>
       <div className="m-map">
         <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
           {layers}
+          <TileLayer key={testlayer.id} url={testlayer.url} attribution={testlayer.attribution} opacity={testlayer.opacity} zIndex={1000+1} className="clipped-tilelayer" ref='clipped-tilelayer' />
 
           {markers}
         </Map>

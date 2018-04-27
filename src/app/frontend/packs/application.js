@@ -102,3 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   ReactDOM.render( <Main recordFormStore={record_form_store} trayViewStore={tray_view_store} mapViewStore={map_view_store} collectionStore={collection_store} recordStore={record_store} layersStore={layers_store} />, document.getElementById("map-root") );
 });
+
+// fixme: move this somewhere more sensible
+// document.addEventListener('DOMContentLoaded', () => {
+//   const layer = document.getElementsByClassName('clipped-tilelayer')[0];
+// });
