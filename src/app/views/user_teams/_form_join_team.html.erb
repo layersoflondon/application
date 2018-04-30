@@ -1,21 +1,14 @@
-<%= form_with(model: team, html: {method: :post, class: 'form--chunky form--over-white'}) do |form| %>
+
+<%= form_tag("/teams/join", method: "post",  class: 'form--chunky form--over-white') do %>
   <input type="hidden" name="is_form" value="1">
-  <% if team.errors.any? %>
-    <div>
-      <ul>
-        <% team.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+
 
   <div class="form-group">
     <label>Search for a team</label>
-    <%= form.text_field :name, :required => true %>
+    <%= text_field_tag(:query) %>
   </div>
 
-  <%= form.submit "Request to join" %>
+
+  <%= submit_tag("Request to join") %>
 
 <% end %>
-

@@ -12,6 +12,8 @@ class TeamUserPolicy < ApplicationPolicy
     user.present? && record.user_id == user.id
   end
 
+
+
   class Scope < Scope
     def resolve
       scope

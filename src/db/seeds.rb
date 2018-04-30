@@ -12,6 +12,7 @@ require 'bcrypt'
 record_states = %w[draft published pending_review flagged deleted]
 collection_read_state = %w[public_read private_read]
 collection_write_state = %w[everyone team creator]
+team_user_role = %w[leader contributor]
 
 # Create user test
 password = 123456
@@ -58,14 +59,22 @@ end
       name: Faker::Team.name,
       description: Faker::Company.bs
   )
-  team.team_users << TeamUser.new(user: users[Faker::Number.between(0, 1)], role: 'leader')
+  team.team_users << TeamUser.new(
+      user: users[Faker::Number.between(0, 1)],
+      role: team_user_role[Faker::Number.between(0, 1)],
+      state: 'access_granted'
+  )
 end
 
 team = Team.create(
     name: Faker::Team.name,
     description: Faker::Company.bs
 )
-team.team_users << TeamUser.new(user: user_test, role: 'leader')
+team.team_users << TeamUser.new(
+    user: user_test,
+    role: team_user_role[Faker::Number.between(0, 1)],
+    state: 'access_granted'
+)
 
 # Create collections
 5.times do |_i|
@@ -100,5 +109,5 @@ end
       name: Faker::Team.name,
       description: Faker::Company.bs
   )
-  team.team_users << TeamUser.new(user: users[Faker::Number.between(0, 1)], role: 'leader')
+  team.team_users << TeamUser.new(user: users[Faker::Number.between(0, 1)], role: 'leader', state: 'access_granted')
 end

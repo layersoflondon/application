@@ -9,11 +9,10 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
-    @team.team_users << TeamUser.new(user: current_user, role: 'leader')
     authorize(@team)
 
-    # TODO Change me for more readable and usable code :)
-    if @team.save
+    # TODO: Change me for more readable and usable code :)
+    if current_user.create_team(@team)
       if params[:is_form]
         redirect_to request.referer
       else
@@ -21,7 +20,7 @@ class TeamsController < ApplicationController
       end
     else
       if params[:is_form]
-        # TODO redirect / render showing the error
+        # TODO: redirect / render showing the error
       else
         render json: @team.errors, status: :unprocessable_entity
       end
@@ -45,6 +44,15 @@ class TeamsController < ApplicationController
     render json: @team.errors, status: :unprocessable_entity
   end
 
+  def request_to_join_team
+    authorize(current_user)
+    @team = Team.find_by_name(params[:query])
+    if @team
+      current_user.request_join_team @team
+    end
+    redirect_to request.referer
+  end
+
   private
 
   def set_team
@@ -57,7 +65,8 @@ class TeamsController < ApplicationController
     params.require(:team).permit(
       :name,
       :description,
-      :is_form
+      :is_form,
+      :query
     )
   end
 end
