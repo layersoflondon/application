@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   root 'map#show'
+
+  get '/user/teams', to: 'user_teams#index'
+  get '/user/record_collections'
+
   devise_for :users,
              controllers: {
                invitations: 'users/invitations',
@@ -13,9 +17,6 @@ Rails.application.routes.draw do
     resources :teams , only: %i[index], defaults: {format: :json}
   end
 
-  get '/user/teams', to: 'user_teams#index'
-  get 'user/record_collections'
-
   resources :records, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]
   end
@@ -24,8 +25,11 @@ Rails.application.routes.draw do
     resources :records, controller: 'collection_records', only: %i[index create destroy]
   end
 
+  post '/teams/join', to: 'teams#request_to_join_team'
   resources :teams, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :users, controller: 'team_users', only: %i[index create show update destroy]
   end
+
+
 
 end

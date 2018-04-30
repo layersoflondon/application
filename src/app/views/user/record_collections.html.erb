@@ -1,0 +1,33 @@
+<div class="m-account-page m-account-page--records-collections">
+
+  <div class="wrap">
+    <div class="section section--records">
+      <h2>Your records</h2>
+      <ul>
+        <% current_user.records.each do |record| %>
+          <li>
+            <a href="#"><%= record.title %></a>
+            <button class="edit">Edit</button>
+            <span class="draft-indicator"><%= record.state %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="section section--collections">
+      <h2>Your collections</h2>
+      <h3>Created by you</h3>
+      <ul class="created-by-you">
+        <% current_user.collections.each do |collection | %>
+          <li><a href="#"><%= collection.title %></a><button class="edit">Edit</button></li>
+        <% end %>
+      </ul>
+      <h3>Created by your teams</h3>
+      <ul>
+        <% current_user.team_collections_granted.each do |collection | %>
+          <li><a href="#"><%= collection.title %></a></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
