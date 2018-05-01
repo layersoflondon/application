@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: %i[show update destroy]
+  before_action :set_team, only: %i[show update destroy invite_member leave]
   skip_before_action :authenticate_user!, only: %i[index show]
-  skip_after_action :verify_authorized, only: %i[index show]
+  skip_after_action :verify_authorized, only: %i[index]
 
   def index
     @teams = Team.all
@@ -27,7 +27,9 @@ class TeamsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    authorize(@team_user)
+  end
 
   def update
     authorize(@team_user)
@@ -51,6 +53,14 @@ class TeamsController < ApplicationController
       current_user.request_join_team @team
     end
     redirect_to request.referer
+  end
+
+  def invite_user
+    authorize(@team_user)
+  end
+
+  def leave
+    authorize(@team_user)
   end
 
   private

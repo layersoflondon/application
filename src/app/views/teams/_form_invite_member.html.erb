@@ -1,0 +1,7 @@
+<%= form_tag("/teams/#{@team.id}/invite" , method: "post",  class: 'form--chunky form--over-white') do %>
+  <div class="form-group">
+    <%= text_field_tag(:emails, :Email) %>
+  </div>
+  <p class="helper-text">Comma separated list is fine.</p>
+  <%= submit_tag("Send") %>
+<% end %>
