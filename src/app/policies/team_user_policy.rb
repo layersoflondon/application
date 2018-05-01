@@ -9,15 +9,19 @@ class TeamUserPolicy < ApplicationPolicy
   end
 
   def update?
-    create?
+    user.present? && record.user_id == user.id && record.role == 'leader' && record.state == 'access_granted'
   end
 
   def destroy?
-    user.present? && record.user_id == user.id
+    update?
   end
 
-  def invite_member?
-    user.present? && record.role == 'leader'
+  def invite_user?
+    user.present? && record.role == 'leader' && record.state == 'access_granted'
+  end
+
+  def leave?
+    show?
   end
 
   class Scope < Scope

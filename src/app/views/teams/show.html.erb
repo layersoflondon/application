@@ -5,7 +5,11 @@
     <div class="section section--team-header">
 
       <h1><%= @team.name %></h1>
-      <%= render 'form_delete_team', team: @team %>
+      <% if @team.is_owner(current_user) %>
+        <%= render 'form_delete_team', team: @team %>
+      <% else %>
+        <%= render 'form_leave_team', team: @team %>
+      <% end %>
       <button class="show-on-map">Show on map</button>
       <span class="type">You are the owner of this team.</span>
 

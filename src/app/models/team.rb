@@ -6,6 +6,22 @@ class Team < ApplicationRecord
   validates :name, presence: true
 
   def members
-    self.team_users.order(:role).includes(:user)
+    team_users.order(:role).includes(:user)
+  end
+
+  def is_owner(user)
+    user_found = team_users.find_by(user_id: user.id)
+    return user_found.role == 'leader' if user_found
+    false
+  end
+
+  def invite(user)
+    unless team_users.find_by(user_id: user.id)
+      team_users << TeamUser.new(
+        user: user,
+        role: 'contributor',
+        state: 'invited'
+      )
+    end
   end
 end

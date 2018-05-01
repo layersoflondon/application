@@ -27,11 +27,9 @@ Rails.application.routes.draw do
 
   post '/teams/join', to: 'teams#request_to_join_team'
   post '/teams/:id/invite-user', to: 'teams#invite_user'
+  post '/teams/:id/leave', to: 'teams#leave'
 
   resources :teams, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :users, controller: 'team_users', only: %i[index create show update destroy]
   end
-
-
-
 end

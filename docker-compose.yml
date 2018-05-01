@@ -81,3 +81,12 @@ services:
       - '3035:3035'
     labels:
       - maintainer='jordi@error.agency'
+  mail:
+    image: mailhog/mailhog
+    networks:
+      error-network:
+    ports:
+     - "8025:8025"
+     - "1025:1025"
+    environment:
+      LOGSPOUT: 'ignore'
