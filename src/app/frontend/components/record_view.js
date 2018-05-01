@@ -14,6 +14,13 @@ import Record from '../sources/record';
     this.setState({loading: false});
   }
 
+  handleCloseOnClick(event) {
+    event.preventDefault();
+    const { location, push, goBack } = this.props.routing;
+    this.props.trayViewStore.visible_record_id = null;
+    goBack();
+  }
+
   switchToEditMode(event) {
     event.preventDefault();
 
@@ -40,7 +47,7 @@ import Record from '../sources/record';
             <button className="previous" onClick={() => this.props.trayViewStore.moveToPreviousCard()}>Previous</button>
           </div>
           <div className="close">
-            <button className="close" onClick={()=>this.props.trayViewStore.visible_record_id=null}>Close</button>
+            <button className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</button>
           </div>
 
           <div className="wrap">

@@ -11,7 +11,10 @@ import Card from './card';
   }
 
   switchToPreviousCardStore() {
+    const { location, push, goBack } = this.props.routing;
+
     this.props.trayViewStore.cardStore = this.props.trayViewStore.previousCardStore;
+    goBack();
   }
 
   render() {

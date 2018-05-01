@@ -3,7 +3,7 @@ class Record < ApplicationRecord
 
   enum state: %i[draft published pending_review flagged deleted]
 
-  aasm column: :state, enum: true do
+  aasm column: :state, enum: false do
     state :draft, initial: true
     state :published
     state :pending_review

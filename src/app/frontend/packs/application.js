@@ -9,30 +9,25 @@
 
 import React,{Component} from 'react'
 import ReactDOM from 'react-dom'
+
 import CardStore from '../stores/card_store';
 import MapViewStore from '../stores/map_view_store';
 import TrayViewStore from '../stores/tray_view_store';
 import Main from '../components/main';
+import RecordStore from '../stores/record_store';
+import CollectionStore from '../stores/collection_store';
+import LayersStore from '../stores/layers_store';
 
-// to test following snippet we should remove the default format of the route -defaults: {format: :json}- and
-// add upload new file via form in http://localhost:3000/records/1/attachments/new and add new action
-// document.addEventListener('DOMContentLoaded', () => {
-//     var output = document.getElementById('output');
-//     document.getElementById('upload').onclick = function () {
-//         var data = new FormData();
-//         data.append('attachable_attributes[title]', 'title');
-//         data.append('attachable_attributes[caption]', 'caption');
-//         data.append('attachable_attributes[credit]', 'credit');
-//         data.append('attachable_attributes[description]', 'description');
-//         data.append('attachment_type', 'dataset');
-//         data.append('file', document.getElementById('file').files[0]);
-//         RecordAttachments.create(1, data).then((response)=>{
-//             RecordAttachments.destroy(record_id, response.data[response.data.length - 1].id)
-//                 .then((response)=>{})
-//                 .catch((error) => {});
-//         }).catch((error) => {});
-//     };
-// });
+import RecordModel from '../models/record';
+import CollectionModel from '../models/collection';
+import RecordFormStore from "../stores/record_form_store";
+
+import LayerModel from '../models/layer';
+
+import createBrowserHistory from 'history/createBrowserHistory';
+import {Provider} from 'mobx-react';
+import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
+import {Router} from 'react-router';
 
 /**
  * Create a CardStore from our dummy data, a TrayViewStore to pass
@@ -40,15 +35,6 @@ import Main from '../components/main';
  * which will be rendered in the Tray component
  */
 
-import RecordStore from '../stores/record_store';
-import CollectionStore from '../stores/collection_store';
-
-import RecordModel from '../models/record';
-import CollectionModel from '../models/collection';
-import RecordFormStore from "../stores/record_form_store";
-
-import LayerModel from '../models/layer';
-import LayersStore from '../stores/layers_store';
 
 document.addEventListener('DOMContentLoaded', () => {
   if( typeof window.lol_app_data === "undefined" ) return;
@@ -100,5 +86,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const layers_store = new LayersStore();
   layers_store.layers = layers;
 
-  ReactDOM.render( <Main recordFormStore={record_form_store} trayViewStore={tray_view_store} mapViewStore={map_view_store} collectionStore={collection_store} recordStore={record_store} layersStore={layers_store} />, document.getElementById("map-root") );
+  const browserHistory = createBrowserHistory();
+  const routingStore = new RouterStore();
+  const history = syncHistoryWithStore(browserHistory, routingStore);
+
+  const stores = {
+    routing: routingStore,
+    recordFormStore: record_form_store,
+    trayViewStore: tray_view_store,
+    mapViewStore: map_view_store,
+    collectionStore: collection_store,
+    recordStore: record_store,
+    layersStore: layers_store
+  };
+
+  ReactDOM.render(
+    <Provider {...stores} >
+      <Router history={history}>
+        <Main />
+      </Router>
+    </Provider>,
+    document.getElementById("map-root")
+  );
 });
