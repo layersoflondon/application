@@ -38,18 +38,19 @@ import Parser from 'html-react-parser';
     });
 
     let icon = this.props.card.highlighted ? highlighted_icon : default_icon;
+    const parsed_content = Parser(this.props.card.description);
 
     return <Marker position={this.props.position} icon={icon}>
       <Popup>
 
-        <div className="m-map-popover">
+        <div className="m-map-popover" onClick={this.handleOnClick.bind(this)}>
           <div className="m-record-card">
             <div className="text-content">
               <h1>
                 {this.props.card.title}
               </h1>
 
-              {Parser(this.props.card.description)[0]}
+              {parsed_content[0] || parsed_content}
             </div>
           </div>
         </div>

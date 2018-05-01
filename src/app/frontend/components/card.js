@@ -45,7 +45,7 @@ import Parser from 'html-react-parser';
             {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
             <h1>{this.props.card.title}</h1>
 
-            {parsed_content[0]}
+            {parsed_content[0] || parsed_content}
           </div>
 
           <div className="link-indicator">
