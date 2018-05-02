@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: %i[show update destroy invite_user leave]
+  before_action :set_team, only: %i[show update destroy invite_user leave accept_request deny_request]
 
   def index
     @teams = Team.all
@@ -75,9 +75,15 @@ class TeamsController < ApplicationController
     emails = query.split(',')
     users = User.where(email: emails)
     users.each do |user|
-      @team.invite(user)
+      @team.invite(current_user, user)
     end
     redirect_to :controller => 'user_teams', :action => 'index'
+  end
+
+  def accept_invitation
+    authorize(current_user)
+    @team = Team.find_by_id(params[:id])
+    @accepted = current_user.accept_team_invitation(@team, params[:key])
   end
 
   def leave
@@ -85,11 +91,20 @@ class TeamsController < ApplicationController
     redirect_to :controller => 'user_teams', :action => 'index' if @team_user.destroy
   end
 
+  def accept_request
+    authorize(@team_user)
+    @accepted = current_user.accept_team_request(@team, params[:key])
+  end
+
+  def deny_request
+    authorize(@team_user)
+    @denied = current_user.deny_team_request(@team, params[:key])
+  end
+
   private
 
   def set_team
     @team = Team.find_by_id(params[:id])
-
     render json: '', status: :not_found unless @team
     @team_user = @team.team_users.find_by(user_id: current_user.id)
   end

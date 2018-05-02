@@ -26,7 +26,10 @@ Rails.application.routes.draw do
   end
 
   post '/teams/join', to: 'teams#request_to_join_team'
+  get '/teams/:id/accept-request', to: 'teams#accept_request'
+  get '/teams/:id/deny-request', to: 'teams#deny_request'
   post '/teams/:id/invite-user', to: 'teams#invite_user'
+  get '/teams/:id/accept-invitation', to: 'teams#accept_invitation'
   post '/teams/:id/leave', to: 'teams#leave'
 
   resources :teams, only: %i[index create show update destroy], defaults: {format: :json} do

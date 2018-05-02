@@ -24,6 +24,14 @@ class TeamUserPolicy < ApplicationPolicy
     show?
   end
 
+  def accept_request?
+    create?
+  end
+
+  def deny_request?
+    create?
+  end
+
   class Scope < Scope
     def resolve
       scope

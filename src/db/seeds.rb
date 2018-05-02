@@ -22,14 +22,15 @@ user_test = User.create(
     :password_confirmation => password,
     :encrypted_password    => BCrypt::Password.create(password).to_s
 )
-# Create another user test
-user_test_2 = User.create(
-    :email                 => 'test2@error.agency',
-    :password              => password,
-    :password_confirmation => password,
-    :encrypted_password    => BCrypt::Password.create(password).to_s
-)
-users = [user_test, user_test_2]
+
+9.times do |_i|
+  User.create(
+      :email                 => "test#{_i + 1}@error.agency",
+      :password              => password,
+      :password_confirmation => password,
+      :encrypted_password    => BCrypt::Password.create(password).to_s
+  )
+end
 
 5.times do |_i|
   Record.create(
@@ -39,7 +40,7 @@ users = [user_test, user_test_2]
       lat: Faker::Address.latitude,
       lng: Faker::Address.longitude,
       date_from: Faker::Date.between(10.year.ago, Date.today),
-      user: users[Faker::Number.between(0, 1)],
+      user: user_test,
       location: {:address => Faker::Address.street_address},
       attachments_attributes:[{
             attachment_type: 'url',
@@ -60,7 +61,7 @@ end
       description: Faker::Company.bs
   )
   team.team_users << TeamUser.new(
-      user: users[Faker::Number.between(0, 1)],
+      user: user_test,
       role: team_user_role[Faker::Number.between(0, 1)],
       state: 'access_granted'
   )
@@ -97,7 +98,7 @@ team.team_users << TeamUser.new(
         lat: Faker::Address.latitude,
         lng: Faker::Address.longitude,
         date_from: Faker::Date.between(10.year.ago, Date.today),
-        user: users[Faker::Number.between(0, 1)],
+        user: user_test,
         location: {:address => Faker::Address.street_address}
     )
   end
@@ -109,5 +110,5 @@ end
       name: Faker::Team.name,
       description: Faker::Company.bs
   )
-  team.team_users << TeamUser.new(user: users[Faker::Number.between(0, 1)], role: 'leader', state: 'access_granted')
+  team.team_users << TeamUser.new(user: user_test, role: 'leader', state: 'access_granted')
 end
