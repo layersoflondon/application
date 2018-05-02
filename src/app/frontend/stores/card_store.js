@@ -1,5 +1,4 @@
 import {observable} from 'mobx';
-
 import TrayCardData from './tray_card_data';
 
 /**
@@ -63,6 +62,11 @@ export default class CardStore {
    */
   static fromJS(object) {
     const store = new CardStore();
+
+    if( !object.hasOwnProperty('cards') ){
+      object.cards = [];
+    }
+
     Object.assign(store, object);
 
     store.cards = object.cards.map( (c) => TrayCardData.fromJS(c) );

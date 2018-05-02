@@ -1,10 +1,6 @@
-import {observable, observe, computed} from 'mobx';
+import {observable, observe} from 'mobx';
 import Record from '../sources/record';
 import RecordModel from '../models/record';
-import CollectionModel from '../models/collection';
-import CardStore from '../stores/card_store';
-import CollectionStore from './collection_store';
-import RecordStore from '../stores/record_store';
 
 /**
  * The data store for the TrayView

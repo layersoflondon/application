@@ -54,7 +54,10 @@ export default class LayersStore {
 
   static fromJS(object) {
     let layers_store = new LayersStore();
-    layers_store.layers = object.layers.map((layer) => LayerModel.fromJS(layer));
+
+    if( object.hasOwnProperty('layers') ) {
+      layers_store.layers = object.layers.map((layer) => LayerModel.fromJS(layer));
+    }
 
     return layers_store;
   }

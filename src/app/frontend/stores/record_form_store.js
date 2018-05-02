@@ -1,5 +1,4 @@
 import {observable, computed, observe} from 'mobx';
-import Record from '../sources/record';
 import GoogleMapsClient from '../sources/google_maps_client';
 
 import RecordModel from '../models/record';

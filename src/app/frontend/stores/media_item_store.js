@@ -1,4 +1,4 @@
-import {observable, computed, observe} from 'mobx';
+import {observable} from 'mobx';
 import RecordAttachments from '../sources/record_attachments';
 
 export default class MediaItemStore {

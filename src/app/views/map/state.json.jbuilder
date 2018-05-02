@@ -1,5 +1,6 @@
 record = @data.find{|r| r.is_a?(Record)}
 
+json.trayViewStore({})
 json.set! :trayViewStore do
   json.previousCardStore nil
   json.visible_record_id nil
@@ -10,16 +11,19 @@ end
 json.set! :recordFormStore do
 end
 
+json.layersStore({})
 json.set! :layersStore do
   json.layers [{id: 1, title: "Roque map", description: "<p>The Roque Map description</p>", date: Date.new, url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false}, {id: 2, title: "Morgan map", description: "<p>The Morgan map description</p>", date: Date.new, url: "http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false}]
 end
 
+json.mapViewStore({})
 json.set! :mapViewStore do
   json.center [record.lat, record.lng] if record
   json.center [51.55227613396215, 0.26617169380187999] unless record
   json.zoom 10
 end
 
+json.cardStore({})
 json.set! :cardStore do
   json.title ""
   json.description ""
@@ -27,6 +31,7 @@ json.set! :cardStore do
   json.cards []
 end
 
+json.recordStore({})
 json.set! :recordStore do
   json.set! :records do
     json.array! @data.select{|r| r.is_a?(Record)} do |record|
@@ -35,6 +40,7 @@ json.set! :recordStore do
   end
 end
 
+json.collectionStore({})
 json.set! :collectionStore do
   json.set! :collections do
     json.array! @data.select{|r| r.is_a?(Collection)} do |collection|

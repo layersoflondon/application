@@ -1,5 +1,4 @@
 import {observable, observe} from "mobx";
-import L from 'leaflet';
 
 /**
  * Handle's map attributes like initial position (center), the zoom level, currently visible overlay
