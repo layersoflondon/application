@@ -1,4 +1,5 @@
 import {observable, observe, computed} from 'mobx';
+import LayerModel from '../models/layer';
 
 export default class LayersStore {
   @observable layers = [];
@@ -49,5 +50,12 @@ export default class LayersStore {
     // sort layer objects by the order of active_layer_ids
     layers.sort(sortLayers);
     return layers;
+  }
+
+  static fromJS(object) {
+    let layers_store = new LayersStore();
+    layers_store.layers = object.layers.map((layer) => LayerModel.fromJS(layer));
+
+    return layers_store;
   }
 }

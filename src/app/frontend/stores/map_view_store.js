@@ -33,4 +33,11 @@ export default class MapViewStore {
     this.initial_position = this.center;
     this.center = [lat, lng];
   }
+
+  static fromJS(object) {
+    let map_view_store = new MapViewStore();
+    Object.assign(map_view_store, object);
+
+    return map_view_store;
+  }
 }

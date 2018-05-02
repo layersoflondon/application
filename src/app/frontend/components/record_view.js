@@ -16,9 +16,7 @@ import Record from '../sources/record';
 
   handleCloseOnClick(event) {
     event.preventDefault();
-    const { location, push, goBack } = this.props.routing;
     this.props.trayViewStore.visible_record_id = null;
-    goBack();
   }
 
   switchToEditMode(event) {

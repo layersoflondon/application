@@ -1,7 +1,5 @@
 import {observable} from 'mobx';
 
-import TrayCardData from './tray_card_data';
-
 /**
  * Drives the data that we display in the tray, and the markers in the map.
  *
@@ -14,4 +12,10 @@ import TrayCardData from './tray_card_data';
  */
 export default class RecordStore {
   @observable records = [];
+
+  static fromJS(object) {
+    const store = new RecordStore();
+    Object.assign(store, object);
+    return store;
+  }
 }

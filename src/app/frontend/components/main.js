@@ -16,11 +16,10 @@ import RecordForm from './forms/records/record_form';
 
 import DevTools from 'mobx-react-devtools';
 
-@inject('routing', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'recordStore', 'layersStore')
+@inject('recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'recordStore', 'layersStore')
 @observer export default class Main extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
   }
 
   render() {

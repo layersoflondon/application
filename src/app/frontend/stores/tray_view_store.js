@@ -1,6 +1,10 @@
 import {observable, observe, computed} from 'mobx';
 import Record from '../sources/record';
-import RecordModel from "../models/record";
+import RecordModel from '../models/record';
+import CollectionModel from '../models/collection';
+import CardStore from '../stores/card_store';
+import CollectionStore from './collection_store';
+import RecordStore from '../stores/record_store';
 
 /**
  * The data store for the TrayView
@@ -19,6 +23,7 @@ export default class TrayViewStore {
   constructor() {
     // swapping the cardStore will re-render the tray with the new array of records
     observe(this, 'cardStore', (change) => {
+      console.log(change.oldValue);
       this.previousCardStore = change.oldValue;
     });
 
@@ -70,5 +75,12 @@ export default class TrayViewStore {
     if( previous_card ) {
       this.visible_record_id = previous_card.id;
     }
+  }
+
+  static fromJS(tray_view_state) {
+    let tray_view_store = new TrayViewStore();
+    Object.assign(tray_view_store, tray_view_state);
+
+    return tray_view_store;
   }
 }

@@ -37,8 +37,8 @@ import LayerToolsContainer from './layer_tools_container';
   }
 
   render() {
-    const position = [51.55227613396215, 0.26617169380187999];// this.props.mapViewStore.center.toJS();
-    const map_zoom = 8; //this.props.mapViewStore.zoom;
+    const position = this.props.mapViewStore.center.toJS();
+    const map_zoom = this.props.mapViewStore.zoom;
 
     let markers = [];
 

@@ -8,13 +8,13 @@ import Card from './card';
 @observer export default class Tray extends Component {
   constructor(props) {
     super(props);
+
+    // console.log(props.trayViewStore.cardStore, props.trayViewStore.cardStore.cards)
   }
 
   switchToPreviousCardStore() {
-    const { location, push, goBack } = this.props.routing;
-
+    console.log("Switching to", this.props.trayViewStore.previousCardStore);
     this.props.trayViewStore.cardStore = this.props.trayViewStore.previousCardStore;
-    goBack();
   }
 
   render() {

@@ -54,4 +54,10 @@ export default class RecordFormStore {
       }
     }).catch((error)=>{console.log("Google error:", error)});
   }
+
+  static fromJS(object) {
+    const store = new RecordFormStore();
+    Object.assign(store, object);
+    return store;
+  }
 }
