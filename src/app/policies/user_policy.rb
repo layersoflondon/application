@@ -1,5 +1,9 @@
 class UserPolicy < ApplicationPolicy
 
+  def accept_invitation?
+    user.present?
+  end
+
   def record_collections?
     user.present?
   end

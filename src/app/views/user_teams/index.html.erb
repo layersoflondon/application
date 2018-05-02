@@ -5,13 +5,13 @@
       <ul>
         <% @leader_teams.each do |team| %>
           <li>
-            <a href="#" class="teamlink-member"><%= team.name %></a>
+            <a href="/teams/<%= team.id %>.html" class="teamlink-member"><%= team.name %></a>
             <span class="ownership-indicator">Owner</span>
           </li>
         <% end %>
         <% @contributor_teams.each do |team| %>
           <li>
-            <a href="#" class="teamlink-member"><%= team.name %></a>
+            <a href="/teams/<%= team.id %>.html" class="teamlink-member"><%= team.name %></a>
           </li>
         <% end %>
       </ul>
@@ -19,7 +19,7 @@
 
     <div class="section">
       <h2>Join a team</h2>
-      <%= render 'form_join_team', team: @team %>
+      <%= render 'form_join_team' %>
 
     </div>
 

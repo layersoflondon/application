@@ -24,18 +24,48 @@ class User < ApplicationRecord
     team.save
   end
 
+  def accept_team_invitation(team, key)
+    team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'invited')
+    if team_user&.mark_as_access_granted
+      team_user.key = nil
+      return team_user.save
+    end
+    false
+  end
+
   def request_join_team(team)
     unless team_users.find_by(team_id: team.id)
+      key = Devise.friendly_token
       team_users << TeamUser.new(
         team: team,
         role: 'contributor',
-        state: 'access_requested'
+        state: 'access_requested',
+        key: key
       )
+      AccountMailer.team_join_request(self, team, key).deliver_now
     end
   end
 
+  def accept_team_request(team, key)
+    team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'access_requested')
+    if team_user&.mark_as_access_granted
+      team_user.key = nil
+      return team_user.save
+    end
+    false
+  end
+
+  def deny_team_request(team, key)
+    team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'access_requested')
+    if team_user&.mark_as_access_denied
+      team_user.key = nil
+      return team_user.save
+    end
+    false
+  end
+
   def team_collections_granted
-    team_user = TeamUser.where(user_id: self.id, state: 'access_granted')
-    Collection.where(owner_id: team_user.collect{|tu| tu.id}, owner_type: 'Team')
+    team_user = TeamUser.where(user_id: id, state: 'access_granted')
+    Collection.where(owner_id: team_user.collect(&:id), owner_type: 'Team')
   end
 end

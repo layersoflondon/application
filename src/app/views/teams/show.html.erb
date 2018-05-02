@@ -1,0 +1,62 @@
+<div class="m-account-page m-account-page--team">
+
+  <div class="wrap">
+
+    <div class="section section--team-header">
+
+      <h1><%= @team.name %></h1>
+      <% if @team.is_owner(current_user) %>
+        <%= render 'form_delete_team', team: @team %>
+      <% else %>
+        <%= render 'form_leave_team', team: @team %>
+      <% end %>
+      <button class="show-on-map">Show on map</button>
+      <span class="type">
+        You are
+        <% if @team.is_owner(current_user) %>
+        the owner
+        <% else %>
+        a member
+        <% end %>
+        of  this team.
+      </span>
+    </div>
+
+    <div class="section section--members">
+
+      <h2>Invite a new member</h2>
+
+      <%= render 'form_invite_member', team: @team %>
+
+      <h2>Members</h2>
+
+      <ul>
+        <% @team.members.each do |member| %>
+          <li>
+            <a href="#"><%= member.user.email %></a>
+            <% if member.role == 'leader' %>
+              <span class="ownership-indicator">Owner</span>
+            <% else %>
+              <button class="remove">Remove from team</button>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+
+    </div>
+
+    <div class="section section--collections">
+
+      <h2>Collections</h2>
+      <ul>
+        <% @team.collections.each do |collection| %>
+          <li>
+            <a href="#"><%= collection.title %></a>
+            <button class="remove">Remove from team</button>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+</div>

@@ -4,6 +4,8 @@ class UserTeamsController < ApplicationController
   skip_after_action :verify_authorized, only: %i[index]
 
   def index
+    # @user = current_user
+    # UserMailer.with(user: @user).welcome_email.deliver_later
     team_user_leader = TeamUser.where(user_id: current_user.id, role: 'leader', state: 'access_granted')
     team_user_contributor = TeamUser.where(user_id: current_user.id, role: 'contributor', state: 'access_granted')
     team_user_access_requested = TeamUser.where(user_id: current_user.id, state: 'access_requested')
