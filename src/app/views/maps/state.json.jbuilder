@@ -1,12 +1,13 @@
 record      = @data.find{|r| r.is_a?(Record)}
 records     = @data.select{|r| r.is_a?(Record)}
 collections = @data.select{|r| r.is_a?(Collection)}
-collection  = collections.first
+collection  = nil
+# collection  = collections.first
 
 if collection
-  json.partial! 'map/partials/collection', {locals: {collection: collection, records: records, collections: collections}}
+  json.partial! 'maps/partials/collection', {locals: {collection: collection, records: records, collections: collections}}
 else
-  json.partial! 'map/partials/records', {locals: {records: records, collections: collections}}
+  json.partial! 'maps/partials/records', {locals: {records: records, collections: collections}}
 end
 
 json.set! :recordFormStore do

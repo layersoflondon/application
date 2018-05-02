@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  root 'map#show'
-
   get '/user/teams', to: 'user_teams#index'
   get '/user/record_collections'
 
@@ -32,4 +30,7 @@ Rails.application.routes.draw do
 
 
 
+  resource :map do
+    match "/*nested_path(.:extension)", via: [:get], to: "map#show", as: :page
+  end
 end
