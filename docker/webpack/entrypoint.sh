@@ -1,5 +1,8 @@
 #!/bin/sh
 #BUNDLE_PATH=/gems
+
+chmod 400 /home/app/.ssh/id_rsa
+
 # install yarn dependencies
 bundle check || bundle install
 yarn install
