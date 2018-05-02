@@ -1,4 +1,5 @@
 import {observable, observe} from 'mobx';
+import CardStore from './card_store';
 import Record from '../sources/record';
 import RecordModel from '../models/record';
 
@@ -19,7 +20,6 @@ export default class TrayViewStore {
   constructor() {
     // swapping the cardStore will re-render the tray with the new array of records
     observe(this, 'cardStore', (change) => {
-      console.log(change.oldValue);
       this.previousCardStore = change.oldValue;
     });
 
@@ -74,9 +74,24 @@ export default class TrayViewStore {
   }
 
   static fromJS(tray_view_state) {
-    let tray_view_store = new TrayViewStore();
-    Object.assign(tray_view_store, tray_view_state);
+    let store = new TrayViewStore();
 
-    return tray_view_store;
+    if(tray_view_state.hasOwnProperty('cardStore')) {
+      const card_store_data = tray_view_state.cardStore;
+      delete tray_view_state['cardStore'];
+
+      store.cardStore = CardStore.fromJS(card_store_data);
+    }
+
+    if(tray_view_state.hasOwnProperty('previousCardStore') && tray_view_state.previousCardStore) {
+      const previous_card_store_data = tray_view_state.previousCardStore;
+      delete tray_view_state['previousCardStore'];
+
+      store.previousCardStore = CardStore.fromJS(previous_card_store_data);
+    }
+
+    Object.assign(store, tray_view_state);
+
+    return store;
   }
 }

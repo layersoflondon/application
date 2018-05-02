@@ -8,16 +8,28 @@ import Card from './card';
 @observer export default class Tray extends Component {
   constructor(props) {
     super(props);
-
-    // console.log(props.trayViewStore.cardStore, props.trayViewStore.cardStore.cards)
   }
 
   switchToPreviousCardStore() {
-    console.log("Switching to", this.props.trayViewStore.previousCardStore);
     this.props.trayViewStore.cardStore = this.props.trayViewStore.previousCardStore;
   }
 
   render() {
+    // if we dont have a trayViewStore with cards to render, show some info
+    if(!(this.props.trayViewStore && this.props.trayViewStore.cardStore)) {
+      return (
+        <div className="m-tray-area">
+          <div className="window">
+            <div className="s-tray-area--default is-showing">
+              <div className="m-tray-title-area">
+                <h1>No data to display</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     const cards = this.props.trayViewStore.cardStore.cards.map( (c) => {
       const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;
       return <Card key={key} card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />

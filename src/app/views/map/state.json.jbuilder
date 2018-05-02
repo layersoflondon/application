@@ -1,11 +1,12 @@
-record = @data.find{|r| r.is_a?(Record)}
+record      = @data.find{|r| r.is_a?(Record)}
+records     = @data.select{|r| r.is_a?(Record)}
+collections = @data.select{|r| r.is_a?(Collection)}
+collection  = collections.first
 
-json.trayViewStore({})
-json.set! :trayViewStore do
-  json.previousCardStore nil
-  json.visible_record_id nil
-  json.visible_record    nil
-  json.tray_is_visible   true
+if collection
+  json.partial! 'map/partials/collection', {locals: {collection: collection, records: records, collections: collections}}
+else
+  json.partial! 'map/partials/records', {locals: {records: records, collections: collections}}
 end
 
 json.set! :recordFormStore do
@@ -21,23 +22,6 @@ json.set! :mapViewStore do
   json.center [record.lat, record.lng] if record
   json.center [51.55227613396215, 0.26617169380187999] unless record
   json.zoom 10
-end
-
-json.cardStore({})
-json.set! :cardStore do
-  json.title ""
-  json.description ""
-  json.rootCardStore true
-  json.cards []
-end
-
-json.recordStore({})
-json.set! :recordStore do
-  json.set! :records do
-    json.array! @data.select{|r| r.is_a?(Record)} do |record|
-      json.partial! 'records/record', record: record
-    end
-  end
 end
 
 json.collectionStore({})

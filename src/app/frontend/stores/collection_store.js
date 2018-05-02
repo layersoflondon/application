@@ -41,6 +41,10 @@ export default class CollectionStore {
   static fromJS(object) {
     const store = new CollectionStore();
 
+    if( !object ) {
+      return store;
+    }
+
     if( !object.hasOwnProperty('collections') ){
       object.collections = [];
     }

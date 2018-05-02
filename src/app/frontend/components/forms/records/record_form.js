@@ -21,6 +21,7 @@ import Team from './team';
     // when successfully updating a Record, we should propagate the updated data throughout the stores that are rendering it.
     // since the tray and map render their data from a CardStore, we can just overwrite the data there (see insertOrUpdateRecord)
     this.props.recordFormStore.record.persist().then((response) => {
+      this.props.recordFormStore.record.id = response.data.id;
       // Object.assign(this.props.recordFormStore.record, response.data);
       this.props.trayViewStore.cardStore.insertOrUpdateRecord(this.props.recordFormStore.record);
     }).catch((response) => {

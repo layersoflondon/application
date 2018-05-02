@@ -42,18 +42,20 @@ import LayerToolsContainer from './layer_tools_container';
 
     let markers = [];
 
-    this.props.trayViewStore.cardStore.cards.map((c) => {
-      let key;
-      if( c.is_collection ) {
-        c.records.map((r)=> {
-          key = `collection_${c.id}_record_${r.id}`;
-          markers.push( <MarkerContainer key={key} position={r.position} card={c} trayViewStore={this.props.trayViewStore} /> )
-        })
-      }else {
-        key = `record_${c.id}`;
-        markers.push( <MarkerContainer key={key} position={c.position} card={c} trayViewStore={this.props.trayViewStore} /> )
-      }
-    });
+    if( this.props.trayViewStore.cardStore ) {
+      this.props.trayViewStore.cardStore.cards.map((c) => {
+        let key;
+        if( c.is_collection ) {
+          c.records.map((r)=> {
+            key = `collection_${c.id}_record_${r.id}`;
+            markers.push( <MarkerContainer key={key} position={r.position} card={c} trayViewStore={this.props.trayViewStore} /> )
+          })
+        }else {
+          key = `record_${c.id}`;
+          markers.push( <MarkerContainer key={key} position={c.position} card={c} trayViewStore={this.props.trayViewStore} /> )
+        }
+      });
+    }
 
     const layers = <span className="tile-layers">
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />

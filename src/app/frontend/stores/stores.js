@@ -6,28 +6,37 @@ import LayersStore from './layers_store';
 import RecordFormStore from './record_form_store';
 import CardStore from './card_store';
 
+/**
+ * given a state object, instantiate our stores using the json rendered into the page
+ *
+ * @param state
+ * @returns {{recordFormStore, trayViewStore, mapViewStore, layersStore, collectionStore, recordStore}}
+ */
 export default (state) => {
   const recordFormStore = RecordFormStore.fromJS(state.recordFormStore);
   const mapViewStore = MapViewStore.fromJS(state.mapViewStore);
   const layersStore = LayersStore.fromJS(state.layersStore);
 
   const collectionStore = CollectionStore.fromJS(state.collectionStore);
-  const recordStore = RecordStore.fromJS(state.recordStore);
   const trayViewStore = TrayViewStore.fromJS(state.trayViewStore);
-  const cardStore = CardStore.fromJS(state.cardStore);
 
-  cardStore.addCollections(collectionStore);
-  cardStore.addRecords(recordStore);
-  trayViewStore.cardStore = cardStore;
+  // now we have somewhere we can store cards, add our collections and records
+  // and set the treeViewStore's cardStore to this initial instance of a card store...
 
-  console.log("collectionStore: ", collectionStore);
+  // const cardStore = CardStore.fromJS(state.cardStore);
+  // cardStore.addCollections(collectionStore);
+  // cardStore.addRecords(recordStore);
+  // trayViewStore.cardStore = cardStore;
 
-  return {
+  const stores = {
     recordFormStore: recordFormStore,
     trayViewStore: trayViewStore,
     mapViewStore: mapViewStore,
     layersStore: layersStore,
-    collectionStore: collectionStore,
-    recordStore: recordStore
-  }
+    collectionStore: collectionStore
+  };
+
+  window.stores = stores;
+
+  return stores;
 }

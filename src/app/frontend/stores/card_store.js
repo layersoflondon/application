@@ -63,13 +63,13 @@ export default class CardStore {
   static fromJS(object) {
     const store = new CardStore();
 
-    if( !object.hasOwnProperty('cards') ){
-      object.cards = [];
-    }
-
     Object.assign(store, object);
 
-    store.cards = object.cards.map( (c) => TrayCardData.fromJS(c) );
+    if( !object.hasOwnProperty('cards') ){
+      store.cards = [];
+    }else {
+      store.cards = object.cards.map( (c) => TrayCardData.fromJS(c) );
+    }
 
     return store;
   }
@@ -79,8 +79,9 @@ export default class CardStore {
    *
    * @param card - Collection with .records
    */
-  static fromCollectionCard(card) {
-    const store = new CardStore(card.records, card.title, card.description, false);
+  static fromCollectionCard(object) {
+    const store = new CardStore(object.records, object.title, object.description, false);
+    Object.assign(store, object);
 
     return store;
   }
