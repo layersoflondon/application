@@ -16,7 +16,7 @@ import CollectionForm from './forms/collections/collection_form';
 import UserForm from './forms/user/user_form';
 import RecordForm from './forms/records/record_form';
 
-import DevTools from 'mobx-react-devtools';
+// import DevTools from 'mobx-react-devtools';
 
 @observer export default class Main extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ import DevTools from 'mobx-react-devtools';
     }
 
     return <div className={className}>
-      <DevTools position={{bottom: 20, right: 0}} />
+      {/*<DevTools position={{bottom: 20, right: 0}} />*/}
 
       <Tools {...this.props} />
       <Tray {...this.props} />
