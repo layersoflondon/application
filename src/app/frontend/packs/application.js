@@ -101,4 +101,18 @@ document.addEventListener('DOMContentLoaded', () => {
   layers_store.layers = layers;
 
   ReactDOM.render( <Main recordFormStore={record_form_store} trayViewStore={tray_view_store} mapViewStore={map_view_store} collectionStore={collection_store} recordStore={record_store} layersStore={layers_store} />, document.getElementById("map-root") );
+
+  var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+  var eventer = window[eventMethod];
+  var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+  // Listen to message from child window
+  eventer(messageEvent,function(e) {
+    if (e.data.scope == 'clickable-iframe-element') {
+        map_view_store.overlay = null;
+        // TODO: Open requested modal
+        setTimeout(function() {
+            alert('TODO: Open modal ' + e.data.type + ': ' + e.data.id);
+        },500);
+    }
+  },false);
 });
