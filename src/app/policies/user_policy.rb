@@ -1,5 +1,13 @@
 class UserPolicy < ApplicationPolicy
 
+  def index?
+    user.present? && record.id == user.id
+  end
+
+  def teams?
+    user.present?
+  end
+
   def accept_invitation?
     user.present?
   end

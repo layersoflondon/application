@@ -25,7 +25,7 @@ user_test = User.create(
 
 9.times do |_i|
   User.create(
-      :email                 => "test#{_i + 1}@error.agency",
+      :email                 => "test#{_i + 2}@error.agency",
       :password              => password,
       :password_confirmation => password,
       :encrypted_password    => BCrypt::Password.create(password).to_s

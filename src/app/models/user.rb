@@ -66,6 +66,18 @@ class User < ApplicationRecord
 
   def team_collections_granted
     team_user = TeamUser.where(user_id: id, state: 'access_granted')
-    Collection.where(owner_id: team_user.collect(&:id), owner_type: 'Team')
+    Collection.includes(:records).where(owner_id: team_user.collect(&:id), owner_type: 'Team')
   end
+
+  def collections
+    my_collections = Collection.where(owner_id: id, owner_type: 'User')
+    collections_granted = self.team_collections_granted
+    Collection.includes(:owner, :records).where(id: (my_collections.ids + collections_granted.ids).uniq)
+  end
+
+  def can_view(collection)
+    collections = self.collections
+    collections.ids.include? collection.id
+  end
+
 end
