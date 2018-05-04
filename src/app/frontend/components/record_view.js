@@ -17,7 +17,7 @@ import Record from '../sources/record';
 
   handleCloseOnClick(event) {
     event.preventDefault();
-    this.props.trayViewStore.visible_record_id = null;
+    this.props.trayViewStore.visible_record_id = 0;
 
     this.props.routing.goBack();
   }

@@ -29,10 +29,13 @@ export default class TrayViewStore {
         Record.show(null, this.visible_record_id).then((response) => {
           let record = RecordModel.fromJS(response.data);
           this.visible_record = record;
+
+          console.log("Changing visible_record_id", record);
         }).catch((error) => {
           this.visible_record = null;
         });
       }else {
+        console.log("No newValue");
         this.visible_record = null;
       }
     });
@@ -90,6 +93,11 @@ export default class TrayViewStore {
       store.previousCardStore = CardStore.fromJS(previous_card_store_data);
     }
 
+    if(tray_view_state.visible_record_id) {
+      console.log(`Unsetting visible_record_id ${tray_view_state.visible_record_id}`);
+
+      delete tray_view_state['visible_record_id'];
+    }
     Object.assign(store, tray_view_state);
 
     return store;

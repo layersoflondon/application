@@ -1,8 +1,17 @@
 json.trayViewStore({})
 json.set! :trayViewStore do
   json.previousCardStore nil
-  json.visible_record_id nil
-  json.visible_record    nil
+
+  if @record
+    json.visible_record_id @record.id
+    json.visible_record do
+      json.partial! 'records/record', record: @record
+    end
+  else
+    json.visible_record_id nil
+    json.visible_record    nil
+  end
+
   json.tray_is_visible   true
 
   json.set! :cardStore do

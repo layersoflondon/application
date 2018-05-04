@@ -1,13 +1,9 @@
-record      = @data.find{|r| r.is_a?(Record)}
-records     = @data.select{|r| r.is_a?(Record)}
-collections = @data.select{|r| r.is_a?(Collection)}
-collection  = nil
-# collection  = collections.first
+Rails.logger.info("params state.json.jbuilder render")
 
-if collection
-  json.partial! 'maps/partials/collection', {locals: {collection: collection, records: records, collections: collections}}
+if @collection
+  json.partial! 'maps/partials/collection', {locals: {collection: @collection, records: @records, collections: @collections}}
 else
-  json.partial! 'maps/partials/records', {locals: {records: records, collections: collections}}
+  json.partial! 'maps/partials/records', {locals: {records: @records, collections: @collections}}
 end
 
 json.set! :recordFormStore do
@@ -20,15 +16,15 @@ end
 
 json.mapViewStore({})
 json.set! :mapViewStore do
-  json.center [record.lat, record.lng] if record
-  json.center [51.55227613396215, 0.26617169380187999] unless record
+  json.center [@record.lat, @record.lng] if @record
+  json.center [51.55227613396215, 0.26617169380187999] unless @record
   json.zoom 10
 end
 
 json.collectionStore({})
 json.set! :collectionStore do
   json.set! :collections do
-    json.array! @data.select{|r| r.is_a?(Collection)} do |collection|
+    json.array! @collections do |collection|
       json.partial! 'collections/collection', {locals: {collection: collection}}
     end
   end

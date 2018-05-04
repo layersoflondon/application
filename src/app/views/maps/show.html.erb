@@ -1,5 +1,4 @@
 <script type="text/javascript">
-    window.__STATE = <%= raw ApplicationController.render(file: 'maps/state.json.jbuilder', assigns: {data: @data}) %>
+    window.__STATE = <%= raw ApplicationController.render(file: 'maps/state.json.jbuilder', assigns: {records: @records, collections: @collections, record: @record, collection: @collection}) %>
 </script>
-
 <div id="map-root"></div>
