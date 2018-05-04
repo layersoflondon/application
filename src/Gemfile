@@ -48,7 +48,7 @@ group :development do
   gem 'rubocop'
   # gem 'ruby-debug-ide'
   gem 'web-console', '>= 3.3.0'
-  gem 'errorstudio_capistrano_recipes', git: 'ssh://git@bitbucket.org/errorstudio/errorstudio_capistrano_recipes'
+  # gem 'errorstudio_capistrano_recipes', git: 'ssh://git@bitbucket.org/errorstudio/errorstudio_capistrano_recipes'
 end
 
 group :test do
