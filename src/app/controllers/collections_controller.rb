@@ -4,8 +4,11 @@ class CollectionsController < ApplicationController
   skip_after_action :verify_authorized, only: %i[index]
 
   def index
-    # TODO: show @collections from the team/user. Not defined polymorphic here
-    @collections = Collection.includes(:owner).where(read_state: 'public_read')
+    @collections = if user_signed_in?
+                     current_user.collections
+                   else
+                     Collection.includes(:owner, :records).where(read_state: 'public_read')
+                   end
   end
 
   def create
@@ -33,8 +36,6 @@ class CollectionsController < ApplicationController
     @collection = Collection.find_by_id(params[:id])
     authorize(@collection)
     return render json: '', status: :not_found unless @collection
-    # @TODO: delete collections that are associated to records
-    # Mysql2::Error: Cannot delete or update a parent row: a foreign key constraint fails ...
     return render json: '', status: :no_content if @collection.destroy
     render json: @collection.errors, status: :unauthorized
   end
