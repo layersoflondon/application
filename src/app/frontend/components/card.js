@@ -15,6 +15,7 @@ import Parser from 'html-react-parser';
       const collectionCardStore = CardStore.fromCollectionCard(this.props.card);
       this.props.trayViewStore.cardStore = collectionCardStore;
 
+      this.props.trayViewStore.collectionCard = this.props.card;
       this.props.routing.push(`/map/collections/${this.props.card.id}`);
     }else {
       this.props.trayViewStore.visible_record_id = this.props.card.id;

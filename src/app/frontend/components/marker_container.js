@@ -37,7 +37,7 @@ import Parser from 'html-react-parser';
       popupAnchor: [0, 0]
     });
 
-    let icon = this.props.card.highlighted ? highlighted_icon : default_icon;
+    let icon = this.props.cardComponent.highlighted ? highlighted_icon : default_icon;
     const parsed_content = Parser(this.props.card.description);
 
     return <Marker position={this.props.position} icon={icon}>
