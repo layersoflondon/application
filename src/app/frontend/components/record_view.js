@@ -1,10 +1,11 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import Parser from 'html-react-parser';
 
 import Record from '../sources/record';
 
+@inject('routing')
 @observer export default class RecordView extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,13 @@ import Record from '../sources/record';
     this.setState({loading: false});
   }
 
+  handleCloseOnClick(event) {
+    event.preventDefault();
+    this.props.trayViewStore.visible_record_id = 0;
+
+    this.props.routing.goBack();
+  }
+
   switchToEditMode(event) {
     event.preventDefault();
 
@@ -21,6 +29,8 @@ import Record from '../sources/record';
     this.props.trayViewStore.visible_record_id = null;
     this.props.mapViewStore.overlay = "record_form";
     this.props.recordFormStore.record = record;
+
+    this.props.routing.push(`/map/records/edit/${record.id}`);
   }
 
   render_state_loading_true() {
@@ -40,7 +50,7 @@ import Record from '../sources/record';
             <button className="previous" onClick={() => this.props.trayViewStore.moveToPreviousCard()}>Previous</button>
           </div>
           <div className="close">
-            <button className="close" onClick={()=>this.props.trayViewStore.visible_record_id=null}>Close</button>
+            <button className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</button>
           </div>
 
           <div className="wrap">

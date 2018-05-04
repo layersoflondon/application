@@ -1,6 +1,7 @@
-import {observable, observe, computed} from 'mobx';
+import {observable, observe} from 'mobx';
+import CardStore from './card_store';
 import Record from '../sources/record';
-import RecordModel from "../models/record";
+import RecordModel from '../models/record';
 
 /**
  * The data store for the TrayView
@@ -28,10 +29,13 @@ export default class TrayViewStore {
         Record.show(null, this.visible_record_id).then((response) => {
           let record = RecordModel.fromJS(response.data);
           this.visible_record = record;
+
+          console.log("Changing visible_record_id", record);
         }).catch((error) => {
           this.visible_record = null;
         });
       }else {
+        console.log("No newValue");
         this.visible_record = null;
       }
     });
@@ -70,5 +74,32 @@ export default class TrayViewStore {
     if( previous_card ) {
       this.visible_record_id = previous_card.id;
     }
+  }
+
+  static fromJS(tray_view_state) {
+    let store = new TrayViewStore();
+
+    if(tray_view_state.hasOwnProperty('cardStore')) {
+      const card_store_data = tray_view_state.cardStore;
+      delete tray_view_state['cardStore'];
+
+      store.cardStore = CardStore.fromJS(card_store_data);
+    }
+
+    if(tray_view_state.hasOwnProperty('previousCardStore') && tray_view_state.previousCardStore) {
+      const previous_card_store_data = tray_view_state.previousCardStore;
+      delete tray_view_state['previousCardStore'];
+
+      store.previousCardStore = CardStore.fromJS(previous_card_store_data);
+    }
+
+    if(tray_view_state.visible_record_id) {
+      console.log(`Unsetting visible_record_id ${tray_view_state.visible_record_id}`);
+
+      delete tray_view_state['visible_record_id'];
+    }
+    Object.assign(store, tray_view_state);
+
+    return store;
   }
 }

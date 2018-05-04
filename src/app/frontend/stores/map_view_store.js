@@ -1,5 +1,4 @@
 import {observable, observe} from "mobx";
-import L from 'leaflet';
 
 /**
  * Handle's map attributes like initial position (center), the zoom level, currently visible overlay
@@ -19,6 +18,7 @@ export default class MapViewStore {
     // if we render the record_form, we should hide the place_picker component by exiting 'add_record_mode'
     observe(this, 'overlay', (change) => {
       if( change.newValue === "record_form" ) {
+
         this.add_record_mode = false;
       }
     });
@@ -32,5 +32,12 @@ export default class MapViewStore {
   panTo(lat, lng) {
     this.initial_position = this.center;
     this.center = [lat, lng];
+  }
+
+  static fromJS(object) {
+    let map_view_store = new MapViewStore();
+    Object.assign(map_view_store, object);
+
+    return map_view_store;
   }
 }

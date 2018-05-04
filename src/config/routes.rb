@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  root 'map#show'
-
   get '/user/teams', to: 'user_teams#index'
   get '/user/record_collections'
 
@@ -26,13 +24,15 @@ Rails.application.routes.draw do
   end
 
   post '/teams/join', to: 'teams#request_to_join_team'
-  get '/teams/:id/accept-request', to: 'teams#accept_request'
-  get '/teams/:id/deny-request', to: 'teams#deny_request'
-  post '/teams/:id/invite-user', to: 'teams#invite_user'
-  get '/teams/:id/accept-invitation', to: 'teams#accept_invitation'
-  post '/teams/:id/leave', to: 'teams#leave'
-
   resources :teams, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :users, controller: 'team_users', only: %i[index create show update destroy]
+  end
+
+
+
+  resource :map, controller: 'maps' do
+    match "/*resource/:action_name/:id(.:extension)", via: [:get], to: "maps#show", as: :resource_action
+    match "/*resource/:id(.:extension)", via: [:get], to: "maps#show", as: :resource
+    match "/*resource(.:extension)", via: [:get], to: "maps#show", as: :resources
   end
 end

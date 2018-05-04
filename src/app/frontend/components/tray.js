@@ -4,7 +4,9 @@ import {observer} from "mobx-react";
 import Parser from 'html-react-parser';
 
 import Card from './card';
+import {inject} from "mobx-react/index";
 
+@inject('routing')
 @observer export default class Tray extends Component {
   constructor(props) {
     super(props);
@@ -12,9 +14,27 @@ import Card from './card';
 
   switchToPreviousCardStore() {
     this.props.trayViewStore.cardStore = this.props.trayViewStore.previousCardStore;
+    const { goBack } = this.props.routing;
+
+    goBack();
   }
 
   render() {
+    // if we dont have a trayViewStore with cards to render, show some info
+    if(!(this.props.trayViewStore && this.props.trayViewStore.cardStore)) {
+      return (
+        <div className="m-tray-area">
+          <div className="window">
+            <div className="s-tray-area--default is-showing">
+              <div className="m-tray-title-area">
+                <h1>No data to display</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     const cards = this.props.trayViewStore.cardStore.cards.map( (c) => {
       const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;
       return <Card key={key} card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />

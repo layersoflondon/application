@@ -1,5 +1,4 @@
 import {observable} from 'mobx';
-
 import TrayCardData from './tray_card_data';
 
 /**
@@ -53,7 +52,6 @@ export default class CardStore {
     }else {
       cards.unshift(TrayCardData.fromJS(record.toJS()));
     }
-    console.log(cards);
 
     this.cards = cards;
   }
@@ -62,9 +60,16 @@ export default class CardStore {
    * return an instance of the store populated with the array of Card objects
    * @param array
    */
-  static fromJS(array) {
+  static fromJS(object) {
     const store = new CardStore();
-    store.cards = array.map( (c) => TrayCardData.fromJS(c) );
+
+    Object.assign(store, object);
+
+    if( !object.hasOwnProperty('cards') ){
+      store.cards = [];
+    }else {
+      store.cards = object.cards.map( (c) => TrayCardData.fromJS(c) );
+    }
 
     return store;
   }
@@ -74,8 +79,9 @@ export default class CardStore {
    *
    * @param card - Collection with .records
    */
-  static fromCollectionCard(card) {
-    const store = new CardStore(card.records, card.title, card.description, false);
+  static fromCollectionCard(object) {
+    const store = new CardStore(object.records, object.title, object.description, false);
+    Object.assign(store, object);
 
     return store;
   }

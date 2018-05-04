@@ -1,8 +1,6 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
-
-
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 
 import Tools from './tools';
 import Tray from './tray';
@@ -18,6 +16,7 @@ import RecordForm from './forms/records/record_form';
 
 // import DevTools from 'mobx-react-devtools';
 
+@inject('routing', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore')
 @observer export default class Main extends Component {
   constructor(props) {
     super(props);
@@ -49,11 +48,11 @@ import RecordForm from './forms/records/record_form';
   }
 }
 
-Main.propTypes = {
-  collectionStore: PropTypes.object.isRequired,
-  layersStore: PropTypes.object.isRequired,
-  mapViewStore: PropTypes.object.isRequired,
-  recordFormStore: PropTypes.object.isRequired,
-  recordStore: PropTypes.object.isRequired,
-  trayViewStore: PropTypes.object.isRequired
-};
+// Main.propTypes = {
+//   collectionStore: PropTypes.object.isRequired,
+//   layersStore: PropTypes.object.isRequired,
+//   mapViewStore: PropTypes.object.isRequired,
+//   recordFormStore: PropTypes.object.isRequired,
+//   recordStore: PropTypes.object.isRequired,
+//   trayViewStore: PropTypes.object.isRequired
+// };

@@ -1,5 +1,4 @@
 import {observable, computed, observe} from 'mobx';
-import Record from '../sources/record';
 import GoogleMapsClient from '../sources/google_maps_client';
 
 import RecordModel from '../models/record';
@@ -53,5 +52,11 @@ export default class RecordFormStore {
         this.place_lookup_status = 404
       }
     }).catch((error)=>{console.log("Google error:", error)});
+  }
+
+  static fromJS(object) {
+    const store = new RecordFormStore();
+    Object.assign(store, object);
+    return store;
   }
 }
