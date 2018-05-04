@@ -33,7 +33,7 @@
       <ul>
         <% @team.members.each do |member| %>
           <li>
-            <a href="#"><%= member.user.email %></a>
+            <a href="#" class="clickable" data-type="user" data-id="<%= member.user.id %>"><%= member.user.email %></a>
             <% if member.role == 'leader' %>
               <span class="ownership-indicator">Owner</span>
             <% else %>
@@ -51,7 +51,7 @@
       <ul>
         <% @team.collections.each do |collection| %>
           <li>
-            <a href="#"><%= collection.title %></a>
+            <a href="#" class="clickable" data-type="collection" data-id="<%= collection.id %>"><%= collection.title %></a>
             <button class="remove">Remove from team</button>
           </li>
         <% end %>
@@ -60,3 +60,22 @@
   </div>
 
 </div>
+<script>
+    window.onload = function() {
+        var targetOrigin = window.location.protocol +'//' + window.location.host;
+        var anchors = document.getElementsByClassName('clickable');
+        for(var i = 0; i < anchors.length; i++) {
+            var anchor = anchors[i];
+            anchor.onclick = function() {
+                parent.postMessage(
+                    {
+                        'scope': 'clickable-iframe-element',
+                        'type': this.dataset.type,
+                        'id': this.dataset.id
+                    },
+                    targetOrigin
+                );
+            }
+        }
+    }
+</script>

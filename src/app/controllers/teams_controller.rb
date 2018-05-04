@@ -1,5 +1,7 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[show update destroy invite_user leave accept_request deny_request]
+  skip_before_action :authenticate_user!, only: %i[index]
+  skip_after_action :verify_authorized, only: [:index]
 
   def index
     @teams = Team.all
@@ -8,20 +10,22 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     authorize(@team)
-
-    # TODO: Change me for more readable and usable code :)
-    if current_user.create_team(@team)
-      if params[:is_form]
-        redirect_to request.referer
-      else
-        return @team
-      end
-    else
-      if params[:is_form]
-        # TODO: redirect / render showing the error
-      else
-        render json: @team.errors, status: :unprocessable_entity
-      end
+    created = current_user.create_team(@team)
+    respond_to do |format|
+      format.html {
+        if created
+          redirect_to request.referer
+        else
+          # TODO: redirect / render showing the error
+        end
+      }
+      format.json {
+        if created
+          return @team
+        else
+          render json: @team.errors, status: :unprocessable_entity
+        end
+      }
     end
   end
 

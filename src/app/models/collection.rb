@@ -1,6 +1,6 @@
 class Collection < ApplicationRecord
   has_many :collection_records
-  has_many :records, through: :collection_records
+  has_many :records, through: :collection_records, dependent: :destroy
   belongs_to :owner, polymorphic: true
 
   # TODO: permissions for reading and writing should go in a Pundit policy (see https://github.com/varvet/pundit).
