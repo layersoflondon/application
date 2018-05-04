@@ -3,6 +3,7 @@ class CollectionRecordsController < ApplicationController
   before_action :set_collection_record, only: %i[create destroy]
   skip_before_action :authenticate_user!, only: %i[index]
   skip_after_action :verify_authorized, only: [:index]
+
   def index; end
 
   def create

@@ -14,7 +14,7 @@ var createJSON = {
         "read_state" : "public_read",
         "write_state" : "everyone",
         "owner_id" : 1,
-        "owner_type" : "Team"
+        "owner_type" : "User"
     }
 };
 var updateJSON = {
@@ -23,8 +23,8 @@ var updateJSON = {
         "description" : "test description update",
         "read_state" : "private_read",
         "write_state" : "team",
-        "owner_id" : 2,
-        "owner_type" : "Team"
+        "owner_id" : 1,
+        "owner_type" : "User"
     }
 };
 // used when to store the created resource id to show, update and destroy later
@@ -74,7 +74,7 @@ describe('Collection', function() {
             })
             .catch((response) => {done(response);});
     });
-    //
+
     it('should update a collection', function(done) {
         Collection.update(null, tempResourceId, updateJSON)
             .then((response)=>{
@@ -96,6 +96,6 @@ describe('Collection', function() {
                 assert.equal(204, response.status);
                 done();
             })
-            .catch((response) => { done(response);});
+            .catch((response) => {done(response);});
     });
 });
