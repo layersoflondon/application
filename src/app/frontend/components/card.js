@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 import CardStore from "../stores/card_store";
 import Parser from 'html-react-parser';
 
-// @inject('routing')
+@inject('routing')
 @observer export default class Card extends Component {
   constructor(props) {
     super(props);
@@ -14,8 +14,12 @@ import Parser from 'html-react-parser';
     if( this.props.card.is_collection ) {
       const collectionCardStore = CardStore.fromCollectionCard(this.props.card);
       this.props.trayViewStore.cardStore = collectionCardStore;
+
+      this.props.routing.push(`/map/collections/${this.props.card.id}`);
     }else {
       this.props.trayViewStore.visible_record_id = this.props.card.id;
+
+      this.props.routing.push(`/map/records/${this.props.card.id}`);
     }
   }
 

@@ -4,7 +4,9 @@ import {observer} from "mobx-react";
 import Parser from 'html-react-parser';
 
 import Card from './card';
+import {inject} from "mobx-react/index";
 
+@inject('routing')
 @observer export default class Tray extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +14,9 @@ import Card from './card';
 
   switchToPreviousCardStore() {
     this.props.trayViewStore.cardStore = this.props.trayViewStore.previousCardStore;
+    const { goBack } = this.props.routing;
+
+    goBack();
   }
 
   render() {

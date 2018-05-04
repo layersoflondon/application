@@ -18,6 +18,7 @@ export default class MapViewStore {
     // if we render the record_form, we should hide the place_picker component by exiting 'add_record_mode'
     observe(this, 'overlay', (change) => {
       if( change.newValue === "record_form" ) {
+
         this.add_record_mode = false;
       }
     });

@@ -30,7 +30,9 @@ Rails.application.routes.draw do
 
 
 
-  resource :map do
-    match "/*nested_path(.:extension)", via: [:get], to: "map#show", as: :page
+  resource :map, controller: 'maps' do
+    match "/*resource/:action_name/:id(.:extension)", via: [:get], to: "maps#show", as: :resource_action
+    match "/*resource/:id(.:extension)", via: [:get], to: "maps#show", as: :resource
+    match "/*resource(.:extension)", via: [:get], to: "maps#show", as: :resources
   end
 end

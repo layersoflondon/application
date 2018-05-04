@@ -16,7 +16,7 @@ import RecordForm from './forms/records/record_form';
 
 import DevTools from 'mobx-react-devtools';
 
-@inject('recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore')
+@inject('routing', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore')
 @observer export default class Main extends Component {
   constructor(props) {
     super(props);

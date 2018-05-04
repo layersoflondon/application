@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const history = syncHistoryWithStore(browserHistory, routingStore);
 
   const stores = initStore(__STATE);
+  stores.routing = routingStore;
 
   ReactDOM.render(
     <Provider {...stores} >
