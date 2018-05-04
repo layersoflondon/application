@@ -48,11 +48,11 @@ import LayerToolsContainer from './layer_tools_container';
         if( c.is_collection ) {
           c.records.map((r)=> {
             key = `collection_${c.id}_record_${r.id}`;
-            markers.push( <MarkerContainer key={key} position={r.position} card={r} trayViewStore={this.props.trayViewStore} /> )
+            markers.push( <MarkerContainer key={key} position={r.position} card={r} cardComponent={c} trayViewStore={this.props.trayViewStore} /> )
           })
         }else {
           key = `record_${c.id}`;
-          markers.push( <MarkerContainer key={key} position={c.position} card={c} trayViewStore={this.props.trayViewStore} /> )
+          markers.push( <MarkerContainer key={key} position={c.position} card={c} cardComponent={c} trayViewStore={this.props.trayViewStore} /> )
         }
       });
     }
