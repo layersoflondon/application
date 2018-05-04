@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  get 'user_teams/index'
   root 'map#show'
 
-  get '/user/teams', to: 'user_teams#index'
+  get '/user/teams', to: 'user#teams'
   get '/user/record_collections'
 
   devise_for :users,
@@ -13,9 +14,8 @@ Rails.application.routes.draw do
                registrations: 'users/registrations'
              }, skip: [:invitations] # TODO do we need the invitation routes or are we creating the invitations manually in the controller?
 
-  resources :user, only: %i[] do
-    resources :teams , only: %i[index], defaults: {format: :json}
-  end
+
+  get '/user/:id/teams', to: 'user_teams#index'
 
   resources :records, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]
