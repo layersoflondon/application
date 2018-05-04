@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Provider {...stores} >
       <Router history={history}>
-        <Main />
+        <Main {...stores}/>
       </Router>
     </Provider>,
     document.getElementById("map-root")

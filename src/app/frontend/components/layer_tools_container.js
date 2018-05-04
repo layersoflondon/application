@@ -66,7 +66,7 @@ const getListStyle = isDraggingOver => ({
                     <Draggable key={l.id} draggableId={l.id} index={index}>
                       {(provided, snapshot) => (
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(snapshot.isDragging, provided. draggableProps.style)}>
-                          <LayerTool key={l.id} layer={l} {...this.props} />
+                          <LayerTool key={l.id} layer={l} {...this.props} index={index} />
                         </div>
                       )}
                     </Draggable>

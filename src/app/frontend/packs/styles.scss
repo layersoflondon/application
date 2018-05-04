@@ -51,3 +51,7 @@
 .m-layer-tools .panel div[data-react-beautiful-dnd-draggable] {
   height: 30px;
 }
+
+.clipped-tilelayer {
+  clip-path: circle(140px at calc(var(--mouse-x, 0) * 100%) calc(var(--mouse-y, 0) * 100%));
+}

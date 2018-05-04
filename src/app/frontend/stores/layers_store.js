@@ -4,6 +4,7 @@ import LayerModel from '../models/layer';
 export default class LayersStore {
   @observable layers = [];
   @observable active_layer_ids = [];
+  @observable loop_layer_id = null;
 
   constructor() {
     // when assigning the layers, iterate over them and activate any that are enabled by default
@@ -60,5 +61,13 @@ export default class LayersStore {
     }
 
     return layers_store;
+  }
+
+  @computed get loop_layer() {
+    if( this.loop_layer_id ) {
+      return this.layers.find((l) => l.id === this.loop_layer_id);
+    }
+
+    return false;
   }
 }
