@@ -1737,6 +1737,95 @@
 			]
 		},
 		{
+			"name": "User Teams",
+			"description": null,
+			"item": [
+				{
+					"name": "Index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f631a0e-2e3a-484c-b8c0-487fb4e76511",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Index team users', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/user/1/teams",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"1",
+								"teams"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f17c4324-0764-450d-8909-6331bfef40a7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6fcf6ce-9294-4c5c-bf90-a94fb4ddfa34",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
 			"name": "First Request",
 			"event": [
 				{
