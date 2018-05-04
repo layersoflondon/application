@@ -1,6 +1,6 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, only: %i[show update destroy]
-  skip_before_action :authenticate_user!, only: %i[show index]
+  skip_before_action :authenticate_user!, only: %i[index show]
   skip_after_action :verify_authorized, only: %i[index]
 
   def index
