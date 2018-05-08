@@ -15,6 +15,17 @@ class User < ApplicationRecord
   #  records.each {|r| r.make_orphan! }
   # end
 
+  def leading_teams
+    team_user_leader = TeamUser.where(user_id: self.id, role: 'leader', state: 'access_granted')
+    Team.where(id: team_user_leader.collect{|t| t.team_id})
+  end
+
+  def contributing_teams
+    team_user_contributor = TeamUser.where(user_id: self.id, role: 'contributor', state: 'access_granted')
+    Team.where(id: team_user_contributor.collect{|t| t.team_id})
+  end
+
+
   def create_team(team)
     team_users << TeamUser.new(
       team: team,
