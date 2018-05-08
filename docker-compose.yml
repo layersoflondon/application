@@ -70,8 +70,8 @@ services:
       context: .
       dockerfile: docker/webpack/Dockerfile
     environment:
-      - NODE_ENV=${APP_ENVIRONMENT}
-      - RAILS_ENV=${APP_ENVIRONMENT}
+      - NODE_ENV=development
+      - RAILS_ENV=development
       - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
     networks:
       - error-network
