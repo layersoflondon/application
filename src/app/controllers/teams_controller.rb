@@ -81,7 +81,7 @@ class TeamsController < ApplicationController
     users.each do |user|
       @team.invite(current_user, user)
     end
-    redirect_to :controller => 'user_teams', :action => 'index'
+    redirect_to :controller => 'teams', :action => 'show', :format => 'html'
   end
 
   def accept_invitation
