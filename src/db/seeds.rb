@@ -81,12 +81,14 @@ team.team_users << TeamUser.new(
 5.times do |_i|
 
   user_team = [user_test, team]
+  random_number = Faker::Number.between(0, 2)
 
   collection = Collection.create(
       title: Faker::Company.catch_phrase,
       description: Faker::Company.bs,
       read_state: collection_read_state[Faker::Number.between(0, 1)],
-      write_state: collection_write_state[Faker::Number.between(0, 1)],
+      write_state: collection_write_state[random_number],
+      write_state_team_id: if random_number == 1 then team.id else nil end,
       owner: user_team[Faker::Number.between(0, 1)],
   )
   # Create collection records

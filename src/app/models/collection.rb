@@ -11,7 +11,7 @@ class Collection < ApplicationRecord
   validates :title, :description, presence: true
   validates :title, length: { in: 3..255 }
   validates :description, length: { minimum: 3 }
-
+  validate :write_state_team
 
   def primary_image
 
@@ -44,6 +44,22 @@ class Collection < ApplicationRecord
     return Attachment.find(attachment_id) if attachment_id
     nil
 
+  end
+
+  def write_state_team
+    if team? && write_state_team_id == nil
+      errors.add(:write_state, 'write_state_team_id value not provided')
+    end
+
+    if team? && write_state_team_id > 0
+      unless Team.find_by_id(write_state_team_id)
+        errors.add(:write_state, 'team does not exists')
+      end
+    end
+
+    if write_state_team_id != nil &&  (creator? || everyone?)
+      self.write_state_team_id = nil
+    end
   end
 
 end

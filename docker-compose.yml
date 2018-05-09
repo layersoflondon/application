@@ -14,7 +14,7 @@ services:
       context: .
       dockerfile: docker/ruby/Dockerfile
     environment:
-      - RAILS_ENV=development
+      - RAILS_ENV=${APP_ENVIRONMENT}
     volumes:
       - ./docker/ruby/entrypoint.sh:/entrypoint.sh
       - ./src:/home/app/lol

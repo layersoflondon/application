@@ -27,7 +27,13 @@ Rails.application.routes.draw do
     resources :users, controller: 'team_users', only: %i[index create show update destroy]
   end
 
+  get '/teams/:id/accept-request', to: 'teams#accept_request'
+  get '/teams/:id/deny-request', to: 'teams#deny_request'
 
+  post '/teams/:id/invite-user', to: 'teams#invite_user'
+  get '/teams/:id/accept-invitation', to: 'teams#accept_invitation'
+
+  post '/teams/:id/leave', to: 'teams#leave'
 
   resource :map, controller: 'maps' do
     match "/*resource/:action_name/:id(.:extension)", via: [:get], to: "maps#show", as: :resource_action
