@@ -25,11 +25,11 @@ class TeamUserPolicy < ApplicationPolicy
   end
 
   def accept_request?
-    create?
+    user.present? && record.role == 'contributor' && record.state == 'access_requested'
   end
 
   def deny_request?
-    create?
+    accept_request?
   end
 
   class Scope < Scope
