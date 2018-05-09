@@ -44,17 +44,24 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("map-root")
     );
 
-    var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-    var eventer = window[eventMethod];
-    var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+    const eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+    const eventer = window[eventMethod];
+    const messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
+
     // Listen to message from child window
-    eventer(messageEvent,function(e) {
-        if (e.data.scope == 'clickable-iframe-element') {
-            map_view_store.overlay = null;
+    eventer(messageEvent, (event) => {
+        if (event.data.scope === 'clickable-iframe-element') {
+            stores.mapViewStore.overlay = null;
             // TODO: Open requested modal
-            setTimeout(function() {
-                alert('TODO: Open modal ' + e.data.type + ': ' + e.data.id);
-            },500);
+            setTimeout(() => {
+                switch(event.data.type) {
+                    case 'record':
+                        console.log(`Show record ${event.data.id}`);
+                        break;
+                    default:
+                        console.log(`Handle ${event.data.type}`);
+                }
+            }, 500);
         }
     },false);
 });
