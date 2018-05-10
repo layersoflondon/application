@@ -76,8 +76,7 @@ class User < ApplicationRecord
   end
 
   def can_view(collection)
-    collections = self.collections
-    collections.ids.include? collection.id
+    collection_ids.include? collection.id
   end
 
 end

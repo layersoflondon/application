@@ -31,6 +31,10 @@ import RecordForm from './forms/records/record_form';
     return <div className={className}>
       {/*<DevTools position={{bottom: 20, right: 0}} />*/}
 
+      <div style={{position: 'absolute', zIndex: 99999, backgroundColor: '#fff', bottom: '5%', right: '50px'}}>
+        path: {this.props.routing.location && this.props.routing.location.pathname} <br/>
+      </div>
+
       <Tools {...this.props} />
       <Tray {...this.props} />
       <MapView {...this.props} />

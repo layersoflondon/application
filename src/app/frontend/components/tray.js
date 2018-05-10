@@ -14,13 +14,15 @@ import {inject} from "mobx-react/index";
 
   switchToPreviousCardStore() {
     this.props.trayViewStore.cardStore = this.props.trayViewStore.previousCardStore;
-    const { goBack } = this.props.routing;
+    const { push, goBack } = this.props.routing;
+
+    this.props.trayViewStore.visible_collection_id = null;
 
     if( this.props.trayViewStore.collectionCard ) {
       this.props.trayViewStore.collectionCard.highlighted = false;
     }
 
-    goBack();
+    push("/map");
   }
 
   render() {

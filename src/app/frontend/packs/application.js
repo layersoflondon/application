@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const stores = initStore(__STATE);
     stores.routing = routingStore;
 
+    window.stores = stores;
+
     ReactDOM.render(
         <Provider {...stores} >
             <Router history={history}>
@@ -53,10 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.data.scope === 'clickable-iframe-element') {
             stores.mapViewStore.overlay = null;
             // TODO: Open requested modal
+            const {push} = routingStore;
+
             setTimeout(() => {
                 switch(event.data.type) {
                     case 'record':
-                        console.log(`Show record ${event.data.id}`);
+                        push(`/map/${event.data.type}s/${event.data.id}`);
+                        stores.trayViewStore.visible_record_id = event.data.id;
                         break;
                     default:
                         console.log(`Handle ${event.data.type}`);

@@ -19,7 +19,7 @@ import Record from '../sources/record';
     event.preventDefault();
     this.props.trayViewStore.visible_record_id = 0;
 
-    this.props.routing.goBack();
+    this.props.routing.push("/map");
   }
 
   switchToEditMode(event) {
@@ -68,7 +68,7 @@ import Record from '../sources/record';
                 <span className="date start-date">{this.props.trayViewStore.visible_record.date_from}</span>
               </div>
 
-              <div className="creator">Created by <a href={`/users/${this.props.trayViewStore.visible_record.user.id}`}>{this.props.trayViewStore.visible_record.user.name}</a></div>
+              <div className="creator">Created by {this.props.trayViewStore.visible_record.user.name}</div>
 
               <div className="social-status">
                 <button className="like">

@@ -58,12 +58,14 @@ export default class CardStore {
 
   /**
    * return an instance of the store populated with the array of Card objects
-   * @param array
+   * @param object
+   * @param is_root_card_store
    */
-  static fromJS(object) {
+  static fromJS(object, is_root_card_store = false) {
     const store = new CardStore();
 
     Object.assign(store, object);
+    store.rootCardStore = is_root_card_store;
 
     if( !object.hasOwnProperty('cards') ){
       store.cards = [];
