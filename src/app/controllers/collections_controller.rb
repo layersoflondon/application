@@ -3,6 +3,8 @@ class CollectionsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   skip_after_action :verify_authorized, only: %i[index]
 
+  decorates_assigned :collection, :collections
+
   def index
     @collections = if user_signed_in?
                      current_user.collections

@@ -1,1 +1,1 @@
-json.partial! 'records/record', record: @record
+json.partial! 'records/record', record: record

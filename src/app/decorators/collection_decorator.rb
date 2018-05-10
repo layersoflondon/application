@@ -1,6 +1,8 @@
 class CollectionDecorator < Draper::Decorator
   delegate_all
 
+  decorates_association :records
+
   # Define presentation-specific methods here. Helpers are accessed through
   # `helpers` (aka `h`). You can override attributes, for example:
   #
@@ -10,4 +12,7 @@ class CollectionDecorator < Draper::Decorator
   #     end
   #   end
 
+  def description
+    h.simple_format(object.description)
+  end
 end

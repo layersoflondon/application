@@ -10,4 +10,7 @@ class RecordDecorator < Draper::Decorator
   #     end
   #   end
 
+  def description
+    h.simple_format(object.description)
+  end
 end

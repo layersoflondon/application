@@ -3,6 +3,8 @@ class RecordsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[show index]
   skip_after_action :verify_authorized, only: [:index]
 
+  decorates_assigned :record, :records
+
   def index
     @records = Record.includes(:user).where(state: %w[published flagged])
   end
@@ -37,7 +39,7 @@ class RecordsController < ApplicationController
   private
 
   def set_record
-    @record = Record.where(id: params[:id]).first
+    @record = Record.find_by(id: params[:id])
     render json: '', status: :not_found unless @record
   end
 

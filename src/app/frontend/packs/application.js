@@ -16,6 +16,8 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import {Provider} from 'mobx-react';
 import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
 import {Router} from 'react-router';
+import Parser from 'html-react-parser';
+window.Parser = Parser;
 
 /**
  * Create a CardStore from our dummy data, a TrayViewStore to pass
