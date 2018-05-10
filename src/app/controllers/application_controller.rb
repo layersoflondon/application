@@ -10,24 +10,25 @@ class ApplicationController < ActionController::Base
 
   private
   def set_state_variables
-    @records = Record.published.limit(2) #.all.sample(2)
-    @collections = Collection.collections_for_user(current_user).limit(2)
+    @records = Record.published.limit(2).decorate
+    @collections = Collection.collections_for_user(current_user).limit(2).decorate
 
+    Rails.logger.info("DATA: Setting records & Collections: #{@records}/#{@collections}")
     return unless params[:resource].present?
 
     Rails.logger.info("params parsing request params #{params}")
     @editing = params[:action_name].present? && params[:action_name] == 'edit'
 
     begin
-      Rails.logger.info("params class: (#{params.inspect})   ----   #{params[:resource]}")
-
       klass = (params[:resource].singularize.classify).constantize
       model = klass.find_by!(id: params[:id])
+
+      Rails.logger.info("params class: (#{params.inspect})   ----   #{klass}")
     rescue => e
       Rails.logger.info("params error: #{e}")
     end
 
-    self.instance_variable_set(:"@#{params[:resource].singularize}", model)
+    self.instance_variable_set(:"@#{params[:resource].singularize}", model.try(:decorate))
   end
 end
 
