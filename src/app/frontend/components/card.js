@@ -51,13 +51,13 @@ import {Link} from 'react-router-dom';
     const path = `/map/${resource}/${this.props.card.id}`;
 
     return (
-      <Link to={`/map/${resource}/${this.props.card.id}`} onClick={this.handleClick.bind(this)} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseOut={()=>this.props.card.highlighted=false}>
+      <Link to={path} onClick={this.handleClick.bind(this)} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseOut={()=>this.props.card.highlighted=false}>
         <div className="wrapper">
           <div className="image" style={image_styles}>
           </div>
           <div className="text-content">
             {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
-            <h1>{this.props.card.title} - {path}</h1>
+            <h1>{this.props.card.title}</h1>
 
             {parsed_content[0] || parsed_content}
           </div>
