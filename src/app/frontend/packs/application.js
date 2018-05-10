@@ -60,9 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 switch(event.data.type) {
                     case 'record':
-                        push(`/map/${event.data.type}s/${event.data.id}`);
+                        push(`/map/records/${event.data.id}`);
                         stores.trayViewStore.visible_record_id = event.data.id;
                         break;
+                    case 'collection':
+                        push(`/map/collections/${event.data.id}`);
+                        stores.trayViewStore.visible_collection_id = event.data.id;
                     default:
                         console.log(`Handle ${event.data.type}`);
                 }
