@@ -1,6 +1,5 @@
 class CollectionDecorator < Draper::Decorator
   delegate_all
-
   decorates_association :records
 
   # Define presentation-specific methods here. Helpers are accessed through
