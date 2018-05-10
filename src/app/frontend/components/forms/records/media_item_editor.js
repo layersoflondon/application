@@ -52,9 +52,12 @@ import {observer} from "mobx-react";
             <label>Credit</label>
             <input placeholder="Credit" type="text" onChange={this.handleOnChange.bind(this)} name="credit" value={this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.credit : ''} onBlur={this.handleOnBlur.bind(this)} />
           </div>
-          <div className="form-group">
-            <button onClick={this.handleOnClick.bind(this)}>Set as primary image</button>
-          </div>
+
+          {this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.type === 'image' &&
+           <div className="form-group">
+              <button onClick={this.handleOnClick.bind(this)}>Set as primary image</button>
+           </div>
+          }
         </div>
       </div>
     )

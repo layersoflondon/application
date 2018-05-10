@@ -7,7 +7,7 @@ import {observer} from "mobx-react";
   constructor(props){
     super(props);
 
-    this.state = {url: this.props.url, type: this.props.type, title: this.props.title, description: this.props.description, credit: this.props.credit};
+    this.state = {url: this.props.url, type: this.props.type, title: this.props.title, caption: this.props.caption, credit: this.props.credit};
   }
 
   setCurrentMediaItem(event) {
@@ -16,17 +16,20 @@ import {observer} from "mobx-react";
   }
 
   render() {
-    const style = {backgroundImage: `url("${this.state.url}")`};
+    const style = {};
+    let type = '';
+    let classes = 'image';
 
-    if( this.props.recordFormStore.current_attachment_item_index === this.props.index ) {
-      style['border'] = '1px solid #222';
-      style['marginTop'] = '-1px';
+    if( this.props.type === 'image' ) {
+      style['backgroundImage'] = `url("${this.state.url}")`
     }
 
+    type += `type-${this.props.type}`;
+
     return (
-      <li className="type-image" onClick={this.setCurrentMediaItem.bind(this)}>
+      <li className={type} onClick={this.setCurrentMediaItem.bind(this)}>
         <a href="#">
-          <span className="image random-image" style={style} />
+          <span className={classes} style={style} />
         </a>
       </li>
     )
