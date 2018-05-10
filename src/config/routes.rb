@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get '/user/teams', to: 'user#teams'
   get '/user/record_collections'
 
@@ -40,4 +41,9 @@ Rails.application.routes.draw do
     match "/*resource/:id(.:extension)", via: [:get], to: "maps#show", as: :resource
     match "/*resource(.:extension)", via: [:get], to: "maps#show", as: :resources
   end
+
+  resources :layers, only: [:index, :show], defaults: {format: :json} do
+    get 'search', on: :collection
+  end
+
 end
