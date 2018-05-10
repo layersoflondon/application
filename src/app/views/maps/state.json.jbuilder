@@ -6,6 +6,8 @@ else
   json.partial! 'maps/partials/records', {locals: {records: @records, collections: @collections}}
 end
 
+json.class "#{collections.class} class"
+
 json.set! :recordFormStore do
 end
 
