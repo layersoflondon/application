@@ -8,7 +8,8 @@ class RecordsController < ApplicationController
   end
 
   def create
-    @record = Record.new(record_params.merge(user: current_user))
+    @record = current_user.records.build(record_params)
+    byebug
     authorize(@record)
     return @record if @record.save
     render json: @record.errors, status: :unprocessable_entity
