@@ -8,7 +8,7 @@ import CollectionModel from '../../../models/collection';
   constructor(props) {
     super(props);
 
-    this.state = {title: "", description: "", read_state: false, write_state: "creator", team_id: null};
+    this.state = {title: "", description: "", read_state: "public_read", write_state: "creator", team_id: null};
   }
 
   handleOnChange(event) {

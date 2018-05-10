@@ -13,6 +13,14 @@ class Collection < ApplicationRecord
   validates :description, length: { minimum: 3 }
   validate :write_state_team
 
+  scope :collections_for_user, ->(user) {
+    if user && user.is_a?(User)
+      where(read_state: :public_read).or(Collection.where(read_state: :private_read, owner_id: user.id))
+    else
+      where(read_state: [:public_read])
+    end
+  }
+
   def primary_image
 
     # TODO: change me for active record association

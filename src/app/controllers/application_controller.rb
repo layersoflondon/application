@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   private
   def set_state_variables
     @records = Record.published.limit(2) #.all.sample(2)
-    @collections = Collection.all.limit(1) #.all.sample(1)
+    @collections = Collection.collections_for_user(current_user).limit(2)
 
     return unless params[:resource].present?
 
