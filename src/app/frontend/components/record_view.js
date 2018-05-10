@@ -9,8 +9,6 @@ import Record from '../sources/record';
 @observer export default class RecordView extends Component {
   constructor(props) {
     super(props);
-
-    console.log("Card description: ", this.props.trayViewStore.visible_record.description);
   }
 
   componentWillMount() {
