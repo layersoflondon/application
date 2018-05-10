@@ -1,5 +1,4 @@
 import LoLHTTPBase from './lol_http_base';
-import axios from 'axios';
 
 export default class TeamUsers extends LoLHTTPBase {
   static resource_path = '/teams'; static path = '/teams';

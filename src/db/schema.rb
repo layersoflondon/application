@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_02_110844) do
+ActiveRecord::Schema.define(version: 2018_05_09_121720) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -116,6 +116,19 @@ ActiveRecord::Schema.define(version: 2018_05_02_110844) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id"], name: "index_collections_on_owner_type_and_owner_id"
+  end
+
+  create_table "layers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.float "lat"
+    t.float "lng"
+    t.date "date_from"
+    t.date "date_to"
+    t.integer "layer_type"
+    t.text "layer_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

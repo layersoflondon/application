@@ -23,6 +23,7 @@ var updateJSON = {
         "description" : "test description update",
         "read_state" : "private_read",
         "write_state" : "team",
+        "write_state_team_id" : 1,
         "owner_id" : 1,
         "owner_type" : "User"
     }

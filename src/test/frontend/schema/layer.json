@@ -1,0 +1,38 @@
+{
+  "$schema":"http://json-schema.org/draft-04/schema#",
+  "type":"object",
+  "properties":{
+    "id":{
+      "type":"integer"
+    },
+    "title":{
+      "type":"string"
+    },
+    "description":{
+      "type":"string"
+    },
+    "lat":{
+      "type":"float"
+    },
+    "lng":{
+      "type":"float"
+    },
+    "layer_type":{
+      "type":"string"
+    },
+    "layer_data" : {
+      "type":"object"
+    }
+  },
+  "required":[
+    "id",
+    "title",
+    "description",
+    "lat",
+    "lng",
+    "date_from",
+    "date_to",
+    "layer_type",
+    "layer_data"
+  ]
+}

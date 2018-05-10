@@ -1552,6 +1552,184 @@
 			]
 		},
 		{
+			"name": "Layer",
+			"description": null,
+			"item": [
+				{
+					"name": "Index Layers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/layers",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"layers"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Show Team",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c079c487-2675-4109-a221-5a4669eaa189",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Show team', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the team schema', () => {",
+									"    var schema = JSON.parse(environment.teamSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/layers/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"layers",
+								"1"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Search Layers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "81343d5e-5ed0-459b-a7af-3819ae05c1f5",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete team', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/layers/search?",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"layers",
+								"search"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "777ba434-4111-4c5d-befa-611a315deebf",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7e816b0b-fc11-42b2-9658-9675298d311c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
 			"name": "Team Users",
 			"description": null,
 			"item": [
