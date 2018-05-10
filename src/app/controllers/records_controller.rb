@@ -11,7 +11,6 @@ class RecordsController < ApplicationController
 
   def create
     @record = current_user.records.build(record_params)
-    byebug
     authorize(@record)
     return @record if @record.save
     render json: @record.errors, status: :unprocessable_entity
