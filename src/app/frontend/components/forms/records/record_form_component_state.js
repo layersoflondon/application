@@ -16,7 +16,9 @@ export default class RecordFormComponentState {
       }
 
       createDraftRecord(event) {
-        this.props.recordFormStore.record.persist();
+        this.props.recordFormStore.record.persist().then((response) => {
+          this.props.recordFormStore.record.id = response.data.id;
+        });
       }
 
       handleOnChange(event) {

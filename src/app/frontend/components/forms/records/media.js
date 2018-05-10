@@ -15,13 +15,31 @@ import {observer} from "mobx-react";
   }
 
   onDrop(acceptedFiles, rejectedFiles, event) {
+    rejectedFiles.forEach(() => {
+      console.log(arguments);
+    });
+
     acceptedFiles.forEach(file => {
       const reader = new FileReader();
 
       reader.onload = (f) => {
+        const attachment_type = (type) => {
+          //content_type = type.split("/")[0];
+          switch(type) {
+            case 'image/jpg':
+            case 'image/jpeg':
+            case 'image/png':
+              return 'image';
+            case 'text/plain':
+              return 'document';
+            case 'application/pdf':
+              return 'document';
+          }
+        };
+
         // const fileData = reader.result; // the base64 encoded string
         const attachments = this.props.recordFormStore.record.attachments.slice();
-        const new_attachment = {file: file, url: file.preview, attachment_type: file.type.split("/")[0], title: f.target.fileName, description: '', credit: ''};
+        const new_attachment = {file: file, url: file.preview, attachment_type: attachment_type(file.type), type: attachment_type(file.type), title: f.target.fileName, caption: '', credit: ''};
 
         const media_item = new MediaItemStore(this.props.recordFormStore.record.id, new_attachment);
         media_item.persist().then((response) => {
@@ -58,7 +76,7 @@ import {observer} from "mobx-react";
           <div className="m-add-media-and-documents">
 
             <div className="thumbs">
-              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png" onDrop={this.onDrop.bind(this)}>
+              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png, application/pdf, text/plain" onDrop={this.onDrop.bind(this)}>
                 <ul>
                   {media_items}
 

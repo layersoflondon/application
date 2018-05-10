@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
 import PlaceDetails from './place_details';
 import {observer} from 'mobx-react';
+import Parser from 'html-react-parser';
 
 @observer class Details extends Component {
   constructor(props) {
@@ -11,6 +12,11 @@ import {observer} from 'mobx-react';
   }
 
   render() {
+    let description = Parser(this.props.recordFormStore.record.description);
+    if(description.length) {
+      description = description.map((el) => el.props.children).join("\n").replace(/^\n/,'');
+    }
+
     return (
       <div>
         <div className="form-group form-group--title">
@@ -22,7 +28,7 @@ import {observer} from 'mobx-react';
 
         <div className="form-group">
           <label>Description</label>
-          <textarea rows="10" placeholder="" name="description" value={this.props.recordFormStore.record.description} onChange={this.handleOnChange}>
+          <textarea rows="10" placeholder="" name="description" value={description} onChange={this.handleOnChange}>
           </textarea>
         </div>
       </div>

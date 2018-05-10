@@ -1,3 +1,4 @@
+
 @import "../assets/styles/application";
 
 .leaflet-container {
@@ -54,4 +55,36 @@
 
 .clipped-tilelayer {
   clip-path: circle(140px at calc(var(--mouse-x, 0) * 100%) calc(var(--mouse-y, 0) * 100%));
+}
+
+
+.m-add-media-and-documents .thumbs {
+  li[class^=type-] {
+    a span:after {
+      font-family: FontAwesome;
+      font-size: 5em;
+      position: absolute;
+      margin: 0 25%;
+    }
+  }
+
+  li.type-document {
+    a span {
+      background: transparent;
+
+      &:after {
+        content: "\f1c1";
+      }
+    }
+  }
+
+  li.type-geojson {
+    a span {
+      background: transparent;
+
+      &:after {
+        content: "\f0ac";
+      }
+    }
+  }
 }

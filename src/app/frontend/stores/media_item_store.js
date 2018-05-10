@@ -7,8 +7,9 @@ export default class MediaItemStore {
 
   @observable file = null;
   @observable attachment_type = null;
+  @observable type = null;
   @observable title = null;
-  @observable description = null;
+  @observable caption = null;
   @observable credit = null;
   @observable is_primary = false;
 
@@ -20,8 +21,9 @@ export default class MediaItemStore {
     this.file = object.file;
     this.url = object.url;
     this.attachment_type = object.attachment_type;
+    this.type = object.type;
     this.title = object.title;
-    this.description = object.description;
+    this.caption = object.description;
     this.credit = object.credit;
     this.is_primary = object.is_primary;
   }
@@ -29,7 +31,7 @@ export default class MediaItemStore {
   persist() {
     const data = new FormData();
     data.append('attachable_attributes[title]', this.title);
-    data.append('attachable_attributes[description]', this.description);
+    data.append('attachable_attributes[caption]', this.description);
     data.append('attachable_attributes[credit]', this.credit);
 
     if( this.id ) {
