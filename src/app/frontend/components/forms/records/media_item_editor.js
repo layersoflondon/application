@@ -31,6 +31,7 @@ import {observer} from "mobx-react";
 
   handleOnClick(event) {
     event.preventDefault();
+
     this.props.recordFormStore.current_attachment_item.is_primary = true;
     this.props.recordFormStore.current_attachment_item.persist();
   }
@@ -45,7 +46,7 @@ import {observer} from "mobx-react";
           </div>
           <div className="form-group">
             <label>Caption</label>
-            <textarea rows="5" placeholder="Caption" onChange={this.handleOnChange.bind(this)} name="description" value={this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.description : ''}onBlur={this.handleOnBlur.bind(this)}  >
+            <textarea rows="5" placeholder="Caption" onChange={this.handleOnChange.bind(this)} name="caption" value={this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.caption : ''}onBlur={this.handleOnBlur.bind(this)}  >
             </textarea>
           </div>
           <div className="form-group">

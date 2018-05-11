@@ -1,8 +1,8 @@
 if attachment # Avoid nil attachment
   json.id attachment.id
   json.title attachment.title
-  json.caption attachment.caption
-  json.credit attachment.credit
+  json.caption "#{attachment.caption}"
+  json.credit "#{attachment.credit}"
   json.attachable_type attachment.attachable_type
   json.type attachment.attachable_type.split("::").last.downcase
   json.content_type attachment.has_file? ? attachment.file.blob.content_type : nil

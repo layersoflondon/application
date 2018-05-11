@@ -7,32 +7,17 @@ export default class MediaItemStore {
 
   @observable file = null;
   @observable attachment_type = null;
-  @observable type = null;
   @observable title = null;
   @observable caption = null;
   @observable credit = null;
   @observable is_primary = false;
 
-  constructor(record_id, object) {
-    this.record_id = record_id;
-
-    this.id = object.id;
-    this.object = object.object;
-    this.file = object.file;
-    this.url = object.url;
-    this.attachment_type = object.attachment_type;
-    this.type = object.type;
-    this.title = object.title;
-    this.caption = object.description;
-    this.credit = object.credit;
-    this.is_primary = object.is_primary;
-  }
-
   persist() {
     const data = new FormData();
     data.append('attachable_attributes[title]', this.title);
-    data.append('attachable_attributes[caption]', this.description);
+    data.append('attachable_attributes[caption]', this.caption);
     data.append('attachable_attributes[credit]', this.credit);
+    data.append('attachable_attributes[primary]', this.is_primary);
 
     if( this.id ) {
       return RecordAttachments.update(this.record_id, this.id, data);
@@ -41,5 +26,14 @@ export default class MediaItemStore {
       data.append('attachable_attributes[file]', this.file);
       return RecordAttachments.create(this.record_id, data);
     }
+  }
+
+  static fromJS(object, record_id) {
+    const store = new MediaItemStore();
+
+    Object.assign(store, object);
+    store.record_id = record_id;
+
+    return store;
   }
 }

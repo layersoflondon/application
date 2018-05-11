@@ -1,6 +1,7 @@
 import {observable, computed} from 'mobx';
 import CollectionModel from './collection';
 import Record from "../sources/record";
+import MediaItemStore from "../stores/media_item_store";
 
 export default class RecordModel {
   id = null;
@@ -133,22 +134,14 @@ export default class RecordModel {
     record.date_from = attributes.date_from;
     record.date_to = attributes.date_to;
     record.user  = attributes.user;
-    record.attachments  = attributes.attachments;
+
+    record.attachments = attributes.attachments.map((attachment) => {
+      return MediaItemStore.fromJS(attachment, attributes.id);
+    });
+
     record.collections  = attributes.collections.map((c) => CollectionModel.fromRecord(c));
     record.created_at = attributes.created_at;
 
     return record;
   }
-
-  // assignFromJS(object) {
-  //   this.id = object.id;
-  //   this.title = object.title;
-  //   this.description = object.description;
-  //   this.latlng = {lat: object.lat, lng: object.lng};
-  //   this.date_from = object.date_from;
-  //   this.date_to = object.date_to;
-  //   this.links = object.links;
-  //   this.primary_image = object.primary_image;
-  //   this.collection_ids = object.collections.map((c) => c.id);
-  // }
 }

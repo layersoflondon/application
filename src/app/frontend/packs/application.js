@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const browserHistory = createBrowserHistory();
     const routingStore = new RouterStore();
     const history = syncHistoryWithStore(browserHistory, routingStore);
-
+    
     const stores = initStore(__STATE);
     stores.routing = routingStore;
 

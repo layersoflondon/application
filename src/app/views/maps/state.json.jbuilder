@@ -1,5 +1,3 @@
-Rails.logger.info("params state.json.jbuilder render")
-
 if @collection
   json.partial! 'maps/partials/collection', {locals: {collection: @collection, records: @records, collections: @collections}}
 else
