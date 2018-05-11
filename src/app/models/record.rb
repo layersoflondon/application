@@ -1,6 +1,15 @@
 class Record < ApplicationRecord
   include AASM
 
+  has_many :collection_records
+  has_many :collections, through: :collection_records
+  has_many :attachments
+  belongs_to :user
+  has_many :record_taxonomy_terms, class_name: "RecordTaxonomyTerm"
+  has_many :taxonomy_terms, through: :record_taxonomy_terms
+
+  accepts_nested_attributes_for :attachments
+
   enum state: %i[draft published pending_review flagged deleted]
 
   aasm column: :state, enum: false do
@@ -32,16 +41,6 @@ class Record < ApplicationRecord
 
   end
 
-  has_many :collection_records
-  has_many :collections, through: :collection_records
-  has_many :attachments
-  belongs_to :user
-  accepts_nested_attributes_for :attachments
-
-  # TODO: use the AASM gem to make this a proper state machine. Uses a string column called aasm
-  # state by default. See https://github.com/aasm/aasm
-  # enum state: %i[draft published pending_review flagged]
-
   validates :title, :state, presence: true, if: -> { state == 'draft' }
   validates :title, :description, :state, :lat, :lng, :date_from, :location, presence: true, if: -> { state != 'draft' }
   validates :title, length: { in: 3..255 }, if: -> { state != 'draft' }
@@ -63,4 +62,6 @@ class Record < ApplicationRecord
   def date_is_in_the_past
     errors.add(:date_from, 'date is not in the past') if date_from.present? && Date.today < date_from
   end
+
+
 end
