@@ -33,8 +33,18 @@ user_test = User.create(
   )
 end
 
+
 5.times do |_i|
-  Record.create(
+
+  taxonomy_term = TaxonomyTerm.create(
+      name: Faker::DragonBall.character,
+      taxonomy: Taxonomy.create(
+          name: Faker::Pokemon.name,
+          description: Faker::ChuckNorris.fact
+      )
+  )
+
+  record = Record.create(
       title: Faker::Company.catch_phrase,
       description: Faker::Company.bs,
       state: record_states[rand(0..3)],
@@ -53,6 +63,8 @@ end
             }
         }]
       )
+
+  record.taxonomy_terms << taxonomy_term
 end
 
 # create teams

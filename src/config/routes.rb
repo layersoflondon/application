@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   get '/user/teams', to: 'user#teams'
   get '/user/record_collections'
 
@@ -45,5 +46,7 @@ Rails.application.routes.draw do
   resources :layers, only: [:index, :show], defaults: {format: :json} do
     get 'search', on: :collection
   end
+
+  resources :taxonomies, only: [:index], defaults: {format: :json}
 
 end

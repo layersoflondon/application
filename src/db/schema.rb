@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_09_121720) do
+ActiveRecord::Schema.define(version: 2018_05_11_133838) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -131,6 +131,15 @@ ActiveRecord::Schema.define(version: 2018_05_09_121720) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "record_taxonomy_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "record_id"
+    t.bigint "taxonomy_term_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_id"], name: "index_record_taxonomy_terms_on_record_id"
+    t.index ["taxonomy_term_id"], name: "index_record_taxonomy_terms_on_taxonomy_term_id"
+  end
+
   create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -145,6 +154,21 @@ ActiveRecord::Schema.define(version: 2018_05_09_121720) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+  end
+
+  create_table "taxonomies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "taxonomy_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.bigint "taxonomy_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["taxonomy_id"], name: "index_taxonomy_terms_on_taxonomy_id"
   end
 
   create_table "team_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -189,6 +213,9 @@ ActiveRecord::Schema.define(version: 2018_05_09_121720) do
   add_foreign_key "attachments", "records"
   add_foreign_key "collection_records", "collections"
   add_foreign_key "collection_records", "records"
+  add_foreign_key "record_taxonomy_terms", "records"
+  add_foreign_key "record_taxonomy_terms", "taxonomy_terms"
+  add_foreign_key "taxonomy_terms", "taxonomies"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
 end
