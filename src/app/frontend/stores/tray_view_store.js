@@ -116,10 +116,14 @@ export default class TrayViewStore {
     }
 
     if(tray_view_state.visible_record_id) {
-      console.log(`Unsetting visible_record_id ${tray_view_state.visible_record_id}`);
-
+      const record_state = tray_view_state.visible_record;
       delete tray_view_state['visible_record_id'];
+      delete tray_view_state['visible_record'];
+
+      store.visible_record    = RecordModel.fromJS(record_state);
+      store.visible_record_id = record_state.id;
     }
+
     Object.assign(store, tray_view_state);
 
     return store;
