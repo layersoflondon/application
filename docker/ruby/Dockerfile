@@ -41,3 +41,4 @@ WORKDIR $HOME/lol
 USER app
 # use the mounted gems container as the location of the gems so we don't have to start from scratch each time.
 #ENV BUNDLE_PATH /gems
+RUN bundle install
