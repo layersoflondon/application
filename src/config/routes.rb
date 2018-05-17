@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  post 'search', to: 'search#index'
+  post 'search', to: 'search#index', defaults: {format: :json}
   get '/user/teams', to: 'user#teams'
   get '/user/record_collections'
 
