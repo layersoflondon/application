@@ -15,6 +15,7 @@ services:
       dockerfile: docker/ruby/Dockerfile
     environment:
       - RAILS_ENV=${APP_ENVIRONMENT}
+      - ELASTICSEARCH_URL='http://elasticsearch:9200'
     volumes:
       - ./docker/ruby/entrypoint.sh:/entrypoint.sh
       - ./src:/home/app/lol

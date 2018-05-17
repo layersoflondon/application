@@ -1,13 +1,10 @@
 class TeamUser < ApplicationRecord
   include AASM
 
+  belongs_to :team
+  belongs_to :user
+
   enum role: %i[leader contributor]
-  # enum state: {
-  #     access_requested: 0,
-  #     access_granted: 1,
-  #     access_denied: 2,
-  #     invited: 3
-  # }
 
   aasm column: :state do
     state :access_requested, initial: true
@@ -32,7 +29,4 @@ class TeamUser < ApplicationRecord
     end
 
   end
-
-  belongs_to :team
-  belongs_to :user
 end

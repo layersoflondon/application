@@ -34,3 +34,4 @@ RUN chown -R app:app $HOME && chmod 600 $HOME/.ssh/id_rsa
 # Set working directory
 WORKDIR $HOME/lol
 USER app
+RUN bundle install

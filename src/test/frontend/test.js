@@ -8,6 +8,8 @@ require('./source/record_attachments');
 require('./source/google_maps_client');
 require('./source/user_teams');
 require('./source/layer');
+require('./source/taxonomy');
+require('./source/search');
 
 before(function() {
 
