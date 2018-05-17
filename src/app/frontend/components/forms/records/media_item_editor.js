@@ -1,14 +1,18 @@
 import React,{Component} from 'react';
-import RecordFormComponentState from './record_form_component_state';
-
+import {debounce} from 'underscore';
 import {observer} from "mobx-react";
+
+window.debounce = debounce;
 
 // this component isn't bound to the RecordFormComponentState as it manages its own local state
 // and pushes off changes to the current_attachment_item via the recordFormStore prop
 @observer class MediaItemEditor extends Component {
   constructor(props){
     super(props);
-    // this.state = this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.state : {title: '', description: '', credit: '', default: false};
+
+    this.handleKeyUpWithDebounce = debounce(() => {
+      this.props.recordFormStore.current_attachment_item.persist();
+    }, 250);
   }
 
   handleOnChange(event) {
@@ -29,6 +33,13 @@ import {observer} from "mobx-react";
     });
   }
 
+  handleKeyUp(event) {
+    const {name, value} = event.target;
+
+    this.props.recordFormStore.current_attachment_item[name] = value;
+    this.handleKeyUpWithDebounce();
+  }
+
   handleOnClick(event) {
     event.preventDefault();
 
@@ -37,6 +48,9 @@ import {observer} from "mobx-react";
   }
 
   render() {
+    const button_disabled = this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary;
+    const button_label    = (this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary) ? "Primary Image" : "Set as primary image";
+
     return (
       <div className="meta">
         <div className="caption">
@@ -51,12 +65,13 @@ import {observer} from "mobx-react";
           </div>
           <div className="form-group">
             <label>Credit</label>
-            <input placeholder="Credit" type="text" onChange={this.handleOnChange.bind(this)} name="credit" value={this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.credit : ''} onBlur={this.handleOnBlur.bind(this)} />
+            <input placeholder="Credit" type="text" onChange={this.handleOnChange.bind(this)} name="credit" value={this.props.recordFormStore.current_attachment_item ? this.props.recordFormStore.current_attachment_item.credit : ''} onKeyUp={this.handleKeyUp.bind(this)} />
           </div>
 
           {this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.type === 'image' &&
            <div className="form-group">
-              <button onClick={this.handleOnClick.bind(this)}>Set as primary image</button>
+             {this.props.recordFormStore.current_attachment_item.is_primary }
+              <button onClick={this.handleOnClick.bind(this)} disabled={button_disabled}>{button_label}</button>
            </div>
           }
         </div>

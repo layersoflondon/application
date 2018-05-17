@@ -2,6 +2,7 @@ import {observable, computed} from 'mobx';
 import CollectionModel from './collection';
 import Record from "../sources/record";
 import MediaItemStore from "../stores/media_item_store";
+import Parser from "html-react-parser";
 
 export default class RecordModel {
   id = null;
