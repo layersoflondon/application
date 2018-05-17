@@ -1,10 +1,17 @@
 class Record < ApplicationRecord
+
+  update_index('records#record') { self }
+
   include AASM
 
   has_many :collection_records
   has_many :collections, through: :collection_records
   has_many :attachments
+  update_index('attachments#attachment') { attachments }
   belongs_to :user
+  update_index 'users#user' do
+    previous_changes['user_id'] || user
+  end
   has_many :record_taxonomy_terms, class_name: "RecordTaxonomyTerm"
   has_many :taxonomy_terms, through: :record_taxonomy_terms
 
