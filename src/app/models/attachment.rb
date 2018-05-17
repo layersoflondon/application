@@ -1,5 +1,10 @@
 class Attachment < ApplicationRecord
+  has_many :records
   belongs_to :attachable, polymorphic: true
+  update_index('attachments#attachment') { self }
+  update_index 'records#record' do
+    previous_changes['record_id'] || record
+  end
   attr_writer :attachment_type
   # TODO: not sure whether url and file methods should be included in attachable, for instance
   # when deleting an url, gives the error: undefined method `file' for <Attachment ..

@@ -13,7 +13,8 @@ record_states = %w[draft published pending_review flagged deleted]
 collection_read_state = %w[public_read private_read]
 collection_write_state = %w[everyone team creator]
 team_user_role = %w[leader contributor]
-layer_type = %w[georeferenced_image dataset polygon]
+
+taxonomy_terms = []
 
 # Create user test
 password = 123456
@@ -33,8 +34,26 @@ user_test = User.create(
   )
 end
 
+taxonomies = [
+    Taxonomy.create(
+        name: 'type',
+        description: Faker::ChuckNorris.fact
+    ),
+    Taxonomy.create(
+       name: 'theme',
+       description: Faker::ChuckNorris.fact
+    ),
+]
+taxonomy_terms_names = %w[places people items events political_and_government education industry_and_commerce religion_and_worship transport war_and_conflict]
+taxonomy_terms_names.each do |name|
+  taxonomy_terms << TaxonomyTerm.create(
+      name: name,
+      taxonomy: taxonomies[rand(0..1)]
+  )
+end
+
 5.times do |_i|
-  Record.create(
+  record = Record.create(
       title: Faker::Company.catch_phrase,
       description: Faker::Company.bs,
       state: record_states[rand(0..3)],
@@ -53,6 +72,7 @@ end
             }
         }]
       )
+  record.taxonomy_terms << taxonomy_terms[rand(0..9)]
 end
 
 # create teams
@@ -94,7 +114,8 @@ team.team_users << TeamUser.new(
   )
   # Create collection records
   5.times do |_ri|
-    collection.records << Record.create(
+
+    record = Record.create(
         title: Faker::Company.catch_phrase,
         description: Faker::Company.bs,
         state: record_states[rand(0..3)],
@@ -104,6 +125,8 @@ team.team_users << TeamUser.new(
         user: user_test,
         location: {:address => Faker::Address.street_address}
     )
+    record.taxonomy_terms << taxonomy_terms[rand(0..9)]
+    collection.records << record
   end
 end
 

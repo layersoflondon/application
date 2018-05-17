@@ -74,6 +74,7 @@ class TeamsController < ApplicationController
   end
 
   def invite_user
+    # TODo this needs refactoring because we should be able to invite non-users.
     authorize(@team_user)
     query = params[:query]
     emails = query.split(',')
