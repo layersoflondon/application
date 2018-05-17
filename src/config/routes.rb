@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'search/index'
+  post 'search', to: 'search#index'
   get '/user/teams', to: 'user#teams'
   get '/user/record_collections'
 
