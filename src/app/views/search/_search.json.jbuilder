@@ -1,0 +1,15 @@
+json.id record.id
+json.title record.title
+json.description record.description
+json.like_count record.like_count
+json.view_count record.view_count
+json.state record.state
+json.lat record.lat
+json.lng record.lng
+json.date_from record.date_from
+json.date_to record.date_to
+json.created_at record.created_at
+json.user record.user
+json.collections record.collections
+json.attachments record.attachments
+json.taxonomy_terms record.taxonomy_terms
