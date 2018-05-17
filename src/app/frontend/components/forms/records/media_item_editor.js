@@ -27,7 +27,6 @@ window.debounce = debounce;
     const current_attachment_item = this.props.recordFormStore.current_attachment_item;
 
     current_attachment_item.persist().then((response) => {
-      console.log("Saved image");
     }).catch((error) => {
       console.log("Error saving image", error);
     });
