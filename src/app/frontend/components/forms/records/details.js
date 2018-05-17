@@ -12,10 +12,12 @@ import Parser from 'html-react-parser';
   }
 
   render() {
-    let description = Parser(this.props.recordFormStore.record.description);
-    if(description.length) {
-      description = description.map((el) => el.props.children).join("\n").replace(/^\n/,'');
-    }
+    let description = this.props.recordFormStore.record.description;
+    // if(description.length) {
+    //   description = description.map((el) => el.props.children).join("\n").replace(/^\n/,'');
+    // }else {
+    //   console.log(description);
+    // }
 
     return (
       <div>

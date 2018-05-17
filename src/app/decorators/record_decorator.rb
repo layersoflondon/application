@@ -11,6 +11,6 @@ class RecordDecorator < Draper::Decorator
   #   end
 
   def description
-    h.simple_format(object.description)
+    h.simple_format(h.sanitize(object.description, tags: ['br']))
   end
 end
