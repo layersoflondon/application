@@ -16,6 +16,10 @@ class CollectionsController < ApplicationController
   def create
     @collection = current_user.collections.build(collection_params)
     authorize(@collection)
+
+    # todo: work out a better way to determin the owner based on params
+    @collection.owner_id = current_user.id if @collection.owner_type == "User"
+
     return @collection if @collection.save
     render json: @collection.errors, status: :unprocessable_entity
   end

@@ -8,7 +8,8 @@ import CollectionModel from '../../../models/collection';
   constructor(props) {
     super(props);
 
-    this.state = {title: "", description: "", read_state: "public_read", write_state: "creator", team_id: null};
+    // todo: set owner type either in the controller, or when the write state is changed
+    this.state = {title: "", description: "", read_state: false, write_state: "creator", write_state_team_id: null, owner_type: "User"};
   }
 
   handleOnChange(event) {
