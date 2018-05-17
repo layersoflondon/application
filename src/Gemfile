@@ -69,16 +69,17 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'devise'
 gem 'devise_invitable'
 
+# Minimal authorization through OO design and pure Ruby classes
 gem 'pundit'
 
 gem 'rooftop-rails'
 gem 'rooftop-rails-extras'
 
+# Decorators/View-Models for Rails Applications
 gem 'draper'
 
 # Ruby state machines
 gem 'aasm'
 
-# Elasticsearch integrations for ActiveModel/Record and Ruby on Rails
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
+# High-level Elasticsearch Ruby framework based on the official elasticsearch-ruby client
+gem 'chewy'
