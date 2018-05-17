@@ -22,3 +22,7 @@ end
 json.attachments do
   json.array! record.attachments, partial: 'record_attachments/attachment', as: :attachment
 end
+
+json.taxonomy_terms do
+  json.array! record.taxonomy_terms, partial: 'taxonomy_terms/taxonomy_term', as: :taxonomy_term
+end
