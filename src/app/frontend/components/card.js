@@ -48,6 +48,10 @@ import {Link} from 'react-router-dom';
       resource = 'records';
     }
 
+    if( this.props.card.highlighted) {
+      container_classes += " highlighted";
+    }
+
     const path = `/map/${resource}/${this.props.card.id}`;
 
     return (

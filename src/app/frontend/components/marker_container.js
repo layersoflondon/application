@@ -40,7 +40,7 @@ import Parser from 'html-react-parser';
     let icon = this.props.cardComponent.highlighted ? highlighted_icon : default_icon;
     const parsed_content = Parser(this.props.card.description);
 
-    return <Marker position={this.props.position} icon={icon}>
+    return <Marker position={this.props.position} icon={icon} onMouseOver={()=>this.props.card.highlighted = true} onMouseOut={()=>this.props.card.highlighted = false}>
       <Popup>
 
         <div className="m-map-popover" onClick={this.handleOnClick.bind(this)}>
