@@ -29,7 +29,7 @@ import TeachersForm from "./teachers_form";
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'user_form' ) className+=" is-showing";
     const content = {
-      aTab: <iframe width="100%" height="650" src="http://localhost:3000/users/edit" frameBorder="0"></iframe>,
+      aTab: <iframe width="100%" height="650" src="/users/edit" frameBorder="0"></iframe>,
       bTab: <TeamForm/>,
       cTab: <RecordsCollections/>,
       dTab: <TeachersForm/>
