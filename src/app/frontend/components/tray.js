@@ -18,11 +18,11 @@ import {inject} from "mobx-react/index";
 
     this.props.trayViewStore.visible_collection_id = null;
 
-    if( this.props.trayViewStore.collectionCard ) {
-      this.props.trayViewStore.collectionCard.highlighted = false;
-    }
+    // if( this.props.trayViewStore.collectionCard ) {
+    //   this.props.trayViewStore.collectionCard.highlighted = false;
+    // }
 
-    push("/map");
+    // push("/map");
   }
 
   render() {
