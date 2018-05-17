@@ -100,20 +100,20 @@ export default class TrayViewStore {
   static fromJS(tray_view_state) {
     let store = new TrayViewStore();
 
-    if(tray_view_state.hasOwnProperty('previousCardStore') && tray_view_state.previousCardStore) {
-      const previous_card_store_data = tray_view_state.previousCardStore;
-      delete tray_view_state['previousCardStore'];
-
-      console.log("TrayViewStore.fromJS has previousCardStore property - create root card store: ", previous_card_store_data);
-      store.cardStore = CardStore.fromJS(previous_card_store_data);
-    }
-
     if(tray_view_state.hasOwnProperty('cardStore')) {
       const card_store_data = tray_view_state.cardStore;
       delete tray_view_state['cardStore'];
 
-      console.log("TrayViewStore.fromJS creating CardStore with card_store_data: ", card_store_data);
+      // console.log("TrayViewStore.fromJS creating CardStore with card_store_data: ", card_store_data);
       store.cardStore = CardStore.fromJS(card_store_data);
+    }
+
+    if(tray_view_state.hasOwnProperty('previousCardStore') && tray_view_state.previousCardStore) {
+      const previous_card_store_data = tray_view_state.previousCardStore;
+      delete tray_view_state['previousCardStore'];
+
+      // console.log("TrayViewStore.fromJS has previousCardStore property - create root card store: ", previous_card_store_data);
+      store.previousCardStore = CardStore.fromJS(previous_card_store_data);
     }
 
     if(tray_view_state.visible_record_id) {
@@ -123,6 +123,11 @@ export default class TrayViewStore {
 
       store.visible_record    = RecordModel.fromJS(record_state);
       store.visible_record_id = record_state.id;
+    }
+
+    // dont overwrite the visible_collection_id property as we'll already be rendering the collection
+    if(tray_view_state.visible_collection_id) {
+      delete tray_view_state['visible_collection_id'];
     }
 
     Object.assign(store, tray_view_state);
