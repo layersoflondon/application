@@ -1,34 +1,33 @@
-
 // Tool button
 
 .m-tool-button button {
-  background:transparent;
-  border:0;
-  color:white;
-  padding:15px 10px;
-  position:relative;
+  background: transparent;
+  border: 0;
+  color:$main-accent;
+  padding: 15px 10px;
+  position: relative;
 }
 
 .m-tool-button button:after {
-  content:attr(data-label);
-  position:absolute;
+  content: attr(data-label);
+  position: absolute;
   top: 0;
   left: 0;
   padding: 15px 0 15px 50px;
-  text-align:left;
+  text-align: left;
   font-size: 14px;
-  font-weight:700;
+  font-weight: 700;
   width: 170px;
-  opacity:0;
-  transition:opacity .2s;
+  opacity: 0;
+  transition: opacity .2s;
 }
 
 .m-tool-button button:focus {
-  outline:0;
+  outline: 0;
 }
 
 .m-sidebar:hover .m-tool-button button:after {
-  opacity:1;
+  opacity: 1;
 }
 
 .m-tool-button button:before {
@@ -60,9 +59,33 @@
 }
 
 .m-tool-button button:hover {
-  opacity:0.5;
+  opacity: 0.5;
 }
 
 .m-tool-button span {
-  display:none;
+  display: none;
 }
+
+/*
+$base-color: #910ade;
+
+.m-tool-button:nth-child(1) button {
+  color: adjust-hue($base-color, 5%);
+}
+
+.m-tool-button:nth-child(2) button {
+  color: adjust-hue($base-color, 10%);
+}
+
+.m-tool-button:nth-child(3) button {
+  color: adjust-hue($base-color, 15%);
+}
+
+.m-tool-button:nth-child(4) button {
+  color: adjust-hue($base-color, 20%);
+}
+
+.m-tool-button:nth-child(5) button {
+  color: adjust-hue($base-color, 25%);
+}
+*/

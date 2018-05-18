@@ -2,13 +2,15 @@ class RecordsController < ApplicationController
   before_action :set_record, only: %i[show update destroy]
   skip_before_action :authenticate_user!, only: %i[show index]
   skip_after_action :verify_authorized, only: [:index]
+
+  decorates_assigned :record, :records
+
   def index
-    # TODO: show records from the current user as well
-    @records = Record.where(state: 'published')
+    @records = Record.includes(:user).where(state: %w[published flagged])
   end
 
   def create
-    @record = Record.new(record_params.merge(user: current_user))
+    @record = current_user.records.build(record_params)
     authorize(@record)
     return @record if @record.save
     render json: @record.errors, status: :unprocessable_entity
@@ -20,6 +22,7 @@ class RecordsController < ApplicationController
 
   def update
     update_record_params = record_params.to_h
+    check_transition(update_record_params[:state])
     @record.assign_attributes(update_record_params)
     authorize(@record)
     return @record if @record.save
@@ -27,30 +30,52 @@ class RecordsController < ApplicationController
   end
 
   def destroy
-    # @TODO: check user delete permissions
-    # @TODO: check when record has associated collections, Error:
-    # Mysql2::Error: Cannot delete or update a parent row: a foreign key constraint fails ...
     authorize(@record)
-    return render json: '', status: :no_content if @record.destroy
+    @record.state = 'deleted'
+    return render json: '', status: :no_content if @record.save
     render json: @record.errors, status: :unauthorized
   end
 
   private
 
   def set_record
-    @record = Record.find_by_id(params[:id])
+    @record = Record.find_by(id: params[:id])
     render json: '', status: :not_found unless @record
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def record_params
-    params.require(:record).permit(
-      :title,
-      :description,
-      :state,
-      :lat,
-      :lng,
-      :date
-    )
+    if request.patch?
+      params.require(:record).permit(
+        :state
+      )
+    else
+      params.require(:record).permit(
+        :title,
+        :description,
+        :state,
+        :lat,
+        :lng,
+        :date_from, :date_to,
+        collection_ids: [],
+        location: %i[
+          address
+        ]
+      )
+    end
+  end
+
+  def check_transition(state)
+    case state
+    when 'published'
+      @record.mark_as_published
+    when 'pending_review'
+      @record.mark_as_pending_review
+    when 'flagged'
+      @record.mark_as_flagged
+    when 'draft'
+      @record.mark_as_draft
+    when 'delete'
+    @record.mark_as_deleted
+    end
   end
 end

@@ -1,0 +1,30 @@
+/* Help Header */
+
+.m-help-header {
+  padding: 40px;
+  @include clearfix;
+}
+
+.m-help-header .title {
+  font-size:20px;
+}
+.m-help-header .video {
+  float: left;
+  width: 50%;
+  padding-right: 50px;
+}
+
+.m-help-header iframe {
+  max-width: 100%;
+}
+
+.m-help-header .top-faq {
+  float: left;
+  width: 50%;
+  padding-left:10px;
+}
+
+.m-help-header .top-faq li {
+  margin-bottom:20px;
+  font-weight:bold;
+}

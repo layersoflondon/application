@@ -8,6 +8,7 @@
 .m-tray-title-area h1 {
   margin-top: 0;
   margin-bottom: 7px;
+  @include font-display;
 }
 
 .m-tray-title-area .close {

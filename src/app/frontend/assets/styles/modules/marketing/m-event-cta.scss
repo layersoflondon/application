@@ -1,0 +1,20 @@
+/* Event CTA */
+
+.m-event-cta {
+  padding: 20px;
+  background: $blue;
+  color: white;
+}
+
+.m-event-cta a {
+  color: white;
+  @include top-and-tail;
+}
+
+.m-event-cta .title {
+  margin-bottom: 0;
+}
+
+.m-event-cta .date {
+  font-size: 12px;
+}

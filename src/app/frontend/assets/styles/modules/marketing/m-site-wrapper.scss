@@ -1,0 +1,9 @@
+/* Site wrapper */
+
+.m-site-wrapper {
+  max-width:1200px;
+  margin:0 auto;
+  background:#eee;
+  padding:1px 0;
+  @include clearfix;
+}

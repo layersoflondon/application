@@ -21,7 +21,7 @@ gem 'webpacker'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -37,17 +37,18 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'faker'
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'awesome_print'
-  gem 'debase'
-  gem 'faker'
+  # gem 'debase'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rubocop'
-  gem 'ruby-debug-ide'
+  # gem 'ruby-debug-ide'
   gem 'web-console', '>= 3.3.0'
+  # gem 'errorstudio_capistrano_recipes', git: 'ssh://git@bitbucket.org/errorstudio/errorstudio_capistrano_recipes'
 end
 
 group :test do
@@ -58,11 +59,27 @@ group :test do
   gem 'chromedriver-helper'
 end
 
+group :staging, :production do
+  gem 'passenger'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'devise'
 gem 'devise_invitable'
 
+# Minimal authorization through OO design and pure Ruby classes
 gem 'pundit'
 
+gem 'rooftop-rails'
+gem 'rooftop-rails-extras'
+
+# Decorators/View-Models for Rails Applications
+gem 'draper'
+
+# Ruby state machines
+gem 'aasm'
+
+# High-level Elasticsearch Ruby framework based on the official elasticsearch-ruby client
+gem 'chewy'

@@ -1,0 +1,168 @@
+
+/* Article */
+
+.m-article {
+  max-width:800px;
+  margin-bottom: 60px;
+}
+
+.m-article {
+  .image {
+    background:#ccc;
+    width:100%;
+    padding-bottom:50%;
+  }
+
+  .image--left {
+    width:50%;
+    padding-bottom:25%;
+    float:left;
+    margin-right:20px;
+  }
+
+  .image--right {
+    width:50%;
+    padding-bottom:25%;
+    float:right;
+    margin-left:20px;
+  }
+
+}
+
+.m-article {
+
+  font-size: 18.1px;
+  line-height: 1.5;
+
+  @include mq(tablet) {
+    font-size: 16.1px;
+  }
+  @include mq(smartphone) {
+    font-size: 14.1px; 
+  }
+
+  * {
+    margin:0;
+  }
+
+  * + * {
+    margin:1.2em 0 0 0;
+  }
+
+  ul,
+  ol,
+  blockquote {
+    //margin: 0;
+    padding: 0;
+  }
+
+  /* Typography */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight:500;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+
+  h2 {
+    font-size: 2em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
+  h4 {
+    font-size: 1em;
+    color: $red;
+  }
+
+  h5 {
+    font-size: .9em;
+    text-transform: uppercase;
+    margin-top: 1.8em;
+  }
+
+  h6 {
+    font-size: .8em;
+    text-transform: uppercase;
+    margin-top: 2em;
+  }
+
+  ol,
+  ul,
+  blockquote,
+  pre {
+    margin-left: 1em;
+  }
+
+  ol,
+  ul {
+    list-style-position: outside;
+    list-style-type: disc;
+    margin-left: 2em;
+  }
+
+  li {
+    margin-top:0.5em;
+  }
+
+  ol ol,
+  ul ul,
+  ol ul,
+  ul ol {
+    margin-left: 1.5em;
+    list-style-type: circle;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  ol ol {
+    list-style-type: lower-latin;
+  }
+
+  a,
+  a:visited {
+
+  }
+  a:hover {
+
+  }
+
+  blockquote {
+    padding: 5px 25px 5px 0;
+  }
+
+  blockquote p {
+    padding-left: 25px;
+    border-left: 2px solid #ddd;
+    color:orange;
+    font-size: 1.4em;
+  }
+
+  // Tables 
+
+  table {
+
+  }
+
+  table th {
+    font-weight: 500;
+    border-bottom: 1px solid #bbb;
+  }
+  table th,
+  table td {
+    padding: 5px 7px;
+  }
+
+
+}

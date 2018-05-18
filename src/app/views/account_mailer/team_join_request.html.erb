@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h1>Request to join team</h1>
+<p>
+  The user: <%= @user.email %> sent a request to join the team <%= @team.name %>
+</p>
+<p>
+  <a href="<%= @url_accept %>">Approve</a>
+  <br>
+  <a href="<%= @url_deny %>">Deny</a>
+</p>
+</body>
+</html>

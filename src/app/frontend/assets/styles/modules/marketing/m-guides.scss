@@ -1,0 +1,30 @@
+/* Guides */
+
+.m-guides {
+  padding: 40px;
+  padding-bottom: 50px;
+  @include clearfix;
+}
+
+.m-guides .guide {
+  display: inline;
+}
+
+.m-guides .guide a {
+  display: block;
+  background: #cde8ff;
+  height: 100%;
+  width: calc(20% - 10px);
+  margin: 5px;
+  padding-bottom: calc(20% - 10px);
+  float: left;
+  position: relative;
+}
+
+.m-guides .guide h3 {
+  width: 100%;
+  position: absolute;
+  top: 35%;
+  left: 0;
+  text-align: center;
+}

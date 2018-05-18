@@ -1,6 +1,13 @@
 import axios from 'axios';
 
-axios.defaults.headers.delete['auth'] = {username: 'test@error.agency', password: '123456'};
+var isMochaTest = typeof document === "undefined";
+
+if (isMochaTest) {
+    axios.defaults.proxy = { port: 3000 };
+    axios.defaults.auth = {username: 'test@error.agency', password: '123456'};
+}else{
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector("[name=csrf-token]").content;
+}
 
 export default class LoLHTTPBase {
 
@@ -12,7 +19,7 @@ export default class LoLHTTPBase {
       if (id) {
           this.resource_path = this.path + `/${id}`;
       }
-      console.log(`${method}: ${this.resource_path}\n\n`);
+      //console.log(`${method}: ${this.resource_path}\n\n`);
   }
 
   static index(resource_id, id) {

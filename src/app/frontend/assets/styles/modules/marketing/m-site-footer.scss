@@ -1,0 +1,32 @@
+/* Site footer */
+
+.m-site-footer {
+  padding:40px;
+  border-top:1px solid #ddd;
+  clear:both;
+}
+
+.m-site-footer .user-actions {
+  float: right;
+  @include unlist;
+}
+
+.m-site-footer .user-actions li {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.m-site-footer .partners .image {
+  width:100px;
+  height:100px;
+  background:#ccc;
+}
+
+.m-site-footer .partners ul {
+  @include unlist;
+}
+
+.m-site-footer .partners li {
+  display: inline-block;
+  margin-right: 10px;
+}

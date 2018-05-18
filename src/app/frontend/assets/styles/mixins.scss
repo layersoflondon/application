@@ -1,10 +1,89 @@
 
 /* Mixins */
 
+
+// Type
+
+@mixin font-display {
+  //font-family: 'Roboto Slab', serif;
+  font-family: 'IBM Plex Serif', serif;
+  font-weight: 400;
+}
+
+// Elements
+
+$element-border-radius:6px;
+$element-border-radius-small:3px;
+
+@mixin overlay-wrap {
+  max-width: 840px;
+  margin: 70px auto;
+  @include clearfix;
+}
+
+@mixin overlay-wrap-white {
+  @include overlay-wrap;
+  color: #333;
+  background: white;
+  padding: 40px;
+}
+
+
+@mixin overlay-wrap-transparent {
+  @include overlay-wrap;
+  color: white;
+}
+
+@mixin link-animation {
+
+  overflow:hidden;
+
+  .link-indicator {
+    //display:none;
+    //background: $second-accent;
+    position:absolute;
+    top: 18px;
+    right: 18px;
+    //width: 25px;
+    //height: 25px;
+    @include transition(all .4s);
+    //@include transform(translate3d(25px,25px,0));
+  }
+
+  &:hover .link-indicator {
+    //@include transform(translate3d(0,0,0));
+  }
+
+
+  .link-indicator:after {
+    content: "\f0da";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    //font-size: 0.9em;
+    font-size: 1.4em;
+/*    position:absolute;
+    top: 10px;
+    right: 10px;*/
+    color: $main-accent;
+    opacity:0;
+    @include transition(all .4s);
+    //@include transform(translate3d(-25px,-25px,0));
+    z-index:1;
+  }
+
+  &:hover .link-indicator:after {
+    opacity:1;
+  }
+}
+
+@mixin shadow {
+  box-shadow: 0 0 30px rgba(0,0,0,0.1);
+}
+
 @mixin big-square-button {
   background:$link-color;
   color:white;
-  //border-radius:100px;
+  border-radius:$element-border-radius;
   border:0;
   padding: 11px 25px;
   font-size:32px;
@@ -15,8 +94,7 @@
 
 @mixin lozenge-button {
   background:$link-color;
-  color:white;
-  border-radius:100px;
+  //color:white;
   border:0;
   padding: 3px 11px;
   &:hover {
@@ -36,7 +114,8 @@
   width:60px;
   height:60px;
   border-radius:100px;
-  background:white;
+  background:black;
+  @include transition(all .2s);
   border:0;
   padding: 0;
   position:relative;
@@ -59,7 +138,8 @@
     text-indent: 0;
   }
   &:hover {
-    color:$link-hover-color;
+    color:white;
+    background:darken($darker-base, 10%);
   }
 }
 
@@ -81,48 +161,6 @@
     content: "\f00d";
   }
 }
-
-// Grid
-
-$gutter-width:10px;
-
-@mixin grid ($gutter: $gutter-width) {
-  margin-left: -$gutter;
-  @include clearfix;
-}
-
-@mixin grid-item ($width-columns, $total-columns, $gutter: $gutter-width) {
-  float: left;
-  margin-left: $gutter;
-  $percentage-width: $width-columns/$total-columns*100%;
-  width: calc(#{$percentage-width} - #{$gutter});
-}
-
-@mixin grid-item-offset ($offset-columns, $total-columns, $gutter: $gutter-width) {
-  $percentage-width: $offset-columns/$total-columns*100%;
-  margin-left: calc(#{$percentage-width} + #{$gutter});
-}
-
-@mixin unlist {
-  padding:0;
-  margin:0;
-  list-style:none;
-}
-
-
-// Fonts
-
-@mixin font-sd-outline {
-  font-family: 'Sunshine Daisies Outline';
-  font-weight: normal;
-  line-height:1;
-}
-
-@mixin font-sd-fill {
-  font-family: 'Sunshine Daisies Fill';
-  font-weight: normal;
-}
-
 
 @mixin link-arrow {
   &:before {
@@ -261,6 +299,33 @@ $gutter-width:10px;
   left: 0;
   width: 100%;
   transform: translate(0, -50%);
+}
+
+// Grid
+
+$gutter-width:10px;
+
+@mixin grid ($gutter: $gutter-width) {
+  margin-left: -$gutter;
+  @include clearfix;
+}
+
+@mixin grid-item ($width-columns, $total-columns, $gutter: $gutter-width) {
+  float: left;
+  margin-left: $gutter;
+  $percentage-width: $width-columns/$total-columns*100%;
+  width: calc(#{$percentage-width} - #{$gutter});
+}
+
+@mixin grid-item-offset ($offset-columns, $total-columns, $gutter: $gutter-width) {
+  $percentage-width: $offset-columns/$total-columns*100%;
+  margin-left: calc(#{$percentage-width} + #{$gutter});
+}
+
+@mixin unlist {
+  padding:0;
+  margin:0;
+  list-style:none;
 }
 
 

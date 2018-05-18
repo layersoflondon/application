@@ -1,12 +1,33 @@
 class ApplicationController < ActionController::Base
   include Pundit
-  # protect_from_forgery with: :null_session
-  # must be used only in specific cases, for example to allow API request (POST/PUT/PATCH/DELETE) without html form
-  # With protect_from_forgery with: :null_session you must restrict access to your data
-  # with an authorization system because every one could do request against your API endpoint
-  # see: https://stackoverflow.com/questions/34251400/invalid-authenticity-token-on-post
-  protect_from_forgery with: :null_session
+  if Rails.env.test?
+    protect_from_forgery with: :null_session
+  end
   after_action :verify_authorized, unless: :devise_controller?
   before_action :authenticate_user!
+
+  before_action :set_state_variables, if: -> {controller_name == 'maps' && action_name == 'show'}
+
+  private
+  def set_state_variables
+    @records = Record.published.limit(2).decorate
+    @collections = Collection.collections_for_user(current_user).limit(2).decorate
+
+    return unless params[:resource].present?
+
+    Rails.logger.info("params parsing request params #{params}")
+    @editing = params[:action_name].present? && params[:action_name] == 'edit'
+
+    begin
+      klass = (params[:resource].singularize.classify).constantize
+      model = klass.find_by!(id: params[:id])
+
+      Rails.logger.info("params class: (#{params.inspect})   ----   #{klass}")
+    rescue => e
+      Rails.logger.info("params error: #{e}")
+    end
+
+    self.instance_variable_set(:"@#{params[:resource].singularize}", model.try(:decorate))
+  end
 end
 

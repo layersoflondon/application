@@ -19,7 +19,7 @@
 @import "modules/m-overlay";
 @import "modules/m-map-popover";
 @import "modules/m-record";
-@import "modules/m-social-status";
+//@import "modules/m-social-status";
 @import "modules/m-tray-title-area";
 @import "modules/m-search-overlay";
 @import "modules/m-date-range-overlay";
@@ -41,9 +41,11 @@
 @import "modules/m-add-media-and-documents";
 @import "modules/m-add-links";
 @import "modules/m-assign-to-team";
-@import "modules/m-share-record";
 @import "modules/m-quickstart-search";
 @import "modules/m-refine";
+@import "modules/m-logo";
+
+@import "modules/marketing/m-site-wrapper";
 
 /*
 @import "modules/m-site-header";
@@ -55,3 +57,10 @@
 @import "modules/m-actions";
 @import "modules/m-search-popover";
 @import "modules/m-fixed-logo";*/
+
+.is-showing {
+  &.m-place-picker {
+    display: block !important;
+    z-index: 9999;
+  }
+}

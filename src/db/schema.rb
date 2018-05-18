@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_26_135148) do
+ActiveRecord::Schema.define(version: 2018_05_11_133838) do
 
-  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "attachable_id"
     t.string "attachable_type"
     t.datetime "created_at", null: false
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.index ["record_id"], name: "index_attachments_on_record_id"
   end
 
-  create_table "attachments_datasets", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "attachments_datasets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_documents", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "attachments_documents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_geodata", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "attachments_geodata", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -66,15 +66,17 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_images", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "attachments_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
+    t.boolean "primary", default: false, null: false
+    t.boolean "boolean", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_urls", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "attachments_urls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -83,7 +85,7 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_videos", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "attachments_videos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -92,7 +94,7 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "collection_records", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "collection_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "collection_id"
     t.bigint "record_id"
     t.datetime "created_at", null: false
@@ -101,53 +103,95 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.index ["record_id"], name: "index_collection_records_on_record_id"
   end
 
-  create_table "collections", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "collections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.string "owner_type"
-    t.bigint "owner_id"
+    t.string "owner_type", null: false
+    t.integer "owner_id", null: false
     t.integer "attachment_id"
     t.integer "read_state"
     t.integer "write_state"
+    t.integer "write_state_team_id"
     t.integer "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id"], name: "index_collections_on_owner_type_and_owner_id"
   end
 
-  create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "title"
+  create_table "layers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "title", null: false
     t.text "description"
-    t.integer "like_count", default: 0
-    t.integer "view_count", default: 0
-    t.integer "state"
-    t.boolean "deleted"
     t.float "lat"
     t.float "lng"
-    t.date "date"
+    t.date "date_from"
+    t.date "date_to"
+    t.integer "layer_type"
+    t.text "layer_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "record_taxonomy_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.bigint "record_id"
+    t.bigint "taxonomy_term_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_id"], name: "index_record_taxonomy_terms_on_record_id"
+    t.index ["taxonomy_term_id"], name: "index_record_taxonomy_terms_on_taxonomy_term_id"
+  end
+
+  create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "like_count", default: 0, null: false
+    t.integer "view_count", default: 0, null: false
+    t.integer "state", default: 0, null: false
+    t.float "lat"
+    t.float "lng"
+    t.date "date_from"
+    t.date "date_to"
+    t.text "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
   end
 
-  create_table "team_users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.bigint "team_id"
-    t.bigint "user_id"
-    t.integer "role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["team_id"], name: "index_team_users_on_team_id"
-    t.index ["user_id"], name: "index_team_users_on_user_id"
-  end
-
-  create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "taxonomies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "taxonomy_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "name"
+    t.bigint "taxonomy_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["taxonomy_id"], name: "index_taxonomy_terms_on_taxonomy_id"
+  end
+
+  create_table "team_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.bigint "team_id"
+    t.bigint "user_id"
+    t.integer "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "state"
+    t.string "key"
+    t.index ["key"], name: "index_team_users_on_key"
+    t.index ["team_id"], name: "index_team_users_on_team_id"
+    t.index ["user_id"], name: "index_team_users_on_user_id"
+  end
+
+  create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -160,6 +204,8 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
+    t.boolean "contact_me"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -167,6 +213,9 @@ ActiveRecord::Schema.define(version: 2018_03_26_135148) do
   add_foreign_key "attachments", "records"
   add_foreign_key "collection_records", "collections"
   add_foreign_key "collection_records", "records"
+  add_foreign_key "record_taxonomy_terms", "records"
+  add_foreign_key "record_taxonomy_terms", "taxonomy_terms"
+  add_foreign_key "taxonomy_terms", "taxonomies"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
 end

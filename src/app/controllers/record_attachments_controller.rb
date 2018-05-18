@@ -1,24 +1,17 @@
 class RecordAttachmentsController < ApplicationController
   before_action :set_record, only: %i[index create show update destroy]
   before_action :set_record_attachment, only: %i[show update destroy]
-  # TODO: remove new action here when finish testing uploads
-  skip_before_action :authenticate_user!, only: %i[index show new]
-  skip_after_action :verify_authorized, only: %i[index show new]
+  skip_before_action :authenticate_user!, only: %i[index show]
+  skip_after_action :verify_authorized, only: %i[index show]
 
   def index
     @attachments = @record.attachments
   end
 
-  # TODO: remove this when we finish testing uploads
-  def new
-    @attachment = Attachments::Dataset.new
-  end
-
   def create
     authorize(@record)
     @attachment = @record.attachments.build(attachment_params)
-    @attachment.file.attach(params[:file]) if params[:file]
-    return @attachments = @record.attachments if @attachment.save
+    return @attachment if @attachment.save
     render json: @attachment.errors.full_messages, status: :unprocessable_entity
   end
 
@@ -26,12 +19,11 @@ class RecordAttachmentsController < ApplicationController
 
   def update
     authorize(@record)
-    update_attachment = @record.attachments.build(attachment_params)
-    update_attachment.file.attach(params[:file]) if params[:file]
-    # TODO: this doesn't update as expected, it just create another attachment
-    @attachment = update_attachment
-    return @attachment if @attachment.save
-    render json: @attachment.errors.full_messages, status: :unprocessable_entity
+
+    @attachment = @record.attachments.find(params[:id])
+    unless @attachment.attachable.update_attributes(attachment_params[:attachable_attributes])
+      render json: @attachment.errors.full_messages, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -62,10 +54,12 @@ class RecordAttachmentsController < ApplicationController
                   :record_attachment,
                   attachable_attributes: %i[
                     title
-                    caption,
-                    description,
+                    caption
                     credit
                     url
+                    youtube_id
+                    primary
+                    file
                   ])
   end
 end

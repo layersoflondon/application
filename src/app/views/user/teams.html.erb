@@ -1,0 +1,44 @@
+<div class="s-overlay--your-account--teams is-showing">
+  <div class="m-account-page">
+    <div class="section">
+      <h2>Your teams</h2>
+      <ul>
+        <% @leader_teams.each do |team| %>
+          <li>
+            <a href="/teams/<%= team.id %>.html" class="teamlink-member"><%= team.name %></a>
+            <span class="ownership-indicator">Owner</span>
+          </li>
+        <% end %>
+        <% @contributor_teams.each do |team| %>
+          <li>
+            <a href="/teams/<%= team.id %>.html" class="teamlink-member"><%= team.name %></a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Join a team</h2>
+      <%= render 'form_join_team' %>
+
+    </div>
+
+    <% if @access_requested.count >= 1 %>
+      <div class="section">
+        <h2>Access requested</h2>
+        <ul>
+          <% @access_requested.each do |team| %>
+            <li>
+              <a href="#" class="teamlink-member"><%= team.name %></a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="section">
+      <h2>Create a new team</h2>
+      <%= render 'form_create_team', team: @team %>
+    </div>
+  </div>
+</div>

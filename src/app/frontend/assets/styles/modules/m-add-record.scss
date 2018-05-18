@@ -1,14 +1,13 @@
 // Add record
 
-.m-add-record .wrap {
-  background: white;
-  color: #333;
-  padding: 40px;
+.m-add-record {
+  border-radius:$element-border-radius-small;
+  @include overlay-wrap-white;
   max-width: 900px;
   margin-top: 50px;
 }
 
-.m-add-record .wrap h1 {
+.m-add-record h1 {
   margin-top: 0;
 }
 
@@ -30,13 +29,11 @@
 
 .m-add-record button.delete {
   display: none;
-
 }
 
 .m-add-record.is-edit-mode button.delete {
   display: inline-block;
 }
-
 
 .m-add-record .form-group--date .helper-text {
   font-size:14px;

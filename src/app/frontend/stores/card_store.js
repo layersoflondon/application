@@ -1,67 +1,88 @@
 import {observable} from 'mobx';
+import TrayCardData from './tray_card_data';
 
-import MapViewStore from './map_view_store';
-import CardModel from '../models/card_model';
-import faker from 'faker';
-
+/**
+ * Drives the data that we display in the tray, and the markers in the map.
+ *
+ * Set TrayViewStore's cardStore attribute to an instance of a CardStore, and the array of [cards] will
+ * be displayed in the tray.
+ *
+ * We use this when rendering the cards, and if one of those cards is a collection, create a CardStore of the collection's
+ * records and set the TrayViewStore's cardStore to the new object.
+ *
+ */
 export default class CardStore {
   @observable cards = [];
+  title;
+  description;
 
-  /**
-   * TODO: remove this - just for dev to debug rendering and state
-   * @param count
-   */
-  addCards(count) {
-    const create_card = (i) => {
-      let position = [(51 + Math.random() * 1), (Math.floor(Math.random()*100)/100) - 0.5];
-      let record = {id: i, name: faker.commerce.productName(), description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), position: position};
+  // set to true if rendering a sub-collection
+  rootCardStore = false;
 
-      return {id: i, name: faker.commerce.productName(), description: faker.lorem.paragraphs(2), image: faker.image.dataUri(), period: `${faker.hacker.noun()} to ${faker.hacker.ingverb()}`, records: [record]};
-    };
-
-    const cards = Array(count).fill().map( (_, i) => create_card(faker.random.number() ) );
-
-    cards.map( (c) => {this.cards.push( new CardModel( this, c ) ) });
+  constructor(cards = [], title = '', description = '', rootCardStore = false) {
+    this.cards = cards;
+    this.title = title;
+    this.description = description;
+    this.rootCardStore = rootCardStore
   }
 
-  /**
-   * TODO: remove this - just for dev to debug rendering and state
-   */
-  removeCard() {
-    const cards = this.cards;
-    this.cards = cards.slice(1);
+  addRecords(record_store) {
+    record_store.records.map((r) => {
+      this.cards.push(TrayCardData.fromJS(r));
+    });
+  }
+
+  addCollections(collection_store) {
+    collection_store._collections.map((c) => {
+      this.cards.push(TrayCardData.fromJS(c));
+    });
+  }
+
+  insertOrUpdateRecord(record) {
+    const cards = this.cards.slice();
+
+    const card = cards.find((c) => {
+      return c.id === record.id;
+    });
+
+    if( card ) {
+      const index = cards.indexOf(card);
+      const tray_card = TrayCardData.fromJS(record.toJS());
+      cards[index] = tray_card;
+    }else {
+      cards.unshift(TrayCardData.fromJS(record.toJS()));
+    }
+
+    this.cards = cards;
   }
 
   /**
    * return an instance of the store populated with the array of Card objects
-   * @param array
+   * @param object
+   * @param is_root_card_store
    */
-  static fromJS(array) {
+  static fromJS(object) {
     const store = new CardStore();
-    store.cards = array.map( (c) => CardModel.fromJS(store, c) );
+
+    Object.assign(store, object);
+
+    if( !object.hasOwnProperty('cards') ){
+      store.cards = [];
+    }else {
+      store.cards = object.cards.map( (c) => TrayCardData.fromJS(c) );
+    }
 
     return store;
   }
 
   /**
-   * Given a Card instance, we need to return a store of Cards, built up using the initial card's
-   * records
+   * Given a Card instance that is is the parent of a collection of records, we need to return a store of its records
    *
    * @param card - Collection with .records
    */
-  static fromCollectionCard(card) {
-    const store = CardStore.fromJS(card.records);
-    // store.cards = card.records.map( (c) => {
-    //   let card = {
-    //     id: c.id,
-    //     name: c.name,
-    //     description: c.description,
-    //     period: c.period,
-    //     image: c.image,
-    //     records: [c]
-    //   };
-    //   return CardModel.fromJS(store, card)
-    // } );
+  static fromCollectionCard(object) {
+    const store = new CardStore(object.records, object.title, object.description, false);
+    Object.assign(store, object);
 
     return store;
   }

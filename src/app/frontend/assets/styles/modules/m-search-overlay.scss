@@ -1,5 +1,9 @@
 // Search overlay
 
+.m-search-overlay {
+  @include overlay-wrap-transparent;
+}
+
 .m-search-overlay h1 {
   float: left;
 }
@@ -19,6 +23,7 @@
   width: 170px;
   float: right;
   margin-bottom: 80px;
+  @include big-square-button;
 }
 
 .m-search-overlay .form-group--primary-field {
@@ -40,7 +45,7 @@
 
 .m-search-overlay .form-group--checklist label {
   display: block;
-  margin: 0 0 6px 0;
+  margin: 0 0 10px 0;
 }
 
 .m-search-overlay .form-group--checklist input[type="checkbox"] {

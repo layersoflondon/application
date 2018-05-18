@@ -4,10 +4,26 @@ json.description record.description
 json.like_count record.like_count
 json.view_count record.view_count
 json.state record.state
-json.deleted record.deleted
 json.lat record.lat
 json.lng record.lng
-json.date record.date
+json.date_from record.date_from
+json.date_to record.date_to
+json.created_at record.created_at
+json.location record.location
+# TODO: change to use json builder user partial
+json.user do
+    json.id record.user.id
+    json.name record.user.email
+end
+
 json.collections do
   json.array! record.collections, partial: 'records/record_collections', as: :collection
+end
+
+json.attachments do
+  json.array! record.attachments, partial: 'record_attachments/attachment', as: :attachment
+end
+
+json.taxonomy_terms do
+  json.array! record.taxonomy_terms, partial: 'taxonomy_terms/taxonomy_term', as: :taxonomy_term
 end

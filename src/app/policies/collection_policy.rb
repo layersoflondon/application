@@ -1,15 +1,10 @@
 class CollectionPolicy < ApplicationPolicy
-
   def show?
-    if record.public_read?
-      true
-    else
-      record.present? # TODO: check owner
-    end
+    record.public_read? || (user.present? && user.can_view(record))
   end
 
   def create?
-    record.present? # TODO: check owner
+    record.owner_type == 'User' || user_belongs_team?
   end
 
   def update?
@@ -17,7 +12,21 @@ class CollectionPolicy < ApplicationPolicy
   end
 
   def destroy?
-    create?
+    is_user_owner_of_collection? || is_user_team_leader_of_collection?
+  end
+
+  private
+
+  def is_user_owner_of_collection?
+    record.owner_type == 'User' && record.owner_id == user.id
+  end
+
+  def is_user_team_leader_of_collection?
+    record.owner_type == 'Team' && user.team_users.where(team_id: record.owner_id, role: 'leader').count.positive?
+  end
+
+  def user_belongs_team?
+    record.owner_type == 'Team' && user.team_users.where(team_id: record.owner_id).count.positive?
   end
 
   class Scope < Scope
