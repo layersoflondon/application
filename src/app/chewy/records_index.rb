@@ -15,12 +15,11 @@ class RecordsIndex < Chewy::Index
     field :like_count, type: 'integer'
     field :view_count, type: 'integer'
     field :state, type: 'keyword'
-    field :lat, type: 'long'
-    field :lng, type: 'long'
+    field :pin, type: 'geo_point', value: ->{ {lat: lat, lon: lng} }
     field :date_from, type: 'date'
     field :date_to, type: 'date'
     field :created_at, type: 'date'
-    # field :location
+    field :location, type: 'object'
     field :user, type: 'object' do
       field :id, type: 'integer'
       field :email, type: 'keyword'
