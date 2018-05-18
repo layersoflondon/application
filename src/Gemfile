@@ -49,6 +49,8 @@ group :development do
   # gem 'ruby-debug-ide'
   gem 'web-console', '>= 3.3.0'
   # gem 'errorstudio_capistrano_recipes', git: 'ssh://git@bitbucket.org/errorstudio/errorstudio_capistrano_recipes'
+  # gem 'slickplan', path: '~/dev/slickplan'
+  # gem 'terminal-table'
 end
 
 group :test do
@@ -72,8 +74,11 @@ gem 'devise_invitable'
 # Minimal authorization through OO design and pure Ruby classes
 gem 'pundit'
 
-gem 'rooftop-rails'
-gem 'rooftop-rails-extras'
+gem 'rooftop', git: "https://github.com/rooftopcms/rooftop-ruby"
+# gem 'rooftop', path: "~/dev/rooftop-ruby"
+gem 'rooftop-rails', git: "https://github.com/rooftopcms/rooftop-rails"
+# gem 'rooftop-rails', path: "~/dev/rooftop-rails"
+gem 'rooftop-rails-extras', git: "https://github.com/rooftopcms/rooftop-rails-extras"
 
 # Decorators/View-Models for Rails Applications
 gem 'draper'

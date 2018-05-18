@@ -1,0 +1,8 @@
+<% content_for :template do %>
+    <p>This template is in <%= __FILE__ %></p>
+
+    <%= yield %>
+
+<% end %>
+
+<%= render template: "layouts/application" %>
