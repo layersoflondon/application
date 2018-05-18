@@ -32,15 +32,18 @@ Elastic search is composed independently, to spin up the elastic search containe
 ```bash
 $ docker-compose -f docker-compose.elk.yml up -d
 ```
-Known issues:
 
- * Max virtual memory areas vm.max_map_count is too low, change it for amount suggested: `sudo sysctl -w vm.max_map_count=SUGGESTED_AMOUNT`
- 
+Elasticsearch-ruby client `Chewy` to delete all documents of a type and reimports them
+```bash
+$ docker-compose exec ruby rails chewy:reset
+```
+
 ### Setup pre-commit
 
 ```bash
 ./src/scripts/setup-pre-commit.sh
 ```
+
 This script add pre-commit file to the git directory
 
 ### Tests
@@ -65,6 +68,12 @@ docker-compose exec ruby yarn run test
 
 File > Settings > Languages & Frameworks > Ruby SDK and Gems > + > Select interpreter Path > New remote > Configure Remote Ruby interpreter > Dockerfile
 
+Known issues & FAQ:
+
+ * Max virtual memory areas vm.max_map_count is too low, change it for amount suggested: `sudo sysctl -w vm.max_map_count=SUGGESTED_AMOUNT`
+
 # Licence
 
 The project is licenced GPL3
+
+
