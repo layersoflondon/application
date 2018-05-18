@@ -4,8 +4,8 @@ json.description record.description
 json.like_count record.like_count
 json.view_count record.view_count
 json.state record.state
-json.lat record.lat
-json.lng record.lng
+json.pin record.pin
+json.location record.location
 json.date_from record.date_from
 json.date_to record.date_to
 json.created_at record.created_at

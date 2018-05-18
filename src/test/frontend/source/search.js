@@ -4,14 +4,24 @@ var assert = require('assert');
 import Search from "../../../app/frontend/sources/search";
 
 var searchParams = {
-    "q" : "Kai",
+    "q" : "Exclusive",
     "attachment_type" : [
         "Attachments::Url"
     ],
     "type":[],
     "theme": [
-        "events"
-    ]
+        "political_and_government"
+    ],
+    "geobounding": {
+        "top_left": {
+            "lat": 60.00,
+            "lng": -30.00
+        },
+        "bottom_right" : {
+            "lat" : 30.00,
+            "lng" : 40.00
+        }
+    }
 }
 
 describe('Search', function() {
