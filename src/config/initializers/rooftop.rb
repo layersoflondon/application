@@ -1,7 +1,7 @@
 if defined?(Rooftop)
   Rooftop::Rails.configure do |config|
-    config.api_token = '3af7e8a8f9bf5c6c4261c23fe8155733'
-    config.site_name = 'layersoflondon'
+    config.api_token = Rails.application.secrets.rooftop_api_key
+    config.site_name = 'layers'
     config.perform_http_response_caching = false
     config.perform_object_caching = Rails.configuration.action_controller.perform_caching
     config.resource_route_map = {
@@ -11,6 +11,13 @@ if defined?(Rooftop)
     config.post_type_mapping = {
       menu: Rooftop::Menus::Menu
     }
-    
+
+    # if Rails.env.development?
+    #   config.ssl_options = {
+    #     verify: false
+    #   }
+    #   config.proxy = "https://localhost:9998"
+    # end
+
   end
 end

@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>LayersApp</title>
-        <%= csrf_meta_tags %>
+<head>
+    <title>Layers of London<%= content_for?(:title) ? "- #{yield(:title)}" : "" %></title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+</head>
+<body>
 
-        <%= stylesheet_link_tag 'application' %>
+<%= content_for?(:template) ? yield(:template) : yield %>
 
-        <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-
-        <%= stylesheet_pack_tag 'styles', media: 'all' %>
-        <%= javascript_pack_tag 'application' %>
-    </head>
-
-    <body>
-        <%= yield %>
-    </body>
+</body>
 </html>
