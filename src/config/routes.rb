@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  root to: "maps#show"
+
+  root to: "pages#index"
   post 'search', to: 'search#index', defaults: {format: :json}
   get '/user/teams', to: 'user#teams'
   get '/user/record_collections'
@@ -50,4 +51,8 @@ Rails.application.routes.draw do
 
   resources :taxonomies, only: [:index], defaults: {format: :json}
 
+
+  # IMPORTANT: this is a greedy catchall route - it needs to be the last route in the file.
+  #         # IMPORTANT: this is a greedy catchall route - it needs to be the last route in the file.
+  match "/*nested_path(.:extension)", via: [:get], to: "pages#show", as: :page, constraints: ->(request) { request.format == :html || request.format == '*/*' }
 end
