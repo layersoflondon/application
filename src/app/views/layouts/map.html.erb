@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>LayersApp</title>
+    <title>Layers of London<%= content_for?(:title) ? "- #{yield(:title)}" : "" %></title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag 'application' %>
