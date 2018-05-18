@@ -7,7 +7,9 @@ import Dates from './dates';
 import Media from './media';
 import Links from './links';
 import Collection from './collection';
-import Team from './team';
+import Team from './team'
+
+import RecordModel from './../../../models/record';
 
 @observer export default class RecordForm extends Component {
   constructor(props) {
@@ -26,9 +28,18 @@ import Team from './team';
       this.props.trayViewStore.tray_is_visible = true;
       this.props.trayViewStore.cardStore.insertOrUpdateRecord(this.props.recordFormStore.record);
       this.props.mapViewStore.overlay = null;
+
+      this.props.recordFormStore.record.resetState();
     }).catch((response) => {
       console.log("Error Response: ", response);
     })
+  }
+
+  handleClickedOnClose(event) {
+    event.preventDefault();
+
+    this.props.mapViewStore.overlay = null;
+    this.props.recordFormStore.record.resetState();
   }
 
   render() {
@@ -39,7 +50,7 @@ import Team from './team';
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
           <div className="close">
-            <button className="close" onClick={()=>this.props.mapViewStore.overlay=null}>Close</button>
+            <button className="close" onClick={this.handleClickedOnClose.bind(this)}>Close</button>
           </div>
           <div className="m-add-record">
             <h1>Add record</h1>

@@ -135,14 +135,36 @@ export default class RecordModel {
     record.date_from = attributes.date_from;
     record.date_to = attributes.date_to;
     record.user  = attributes.user;
-
-    record.attachments = attributes.attachments.map((attachment) => {
-      return MediaItemStore.fromJS(attachment, attributes.id);
-    });
-
-    record.collections  = attributes.collections.map((c) => CollectionModel.fromRecord(c));
     record.created_at = attributes.created_at;
 
+    if( attributes.hasOwnProperty('attachments') ) {
+      record.attachments = attributes.attachments.map((attachment) => {
+        return MediaItemStore.fromJS(attachment, attributes.id);
+      });
+    }
+
+    if( attributes.hasOwnProperty('collections') ) {
+      record.collections  = attributes.collections.map((c) => CollectionModel.fromRecord(c));
+    }
+
+
     return record;
+  }
+
+  resetState() {
+    this.id = '';
+    this.title = '';
+    this.description = '';
+    this.like_count = '';
+    this.view_count = '';
+    this.state = '';
+    this.lat = '';
+    this.lng = '';
+    this.date_from = null;
+    this.date_to = null;
+    this.user  = '';
+    this.created_at = '';
+    this.attachments = [];
+    this.collections = [];
   }
 }
