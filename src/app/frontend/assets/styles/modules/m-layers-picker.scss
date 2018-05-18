@@ -5,9 +5,14 @@
   max-width: 1000px;
 }
 
+.m-layers-picker h1 {
+  @include overlay-title;
+}
+
 .m-layers-picker .search {
   float: right;
   margin-bottom: 30px;
+  display:none;
 }
 
 .m-layers-picker .layers {
@@ -20,43 +25,46 @@
   margin-right: -4px;
   width: 33.333333%;
   margin-bottom: 30px;
-  padding-right: 60px;
+  padding-right: 30px;
+  vertical-align: top;
 }
 
 .m-layers-picker .layer .image {
-  width: 100%;
-  padding-bottom: 40%;
+  width: auto;
+  padding-bottom: 60%;
   background: #555;
   background-size: cover;
   background-position: center;
+  margin:-20px -20px 0 -20px;
 }
 
 .m-layers-picker .layer:nth-child(1) .image {
-  background-image: asset-url('map-1.jpg');
+  background-image: url('/assets/images/map-1.jpg');
 }
 
 .m-layers-picker .layer:nth-child(2) .image {
-  background-image: asset-url('map-2.jpg');
+  background-image: url('/assets/images/map-2.jpg');
 }
 
 .m-layers-picker .layer:nth-child(3) .image {
-  background-image: asset-url('map-3.jpg');
+  background-image: url('/assets/images/map-3.jpg');
 }
 
 .m-layers-picker .layer:nth-child(4) .image {
-  background-image: asset-url('map-4.jpg');
+  background-image: url('/assets/images/map-4.jpg');
 }
 
 .m-layers-picker .layer:nth-child(5) .image {
-  background-image: asset-url('map-5.jpg');
+  background-image: url('/assets/images/map-5.jpg');
 }
 
 .m-layers-picker .layer:nth-child(6) .image {
-  background-image: asset-url('map-6.jpg');
+  background-image: url('/assets/images/map-6.jpg');
 }
 
 .m-layers-picker .layer h2 {
   margin-bottom: 0;
+  @include font-display;
 }
 
 .m-layers-picker .wrap > button {
@@ -64,17 +72,18 @@
 }
 
 .m-layers-picker .layer a {
-  color: white;
+  color: $black;
   display: block;
+  padding:20px;
+  background:white;
 }
 
 .m-layers-picker .layer a:hover {
-  color: white;
+  //color: white;
 }
 
 .m-layers-picker .layer button {
   background: $link-color;
-  color: white;
   border: 0;
   border-radius: 100px;
 }
@@ -103,5 +112,8 @@
 
 .m-layers-picker .layer button.is-selected {
   background: #eee;
-  color: $link-color;
+}
+
+.m-layers-picker .layer p {
+  font-size:12px;
 }

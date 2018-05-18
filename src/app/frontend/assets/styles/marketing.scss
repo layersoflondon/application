@@ -2,7 +2,7 @@
 @import "normalize";
 @import "colors";
 @import "mixins";
-@import "base";
+@import "base--marketing";
 
 @import "library/font-awesome";
 
@@ -27,18 +27,16 @@
 @import "modules/marketing/m-section-landing-subpages";
 @import "modules/marketing/m-event-meta";
 @import "modules/marketing/m-faqs";
+@import "modules/marketing/m-big-search";
+@import "modules/marketing/m-home-logo";
 
-body {
-  background:#ddd;
-}
-
-a {
+/*a {
   color:$blue;
 }
 
 a:hover {
   color:darken($blue, 20%);
-}
+}*/
 
 input[type="submit"] {
   background:$blue;
@@ -50,4 +48,10 @@ a.button {
   border-radius:100px;
   color:white;
   display:inline-block;
+}
+
+.m-concept-index {
+  padding:100px;
+  max-width:1000px;
+  margin:0 auto;
 }

@@ -2,13 +2,17 @@
 
 .m-content {
   width: 70%;
-  margin:0 auto;
+  margin:0 auto 0;
   padding: 40px;
+
 }
 
 .m-sidebar + .m-content {
-  margin:0;
+  margin:-100px 0 0 0;
   float: left;
+  position: relative;
+  z-index:2;
+  background:$black;
 }
 
 .m-content .title {

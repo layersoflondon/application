@@ -1,6 +1,37 @@
 /* Site header */
 
 .m-site-header {
-  padding: 40px;
-  overflow: hidden;
+  padding: 40px 80px;
+  padding-top:52px;
+  text-align:center;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+}
+
+.t-homepage .m-site-header {
+  text-align:left;
+}
+
+.m-site-header:after {
+  height: 120%;
+  width: 100%;
+  content: "";
+  opacity: 0.8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  background: -moz-linear-gradient(top, transparent 0%, #000 100%);
+  background: -webkit-gradient(linear, right top, right bottom, color-stop(0%, transparent), color-stop(100%, #000));
+  background: -webkit-linear-gradient(top, transparent 0%, #000 100%);
+  background: -o-linear-gradient(top, transparent 0%, #000 100%);
+  background: -ms-linear-gradient(top, transparent 0%, #000 100%);
+  background: linear-gradient(to top, transparent 0%, #000 100%);
+
+
+
+  @include transition(all .4s);
 }

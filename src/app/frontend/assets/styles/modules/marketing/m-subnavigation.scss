@@ -1,7 +1,7 @@
 /* Subnavigation */
 
 .m-subnavigation {
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .m-subnavigation ul {
@@ -9,9 +9,23 @@
 }
 
 .m-subnavigation a {
-  padding: 10px 20px;
-  border-radius: 200px;
+  padding: 20px 26px;
   display: block;
-  background: #cde8ff;
-  margin-bottom: 20px;
+  background: #549a776e;
+  color: white;
+  margin-bottom: 3px;
+  transition:all .2s;
+}
+
+.m-subnavigation a:hover {
+  background: $red;
+}
+
+.m-subnavigation a:before {
+  content: "\f0da";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 1em;
+  margin-right:10px;
+  z-index: 1;
 }

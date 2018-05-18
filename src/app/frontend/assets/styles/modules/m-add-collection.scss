@@ -1,20 +1,30 @@
 // Add collection
 
 .m-add-collection {
-/*  background: white;
-  color: #333;
-  padding: 40px;
-  max-width: 900px;
-  margin-top: 50px;*/
   @include overlay-wrap-white;
+  margin-top: 170px;
+  padding: 40px 50px;
+  position:relative;
 }
 
 .m-add-collection h1 {
-  margin-top: 0;
+  @include font-display;
+  @include polygon-background(yellow, top, true);
+  padding: 20px 30px;
+  font-size: 36px;
+  padding: 20px;
+  color: $black;
+  margin-left: -20px;
+  margin-top: -120px;
+  float: left;
+}
+
+.m-add-collection form {
+  clear: both;
 }
 
 .m-add-collection .form-group--checkboxes-rows {
-  width:50%;
-  float:left;
-  padding-right:30px;
+  width: 50%;
+  float: left;
+  padding-right: 30px;
 }

@@ -9,18 +9,19 @@
   background: #f4f7f6;
   z-index: 10;
   @include top-and-tail;
+  transition:all .2s;
+}
+
+.tray-is-closed .m-tray-area {
+  transform:translate3d(calc(-100% + 20px), 0, 0);
 }
 
 .m-tray-area .window {
   padding: 20px;
-  padding-left:0;
   overflow: scroll;
   height: 100%;
   box-shadow: 0 0 80px rgba(0, 0, 0, 0.1);
-  background:#333;
-  background:#280028;
-  background:#000c2a;
-  background:#000;
+  background:$black;
   color:white;
 }
 
@@ -36,8 +37,7 @@
   width: 40px;
   cursor: pointer;
   @include transition(color, .2s);
-  background:#280028;
-  background:#000c2a;
+  background:$black;
 }
 
 .m-tray-area .open-close:hover {
@@ -48,7 +48,7 @@
   content: "\f0d9";
   font: normal normal normal 24px/1 FontAwesome;
   margin-top: 27px;
-  margin-left: 14px;
+  margin-left: 11px;
   display: block;
   color:white;
 }
@@ -61,6 +61,3 @@
   display: none;
 }
 
-.tray-is-closed .m-tray-area {
-  transform: translate3d(-100%, 0, 0);
-}

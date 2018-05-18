@@ -1,36 +1,34 @@
-
 /* Article */
 
 .m-article {
-  max-width:800px;
+  max-width: 740px;
   margin-bottom: 60px;
 }
 
 .m-article {
   .image {
-    background:#ccc;
-    width:100%;
-    padding-bottom:50%;
+    background: #ccc;
+    width: 100%;
+    padding-bottom: 50%;
   }
 
   .image--left {
-    width:50%;
-    padding-bottom:25%;
-    float:left;
-    margin-right:20px;
+    width: 50%;
+    padding-bottom: 25%;
+    float: left;
+    margin-right: 20px;
   }
 
   .image--right {
-    width:50%;
-    padding-bottom:25%;
-    float:right;
-    margin-left:20px;
+    width: 50%;
+    padding-bottom: 25%;
+    float: right;
+    margin-left: 20px;
   }
 
 }
 
 .m-article {
-
   font-size: 18.1px;
   line-height: 1.5;
 
@@ -38,15 +36,15 @@
     font-size: 16.1px;
   }
   @include mq(smartphone) {
-    font-size: 14.1px; 
+    font-size: 14.1px;
   }
 
   * {
-    margin:0;
+    margin: 0;
   }
 
   * + * {
-    margin:1.2em 0 0 0;
+    margin: 1.2em 0 0 0;
   }
 
   ul,
@@ -64,7 +62,7 @@
   h4,
   h5,
   h6 {
-    font-weight:500;
+    font-weight: 500;
   }
 
   h1 {
@@ -73,6 +71,8 @@
 
   h2 {
     font-size: 2em;
+    @include font-display;
+    color: $orange;
   }
 
   h3 {
@@ -111,7 +111,7 @@
   }
 
   li {
-    margin-top:0.5em;
+    margin-top: 0.5em;
   }
 
   ol ol,
@@ -132,27 +132,41 @@
 
   a,
   a:visited {
-
   }
   a:hover {
-
   }
 
   blockquote {
-    padding: 5px 25px 5px 0;
+    margin:0;
+    padding: 0;
+    background:$green;
+    color: $yellow;
+    font-size: 1.4em;
+    padding: 30px;
+    margin: 1em 0;
+    @include top-and-tail;
+    position: relative;
   }
 
+  blockquote:after {
+    content:"";
+    position:absolute;
+    top:100%;
+    left:80%;
+    display: block;
+    border-top: 38px solid $green;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+  }
   blockquote p {
-    padding-left: 25px;
-    border-left: 2px solid #ddd;
-    color:orange;
-    font-size: 1.4em;
+    //padding-left: 25px;
+    //border-left: 2px solid #ddd;
+
   }
 
   // Tables 
 
   table {
-
   }
 
   table th {
@@ -164,5 +178,17 @@
     padding: 5px 7px;
   }
 
+}
 
+
+.m-article .image {
+  background: url(/example/10.jpg) center/cover no-repeat;
+}
+
+.m-article .image--right {
+  background: url(/example/8.jpg) center/cover no-repeat;
+}
+
+.m-article .image--left {
+  background: url(/example/7.jpg) center/cover no-repeat;
 }

@@ -1,6 +1,7 @@
 // Layer tools
 
 .m-layer-tools {
+  overflow: hidden;
 }
 
 .m-layer-tools {
@@ -10,52 +11,65 @@
   left: 20px;
   z-index: 50;
   width: 50%;
-  max-width:320px;
+  max-width: 320px;
 }
 
-.m-layer-tools.is-closed > button {
+.m-layer-tools.is-closed .panel .open {
   display: block;
 }
 
-.m-layer-tools > button {
-  display: none;
+.m-layer-tools .panel .open {
+  //display: none;
+  outline:none;
 }
 
 .m-layer-tools .panel {
-  display: block;
-  background: white;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+  transition: all .2s;
+}
+
+.m-layer-tools.is-closed .panel {
+  //display: none;
+  transform: translate3d(0, calc(100% - 25px), 0);
+}
+
+.m-layer-tools .panel .layers {
+  background: $black;
+  color: white;
   padding: 10px;
   overflow:hidden;
 }
 
-.m-layer-tools.is-closed .panel {
+.m-layer-tools .panel h1 {
+  margin: 0 0 10px 0;
+  float: left;
+  font-weight: 200;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-bottom: 30px;
+  margin-top: 0;
   display: none;
 }
 
-.m-layer-tools .panel h1 {
-  font-size: 16px;
-  margin: 0 0 10px 0;
-  float: left;
-}
-
-.m-layer-tools .panel button {
+/*.m-layer-tools .panel .close {
   float: right;
-  background:none;
-  padding:0;
+  background: none;
+  padding: 0;
 }
 
-.m-layer-tools .panel button span {
-  display:none;
+.m-layer-tools .panel .close span {
+  display: none;
 }
 
-.m-layer-tools .panel button:after {
+.m-layer-tools .panel .close:after {
   content: "\f00d";
   font: normal normal normal 12px/1 FontAwesome;
-  color:$link-color;
-}
+  color: $link-color;
+}*/
 
 .m-layer-tools .panel a {
-  float:right;
+  float: right;
 }
 
 .m-layer-tools .layer {
@@ -76,15 +90,15 @@
 
 .m-layer-tools .name {
   display: inline-block;
-  min-width:200px;
-  min-width: 130px;
+  min-width: 200px;
+  min-width: 120px;
 }
 
 .m-layer-tools .slider {
   width: 100px;
   display: inline-block;
   position: relative;
-  top:-5px;
+  top: -5px;
 }
 
 .m-layer-tools .slider:before {
@@ -103,5 +117,5 @@
   top: -4px;
   left: 45%;
   width: 12px;
-  height:12px;
+  height: 12px;
 }

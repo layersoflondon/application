@@ -32,29 +32,37 @@
 
 .m-tool-button button:before {
   font: normal normal normal 20px/1 FontAwesome;
+  color:#b3b3b3;
+  opacity:0.6;
 }
 
 .m-tool-button--search button:before {
+  //color:$red;
   content: "\f002";
 }
 
 .m-tool-button--date-range button:before {
+  //color:$orange;
   content: "\f017";
 }
 
 .m-tool-button--layers button:before {
+  //color:$green;
   content: "\f24a";
 }
 
 .m-tool-button--add-collection button:before {
+  //color:$light-blue;
   content: "\f24d";
 }
 
 .m-tool-button--add button:before {
+  //color:$lilac;
   content: "\f067";
 }
 
 .m-tool-button--your-account button:before {
+  //color:$gray;
   content: "\f2c0";
 }
 

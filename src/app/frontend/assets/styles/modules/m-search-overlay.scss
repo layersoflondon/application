@@ -6,12 +6,17 @@
 
 .m-search-overlay h1 {
   float: left;
+  @include overlay-title;
+  margin-bottom: -14px;
+}
+
+.m-search-overlay h1:before {
+  opacity: 1;
 }
 
 .m-search-overlay input {
   font-size: 30px;
-  border: none;
-  padding: 20px;
+  padding: 20px 4px;
 }
 
 .m-search-overlay input[type="text"] {
@@ -28,6 +33,9 @@
 
 .m-search-overlay .form-group--primary-field {
   margin-bottom: 50px;
+  background: white;
+  padding: 20px;
+  clear: both;
 }
 
 .m-search-overlay .form-group--single-checkbox {
@@ -43,14 +51,24 @@
   margin-bottom: 20px;
 }
 
+.m-search-overlay .form-group--checklist h2 {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
 .m-search-overlay .form-group--checklist label {
   display: block;
-  margin: 0 0 10px 0;
+  margin: 0 0 14px 0;
 }
 
 .m-search-overlay .form-group--checklist input[type="checkbox"] {
   margin-right: 6px;
 }
+
+/*.m-search-overlay .form-group--checklist h2 {
+  background:$green;
+  padding:4px;
+}*/
 
 .m-search-overlay .helper-text {
   display: block;

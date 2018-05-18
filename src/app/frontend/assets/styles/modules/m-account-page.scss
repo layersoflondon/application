@@ -1,12 +1,8 @@
 // Account page
 
 .m-account-page {
-/*  padding: 40px;
-  background: white;
-  max-width: 900px;
-  margin: 0 auto 100px;*/
   @include clearfix;
-  @include overlay-wrap-white;
+  @include overlay-wrap-blue;
   max-width: 900px;
   margin-top:0;
 }
