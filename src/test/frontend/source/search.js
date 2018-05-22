@@ -21,6 +21,10 @@ var searchParams = {
             "lat" : 30.00,
             "lng" : 40.00
         }
+    },
+    "date_range": {
+        "gte": "2011-05-03",
+        "lte": "2011-05-05"
     }
 }
 
