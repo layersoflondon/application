@@ -40,15 +40,24 @@ export default class CardStore {
 
   insertOrUpdateRecord(record) {
     const cards = this.cards.slice();
+    let collection = null;
 
     const card = cards.find((c) => {
-      return c.id === record.id;
+      if( c.is_collection ) {
+        collection = c;
+        return c.records.map((r) => r.id === record.id);
+      }
+
+      collection = null;
+      return c.id === record.id
     });
 
-    if( card ) {
+    if( card && !collection) {
       const index = cards.indexOf(card);
       const tray_card = TrayCardData.fromJS(record.toJS());
       cards[index] = tray_card;
+    }else if( card && collection) {
+      console.log("Card was member of a collection", collection);
     }else {
       cards.unshift(TrayCardData.fromJS(record.toJS()));
     }
@@ -59,7 +68,6 @@ export default class CardStore {
   /**
    * return an instance of the store populated with the array of Card objects
    * @param object
-   * @param is_root_card_store
    */
   static fromJS(object) {
     const store = new CardStore();

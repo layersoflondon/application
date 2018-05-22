@@ -41,7 +41,9 @@ import {observer} from "mobx-react";
         const attachments = this.props.recordFormStore.record.attachments.slice();
         const new_attachment = {file: file, url: file.preview, attachment_type: attachment_type(file.type), type: attachment_type(file.type), title: f.target.fileName, caption: '', credit: ''};
 
-        const media_item = new MediaItemStore(this.props.recordFormStore.record.id, new_attachment);
+        console.log("Dropped attachment", new_attachment);
+
+        const media_item = MediaItemStore.fromJS(new_attachment, this.props.recordFormStore.record.id);
         media_item.persist().then((response) => {
           let data = response.data;
           media_item.record_id = this.props.recordFormStore.record.id;
@@ -64,7 +66,7 @@ import {observer} from "mobx-react";
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
 
     const media_items = this.props.recordFormStore.record.attachments.map((item,i) => {
-      let media_item = new MediaItemStore(this.props.recordFormStore.record.id, item);
+      let media_item = MediaItemStore.fromJS(item, this.props.recordFormStore.record.id);
       return <MediaItem {...item} {...this.props} object={media_item} key={i} index={i} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
     });
 

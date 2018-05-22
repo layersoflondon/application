@@ -98,7 +98,7 @@ export default class RecordModel {
   }
 
   @computed get _collection_ids() {
-    return this.collection_ids.toJS();
+    return this.collections.map((c)=>c.id);
   }
   set _collection_ids(id) {
     //todo: make this work for multiple collections
@@ -117,7 +117,7 @@ export default class RecordModel {
       lng: this.lng,
       date_from: this.date_from,
       date_to: this.date_to,
-      collection_ids: this.collection_ids.toJS()
+      collection_ids: this._collection_ids
     }
   }
 
@@ -144,24 +144,24 @@ export default class RecordModel {
     }
 
     if( attributes.hasOwnProperty('collections') ) {
-      record.collections  = attributes.collections.map((c) => CollectionModel.fromRecord(c));
+      record.collections = attributes.collections.map((c) => CollectionModel.fromRecord(c));
     }
-
 
     return record;
   }
 
   resetState() {
-    this.id = '';
+    this.id = null;
     this.title = '';
     this.description = '';
     this.like_count = '';
     this.view_count = '';
     this.state = '';
-    this.lat = '';
-    this.lng = '';
+    this.lat = 0;
+    this.lng = 0;
     this.date_from = null;
     this.date_to = null;
+    this.location = {};
     this.user  = '';
     this.created_at = '';
     this.attachments = [];

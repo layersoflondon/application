@@ -25,6 +25,7 @@ import RecordModel from './../../../models/record';
     this.props.recordFormStore.record.persist().then((response) => {
       this.props.recordFormStore.record.id = response.data.id;
       // Object.assign(this.props.recordFormStore.record, response.data);
+
       this.props.trayViewStore.tray_is_visible = true;
       this.props.trayViewStore.cardStore.insertOrUpdateRecord(this.props.recordFormStore.record);
       this.props.mapViewStore.overlay = null;

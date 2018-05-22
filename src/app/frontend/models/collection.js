@@ -22,6 +22,8 @@ export default class CollectionModel {
     collection.write_state = attributes.write_state;
     collection.owner = attributes.owner;
     collection.records = attributes.records;
+
+    return collection;
   }
 
   static fromJS(attributes) {
