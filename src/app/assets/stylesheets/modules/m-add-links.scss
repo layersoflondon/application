@@ -1,0 +1,11 @@
+// Add links
+
+.m-add-links .form-group {
+  width:50%;
+  float:left;
+  padding-right:20px;
+}
+
+.m-add-links .form-group + .form-group {
+  padding-right:0;
+}

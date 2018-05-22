@@ -1,0 +1,63 @@
+// Tray area
+
+.m-tray-area {
+  width: calc(60% - 20px);
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 60px;
+  background: #f4f7f6;
+  z-index: 10;
+  @include top-and-tail;
+  transition:all .2s;
+}
+
+.tray-is-closed .m-tray-area {
+  transform:translate3d(calc(-100% + 20px), 0, 0);
+}
+
+.m-tray-area .window {
+  padding: 20px;
+  overflow: scroll;
+  height: 100%;
+  box-shadow: 0 0 80px rgba(0, 0, 0, 0.1);
+  background:$black;
+  color:white;
+}
+
+.m-tray-area .open-close {
+  position: absolute;
+  top: 50%;
+  right: -40px;
+  background: white;
+  border-radius: 0 100px 100px 0;
+  display: block;
+  z-index: 10;
+  height: 80px;
+  width: 40px;
+  cursor: pointer;
+  @include transition(color, .2s);
+  background:$black;
+}
+
+.m-tray-area .open-close:hover {
+  color:#bbb;
+}
+
+.m-tray-area .open-close:before {
+  content: "\f0d9";
+  font: normal normal normal 24px/1 FontAwesome;
+  margin-top: 27px;
+  margin-left: 11px;
+  display: block;
+  color:white;
+}
+
+.tray-is-closed .m-tray-area .open-close:before {
+  content: "\f0da";
+}
+
+.m-tray-area .open-close span {
+  display: none;
+}
+

@@ -1,0 +1,79 @@
+// Example searches
+
+.m-example-searches {
+  clear: both;
+}
+
+.m-example-searches h2 {
+  @include caps-subtitle;
+}
+
+.m-example-searches .example-search {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.m-example-searches .example-search a {
+  color: inherit;
+  display: block;
+  background: white;
+  transition: all .2s;
+  border-radius: $element-border-radius-small;
+  position: relative;
+  @include shadow;
+  @include link-animation;
+}
+
+.m-example-searches .example-search a:hover {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.41);
+}
+
+.m-example-searches .example-search .image {
+  width: 30%;
+  padding-bottom: 20%;
+  float: right;
+  width: 30%;
+  padding-bottom: 20%;
+  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.m-example-searches .example-search .text-content {
+  padding: 10px 12px;
+  @include top-and-tail;
+  margin-right: 30%;
+  font-size: 14px;
+}
+
+.m-example-searches .example-search h3 {
+  font-size: 26px;
+  margin-top: 0;
+  clear: left;
+  margin-bottom: 2px;
+  @include font-display;
+  @include transition(all .4s);
+  font-size: 22px;
+}
+
+.m-example-searches .example-search a:hover h3 {
+  color: $second-accent;
+}
+
+.m-example-searches .example-search .details {
+  font-size: 12px;
+  margin-top: 3px !important;
+  margin-bottom: 6px;
+  clear: left;
+  opacity: 0.4;
+}
+
+.m-example-searches .example-search .details strong {
+  text-transform: uppercase;
+}
+
+.m-example-searches .example-search .details + p {
+  margin-top: 10px;
+}

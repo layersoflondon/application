@@ -1,0 +1,92 @@
+// Search overlay
+
+.m-search-overlay {
+  @include overlay-wrap-transparent;
+}
+
+.m-search-overlay h1 {
+  float: left;
+  @include overlay-title;
+  margin-bottom: -14px;
+}
+
+.m-search-overlay h1:before {
+  opacity: 1;
+}
+
+.m-search-overlay input {
+  font-size: 30px;
+  padding: 20px 4px;
+}
+
+.m-search-overlay input[type="text"] {
+  width: 100%;
+  margin-right: -5px;
+}
+
+.m-search-overlay input[type="submit"] {
+  width: 170px;
+  float: right;
+  margin-bottom: 80px;
+  @include big-square-button;
+}
+
+.m-search-overlay .form-group--primary-field {
+  margin-bottom: 50px;
+  background: white;
+  padding: 20px;
+  clear: both;
+}
+
+.m-search-overlay .form-group--single-checkbox {
+  text-align: right;
+  margin-bottom: 10px;
+  float: right;
+  margin-top: 30px;
+}
+
+.m-search-overlay .form-group--checklist {
+  width: 33.333333%;
+  float: left;
+  margin-bottom: 20px;
+}
+
+.m-search-overlay .form-group--checklist h2 {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.m-search-overlay .form-group--checklist label {
+  display: block;
+  margin: 0 0 14px 0;
+}
+
+.m-search-overlay .form-group--checklist input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+/*.m-search-overlay .form-group--checklist h2 {
+  background:$green;
+  padding:4px;
+}*/
+
+.m-search-overlay .helper-text {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.m-search-overlay .date-range-link {
+  padding: 30px;
+  clear: both;
+  margin-top: 30px;
+  background: #4c4c4c;
+}
+
+.m-search-overlay .date-range-link h1 {
+  float: none;
+}
+
+.m-search-overlay .date-range-link a {
+  color: white;
+  @include top-and-tail;
+}

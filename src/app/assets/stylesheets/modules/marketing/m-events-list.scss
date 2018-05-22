@@ -1,0 +1,44 @@
+/* Events list */
+
+.m-events-list {
+  max-width:900px;
+  margin:50px auto 60px;
+}
+
+.m-events-list .event {
+  margin-bottom:40px;
+  @include clearfix;
+}
+
+.m-events-list .date-box {
+  float:left;
+  width:200px;
+  background:#ccc;
+  padding:20px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.m-events-list .day {
+  text-transform: uppercase;
+  display:block;
+}
+
+.m-events-list .date {
+  font-size:30px;
+}
+
+.m-events-list .year {
+  display:block;
+}
+
+.m-events-list .text-content {
+  float:left;
+  padding-left:40px;
+  width:calc(100% - 200px);
+}
+
+.m-events-list .title {
+  font-size:30px;
+  margin-top:0;
+}

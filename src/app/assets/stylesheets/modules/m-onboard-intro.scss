@@ -1,0 +1,29 @@
+// Onboard intro
+
+.m-onboard-intro .blurb {
+  margin-bottom: 40px;
+}
+
+.m-onboard-intro .blurb p:first-child  {
+  font-size: 24px;
+}
+
+.m-onboard-intro .tool-descriptions {
+  @include unlist;
+}
+
+.m-onboard-intro .tool-descriptions li {
+  margin-bottom: 30.6px;
+  position: relative;
+}
+
+.m-onboard-intro .tool-descriptions li:before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 5px;
+  position: absolute;
+  left: -63px;
+  top: 10px;
+  background: #333;
+}

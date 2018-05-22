@@ -1,0 +1,48 @@
+// Add files
+
+.m-add-files {
+  text-align:center
+}
+
+.m-add-files .file-block {
+  background: #eee;
+  @include clearfix;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-align:left;
+}
+
+.m-add-files .file-block .file {
+  width: 200px;
+  height: 200px;
+  float: left;
+  text-align:center;
+  padding-top:35px;
+}
+
+
+.m-add-files .file-block .file:after {
+  content: "\f016";
+  font: normal normal normal 130px/1 FontAwesome;
+  opacity:0.1;
+}
+
+.m-add-files .file-block label {
+  display: none;
+}
+
+.m-add-files .file-block input[type='text'],
+.m-add-files .file-block textarea {
+  float: right;
+  width: calc(100% - 220px);
+  padding:4px;
+}
+
+.m-add-files .file-block input[type='text'] {
+  padding-bottom:15px;
+  border-bottom:1px solid #d8d8d8;
+  margin-bottom:10px;
+}
+.m-add-files > button {
+  @include lozenge-button;
+}
