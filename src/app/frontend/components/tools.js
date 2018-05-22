@@ -20,7 +20,12 @@ import PropTypes from 'prop-types';
   }
 
   render() {
+    const logo = require('../assets/images/logo.svg');
+
     return <div className="m-sidebar">
+      <div className="m-logo">
+        <img src={logo} alt="Logo" />
+      </div>
       <div className="m-tools">
         <div className="m-tool-button m-tool-button--search">
           <button data-label="Search" data-overlay="search" onClick={this.handleOnClick.bind(this)}><span>Search</span></button>
