@@ -49,35 +49,35 @@ const getListStyle = isDraggingOver => ({
     }
 
     return <div className={classes}>
-      <button onClick={this.handleOnClick.bind(this)}>Layer tools</button>
 
       <div className="panel">
-        <h1>Layer tools</h1>
-        <button onClick={this.handleOnClick.bind(this)}><span className="close"></span></button>
+        <button className="open" onClick={this.handleOnClick.bind(this)}>Layer tools</button>
 
-        {this.props.layersStore.activeLayers.map((l, index) => <span key={index}></span>)}
+        <div className="layers">
+          {this.props.layersStore.activeLayers.map((l, index) => <span key={index}></span>)}
 
-        <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
-          <Droppable droppableId="droppable">
-            {(provided, snapshot) => (
-              <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                {this.props.layersStore.activeLayers.map((l, index) => {
-                  return (
-                    <Draggable key={l.id} draggableId={l.id} index={index}>
-                      {(provided, snapshot) => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(snapshot.isDragging, provided. draggableProps.style)}>
-                          <LayerTool key={l.id} layer={l} {...this.props} index={index} />
-                        </div>
-                      )}
-                    </Draggable>
-                  )
-                })}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+          <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
+            <Droppable droppableId="droppable">
+              {(provided, snapshot) => (
+                <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+                  {this.props.layersStore.activeLayers.map((l, index) => {
+                    return (
+                      <Draggable key={l.id} draggableId={l.id} index={index}>
+                        {(provided, snapshot) => (
+                          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(snapshot.isDragging, provided. draggableProps.style)}>
+                            <LayerTool key={l.id} layer={l} {...this.props} index={index} />
+                          </div>
+                        )}
+                      </Draggable>
+                    )
+                  })}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
 
-        <a onClick={()=>this.props.mapViewStore.overlay = "layers"}>Choose new layers</a>
+          <a onClick={()=>this.props.mapViewStore.overlay = "layers"}>Choose new layers</a>
+        </div>
 
       </div>
     </div>

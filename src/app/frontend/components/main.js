@@ -29,12 +29,12 @@ import RecordForm from './forms/records/record_form';
     }
 
     return <div className={className}>
+      <LayersOverlay {...this.props} />
       <Tools {...this.props} />
       <Tray {...this.props} />
       <MapView {...this.props} />
 
       <Search {...this.props} />
-      <LayersOverlay {...this.props} />
       <CollectionForm {...this.props} />
       <UserForm {...this.props} />
       <RecordForm {...this.props} />

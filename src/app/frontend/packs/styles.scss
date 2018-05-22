@@ -36,18 +36,6 @@
 }
 
 @import 'rc-slider/assets/index.css';
-.m-layer-tools .panel h1 {
-  float: none;
-}
-
-.m-layer-tools .panel {
-  position: relative;
-}
-.m-layer-tools .panel button {
-  position: absolute;
-  top: 6px;
-  right: 8px;
-}
 
 .m-layer-tools .panel div[data-react-beautiful-dnd-draggable] {
   height: 30px;
@@ -56,7 +44,6 @@
 .clipped-tilelayer {
   clip-path: circle(140px at calc(var(--mouse-x, 0) * 100%) calc(var(--mouse-y, 0) * 100%));
 }
-
 
 .m-add-media-and-documents .thumbs {
   li[class^=type-] {
