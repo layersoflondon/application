@@ -30,7 +30,7 @@ import RecordModel from './../../../models/record';
       this.props.trayViewStore.cardStore.insertOrUpdateRecord(this.props.recordFormStore.record);
       this.props.mapViewStore.overlay = null;
 
-      this.props.recordFormStore.record.resetState();
+      this.props.recordFormStore.record = this.props.recordFormStore.record.resetState();
     }).catch((response) => {
       console.log("Error Response: ", response);
     })
@@ -40,7 +40,7 @@ import RecordModel from './../../../models/record';
     event.preventDefault();
 
     this.props.mapViewStore.overlay = null;
-    this.props.recordFormStore.record.resetState();
+    this.props.recordFormStore.record = this.props.recordFormStore.record.resetState();
   }
 
   render() {

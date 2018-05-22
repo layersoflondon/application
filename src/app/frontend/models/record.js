@@ -166,5 +166,6 @@ export default class RecordModel {
     this.created_at = '';
     this.attachments = [];
     this.collections = [];
+    return this;
   }
 }
