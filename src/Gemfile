@@ -88,3 +88,6 @@ gem 'aasm'
 
 # High-level Elasticsearch Ruby framework based on the official elasticsearch-ruby client
 gem 'chewy'
+
+# A gem to automate using jQuery with Rails
+gem 'jquery-rails'

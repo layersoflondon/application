@@ -1,0 +1,190 @@
+<div class="s-overlay--add-record">
+
+    <div class="close">
+        <button class="close">Close</button>
+    </div>
+
+    <div class="m-add-record">
+
+        <h1>Add record</h1>
+
+        <form class="form--chunky form--over-white">
+
+            <div class="form-group form-group--date">
+
+                <div class="start-date">
+                    <label>When did this happen?</label>
+                    <div>
+                        <input type="text" placeholder="Day"/>
+                        <input type="text" placeholder="Month"/>
+                        <input type="text" placeholder="Year"/>
+                    </div>
+                    <span class="helper-text">An estimate is ok - an exact date is fantastic!</span>
+                </div>
+
+                <div class="end-date-link">
+                    <a href="#">Can you add an end date?</a> Useful for events, and places
+                    that may no longer exist.
+                </div>
+
+                <div class="end-date">
+                    <label>When did this end?</label>
+                    <div>
+                        <input type="text" placeholder="Day"/>
+                        <input type="text" placeholder="Month"/>
+                        <input type="text" placeholder="Year"/>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group form-group--title">
+                <label>Title</label>
+                <input type="text" placeholder=""/>
+            </div>
+
+            <div class="form-group">
+                <span class="place">Place: Palace St, London SW1E | 51.497275, -0.139333 <a href="#">Edit</a></span>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea rows="10" placeholder=""></textarea>
+            </div>
+
+            <div class="m-accordion">
+
+                <div class="section">
+                    <h2 class="title">Add media & documents</h2>
+                    <div class="pane">
+                        <div class="m-add-media-and-documents">
+
+                            <div class="thumbs">
+
+                                <ul>
+                                    <li class="type-image"><a href="#"><span class="image random-image"></span></a>
+                                    </li>
+                                    <li class="type-image is-selected">
+                                        <a href="#"><span class="image random-image"></span></a></li>
+                                    <li class="type-image"><a href="#"><span class="image random-image"></span></a>
+                                    </li>
+                                    <li class="type-image"><a href="#"><span class="image random-image"></span></a>
+                                    </li>
+                                    <li class="type-image"><a href="#"><span class="image random-image"></span></a>
+                                    </li>
+                                    <li class="type-image"><a href="#"><span class="image random-image"></span></a>
+                                    </li>
+                                    <li class="add"><a href="#"><span class="image"></span><em>Drag & drop</em></a>
+                                    </li>
+                                </ul>
+
+                                <div class="add-by-url">
+                                    <div class="form-group">
+                                        <label>Add by URL (Youtube or SoundCloud URL)</label>
+                                        <input type="text" placeholder="URL"/>
+                                    </div>
+                                    <button>Add</button>
+                                </div>
+
+                            </div>
+
+                            <div class="meta">
+                                <div class="image random-image"></div>
+                                <div class="caption">
+                                    <div class="form-group">
+                                        <label>Title</label>
+                                        <input type="text" placeholder="Title"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Caption</label>
+                                        <textarea rows="5" placeholder="Caption"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Credit</label>
+                                        <input type="text" placeholder="Credit"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <button>Set as primary image</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="title">Add links</h2>
+                    <div class="pane">
+                        <div class="m-add-links">
+                            <div class="link">
+                                <div class="form-group">
+                                    <!--<label>Title</label>-->
+                                    <input type="text" placeholder="Title or description"/>
+                                </div>
+                                <div class="form-group">
+                                    <!--<label>Link</label>-->
+                                    <input type="text" placeholder="URL (http://www.bbc.co.uk for example)"/>
+                                </div>
+                            </div>
+                            <button>Add another link</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="title">Add to a collection</h2>
+                    <div class="pane">
+                        <div class="m-add-to-collection">
+                            <div class="form-group form-group--checkboxes-columns">
+
+                                <label>
+                                    <input type="radio" checked="checked"/>
+                                    <span>Your collections</span>
+                                    <span class="helper-text">Yours + any that belong to teams you are in.</span>
+                                </label>
+                                <label>
+                                    <input type="radio"/>
+                                    <span>Public collections</span>
+                                    <!--<span class="helper-text">Only you can edit.</span>-->
+                                </label>
+
+                            </div>
+                            <div class="form-group">
+                                <select placeholder="Collection">
+                                    <option>Collection One</option>
+                                    <option>Collection Two</option>
+                                    <option>Collection Three</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="title">Assign to a team</h2>
+                    <div class="pane">
+                        <div class="m-assign-to-team">
+                            <p>By assigning this post to a team, any members of that team will be able to edit
+                                it.</p>
+                            <div class="form-group">
+                                <select placeholder="Team">
+                                    <option>Team One</option>
+                                    <option>Team Two</option>
+                                    <option>Team Three</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <button class="delete">Delete</button>
+            <input type="submit" value="Save"/>
+
+        </form>
+
+
+    </div>
+
+</div>
