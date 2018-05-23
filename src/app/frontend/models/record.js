@@ -45,10 +45,10 @@ export default class RecordModel {
     //   });
     // }
 
-    if( !this.id ) {
-      return Record.create(null, {record: this.toJS()});
-    }else {
+    if( this.id ) {
       return Record.update(null, this.id, {record: this.toJS()});
+    }else {
+      return Record.create(null, {record: this.toJS()});
     }
   }
 

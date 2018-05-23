@@ -34,6 +34,8 @@ import {observer} from "mobx-react";
               return 'document';
             case 'application/pdf':
               return 'document';
+            case 'application/json':
+              return 'geodata';
           }
         };
 
@@ -78,7 +80,7 @@ import {observer} from "mobx-react";
           <div className="m-add-media-and-documents">
 
             <div className="thumbs">
-              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png, application/pdf, text/plain" onDrop={this.onDrop.bind(this)}>
+              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json" onDrop={this.onDrop.bind(this)}>
                 <ul>
                   {media_items}
 

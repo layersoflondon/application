@@ -14,3 +14,9 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  # when we build a Attachments::Geodata class ("Attachments::#{'geodata'}")
+  # prevent Rails from using the class Attachments::Geodatum...
+  inflect.singular /geodata/, 'geodata'
+end

@@ -17,7 +17,10 @@ export default class MediaItemStore {
     data.append('attachable_attributes[title]', this.title);
     data.append('attachable_attributes[caption]', this.caption);
     data.append('attachable_attributes[credit]', this.credit);
-    data.append('attachable_attributes[primary]', this.is_primary);
+
+    if( this.attachment_type === 'image' ) {
+      data.append('attachable_attributes[primary]', this.is_primary);
+    }
 
     if( this.id ) {
       return RecordAttachments.update(this.record_id, this.id, data);

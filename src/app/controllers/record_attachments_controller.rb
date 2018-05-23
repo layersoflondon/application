@@ -9,6 +9,7 @@ class RecordAttachmentsController < ApplicationController
   end
 
   def create
+    Rails.logger.info(params)
     authorize(@record)
     @attachment = @record.attachments.build(attachment_params)
     return @attachment if @attachment.save
