@@ -56,8 +56,8 @@ import LayerToolsContainer from './layer_tools_container';
 
     let markers = [];
 
-    if( this.props.trayViewStore.cardStore ) {
-      this.props.trayViewStore.cardStore.cards.map((c) => {
+    if( this.props.trayViewStore.card_store ) {
+      this.props.trayViewStore.card_store.cards.map((c) => {
         let key;
         if( c.is_collection ) {
           c.records.map((r)=> {

@@ -13,7 +13,7 @@ import {inject} from "mobx-react/index";
   }
 
   switchToPreviousCardStore() {
-    this.props.trayViewStore.cardStore = this.props.trayViewStore.previousCardStore;
+    this.props.trayViewStore.card_store = this.props.trayViewStore.previous_card_store;
     const { push, goBack } = this.props.routing;
 
     this.props.trayViewStore.visible_collection_id = null;
@@ -27,7 +27,7 @@ import {inject} from "mobx-react/index";
 
   render() {
     // if we dont have a trayViewStore with cards to render, show some info
-    if(!(this.props.trayViewStore && this.props.trayViewStore.cardStore)) {
+    if(!(this.props.trayViewStore && this.props.trayViewStore.card_store)) {
       return (
         <div className="m-tray-area">
           <div className="window">
@@ -41,7 +41,7 @@ import {inject} from "mobx-react/index";
       );
     }
 
-    const cards = this.props.trayViewStore.cardStore.cards.map( (c) => {
+    const cards = this.props.trayViewStore.card_store.cards.map( (c) => {
       const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;
       return <Card key={key} card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
     });
@@ -52,20 +52,20 @@ import {inject} from "mobx-react/index";
     }
 
     let trayCollectionDetails;
-    if(this.props.trayViewStore.previousCardStore && !this.props.trayViewStore.cardStore.rootCardStore) {
+    if(this.props.trayViewStore.previous_card_store && !this.props.trayViewStore.card_store.root_card_store) {
       trayCollectionDetails = <div>
         <div className="m-tray-title-area">
           <div className="close" onClick={this.switchToPreviousCardStore.bind(this)}>
             <button className="close">Close</button>
           </div>
-          <h1>{this.props.trayViewStore.cardStore.title}</h1>
-          <div className="meta">Collection, {this.props.trayViewStore.cardStore.cards.length} records</div>
+          <h1>{this.props.trayViewStore.card_store.title}</h1>
+          <div className="meta">Collection, {this.props.trayViewStore.card_store.cards.length} records</div>
 
           {/*<div className="creator-link"><a href="#">Mrs Clark's History Class</a></div>*/}
         </div>
 
         <div className="m-tray-introduction">
-          {Parser(this.props.trayViewStore.cardStore.description)}
+          {Parser(this.props.trayViewStore.card_store.description)}
         </div>
       </div>
     }

@@ -4,10 +4,10 @@ json.set! :trayViewStore do
   json.visible_collection_id collection.try(:id)
   json.visible_record    nil
   json.tray_is_visible   true
-  json.previousCardStore do
+  json.previous_card_store do
     json.title ""
     json.description ""
-    json.rootCardStore true
+    json.root_card_store true
 
     json.set! :cards do
       json.array! (records+collections) do |object|
@@ -20,10 +20,10 @@ json.set! :trayViewStore do
     end
   end
 
-  json.set! :cardStore do
+  json.set! :card_store do
     json.title collection.title
     json.description collection.description
-    json.rootCardStore false
+    json.root_card_store false
     json.set! :cards do
       json.array! collection.records do |object|
         json.partial! 'records/record', record: object

@@ -27,7 +27,7 @@ import RecordModel from './../../../models/record';
       // Object.assign(this.props.recordFormStore.record, response.data);
 
       this.props.trayViewStore.tray_is_visible = true;
-      this.props.trayViewStore.cardStore.insertOrUpdateRecord(this.props.recordFormStore.record);
+      this.props.trayViewStore.card_store.insertOrUpdateRecord(this.props.recordFormStore.record);
       this.props.mapViewStore.overlay = null;
 
       this.props.recordFormStore.record = this.props.recordFormStore.record.resetState();

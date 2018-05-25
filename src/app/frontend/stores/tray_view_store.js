@@ -9,9 +9,9 @@ import TrayCardData from './tray_card_data';
  * The data store for the TrayView
  */
 export default class TrayViewStore {
-  // the TrayViewStore is given its datasource (the cardStore attribute) and it renders it as a list in the tray
-  @observable cardStore = null;
-  @observable previousCardStore = null;
+  // the TrayViewStore is given its datasource (the card_store attribute) and it renders it as a list in the tray
+  @observable card_store = null;
+  @observable previous_card_store = null;
   @observable visible_record_id = null;
   @observable visible_record = null;
 
@@ -52,7 +52,7 @@ export default class TrayViewStore {
           collection_card_data.cards = collection_card_data.records;
           delete collection_card_data['records'];
 
-          this.cardStore = CardStore.fromJS(collection_card_data);
+          this.card_store = CardStore.fromJS(collection_card_data);
         }).catch((error) => {
           console.log("Error fetching collection", error);
           this.visible_collection_id = null;
@@ -63,9 +63,9 @@ export default class TrayViewStore {
       }
     });
 
-    // swapping the cardStore will re-render the tray with the new array of records
-    observe(this, 'cardStore', (change) => {
-      this.previousCardStore = change.oldValue;
+    // swapping the card_store will re-render the tray with the new array of records
+    observe(this, 'card_store', (change) => {
+      this.previous_card_store = change.oldValue;
     });
   }
 
@@ -74,10 +74,10 @@ export default class TrayViewStore {
   }
 
   moveToNextCard() {
-    const current_card = this.cardStore.cards.find((c) => c.id === this.visible_record_id);
-    const current_index = this.cardStore.cards.indexOf(current_card);
+    const current_card = this.card_store.cards.find((c) => c.id === this.visible_record_id);
+    const current_index = this.card_store.cards.indexOf(current_card);
 
-    const next_cards = this.cardStore.cards.slice(current_index+1);
+    const next_cards = this.card_store.cards.slice(current_index+1);
     const next_card = next_cards.find((c) => !c.is_collection);
 
     if( next_card ) {
@@ -86,10 +86,10 @@ export default class TrayViewStore {
   }
 
   moveToPreviousCard() {
-    const current_card = this.cardStore.cards.find((c) => c.id === this.visible_record_id);
-    const current_index = this.cardStore.cards.indexOf(current_card);
+    const current_card = this.card_store.cards.find((c) => c.id === this.visible_record_id);
+    const current_index = this.card_store.cards.indexOf(current_card);
 
-    const previous_cards = this.cardStore.cards.slice(0, current_index).reverse();
+    const previous_cards = this.card_store.cards.slice(0, current_index).reverse();
     const previous_card = previous_cards.find((c) => !c.is_collection);
 
     if( previous_card ) {
@@ -100,20 +100,20 @@ export default class TrayViewStore {
   static fromJS(tray_view_state) {
     let store = new TrayViewStore();
 
-    if(tray_view_state.hasOwnProperty('cardStore')) {
-      const card_store_data = tray_view_state.cardStore;
-      delete tray_view_state['cardStore'];
+    if(tray_view_state.hasOwnProperty('card_store')) {
+      const card_store_data = tray_view_state.card_store;
+      delete tray_view_state['card_store'];
 
-      // console.log("TrayViewStore.fromJS creating CardStore with card_store_data: ", card_store_data);
-      store.cardStore = CardStore.fromJS(card_store_data);
+      // console.log("TrayViewStore.fromJS creating card_store with card_store_data: ", card_store_data);
+      store.card_store = CardStore.fromJS(card_store_data);
     }
 
-    if(tray_view_state.hasOwnProperty('previousCardStore') && tray_view_state.previousCardStore) {
-      const previous_card_store_data = tray_view_state.previousCardStore;
-      delete tray_view_state['previousCardStore'];
+    if(tray_view_state.hasOwnProperty('previous_card_store') && tray_view_state.previous_card_store) {
+      const previous_card_store_data = tray_view_state.previous_card_store;
+      delete tray_view_state['previous_card_store'];
 
-      // console.log("TrayViewStore.fromJS has previousCardStore property - create root card store: ", previous_card_store_data);
-      store.previousCardStore = CardStore.fromJS(previous_card_store_data);
+      // console.log("TrayViewStore.fromJS has previous_card_store property - create root card store: ", previous_card_store_data);
+      store.previous_card_store = CardStore.fromJS(previous_card_store_data);
     }
 
     if(tray_view_state.visible_record_id) {

@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   post '/teams/:id/leave', to: 'teams#leave'
 
   resource :map, controller: 'maps' do
+    match '/state', via: :get, to: 'maps#state', as: :map_state, format: :json
     match "/*resource/:action_name/:id(.:extension)", via: [:get], to: "maps#show", as: :resource_action
     match "/*resource/:id(.:extension)", via: [:get], to: "maps#show", as: :resource
     match "/*resource(.:extension)", via: [:get], to: "maps#show", as: :resources

@@ -17,13 +17,13 @@ export default class CardStore {
   description;
 
   // set to true if rendering a sub-collection
-  rootCardStore = false;
+  root_card_store = false;
 
-  constructor(cards = [], title = '', description = '', rootCardStore = false) {
+  constructor(cards = [], title = '', description = '', root_card_store = false) {
     this.cards = cards;
     this.title = title;
     this.description = description;
-    this.rootCardStore = rootCardStore
+    this.root_card_store = root_card_store
   }
 
   addRecords(record_store) {
