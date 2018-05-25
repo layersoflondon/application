@@ -63,8 +63,6 @@ import {observer} from "mobx-react";
   }
 
   render() {
-    window.record = this.props.recordFormStore.record;
-
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
 
     const media_items = this.props.recordFormStore.record.attachments.map((item,i) => {

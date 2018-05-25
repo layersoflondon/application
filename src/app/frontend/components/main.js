@@ -14,8 +14,6 @@ import CollectionForm from './forms/collections/collection_form';
 import UserForm from './forms/user/user_form';
 import RecordForm from './forms/records/record_form';
 
-// import DevTools from 'mobx-react-devtools';
-
 @inject('routing', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore')
 @observer export default class Main extends Component {
   constructor(props) {

@@ -1,4 +1,5 @@
 import {computed, observable} from 'mobx';
+import RecordModel from './record';
 
 export default class CollectionModel {
   id;
@@ -7,6 +8,7 @@ export default class CollectionModel {
   read_state;
   write_state;
   owner = {};
+  is_collection = true;
   @observable records = [];
 
   @computed get position() {
@@ -34,8 +36,10 @@ export default class CollectionModel {
     collection.read_state = attributes.read_state;
     collection.write_state = attributes.write_state;
     collection.owner = attributes.owner;
-    collection.records = attributes.records;
+    collection.records = attributes.records.map((r) => RecordModel.fromJS(r));
 
     return collection;
   }
 }
+
+window.CollectionModel = CollectionModel;

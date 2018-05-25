@@ -6,8 +6,6 @@ import Parser from "html-react-parser";
 
 export default class RecordModel {
   id = null;
-  title = '';
-  description = '';
   like_count = 0;
   view_count = 0;
   state;
@@ -16,6 +14,8 @@ export default class RecordModel {
   user = {};
   created_at;
 
+  @observable title = '';
+  @observable description = '';
   @observable location = null;
   @observable latlng = null;
 
@@ -29,22 +29,6 @@ export default class RecordModel {
   @observable collection_ids = [];
 
   persist() {
-    // if( !this.id ) {
-    //   Record.create(null, {record: this.toJS()}).then((response) => {
-    //     Object.assign(this, response.data);
-    //   }).catch((error) => {
-    //     // TODO: render validation errors in a component
-    //     console.log("Validation errors: ", error);
-    //   });
-    // }else {
-    //   const id = this.toJS().id;
-    //   Record.update(null, id, {record: this.toJS()}).then((response) => {
-    //     Object.assign(this, response.data);
-    //   }).catch((error) => {
-    //     console.log("Error", error);
-    //   });
-    // }
-
     if( this.id ) {
       return Record.update(null, this.id, {record: this.toJS()});
     }else {
@@ -71,6 +55,8 @@ export default class RecordModel {
     if(value) {
       const date = new Date(value);
       this.date_from_object = {date: date.getDate(), month: date.getMonth()+1, year: date.getFullYear()};
+    }else {
+      this.date_from_object = {date: '', month: '', year: ''};
     }
   }
   get date_to() {
@@ -88,6 +74,8 @@ export default class RecordModel {
     if(value) {
       const date = new Date(value);
       this.date_to_object = {date: date.getDate(), month: date.getMonth()+1, year: date.getFullYear()};
+    }else {
+      this.date_to_object = {date: '', month: '', year: ''};
     }
   }
 
@@ -169,3 +157,5 @@ export default class RecordModel {
     return this;
   }
 }
+
+window.RecordModel = RecordModel;

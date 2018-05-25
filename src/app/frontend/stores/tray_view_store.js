@@ -2,8 +2,8 @@ import {observable, observe} from 'mobx';
 import CardStore from './card_store';
 import Record from '../sources/record';
 import RecordModel from '../models/record';
+import CardModel from '../models/card';
 import Collection from '../sources/collection';
-import TrayCardData from './tray_card_data';
 
 /**
  * The data store for the TrayView
@@ -14,9 +14,7 @@ export default class TrayViewStore {
   @observable previous_card_store = null;
   @observable visible_record_id = null;
   @observable visible_record = null;
-
   @observable visible_collection_id = null;
-
   @observable tray_is_visible = true;
 
   // dom reference to the leaflet element
@@ -48,7 +46,7 @@ export default class TrayViewStore {
     observe(this, 'visible_collection_id', (change) => {
       if( change.newValue ) {
         Collection.show(null, this.visible_collection_id).then((response) => {
-          const collection_card_data  = TrayCardData.fromJS(response.data, this.visible_collection_id);
+          // const collection_card_data  = CardModel.fromJS(response.data, this.visible_collection_id);
           collection_card_data.cards = collection_card_data.records;
           delete collection_card_data['records'];
 

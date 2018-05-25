@@ -13,6 +13,7 @@ import {inject} from "mobx-react/index";
   }
 
   switchToPreviousCardStore() {
+    console.log(this.props.trayViewStore.card_store, this.props.trayViewStore.previous_card_store);
     this.props.trayViewStore.card_store = this.props.trayViewStore.previous_card_store;
     const { push, goBack } = this.props.routing;
 
@@ -22,7 +23,7 @@ import {inject} from "mobx-react/index";
     //   this.props.trayViewStore.collectionCard.highlighted = false;
     // }
 
-    // push("/map");
+    push("/map");
   }
 
   render() {
@@ -60,8 +61,6 @@ import {inject} from "mobx-react/index";
           </div>
           <h1>{this.props.trayViewStore.card_store.title}</h1>
           <div className="meta">Collection, {this.props.trayViewStore.card_store.cards.length} records</div>
-
-          {/*<div className="creator-link"><a href="#">Mrs Clark's History Class</a></div>*/}
         </div>
 
         <div className="m-tray-introduction">
