@@ -8,7 +8,6 @@ class Attachments::Document < ApplicationRecord
   private
 
   def validate_file
-    byebug
     # errors.add(:attachment, 'file is not text') unless file.try(:text?)
   end
 end

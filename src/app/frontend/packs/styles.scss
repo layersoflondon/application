@@ -65,12 +65,12 @@
     }
   }
 
-  li.type-geojson {
+  li.type-geodata {
     a span {
       background: transparent;
 
       &:after {
-        content: "\f0ac";
+        content: "\f279";
       }
     }
   }
