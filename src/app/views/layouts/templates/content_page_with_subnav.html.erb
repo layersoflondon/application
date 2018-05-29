@@ -1,8 +1,29 @@
+<%= content_for :body_class do %>t-content-page<% end %>
 <% content_for :template do %>
-    <p>This template is in <%= __FILE__ %></p>
+    <div class="m-page-header">
+      <div class="image random-image-large"></div>
+      <div class="text-content">
+        <span class="surtitle"><%= @page.title %></span>
+        <h1 class="viewable">Getting your club or group involved</h1>
+        <!--<a href="#">Start exploring</a>-->
+      </div>
+    </div>
+    <div class="m-sidebar">
+      <%= render "shared/subnavigation" %>
+      <div class="m-event-cta">
+        <a href="#">
+          <h3 class="title">Layers for Schools</h3>
+          <span class="date">Thursday 29th December 2018</span>
+          <p>Maecenas at rhoncus tellus. Donec nibh risus, fermentum nec ante sed, facilisis vulputate mi. In
+            pharetra congue feugiat. </p>
+        </a>
+      </div>
 
-    <%= yield %>
-
+    </div>
+    <div class="m-content">
+      <div class="m-article">
+        <%= yield %>
+      </div>
+    </div>
 <% end %>
-
 <%= render template: "layouts/application" %>

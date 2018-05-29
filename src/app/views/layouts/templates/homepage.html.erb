@@ -1,206 +1,74 @@
-<body class="t-homepage">
-<div class="m-site-wrapper">
+<%= content_for :body_class do %>t-homepage<% end %>
+<% content_for :template do %>
 
-  <div class="m-site-header">
-    <!--            <div class="m-home-logo">
-                <a href="/">
-                    <h1>Layers of London</h1>
-                    <%= image_tag("logotype.svg") %>
-                </a>
-            </div>-->
-    <div class="m-navigation">
-      <ul class="user-actions">
-        <li><a href="#">Login</a></li>
-        <li><a href="#">Sign up</a></li>
-      </ul>
-      <ul class="main-navigation">
-        <!--<li><a href="#">Home</a></li>-->
-        <li><a href="#">Map</a></li>
-        <li><a href="#">Help Centre</a></li>
-        <li><a href="#">Map making</a></li>
-        <li><a href="#">Schools, Groups, and Clubs</a></li>
-        <li><a href="#">Events</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Blog</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="m-hero m-hero--large m-hero--home">
-    <div class="image random-image-large"></div>
-    <div class="m-home-logo">
-      <h1>Layers of London</h1>
-
-
-      <%= image_tag(("logotype.svg"), :class => "viewable") %>
-    </div>
-    <div class="text-content">
-      <!--<span class="surtitle">Layers of London</span>-->
-      <h1 class="viewable">Recording the rich layers of heritage across London</h1>
-      <a href="#">Start exploring</a>
-    </div>
-  </div>
-
-  <div class="m-highlighted-content">
-    <h2>Highlights</h2>
-
-    <%= render "shared/record-card" %>
-    <%= render "shared/record-card" %>
-    <%= render "shared/record-card--collection" %>
-    <%= render "shared/record-card" %>
-    <%= render "shared/record-card" %>
-    <%= render "shared/record-card--collection" %>
-
-    <!-- <div class="highlight">
-         <a href="#">
-             <div class="image"></div>
-             <div class="text-content">
-                 <div class="indicator">Collection</div>
-                 <h3>Greyhurst Mill Memories</h3>
-                 <div class="description">
-                     <p>Aliquam nec consectetur libero. Nunc euismod, lacus vel ultrices sollicitudin, tortor
-                         libero
-                         sagittis mi, pellentesque dignissim tellus nisl ut tortor. Nulla eu enim risus. Aenean
-                         porta
-                         ligula nisl, eu hendrerit.</p>
-                 </div>
-             </div>
-         </a>
-     </div>
-     <div class="highlight">
-         <a href="#">
-             <div class="image"></div>
-             <div class="text-content">
-                 <div class="indicator">Collection</div>
-                 <h3>Greyhurst Mill Memories</h3>
-                 <div class="description">
-                     <p>Aliquam nec consectetur libero. Nunc euismod, lacus vel ultrices sollicitudin, tortor
-                         libero
-                         sagittis mi, pellentesque dignissim tellus nisl ut tortor. Nulla eu enim risus. Aenean
-                         porta
-                         ligula nisl, eu hendrerit.</p>
-                 </div>
-             </div>
-         </a>
-     </div>
-     <div class="highlight">
-         <a href="#">
-             <div class="image"></div>
-             <div class="text-content">
-                 <div class="indicator">Collection</div>
-                 <h3>Greyhurst Mill Memories</h3>
-                 <div class="description">
-                     <p>Aliquam nec consectetur libero. Nunc euismod, lacus vel ultrices sollicitudin, tortor
-                         libero
-                         sagittis mi, pellentesque dignissim tellus nisl ut tortor. Nulla eu enim risus. Aenean
-                         porta
-                         ligula nisl, eu hendrerit.</p>
-                 </div>
-             </div>
-         </a>
-     </div>
-     <div class="highlight">
-         <a href="#">
-             <div class="image"></div>
-             <div class="text-content">
-                 <div class="indicator">Collection</div>
-                 <h3>Greyhurst Mill Memories</h3>
-                 <div class="description">
-                     <p>Aliquam nec consectetur libero. Nunc euismod, lacus vel ultrices sollicitudin, tortor
-                         libero
-                         sagittis mi, pellentesque dignissim tellus nisl ut tortor. Nulla eu enim risus. Aenean
-                         porta
-                         ligula nisl, eu hendrerit.</p>
-                 </div>
-             </div>
-         </a>
-     </div>
-     <div class="highlight">
-         <a href="#">
-             <div class="image"></div>
-             <div class="text-content">
-                 <div class="indicator">Collection</div>
-                 <h3>Greyhurst Mill Memories</h3>
-                 <div class="description">
-                     <p>Aliquam nec consectetur libero. Nunc euismod, lacus vel ultrices sollicitudin, tortor
-                         libero
-                         sagittis mi, pellentesque dignissim tellus nisl ut tortor. Nulla eu enim risus. Aenean
-                         porta
-                         ligula nisl, eu hendrerit.</p>
-                 </div>
-             </div>
-         </a>
-     </div>-->
-  </div>
-
-  <div class="m-big-search">
-    <!--<h1>Search</h1>-->
-
-    <div class="search">
-      <input type="text" placeholder="Search the maps"/>
-      <input type="submit" value="Go"/>
-    </div>
-    <p>See the history of your street, or explore a topic you're interested in…</p>
-
-  </div>
-
-  <div class="m-home-cta-block">
-    <div class="image"></div>
-    <div class="text-content viewable">
-      <h3>Tell your story</h3>
-      <div class="description">
-        <p>Tortor libero sagittis mi, pellentesque dignissim tellus nisl ut tortor. Nulla eu enim risus.
-          Aenean porta ligula.</p>
+    <div class="m-hero m-hero--large m-hero--home">
+      <div class="image random-image-large"></div>
+      <div class="m-home-logo">
+        <h1>Layers of London</h1>
+        <%= image_tag(("logotype.svg"), :class => "viewable") %>
       </div>
-      <a class="button" href="#">Get started</a>
-    </div>
-  </div>
-
-  <div class="m-home-cta-block m-home-cta-block--flipped">
-    <div class="image"></div>
-    <div class="text-content viewable">
-      <h3>Fancy being a Layers of London map maker?</h3>
-      <div class="description">
-        <p>We’ve a lot of hard work to do to get our historic maps look more accurate. You can help out by
-          fixing some old maps.</p>
+      <div class="text-content">
+        <!--<span class="surtitle">Layers of London</span>-->
+        <h1 class="viewable">Recording the rich layers of heritage across London</h1>
+        <a href="#">Start exploring</a>
       </div>
-      <a class="button" href="#">Let's do it</a>
     </div>
-  </div>
-
-  <div class="m-home-cta-block m-home-cta-block--gray">
-    <div class="image"></div>
-    <div class="text-content viewable">
-      <span class="surtitle">Featurette </span>
-      <h3>A History of Feminism in London</h3>
-      <div class="description">
-        <p>Donec egestas dolor non felis semper feugiat. Morbi pretium eget.</p>
+    <div class="m-highlighted-content">
+      <h2>Highlights</h2>
+      <% @page.fields.highlighted_posts.each do |post| %>
+        <%= render "shared/record-card", post: post %>
+      <% end %>
+      <%#= render "shared/record-card" %>
+      <%#= render "shared/record-card--collection" %>
+      <%#= render "shared/record-card" %>
+      <%#= render "shared/record-card" %>
+      <%#= render "shared/record-card--collection" %>
+    </div>
+    <div class="m-big-search">
+      <!--<h1>Search</h1>-->
+      <div class="search">
+        <input type="text" placeholder="Search the maps"/>
+        <input type="submit" value="Go"/>
       </div>
-      <a class="button" href="#">Let's do it</a>
+      <p>See the history of your street, or explore a topic you're interested in…</p>
     </div>
-  </div>
-
-  <div class="m-site-footer">
-    <div class="partners">
-      <h3>Partners & Supporters</h3>
-      <ul>
-        <li><a href="#"><img src="/assets/logo-sas.png" alt="Logo sas"></a></li>
-        <li><a href="#"><img src="/assets/logo-lottery.png" alt="Logo lottery"></a></li>
-        <li><a href="#"><img src="/assets/logo-ihr.png" alt="Logo ihr"></a></li>
-      </ul>
+    <div class="m-home-cta-block">
+      <div class="image"></div>
+      <div class="text-content viewable">
+        <h3>Tell your story</h3>
+        <div class="description">
+          <p>Tortor libero sagittis mi, pellentesque dignissim tellus nisl ut tortor. Nulla eu enim risus.
+            Aenean porta ligula.
+          </p>
+        </div>
+        <a class="button" href="#">Get started</a>
+      </div>
     </div>
-    <div class="footer-navigation">
-      <ul class="user-actions">
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Accessibility</a></li>
-      </ul>
+    <div class="m-home-cta-block m-home-cta-block--flipped">
+      <div class="image"></div>
+      <div class="text-content viewable">
+        <h3>Fancy being a Layers of London map maker?</h3>
+        <div class="description">
+          <p>We’ve a lot of hard work to do to get our historic maps look more accurate. You can help out by
+            fixing some old maps.
+          </p>
+        </div>
+        <a class="button" href="#">Let's do it</a>
+      </div>
     </div>
-    <div class="copyright">2018 &copy; Layers of London</div>
-  </div>
+    <div class="m-home-cta-block m-home-cta-block--gray">
+      <div class="image"></div>
+      <div class="text-content viewable">
+        <span class="surtitle">Featurette </span>
+        <h3>A History of Feminism in London</h3>
+        <div class="description">
+          <p>Donec egestas dolor non felis semper feugiat. Morbi pretium eget.</p>
+        </div>
+        <a class="button" href="#">Let's do it</a>
+      </div>
+    </div>
 
-</div>
+<% end %>
 
-</body>
 
 <%= render template: "layouts/application" %>

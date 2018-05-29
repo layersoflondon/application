@@ -1,7 +1,11 @@
 class PagesController < ApplicationController
   include Rooftop::Rails::NestedResource
+  include EventCollections
+  include PostCollections
+
   nested_rooftop_resource :page
   decorates_assigned :page, with: PageDecorator
+
   skip_before_action :authenticate_user!
   skip_after_action :verify_authorized
 

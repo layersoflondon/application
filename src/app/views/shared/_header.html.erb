@@ -1,0 +1,16 @@
+
+<div class="m-site-header">
+  <div class="m-logo">
+    <a href="/">
+      <h1>Layers of London</h1>
+      <%= image_tag("logo.svg") %>
+    </a>
+  </div>
+  <div class="m-navigation">
+    <ul class="user-actions">
+      <li><a href="#">Login</a></li>
+      <li><a href="#">Sign up</a></li>
+    </ul>
+    <%= menu_for(@main_navigation_menu, class: 'main-navigation', current_class: 'is-current') %>
+  </div>
+</div>

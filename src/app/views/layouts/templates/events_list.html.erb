@@ -1,7 +1,35 @@
 <% content_for :template do %>
-    <p>This template is in <%= __FILE__ %></p>
+      <div class="m-page-header">
+        <h1>Events</h1>
+      </div>
+      <div class="m-events-list">
+      <% events.each do |event| %>
+          <div class="event">
 
-    <%= yield %>
+              <%= link_to event_path(event.slug) do %><% end %>
+              <div class="date-box">
+                <span class="day"><%= event.day %></span>
+                <span class="date"><%= event.date %></span>
+                <span class="year"><%= event.year %></span>
+              </div>
+              <div class="text-content">
+                <h2 class="title"><%= event.title %></h2>
+                <p><%= event.content %></p>
+              </div>
+            </a>
+          </div>
+      <% end %>
+      </div>
+
+      <div class="m-layermaker-banner">
+        <div class="title-wrapper">
+          <h2 class="subtitle">Volunteer for Layers of London</h2>
+          <h3 class="title">Become a layer maker</h3>
+        </div>
+        <p>Praesent vel lectus non est semper condimentum. Sed dictum, tortor nec sagittis ultrices, risus nulla
+          pretium arcu.</p>
+        <a class="button">Let's do it</a>
+      </div>
 
 <% end %>
 

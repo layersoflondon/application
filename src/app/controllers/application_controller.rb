@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   before_action :set_state_variables, if: -> {controller_name == 'maps' && action_name == 'show'}
+  before_action :get_navigation_menu
 
   private
   def set_state_variables
@@ -29,5 +30,10 @@ class ApplicationController < ActionController::Base
 
     self.instance_variable_set(:"@#{params[:resource].singularize}", model.try(:decorate))
   end
+
+  def get_navigation_menu
+    @main_navigation_menu, @footer_navigation_menu, @sub_navigation_menu = *Rooftop::Menus::Menu.where(post__in: [2,3,4]).to_a.sort_by(&:id)
+  end
+
 end
 

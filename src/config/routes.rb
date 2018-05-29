@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'posts/show'
+  get 'events/show'
   root to: "pages#index"
   post 'search', to: 'search#index', defaults: {format: :json}
   get '/user/teams', to: 'user#teams'
@@ -50,6 +52,9 @@ Rails.application.routes.draw do
   end
 
   resources :taxonomies, only: [:index], defaults: {format: :json}
+
+  resources :events, only: [:show], path: "events"
+  resources :posts, only: [:show], path: "posts"
 
 
   # IMPORTANT: this is a greedy catchall route - it needs to be the last route in the file.
