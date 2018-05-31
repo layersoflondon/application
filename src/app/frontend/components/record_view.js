@@ -59,17 +59,14 @@ import Record from '../sources/record';
               </div>
             </div>
 
-            <div className="title">
-              <h1>{this.props.trayViewStore.visible_record.title}</h1>
-            </div>
-
             <div className="meta">
               <div className="dates">
                 <span className="date start-date">{this.props.trayViewStore.visible_record.date_from}</span>
               </div>
-
               <div className="creator">Created by {this.props.trayViewStore.visible_record.user.name}</div>
+            </div>
 
+            <div className="social">
               <div className="social-status">
                 <button className="like">
                   <span>Like</span>
@@ -82,15 +79,27 @@ import Record from '../sources/record';
                 <button className="share"><span>Share</span></button>
                 Share this record
               </div>
-
             </div>
 
-            <div className="place">
-              <div className="map">
+            <div className="title">
+              <h1>{this.props.trayViewStore.visible_record.title}</h1>
+            </div>
+
+
+            <div className="sidebar">
+              <div className="place">
+                <div className="map">
+                </div>
+                <div className="text">Fixme: Palace St, Westminster, London SW1E | {this.props.trayViewStore.visible_record.lat}, {this.props.trayViewStore.visible_record.lng}</div>
               </div>
-              <div className="text">Palace St, Westminster, London SW1E | {this.props.trayViewStore.visible_record.lat}, {this.props.trayViewStore.visible_record.lng}</div>
-            </div>
 
+              <div className="actions">
+                <button className="add-to-collection">Add to collection</button>
+                <button className="contact-owner">Contact owner</button>
+                <button className="flag">Flag</button>
+                <button className="edit" onClick={this.switchToEditMode.bind(this)}>Edit</button>
+              </div>
+            </div>
 
             <div className="m-article">
               {Parser(this.props.trayViewStore.visible_record.description)}
@@ -101,13 +110,6 @@ import Record from '../sources/record';
                 <li><h4>Created:</h4> 22nd June 2017</li>
                 <li><h4>Credits:</h4> Curabitur eu euismod risus</li>
               </ul>
-            </div>
-
-            <div className="actions">
-              <button className="add-to-collection">Add to collection</button>
-              <button className="contact-owner">Contact owner</button>
-              <button className="flag">Flag</button>
-              <button className="edit" onClick={this.switchToEditMode.bind(this)}>Edit</button>
             </div>
 
           </div>
