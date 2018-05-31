@@ -59,8 +59,8 @@ import {Link} from 'react-router-dom';
         <div className="wrapper">
           <div className="image" style={image_styles}>
           </div>
+          {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
           <div className="text-content">
-            {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
             <h1>{this.props.card.title}</h1>
 
             {parsed_content[0] || parsed_content}

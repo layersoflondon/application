@@ -13,7 +13,6 @@ import {inject} from "mobx-react/index";
   }
 
   switchToPreviousCardStore() {
-    console.log(this.props.trayViewStore.card_store, this.props.trayViewStore.previous_card_store);
     this.props.trayViewStore.card_store = this.props.trayViewStore.previous_card_store;
     const { push, goBack } = this.props.routing;
 
