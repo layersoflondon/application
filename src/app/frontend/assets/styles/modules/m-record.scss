@@ -211,7 +211,7 @@
 .m-record .place .map {
   width: 100%;
   padding-bottom: 100%;
-  background: #ddd url('../assets/images/map-thumb.png') center/cover;
+  background: #ddd asset-url('map-thumb.png') center/cover;
 }
 
 .m-record .place .text {

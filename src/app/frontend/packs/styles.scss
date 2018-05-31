@@ -18,6 +18,15 @@
 
 // fixme: remove these once prototype is frozen.
 // we need to override some styles from the prototype
+
+.m-map-popover .m-record-card {
+  width: 200px;
+
+  .wrapper {
+    height: 100%;
+  }
+}
+
 .m-overlay .close button {
   background: url('../assets/images/icon-close.svg') center no-repeat;
 }

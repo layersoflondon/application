@@ -86,13 +86,6 @@ $element-border-radius-small: 3px;
   padding: 40px;
 }
 
-@mixin overlay-wrap-blue {
-  @include overlay-wrap;
-  color: $red;
-  background: $orange;
-  padding: 40px;
-}
-
 @mixin overlay-wrap-gray {
   @include overlay-wrap;
   color: $green;
@@ -235,21 +228,64 @@ $element-border-radius-small: 3px;
   display:inline-block;
 }
 
+
+// Overlays
+
+@mixin subsection {
+  background:white;
+  color:$black;
+  padding:20px;
+  @include clearfix;
+
+  .subsection-title {
+    font-size:28px;
+    @include font-display;
+    margin-top:0;
+  }
+
+  .subsection-header {
+    @include clearfix;
+  }
+
+}
+
 // Buttons
 
 @mixin big-square-button {
-  //background: $orange;
-  //border-radius: $element-border-radius;
-  border: 0;
+
+/*  border: 0;
   padding: 11px 25px;
   border-radius: 100px;
   border: 4px solid $orange;
   color: $orange;
   background: transparent;
   font-weight: 600;
-  font-size: 32px;
+  font-size: 32px;*/
+
+  //background: #efdf5b6b;
+
+  background: transparentize($green, 0.5);
+  color: #ffffff;
+  padding: 17px 25px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: -1px;
+  display: inline-block;
+  transition: all .2s;
+
+  &:before {
+    content: "\f0da";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1em;
+    margin-right: 10px;
+    z-index: 1;
+  }
+
   &:hover {
-    background: $link-hover-color;
+    background: $green;
+    //color:$black;
   }
 }
 

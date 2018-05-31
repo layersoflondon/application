@@ -264,6 +264,65 @@ input[type="submit"] {
   margin-right:10px;
 }
 
+
+.form--chunky .form-group--toggle-switch {
+
+
+  input[type='checkbox'] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+
+  .toggle {
+    display:inline-block;
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 25px;
+    background: grey;
+    border-radius: 100px;
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: -8px;
+  }
+
+  .toggle:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 100px;
+    transition: 0.2s;
+  }
+
+  input:checked + .toggle:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+  }
+
+  label span {
+    transition:opacity .2s;
+  }
+
+  &.is-toggled label span:first-child {
+    opacity:0.4;
+  }
+
+  label span:last-child {
+    opacity:0.4;
+  }
+
+  &.is-toggled label span:last-child {
+    opacity:1;
+  }
+
+}
+
 // Radios & checkboxes
 
 .form-group--replaced-checkboxes label {

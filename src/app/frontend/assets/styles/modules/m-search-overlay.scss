@@ -4,17 +4,17 @@
   @include overlay-wrap-transparent;
 }
 
-.m-search-overlay h1 {
+.m-search-overlay > h1 {
   float: left;
   @include overlay-title;
   margin-bottom: -14px;
 }
 
-.m-search-overlay h1:before {
+.m-search-overlay > h1:before {
   opacity: 1;
 }
 
-.m-search-overlay input {
+.m-search-overlay .form-group--primary-field input {
   font-size: 30px;
   padding: 20px 4px;
 }
@@ -24,11 +24,16 @@
   margin-right: -5px;
 }
 
-.m-search-overlay input[type="submit"] {
+.m-search-overlay button.submit-button {
   width: 170px;
   float: right;
   margin-bottom: 80px;
   @include big-square-button;
+}
+
+.m-search-overlay input[type="text"]:focus {
+  outline: 0;
+  border-bottom: 2px solid #898989;
 }
 
 .m-search-overlay .form-group--primary-field {
@@ -38,11 +43,20 @@
   clear: both;
 }
 
-.m-search-overlay .form-group--single-checkbox {
-  text-align: right;
+.m-search-overlay .form-group--toggle-switch {
+  //text-align: right;
   margin-bottom: 10px;
   float: right;
-  margin-top: 30px;
+  margin-top: 32px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.m-search-overlay .form-group--toggle-switch label {
+  background: transparent;
+  padding: 0;
 }
 
 .m-search-overlay .form-group--checklist {
@@ -65,28 +79,207 @@
   margin-right: 6px;
 }
 
-/*.m-search-overlay .form-group--checklist h2 {
-  background:$green;
-  padding:4px;
-}*/
-
 .m-search-overlay .helper-text {
   display: block;
   margin-bottom: 6px;
 }
 
-.m-search-overlay .date-range-link {
-  padding: 30px;
-  clear: both;
-  margin-top: 30px;
-  background: #4c4c4c;
+// Date range
+
+.m-search-overlay .date-range {
+  @include subsection;
+  position: relative;
+  margin-bottom: 50px;
+  padding-bottom: 0;
 }
 
-.m-search-overlay .date-range-link h1 {
-  float: none;
+.m-search-overlay .date-range .subsection-header h1 {
+  margin-top: 0;
 }
 
-.m-search-overlay .date-range-link a {
+.m-search-overlay .date-range .subsection-header button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 0;
+  background: 0;
+  color: $green;
+  @include link-arrow;
+}
+
+.m-search-overlay .date-range > button {
+  @include big-square-button;
+}
+
+.m-search-overlay .date-range .date-box {
+  width: calc(50% - 50px);
+  margin-bottom: 20px;
+  float: left;
+  position: relative;
+}
+
+.m-search-overlay .date-range .date-box + .date-box {
+  margin-left: 100px;
+}
+
+.m-search-overlay .date-range .date-box + .date-box:before {
+  content: "";
+  display: block;
+  border-left: 10px solid #cbc9bb;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  position: absolute;
+  top: 19px;
+  left: 0;
+  margin-left: -55px;
+}
+
+.m-search-overlay .date-range .picker-icon {
   color: white;
-  @include top-and-tail;
+  background: $link-color;
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  padding: 13px 10px;
+  font-size: 30px;
+  border-radius: 100px;
+  position: relative;
+  top: 5px;
+  left: 8px;
+}
+
+.m-search-overlay .date-range .date-box h2 {
+  margin-top: -6px;
+  margin-bottom: 10px;
+  display: none;
+}
+
+.m-search-overlay .date-range .date-box input {
+  width: 100%;
+  display: inline-block;
+  padding: 20px 4px;
+}
+
+.m-search-overlay .date-range .era-picker {
+  clear: both;
+  display: none;
+  background: $orange;
+  margin: 0 -20px -20px -20px;
+  padding: 20px;
+}
+
+.m-search-overlay .date-range .era-picker h2 {
+  @include font-display;
+  color: $red;
+  margin-top: 0;
+}
+
+.m-search-overlay .date-range .era-picker p {
+  width: 50%;
+  float: left;
+  margin-top: 0;
+}
+
+.m-search-overlay .date-range .eras {
+  @include unlist;
+  font-size: 12px;
+  padding: 20px;
+}
+
+.m-search-overlay .date-range .eras li {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 20px;
+  border-top: 2px solid $red;
+  position: relative;
+  margin-bottom: 40px;
+  margin-left: -4px;
+  width: 20%;
+}
+
+.m-search-overlay .date-range .eras li:before {
+  content: "";
+  background: $red;
+  border-radius: 100px;
+  width: 20px;
+  height: 20px;
+  display: block;
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  margin-left: -10px;
+}
+
+.m-search-overlay .date-range .eras li a {
+  background: white;
+  color: $red;
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 15px 10px;
+  margin: 0 10px;
+  position: relative;
+  transition: all .2s;
+}
+
+.m-search-overlay .date-range .eras li a:hover {
+  background: $red;
+  color: white;
+}
+
+.m-search-overlay .date-range .eras li a:before {
+  content: "";
+  border-bottom: 20px solid white;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  margin-left: -10px;
+  transition: all .2s;
+}
+
+.m-search-overlay .date-range .eras li a:hover:before {
+  border-bottom: 20px solid $red;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+.m-search-overlay .date-range .eras li a span {
+  display: block;
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+// Filters
+
+.m-search-overlay .filters.is-open .filters-show button:before {
+  content: "\f0d7";
+}
+
+.m-search-overlay .filters-show button {
+  padding: 0 20px;
+  display: block;
+  color: white;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  @include link-arrow;
+}
+
+.m-search-overlay .filters-show button:focus {
+  outline: 0;
+}
+
+.m-search-overlay .filters-content {
+  display: none;
+  margin: 20px 0;
+  overflow: hidden;
+  padding: 0 20px;
+}
+
+.m-search-overlay .filters.is-open .filters-content {
+  display: block;
 }
