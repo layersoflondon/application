@@ -12,6 +12,7 @@ export default class RecordModel {
   lat;
   lng;
   user = {};
+  image = null;
   created_at;
 
   @observable title = '';
@@ -123,6 +124,7 @@ export default class RecordModel {
     record.date_from = attributes.date_from;
     record.date_to = attributes.date_to;
     record.user  = attributes.user;
+    record.image = attributes.image;
     record.created_at = attributes.created_at;
 
     if( attributes.hasOwnProperty('attachments') ) {

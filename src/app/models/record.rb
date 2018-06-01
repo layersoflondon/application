@@ -66,4 +66,15 @@ class Record < ApplicationRecord
       transitions from: %i[draft published pending_review flagged], to: :deleted
     end
   end
+
+  def primary_image(fallback_to_first: false)
+    images = attachments.where(attachable_type: "Attachments::Image")
+    image = images.select{|a| a.attachable.attachment.is_primary?}.first
+
+    if !image && fallback_to_first
+      images.first if fallback_to_first && !image
+    else
+      image
+    end
+  end
 end

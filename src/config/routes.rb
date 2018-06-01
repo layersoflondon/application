@@ -55,5 +55,5 @@ Rails.application.routes.draw do
 
   # IMPORTANT: this is a greedy catchall route - it needs to be the last route in the file.
   #         # IMPORTANT: this is a greedy catchall route - it needs to be the last route in the file.
-  match "/*nested_path(.:extension)", via: [:get], to: "pages#show", as: :page, constraints: ->(request) { request.format == :html || request.format == '*/*' }
+  match "/*nested_path(.:extension)", via: [:get], to: "pages#show", as: :page, constraints: ->(request) { request.path.exclude?('rails/active_storage') && (request.format == :html || request.format == '*/*') }
 end

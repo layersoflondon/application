@@ -20,6 +20,10 @@ json.collections do
   json.array! record.collections, partial: 'records/record_collections', as: :collection
 end
 
+json.image do
+  json.partial! 'record_attachments/attachment', attachment: record.primary_image(fallback_to_first: true)
+end
+
 json.attachments do
   json.array! record.attachments, partial: 'record_attachments/attachment', as: :attachment
 end

@@ -1,8 +1,4 @@
 <script type="text/javascript">
-    <%= Rails.logger.info("\n\nState: ") %>
-    <%= Rails.logger.info(ApplicationController.render(file: 'maps/state.json.jbuilder', assigns: {records: @records, collections: @collections, record: @record, collection: @collection})) %>
-    <%= Rails.logger.info("\n\n") %>
-
     window.__STATE = <%= raw ApplicationController.render(file: 'maps/state.json.jbuilder', assigns: {records: @records, collections: @collections, record: @record, collection: @collection}) %>
 </script>
 

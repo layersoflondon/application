@@ -23,36 +23,18 @@ class Collection < ApplicationRecord
   }
 
   def primary_image
+    # gety any records in this collection that have attached images
+    records_with_images = records.includes(attachments: :attachable).joins(:attachments).where(attachments: {attachable_type: "Attachments::Image"})
+    return nil unless records_with_images.any?
 
-    # TODO: change me for active record association
-    raw_sql = '
-      SELECT a.id
-      FROM attachments a
-      JOIN attachments_images ai ON ai.id = a.attachable_id
-      WHERE a.attachable_type = "Attachments::Image"
-      AND a.record_id IN
-      (
-        SELECT * FROM
-        (
-          SELECT cr.record_id FROM collections c
-          JOIN collection_records cr ON cr.collection_id = c.id
-          WHERE c.id = ?
-              GROUP BY (cr.record_id)
-          ) AS subquery
-      )
-      ORDER BY ai.primary DESC
-      LIMIT 1
-    '
-    sql = ActiveRecord::Base.send(:sanitize_sql_array, [raw_sql, self.id])
-
-    attachment_id = nil
-    rows_array = ActiveRecord::Base.connection.execute(sql)
-    rows_array.each do |row|
-      attachment_id = row[0]
+    # collect each records' primary image
+    first_primary_images_from_records = records_with_images.collect do |rec|
+      attachables = rec.attachments.where(attachable_type: "Attachments::Image").collect(&:attachable)
+      attachables.find{|att| att.primary == true}
     end
-    return Attachment.find(attachment_id) if attachment_id
-    nil
 
+    # return the first primary image attachment, or just the first image if none are set as primary_image
+    first_primary_images_from_records.try(:first) || records_with_images.first.attachments.first
   end
 
   def write_state_team

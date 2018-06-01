@@ -14,6 +14,6 @@ if attachment # Avoid nil attachment
   end
 
   if attachment.has_image?
-    json.is_primary attachment.is_primary
+    json.is_primary attachment.is_primary?
   end
 end

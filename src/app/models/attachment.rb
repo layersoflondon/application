@@ -3,7 +3,7 @@ class Attachment < ApplicationRecord
   belongs_to :attachable, polymorphic: true
   update_index('attachments#attachment') { self }
   update_index 'records#record' do
-    previous_changes['record_id'] || record
+    previous_changes['record_id'] || id
   end
   attr_writer :attachment_type
   # TODO: not sure whether url and file methods should be included in attachable, for instance
@@ -36,7 +36,7 @@ class Attachment < ApplicationRecord
     attachable_type ==  "Attachments::Image"
   end
 
-  def is_primary
-    has_image? ? attachable.primary : nil
+  def is_primary?
+    has_image? ? attachable.primary : false
   end
 end

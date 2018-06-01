@@ -55,8 +55,7 @@ import Record from '../sources/record';
 
           <div className="wrap">
             <div className="m-record-hero">
-              <div className="image random-image" style={{'backgroundImage': 'url(http://placehold.it/900x400)'}}>
-              </div>
+              {this.props.trayViewStore.visible_record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.visible_record.image.url}')`}}></div>}
             </div>
 
             <div className="meta">
