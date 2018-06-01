@@ -10,7 +10,10 @@ export default class CardModel {
     this.title = record_or_collection.title;
     this.description = record_or_collection.description;
     this.period = record_or_collection.period;
-    this.primary_image = record_or_collection.primary_image;
+
+    if(record_or_collection.hasOwnProperty('image') && record_or_collection.image) {
+      this.image = record_or_collection.image.url;
+    }
 
     this.highlighted = false;
 

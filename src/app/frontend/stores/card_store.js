@@ -80,9 +80,9 @@ export default class CardStore {
 
     const cards = object.cards.map((card_object) => {
       if( card_object.hasOwnProperty('records') ) {
-        return new CollectionModel.fromJS(card_object);
+        return CollectionModel.fromJS(card_object, false);
       }else {
-        return new RecordModel.fromJS(card_object);
+        return RecordModel.fromJS(card_object);
       }
     });
 

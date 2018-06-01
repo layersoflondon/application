@@ -134,7 +134,7 @@ export default class RecordModel {
     }
 
     if( attributes.hasOwnProperty('collections') ) {
-      record.collections = attributes.collections.map((c) => CollectionModel.fromRecord(c));
+      record.collections = attributes.collections.map((c) => CollectionModel.fromJS(c, true));
     }
 
     return record;

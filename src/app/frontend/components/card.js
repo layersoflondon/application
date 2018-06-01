@@ -37,7 +37,7 @@ import {Link} from 'react-router-dom';
     let image_styles = {background: '#2e3c4e'};
 
     if( this.props.card.is_collection ) container_classes += " m-record-card--collection";
-    if( this.props.card.primary_image ) image_styles.backgroundImage = `url('${this.props.card.primary_image}')`;
+    if( this.props.card.image ) image_styles.backgroundImage = `url('${this.props.card.image}')`;
 
     let resource = '/';
     if( this.props.card.is_collection ) {

@@ -15,7 +15,7 @@ export default class CollectionModel {
     return [0, 0];
   }
 
-  static fromRecord(attributes) {
+  static fromJS(attributes, from_record = false) {
     const collection = new CollectionModel();
     collection.id = attributes.id;
     collection.title = attributes.title;
@@ -23,20 +23,14 @@ export default class CollectionModel {
     collection.read_state = attributes.read_state;
     collection.write_state = attributes.write_state;
     collection.owner = attributes.owner;
-    collection.records = attributes.records;
 
-    return collection;
-  }
+    if( !from_record && attributes.hasOwnProperty('records') ) {
+      collection.records = attributes.records.map((r) => RecordModel.fromJS(r));
+    }
 
-  static fromJS(attributes) {
-    const collection = new CollectionModel();
-    collection.id = attributes.id;
-    collection.title = attributes.title;
-    collection.description = attributes.description;
-    collection.read_state = attributes.read_state;
-    collection.write_state = attributes.write_state;
-    collection.owner = attributes.owner;
-    collection.records = attributes.records.map((r) => RecordModel.fromJS(r));
+    if( attributes.hasOwnProperty('image') ) {
+      collection.image = attributes.image;
+    }
 
     return collection;
   }

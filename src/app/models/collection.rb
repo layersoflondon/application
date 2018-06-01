@@ -27,14 +27,8 @@ class Collection < ApplicationRecord
     records_with_images = records.includes(attachments: :attachable).joins(:attachments).where(attachments: {attachable_type: "Attachments::Image"})
     return nil unless records_with_images.any?
 
-    # collect each records' primary image
-    first_primary_images_from_records = records_with_images.collect do |rec|
-      attachables = rec.attachments.where(attachable_type: "Attachments::Image").collect(&:attachable)
-      attachables.find{|att| att.primary == true}
-    end
-
-    # return the first primary image attachment, or just the first image if none are set as primary_image
-    first_primary_images_from_records.try(:first) || records_with_images.first.attachments.first
+    record_images = records_with_images.collect{|r| r.attachments.where(attachable_type: "Attachments::Image").first}
+    record_images.find{|i| i.attachable.primary} || record_images.first
   end
 
   def write_state_team
