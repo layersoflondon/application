@@ -21,7 +21,7 @@ json.collections do
 end
 
 json.image do
-  json.partial! 'record_attachments/attachment', attachment: record.primary_image(fallback_to_first: true)
+  json.partial! 'record_attachments/attachment', attachment: record.get_primary_image(fallback_to_first: true)
 end
 
 json.attachments do

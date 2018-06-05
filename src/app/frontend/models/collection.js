@@ -10,6 +10,7 @@ export default class CollectionModel {
   owner = {};
   is_collection = true;
   @observable records = [];
+  @observable image = null;
 
   @computed get position() {
     return [0, 0];

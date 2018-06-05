@@ -2,6 +2,7 @@ import {observable, computed} from 'mobx';
 
 export default class CardModel {
   @observable highlighted;
+  @observable image;
 
   constructor(record_or_collection) {
     this.object = record_or_collection;

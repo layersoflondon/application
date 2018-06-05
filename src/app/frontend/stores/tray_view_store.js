@@ -35,10 +35,11 @@ export default class TrayViewStore {
           const record = RecordModel.fromJS(response.data);
           this.visible_record = record;
         }).catch((error) => {
+          console.log("Error getting visible record", error);
           this.visible_record = null;
         });
       }else {
-        // console.log("No newValue in visible_record_id change", change);
+        console.log("No newValue in visible_record_id change", change);
         this.visible_record = null;
       }
     });

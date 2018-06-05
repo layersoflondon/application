@@ -11,6 +11,7 @@ class Record < ApplicationRecord
   update_index 'users#user' do
     previous_changes['user_id'] || user
   end
+  has_one :primary_image, class_name: 'Attachments::Image', foreign_key: :id, primary_key: :primary_image_id
   has_many :record_taxonomy_terms, class_name: 'RecordTaxonomyTerm'
   has_many :taxonomy_terms, through: :record_taxonomy_terms
 
@@ -67,7 +68,11 @@ class Record < ApplicationRecord
     end
   end
 
-  def primary_image(fallback_to_first: false)
+  def get_primary_image(fallback_to_first: true)
+    if primary_image_id && primary_image
+      primary_image
+    end
+
     images = attachments.where(attachable_type: "Attachments::Image")
     image = images.select{|a| a.attachable.attachment.is_primary?}.first
 

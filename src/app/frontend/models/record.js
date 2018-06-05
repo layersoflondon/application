@@ -12,7 +12,6 @@ export default class RecordModel {
   lat;
   lng;
   user = {};
-  image = null;
   created_at;
 
   @observable title = '';
@@ -23,9 +22,9 @@ export default class RecordModel {
   @observable date_from_object = {date: '', month: '', year: ''};
   @observable date_to_object = {date: '', month: '', year: ''};
 
+  @observable image = null;
   @observable attachments = [];
   @observable current_attachment_item_index = this.attachments.length>0 ? 0 : null; //which media item is active (being edited)
-  @observable primary_image = null;
   @observable collections = [];
   @observable collection_ids = [];
 
@@ -78,6 +77,10 @@ export default class RecordModel {
     }else {
       this.date_to_object = {date: '', month: '', year: ''};
     }
+  }
+
+  setCurrentAttachmentItemAsPrimaryImage() {
+    console.log("Set something", this.current_attachment_item);
   }
 
   @computed get current_attachment_item() {

@@ -23,11 +23,14 @@ class Collection < ApplicationRecord
   }
 
   def primary_image
-    # gety any records in this collection that have attached images
-    records_with_images = records.includes(attachments: :attachable).joins(:attachments).where(attachments: {attachable_type: "Attachments::Image"})
+    record_with_primary_image = records.where.not(primary_image_id: nil).try(:first)
+    return record_with_primary_image.get_primary_image if record_with_primary_image
+
+    # get any records in this collection that have attached images
+    records_with_images = records.includes(attachments: :attachable).joins(:attachments).where(attachments: {attachable_type: "Attachments::Image"}).compact
     return nil unless records_with_images.any?
 
-    record_images = records_with_images.collect{|r| r.attachments.where(attachable_type: "Attachments::Image").first}
+    record_images = records_with_images.collect{|r| r.attachments.where(attachable_type: "Attachments::Image")}.flatten
     record_images.find{|i| i.attachable.primary} || record_images.first
   end
 

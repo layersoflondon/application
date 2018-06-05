@@ -1,5 +1,5 @@
 class Attachment < ApplicationRecord
-  has_many :records
+  belongs_to :record
   belongs_to :attachable, polymorphic: true
   update_index('attachments#attachment') { self }
   update_index 'records#record' do
