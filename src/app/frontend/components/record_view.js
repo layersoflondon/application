@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import { Map, Marker, TileLayer } from 'react-leaflet'
 import PropTypes from 'prop-types';
 import {inject, observer} from "mobx-react";
 import Parser from 'html-react-parser';
@@ -88,7 +89,12 @@ import Record from '../sources/record';
             <div className="sidebar">
               <div className="place">
                 <div className="map">
+                  <Map center={this.props.trayViewStore.visible_record.position} zoom={14}>
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
+                    <Marker position={this.props.trayViewStore.visible_record.position} icon={this.props.trayViewStore.visible_record.icon()} />
+                  </Map>
                 </div>
+
                 <div className="text">Fixme: Palace St, Westminster, London SW1E | {this.props.trayViewStore.visible_record.lat}, {this.props.trayViewStore.visible_record.lng}</div>
               </div>
 

@@ -3,6 +3,7 @@ import CollectionModel from './collection';
 import Record from "../sources/record";
 import MediaItemStore from "../stores/media_item_store";
 import Parser from "html-react-parser";
+import L from "leaflet";
 
 export default class RecordModel {
   id = null;
@@ -113,6 +114,20 @@ export default class RecordModel {
     Record.like(this.id).then((response) => {
       this.like_count = response.data.like_count;
     });
+  }
+
+  icon() {
+    const default_icon = new L.Icon({
+      iconUrl: require('../assets/images/record-marker.png'),
+      iconRetinaUrl: require('../assets/images/record-marker-x2.png'),
+
+      iconSize: [22, 30],
+      shadowSize: [0, 0],
+      iconAnchor: [11, 20],
+      popupAnchor: [0, -33]
+    });
+
+    return default_icon;
   }
 
   toJS() {
