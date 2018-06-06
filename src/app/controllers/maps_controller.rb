@@ -10,6 +10,7 @@ class MapsController < ApplicationController
   end
 
   def show
+    # @state = render_to_string(action: :state, formats: [:json])
   end
 
   def state
@@ -28,6 +29,11 @@ class MapsController < ApplicationController
     begin
       klass = (params[:resource].singularize.classify).constantize
       model = klass.find_by!(id: params[:id])
+
+      if model.respond_to?(:view_count)
+        cookie_name = "viewed_#{model.class.to_s.downcase.pluralize}".to_sym
+        model.increment!(:view_count) unless cookies[cookie_name].present? && cookies[cookie_name].include?(model.id)
+      end
 
       Rails.logger.info("params class: (#{params.inspect})   ----   #{klass}")
     rescue => e

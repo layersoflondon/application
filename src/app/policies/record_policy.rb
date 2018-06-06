@@ -27,6 +27,10 @@ class RecordPolicy < ApplicationPolicy
     create?
   end
 
+  def like?
+    !user.record_likes.include?(record.id)
+  end
+
   class Scope < Scope
     def resolve
       scope

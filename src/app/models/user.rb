@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :collections, as: :owner
   has_one_attached :avatar
 
+  serialize :record_likes, Array
+
   # TODO: - users should change the state of their records before being deleted.
   # before_destroy do
   #  records.each {|r| r.make_orphan! }

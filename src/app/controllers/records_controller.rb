@@ -1,5 +1,5 @@
 class RecordsController < ApplicationController
-  before_action :set_record, only: %i[show update destroy]
+  before_action :set_record, only: %i[show update destroy like]
   skip_before_action :authenticate_user!, only: %i[show index]
   skip_after_action :verify_authorized, only: [:index]
 
@@ -18,6 +18,8 @@ class RecordsController < ApplicationController
 
   def show
     authorize(@record)
+
+    @record.increment!(:view_count) unless cookies[:viewed_records].present? && cookies[:viewed_records].include?(@record.id)
   end
 
   def update
@@ -34,6 +36,16 @@ class RecordsController < ApplicationController
     @record.state = 'deleted'
     return render json: '', status: :no_content if @record.save
     render json: @record.errors, status: :unauthorized
+  end
+
+  def like
+    authorize(@record)
+    @record.increment!(:like_count)
+
+    current_user.record_likes << @record.id
+    current_user.save if current_user.record_likes_changed?
+
+    render json: {like_count: @record.reload.like_count}, status: 200
   end
 
   private

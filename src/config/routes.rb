@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
   resources :records, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]
+    member do
+      patch 'like'
+    end
   end
 
   resources :collections, only: %i[index create show update destroy], defaults: {format: :json} do

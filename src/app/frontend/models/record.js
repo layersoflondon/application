@@ -6,8 +6,6 @@ import Parser from "html-react-parser";
 
 export default class RecordModel {
   id = null;
-  like_count = 0;
-  view_count = 0;
   state;
   lat;
   lng;
@@ -18,6 +16,9 @@ export default class RecordModel {
   @observable description = '';
   @observable location = null;
   @observable latlng = null;
+
+  @observable like_count = 0;
+  @observable view_count = 0;
 
   @observable date_from_object = {date: '', month: '', year: ''};
   @observable date_to_object = {date: '', month: '', year: ''};

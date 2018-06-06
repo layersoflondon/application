@@ -10,6 +10,10 @@ json.date_from record.date_from
 json.date_to record.date_to
 json.created_at record.created_at
 json.location record.location
+
+# json.user_can_edit policy(record).edit?
+# json.user_can_like policy(record).like?
+
 # TODO: change to use json builder user partial
 json.user do
     json.id record.user.id
