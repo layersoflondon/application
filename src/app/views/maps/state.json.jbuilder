@@ -1,7 +1,7 @@
 if @collection
-  json.partial! 'maps/partials/collection', {locals: {collection: @collection, records: @records, collections: @collections}}
+  json.partial! 'maps/partials/collection_state', {locals: {collection: @collection, records: @records, collections: @collections}}
 else
-  json.partial! 'maps/partials/records', {locals: {records: @records, collections: @collections}}
+  json.partial! 'maps/partials/record_state', {locals: {records: @records, collections: @collections}}
 end
 
 json.set! :recordFormStore do

@@ -101,6 +101,20 @@ export default class RecordModel {
     this.collection_ids = [parseInt(id, 10)];
   }
 
+  @computed get user_can_edit_record() {
+    return this.user_can_edit;
+  }
+
+  @computed get user_can_like_record() {
+    return this.user_can_like;
+  }
+
+  incrementLikeCount() {
+    Record.like(this.id).then((response) => {
+      this.like_count = response.data.like_count;
+    });
+  }
+
   toJS() {
     return {
       id: this.id,
@@ -131,6 +145,9 @@ export default class RecordModel {
     record.image = attributes.image;
     record.created_at = attributes.created_at;
 
+    record.user_can_like = attributes.user_can_like;
+    record.user_can_edit = attributes.user_can_edit;
+
     if( attributes.hasOwnProperty('attachments') ) {
       record.attachments = attributes.attachments.map((attachment) => {
         return MediaItemStore.fromJS(attachment, attributes.id);
@@ -160,6 +177,7 @@ export default class RecordModel {
     this.created_at = '';
     this.attachments = [];
     this.collections = [];
+
     return this;
   }
 }

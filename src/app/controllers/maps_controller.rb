@@ -10,7 +10,6 @@ class MapsController < ApplicationController
   end
 
   def show
-    # @state = render_to_string(action: :state, formats: [:json])
   end
 
   def state

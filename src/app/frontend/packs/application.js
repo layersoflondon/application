@@ -11,6 +11,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Main from '../components/main';
+import axios from 'axios';
 
 import createBrowserHistory from 'history/createBrowserHistory';
 import {Provider} from 'mobx-react';
@@ -33,20 +34,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const browserHistory = createBrowserHistory();
     const routingStore = new RouterStore();
     const history = syncHistoryWithStore(browserHistory, routingStore);
-    
-    const stores = initStore(__STATE);
-    stores.routing = routingStore;
 
-    window.stores = stores;
+    // let stores = initStore(window.__STATE);
+    axios.get('/map/state.json').then((response) => {
+        const stores = initStore(response.data);
+        stores.routing = routingStore;
 
-    ReactDOM.render(
-        <Provider {...stores} >
+        ReactDOM.render(
+          <Provider {...stores} >
             <Router history={history}>
-                <Main />
+              <Main />
             </Router>
-        </Provider>,
-        document.getElementById("map-root")
-    );
+          </Provider>,
+          document.getElementById("map-root")
+        );
+    });
 
     const eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
     const eventer = window[eventMethod];

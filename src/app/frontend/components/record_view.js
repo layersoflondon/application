@@ -67,7 +67,7 @@ import Record from '../sources/record';
 
             <div className="social">
               <div className="social-status">
-                <button className="like">
+                <button className="like" onClick={() => this.props.trayViewStore.visible_record.incrementLikeCount()}>
                   <span>Like</span>
                 </button>
                 {this.props.trayViewStore.visible_record.view_count} views <br/>
