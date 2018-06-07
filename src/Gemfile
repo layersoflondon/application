@@ -51,6 +51,7 @@ group :development do
   # gem 'errorstudio_capistrano_recipes', git: 'ssh://git@bitbucket.org/errorstudio/errorstudio_capistrano_recipes'
   # gem 'slickplan', path: '~/dev/slickplan'
   # gem 'terminal-table'
+  gem 'bullet'
 end
 
 group :test do
