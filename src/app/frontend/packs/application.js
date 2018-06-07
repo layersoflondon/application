@@ -17,9 +17,10 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import {Provider} from 'mobx-react';
 import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
 import {Router} from 'react-router';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import Parser from 'html-react-parser';
-window.Parser = Parser;
 import Search from '../sources/search.js';
+window.Parser = Parser;
 
 /**
  * Create a CardStore from our dummy data, a TrayViewStore to pass
@@ -57,7 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen to message from child window
     eventer(messageEvent, (event) => {
-        if (event.data.scope === 'clickable-iframe-element') {
+        // fixme: restore this functionality using the new router pattern
+        if (false && event.data.scope === 'clickable-iframe-element') {
             stores.mapViewStore.overlay = null;
             // TODO: Open requested modal
             const {push} = routingStore;

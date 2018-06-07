@@ -9,13 +9,17 @@ import Collection from '../sources/collection';
  * The data store for the TrayView
  */
 export default class TrayViewStore {
-  // the TrayViewStore is given its datasource (the card_store attribute) and it renders it as a list in the tray
+  // the TrayViewStore is given its data source (the card_store attribute) and it renders it as a list in the tray
   @observable card_store = null;
   @observable previous_card_store = null;
+  @observable tray_is_visible = true;
+
+  @observable loading_record = false;
   @observable visible_record_id = null;
   @observable visible_record = null;
+
+  @observable loading_collection = false;
   @observable visible_collection_id = null;
-  @observable tray_is_visible = true;
 
   // dom reference to the leaflet element
   map_ref = null;
@@ -30,21 +34,27 @@ export default class TrayViewStore {
 
     // mutating the visible_record_id will fetch that record and update the RecordView component with the relevant state
     observe(this, 'visible_record_id', (change) => {
+      this.loading_record = true;
+
       if( change.newValue ) {
         Record.show(null, this.visible_record_id).then((response) => {
           const record = RecordModel.fromJS(response.data);
           this.visible_record = record;
         }).catch((error) => {
-          console.log("Error getting visible record", error);
-          this.visible_record = null;
+          console.log("Error getting record", error);
+          this.visible_record_id = null;
+        }).finally(() => {
+          this.loading_record = false;
         });
       }else {
-        console.log("No newValue in visible_record_id change", change);
         this.visible_record = null;
+        this.loading_record = false;
       }
     });
 
     observe(this, 'visible_collection_id', (change) => {
+      this.loading_collection = true;
+
       if( change.newValue ) {
         Collection.show(null, this.visible_collection_id).then((response) => {
           const collection_card_data = new CardModel(response.data); //fromJS(response.data, this.visible_collection_id);
@@ -53,12 +63,15 @@ export default class TrayViewStore {
 
           this.card_store = CardStore.fromJS(collection_card_data);
         }).catch((error) => {
-          console.log("Error fetching collection", error);
+          console.log("Error getting collection", error);
           this.visible_collection_id = null;
+        }).finally(() => {
+          this.loading_collection = false;
         });
       }else {
         // console.log("No newValue in visible_collection_id change", change);
         this.visible_collection_id = null;
+        this.loading_collection = false;
       }
     });
 
@@ -80,6 +93,7 @@ export default class TrayViewStore {
     const next_card = next_cards.find((c) => !c.is_collection);
 
     if( next_card ) {
+      console.log("Setting visible_record_id");
       this.visible_record_id = next_card.id;
     }
   }
@@ -92,6 +106,7 @@ export default class TrayViewStore {
     const previous_card = previous_cards.find((c) => !c.is_collection);
 
     if( previous_card ) {
+      console.log("Setting visible_record_id");
       this.visible_record_id = previous_card.id;
     }
   }
@@ -121,6 +136,7 @@ export default class TrayViewStore {
       delete tray_view_state['visible_record'];
 
       store.visible_record    = RecordModel.fromJS(record_state);
+      console.log("Setting visible_record_id");
       store.visible_record_id = record_state.id;
     }
 

@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
+import {Link, withRouter} from 'react-router-dom';
 import Parser from 'html-react-parser';
 
 import Card from './card';
@@ -56,7 +57,7 @@ import {inject} from "mobx-react/index";
       trayCollectionDetails = <div>
         <div className="m-tray-title-area">
           <div className="close" onClick={this.switchToPreviousCardStore.bind(this)}>
-            <button className="close">Close</button>
+            <Link className="close" to="/map">Close</Link>
           </div>
           <h1>{this.props.trayViewStore.card_store.title}</h1>
           <div className="meta">Collection, {this.props.trayViewStore.card_store.cards.length} records</div>

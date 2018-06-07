@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
 import {observer} from "mobx-react";
 import PropTypes from 'prop-types';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 
+@withRouter
 @observer export default class Tools extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +42,8 @@ import PropTypes from 'prop-types';
           <button data-label="Create collection" data-overlay="collection_form" onClick={this.handleOnClick.bind(this)}><span>Create collection</span></button>
         </div>
         <div className="m-tool-button m-tool-button--add">
-          <button data-label="Add record" data-overlay="record_form" onClick={this.handleOnClickAddRecord.bind(this)}><span>Add record</span></button>
+          <Link to='/map/records/new'>Add record</Link>
+          {/*<button data-label="Add record" data-overlay="record_form" onClick={this.handleOnClickAddRecord.bind(this)}><span>Add record</span></button>*/}
         </div>
       </div>
       <div className="m-actions">

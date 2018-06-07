@@ -1,12 +1,15 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {inject, observer} from "mobx-react";
+import { Route } from 'react-router';
+import {Link, withRouter} from 'react-router-dom';
 
 import Tools from './tools';
 import Tray from './tray';
 import MapView from './map_view';
 import Search from './search';
 import RecordView from './record_view';
+import CollectionView from './collection_view';
 import PlacePicker from './place_picker';
 import LayersOverlay from './layers_overlay';
 
@@ -14,7 +17,9 @@ import CollectionForm from './forms/collections/collection_form';
 import UserForm from './forms/user/user_form';
 import RecordForm from './forms/records/record_form';
 
+
 @inject('routing', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore')
+@withRouter
 @observer export default class Main extends Component {
   constructor(props) {
     super(props);
@@ -27,28 +32,35 @@ import RecordForm from './forms/records/record_form';
     }
 
     return <div className={className}>
-      <LayersOverlay {...this.props} />
+      {/* permanantly visible components */}
       <Tools {...this.props} />
       <Tray {...this.props} />
       <MapView {...this.props} />
 
-      <Search {...this.props} />
-      <CollectionForm {...this.props} />
-      <UserForm {...this.props} />
-      <RecordForm {...this.props} />
+      {/* Various Overlays ... */}
+      <Route path='/map/account' component={UserForm} />
+      <Route path='/map/layers' component={LayersOverlay} />
+      <Route path='/map/search' component={Search} />
 
-      {this.props.trayViewStore.visible_record && <RecordView {...this.props} />}
-      {this.props.mapViewStore.add_record_mode && <PlacePicker {...this.props} />}
+      {/* show the collections form */}
+      <Route path='/map/collections/new' component={CollectionForm} />
 
+      {/* the route we go to when '+ Add record' is clicked to allow the user to choose a place */}
+      <Route path='/map/records/choose-place' component={PlacePicker} />
+      {/* once the user has chosen a place on the map, we show the form */}
+      <Route path='/map/records/new' component={RecordForm} />
+
+      {/* edit an existing record */}
+      <Route path='/map/records/edit/:id' component={RecordForm} />
+
+      {/* view a record */}
+      <Route path='/map/records/:id' component={RecordView} />
+
+      {/* view a collection */}
+      <Route exact path='/map/collections/:id' component={CollectionView} />
+
+      {/* view a record within a collection */}
+      <Route path='/map/collections/:collection_id/records/:id' component={RecordView} />
     </div>
   }
 }
-
-// Main.propTypes = {
-//   collectionStore: PropTypes.object.isRequired,
-//   layersStore: PropTypes.object.isRequired,
-//   mapViewStore: PropTypes.object.isRequired,
-//   recordFormStore: PropTypes.object.isRequired,
-//   recordStore: PropTypes.object.isRequired,
-//   trayViewStore: PropTypes.object.isRequired
-// };

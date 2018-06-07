@@ -1,13 +1,14 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
-
-import {observer} from "mobx-react";
+import {Link} from 'react-router-dom';
+import {inject, observer} from "mobx-react";
 import Details from './details';
 import Dates from './dates';
 import Media from './media';
 import Collection from './collection';
 import RecordModel from './../../../models/record';
 
+@inject('mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore')
 @observer export default class RecordForm extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +41,15 @@ import RecordModel from './../../../models/record';
     this.props.recordFormStore.record.resetState();
   }
 
+  renders() {
+    console.log("Rendering record form store", this.props);
+    return <div>
+      record form store
+    </div>
+  }
   render() {
+    console.log("Rendering record form store", this.props, this);
+
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'record_form' ) className+=" is-showing";
 
@@ -48,8 +57,9 @@ import RecordModel from './../../../models/record';
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
           <div className="close">
-            <button className="close" onClick={this.handleClickedOnClose.bind(this)}>Close</button>
+            <Link className="close" to='/map'>Close</Link>
           </div>
+
           <div className="m-add-record">
             <h1>Add record</h1>
 

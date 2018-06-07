@@ -1,46 +1,44 @@
 import React,{Component} from 'react';
 import { Map, Marker, TileLayer } from 'react-leaflet'
-import PropTypes from 'prop-types';
 import {inject, observer} from "mobx-react";
 import Parser from 'html-react-parser';
+import {Link, withRouter} from 'react-router-dom';
 
-import Record from '../sources/record';
-
-@inject('routing')
+@inject('routing', 'trayViewStore', 'mapViewStore', 'recordFormStore')
+@withRouter
 @observer export default class RecordView extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {loading: true};
   }
 
   componentWillMount() {
-    this.setState({loading: false});
+    console.log("RecordView componentWillMount");
+    this.props.trayViewStore.visible_record_id = this.props.match.params.id;
   }
 
-  handleCloseOnClick(event) {
-    event.preventDefault();
-    this.props.trayViewStore.visible_record_id = 0;
-
-    this.props.routing.push("/map");
+  componentWillUnmount() {
+    this.props.trayViewStore.visible_record_id = false;
+    this.props.trayViewStore.visible_record = false;
   }
 
   switchToEditMode(event) {
     event.preventDefault();
 
     const record = this.props.trayViewStore.visible_record;
-    this.props.trayViewStore.visible_record_id = null;
-    this.props.mapViewStore.overlay = "record_form";
     this.props.recordFormStore.record = record;
-
-    this.props.routing.push(`/map/records/edit/${record.id}`);
   }
 
   render_state_loading_true() {
-    return <div className="m-overlay is-showing">
+    return <div className="m-overlay is-loading">
       loading
     </div>
   }
 
   render_state_loading_false() {
+    const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
+
     return <div className="m-overlay is-showing">
       <div className="s-overlay--record is-showing">
         <div className="m-record">
@@ -51,7 +49,7 @@ import Record from '../sources/record';
             <button className="previous" onClick={() => this.props.trayViewStore.moveToPreviousCard()}>Previous</button>
           </div>
           <div className="close">
-            <button className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</button>
+            <Link className="close" to={link_path}>Close</Link>
           </div>
 
           <div className="wrap">
@@ -124,6 +122,6 @@ import Record from '../sources/record';
   }
 
   render() {
-    return this[`render_state_loading_${this.state.loading}`]();
+    return this[`render_state_loading_${this.props.trayViewStore.loading_record}`]();
   }
 }

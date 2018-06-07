@@ -12,13 +12,12 @@ import {Link} from 'react-router-dom';
   }
 
   handleClick() {
-    if( this.props.card.is_collection ) {
-      this.props.trayViewStore.visible_collection_id = this.props.card.id;
-      this.props.routing.push(`/map/collections/${this.props.card.id}`);
-    }else {
-      this.props.trayViewStore.visible_record_id = this.props.card.id;
-      this.props.routing.push(`/map/records/${this.props.card.id}`);
-    }
+    console.log("Card clicked....handle state for visible object.");
+    // if( this.props.card.is_collection ) {
+    //   this.props.trayViewStore.visible_collection_id = this.props.card.id;
+    // }else {
+    //   this.props.trayViewStore.visible_record_id = this.props.card.id;
+    // }
   }
 
   highlightCard() {

@@ -27,6 +27,11 @@
   }
 }
 
+.m-overlay {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 .m-overlay .close button {
   background: url('../assets/images/icon-close.svg') center no-repeat;
 }

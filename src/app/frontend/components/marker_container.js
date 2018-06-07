@@ -13,6 +13,7 @@ import Parser from 'html-react-parser';
 
   handleOnClick(event) {
     event.preventDefault();
+    console.log("Setting visible_record_id");
     this.props.trayViewStore.visible_record_id = this.props.card.id;
   }
 
