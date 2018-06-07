@@ -19,6 +19,7 @@ import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
 import {Router} from 'react-router';
 import Parser from 'html-react-parser';
 window.Parser = Parser;
+import Search from '../sources/search.js';
 
 /**
  * Create a CardStore from our dummy data, a TrayViewStore to pass
