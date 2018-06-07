@@ -18,6 +18,10 @@ default: &default
   host: mysql
   port: 3306
 
+legacy:
+  <<: *default
+  database: layers_alpha
+
 development:
   <<: *default
   database: layers-app_development
