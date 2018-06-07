@@ -1,11 +1,11 @@
 module Alpha
   class UserGroup < ActiveRecord::Base
   include DatabaseConnection
-    include Sluggable
+    include Alpha::Sluggable
 
     belongs_to :primary_user, class_name: "User"
     has_many :pins, through: :users
-    has_many :user_group_users, -> {extending UserGroupStates}, dependent: :destroy
+    has_many :user_group_users, -> {extending Alpha::UserGroupStates}, dependent: :destroy
     has_many :users, through: :user_group_users
 
     validates :name, presence: true, uniqueness: true

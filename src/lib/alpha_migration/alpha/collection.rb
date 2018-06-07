@@ -1,7 +1,7 @@
 module Alpha
   class Collection < ActiveRecord::Base
     include DatabaseConnection
-    include Sluggable
+    include Alpha::Sluggable
 
     has_many :collection_pins, dependent: :destroy, inverse_of: :collection
     has_many :pins, through: :collection_pins, inverse_of: :collections, dependent: :nullify
