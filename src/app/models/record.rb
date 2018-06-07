@@ -40,7 +40,7 @@ class Record < ApplicationRecord
     errors.add(:date_from, 'date is not in the past') if date_from.present? && Date.today < date_from
   end
 
-  aasm column: :state, enum: false do
+  aasm column: :state, enum: true do
     state :draft, initial: true
     state :published
     state :pending_review
