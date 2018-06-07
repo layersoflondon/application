@@ -51,16 +51,17 @@ import RecordForm from './forms/records/record_form';
       <Route path='/map/records/new' component={RecordForm} />
 
       {/* edit an existing record */}
-      <Route path='/map/records/edit/:id' component={RecordForm} />
+      <Route exact path='/map/records/:id/edit' component={RecordForm} />
+      <Route exact path='/map/collections/:collection_id/records/:id/edit' component={RecordForm} />
 
       {/* view a record */}
-      <Route path='/map/records/:id' component={RecordView} />
+      <Route exact path='/map/records/:id' component={RecordView} />
 
       {/* view a collection */}
       <Route exact path='/map/collections/:id' component={CollectionView} />
 
       {/* view a record within a collection */}
-      <Route path='/map/collections/:collection_id/records/:id' component={RecordView} />
+      <Route exact path='/map/collections/:collection_id/records/:id' component={RecordView} />
     </div>
   }
 }

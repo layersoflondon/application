@@ -14,20 +14,15 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   componentWillMount() {
-    console.log("RecordView componentWillMount");
     this.props.trayViewStore.visible_record_id = this.props.match.params.id;
   }
 
   componentWillUnmount() {
-    this.props.trayViewStore.visible_record_id = false;
-    this.props.trayViewStore.visible_record = false;
-  }
-
-  switchToEditMode(event) {
-    event.preventDefault();
-
-    const record = this.props.trayViewStore.visible_record;
-    this.props.recordFormStore.record = record;
+    if( this.props.routing.location.pathname.search(/\/edit$/) > -1 ) {
+    }else {
+      this.props.trayViewStore.visible_record_id = false;
+      this.props.trayViewStore.visible_record = false;
+    }
   }
 
   render_state_loading_true() {
@@ -83,7 +78,6 @@ import {Link, withRouter} from 'react-router-dom';
               <h1>{this.props.trayViewStore.visible_record.title}</h1>
             </div>
 
-
             <div className="sidebar">
               <div className="place">
                 <div className="map">
@@ -100,7 +94,7 @@ import {Link, withRouter} from 'react-router-dom';
                 <button className="add-to-collection">Add to collection</button>
                 <button className="contact-owner">Contact owner</button>
                 <button className="flag">Flag</button>
-                <button className="edit" onClick={this.switchToEditMode.bind(this)}>Edit</button>
+                <Link to={`${link_path}/records/${this.props.match.params.id}/edit`} className="edit">Edit</Link>
               </div>
             </div>
 

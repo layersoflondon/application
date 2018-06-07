@@ -3,26 +3,19 @@ import PropTypes from 'prop-types';
 import {inject, observer} from "mobx-react";
 import CardStore from "../stores/card_store";
 import Parser from 'html-react-parser';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 
 @inject('routing')
+@withRouter
 @observer export default class Card extends Component {
   constructor(props) {
     super(props);
   }
 
-  handleClick() {
-    console.log("Card clicked....handle state for visible object.");
-    // if( this.props.card.is_collection ) {
-    //   this.props.trayViewStore.visible_collection_id = this.props.card.id;
-    // }else {
-    //   this.props.trayViewStore.visible_record_id = this.props.card.id;
-    // }
-  }
-
   highlightCard() {
     this.props.card.highlighted = true;
 
+    // fixme - change this to indicate that the marker related to the hovered card is out of the viewport somehow?
     // // pan the map to this cards' position
     // if( !this.props.card.is_collection ) {
     //   this.props.mapViewStore.panTo(this.props.card.lat, this.props.card.lng);
@@ -51,10 +44,14 @@ import {Link} from 'react-router-dom';
       container_classes += " highlighted";
     }
 
-    const path = `/map/${resource}/${this.props.card.id}`;
+    const collection_path = location.pathname.match(/\/collections\/(\d+)/);
+    let path = `/map/${resource}/${this.props.card.id}`;
+    if( collection_path && collection_path.length > 1 ) {
+      path = `/map/collections/${collection_path[1]}/records/${this.props.card.id}`;
+    }
 
     return (
-      <Link to={path} onClick={this.handleClick.bind(this)} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseOut={()=>this.props.card.highlighted=false}>
+      <Link to={path} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseOut={()=>this.props.card.highlighted=false}>
         <div className="wrapper">
           <div className="image" style={image_styles}>
           </div>

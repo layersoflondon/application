@@ -14,13 +14,14 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   componentWillMount() {
-    console.log("CollectionView componentWillMount");
-    this.props.trayViewStore.visible_collection_id = this.props.match.params.id;
+    if( this.props.match && this.props.match.params.id && this.props.match.params.id === this.props.trayViewStore.visible_collection_id ) {
+    }else {
+      this.props.trayViewStore.visible_collection_id = this.props.match.params.id;
+    }
   }
 
   componentWillUnmount() {
     this.props.trayViewStore.visible_collection_id = false;
-    // this.props.trayViewStore.visible_record = false;
   }
 
   render_state_loading_true() {

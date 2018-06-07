@@ -7,6 +7,7 @@ import Dates from './dates';
 import Media from './media';
 import Collection from './collection';
 import RecordModel from './../../../models/record';
+import Record from './../../../sources/record';
 
 @inject('mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore')
 @observer export default class RecordForm extends Component {
@@ -14,6 +15,19 @@ import RecordModel from './../../../models/record';
     super(props);
 
     this.state = {errors: []};
+  }
+
+  componentWillMount() {
+    if( this.props.trayViewStore.visible_record ) {
+      this.props.recordFormStore.record = this.props.trayViewStore.visible_record;
+    }else if( this.props.match.params.id ) {
+      Record.show(null, this.props.match.params.id).then((response) => {
+        const record = RecordModel.fromJS(response.data);
+        this.props.recordFormStore.record = record;
+      })
+    }else {
+      this.props.recordFormStore.record = new RecordModel();
+    }
   }
 
   handleClickedOnSave(event) {
@@ -41,15 +55,7 @@ import RecordModel from './../../../models/record';
     this.props.recordFormStore.record.resetState();
   }
 
-  renders() {
-    console.log("Rendering record form store", this.props);
-    return <div>
-      record form store
-    </div>
-  }
   render() {
-    console.log("Rendering record form store", this.props, this);
-
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'record_form' ) className+=" is-showing";
 

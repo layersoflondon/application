@@ -4,6 +4,7 @@ import Record from '../sources/record';
 import RecordModel from '../models/record';
 import CardModel from '../models/card';
 import Collection from '../sources/collection';
+import CollectionModel from '../models/collection';
 
 /**
  * The data store for the TrayView
@@ -20,6 +21,7 @@ export default class TrayViewStore {
 
   @observable loading_collection = false;
   @observable visible_collection_id = null;
+  @observable visible_collection = null;
 
   // dom reference to the leaflet element
   map_ref = null;
@@ -58,9 +60,13 @@ export default class TrayViewStore {
       if( change.newValue ) {
         Collection.show(null, this.visible_collection_id).then((response) => {
           const collection_card_data = new CardModel(response.data); //fromJS(response.data, this.visible_collection_id);
+
           collection_card_data.cards = collection_card_data.records;
           delete collection_card_data['records'];
 
+          this.visible_collection = CollectionModel.fromJS(response.data);
+
+          console.log("about to set card_store");
           this.card_store = CardStore.fromJS(collection_card_data);
         }).catch((error) => {
           console.log("Error getting collection", error);
@@ -77,7 +83,9 @@ export default class TrayViewStore {
 
     // swapping the card_store will re-render the tray with the new array of records
     observe(this, 'card_store', (change) => {
-      this.previous_card_store = change.oldValue;
+      if( change.oldValue && (change.newValue.id !== change.oldValue.id) ) {
+        this.previous_card_store = change.oldValue;
+      }
     });
   }
 
@@ -117,33 +125,29 @@ export default class TrayViewStore {
     if(tray_view_state.hasOwnProperty('card_store')) {
       const card_store_data = tray_view_state.card_store;
       delete tray_view_state['card_store'];
-
-      // console.log("TrayViewStore.fromJS creating card_store with card_store_data: ", card_store_data);
       store.card_store = CardStore.fromJS(card_store_data);
     }
 
-    if(tray_view_state.hasOwnProperty('previous_card_store') && tray_view_state.previous_card_store) {
-      const previous_card_store_data = tray_view_state.previous_card_store;
-      delete tray_view_state['previous_card_store'];
-
-      // console.log("TrayViewStore.fromJS has previous_card_store property - create root card store: ", previous_card_store_data);
-      store.previous_card_store = CardStore.fromJS(previous_card_store_data);
-    }
-
-    if(tray_view_state.visible_record_id) {
-      const record_state = tray_view_state.visible_record;
-      delete tray_view_state['visible_record_id'];
-      delete tray_view_state['visible_record'];
-
-      store.visible_record    = RecordModel.fromJS(record_state);
-      console.log("Setting visible_record_id");
-      store.visible_record_id = record_state.id;
-    }
-
-    // dont overwrite the visible_collection_id property as we'll already be rendering the collection
-    if(tray_view_state.visible_collection_id) {
-      delete tray_view_state['visible_collection_id'];
-    }
+    // if(tray_view_state.hasOwnProperty('previous_card_store') && tray_view_state.previous_card_store) {
+    //   const previous_card_store_data = tray_view_state.previous_card_store;
+    //   delete tray_view_state['previous_card_store'];
+    //
+    //   store.previous_card_store = CardStore.fromJS(previous_card_store_data);
+    // }
+    //
+    // if(tray_view_state.visible_record_id) {
+    //   const record_state = tray_view_state.visible_record;
+    //   delete tray_view_state['visible_record_id'];
+    //   delete tray_view_state['visible_record'];
+    //
+    //   store.visible_record    = RecordModel.fromJS(record_state);
+    //   store.visible_record_id = record_state.id;
+    // }
+    //
+    // // dont overwrite the visible_collection_id property as we'll already be rendering the collection
+    // if(tray_view_state.visible_collection_id) {
+    //   delete tray_view_state['visible_collection_id'];
+    // }
 
     Object.assign(store, tray_view_state);
 
