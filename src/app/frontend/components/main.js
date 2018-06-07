@@ -38,12 +38,14 @@ import RecordForm from './forms/records/record_form';
       <MapView {...this.props} />
 
       {/* Various Overlays ... */}
-      <Route path='/map/account' component={UserForm} />
+      <Route exact path='/map/account' component={UserForm} />
+      <Route exact path='/map/account/:tab' component={UserForm} />
       <Route path='/map/layers' component={LayersOverlay} />
       <Route path='/map/search' component={Search} />
 
       {/* show the collections form */}
-      <Route path='/map/collections/new' component={CollectionForm} />
+      <Route exact path='/map/collections/new' component={CollectionForm} />
+      <Route exact path='/map/collections/:id/edit' component={CollectionForm} />
 
       {/* the route we go to when '+ Add record' is clicked to allow the user to choose a place */}
       <Route path='/map/records/choose-place' component={PlacePicker} />

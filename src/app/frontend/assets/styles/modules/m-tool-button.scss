@@ -1,6 +1,6 @@
 // Tool button
 
-.m-tool-button button {
+.m-tool-button a {
   background: transparent;
   border: 0;
   color:$main-accent;
@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.m-tool-button button:after {
+.m-tool-button a:after {
   content: attr(data-label);
   position: absolute;
   top: 0;
@@ -22,51 +22,51 @@
   transition: opacity .2s;
 }
 
-.m-tool-button button:focus {
+.m-tool-button a:focus {
   outline: 0;
 }
 
-.m-sidebar:hover .m-tool-button button:after {
+.m-sidebar:hover .m-tool-button a:after {
   opacity: 1;
 }
 
-.m-tool-button button:before {
+.m-tool-button a:before {
   font: normal normal normal 20px/1 FontAwesome;
   color:#b3b3b3;
   opacity:0.6;
 }
 
-.m-tool-button--search button:before {
+.m-tool-button--search a:before {
   //color:$red;
   content: "\f002";
 }
 
-.m-tool-button--date-range button:before {
+.m-tool-button--date-range a:before {
   //color:$orange;
   content: "\f017";
 }
 
-.m-tool-button--layers button:before {
+.m-tool-button--layers a:before {
   //color:$green;
   content: "\f24a";
 }
 
-.m-tool-button--add-collection button:before {
+.m-tool-button--add-collection a:before {
   //color:$light-blue;
   content: "\f24d";
 }
 
-.m-tool-button--add button:before {
+.m-tool-button--add a:before {
   //color:$lilac;
   content: "\f067";
 }
 
-.m-tool-button--your-account button:before {
+.m-tool-button--your-account a:before {
   //color:$gray;
   content: "\f2c0";
 }
 
-.m-tool-button button:hover {
+.m-tool-button a:hover {
   opacity: 0.5;
 }
 

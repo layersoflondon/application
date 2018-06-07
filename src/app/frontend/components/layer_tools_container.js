@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-import {observer} from "mobx-react";
+import {Link, withRouter} from 'react-router-dom';
+import {inject, observer} from "mobx-react";
 import LayerTool from './layer_tool';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -22,6 +23,8 @@ const getListStyle = isDraggingOver => ({
   width: '100%',
 });
 
+@inject('layersStore')
+@withRouter
 @observer export default class LayerToolsContainer extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +79,7 @@ const getListStyle = isDraggingOver => ({
             </Droppable>
           </DragDropContext>
 
-          <a onClick={()=>this.props.mapViewStore.overlay = "layers"}>Choose new layers</a>
+          <Link to="/map/layers">Choose new layers</Link>
         </div>
 
       </div>

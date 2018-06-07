@@ -69,7 +69,7 @@ export default class TrayViewStore {
           console.log("about to set card_store");
           this.card_store = CardStore.fromJS(collection_card_data);
         }).catch((error) => {
-          console.log("Error getting collection", error);
+          console.log("Error getting collection", error, this.visible_collection_id);
           this.visible_collection_id = null;
         }).finally(() => {
           this.loading_collection = false;

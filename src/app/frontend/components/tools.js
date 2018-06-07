@@ -30,25 +30,21 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
       </div>
       <div className="m-tools">
         <div className="m-tool-button m-tool-button--search">
-          <button data-label="Search" data-overlay="search" onClick={this.handleOnClick.bind(this)}><span>Search</span></button>
-        </div>
-        <div className="m-tool-button m-tool-button--date-range">
-          <button data-label="Date range"><span>Date range</span></button>
+          <Link to='/map/search'>Search</Link>
         </div>
         <div className="m-tool-button m-tool-button--layers">
-          <button data-label="Layers" data-overlay="layers" onClick={this.handleOnClick.bind(this)}><span>Layers</span></button>
+          <Link to='/map/layers'>Layers</Link>
         </div>
         <div className="m-tool-button m-tool-button--add-collection">
-          <button data-label="Create collection" data-overlay="collection_form" onClick={this.handleOnClick.bind(this)}><span>Create collection</span></button>
+          <Link to='/map/collections/new'>Create collection</Link>
         </div>
         <div className="m-tool-button m-tool-button--add">
           <Link to='/map/records/new'>Add record</Link>
-          {/*<button data-label="Add record" data-overlay="record_form" onClick={this.handleOnClickAddRecord.bind(this)}><span>Add record</span></button>*/}
         </div>
       </div>
       <div className="m-actions">
         <div className="m-tool-button m-tool-button--your-account">
-          <button data-label="Your account" data-overlay="user_form" onClick={this.handleOnClick.bind(this)}><span>Your profile</span></button>
+          <Link to="/map/account">Your profile</Link>
         </div>
       </div>
     </div>;

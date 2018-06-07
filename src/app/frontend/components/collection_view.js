@@ -15,7 +15,7 @@ import {Link, withRouter} from 'react-router-dom';
 
   componentWillMount() {
     if( this.props.match && this.props.match.params.id && this.props.match.params.id === this.props.trayViewStore.visible_collection_id ) {
-    }else {
+    }else if( this.props.match.params.id != "new" ) { // dont set visible_collection_id if we're at /collections/new
       this.props.trayViewStore.visible_collection_id = this.props.match.params.id;
     }
   }
