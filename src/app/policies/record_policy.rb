@@ -28,7 +28,7 @@ class RecordPolicy < ApplicationPolicy
   end
 
   def like?
-    !user.record_likes.include?(record.id)
+    user.present? && !user.record_likes.include?(record.id)
   end
 
   class Scope < Scope
