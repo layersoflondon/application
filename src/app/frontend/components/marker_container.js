@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import { Marker, Popup } from 'react-leaflet'
+
 import {Leaflet} from 'react-leaflet';
 import L from 'leaflet';
 import Parser from 'html-react-parser';
@@ -13,7 +14,6 @@ import Parser from 'html-react-parser';
 
   handleOnClick(event) {
     event.preventDefault();
-    console.log("Setting visible_record_id");
     this.props.trayViewStore.visible_record_id = this.props.card.id;
   }
 
@@ -49,6 +49,7 @@ import Parser from 'html-react-parser';
             <div className="wrapper">
               <div className="image" style={{'backgroundImage': 'url(http://placehold.it/200x150)'}}>
               </div>
+
               <div className="text-content">
                 <h1>{this.props.card.title}</h1>
               </div>

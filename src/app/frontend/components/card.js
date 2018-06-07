@@ -1,11 +1,9 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
-import {inject, observer} from "mobx-react";
-import CardStore from "../stores/card_store";
+import {observer} from "mobx-react";
 import Parser from 'html-react-parser';
 import {Link, withRouter} from 'react-router-dom';
 
-@inject('routing')
 @withRouter
 @observer export default class Card extends Component {
   constructor(props) {
