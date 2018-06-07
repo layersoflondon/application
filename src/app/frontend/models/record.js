@@ -139,7 +139,8 @@ export default class RecordModel {
       lng: this.lng,
       date_from: this.date_from,
       date_to: this.date_to,
-      collection_ids: this._collection_ids
+      collection_ids: this._collection_ids,
+      location: this.location
     }
   }
 
