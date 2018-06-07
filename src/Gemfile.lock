@@ -101,6 +101,13 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (>= 2.0, < 4.0)
+    carrierwave (1.2.2)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
+    carrierwave-base64 (2.7.0)
+      carrierwave (>= 0.8.0)
+      mime-types (~> 3.0)
     chewy (5.0.0)
       activesupport (>= 4.0)
       elasticsearch (>= 2.0.0)
@@ -322,6 +329,8 @@ DEPENDENCIES
   bullet
   byebug
   capybara (~> 2.15)
+  carrierwave
+  carrierwave-base64
   chewy
   chromedriver-helper
   devise
