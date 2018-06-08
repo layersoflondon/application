@@ -20,3 +20,7 @@
 .m-tray-records-list .m-record-card:nth-child(5n+2) {
   background: $other-blue;
 }
+
+.m-tray-records-list .m-record-card:nth-child(5n+2) .image {
+  display: none;
+}

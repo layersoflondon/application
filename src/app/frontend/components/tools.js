@@ -30,21 +30,21 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
       </div>
       <div className="m-tools">
         <div className="m-tool-button m-tool-button--search">
-          <Link to='/map/search'>Search</Link>
+          <Link to='/map/search' data-label="Search"><span>Search</span></Link>
         </div>
         <div className="m-tool-button m-tool-button--layers">
-          <Link to='/map/layers'>Layers</Link>
+          <Link to='/map/layers' data-label="Layers"><span>Layers</span></Link>
         </div>
         <div className="m-tool-button m-tool-button--add-collection">
-          <Link to='/map/collections/new'>Create collection</Link>
+          <Link to='/map/collections/new' data-label="Create collection"><span>Create collection</span></Link>
         </div>
         <div className="m-tool-button m-tool-button--add">
-          <Link to='/map/records/new'>Add record</Link>
+          <Link to='/map/records/new' data-label="Add record"><span>Add record</span></Link>
         </div>
       </div>
       <div className="m-actions">
         <div className="m-tool-button m-tool-button--your-account">
-          <Link to="/map/account">Your profile</Link>
+          <Link to="/map/account" data-label="Your profile"><span>Your profile</span></Link>
         </div>
       </div>
     </div>;

@@ -32,7 +32,8 @@
   visibility: visible !important;
 }
 
-.m-overlay .close button {
+.m-overlay .close a {
+  display: block;
   background: url('../assets/images/icon-close.svg') center no-repeat;
 }
 .m-map-area {

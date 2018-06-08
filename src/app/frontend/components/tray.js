@@ -54,7 +54,9 @@ import {inject} from "mobx-react/index";
     if(this.props.trayViewStore.previous_card_store && !this.props.trayViewStore.card_store.root_card_store) {
       trayCollectionDetails = <div>
         <div className="m-tray-title-area">
-          <Link to="/map" className="close" onClick={this.switchToPreviousCardStore.bind(this)}>Close</Link>
+          <div className="close">
+            <Link to="/map" className="close" onClick={this.switchToPreviousCardStore.bind(this)}>Close</Link>
+          </div>
 
           <h1>{this.props.trayViewStore.card_store.title}</h1>
           <div className="meta">Collection, {this.props.trayViewStore.card_store.cards.length} records</div>
