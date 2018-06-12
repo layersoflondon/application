@@ -1,5 +1,5 @@
 module Alpha
-  class AttachedFileUploader < CarrierWave::Uploader::Base
+  class AttachedFileUploader < ::CarrierWave::Uploader::Base
 
     # Include RMagick or MiniMagick support:
     # include CarrierWave::RMagick
