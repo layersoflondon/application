@@ -201,7 +201,7 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
-    passenger (5.3.1)
+    passenger (5.1.12)
       rack
       rake (>= 0.8.1)
     powerpack (0.1.1)
@@ -349,7 +349,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mini_magick
   mysql2 (~> 0.4.4)
-  passenger
+  passenger (= 5.1.12)
   puma (~> 3.11)
   pundit
   rails (~> 5.2.0.rc1)

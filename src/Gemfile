@@ -65,7 +65,7 @@ group :test do
 end
 
 group :staging, :production do
-  gem 'passenger'
+  gem 'passenger', "5.1.12"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
