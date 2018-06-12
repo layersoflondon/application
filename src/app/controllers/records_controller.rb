@@ -6,7 +6,7 @@ class RecordsController < ApplicationController
   decorates_assigned :record, :records
 
   def index
-    @records = Record.includes(:user).where(state: %w[published flagged])
+    @records = RecordsIndex.filter(terms: {state: %w[published flagged]})
   end
 
   def create

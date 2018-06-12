@@ -19,6 +19,7 @@ class RecordsIndex < Chewy::Index
     field :date_from, type: 'date'
     field :date_to, type: 'date'
     field :created_at, type: 'date'
+    field :updated_at, type: 'date'
     field :location, type: 'object'
     field :user, type: 'object' do
       field :id, type: 'integer'
@@ -42,6 +43,9 @@ class RecordsIndex < Chewy::Index
         field :name, type: 'keyword'
         field :description, type: 'text'
       end
+    end
+    def self.published
+      filter(terms: {state: ['published']})
     end
   end
 end
