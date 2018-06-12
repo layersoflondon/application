@@ -94,4 +94,8 @@ gem 'chewy'
 
 # Image manipulation
 gem 'mini_magick'
+
 gem 'image_processing', '~> 1.2'
+
+# Parse youtube URLs to get the ID.
+gem 'youtube_id'
