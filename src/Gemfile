@@ -52,6 +52,8 @@ group :development do
   # gem 'slickplan', path: '~/dev/slickplan'
   # gem 'terminal-table'
   gem 'bullet'
+  gem 'carrierwave'
+  gem 'carrierwave-base64'
 end
 
 group :test do
@@ -89,3 +91,11 @@ gem 'aasm'
 
 # High-level Elasticsearch Ruby framework based on the official elasticsearch-ruby client
 gem 'chewy'
+
+# Image manipulation
+gem 'mini_magick'
+
+gem 'image_processing', '~> 1.2'
+
+# Parse youtube URLs to get the ID.
+gem 'youtube_id'

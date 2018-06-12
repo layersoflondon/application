@@ -5,7 +5,7 @@ class Record < ApplicationRecord
   update_index('records#record') { self }
   has_many :collection_records
   has_many :collections, through: :collection_records
-  has_many :attachments
+  has_many :attachments, dependent: :destroy
   update_index('attachments#attachment') { attachments }
   belongs_to :user
   update_index 'users#user' do
@@ -22,8 +22,8 @@ class Record < ApplicationRecord
 
   validates :title, :state, presence: true, if: -> { state == 'draft' }
   validates :title, :description, :state, :lat, :lng, :date_from, :location, presence: true, if: -> { state != 'draft' }
-  validates :title, length: { in: 3..255 }, if: -> { state != 'draft' }
-  validates :description, length: { minimum: 3 }, if: -> { state != 'draft' }
+  validates :title, presence: true, if: -> { state != 'draft' }
+  validates :description, presence: true, if: -> { state != 'draft' }
   validates :lat, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, if: -> { state != 'draft' }
   validates :lng, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }, if: -> { state != 'draft' }
   validates_format_of :date_from, with: /\d{4}-\d{2}-\d{2}/, message: '^Date must be in the following format: yyyy-dd-mm', if: -> { state != 'draft' }
