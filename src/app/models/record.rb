@@ -5,7 +5,7 @@ class Record < ApplicationRecord
   update_index('records#record') { self }
   has_many :collection_records
   has_many :collections, through: :collection_records
-  has_many :attachments
+  has_many :attachments, dependent: :destroy
   update_index('attachments#attachment') { attachments }
   belongs_to :user
   update_index 'users#user' do
