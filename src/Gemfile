@@ -91,3 +91,7 @@ gem 'aasm'
 
 # High-level Elasticsearch Ruby framework based on the official elasticsearch-ruby client
 gem 'chewy'
+
+# Image manipulation
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'
