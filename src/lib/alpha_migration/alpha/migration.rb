@@ -44,19 +44,55 @@ module Alpha
 
     def migrate_pins
       # get fields which match on both sides
+
+      Alpha::Pin.joins(content_entry: :content_type).references(content_entry: :content_type).all.each do |pin|
+        migrate_pin(pin)
+        migrate_pin_attachment(pin)
+      end
+    end
+
+    def migrate_pin(pin)
       record_fields = Alpha::Pin.columns.collect(&:name) & ::Record.columns.collect(&:name)
-      Alpha::Pin.all.each do |pin|
-        data = pin.attributes.select {|k,v| k.in?(record_fields)}
-        record = Record.find_by(id: pin.id)
-        unless record.present?
-          begin
-            r = Record.new(data.except("location"))
-            r.location = {address: data["location"]}
-            r.save!
-          rescue => e
-            Rails.logger.debug("Couldn't migrate pin #{pin.title}: #{e}")
-            log_backtrace(e)
+      data = pin.attributes.select {|k,v| k.in?(record_fields)}
+      record = Record.find_by(id: pin.id)
+      unless record.present?
+        begin
+          r = Record.new(data.except("location"))
+          r.location = {address: data["location"]}
+          r.state = "published"
+          r.save!
+        rescue => e
+          Rails.logger.debug("Couldn't migrate pin #{pin.title}: #{e}")
+          log_backtrace(e)
+        end
+      end
+    end
+
+    def migrate_pin_attachment(pin)
+      content_entry = pin.content_entry
+      content_type = content_entry.content_type
+      record = Record.find_by(id: pin.id)
+      unless record.attachments.any?
+        # alpha only allowed one attachment per pin, so we can safely assume that if the record has an attachment, we can skip it.
+        begin
+          attachment_type = case content_type.name
+                              when 'text'
+                                'attached_file'
+                              else
+                                content_type.name
+                            end
+
+          if content_entry.attached_file.present?
+            # we need to move the file across
+            attachment = record.attachments.build(attachment_type: attachment_type, attachable_attributes: {
+              title: content_entry.content.present? ? content_entry.content : record.title
+            })
+            attachment.attachable.file.attach(io: StringIO.new(content_entry.attached_file.file.read), filename: content_entry.file_name)
+            record.save!
           end
+        rescue => e
+          Rails.logger.debug("Couldn't migrate pin attachment #{pin.title}: #{e}")
+          log_backtrace(e)
         end
       end
     end
@@ -69,6 +105,7 @@ module Alpha
                       created_at: collection.created_at,
                       updated_at: collection.updated_at
         )
+      #   todo migrate pins
       end
     end
 
