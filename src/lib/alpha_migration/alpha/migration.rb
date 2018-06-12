@@ -3,11 +3,11 @@ module Alpha
 
     def initialize
       # @alpha_pins = Alpha::Pin.includes(pin_content_entry: {content_entry: :content_type}).references(pin_content_entry: {content_entry: :content_type})
-
+      @logger = Logger.new(File.join(Rails.root, 'log', 'migration.log'))
     end
 
     def perform!
-
+      
     end
 
     def self.perform
@@ -31,8 +31,7 @@ module Alpha
             u.save(validate: false)
           end
         rescue => e
-          Rails.logger.debug("Couldn't migrate user #{user.email}: #{e}")
-          log_backtrace(e)
+          @logger.warn("User #{user.email}: #{e}")
         end
 
       end
@@ -46,8 +45,13 @@ module Alpha
       # get fields which match on both sides
 
       Alpha::Pin.joins(content_entry: :content_type).references(content_entry: :content_type).all.each do |pin|
-        migrate_pin(pin)
-        migrate_pin_attachment(pin)
+        begin
+          migrate_pin(pin)
+          migrate_pin_attachment(pin)
+        rescue
+          next
+        end
+        
       end
     end
 
@@ -62,8 +66,7 @@ module Alpha
           r.state = "published"
           r.save!
         rescue => e
-          Rails.logger.debug("Couldn't migrate pin #{pin.title}: #{e}")
-          log_backtrace(e)
+          @logger.warn("Pin #{pin.id} (#{pin.title}): #{e}")
         end
       end
     end
@@ -77,22 +80,29 @@ module Alpha
         begin
           attachment_type = case content_type.name
                               when 'text'
-                                'attached_file'
+                                'document'
+                              when 'audio'
+                                'audio_file'
                               else
                                 content_type.name
                             end
 
+          # create new attachment of the correct type
+          attachment = record.attachments.build(attachment_type: attachment_type, attachable_attributes: {
+            title: record.title,
+            caption: content_entry.content
+          })
           if content_entry.attached_file.present?
             # we need to move the file across
-            attachment = record.attachments.build(attachment_type: attachment_type, attachable_attributes: {
-              title: content_entry.content.present? ? content_entry.content : record.title
-            })
             attachment.attachable.file.attach(io: StringIO.new(content_entry.attached_file.file.read), filename: content_entry.file_name)
-            record.save!
+          elsif content_entry.video_url.present?
+            attachment.attachable.youtube_id = YoutubeID.from(content_entry.video_url)
           end
+
+          record.save!
+
         rescue => e
-          Rails.logger.debug("Couldn't migrate pin attachment #{pin.title}: #{e}")
-          log_backtrace(e)
+          @logger.warn("Pin attachment #{content_entry.id} (#{pin.title}): #{e}")
         end
       end
     end
@@ -114,6 +124,7 @@ module Alpha
       e.backtrace.each do |l|
         Rails.logger.debug(l)
       end
+      e
     end
 
 
