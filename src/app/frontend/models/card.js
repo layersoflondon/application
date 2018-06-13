@@ -14,6 +14,7 @@ export default class CardModel {
 
     if(record_or_collection.hasOwnProperty('image') && record_or_collection.image) {
       this.image = record_or_collection.image.small;
+      this.thumb = record_or_collection.image.thumb;
     }
 
     this.highlighted = false;
