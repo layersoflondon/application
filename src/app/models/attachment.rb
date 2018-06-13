@@ -1,7 +1,7 @@
 class Attachment < ApplicationRecord
   belongs_to :record
-  belongs_to :attachable, polymorphic: true
-  update_index('attachments#attachment') { self }
+  belongs_to :attachable, polymorphic: true, dependent: :destroy
+  # update_index('attachments#attachment') { self }
   update_index 'records#record' do
     previous_changes['record_id'] || id
   end
@@ -39,4 +39,6 @@ class Attachment < ApplicationRecord
   def is_primary?
     has_image? ? attachable.primary : false
   end
+
+  
 end

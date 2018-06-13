@@ -6,7 +6,7 @@ class Record < ApplicationRecord
   has_many :collection_records
   has_many :collections, through: :collection_records
   has_many :attachments, dependent: :destroy
-  update_index('attachments#attachment') { attachments }
+  # update_index('attachments#attachment') { attachments }
   belongs_to :user
   update_index 'users#user' do
     previous_changes['user_id'] || user
