@@ -101,3 +101,6 @@ gem 'youtube_id'
 # Carrierwave is needed for alpha migration
 gem 'carrierwave'
 gem 'carrierwave-base64'
+
+# Geocoder needed for the alpha migration
+gem 'geocoder'

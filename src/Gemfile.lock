@@ -152,6 +152,7 @@ GEM
     faraday-http-cache (1.3.1)
       faraday (~> 0.8)
     ffi (1.9.25)
+    geocoder (1.4.9)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     her (1.0.1)
@@ -346,6 +347,7 @@ DEPENDENCIES
   devise_invitable
   draper
   faker
+  geocoder
   image_processing (~> 1.2)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)

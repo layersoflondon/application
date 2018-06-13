@@ -62,7 +62,7 @@ module Alpha
       unless record.present?
         begin
           r = Record.new(data.except("location"))
-          r.location = {address: data["location"]}
+          r.location = {address: Geocoder.address([r.lat, r.lng])}
           r.state = "published"
           r.save!
         rescue => e
