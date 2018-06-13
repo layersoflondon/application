@@ -349,7 +349,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mini_magick
   mysql2 (~> 0.4.4)
-  passenger (= 5.1.12)
+  passenger
   puma (~> 3.11)
   pundit
   rails (~> 5.2.0.rc1)
