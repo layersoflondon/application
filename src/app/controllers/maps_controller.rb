@@ -17,7 +17,8 @@ class MapsController < ApplicationController
 
   private
   def set_state_variables
-    @records = Record.published.limit(2).decorate
+    # @records =  RecordsIndex.filter(terms: {state: %w[published flagged]}).to_a
+    @records =  RecordsIndex.filter(terms: {state: %w[published flagged]}).limit(500).order(created_at: :desc).to_a
     @collections = Collection.collections_for_user(current_user).limit(2).decorate
 
     # return unless params[:resource].present?

@@ -1,12 +1,12 @@
 class RecordsController < ApplicationController
-  before_action :set_record, only: %i[show update destroy like]
+  before_action :set_record, only: %i[update destroy like]
   skip_before_action :authenticate_user!, only: %i[show index]
-  skip_after_action :verify_authorized, only: [:index]
+  skip_after_action :verify_authorized, only: [:index, :show] #show is in here because we authorize in the method
 
-  decorates_assigned :record, :records
+  decorates_assigned :record, :records, with: RecordDecorator
 
   def index
-    @records = RecordsIndex.filter(terms: {state: %w[published flagged]})
+    @records = RecordsIndex.filter(terms: {state: %w[published flagged]}).limit(500).order(created_at: :desc)
   end
 
   def create
@@ -17,9 +17,10 @@ class RecordsController < ApplicationController
   end
 
   def show
-    authorize(@record)
-
-    @record.increment!(:view_count) unless cookies[:viewed_records].present? && cookies[:viewed_records].include?(@record.id)
+    @record = RecordsIndex.filter(ids: {values: [params[:id]]}).first
+    raise Pundit::NotAuthorized unless RecordPolicy.new(current_user, @record).show?
+    # TODO create a RecordViewJob which increments async.
+    # @record.increment!(:view_count) unless cookies[:viewed_records].present? && cookies[:viewed_records].include?(@record.id)
   end
 
   def update

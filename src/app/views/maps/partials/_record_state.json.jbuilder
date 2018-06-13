@@ -20,8 +20,8 @@ json.set! :trayViewStore do
     json.root_card_store true
     json.set! :cards do
       json.array! ((records+collections).sort_by(&:updated_at)) do |object|
-        if object.is_a?(Record)
-          json.partial! 'records/record', record: object
+        if object.is_a?(RecordsIndex::Record)
+          json.partial! 'search/search', record: object
         else
           json.partial! 'collections/collection', {locals: {collection: object}}
         end

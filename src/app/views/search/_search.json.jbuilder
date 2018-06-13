@@ -4,7 +4,8 @@ json.description record.description
 json.like_count record.like_count
 json.view_count record.view_count
 json.state record.state
-json.pin record.pin
+json.lat record.pin["lat"]
+json.lng record.pin["lon"]
 json.location record.location
 json.date_from record.date_from
 json.date_to record.date_to
@@ -13,4 +14,5 @@ json.updated_at record.updated_at
 json.user record.user
 json.collections record.collections
 json.attachments record.attachments
+json.image record.image
 json.taxonomy_terms record.taxonomy_terms
