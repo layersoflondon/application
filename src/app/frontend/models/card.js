@@ -13,7 +13,7 @@ export default class CardModel {
     this.period = record_or_collection.period;
 
     if(record_or_collection.hasOwnProperty('image') && record_or_collection.image) {
-      this.image = record_or_collection.image.url;
+      this.image = record_or_collection.image.small;
     }
 
     this.highlighted = false;

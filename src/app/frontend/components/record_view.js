@@ -49,7 +49,7 @@ import {Link, withRouter} from 'react-router-dom';
 
           <div className="wrap">
             <div className="m-record-hero">
-              {this.props.trayViewStore.visible_record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.visible_record.image.url}')`}}></div>}
+              {this.props.trayViewStore.visible_record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.visible_record.image.large}')`}}></div>}
             </div>
 
             <div className="meta">
