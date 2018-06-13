@@ -15,8 +15,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   config.cache_store = config.cache_store = :redis_store, 'redis://redis:6379/0/cache'
-
-
+    
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
 
@@ -70,3 +69,4 @@ Rails.application.configure do
   end
 
 end
+Rails.application.routes.default_url_options[:host] = 'localhost:3000'

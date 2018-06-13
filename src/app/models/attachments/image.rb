@@ -18,14 +18,25 @@ class Attachments::Image < ApplicationRecord
     attachment.record.update_attribute(:primary_image_id, self.id)
   end
 
+  # Used for indexing into ES. In the case of an image, we want to index the variants as well as the main url for the image
+  # LoL are concerned about unattributed copying, so we will not expose the original, but instead
+  def data
+    super.merge(
+           Rails.configuration.x.image_variants.inject({}) do |hash, (name, configuration)|
+             hash[name] = ApplicationController.helpers.activestorage_url_for(file.variant(configuration))
+             hash
+           end
+    )
+  end
+
   private
   def validate_image_file
     # errors.add(:attachment, 'File is not image') unless file.try(:image?)
   end
 
   def generate_variants
-    %w(200x200 600x600 1200x1200).each do |size|
-      file.variant(resize: size).processed
+   Rails.configuration.x.image_variants.each do |name, configuration|
+      file.variant(configuration).processed
     end
   end
 end

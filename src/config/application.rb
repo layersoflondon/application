@@ -17,5 +17,17 @@ module LayersApp
     # the framework and any gems in your application.
     config.autoload_paths << Rails.root.join('lib/alpha_migration')
     config.eager_load_paths << Rails.root.join('lib/alpha_migration')
+
+    config.x.image_variants = {
+      thumb: {
+        resize: "200x200"
+      },
+      small: {
+        resize: "600x600"
+      },
+      large: {
+        resize: "1200x1200"
+      }
+    }
   end
 end
