@@ -76,33 +76,38 @@ module Alpha
       content_type = content_entry.content_type
       record = Record.find_by(id: pin.id)
       unless record.attachments.any?
-        # alpha only allowed one attachment per pin, so we can safely assume that if the record has an attachment, we can skip it.
         begin
-          attachment_type = case content_type.name
-                              when 'text'
-                                'document'
-                              when 'audio'
-                                'audio_file'
-                              else
-                                content_type.name
-                            end
+          Record.transaction do
+            # alpha only allowed one attachment per pin, so we can safely assume that if the record has an attachment, we can skip it.
+            attachment_type = case content_type.name
+                                when 'text'
+                                  'document'
+                                when 'audio'
+                                  'audio_file'
+                                else
+                                  content_type.name
+                              end
 
-          # create new attachment of the correct type
-          attachment = record.attachments.build(attachment_type: attachment_type, attachable_attributes: {
-            title: record.title,
-            caption: content_entry.content
-          })
-          if content_entry.attached_file.present?
-            # we need to move the file across
-            attachment.attachable.file.attach(io: StringIO.new(content_entry.attached_file.file.read), filename: content_entry.file_name)
-          elsif content_entry.video_url.present?
-            attachment.attachable.youtube_id = YoutubeID.from(content_entry.video_url)
+            # create new attachment of the correct type
+            attachment = record.attachments.build(attachment_type: attachment_type, attachable_attributes: {
+              title: record.title,
+              caption: content_entry.content
+            })
+            # attachment.attachable.primary = true if attachment_type == "image"
+            if content_entry.attached_file.present?
+              # we need to move the file across
+              attachment.attachable.file.attach(io: StringIO.new(content_entry.attached_file.file.read), filename: content_entry.file_name)
+            elsif content_entry.video_url.present?
+              attachment.attachable.youtube_id = YoutubeID.from(content_entry.video_url)
+            end
+
+            record.save!
+            record.update_attribute(:primary_image_id, attachment.attachable.id) if attachment_type == "image"
+
           end
-
-          record.save!
-
         rescue => e
           @logger.warn("Pin attachment #{content_entry.id} (#{pin.title}): #{e}")
+
         end
       end
     end
