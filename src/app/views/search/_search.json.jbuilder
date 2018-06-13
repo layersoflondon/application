@@ -9,6 +9,7 @@ json.location record.location
 json.date_from record.date_from
 json.date_to record.date_to
 json.created_at record.created_at
+json.updated_at record.updated_at
 json.user record.user
 json.collections record.collections
 json.attachments record.attachments

@@ -47,10 +47,8 @@ class RecordsIndex < Chewy::Index
         field :description, type: 'text'
       end
     end
-
   end
-
   def self.published
-    filter(terms: {state: ["published"]})
+    filter(terms: {state: ['published']})
   end
 end
