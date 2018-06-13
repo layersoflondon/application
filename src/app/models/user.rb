@@ -18,7 +18,12 @@ class User < ApplicationRecord
   # before_destroy do
   #  records.each {|r| r.make_orphan! }
   # end
+  #
 
+
+  def name
+    "#{first_name} #{last_name}"
+  end
   def leading_teams
     team_user_leader = TeamUser.where(user_id: self.id, role: 'leader', state: 'access_granted')
     Team.where(id: team_user_leader.collect{|t| t.team_id})

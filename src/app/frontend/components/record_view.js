@@ -87,7 +87,7 @@ import {Link, withRouter} from 'react-router-dom';
                   </Map>
                 </div>
 
-                <div className="text">Fixme: Palace St, Westminster, London SW1E | {this.props.trayViewStore.visible_record.lat}, {this.props.trayViewStore.visible_record.lng}</div>
+                <div className="text">{this.props.trayViewStore.visible_record.location.address} | {this.props.trayViewStore.visible_record.lat}, {this.props.trayViewStore.visible_record.lng}</div>
               </div>
 
               <div className="actions">

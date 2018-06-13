@@ -26,7 +26,7 @@ class RecordsIndex < Chewy::Index
     field :location, type: 'object'
     field :user, type: 'object' do
       field :id, type: 'integer'
-      field :email, type: 'keyword'
+      field :name, type: 'text'
     end
     field :collections, type: 'object' do
       field :read_state, type: 'keyword'

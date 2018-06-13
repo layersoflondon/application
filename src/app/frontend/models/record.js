@@ -160,6 +160,7 @@ export default class RecordModel {
     record.user  = attributes.user;
     record.image = attributes.image;
     record.created_at = attributes.created_at;
+    record.location = attributes.location;
 
     record.user_can_like = attributes.user_can_like;
     record.user_can_edit = attributes.user_can_edit;
