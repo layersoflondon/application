@@ -8,7 +8,7 @@ class RecordPolicy < ApplicationPolicy
   end
 
   def show?
-    if record.published? || record.flagged?
+    if record.state.in?(["published", "flagged"])
       true
     else
       user.present? && record.user_id == user.id
