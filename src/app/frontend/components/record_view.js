@@ -104,7 +104,7 @@ import {Link, withRouter} from 'react-router-dom';
 
             <div className="attribution">
               <ul>
-                <li><h4>Created:</h4> 22nd June 2017</li>
+                <li><h4>Created:</h4> {this.props.trayViewStore.visible_record.created_at}</li>
                 <li><h4>Credits:</h4> Curabitur eu euismod risus</li>
               </ul>
             </div>

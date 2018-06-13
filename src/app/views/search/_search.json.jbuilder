@@ -9,8 +9,8 @@ json.lng record.pin["lon"]
 json.location record.location
 json.date_from record.date_from
 json.date_to record.date_to
-json.created_at record.created_at
-json.updated_at record.updated_at
+json.created_at DateTime.parse(record.created_at).strftime("%d/%m/%Y")
+json.updated_at DateTime.parse(record.updated_at).strftime("%d/%m/%Y")
 json.user record.user
 json.collections record.collections
 json.attachments record.attachments
