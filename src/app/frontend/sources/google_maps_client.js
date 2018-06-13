@@ -1,5 +1,5 @@
 import * as googleMaps from "@google/maps";
-
+//TODO key should be parameterised somewhere.
 const googleMapsClient = googleMaps.createClient({
     key: 'AIzaSyCydVQRqMrDm01QFe6mCAtySyZyxYx4aao',
     Promise: Promise
