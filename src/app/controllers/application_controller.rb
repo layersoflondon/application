@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   private
 
   def get_navigation_menu
-    @main_navigation_menu, @footer_navigation_menu, @sub_navigation_menu = *Rooftop::Menus::Menu.where(post__in: [2,3,4]).to_a.sort_by(&:id)
+    @main_navigation_menu, @footer_navigation_menu = *Rooftop::Menus::Menu.where(post__in: [2,3]).to_a.sort_by(&:id)
   end
 
 end
