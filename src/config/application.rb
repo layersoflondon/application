@@ -29,5 +29,6 @@ module LayersApp
         resize: "1200x1200"
       }
     }
+
   end
 end
