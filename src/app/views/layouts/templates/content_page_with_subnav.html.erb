@@ -3,21 +3,14 @@
     <div class="m-page-header">
       <div class="image random-image-large"></div>
       <div class="text-content">
-        <span class="surtitle"><%= @page.title %></span>
-        <h1 class="viewable">Getting your club or group involved</h1>
+        <span class="surtitle"><%= page.root.title %></span>
+        <h1 class="viewable"><%= page.title %></h1>
         <!--<a href="#">Start exploring</a>-->
       </div>
     </div>
     <div class="m-sidebar">
       <%= render "shared/subnavigation" %>
-      <div class="m-event-cta">
-        <a href="#">
-          <h3 class="title">Layers for Schools</h3>
-          <span class="date">Thursday 29th December 2018</span>
-          <p>Maecenas at rhoncus tellus. Donec nibh risus, fermentum nec ante sed, facilisis vulputate mi. In
-            pharetra congue feugiat. </p>
-        </a>
-      </div>
+        <%= render partial: "pages/sidebar_cta", collection: page.sidebar_ctas %>
 
     </div>
     <div class="m-content">

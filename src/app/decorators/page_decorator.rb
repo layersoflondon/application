@@ -3,6 +3,8 @@ class PageDecorator < Draper::Decorator
   include DecoratorConcerns::SEO
   delegate_all
 
+  decorates_association :sidebar_ctas, with: SidebarCtaDecorator
+
 
 
   # Define presentation-specific methods here. Helpers are accessed through

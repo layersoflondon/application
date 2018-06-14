@@ -12,12 +12,12 @@ if defined?(Rooftop)
       menu: Rooftop::Menus::Menu
     }
 
-    # if Rails.env.development?
-    #   config.ssl_options = {
-    #     verify: false
-    #   }
-    #   config.proxy = "https://localhost:9998"
-    # end
+    if Rails.env.development?
+      config.ssl_options = {
+        verify: false
+      }
+      config.proxy = "https://localhost:9998"
+    end
 
   end
 end
