@@ -10,8 +10,8 @@ $green: #2ECC40;
 $olive: #3D9970;
 $lime: #01FF70;
 
-$yellow: #FFDC00;
-$orange: #FF851B;
+//$yellow: #FFDC00;
+//$orange: #FF851B;
 $red: #FF4136;
 $fuchsia: #F012BE;
 $purple: #B10DC9;
@@ -20,7 +20,7 @@ $maroon: #85144B;
 $white: #FFFFFF;
 $silver: #DDDDDD;
 $gray: #AAAAAA;
-$black: #111111;
+//$black: #111111;
 
 //$bright-accent: #fe751a; // Orange
 
@@ -35,17 +35,25 @@ $input-over-white: #f9f4f1;
 
 // New colors
 
-$main-accent:#ffeb57;
+$black: #131313;
+$yellow: #efdf5b;
+$orange: #fdbe66;
+$red: #ee1d46;
+$navy: #2e2d75;
+$gray: #dfdfde;
+$green: #549a77;
+$lilac: #a691c5;
+$light-blue: #afd2ff;
+
+$main-accent:$yellow;
 $secondary-accent:#86f5f9;
 $other-blue:#2e3c4e;
 
 
-
-$link-color: $main-accent;
+$link-color: $yellow;
 $link-hover-color: lighten($link-color, 30%);
 
 $interface-border: #eee;
 
-$default-border-radius: 6px;
-
+$default-border-radius: 0;
 

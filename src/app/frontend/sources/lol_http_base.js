@@ -29,7 +29,7 @@ export default class LoLHTTPBase {
 
   static create(resource_id, params) {
     this.setResourcePath(resource_id, null, 'CREATE');
-    return axios.post(`${this.resource_path}`, params);
+    return axios.post(`${this.path}`, params);
   }
 
   static show(resource_id, id) {

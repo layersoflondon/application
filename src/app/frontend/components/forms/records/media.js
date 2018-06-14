@@ -34,6 +34,8 @@ import {observer} from "mobx-react";
               return 'document';
             case 'application/pdf':
               return 'document';
+            case 'application/json':
+              return 'geodata';
           }
         };
 
@@ -41,7 +43,9 @@ import {observer} from "mobx-react";
         const attachments = this.props.recordFormStore.record.attachments.slice();
         const new_attachment = {file: file, url: file.preview, attachment_type: attachment_type(file.type), type: attachment_type(file.type), title: f.target.fileName, caption: '', credit: ''};
 
-        const media_item = new MediaItemStore(this.props.recordFormStore.record.id, new_attachment);
+        console.log("Dropped attachment", new_attachment);
+
+        const media_item = MediaItemStore.fromJS(new_attachment, this.props.recordFormStore.record.id);
         media_item.persist().then((response) => {
           let data = response.data;
           media_item.record_id = this.props.recordFormStore.record.id;
@@ -59,12 +63,10 @@ import {observer} from "mobx-react";
   }
 
   render() {
-    window.record = this.props.recordFormStore.record;
-
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
 
     const media_items = this.props.recordFormStore.record.attachments.map((item,i) => {
-      let media_item = new MediaItemStore(this.props.recordFormStore.record.id, item);
+      let media_item = MediaItemStore.fromJS(item, this.props.recordFormStore.record.id);
       return <MediaItem {...item} {...this.props} object={media_item} key={i} index={i} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
     });
 
@@ -76,7 +78,7 @@ import {observer} from "mobx-react";
           <div className="m-add-media-and-documents">
 
             <div className="thumbs">
-              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png, application/pdf, text/plain" onDrop={this.onDrop.bind(this)}>
+              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json" onDrop={this.onDrop.bind(this)}>
                 <ul>
                   {media_items}
 

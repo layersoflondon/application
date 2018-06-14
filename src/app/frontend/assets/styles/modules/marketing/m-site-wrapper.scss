@@ -1,9 +1,10 @@
 /* Site wrapper */
 
 .m-site-wrapper {
-  max-width:1200px;
   margin:0 auto;
-  background:#eee;
+  //background:asset-url('shape.svg') -68px 76%/630px no-repeat, asset-url('shape-2.svg') 720px 90%/930px no-repeat;
+  //background:asset-url('shape.svg') -68px 76%/630px no-repeat;
   padding:1px 0;
+  color:white;
   @include clearfix;
 }

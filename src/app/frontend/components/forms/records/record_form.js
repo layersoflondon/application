@@ -1,16 +1,15 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
-
-import {observer} from "mobx-react";
+import {Link} from 'react-router-dom';
+import {inject, observer} from "mobx-react";
 import Details from './details';
 import Dates from './dates';
 import Media from './media';
-import Links from './links';
 import Collection from './collection';
-import Team from './team'
-
 import RecordModel from './../../../models/record';
+import Record from './../../../sources/record';
 
+@inject('mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore')
 @observer export default class RecordForm extends Component {
   constructor(props) {
     super(props);
@@ -18,15 +17,29 @@ import RecordModel from './../../../models/record';
     this.state = {errors: []};
   }
 
+  componentWillMount() {
+    if( this.props.trayViewStore.visible_record ) {
+      this.props.recordFormStore.record = this.props.trayViewStore.visible_record;
+    }else if( this.props.match.params.id ) {
+      Record.show(null, this.props.match.params.id).then((response) => {
+        const record = RecordModel.fromJS(response.data);
+        this.props.recordFormStore.record = record;
+      })
+    }else {
+      this.props.recordFormStore.record = new RecordModel();
+    }
+  }
+
   handleClickedOnSave(event) {
     event.preventDefault();
     // when successfully updating a Record, we should propagate the updated data throughout the stores that are rendering it.
     // since the tray and map render their data from a CardStore, we can just overwrite the data there (see insertOrUpdateRecord)
     this.props.recordFormStore.record.persist().then((response) => {
+      const record = RecordModel.fromJS(response.data);
+
       this.props.recordFormStore.record.id = response.data.id;
-      // Object.assign(this.props.recordFormStore.record, response.data);
       this.props.trayViewStore.tray_is_visible = true;
-      this.props.trayViewStore.cardStore.insertOrUpdateRecord(this.props.recordFormStore.record);
+      this.props.trayViewStore.card_store.insertOrUpdateRecord(record);
       this.props.mapViewStore.overlay = null;
 
       this.props.recordFormStore.record.resetState();
@@ -50,8 +63,9 @@ import RecordModel from './../../../models/record';
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
           <div className="close">
-            <button className="close" onClick={this.handleClickedOnClose.bind(this)}>Close</button>
+            <Link className="close" to='/map'>Close</Link>
           </div>
+
           <div className="m-add-record">
             <h1>Add record</h1>
 

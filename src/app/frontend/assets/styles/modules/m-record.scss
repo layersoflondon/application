@@ -2,18 +2,11 @@
 
 .m-record .wrap {
   @include overlay-wrap;
-  max-width: 900px;
-  max-width: 1000px;
+  max-width: 1100px;
   margin-top: 0;
   color: white;
   position: relative;
 }
-
-
-
-/*.m-record .close button:before {
-  content: "\f00d";
-}*/
 
 // Next & previous
 
@@ -59,11 +52,10 @@
   border-width: 0 0 2px 2px;
   @include transform(rotate(45deg));
   @include transition(all .2s);
-  opacity:0.7;
+  opacity: 0.7;
   top: 27px;
   left: 31px;
   text-indent: 0;
-
 }
 
 .m-record div.next button:hover:before,
@@ -76,21 +68,18 @@
   left: 25px;
 }
 
-
 // Title
 
 .m-record .title {
-  background: $other-blue;
-  padding: 35px 40px;
-  color: #fff;
+  @include polygon-background(yellow, top, false);
+  padding: 27px 40px 35px;
+  color: $black;
   font-size: 26px;
-  width: 400px;
-  height: 370px;
-  float: left;
-  margin-top: -70px;
   position: relative;
-
-  //margin-left:-100px;
+  margin-bottom: -20px;
+  margin-left: 300px;
+  width: 50%;
+  z-index: 1;
 }
 
 .m-record .title h1 {
@@ -98,72 +87,64 @@
   @include font-display;
   font-weight: 200;
   margin-bottom: 0;
-  font-size: 40px;
   position: relative;
-}
-
-.m-record .title h1:after {
-  content: "";
-  height: 1px;
-  width: 40px;
-  background: $main-accent;
-  bottom: -38px;
-  position: absolute;
-  left: 0;
+  font-size: 28px;
 }
 
 // Meta
 
-$meta-color:$main-accent;
-
 .m-record .meta {
-  border: 2px solid $meta-color;
-  width: 300px;
-  float: right;
-  margin-top: 109px;
-  margin-right: -70px;
-  color: $meta-color;
-  text-transform: uppercase;
-  font-weight: 800;
+  background: transparentize($black, 0.1);
+  color: white;
   font-size: 14px;
-  position: absolute;
-  top: 0;
-  right: 0;
+  margin-left: 300px;
+  display: inline-block;
+  position: relative;
 }
 
 .m-record .meta .dates {
-  border-bottom: 2px solid $meta-color;
-  padding: 30px 40px;
+  padding: 10px 40px 0;
   @include font-display;
-  text-align: center;
-  font-size: 40px;
+  font-size: 28px;
   font-weight: 200;
-  text-transform: capitalize;
+  font-feature-settings: lnum;
+  font-variant-numeric: lining-nums;
 }
 
 .m-record .meta .creator {
-  border-bottom: 2px solid $meta-color;
-  padding: 30px 40px;
+  padding: 0px 40px 20px;
 }
 
 .m-record .meta .creator a {
-  color: $meta-color;
+  color: white;
   text-decoration: underline;
 }
 
+// Social
+
+.m-record .social {
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  margin-top: -90px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
 .m-record .social-status {
-  border-right: 2px solid $meta-color;
-  float: left;
-  width: 50%;
   text-align: center;
-  padding: 20px;
+  padding: 12px;
+  background: transparentize($black, 0.5);
+  color: $yellow;
+  float: left;
+  margin-right: 20px;
 }
 
 .m-record .social-status button {
   background: transparent;
   display: block;
-  margin: 0 auto 14px;
-  color:$meta-color;
+  margin: 0 auto;
+  color: #ffeb57;
 }
 
 .m-record .social-status button.like:before {
@@ -171,32 +152,29 @@ $meta-color:$main-accent;
   font-size: 40px;
   font: normal normal normal 24px/1 FontAwesome;
   width: 60px;
-  height: 60px;
-  line-height: 60px;
+  height: 40px;
+  line-height: 45px;
   text-align: center;
-  top: 0;
-  left: 0;
-  text-indent: 0;
-  padding: 0;
 }
 
 .m-record .social-status button span {
-  display:none;
+  display: none;
 }
 
 .m-record .share-record {
-  padding: 20px;
   text-align: center;
+  padding: 12px;
+  background: transparentize($black, 0.5);
+  color: $yellow;
   float: left;
-  width: 50%;
-
+  margin-right: 20px;
 }
 
 .m-record .share-record button {
   background: transparent;
   display: block;
-  margin: 0 auto 14px;
-  color:$meta-color;
+  margin: 0 auto;
+  color: #ffeb57;
 }
 
 .m-record .share-record button:before {
@@ -204,38 +182,44 @@ $meta-color:$main-accent;
   font-size: 32px;
   font: normal normal normal 24px/1 FontAwesome;
   width: 60px;
-  height: 60px;
-  line-height: 60px;
+  height: 40px;
+  line-height: 45px;
   text-align: center;
-  top: 0;
-  left: 0;
-  text-indent: 0;
-  padding: 0;
 }
 
 .m-record .share-record button span {
- display:none;
+  display: none;
+}
+
+// Sidebar
+
+.m-record .sidebar {
+  float: left;
+  width: 280px;
+  margin-left: 20px;
+  margin-top: -110px;
+  position: relative;
+  z-index: 1;
 }
 
 // Place
 
 .m-record .place {
-  float: right;
-  width: 200px;
-  margin-left: 30px;
-  margin-top: -70px;
-  display: none;
+
 }
 
 .m-record .place .map {
   width: 100%;
   padding-bottom: 100%;
-  background: #ddd url(/mini-map.png) center/cover;
+  background: #ddd asset-url('map-thumb.png') center/cover;
 }
 
 .m-record .place .text {
-  background: #eee;
+  background: $black;
+  color: $orange;
   padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 // Article
@@ -245,8 +229,9 @@ $meta-color:$main-accent;
   //padding: 50px 60px;
   padding: 40px 44px;
   color: #333;
-  width: calc(100% - 400px);
+  width: calc(100% - 300px);
   float: right;
+  position: relative;
 }
 
 .m-record .m-article p:first-child {
@@ -266,7 +251,9 @@ $meta-color:$main-accent;
   display: block;
   padding: 10px 22px;
   margin-right: 20px;
-  margin-bottom: 1px;
+  color:white;
+  background:$red;
+  margin-bottom: 3px;
 }
 
 .m-record .actions button:before {
@@ -309,6 +296,12 @@ $meta-color:$main-accent;
   display: inline;
 }
 
+.m-record .attribution {
+  clear: both;
+  margin-left:300px;
+  padding-top:40px;
+}
+
 .m-record .attribution ul {
   @include unlist;
 }
@@ -322,28 +315,30 @@ $meta-color:$main-accent;
   font-weight: bold;
 }
 
-
 // Hero
 
 .m-record-hero {
   background: #eee;
   height: 580px;
+  margin-bottom: -169px;
 }
 
 .m-record-hero .image {
   width: 100%;
   height: 100%;
-  @include transition(all 3s);
+
   filter: grayscale(100%);
-  position:relative;
+  position: relative;
   background-position: center;
   background-size: cover;
 }
 
-.is-showing .m-record-hero .image {
+.m-overlay.is-showing .m-record-hero .image {
+  @include transition(all 3s);
   filter: grayscale(0%);
 }
 
+/*
 .m-record-hero .image:after {
   height: 100%;
   width: 100%;
@@ -357,4 +352,4 @@ $meta-color:$main-accent;
   background: -ms-linear-gradient(right, transparent 0%, #000 100%);
   background: linear-gradient(to right, transparent 0%, #000 100%);
   @include transition(all .4s);
-}
+}*/

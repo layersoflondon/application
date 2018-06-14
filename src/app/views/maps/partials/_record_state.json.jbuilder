@@ -1,6 +1,6 @@
 json.trayViewStore({})
 json.set! :trayViewStore do
-  json.previousCardStore nil
+  json.previous_card_store nil
 
   if @record
     json.visible_record_id @record.id
@@ -14,14 +14,14 @@ json.set! :trayViewStore do
 
   json.tray_is_visible   true
 
-  json.set! :cardStore do
+  json.set! :card_store do
     json.title ""
     json.description ""
-    json.rootCardStore true
+    json.root_card_store true
     json.set! :cards do
-      json.array! (records+collections) do |object|
-        if object.is_a?(Record)
-          json.partial! 'records/record', record: object
+      json.array! ((records+collections).sort_by(&:updated_at)) do |object|
+        if object.is_a?(RecordsIndex::Record)
+          json.partial! 'search/search', record: object
         else
           json.partial! 'collections/collection', {locals: {collection: object}}
         end

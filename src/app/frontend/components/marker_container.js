@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import { Marker, Popup } from 'react-leaflet'
+
 import {Leaflet} from 'react-leaflet';
 import L from 'leaflet';
 import Parser from 'html-react-parser';
@@ -45,12 +46,13 @@ import Parser from 'html-react-parser';
 
         <div className="m-map-popover" onClick={this.handleOnClick.bind(this)}>
           <div className="m-record-card">
-            <div className="text-content">
-              <h1>
-                {this.props.card.title}
-              </h1>
+            <div className="wrapper">
+              <div className="image" style={{'backgroundImage': 'url('+this.props.card.thumb+')'}}>
+              </div>
 
-              {parsed_content[0] || parsed_content}
+              <div className="text-content">
+                <h1>{this.props.card.title}</h1>
+              </div>
             </div>
           </div>
         </div>

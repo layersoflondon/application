@@ -8,7 +8,7 @@ class RecordPolicy < ApplicationPolicy
   end
 
   def show?
-    if record.published? || record.flagged?
+    if record.state.in?(["published", "flagged"])
       true
     else
       user.present? && record.user_id == user.id
@@ -25,6 +25,10 @@ class RecordPolicy < ApplicationPolicy
 
   def destroy?
     create?
+  end
+
+  def like?
+    user.present? && !user.record_likes.include?(record.id)
   end
 
   class Scope < Scope

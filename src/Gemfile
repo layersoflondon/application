@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+# ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0.rc1'
@@ -51,6 +51,7 @@ group :development do
   # gem 'errorstudio_capistrano_recipes', git: 'ssh://git@bitbucket.org/errorstudio/errorstudio_capistrano_recipes'
   # gem 'slickplan', path: '~/dev/slickplan'
   # gem 'terminal-table'
+  gem 'bullet'
 end
 
 group :test do
@@ -62,7 +63,7 @@ group :test do
 end
 
 group :staging, :production do
-  gem 'passenger'
+  gem 'passenger', "~>5.1.12"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -91,3 +92,21 @@ gem 'chewy'
 
 # A gem to automate using jQuery with Rails
 gem 'jquery-rails'
+
+# Image manipulation
+gem 'mini_magick'
+
+gem 'image_processing', '~> 1.2'
+
+# Parse youtube URLs to get the ID.
+gem 'youtube_id'
+
+# Carrierwave is needed for alpha migration
+gem 'carrierwave'
+gem 'carrierwave-base64'
+
+# Geocoder needed for the alpha migration
+gem 'geocoder'
+
+# S3 gem for activestorage
+gem 'aws-sdk-s3', require: false

@@ -9,7 +9,7 @@ class CollectionsController < ApplicationController
     @collections = if user_signed_in?
                      current_user.collections
                    else
-                     Collection.includes(:owner, :records).where(read_state: 'public_read')
+                     Collection.includes(:owner, records: [:user, record_taxonomy_terms: [:taxonomy_term]]).public_read
                    end
   end
 

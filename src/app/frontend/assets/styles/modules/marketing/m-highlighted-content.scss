@@ -1,40 +1,46 @@
 /* Highlighted content */
 
 .m-highlighted-content {
- text-align:center;
-  padding:40px;
+  width: 38%;
+  top: 720px;
+  right: 0;
+  border: 20px solid $black;
+  border-width: 15px 0 15px 15px;
+  z-index: 1;
+  background: $black;
+  position:absolute;
+}
+
+.m-highlighted-content .m-record-card {
+  @include record-card;
+  margin-bottom:15px;
+}
+
+.m-highlighted-content .m-record-card:last-child {
+  margin-bottom:0;
+}
+
+.m-highlighted-content .m-record-card .image {
+  @include record-card;
+  background: url(/example/4-large.jpg) center/cover no-repeat;
 }
 
 .m-highlighted-content h2 {
-  text-transform:uppercase;
-  font-size:14px;
-  margin-top:30px;
-  font-weight:normal;
-}
-
-.m-highlighted-content .highlight {
-  width: 300px;
-  background:white;
+  right:0;
+  top: 650px;
   display:inline-block;
-  text-align:left;
-  margin:20px 10px;
+  padding: 16px 21px;
+  @include polygon-background(red, bottom, true);
+  position:absolute;
+  color:$black;
+  z-index: 1;
+  top: -60px;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.m-highlighted-content .highlight .image {
-  width: 100%;
-  padding-bottom: 60%;
-  background: #333;
-}
-
-.m-highlighted-content .highlight .indicator {
-  background: white;
-  padding: 4px 10px;
-  float:left;
-  margin-top: -33px;
-  margin-left: -10px;
-  display:inline-block;
-}
-
-.m-highlighted-content .highlight .text-content {
- padding:10px;
+.m-highlighted-content .m-record-card h1 {
+  font-weight: 600;
+  font-size: 26px;
 }

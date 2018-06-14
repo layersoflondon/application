@@ -17,7 +17,7 @@
   margin-right:-5px;
 }
 
-.m-tray-title-area .close button {
+.m-tray-title-area .close a {
   @include icon-button--close--small;
 }
 

@@ -1,9 +1,10 @@
 import React,{Component} from 'react';
-import PropTypes from 'prop-types';
-import {observer} from "mobx-react";
-
+import {Link, withRouter} from 'react-router-dom';
+import {inject, observer} from "mobx-react";
 import Layer from './layer';
 
+@inject('mapViewStore', 'layersStore')
+@withRouter
 @observer export default class LayersOverlay extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +23,7 @@ import Layer from './layer';
         <div className="s-overlay--layers is-showing">
 
           <div className="close">
-            <button className="close" onClick={this.handleClick.bind(this)}>Close</button>
+            <Link to="/map" className="close">Close</Link>
           </div>
 
           <div className="m-layers-picker">

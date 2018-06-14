@@ -8,11 +8,10 @@ input,
 select,
 textarea {
   color: #222;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Muli', sans-serif;
 }
 
 h1 {
-
 }
 
 html {
@@ -128,8 +127,6 @@ div[class^='s-'].is-showing {
   display: inline;
 }
 
-
-
 .random-image {
   background-size: cover;
   background-position: center;
@@ -139,8 +136,9 @@ button {
   @include lozenge-button;
 }
 
-
 // Forms
+
+$form-border-color: #e4e4e4;
 
 input[type="text"],
 input[type="tel"],
@@ -149,6 +147,11 @@ textarea {
   background: white;
   padding: 10px;
   border-radius: $default-border-radius;
+  border-bottom: 2px solid $form-border-color;
+}
+
+textarea {
+  border: 2px solid $form-border-color;
 }
 
 input[type="submit"] {
@@ -157,7 +160,7 @@ input[type="submit"] {
   border-radius: $default-border-radius;
   background: $main-accent;
   @include transition(all .2s);
-  color: white;
+  //color: white;
   &:hover {
     background: darken($main-accent, 10%);
   }
@@ -166,10 +169,12 @@ input[type="submit"] {
 .form--over-white input[type="text"],
 .form--over-white input[type="tel"],
 .form--over-white textarea {
-  background: #f5f2f7;
+  //background: #f5f2f7;
 }
 
-
+.form--over-white a {
+  color: $orange;
+}
 
 .form--chunky .form-group {
   margin-bottom: 20px;
@@ -177,16 +182,18 @@ input[type="submit"] {
 
 .form--chunky label,
 .form--chunky .label {
-  display: block;
-  text-transform: uppercase;
   font-size: 14px;
   margin-bottom: 10px;
+  background: #549a77;
+  display: inline-block;
+  padding: 3px 6px 2px;
+  color: white;
+  font-weight: 560;
 }
 
 .form--chunky input,
 .form--chunky textarea {
   padding: 20px;
-  border: 0;
   width: 100%;
 }
 
@@ -194,6 +201,18 @@ input[type="submit"] {
   @include big-square-button;
   width: auto;
   float: right;
+}
+
+.form--chunky .form-group--checklist label {
+  font-size: 18px;
+  background: transparent;
+  margin-bottom: 12px;
+}
+
+.form--chunky .form-group--single-checkbox label {
+  font-size: 18px;
+  background: transparent;
+  margin-bottom: 12px;
 }
 
 .form--chunky .form-group--checkboxes-columns label {
@@ -224,6 +243,9 @@ input[type="submit"] {
   text-transform: none;
   font-size: 16px;
   padding-left: 25px;
+  background: none;
+  color: #222;
+  font-weight: 500;
 }
 
 .form--chunky .form-group--checkboxes-rows input {
@@ -233,7 +255,72 @@ input[type="submit"] {
 }
 
 .form--chunky .in-context-input {
-  margin:0 6px;
+  margin: 0 6px;
+}
+
+.form--chunky .form-group--single-checkbox input {
+  float: left;
+  width: auto;
+  margin-right:10px;
+}
+
+
+.form--chunky .form-group--toggle-switch {
+
+
+  input[type='checkbox'] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+
+  .toggle {
+    display:inline-block;
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 25px;
+    background: grey;
+    border-radius: 100px;
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: -8px;
+  }
+
+  .toggle:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 100px;
+    transition: 0.2s;
+  }
+
+  input:checked + .toggle:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+  }
+
+  label span {
+    transition:opacity .2s;
+  }
+
+  &.is-toggled label span:first-child {
+    opacity:0.4;
+  }
+
+  label span:last-child {
+    opacity:0.4;
+  }
+
+  &.is-toggled label span:last-child {
+    opacity:1;
+  }
+
 }
 
 // Radios & checkboxes

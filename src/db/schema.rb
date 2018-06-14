@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_11_133838) do
+ActiveRecord::Schema.define(version: 2018_06_12_214041) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 2018_05_11_133838) do
     t.datetime "updated_at", null: false
     t.bigint "record_id"
     t.index ["record_id"], name: "index_attachments_on_record_id"
+  end
+
+  create_table "attachments_audio_files", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "title"
+    t.text "caption"
+    t.text "credit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "attachments_datasets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -154,6 +162,7 @@ ActiveRecord::Schema.define(version: 2018_05_11_133838) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "primary_image_id"
   end
 
   create_table "taxonomies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -193,7 +202,7 @@ ActiveRecord::Schema.define(version: 2018_05_11_133838) do
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "encrypted_password", default: ""
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -206,7 +215,18 @@ ActiveRecord::Schema.define(version: 2018_05_11_133838) do
     t.datetime "updated_at", null: false
     t.text "description"
     t.boolean "contact_me"
+    t.text "record_likes"
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.integer "invited_by_id"
+    t.string "invited_by_type"
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

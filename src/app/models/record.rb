@@ -5,12 +5,13 @@ class Record < ApplicationRecord
   update_index('records#record') { self }
   has_many :collection_records
   has_many :collections, through: :collection_records
-  has_many :attachments
-  update_index('attachments#attachment') { attachments }
+  has_many :attachments, dependent: :destroy
+  # update_index('attachments#attachment') { attachments }
   belongs_to :user
   update_index 'users#user' do
     previous_changes['user_id'] || user
   end
+  has_one :primary_image, class_name: 'Attachments::Image', foreign_key: :id, primary_key: :primary_image_id
   has_many :record_taxonomy_terms, class_name: 'RecordTaxonomyTerm'
   has_many :taxonomy_terms, through: :record_taxonomy_terms
 
@@ -21,8 +22,8 @@ class Record < ApplicationRecord
 
   validates :title, :state, presence: true, if: -> { state == 'draft' }
   validates :title, :description, :state, :lat, :lng, :date_from, :location, presence: true, if: -> { state != 'draft' }
-  validates :title, length: { in: 3..255 }, if: -> { state != 'draft' }
-  validates :description, length: { minimum: 3 }, if: -> { state != 'draft' }
+  validates :title, presence: true, if: -> { state != 'draft' }
+  validates :description, presence: true, if: -> { state != 'draft' }
   validates :lat, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, if: -> { state != 'draft' }
   validates :lng, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }, if: -> { state != 'draft' }
   validates_format_of :date_from, with: /\d{4}-\d{2}-\d{2}/, message: '^Date must be in the following format: yyyy-dd-mm', if: -> { state != 'draft' }
@@ -39,7 +40,7 @@ class Record < ApplicationRecord
     errors.add(:date_from, 'date is not in the past') if date_from.present? && Date.today < date_from
   end
 
-  aasm column: :state, enum: false do
+  aasm column: :state, enum: true do
     state :draft, initial: true
     state :published
     state :pending_review
@@ -64,6 +65,21 @@ class Record < ApplicationRecord
 
     event :mark_as_deleted do
       transitions from: %i[draft published pending_review flagged], to: :deleted
+    end
+  end
+
+  def get_primary_image(fallback_to_first: true)
+    if primary_image_id && primary_image
+      primary_image
+    end
+
+    images = attachments.where(attachable_type: "Attachments::Image")
+    image = images.select{|a| a.attachable.attachment.is_primary?}.first
+
+    if !image && fallback_to_first
+      images.first if fallback_to_first && !image
+    else
+      image
     end
   end
 end

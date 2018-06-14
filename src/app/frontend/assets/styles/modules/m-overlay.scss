@@ -35,8 +35,8 @@
   right: 10px;
 }
 
-.m-overlay .close button {
-  background: asset-url('icon-close.svg') center no-repeat;
+.m-overlay .close a {
+  background: url('../assets/images/icon-close.svg') center no-repeat;
   width: 50px;
   height: 50px;
   @include kellum;
@@ -45,6 +45,6 @@
   @include transition(all .2s);
 }
 
-.m-overlay .close button:hover {
+.m-overlay .close a:hover {
   opacity: 1;
 }

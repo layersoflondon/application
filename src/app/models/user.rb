@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :invitable
 
   has_many :records, dependent: :nullify
   update_index('records#record') { records }
@@ -12,11 +12,18 @@ class User < ApplicationRecord
   has_many :collections, as: :owner
   has_one_attached :avatar
 
+  serialize :record_likes, Array
+
   # TODO: - users should change the state of their records before being deleted.
   # before_destroy do
   #  records.each {|r| r.make_orphan! }
   # end
+  #
 
+
+  def name
+    "#{first_name} #{last_name}"
+  end
   def leading_teams
     team_user_leader = TeamUser.where(user_id: self.id, role: 'leader', state: 'access_granted')
     Team.where(id: team_user_leader.collect{|t| t.team_id})

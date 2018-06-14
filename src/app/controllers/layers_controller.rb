@@ -4,7 +4,7 @@ class LayersController < ApplicationController
   skip_after_action :verify_authorized, only: %i[index show search]
 
   def index
-    @layers = Layer.all
+    @layers = LayersIndex.all
   end
 
   def show

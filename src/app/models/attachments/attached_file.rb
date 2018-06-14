@@ -11,5 +11,13 @@ module Attachments
         errors.add(:attachment, 'file is not attached') unless file.attached?
       end
     end
+
+    # Utility method used when we index
+    def data
+      {
+        content_type: file.try(:content_type),
+        url: (ApplicationController.helpers.activestorage_url_for(file) rescue nil)
+      }
+    end
   end
 end

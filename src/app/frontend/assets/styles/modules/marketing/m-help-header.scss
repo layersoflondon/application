@@ -1,18 +1,33 @@
 /* Help Header */
 
 .m-help-header {
-  padding: 40px;
+  padding: 70px 80px 70px;
   @include clearfix;
 }
 
 .m-help-header .title {
-  font-size:20px;
+  font-weight: 200;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-bottom: 30px;
+  margin-top:0;
+  color: $lilac;
 }
+
 .m-help-header .video {
   float: left;
   width: 50%;
   padding-right: 50px;
+  position: relative;
+  background: #131313;
 }
+
+.m-help-header .video > div {
+  background: #a690c526;
+  padding: 20px;
+  margin-top: -20px;
+}
+
 
 .m-help-header iframe {
   max-width: 100%;
@@ -21,10 +36,50 @@
 .m-help-header .top-faq {
   float: left;
   width: 50%;
-  padding-left:10px;
+  padding-left: 10px;
 }
 
 .m-help-header .top-faq li {
-  margin-bottom:20px;
-  font-weight:bold;
+  @include font-display;
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-family: 'Zilla Slab', serif;
+  font-weight: 400;
 }
+
+.m-help-header .top-faq li a {
+  padding: 10px 15px;
+  background: #a690c526;
+  display: inline-block;
+  @include link-arrow;
+}
+
+.m-help-header .top-faq ul {
+  @include unlist;
+  margin-bottom: 40px;
+}
+
+.m-help-header .top-faq > a {
+  //background:$lilac;
+  border: 3px solid $lilac;
+  padding: 5px 15px;
+  border-radius: 100px;
+  color: $lilac;
+  font-weight: 600;
+  @include link-arrow;
+  transition:all .2s;
+}
+
+.m-help-header .top-faq > a:hover {
+  background: $lilac;
+  color: $black;
+}
+
+/*
+@include polygon-background(yellow, top, true);
+display:inline-block;
+padding:20px;
+margin-bottom: 70px;
+font-weight: 200;
+text-transform: uppercase;
+color: #131313;*/

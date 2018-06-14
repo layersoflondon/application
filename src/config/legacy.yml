@@ -1,0 +1,8 @@
+adapter: mysql2
+encoding: utf8mb4
+pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+username: <%= Rails.configuration.database_configuration[Rails.env]["username"]%>
+password: <%= Rails.configuration.database_configuration[Rails.env]["password"]%>
+host: <%= Rails.configuration.database_configuration[Rails.env]["host"]%>
+port: <%= Rails.configuration.database_configuration[Rails.env]["port"]%>
+database: layers_alpha

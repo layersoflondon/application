@@ -5,7 +5,7 @@
 }
 
 .m-accordion .section {
-  border-bottom:1px solid #ddd;
+  border-bottom:2px dashed #ddd;
 }
 
 .m-accordion .section:last-child {
@@ -26,13 +26,13 @@
 }
 
 .m-accordion .title {
-  color:$link-color;
+  color:$green;
   cursor:pointer;
 }
 
-.m-accordion .title:hover {
+/*.m-accordion .title:hover {
   color:$link-hover-color;
-}
+}*/
 
 .m-accordion .title:after {
   content:"+";

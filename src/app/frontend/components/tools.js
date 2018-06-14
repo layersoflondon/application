@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
 import {observer} from "mobx-react";
 import PropTypes from 'prop-types';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 
+@withRouter
 @observer export default class Tools extends Component {
   constructor(props) {
     super(props);
@@ -20,27 +22,29 @@ import PropTypes from 'prop-types';
   }
 
   render() {
+    const logo = require('../assets/images/logo.svg');
+
     return <div className="m-sidebar">
+      <div className="m-logo">
+        <img src={logo} alt="Logo" />
+      </div>
       <div className="m-tools">
         <div className="m-tool-button m-tool-button--search">
-          <button data-label="Search" data-overlay="search" onClick={this.handleOnClick.bind(this)}><span>Search</span></button>
-        </div>
-        <div className="m-tool-button m-tool-button--date-range">
-          <button data-label="Date range"><span>Date range</span></button>
+          <Link to='/map/search' data-label="Search"><span>Search</span></Link>
         </div>
         <div className="m-tool-button m-tool-button--layers">
-          <button data-label="Layers" data-overlay="layers" onClick={this.handleOnClick.bind(this)}><span>Layers</span></button>
+          <Link to='/map/layers' data-label="Layers"><span>Layers</span></Link>
         </div>
         <div className="m-tool-button m-tool-button--add-collection">
-          <button data-label="Create collection" data-overlay="collection_form" onClick={this.handleOnClick.bind(this)}><span>Create collection</span></button>
+          <Link to='/map/collections/new' data-label="Create collection"><span>Create collection</span></Link>
         </div>
         <div className="m-tool-button m-tool-button--add">
-          <button data-label="Add record" data-overlay="record_form" onClick={this.handleOnClickAddRecord.bind(this)}><span>Add record</span></button>
+          <Link to='/map/records/new' data-label="Add record"><span>Add record</span></Link>
         </div>
       </div>
       <div className="m-actions">
         <div className="m-tool-button m-tool-button--your-account">
-          <button data-label="Your account" data-overlay="user_form" onClick={this.handleOnClick.bind(this)}><span>Your profile</span></button>
+          <Link to="/map/account" data-label="Your profile"><span>Your profile</span></Link>
         </div>
       </div>
     </div>;

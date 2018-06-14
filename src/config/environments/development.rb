@@ -15,10 +15,9 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   config.cache_store = config.cache_store = :redis_store, 'redis://redis:6379/0/cache'
-
-
+    
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
+  config.active_storage.service = :amazon
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -63,4 +62,12 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.file_watcher = ActiveSupport::FileUpdateChecker
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+  end
+
+
 end
+Rails.application.routes.default_url_options[:host] = 'localhost:3000'

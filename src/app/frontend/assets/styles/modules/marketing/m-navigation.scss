@@ -1,9 +1,5 @@
 /* Navigation */
 
-.m-navigation {
- //float: right;
-}
-
 .m-navigation ul {
   @include unlist;
 }
@@ -13,8 +9,23 @@
   margin-right:20px;
 }
 
-.m-navigation .main-navigation {
-  float: left;
+.m-navigation li.is-current {
+  display: inline;
+  margin-right:20px;
+  text-decoration:underline;
+  color:$yellow;
+}
+
+.m-navigation a {
+  color:white;
+  text-transform:uppercase;
+  font-size:15px;
+  @include font-display;
+  font-weight: 600;
+}
+
+.m-navigation a:hover {
+  color:$yellow;
 }
 
 .m-navigation .user-actions {
@@ -22,6 +33,6 @@
 }
 
 .m-navigation .is-current a {
-  color:#333;
+  color:$yellow;
   cursor:default;
 }

@@ -17,6 +17,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     mysql-client \
     libpq-dev \
     libxml2-dev \
+    imagemagick \
     libxslt1-dev
 # Command line collection runner for Postman
 RUN npm install -g newman

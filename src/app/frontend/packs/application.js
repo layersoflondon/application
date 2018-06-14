@@ -11,12 +11,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Main from '../components/main';
+import axios from 'axios';
 
 import createBrowserHistory from 'history/createBrowserHistory';
 import {Provider} from 'mobx-react';
 import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
 import {Router} from 'react-router';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import Parser from 'html-react-parser';
+import Search from '../sources/search.js';
 window.Parser = Parser;
 
 /**
@@ -33,20 +36,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const browserHistory = createBrowserHistory();
     const routingStore = new RouterStore();
     const history = syncHistoryWithStore(browserHistory, routingStore);
-    
-    const stores = initStore(__STATE);
-    stores.routing = routingStore;
 
-    window.stores = stores;
+    // let stores = initStore(window.__STATE);
+    axios.get('/map/state.json').then((response) => {
+        const stores = initStore(response.data);
+        stores.routing = routingStore;
 
-    ReactDOM.render(
-        <Provider {...stores} >
+        ReactDOM.render(
+          <Provider {...stores} >
             <Router history={history}>
-                <Main />
+              <Main />
             </Router>
-        </Provider>,
-        document.getElementById("map-root")
-    );
+          </Provider>,
+          document.getElementById("map-root")
+        );
+    });
 
     const eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
     const eventer = window[eventMethod];
@@ -54,7 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen to message from child window
     eventer(messageEvent, (event) => {
-        if (event.data.scope === 'clickable-iframe-element') {
+        // fixme: restore this functionality using the new router pattern
+        if (false && event.data.scope === 'clickable-iframe-element') {
             stores.mapViewStore.overlay = null;
             // TODO: Open requested modal
             const {push} = routingStore;

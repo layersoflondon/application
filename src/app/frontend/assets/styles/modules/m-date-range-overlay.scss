@@ -4,6 +4,11 @@
   @include overlay-wrap-transparent;
 }
 
+.m-date-range-overlay .header h1 {
+  @include overlay-title;
+  display: inline-block;
+}
+
 .m-date-range-overlay .header {
   @include top-and-tail;
   padding-bottom: 50px;
@@ -20,8 +25,8 @@
 .m-date-range-overlay .date-box {
   padding: 20px;
   width: calc(50% - 50px);
-  border-radius:$default-border-radius;
-  border:2px solid $main-accent;
+  border-radius: $default-border-radius;
+  border: 2px solid $main-accent;
   float: left;
   position: relative;
 }
@@ -94,6 +99,6 @@
 
 .m-date-range-overlay .eras li a {
   background: $link-color;
-  color: white;
+  color: #222;
   padding: 2px 4px;
 }

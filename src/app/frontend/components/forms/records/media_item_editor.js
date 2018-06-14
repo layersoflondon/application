@@ -2,8 +2,6 @@ import React,{Component} from 'react';
 import {debounce} from 'underscore';
 import {observer} from "mobx-react";
 
-window.debounce = debounce;
-
 // this component isn't bound to the RecordFormComponentState as it manages its own local state
 // and pushes off changes to the current_attachment_item via the recordFormStore prop
 @observer class MediaItemEditor extends Component {
@@ -39,15 +37,17 @@ window.debounce = debounce;
     this.handleKeyUpWithDebounce();
   }
 
-  handleOnClick(event) {
+  handleOnSetAsPrimaryImage(event) {
     event.preventDefault();
 
     this.props.recordFormStore.current_attachment_item.is_primary = true;
-    this.props.recordFormStore.current_attachment_item.persist();
+    this.props.recordFormStore.current_attachment_item.persist().then((response)=>{
+      // this.props.trayViewStore.visible_record.image = this.props.recordFormStore.current_attachment_item;
+    });
   }
 
   render() {
-    const button_disabled = this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary;
+    const button_disabled = false; //this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary;
     const button_label    = (this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary) ? "Primary Image" : "Set as primary image";
 
     return (
@@ -70,7 +70,7 @@ window.debounce = debounce;
           {this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.type === 'image' &&
            <div className="form-group">
              {this.props.recordFormStore.current_attachment_item.is_primary }
-              <button onClick={this.handleOnClick.bind(this)} disabled={button_disabled}>{button_label}</button>
+              <button onClick={this.handleOnSetAsPrimaryImage.bind(this)} disabled={button_disabled}>{button_label}</button>
            </div>
           }
         </div>

@@ -1,15 +1,30 @@
 import React,{Component} from 'react';
-import PropTypes from 'prop-types';
+import {Link, withRouter} from 'react-router-dom';
 import {observer} from "mobx-react";
 import Collection from '../../../sources/collection';
 import CollectionModel from '../../../models/collection';
+import {inject} from "mobx-react/index";
+import Record from "../../../sources/record";
+import RecordModel from "../../../models/record";
 
+@inject('routing', 'mapViewStore', 'collectionStore', 'layersStore')
+@withRouter
 @observer export default class CollectionForm extends Component {
   constructor(props) {
     super(props);
 
     // todo: set owner type either in the controller, or when the write state is changed
     this.state = {title: "", description: "", read_state: false, write_state: "creator", write_state_team_id: null, owner_type: "User"};
+  }
+
+  componentWillMount() {
+    if( this.props.match.params.id ) {
+      Collection.show(null, this.props.match.params.id).then((response) => {
+        this.setState(response.data);
+      }).catch((response) => {
+        console.log("Error creating collection", response.data);
+      });
+    }
   }
 
   handleOnChange(event) {
@@ -28,7 +43,7 @@ import CollectionModel from '../../../models/collection';
     event.preventDefault();
 
     Collection.create(null, {collection: this.state}).then((response) => {
-      const collection = new CollectionModel.fromJS(response.data);
+      const collection = CollectionModel.fromJS(response.data);
       this.props.collectionStore.addCollection(collection);
 
       this.props.mapViewStore.overlay = null;
@@ -50,7 +65,7 @@ import CollectionModel from '../../../models/collection';
         <div className="s-overlay--add-collection is-showing">
 
           <div className="close">
-            <button className="close" onClick={()=>this.props.mapViewStore.overlay=null}>Close</button>
+            <Link to="/map" className="close">Close</Link>
           </div>
 
           <div className="m-add-collection">

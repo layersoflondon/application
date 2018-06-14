@@ -9,13 +9,15 @@ class RecordAttachmentsController < ApplicationController
   end
 
   def create
+    Rails.logger.info(params)
     authorize(@record)
     @attachment = @record.attachments.build(attachment_params)
     return @attachment if @attachment.save
     render json: @attachment.errors.full_messages, status: :unprocessable_entity
   end
 
-  def show; end
+  def show
+  end
 
   def update
     authorize(@record)
@@ -39,7 +41,7 @@ class RecordAttachmentsController < ApplicationController
   private
 
   def set_record
-    @record = Record.find_by_id(params[:record_id])
+    @record = Record.find(params[:record_id])
     render json: '', status: :not_found unless @record
   end
 
@@ -51,6 +53,7 @@ class RecordAttachmentsController < ApplicationController
   def attachment_params
     params.permit(:attachment_type,
                   :record_id,
+                  :id,
                   :record_attachment,
                   attachable_attributes: %i[
                     title

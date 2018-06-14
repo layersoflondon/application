@@ -8,12 +8,12 @@ if attachment # Avoid nil attachment
   json.content_type attachment.has_file? ? attachment.file.blob.content_type : nil
 
   if attachment.has_file?
-    json.url url_for(attachment.file)
+    json.url attachment.has_image? ? url_for(attachment.file.variant(resize: "1200x1200")) : url_for(attachment.file)
   elsif attachment.has_url?
     json.url attachment.url
   end
 
   if attachment.has_image?
-    json.is_primary attachment.is_primary
+    json.is_primary attachment.is_primary?
   end
 end

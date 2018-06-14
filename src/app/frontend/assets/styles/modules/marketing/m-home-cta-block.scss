@@ -1,40 +1,128 @@
 /* Home CTA Block */
 
 .m-home-cta-block {
-  padding:100px;
+  //padding: 60px 0;
+  height:600px;
   @include clearfix;
-  border-top:1px solid #ddd;
+  position: relative;
+
+}
+
+.m-home-cta-block + .m-home-cta-block {
+  margin-top:15px;
 }
 
 .m-home-cta-block .image {
-  width:50%;
-  padding-bottom:40%;
-  float:right;
-  background:#ddd;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(/example/family.jpg) center/cover no-repeat;
+  opacity: 0.6;
 }
 
 .m-home-cta-block--flipped .image {
-  float:left;
+  background: url(/example/10-large.jpg) center/cover no-repeat;
+  background: url(/example/old-map-2.jpg) center/cover no-repeat;
+  opacity: 0.9;
 }
 
 .m-home-cta-block .text-content {
-  width:50%;
-  float:left;
-  padding-right:50px;
+  width: 30%;
+  padding: 35px 40px 40px 80px;
+  position:absolute;
+  bottom:0;
+  left:0;
+  background: transparentize($green,0.1);
 }
 
 .m-home-cta-block--flipped .text-content {
-  float:right;
-  padding-right:0;
-  padding-left:50px;
+  right:0;
+  left:auto;
+  padding: 35px 80px 40px 40px;
+  background: transparentize($red,0.1);
 }
 
 .m-home-cta-block h3 {
-  font-size:36px;
-  margin-top: 10px;
+  margin: 0;
+  //margin-left:-80px;
+  color:$black;
+  //padding: 15px 30px 15px 80px;
+  @include font-display;
+  line-height: 1.3;
+  font-size: 40px;
+  //background:transparentize($red,0.1);
+  display:inline-block;
+  //background: rgba(19, 19, 19, 0.68);
 }
 
+.m-home-cta-block--flipped h3 {
+  color:$orange;
+}
+
+.m-home-cta-block .description {
+  font-size: 16px;
+  color:white;
+  margin: 20px 0 28px;
+}
 
 .m-home-cta-block a.button {
-  margin-top:20px;
+  background: darken($green,10%);
+  color: #ffffff;
+  padding: 17px 25px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: inline-block;
+  transition:all .2s;
+}
+
+.m-home-cta-block--flipped a.button {
+  background: transparentize($orange,0.7);
+}
+
+.m-home-cta-block a.button:hover {
+  background: $red;
+  color:$black;
+}
+
+.m-home-cta-block--flipped a.button:hover {
+  background: $orange;
+  color:$black;
+}
+
+.m-home-cta-block a.button:before {
+  content: "\f0da";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 1em;
+  margin-right:10px;
+  z-index: 1;
+}
+
+.m-home-cta-block--gray .description {
+  color:$black;
+}
+
+.m-home-cta-block--gray .text-content {
+  background:transparentize($gray,0.1);
+}
+
+.m-home-cta-block--gray .surtitle {
+  font-weight: 200;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-top: 0;
+  color:#848484;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.m-home-cta-block--gray a.button {
+  background: darken($gray,20%);
+}
+
+.m-home-cta-block--gray .image {
+  background: url(/example/feminism.jpg) center/cover no-repeat;
 }
