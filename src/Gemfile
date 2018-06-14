@@ -104,3 +104,6 @@ gem 'carrierwave-base64'
 
 # Geocoder needed for the alpha migration
 gem 'geocoder'
+
+# S3 gem for activestorage
+gem 'aws-sdk-s3', require: false
