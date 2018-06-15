@@ -1,7 +1,7 @@
 if defined?(Rooftop)
   Rooftop::Rails.configure do |config|
     config.api_token = Rails.application.secrets.rooftop_api_key
-    config.site_name = 'layers'
+    config.site_name = 'lol-content'
     config.perform_http_response_caching = false
     config.perform_object_caching = Rails.configuration.action_controller.perform_caching
     config.resource_route_map = {
@@ -12,12 +12,12 @@ if defined?(Rooftop)
       menu: Rooftop::Menus::Menu
     }
 
-    if Rails.env.development?
-      config.ssl_options = {
-        verify: false
-      }
-      config.proxy = "https://localhost:9998"
-    end
+    # if Rails.env.development?
+    #   config.ssl_options = {
+    #     verify: false
+    #   }
+    #   config.proxy = "https://localhost:9998"
+    # end
 
   end
 end
