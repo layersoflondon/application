@@ -1,13 +1,6 @@
 <%= content_for :body_class do %>t-content-page<% end %>
 <% content_for :template do %>
-    <div class="m-page-header">
-      <div class="image random-image-large"></div>
-      <div class="text-content">
-        <span class="surtitle"><%= page.root.title %></span>
-        <h1 class="viewable"><%= page.title %></h1>
-        <!--<a href="#">Start exploring</a>-->
-      </div>
-    </div>
+    <%= render 'shared/page_header' %>
     <div class="m-sidebar">
       <%= render "shared/subnavigation" %>
         <%= render partial: "pages/sidebar_cta", collection: page.sidebar_ctas %>

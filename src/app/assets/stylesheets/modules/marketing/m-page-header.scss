@@ -57,15 +57,21 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: url(/example/3-large.jpg) center/cover no-repeat !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
 }
 
 .t-help-centre .m-page-header .image {
-  background: url(/example/map-2.png) center/cover no-repeat !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
 }
 
 .t-content-page .m-page-header .image {
-  background: url(/example/club.jpg) center/cover no-repeat !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
 }
 
 .m-page-header h1 {
