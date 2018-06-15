@@ -1,11 +1,6 @@
 <%= content_for :body_class do %>t-help-centre<% end %>
 <% content_for :template do %>
-      <div class="m-page-header m-page-header--nano">
-        <div class="image random-image-large"></div>
-        <div class="text-content">
-          <h1 class="viewable"><%= @page.title %></h1>
-        </div>
-      </div>
+      <%= render 'shared/page_header', class: "m-page-header--nano" %>
 
       <div class="m-help-header">
 

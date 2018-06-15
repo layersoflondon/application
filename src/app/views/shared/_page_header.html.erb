@@ -1,4 +1,4 @@
-<div class="m-page-header">
+<div class="m-page-header <%= local_assigns.has_key?(:class) ? local_assigns[:class] : "" %>">
     <div class="image" style="background-image: url('<%= page.hero_image %>');"></div>
     <div class="text-content">
         <span class="surtitle"><%= page.root.title %></span>

@@ -10,15 +10,14 @@
       <div class="text-content">
         <!--<span class="surtitle">Layers of London</span>-->
         <h1 class="viewable">Recording the rich layers of heritage across London</h1>
-        <a href="#">Start exploring</a>
+        <a href="/map">Start exploring</a>
       </div>
     </div>
     <div class="m-highlighted-content">
       <h2>Highlights</h2>
-      <% @page.fields.highlighted_posts.each do |post| %>
-        <%= render "shared/record-card", post: post %>
-      <% end %>
-      <%#= render "shared/record-card" %>
+      <% 5.times do %>
+        <%= render "shared/record-card" %>
+        <% end %>
       <%#= render "shared/record-card--collection" %>
       <%#= render "shared/record-card" %>
       <%#= render "shared/record-card" %>
