@@ -32,6 +32,7 @@ Rails.application.config.to_prepare do
         instrument :url, key: key do |payload|
           generated_url = proxy_url object_for(key).public_url
           payload[:url] = generated_url
+          byebug
           generated_url
         end
       end
