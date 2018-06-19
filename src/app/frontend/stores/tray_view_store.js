@@ -83,7 +83,7 @@ export default class TrayViewStore {
 
     // swapping the card_store will re-render the tray with the new array of records
     observe(this, 'card_store', (change) => {
-      if( change.oldValue && (change.newValue.id !== change.oldValue.id) ) {
+      if( change.oldValue && (change.newValue !== change.oldValue) ) {
         this.previous_card_store = change.oldValue;
       }
     });
@@ -136,6 +136,7 @@ export default class TrayViewStore {
   showCollectionOfRecords(records, title = null, description = null) {
     let store = new CardStore([], title, description, false);
     store.cards = records.map((record) => RecordModel.fromJS(record));
+
     this.card_store = store;
   }
 }

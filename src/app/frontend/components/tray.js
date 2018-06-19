@@ -59,12 +59,14 @@ import {inject} from "mobx-react/index";
           </div>
 
           <h1>{this.props.trayViewStore.card_store.title}</h1>
-          <div className="meta">Collection, {this.props.trayViewStore.card_store.cards.length} records</div>
+          <div className="meta">Showing {this.props.trayViewStore.card_store.cards.length} records</div>
         </div>
 
+        {this.props.trayViewStore.card_store.description &&
         <div className="m-tray-introduction">
           {Parser(this.props.trayViewStore.card_store.description)}
         </div>
+        }
       </div>
     }
 

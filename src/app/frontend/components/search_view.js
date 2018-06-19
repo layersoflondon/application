@@ -88,7 +88,7 @@ window.L = L;
 
       push(`?results=true&${params}`);
       this.setState({showing_results: true});
-      this.props.trayViewStore.showCollectionOfRecords(response.data, `Searched for ${this.state.q}`, `${response.data.length} results`);
+      this.props.trayViewStore.showCollectionOfRecords(response.data, `Searched for ${this.state.q}`);
     });
   }
 
