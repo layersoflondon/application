@@ -127,6 +127,11 @@ div[class^='s-'].is-showing {
   display: inline;
 }
 
+div[class^='m-'].is-showing {
+  display: block;
+  z-index: 9999;
+}
+
 .random-image {
   background-size: cover;
   background-position: center;

@@ -94,3 +94,11 @@
 .m-search-overlay .filters-content {
   display: block !important;
 }
+
+.autocomplete-dropdown-container .suggestion-item {
+  text-align: left;
+
+  span {
+    color: $black;
+  }
+}

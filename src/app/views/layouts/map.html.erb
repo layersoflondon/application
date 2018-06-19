@@ -10,6 +10,8 @@
 
     <%= stylesheet_pack_tag 'styles', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets[:google_maps_api_key] %>&libraries=places"></script>
 </head>
 
 <body>

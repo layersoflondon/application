@@ -48,9 +48,9 @@ import RecordForm from './forms/records/record_form';
       <Route exact path='/map/collections/:id/edit' component={CollectionForm} />
 
       {/* the route we go to when '+ Add record' is clicked to allow the user to choose a place */}
-      <Route path='/map/records/choose-place' component={PlacePicker} />
+      <Route exact path='/map/choose-place' component={PlacePicker} />
       {/* once the user has chosen a place on the map, we show the form */}
-      <Route path='/map/records/new' component={RecordForm} />
+      <Route exact path='/map/new-record' component={RecordForm} />
 
       {/* edit an existing record */}
       <Route exact path='/map/records/:id/edit' component={RecordForm} />
