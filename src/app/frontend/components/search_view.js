@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import Search from "../sources/search";
+import L from "leaflet";
+window.L = L;
 
 @inject('routing', 'mapViewStore', 'trayViewStore')
 @withRouter
@@ -9,14 +11,25 @@ import Search from "../sources/search";
   constructor(props) {
     super(props);
 
-    this.state = {q: '', era_picker_visible: false, type_picker_visible: false, constrain_search_bounds: 'london', start_year: '', end_year: ''};
+    this.state = {q: '', era_picker_visible: false, type_picker_visible: false, search_bounds: 'london', start_year: '', end_year: ''};
   }
 
   toggleSearchBounds(event) {
     if(event.target.checked) {
-      this.setState({constrain_search_bounds: 'london'});
+      let map = this.props.trayViewStore.map_ref;
+      let center = map.leafletElement.getBounds().getCenter();
+      let radius = map.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+
+      let bounds = {
+        center: {lat: center.lat, lng: center.lng},
+        north_east: map.leafletElement.getBounds().getNorthEast(),
+        south_west: map.leafletElement.getBounds().getSouthWest(),
+        radius: radius
+      };
+
+      this.setState({search_bounds: bounds});
     }else {
-      this.setState({constrain_search_bounds: null});
+      this.setState({search_bounds: 'london'});
     }
   }
 
@@ -44,7 +57,7 @@ import Search from "../sources/search";
       state.end_year = end_year_match[1];
     }
 
-    if( !updated_props) {
+    if( showing_results_match>-1 && !updated_props) {
       this.setState(state);
 
       setTimeout(() => {
@@ -103,14 +116,14 @@ import Search from "../sources/search";
               <div className="form-group form-group--toggle-switch">
                 <label>
                   <span>Search all of London</span>
-                  <input type="checkbox" onChange={this.toggleSearchBounds.bind(this)}/>
+                  <input type="checkbox" onChange={this.toggleSearchBounds.bind(this)} checked={this.state.search_bounds !== 'london'} />
                   <span className="toggle"></span>
                   <span>Search visible area</span>
                 </label>
               </div>
 
               <div className="form-group form-group--primary-field">
-                <input placeholder="Enter a place or topic…" type="text" onChange={this.handleOnChange.bind(this)} value={this.state.query} />
+                <input placeholder="Enter a place or topic…" type="text" onChange={this.handleOnChange.bind(this)} value={this.state.q} />
               </div>
 
               <div className="date-range">
