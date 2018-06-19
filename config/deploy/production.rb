@@ -1,7 +1,7 @@
 # Server configuration. For a simple site this is just one entry.
-role :app, %w{deployment@lol-web01.hosts.errorstudio.com}
-role :web, %w{deployment@lol-web01.hosts.errorstudio.com}
-role :db, %w{deployment@lol-web01.hosts.errorstudio.com}
+role :app, %w{deployment@lol-web02.hosts.errorstudio.com}
+role :web, %w{deployment@lol-web02.hosts.errorstudio.com}
+role :db, %w{deployment@lol-web02.hosts.errorstudio.com}
 
 # Git branch
 set :branch, 'development'
