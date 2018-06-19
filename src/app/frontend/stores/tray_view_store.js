@@ -128,29 +128,14 @@ export default class TrayViewStore {
       store.card_store = CardStore.fromJS(card_store_data);
     }
 
-    // if(tray_view_state.hasOwnProperty('previous_card_store') && tray_view_state.previous_card_store) {
-    //   const previous_card_store_data = tray_view_state.previous_card_store;
-    //   delete tray_view_state['previous_card_store'];
-    //
-    //   store.previous_card_store = CardStore.fromJS(previous_card_store_data);
-    // }
-    //
-    // if(tray_view_state.visible_record_id) {
-    //   const record_state = tray_view_state.visible_record;
-    //   delete tray_view_state['visible_record_id'];
-    //   delete tray_view_state['visible_record'];
-    //
-    //   store.visible_record    = RecordModel.fromJS(record_state);
-    //   store.visible_record_id = record_state.id;
-    // }
-    //
-    // // dont overwrite the visible_collection_id property as we'll already be rendering the collection
-    // if(tray_view_state.visible_collection_id) {
-    //   delete tray_view_state['visible_collection_id'];
-    // }
-
     Object.assign(store, tray_view_state);
 
     return store;
+  }
+
+  showCollectionOfRecords(records, title = null, description = null) {
+    let store = new CardStore([], title, description, false);
+    store.cards = records.map((record) => RecordModel.fromJS(record));
+    this.card_store = store;
   }
 }

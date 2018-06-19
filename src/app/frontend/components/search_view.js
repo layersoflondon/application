@@ -1,27 +1,91 @@
 import React,{Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
+import Search from "../sources/search";
 
-@inject('mapViewStore')
+@inject('routing', 'mapViewStore', 'trayViewStore')
 @withRouter
-@observer export default class Search extends Component {
+@observer export default class SearchView extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {era_picker_visible: false, type_picker_visible: false, constrain_search_bounds: 'london', start_year: '', end_year: ''};
+    this.state = {q: '', era_picker_visible: false, type_picker_visible: false, constrain_search_bounds: 'london', start_year: '', end_year: ''};
   }
 
   toggleSearchBounds(event) {
     if(event.target.checked) {
-      this.setState({constrain_search_bounds: 'london'})
+      this.setState({constrain_search_bounds: 'london'});
     }else {
-      this.setState({constrain_search_bounds: null})
+      this.setState({constrain_search_bounds: null});
     }
+  }
+
+  setInitialState(updated_props = false) {
+    const showing_results_match = location.search.search(/results=true/);
+    const query_match = location.search.match(/q=([^$,&]+)/);
+    const start_year_match = location.search.match(/start_year=([^$,&]+)/);
+    const end_year_match = location.search.match(/end_year=([^$,&]+)/);
+
+    let state = {showing_results: false};
+
+    if(showing_results_match && showing_results_match>-1) {
+      state.showing_results = true;
+    }
+
+    if(query_match && query_match.length>1) {
+      state.q = query_match[1];
+    }
+
+    if(start_year_match && start_year_match.length>1) {
+      state.start_year = start_year_match[1];
+    }
+
+    if(end_year_match && end_year_match.length>1) {
+      state.end_year = end_year_match[1];
+    }
+
+    if( !updated_props) {
+      this.setState(state);
+
+      setTimeout(() => {
+        this.handleSearchOnClick();
+      }, 50);
+    }else {
+      this.setState(state);
+    }
+  }
+
+  componentWillMount() {
+    this.setInitialState();
+  }
+
+  componentWillReceiveProps() {
+    this.setInitialState(true);
+  }
+
+  handleOnChange(event) {
+    this.setState({q: event.target.value});
+  }
+
+  handleSearchOnClick(event) {
+    Search.perform(this.state).then((response) => {
+      const {push} = {...this.props.routing};
+      const search_params = {q: this.state.q, start_year: this.state.start_year, end_year: this.state.end_year};
+      const params = Object.keys(search_params).reduce(function(a,k){a.push(k+'='+encodeURIComponent(search_params[k]));return a},[]).join('&');
+
+      push(`?results=true&${params}`);
+      this.setState({showing_results: true});
+      this.props.trayViewStore.showCollectionOfRecords(response.data, `Searched for ${this.state.q}`, `${response.data.length} results`);
+    });
   }
 
   render() {
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'search' ) className += " is-showing";
+
+    if( this.state.showing_results ) {
+      return <span></span>;
+    }
 
     return (
       <div className={className}>
@@ -46,7 +110,7 @@ import {inject, observer} from "mobx-react";
               </div>
 
               <div className="form-group form-group--primary-field">
-                <input placeholder="Enter a place or topic…" type="text" />
+                <input placeholder="Enter a place or topic…" type="text" onChange={this.handleOnChange.bind(this)} value={this.state.query} />
               </div>
 
               <div className="date-range">
@@ -190,7 +254,7 @@ import {inject, observer} from "mobx-react";
               </div>
 
               <div className="form-group">
-                <button className="submit-button">Search</button>
+                <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search</button>
               </div>
 
             </div>

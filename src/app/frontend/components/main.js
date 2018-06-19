@@ -7,7 +7,7 @@ import {Link, withRouter} from 'react-router-dom';
 import Tools from './tools';
 import Tray from './tray';
 import MapView from './map_view';
-import Search from './search';
+import SearchView from './search_view';
 import RecordView from './record_view';
 import CollectionView from './collection_view';
 import PlacePicker from './place_picker';
@@ -41,7 +41,7 @@ import RecordForm from './forms/records/record_form';
       <Route exact path='/map/account' component={UserForm} />
       <Route exact path='/map/account/:tab' component={UserForm} />
       <Route path='/map/layers' component={LayersOverlay} />
-      <Route path='/map/search' component={Search} />
+      <Route path='/map/search' component={SearchView} />
 
       {/* show the collections form */}
       <Route exact path='/map/collections/new' component={CollectionForm} />
