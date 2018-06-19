@@ -11,7 +11,7 @@ window.L = L;
   constructor(props) {
     super(props);
 
-    this.state = {q: '', era_picker_visible: false, type_picker_visible: false, search_bounds: 'london', start_year: '', end_year: ''};
+    this.state = {q: '', era_picker_visible: false, type_picker_visible: false, geobounding: null, start_year: '', end_year: ''};
   }
 
   toggleSearchBounds(event) {
@@ -20,16 +20,19 @@ window.L = L;
       let center = map.leafletElement.getBounds().getCenter();
       let radius = map.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
 
+      let north_west = map.leafletElement.getBounds().getNorthWest();
+      let south_east = map.leafletElement.getBounds().getSouthEast();
+
       let bounds = {
         center: {lat: center.lat, lng: center.lng},
-        north_east: map.leafletElement.getBounds().getNorthEast(),
-        south_west: map.leafletElement.getBounds().getSouthWest(),
+        top_left: {lat: north_west.lat, lng: north_west.lng},
+        bottom_right: {lat: south_east.lat, lng: south_east.lng},
         radius: radius
       };
 
-      this.setState({search_bounds: bounds});
+      this.setState({geobounding: bounds});
     }else {
-      this.setState({search_bounds: 'london'});
+      this.setState({geobounding: null});
     }
   }
 
@@ -116,7 +119,7 @@ window.L = L;
               <div className="form-group form-group--toggle-switch">
                 <label>
                   <span>Search all of London</span>
-                  <input type="checkbox" onChange={this.toggleSearchBounds.bind(this)} checked={this.state.search_bounds !== 'london'} />
+                  <input type="checkbox" onChange={this.toggleSearchBounds.bind(this)} checked={this.state.geobounding !== null} />
                   <span className="toggle"></span>
                   <span>Search visible area</span>
                 </label>
