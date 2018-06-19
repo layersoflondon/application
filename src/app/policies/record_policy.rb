@@ -11,12 +11,12 @@ class RecordPolicy < ApplicationPolicy
     if record.state.in?(["published", "flagged"])
       true
     else
-      user.present? && record.user_id == user.id
+      user.present? && record.user['id'] == user.id
     end
   end
 
   def create?
-    user.present? && record.user_id == user.id
+    user.present? && record.user['id'] == user.id
   end
 
   def update?
