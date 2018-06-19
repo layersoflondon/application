@@ -1,3 +1,5 @@
+require 'active_storage/service/s3_service'
+
 # See https://github.com/rails/rails/issues/31419#issuecomment-370900013
 Rails.application.config.to_prepare do
   if defined?(ActiveStorage::Service::S3Service)
