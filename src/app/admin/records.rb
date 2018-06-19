@@ -13,4 +13,17 @@ ActiveAdmin.register Record do
 # end
   remove_filter :primary_image
 
+  index do
+    column :id
+    column :title
+    column :owner do |r|
+      r.user.name
+    end
+    column :map do |r|
+      link_to "View on map", resource_map_path(resource: "records", id: r.id) if r.published?
+    end
+    actions
+  end
+
+
 end
