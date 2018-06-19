@@ -44,3 +44,4 @@ docker-key
 docker-key.pub
 **/secrets.yml
 src/public/uploads
+capistrano.log

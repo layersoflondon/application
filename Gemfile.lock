@@ -1,17 +1,9 @@
 GIT
-  remote: https://github.com/rvm/rvm1-capistrano3
-  revision: 2225062b90226d4cfdc2c5d7e7ac89e6a9c320a5
-  specs:
-    rvm1-capistrano3 (1.4.0)
-      capistrano (~> 3.0)
-      sshkit (>= 1.2)
-
-GIT
   remote: ssh://git@bitbucket.org/errorstudio/errorstudio_capistrano_recipes
-  revision: c4def39b1a7e91db7a751be1b8623be767003f33
+  revision: c2912e50b158dab06ddef8ea6c0b8cb9867e04f5
   specs:
-    errorstudio_capistrano_recipes (0.1.9)
-      capistrano (~> 3.4.0)
+    errorstudio_capistrano_recipes (0.1.10)
+      capistrano (~> 3.11.0)
       capistrano-bundler
       capistrano-composer (>= 0.0.6)
       capistrano-passenger
@@ -21,10 +13,13 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    capistrano (3.4.1)
+    airbrussh (1.3.0)
+      sshkit (>= 1.6.1, != 1.7.0)
+    capistrano (3.11.0)
+      airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
-      sshkit (~> 1.3)
+      sshkit (>= 1.9.0)
     capistrano-bundler (1.3.0)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
@@ -32,7 +27,7 @@ GEM
       capistrano (>= 3.0.0.pre)
     capistrano-passenger (0.2.0)
       capistrano (~> 3.0)
-    capistrano-rails (1.3.1)
+    capistrano-rails (1.4.0)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
     concurrent-ruby (1.0.5)
@@ -40,9 +35,12 @@ GEM
       concurrent-ruby (~> 1.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (4.2.0)
+    net-ssh (5.0.2)
     rake (12.3.1)
-    sshkit (1.16.0)
+    rvm1-capistrano3 (1.4.0)
+      capistrano (~> 3.0)
+      sshkit (>= 1.2)
+    sshkit (1.16.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
 
@@ -51,7 +49,6 @@ PLATFORMS
 
 DEPENDENCIES
   errorstudio_capistrano_recipes!
-  rvm1-capistrano3!
 
 BUNDLED WITH
    1.16.2
