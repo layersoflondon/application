@@ -19,14 +19,26 @@ module LayersApp
     config.eager_load_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
 
     config.x.image_variants = {
-      thumb: {
-        resize: "200x200"
+      marker: {
+        thumbnail: "200x200",
+        gravity: "center",
+        extent: "200x150",
+        quality: 90
       },
-      small: {
-        resize: "600x600"
+      card: {
+        thumbnail: "600x600>",
+        gravity: "center",
+        extent: "600x280",
+        quality: 90
+      },
+      primary: {
+        resize: "1400>x1400",
+        gravity: "center",
+        extent: "1400x700"
       },
       large: {
-        resize: "1200x1200"
+        resize: "1400x1400",
+        quality: 95
       }
     }
 

@@ -47,7 +47,7 @@ import Parser from 'html-react-parser';
         <div className="m-map-popover" onClick={this.handleOnClick.bind(this)}>
           <div className="m-record-card">
             <div className="wrapper">
-              <div className="image" style={{'backgroundImage': 'url('+this.props.card.thumb+')'}}>
+              <div className="image" style={{'backgroundImage': 'url('+this.props.card.image.thumb+')'}}>
               </div>
 
               <div className="text-content">
