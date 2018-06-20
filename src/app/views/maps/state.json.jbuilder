@@ -9,12 +9,9 @@ end
 
 json.layersStore({})
 json.set! :layersStore do
-  json.layers [
-                {id: 1, title: "Roque map", description: "<p>The Roque Map description</p>", date: Date.new, url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false},
-                {id: 2, title: "Morgan map", description: "<p>The Morgan map description</p>", date: Date.new, url: "http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false},
-                {id: 3, title: "Example map", description: "<p>Example Map description</p>", date: Date.new, url: "https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false},
-                {id: 4, title: "Another map", description: "<p>Another map description</p>", date: Date.new, url: "https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png", attribution: "Some Attribution", opacity: 1, enabled: false}
-              ]
+  json.set! :layers, @layers.collect do |layer|
+    json.partial! 'maps/partials/layer_state', layer: layer
+  end
 end
 
 json.mapViewStore({})
