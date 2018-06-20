@@ -23,6 +23,7 @@ export default class LayerModel {
     layer.url = object.url;
     layer.attribution = object.attribution;
     layer.enabled = object.enabled;
+    layer.image = object.image;
 
     return layer;
   }
