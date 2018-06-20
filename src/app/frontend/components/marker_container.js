@@ -42,13 +42,16 @@ import Parser from 'html-react-parser';
     const parsed_content = Parser(this.props.card.description);
 
     return <Marker position={this.props.position} icon={icon} onMouseOver={()=>this.props.card.highlighted = true} onMouseOut={()=>this.props.card.highlighted = false}>
+
       <Popup>
 
         <div className="m-map-popover" onClick={this.handleOnClick.bind(this)}>
           <div className="m-record-card">
             <div className="wrapper">
-              <div className="image" style={{'backgroundImage': 'url('+this.props.card.image.thumb+')'}}>
-              </div>
+                {this.props.card.image &&
+                <div className="image" style={{'backgroundImage': 'url(' + this.props.card.image.thumb + ')'}}>
+                </div>
+                }
 
               <div className="text-content">
                 <h1>{this.props.card.title}</h1>
