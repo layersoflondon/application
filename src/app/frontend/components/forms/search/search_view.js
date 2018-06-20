@@ -156,7 +156,7 @@ import Search from "../../../sources/search";
      */
     if( showing_results_match>-1 && !updated_props) {
       this.setState(state);
-
+      
       setTimeout(() => {
         this.handleSearchOnClick();
       }, 50);
@@ -173,7 +173,11 @@ import Search from "../../../sources/search";
       return <span></span>;
     }
 
+<<<<<<< HEAD:src/app/frontend/components/forms/search/search_view.js
     const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} isCheckedMethod={this.isChecked.bind(this)} />);
+=======
+    const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} />);
+>>>>>>> search with query, bounding, era supporth:src/app/frontend/components/forms/search/search_view.js
 
     return (
       <div className={className}>
