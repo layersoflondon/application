@@ -8,7 +8,7 @@ module ActiveStorage
       expires_in 2.years, public: true
       if key = decode_verified_key
         send_data disk_service.download(key),
-                  disposition: params[:disposition], content_type: params[:content_type] and return
+                  disposition: params[:disposition], content_type: params[:content_type]
       else
         head :not_found
       end
