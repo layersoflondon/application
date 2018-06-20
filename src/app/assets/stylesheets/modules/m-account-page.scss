@@ -2,13 +2,9 @@
 
 .m-account-page {
   @include clearfix;
-  @include overlay-wrap-white;
+  @include overlay-wrap-blue;
   max-width: 900px;
   margin-top:0;
-}
-
-.m-account-page a {
-  color:$green;
 }
 
 .m-account-page .section {
