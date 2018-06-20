@@ -45,3 +45,4 @@ docker-key.pub
 **/secrets.yml
 src/public/uploads
 capistrano.log
+src/alpha
