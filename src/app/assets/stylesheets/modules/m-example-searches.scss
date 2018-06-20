@@ -2,43 +2,68 @@
 
 .m-example-searches {
   clear: both;
+  margin-left: -17px;
 }
 
 .m-example-searches h2 {
   @include caps-subtitle;
+  margin-left:17px;
 }
 
 .m-example-searches .example-search {
   margin-bottom: 20px;
   position: relative;
+  width: 50%;
+  //float: left;
+  height: 270px;
+
+  width: calc(50% - 20px);
+  display: inline-block;
+  margin-left: 17px;
 }
 
 .m-example-searches .example-search a {
   color: inherit;
   display: block;
-  background: white;
+  background: #232323;
   transition: all .2s;
-  border-radius: $element-border-radius-small;
   position: relative;
-  @include shadow;
+  height: 270px;
   @include link-animation;
 }
+
+
 
 .m-example-searches .example-search a:hover {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.41);
 }
 
 .m-example-searches .example-search .image {
-  width: 30%;
-  padding-bottom: 20%;
   float: right;
-  width: 30%;
-  padding-bottom: 20%;
+  width: 100%;
+  padding-bottom: 100%;
   float: right;
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
+  background-position:center;
+  background-size:cover;
+}
+
+
+.m-example-searches .example-search .image:before {
+  height: 100%;
+  width: 101%;
+  content: "";
+  opacity: 0;
+  position: absolute;
+  background: #000;
+  @include transition(all .4s);
+}
+
+.m-example-searches .example-search a:hover .image:before {
+  opacity: 0.4;
 }
 
 .m-example-searches .example-search .text-content {
@@ -46,6 +71,9 @@
   @include top-and-tail;
   margin-right: 30%;
   font-size: 14px;
+  position:absolute;
+  background: #131313d4;
+  bottom: 0;
 }
 
 .m-example-searches .example-search h3 {
@@ -56,10 +84,8 @@
   @include font-display;
   @include transition(all .4s);
   font-size: 22px;
-}
-
-.m-example-searches .example-search a:hover h3 {
-  color: $second-accent;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .m-example-searches .example-search .details {

@@ -11,6 +11,10 @@
   display:block;
 }
 
+.showing-place-picker .m-map {
+  cursor:crosshair;
+}
+
 .m-place-picker .wrap {
   padding: 20px 30px;
   font-size:26px;

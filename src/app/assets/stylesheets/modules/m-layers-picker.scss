@@ -7,17 +7,43 @@
 
 .m-layers-picker h1 {
   @include overlay-title;
+  margin-right: 40px;
+  margin-bottom: 0;
+}
+
+.m-layers-picker .subtitle {
+  display: inline-block;
+  font-size: 22px;
 }
 
 .m-layers-picker .search {
   float: right;
   margin-bottom: 30px;
-  display:none;
+  display: none;
 }
 
 .m-layers-picker .layers {
-  clear:both;
-  border-top:2px solid rgba(255, 255, 255, 0.2);
+  clear: both;
+  padding: 23px 0px 0px 30px;
+}
+
+.m-layers-picker .layers--specific {
+  background: #3c3c3c;
+  margin-top: -10px;
+}
+
+.m-layers-picker .layers--specific > h2 {
+  margin-top: 0;
+}
+
+.m-layers-picker .layers--specific > h2 span {
+  font-size: 14px;
+  margin-bottom: 10px;
+  background: #549a77;
+  display: inline-block;
+  padding: 3px 6px 2px;
+  color: white;
+  font-weight: 560;
 }
 
 .m-layers-picker .layer {
@@ -35,7 +61,8 @@
   background: #555;
   background-size: cover;
   background-position: center;
-  margin:-20px -20px 0 -20px;
+  margin: -20px -20px 0 -20px;
+  transition: all .2s;
 }
 
 .m-layers-picker .layer:nth-child(1) .image {
@@ -62,9 +89,14 @@
   background-image: asset-url('map-6.jpg');
 }
 
+.m-layers-picker .layer a:hover .image {
+  opacity: 0.8;
+}
+
 .m-layers-picker .layer h2 {
   margin-bottom: 0;
   @include font-display;
+  margin-top: 16px;
 }
 
 .m-layers-picker .wrap > button {
@@ -74,8 +106,8 @@
 .m-layers-picker .layer a {
   color: $black;
   display: block;
-  padding:20px;
-  background:white;
+  padding: 20px;
+  background: white;
 }
 
 .m-layers-picker .layer a:hover {
@@ -83,9 +115,27 @@
 }
 
 .m-layers-picker .layer button {
-  background: $link-color;
-  border: 0;
+  background: transparent;
   border-radius: 100px;
+  border: 2px solid #549a77;
+  color: #549a77;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 6px;
+  margin-left: -2px;
+  outline: 0;
+  transition:all .2s;
+}
+
+.m-layers-picker .layer button:hover {
+  background: #549a7624;
+}
+
+
+.m-layers-picker .layer.is-selected button {
+  //border: 2px solid #c3c3c2;
+  border: 2px solid #00000042;
+  color: #00000042;
 }
 
 .m-layers-picker .layer button span {
@@ -96,24 +146,58 @@
   content: "Use this layer";
 }
 
-.m-layers-picker .layer button.is-selected:before {
-  content: "Hide this layer";
-}
-
-.m-layers-picker .layer button:after {
-  content: "\f10c";
-  margin-left: 10px;
-  font: normal normal normal 18px/1 FontAwesome;
-}
-
-.m-layers-picker .layer button.is-selected:after {
-  content: "\f05d";
-}
-
-.m-layers-picker .layer button.is-selected {
-  background: #eee;
+.m-layers-picker .layer.is-selected button:before {
+  content: "Deselect this layer";
 }
 
 .m-layers-picker .layer p {
-  font-size:12px;
+  font-size: 12px;
+}
+
+.m-layers-picker .layer > a {
+  transition: all .2s;
+  outline: 0 solid #13131324;
+  position: relative;
+}
+
+.m-layers-picker .layers--specific .layer.is-selected > a {
+  outline: 10px solid #13131324;
+  outline: 10px solid #549a7785;
+}
+
+.m-layers-picker .layer.is-selected > a {
+  outline: 10px solid #549a7785;
+  background: #efdf5b;
+}
+
+.m-layers-picker .layer a:after {
+  content: "\f00c";
+  color: white;
+  background: $green;
+  font: normal normal normal 24px/1 FontAwesome;
+  text-align: center;
+  position: absolute;
+  right: 20px;
+  bottom: -24px;
+  display: block;
+  width: 60px;
+  height: 60px;
+  padding-top: 17px;
+  border-radius: 100px;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: all .2s;
+}
+
+.m-layers-picker .layer.is-selected a:after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.m-layers-picker button.submit-button {
+  min-width: 170px;
+  float: right;
+  margin-bottom: 80px;
+  margin-top: 30px;
+  @include big-square-button;
 }

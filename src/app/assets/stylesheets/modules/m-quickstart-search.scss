@@ -7,3 +7,22 @@
 .m-quickstart-search h2 {
   @include caps-subtitle;
 }
+
+.m-quickstart-search input[type='text'] {
+  font-size: 28px;
+  background: transparent;
+  padding: 18px;
+  border: 3px solid $green;
+  color: white;
+}
+
+
+.m-quickstart-search input[type="submit"] {
+  font-size: 28px;
+  padding: 18px;
+  border: 0;
+  background: $green;
+  color: white;
+  border-radius: 100px;
+  margin-left: 18px;
+}

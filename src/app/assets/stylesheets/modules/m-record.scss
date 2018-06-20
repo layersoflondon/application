@@ -126,7 +126,8 @@
   position: absolute;
   right: 0;
   z-index: 2;
-  margin-top: -90px;
+  margin-top: -10px;
+  margin-right: -50px;
   font-size: 12px;
   text-transform: uppercase;
 }
@@ -134,10 +135,9 @@
 .m-record .social-status {
   text-align: center;
   padding: 12px;
-  background: transparentize($black, 0.5);
+  background: $green;
   color: $yellow;
   float: left;
-  margin-right: 20px;
 }
 
 .m-record .social-status button {
@@ -163,9 +163,9 @@
 
 .m-record .share-record {
   text-align: center;
-  padding: 12px;
-  background: transparentize($black, 0.5);
-  color: $yellow;
+  padding: 12px 20px;
+  background: $red;
+  color: $orange;
   float: left;
   margin-right: 20px;
 }
@@ -185,6 +185,7 @@
   height: 40px;
   line-height: 45px;
   text-align: center;
+  color:$orange;
 }
 
 .m-record .share-record button span {

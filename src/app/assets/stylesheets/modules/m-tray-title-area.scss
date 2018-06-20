@@ -9,20 +9,38 @@
   margin-top: 0;
   margin-bottom: 7px;
   @include font-display;
+
+  background: $yellow;
+  display: inline-block;
+  float:left;
+  color: $black;
+  padding: 3px 10px;
 }
 
 .m-tray-title-area .close {
   float: right;
-  margin-top:-5px;
-  margin-right:-5px;
+  margin-top: -2px;
+  margin-right: -4px;
 }
 
 .m-tray-title-area .close button {
-  @include icon-button--close--small;
+  background: asset-url('icon-close.svg') center no-repeat;
+  width: 50px;
+  height: 50px;
+  @include kellum;
+  padding: 0;
+  opacity: 0.7;
+  @include transition(all .2s);
+}
+
+.m-tray-title-area .close button:hover {
+  opacity: 1;
 }
 
 .m-tray-title-area .meta {
   float: left;
+  clear:both;
+  @include caps-subtitle;
 }
 
 .m-tray-title-area .creator-link {
