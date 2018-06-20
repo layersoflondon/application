@@ -19,11 +19,21 @@
   bottom: -40px;
   left: 50%;
   margin-left: -20px;
-  border-top: 40px solid white;
+  border-top: 40px solid $black;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
 }
 
 .showing-place-picker .m-map-popover {
   display:none !important;
+}
+
+.m-map-popover .m-record-card {
+  height: 150px;
+  overflow: hidden;
+  outline:7px solid $black;
+}
+
+.m-map-popover .m-record-card p {
+  display:none;
 }

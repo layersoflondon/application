@@ -3,9 +3,10 @@
 .m-tool-button button {
   background: transparent;
   border: 0;
-  color:$main-accent;
+  color: $main-accent;
   padding: 15px 10px;
   position: relative;
+  @include transition(all .2s);
 }
 
 .m-tool-button button:after {
@@ -32,37 +33,38 @@
 
 .m-tool-button button:before {
   font: normal normal normal 20px/1 FontAwesome;
-  color:#b3b3b3;
-  opacity:0.6;
+  color: #b3b3b3;
+  opacity: 0.6;
+  content: "";
+  width: 22px;
+  height: 22px;
+  display: block;
+  opacity: 0.7;
+  margin-top: -2px;
+  @include transition(all .2s);
 }
 
 .m-tool-button--search button:before {
-  //color:$red;
-  content: "\f002";
-}
-
-.m-tool-button--date-range button:before {
-  //color:$orange;
-  content: "\f017";
+  background: asset-url('icon-search.svg') center no-repeat;
 }
 
 .m-tool-button--layers button:before {
-  //color:$green;
-  content: "\f24a";
+  background: asset-url('icon-layers.svg') center no-repeat;
 }
 
 .m-tool-button--add-collection button:before {
-  //color:$light-blue;
-  content: "\f24d";
+  background: asset-url('icon-collection.svg') center no-repeat;
 }
 
 .m-tool-button--add button:before {
-  //color:$lilac;
-  content: "\f067";
+  background: asset-url('icon-add.svg') center no-repeat;
+}
+
+.m-tool-button--your-content button:before {
+  content: "\f2c0";
 }
 
 .m-tool-button--your-account button:before {
-  //color:$gray;
   content: "\f2c0";
 }
 
