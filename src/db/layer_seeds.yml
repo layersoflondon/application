@@ -1,0 +1,18 @@
+-
+  title: Morgan Map (1682)
+  description: Survey of the City of London and the surrounding built-up area (including Westminster and part of Southwark), on a scale of 300 feet to the inch, completed in 1682 by William Morgan.
+  url: https://tiles.layersoflondon.org/morgan/{z}/{x}/{y}.png
+  date: 1682-01-01
+  image: morgan.png
+-
+  title: Rocque Map (1746)
+  description: More formally "A plan of the cities of London and Westminster, and borough of Southwark", surveyed by John Rocque and engraved by John Pine
+  url: https://tiles.layersoflondon.org/rocque/{z}/{x}/{y}.png
+  date: 1746-01-01
+  image: rocque.png
+-
+  title: Tudor Map (1520)
+  description: A map of London about 1520
+  url: https://tiles.layersoflondon.org/tudor/{z}/{x}/{y}.png
+  date: 1520-01-01
+  image: tudor.png
