@@ -3,7 +3,7 @@ class Record < ApplicationRecord
   include AASM
 
   update_index('records#record') { self }
-  has_many :collection_records
+  has_many :collection_records, dependent: :destroy
   has_many :collections, through: :collection_records
   has_many :attachments, dependent: :destroy
   # update_index('attachments#attachment') { attachments }
@@ -12,7 +12,7 @@ class Record < ApplicationRecord
     previous_changes['user_id'] || user
   end
   has_one :primary_image, class_name: 'Attachments::Image', foreign_key: :id, primary_key: :primary_image_id
-  has_many :record_taxonomy_terms, class_name: 'RecordTaxonomyTerm'
+  has_many :record_taxonomy_terms, class_name: 'RecordTaxonomyTerm', dependent: :destroy
   has_many :taxonomy_terms, through: :record_taxonomy_terms
 
   accepts_nested_attributes_for :attachments
