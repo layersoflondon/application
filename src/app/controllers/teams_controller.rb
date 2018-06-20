@@ -119,6 +119,11 @@ class TeamsController < ApplicationController
       redirect_to team_path(format: :html, :id => @team.id, :error => 'Error validating emails input')
     end
 
+    if valid_emails
+      redirect_to team_path(format: :html, :id => @team.id)
+    else
+      redirect_to team_path(format: :html, :id => @team.id, :error => 'Error validating emails input')
+    end
   end
 
   def accept_invitation
