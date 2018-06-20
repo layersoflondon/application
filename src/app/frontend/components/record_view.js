@@ -116,6 +116,10 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   render() {
-    return this[`render_state_loading_${this.props.trayViewStore.loading_record}`]();
+    if( this.props.trayViewStore.visible_record ) {
+      return this[`render_state_loading_${this.props.trayViewStore.loading_record}`]();
+    }else {
+      return <span></span>
+    }
   }
 }
