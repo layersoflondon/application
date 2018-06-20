@@ -1,6 +1,9 @@
 <%= form_tag("/teams/#{@team.id}/invite-user" , method: "post",  class: 'form--chunky form--over-white') do %>
   <div class="form-group">
     <input type="text" placeholder="Email" value="" name="query">
+    <% if @error.present? %>
+      <p style="color:red"><%= @error %></p>
+    <% end %>
   </div>
   <p class="helper-text">Comma separated list is fine.</p>
   <%= submit_tag("Send") %>

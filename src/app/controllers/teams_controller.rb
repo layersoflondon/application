@@ -34,6 +34,9 @@ class TeamsController < ApplicationController
 
   def show
     authorize(@team_user)
+    if params[:error].present?
+      @error = params[:error]
+    end
   end
 
   def update
@@ -108,8 +111,12 @@ class TeamsController < ApplicationController
         )
       end
     end
-    # TODO: redirect to invitation view if valid_emails is false and show the error below the input emails
-    redirect_to :controller => 'teams', :action => 'show', :format => 'html'
+
+    if valid_emails
+      redirect_to team_path(format: :html, :id => @team.id)
+    else
+      redirect_to team_path(format: :html, :id => @team.id, :error => 'Error validating emails input')
+    end
   end
 
   def accept_invitation
