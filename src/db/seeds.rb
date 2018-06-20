@@ -167,3 +167,4 @@ end
       layer_data: layer_data[0].as_json
   )
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
