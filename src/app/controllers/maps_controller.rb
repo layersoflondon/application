@@ -3,6 +3,8 @@ class MapsController < ApplicationController
   skip_after_action :verify_authorized, only: %i[index show state]
 
   before_action :set_state_variables
+  decorates_assigned :records, with: RecordDecorator
+  decorates_assigned :collections, with: CollectionDecorator
 
   layout 'map'
 
@@ -18,8 +20,8 @@ class MapsController < ApplicationController
   private
   def set_state_variables
     # @records =  RecordsIndex.filter(terms: {state: %w[published flagged]}).to_a
-    @records =  RecordsIndex.filter(terms: {state: %w[published flagged]}).limit(500).order(created_at: :desc).to_a
-    @collections = Collection.collections_for_user(current_user).limit(2).decorate
+    @records =  RecordsIndex.filter(terms: {state: %w[published flagged]}).limit(5).order(created_at: :desc).to_a
+    @collections = Collection.collections_for_user(current_user).limit(2)
 
     # return unless params[:resource].present?
     #

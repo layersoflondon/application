@@ -21,7 +21,7 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   render() {
-    const parsed_content = Parser(this.props.card.description);
+    const parsed_content = Parser(this.props.card.data.description);
 
     let container_classes = "m-record-card";
     let image_styles = {background: '#2e3c4e'};
@@ -43,9 +43,9 @@ import {Link, withRouter} from 'react-router-dom';
     }
 
     const collection_path = location.pathname.match(/\/collections\/(\d+)/);
-    let path = `/map/${resource}/${this.props.card.id}`;
+    let path = `/map/${resource}/${this.props.card.data.id}`;
     if( collection_path && collection_path.length > 1 ) {
-      path = `/map/collections/${collection_path[1]}/records/${this.props.card.id}`;
+      path = `/map/collections/${collection_path[1]}/records/${this.props.card.data.id}`;
     }
 
     return (
@@ -55,7 +55,7 @@ import {Link, withRouter} from 'react-router-dom';
           </div>
           {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
           <div className="text-content">
-            <h1>{this.props.card.title}</h1>
+            <h1>{this.props.card.data.title}</h1>
 
             {parsed_content[0] || parsed_content}
           </div>

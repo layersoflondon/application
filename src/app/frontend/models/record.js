@@ -144,8 +144,10 @@ export default class RecordModel {
     }
   }
 
-  static fromJS(attributes) {
+  static fromJS(attributes, store) {
     let record = new RecordModel();
+
+    record.store = store;
 
     record.id = attributes.id;
     record.title = attributes.title;
@@ -172,7 +174,7 @@ export default class RecordModel {
     }
 
     if( attributes.hasOwnProperty('collections') ) {
-      record.collections = attributes.collections.map((c) => CollectionModel.fromJS(c, true));
+      record.collections = attributes.collections.map((c) => CollectionModel.fromJS(c, store, true));
     }
 
     return record;

@@ -111,7 +111,6 @@ import Search from "../../../sources/search";
       return [].concat.apply([], query).join('&');
     }
 
-    console.log("Searching: ", search_params);
     Search.perform(search_params).then((response) => {
       const {push} = {...this.props.routing};
       const params = serializeQuery(search_params);

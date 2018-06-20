@@ -16,8 +16,11 @@ export default class CollectionModel {
     return [0, 0];
   }
 
-  static fromJS(attributes, from_record = false) {
+  static fromJS(attributes, store = null, from_record = false) {
     const collection = new CollectionModel();
+
+    collection.store = store;
+
     collection.id = attributes.id;
     collection.title = attributes.title;
     collection.description = attributes.description;
