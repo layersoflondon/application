@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import { Marker, Popup } from 'react-leaflet'
+import {Link, withRouter} from 'react-router-dom';
 
 import {Leaflet} from 'react-leaflet';
 import L from 'leaflet';
 import Parser from 'html-react-parser';
-
+@inject('routing')
+@withRouter
 @observer export default class MarkerContainer extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,7 @@ import Parser from 'html-react-parser';
 
   handleOnClick(event) {
     event.preventDefault();
-    this.props.trayViewStore.visible_record_id = this.props.card.id;
+    this.props.history.push(`/map/records/${this.props.card.id}`);
   }
 
   render() {
