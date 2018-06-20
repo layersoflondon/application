@@ -1,4 +1,7 @@
+require 'mail'
+
 class TeamsController < ApplicationController
+  layout 'iframe', only: [:show]
   before_action :set_team, only: %i[show update destroy invite_user leave accept_request deny_request]
   skip_before_action :authenticate_user!, only: %i[index]
   skip_after_action :verify_authorized, only: [:index]
@@ -74,14 +77,38 @@ class TeamsController < ApplicationController
   end
 
   def invite_user
-    # TODo this needs refactoring because we should be able to invite non-users.
     authorize(@team_user)
+
     query = params[:query]
     emails = query.split(',')
-    users = User.where(email: emails)
-    users.each do |user|
-      @team.invite(current_user, user)
+    valid_emails = true
+    emails.each do |email|
+      unless (email.match(Devise.email_regexp))
+        valid_emails = false
+        break
+      end
     end
+
+    if valid_emails
+      # get existing users
+      existing_users = User.where(email: emails)
+      # get emails of new users
+      new_user_emails = emails - existing_users.collect(&:email) #gives an array of nonexistent users
+      # for existing users, send a team invitations (already working?)
+      existing_users.each do |user|
+        @team.invite(current_user, user)
+      end
+      # for new users, send them a devise invitation and automatically add them to the team
+      new_user_emails.each do |email|
+        user_invited = User.invite!(email: email)
+        @team.team_users << TeamUser.new(
+            user: user_invited,
+            role: 'contributor',
+            state: 'access_granted'
+        )
+      end
+    end
+    # TODO: redirect to invitation view if valid_emails is false and show the error below the input emails
     redirect_to :controller => 'teams', :action => 'show', :format => 'html'
   end
 

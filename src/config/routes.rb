@@ -15,7 +15,7 @@ Rails.application.routes.draw do
                unlocks: 'users/unlocks',
                passwords: 'users/passwords',
                registrations: 'users/registrations'
-             }, skip: [:invitations] # TODO do we need the invitation routes or are we creating the invitations manually in the controller?
+             }
 
 
   get '/user/:id/teams', to: 'user_teams#index'
