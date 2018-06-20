@@ -16,7 +16,7 @@ import Parser from 'html-react-parser';
 
   handleOnClick(event) {
     event.preventDefault();
-    this.props.history.push(`/map/records/${this.props.card.id}`);
+    this.props.history.push(`/map/records/${this.props.record.id}`);
   }
 
   render() {
@@ -41,22 +41,22 @@ import Parser from 'html-react-parser';
     });
 
     let icon = this.props.cardComponent.highlighted ? highlighted_icon : default_icon;
-    const parsed_content = Parser(this.props.card.description);
+    const parsed_content = Parser(this.props.record.description);
 
-    return <Marker position={this.props.position} icon={icon} onMouseOver={()=>this.props.card.highlighted = true} onMouseOut={()=>this.props.card.highlighted = false}>
+    return <Marker position={this.props.position} icon={icon} onMouseOver={()=>this.props.record.highlighted = true} onMouseOut={()=>this.props.record.highlighted = false}>
 
       <Popup>
 
         <div className="m-map-popover" onClick={this.handleOnClick.bind(this)}>
           <div className="m-record-card">
             <div className="wrapper">
-                {this.props.card.image &&
-                <div className="image" style={{'backgroundImage': 'url(' + this.props.card.image.thumb + ')'}}>
+                {this.props.record.image &&
+                <div className="image" style={{'backgroundImage': 'url(' + this.props.record.image.thumb + ')'}}>
                 </div>
                 }
 
               <div className="text-content">
-                <h1>{this.props.card.title}</h1>
+                <h1>{this.props.record.title}</h1>
               </div>
             </div>
           </div>
@@ -68,5 +68,5 @@ import Parser from 'html-react-parser';
 }
 
 MarkerContainer.propTypes = {
-  card: PropTypes.object.isRequired
+  record: PropTypes.object.isRequired
 };

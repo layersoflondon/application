@@ -26,10 +26,6 @@ export default class CardModel {
     return this.is_collection ? `collection_${this.data.id}` : `record_${this.data.id}`;
   }
 
-  @computed get position() {
-    return [this.lat, this.lng];
-  }
-
   @computed get is_collection() {
     return this.object.hasOwnProperty('records');
   }
