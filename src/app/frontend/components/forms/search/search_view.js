@@ -38,6 +38,12 @@ import Search from "../../../sources/search";
     this.setState({terms: terms});
   }
 
+  isChecked(event) {
+    const {target: { name, value }} = event;
+
+    return this.state.terms[name].indexOf(value)>-1 ? true : '';
+  }
+
   handleOnChange(event) {
     const {target: {name, value}} = event;
     this.setState({[name]: value});
@@ -68,11 +74,20 @@ import Search from "../../../sources/search";
   handleSearchOnClick(event) {
     const search_params = {
       q: this.state.q,
-      terms: this.state.terms,
-      date_range: {
-        gte: `${this.state.start_year}-01-01`, lte: `${this.state.end_year}-01-01`
-      }
+      terms: this.state.terms
     };
+
+    if( this.state.start_year ) {
+      if(!search_params.date_range) search_params.date_range = {};
+
+      search_params.date_range.gte = `${this.state.start_year}-01-01`;
+    }
+
+    if( this.state.end_year ) {
+      if(!search_params.date_range) search_params.date_range = {};
+
+      search_params.date_range.lte = `${this.state.end_year}-01-01`;
+    }
 
     if( this.state.geobounding ) {
       search_params.geobounding = this.state.geobounding;
@@ -141,7 +156,7 @@ import Search from "../../../sources/search";
      */
     if( showing_results_match>-1 && !updated_props) {
       this.setState(state);
-      
+
       setTimeout(() => {
         this.handleSearchOnClick();
       }, 50);
@@ -158,7 +173,7 @@ import Search from "../../../sources/search";
       return <span></span>;
     }
 
-    const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} />);
+    const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} isCheckedMethod={this.isChecked.bind(this)} />);
 
     return (
       <div className={className}>
