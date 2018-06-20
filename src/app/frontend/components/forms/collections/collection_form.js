@@ -46,7 +46,8 @@ import RecordModel from "../../../models/record";
       const collection = CollectionModel.fromJS(response.data);
       this.props.collectionStore.addCollection(collection);
 
-      this.props.mapViewStore.overlay = null;
+      const {push} = {...this.props.routing};
+      push(`/map`);
     }).catch((response) => {
       console.log("Error creating collection", response);
     });

@@ -14,14 +14,14 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   componentWillMount() {
-    if( this.props.match && this.props.match.params.id && this.props.match.params.id === this.props.trayViewStore.visible_collection_id ) {
-    }else if( this.props.match.params.id != "new" ) { // dont set visible_collection_id if we're at /collections/new
-      this.props.trayViewStore.visible_collection_id = this.props.match.params.id;
+    if( this.props.match && this.props.match.params.id && this.props.match.params.id === this.props.trayViewStore.collection_id ) {
+    }else if( this.props.match.params.id !== "new" ) { // dont set visible_collection_id if we're at /collections/new
+      this.props.trayViewStore.collection_id = this.props.match.params.id;
     }
   }
 
   componentWillUnmount() {
-    this.props.trayViewStore.visible_collection_id = false;
+    this.props.trayViewStore.collection_id = false;
   }
 
   render_state_loading_true() {

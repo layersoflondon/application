@@ -22,12 +22,6 @@ import Parser from 'html-react-parser';
 import Search from '../sources/search.js';
 window.Parser = Parser;
 
-/**
- * Create a CardStore from our dummy data, a TrayViewStore to pass
- * into the React App, and set the initial data for the trayViewStore
- * which will be rendered in the Tray component
- */
-
 import initStore from '../stores/stores';
 
 document.addEventListener('DOMContentLoaded', () => {

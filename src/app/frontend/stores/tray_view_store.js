@@ -3,17 +3,17 @@ import Record from '../sources/record';
 import Collection from '../sources/collection';
 
 import CardModel from '../models/card';
-import CollectionModel from '../models/collection';
-import RecordModel from '../models/record';
 
 /**
  * The data store for the TrayView
  */
 export default class TrayViewStore {
-  // the TrayViewStore is given its data source (the card_store attribute) and it renders it as a list in the tray
+  // the TrayViewStore is given its data source (the cards attribute) and it renders it as a list in the tray
   @observable tray_is_visible = true;
 
   @observable cards = observable.map();
+  @observable collection_store = null;
+
   @observable title = null;
   @observable description = null;
 
@@ -25,11 +25,14 @@ export default class TrayViewStore {
   @observable record_id = null;
   @observable collection_id = null;
 
-
   // dom reference to the leaflet element
   map_ref = null;
 
   constructor() {
+    observe(this, 'cards', (change) => {
+      this.previousCards = change.oldValue;
+    });
+
     observe(this, 'tray_is_visible', (change) => {
       // force leaflet to re-draw its layout so we can resize the mapview and it retains full-width of the container
       setTimeout(() => {
@@ -64,39 +67,26 @@ export default class TrayViewStore {
       }
     });
 
-    // observe(this, 'collection_id', (change) => {
-    //   this.loading_collection = true;
-    //
-    //   if( change.newValue ) {
-    //     Collection.show(null, this.visible_collection_id).then((response) => {
-    //       const collection_card_data = new CardModel(response.data); //fromJS(response.data, this.visible_collection_id);
-    //
-    //       collection_card_data.cards = collection_card_data.records;
-    //       delete collection_card_data['records'];
-    //
-    //       this.visible_collection = CollectionModel.fromJS(response.data);
-    //
-    //       console.log("about to set card_store");
-    //       this.card_store = CardStore.fromJS(collection_card_data);
-    //     }).catch((error) => {
-    //       console.log("Error getting collection", error, this.visible_collection_id);
-    //       this.visible_collection_id = null;
-    //     }).finally(() => {
-    //       this.loading_collection = false;
-    //     });
-    //   }else {
-    //     // console.log("No newValue in visible_collection_id change", change);
-    //     this.visible_collection_id = null;
-    //     this.loading_collection = false;
-    //   }
-    // });
+    observe(this, 'collection_id', (change) => {
+      this.loading_collection = true;
+      console.log("Get collection");
 
-    // swapping the card_store will re-render the tray with the new array of records
-    // observe(this, 'card_store', (change) => {
-    //   if( change.oldValue && (change.newValue !== change.oldValue) ) {
-    //     this.previous_card_store = change.oldValue;
-    //   }
-    // });
+      if( change.newValue ) {
+        Collection.show(null, this.collection_id).then((response) => {
+          console.log(response.data);
+          this.showCollectionOfRecords(response.data.records, response.data.title, response.data.description);
+        }).catch((error) => {
+          console.log("Error getting collection", error, this.collection_id);
+          this.collection_id = null;
+        }).finally(() => {
+          this.loading_collection = false;
+        });
+      }else {
+        // console.log("No newValue in collection_id change", change);
+        this.collection_id = null;
+        this.loading_collection = false;
+      }
+    });
   }
 
   toggleTrayVisibility(event) {

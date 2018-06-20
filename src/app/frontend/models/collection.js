@@ -29,7 +29,18 @@ export default class CollectionModel {
     collection.owner = attributes.owner;
 
     if( !from_record && attributes.hasOwnProperty('records') ) {
-      collection.records = attributes.records.map((r) => RecordModel.fromJS(r));
+      // iterate over this collection's records and either fetch the existing record from the store, or build a new one
+      collection.records = attributes.records.map((r) => {
+        let card = store.cards.get(`record_${r.id}`);
+        let record = null;
+        if(card) {
+          record = card.data;
+        }else {
+          record = RecordModel.fromJS(r, store);
+        }
+
+        return record;
+      });
     }
 
     if( attributes.hasOwnProperty('image') ) {

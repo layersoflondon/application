@@ -15,10 +15,9 @@ export default (state) => {
   const mapViewStore = MapViewStore.fromJS(state.mapViewStore);
   const layersStore = LayersStore.fromJS(state.layersStore);
 
-  const collectionStore = CollectionStore.fromJS(state.collectionStore);
-
   const {title, description, cards} = state.data;
   const trayViewStore = TrayViewStore.fromJS(cards, title, description);
+  const collectionStore = CollectionStore.fromJS(state.collectionStore, trayViewStore);
 
   const stores = {
     recordFormStore: recordFormStore,

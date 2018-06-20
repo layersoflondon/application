@@ -1,7 +1,5 @@
 json.set! :data do
-  json.set! :title, "Title"
-  json.set! :description, "Description"
-
+  json.set! :root, true
   json.set! :cards do
     json.array! ((records+collections).sort_by(&:updated_at)) do |object|
       if object.is_a?(RecordsIndex::Record)
@@ -11,12 +9,6 @@ json.set! :data do
       end
     end
   end
-end
-
-if @collection
-  json.partial! 'maps/partials/collection_state', {locals: {collection: @collection, records: @records, collections: @collections}}
-else
-  json.partial! 'maps/partials/record_state', {locals: {records: @records, collections: @collections}}
 end
 
 json.set! :recordFormStore do

@@ -33,8 +33,9 @@ import CardModel from './../../../models/card';
 
   handleClickedOnSave(event) {
     event.preventDefault();
-    // when successfully updating a Record, we should propagate the updated data throughout the stores that are rendering it.
-    // since the tray and map render their data from a CardStore, we can just overwrite the data there (see insertOrUpdateRecord)
+    // when successfully updating a Record, we should propagate the updated data throughout the stores that are
+    // rendering it. since the tray and map render their data from the trayViewStore.cards observable, we can just
+    // overwrite the data there (see addOrUpdateRecord)
     this.props.recordFormStore.record.persist().then((response) => {
       let card = this.props.trayViewStore.addOrUpdateRecord(response.data);
 
@@ -48,13 +49,6 @@ import CardModel from './../../../models/card';
     }).catch((response) => {
       console.log("Error Response: ", response);
     })
-  }
-
-  handleClickedOnClose(event) {
-    event.preventDefault();
-
-    this.props.mapViewStore.overlay = null;
-    this.props.recordFormStore.record.resetState();
   }
 
   render() {
