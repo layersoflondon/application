@@ -55,6 +55,8 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
 
+  get  "/assets/:encoded_key/*filename" => "assets#show", as: :asset
+
   resources :taxonomies, only: [:index], defaults: {format: :json}
 
   resources :events, only: [:show], path: "events"
