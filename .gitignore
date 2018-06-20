@@ -44,3 +44,8 @@ docker-key
 docker-key.pub
 **/secrets.yml
 src/public/uploads
+
+/node_modules
+/tmp
+
+/log
