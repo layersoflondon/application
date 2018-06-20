@@ -173,11 +173,7 @@ import Search from "../../../sources/search";
       return <span></span>;
     }
 
-<<<<<<< HEAD:src/app/frontend/components/forms/search/search_view.js
     const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} isCheckedMethod={this.isChecked.bind(this)} />);
-=======
-    const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} />);
->>>>>>> search with query, bounding, era supporth:src/app/frontend/components/forms/search/search_view.js
 
     return (
       <div className={className}>
