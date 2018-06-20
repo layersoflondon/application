@@ -1,9 +1,8 @@
 import React,{Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
-import Search from "../sources/search";
-import L from "leaflet";
-window.L = L;
+import SearchViewTaxonomy from "./_search_view_taxonomy";
+import Search from "../../../sources/search";
 
 @inject('routing', 'mapViewStore', 'trayViewStore')
 @withRouter
@@ -11,7 +10,37 @@ window.L = L;
   constructor(props) {
     super(props);
 
-    this.state = {q: '', era_picker_visible: false, type_picker_visible: false, geobounding: null, start_year: '', end_year: ''};
+    this.state = {q: "", geobounding: false, start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}};
+  }
+
+  componentWillMount() {
+    this.setInitialState();
+  }
+
+  componentWillReceiveProps() {
+    this.setInitialState(true);
+  }
+
+  toggleTerm(event) {
+    const {target: { name, value }} = event;
+
+    const terms = this.state.terms;
+    const current_terms = terms[name].slice();
+    const term_index = current_terms.indexOf(value);
+
+    if(term_index === -1) {
+      current_terms.push(value);
+    }else {
+      current_terms.splice(term_index, 1);
+    }
+
+    terms[name] = current_terms;
+    this.setState({terms: terms});
+  }
+
+  handleOnChange(event) {
+    const {target: {name, value}} = event;
+    this.setState({[name]: value});
   }
 
   toggleSearchBounds(event) {
@@ -36,11 +65,56 @@ window.L = L;
     }
   }
 
+  handleSearchOnClick(event) {
+    const search_params = {
+      q: this.state.q,
+      terms: this.state.terms,
+      date_range: {
+        gte: `${this.state.start_year}-01-01`, lte: `${this.state.end_year}-01-01`
+      }
+    };
+
+    if( this.state.geobounding ) {
+      search_params.geobounding = this.state.geobounding;
+    }
+
+    function serializeQuery(params, prefix) {
+      const query = Object.keys(params).map((key) => {
+        const value  = params[key];
+
+        if (params.constructor === Array)
+          key = `${prefix}[]`;
+        else if (params.constructor === Object)
+          key = (prefix ? `${prefix}[${key}]` : key);
+
+        if (typeof value === 'object')
+          return serializeQuery(value, key);
+        else
+          return `${key}=${encodeURIComponent(value)}`;
+      });
+
+      return [].concat.apply([], query).join('&');
+    }
+
+    console.log("Searching: ", search_params);
+    Search.perform(search_params).then((response) => {
+      const {push} = {...this.props.routing};
+      const params = serializeQuery(search_params);
+
+      push(`?results=true&${params}`);
+      this.setState({showing_results: true});
+      this.props.trayViewStore.showCollectionOfRecords(response.data, `Searched for ${this.state.q}`);
+    });
+  }
+
+  /**
+   * set the initial component state from the query string params
+   **/
   setInitialState(updated_props = false) {
     const showing_results_match = location.search.search(/results=true/);
     const query_match = location.search.match(/q=([^$,&]+)/);
-    const start_year_match = location.search.match(/start_year=([^$,&]+)/);
-    const end_year_match = location.search.match(/end_year=([^$,&]+)/);
+    const start_year_match = location.search.match(/date_range\[gte\]=([^-]+)/);
+    const end_year_match = location.search.match(/date_range\[lte\]=([^-]+)/);
 
     let state = {showing_results: false};
 
@@ -60,39 +134,20 @@ window.L = L;
       state.end_year = end_year_match[1];
     }
 
+    /**
+     * if we have a results=true param, and we're mounting the component (not receiving updated props),
+     * perform the search this will only  happen if the initial route is mapped to this component with
+     * a query string (user refreshes the search results page
+     */
     if( showing_results_match>-1 && !updated_props) {
       this.setState(state);
-
+      
       setTimeout(() => {
         this.handleSearchOnClick();
       }, 50);
     }else {
       this.setState(state);
     }
-  }
-
-  componentWillMount() {
-    this.setInitialState();
-  }
-
-  componentWillReceiveProps() {
-    this.setInitialState(true);
-  }
-
-  handleOnChange(event) {
-    this.setState({q: event.target.value});
-  }
-
-  handleSearchOnClick(event) {
-    Search.perform(this.state).then((response) => {
-      const {push} = {...this.props.routing};
-      const search_params = {q: this.state.q, start_year: this.state.start_year, end_year: this.state.end_year};
-      const params = Object.keys(search_params).reduce(function(a,k){a.push(k+'='+encodeURIComponent(search_params[k]));return a},[]).join('&');
-
-      push(`?results=true&${params}`);
-      this.setState({showing_results: true});
-      this.props.trayViewStore.showCollectionOfRecords(response.data, `Searched for ${this.state.q}`);
-    });
   }
 
   render() {
@@ -102,6 +157,8 @@ window.L = L;
     if( this.state.showing_results ) {
       return <span></span>;
     }
+
+    const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} />);
 
     return (
       <div className={className}>
@@ -119,14 +176,14 @@ window.L = L;
               <div className="form-group form-group--toggle-switch">
                 <label>
                   <span>Search all of London</span>
-                  <input type="checkbox" onChange={this.toggleSearchBounds.bind(this)} checked={this.state.geobounding !== null} />
+                  <input type="checkbox" onChange={this.toggleSearchBounds.bind(this)} checked={this.state.geobounding !== false} />
                   <span className="toggle"></span>
                   <span>Search visible area</span>
                 </label>
               </div>
 
               <div className="form-group form-group--primary-field">
-                <input placeholder="Enter a place or topic…" type="text" onChange={this.handleOnChange.bind(this)} value={this.state.q} />
+                <input placeholder="Enter a place or topic…" type="text" name="q" value={this.state.q} onChange={this.handleOnChange.bind(this)} />
               </div>
 
               <div className="date-range">
@@ -138,12 +195,12 @@ window.L = L;
 
                 <div className="date-box date-box--start">
                   <h2 className="label">Start year</h2>
-                  <input placeholder="Start year" type="text" value={this.state.start_year} onChange={(event, value) => this.setState({start_year: value})}/>
+                  <input placeholder="Start year" type="text" name="start_year" value={this.state.start_year} onChange={this.handleOnChange.bind(this)} />
                 </div>
 
                 <div className="date-box date-box--start">
                   <h2 className="label">End year</h2>
-                  <input placeholder="End year" type="text" value={this.state.end_year} onChange={(event, value) => this.setState({end_year: value})} />
+                  <input placeholder="End year" type="text" name="end_year" value={this.state.end_year} onChange={this.handleOnChange.bind(this)} />
                 </div>
 
                 {this.state.era_picker_visible &&
@@ -167,7 +224,6 @@ window.L = L;
                   </ul>
                 </div>
                 }
-
               </div>
 
               <div className="filters">
@@ -202,68 +258,9 @@ window.L = L;
                     </label>
                   </div>
 
-                  <div className="form-group form-group--checklist form-group--replaced-checkboxes">
-                    <h2 className="label">Type</h2>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Places</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>People</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Items</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Events</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                  </div>
 
-                  <div className="form-group form-group--checklist form-group--replaced-checkboxes">
-                    <h2 className="label">Theme</h2>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Political &amp; government</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Social &amp; health</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Education</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Industry &amp; commerce</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Religion &amp; worship</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Transport</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>War &amp; conflict</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                  </div>
+                  {taxonomies}
+
                 </div>
                 }
 

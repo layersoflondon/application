@@ -1,5 +1,6 @@
 <script type="text/javascript">
     window.__STATE = {collectionStore: {}, layersStore: {}, mapViewStore: {}, trayViewStore: {}}
+    window.__TAXONOMIES = <%= raw Taxonomy.includes(:taxonomy_terms).all.inject({}) {|h, taxonomy| h[taxonomy.name] = {title: taxonomy.title, terms: taxonomy.taxonomy_terms.collect{|term| {name: term.name, title: term.title} }} ; h}.to_json %>
 </script>
 
 <div id="map-root"></div>

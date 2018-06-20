@@ -7,7 +7,7 @@ import {Link, withRouter} from 'react-router-dom';
 import Tools from './tools';
 import Tray from './tray';
 import MapView from './map_view';
-import SearchView from './search_view';
+import SearchView from './forms/search/search_view';
 import RecordView from './record_view';
 import CollectionView from './collection_view';
 import PlacePicker from './place_picker';
