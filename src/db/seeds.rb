@@ -149,22 +149,22 @@ end
 end
 
 # create layers
-5.times do |_i|
-
-  layer_data  = [
-      :georeferencer_table_id => '1OktmAP9za7OkU7l2VUf8yY-hf0bgCTg8VrNjvk0o',
-      :tileserver_url => 'http://georeferencer-0.tileserver.com/5678017802d5d23499ada6924aff9c417da0a58b/map/{entity_id}/polynomial/{z}/{x}/{y}.png'
-  ]
-
-  Layer.create(
-      title: Faker::Company.catch_phrase,
-      description: Faker::Company.bs,
-      lat: rand(51.400..51.700),
-      lng: (-1 + rand(0.80..1.00)).round(2),
-      date_from: Faker::Date.between(10.year.ago, Date.today),
-      date_to: Faker::Date.between(5.year.ago, Date.today),
-      layer_type: 'georeferenced_image',
-      layer_data: layer_data[0].as_json
-  )
-end
+# 5.times do |_i|
+#
+#   layer_data  = [
+#       :georeferencer_table_id => '1OktmAP9za7OkU7l2VUf8yY-hf0bgCTg8VrNjvk0o',
+#       :tileserver_url => 'http://georeferencer-0.tileserver.com/5678017802d5d23499ada6924aff9c417da0a58b/map/{entity_id}/polynomial/{z}/{x}/{y}.png'
+#   ]
+#
+#   Layer.create(
+#       title: Faker::Company.catch_phrase,
+#       description: Faker::Company.bs,
+#       lat: rand(51.400..51.700),
+#       lng: (-1 + rand(0.80..1.00)).round(2),
+#       date_from: Faker::Date.between(10.year.ago, Date.today),
+#       date_to: Faker::Date.between(5.year.ago, Date.today),
+#       layer_type: 'georeferenced_image',
+#       layer_data: layer_data[0].as_json
+#   )
+# end
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
