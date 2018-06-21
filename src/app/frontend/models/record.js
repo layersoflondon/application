@@ -149,23 +149,9 @@ export default class RecordModel {
 
     record.store = store;
 
-    record.id = attributes.id;
-    record.title = attributes.title;
-    record.description = attributes.description;
-    record.like_count = attributes.like_count;
-    record.view_count = attributes.view_count;
-    record.state = attributes.state;
-    record.lat = attributes.lat;
-    record.lng = attributes.lng;
-    record.date_from = attributes.date_from;
-    record.date_to = attributes.date_to;
-    record.user  = attributes.user;
-    record.image = attributes.image;
-    record.created_at = attributes.created_at;
-    record.location = attributes.location;
-
-    record.user_can_like = attributes.user_can_like;
-    record.user_can_edit = attributes.user_can_edit;
+    Object.keys(attributes).map((property) => {
+      record[property] = attributes[property];
+    });
 
     if( attributes.hasOwnProperty('attachments') ) {
       record.attachments = attributes.attachments.map((attachment) => {
@@ -181,22 +167,28 @@ export default class RecordModel {
   }
 
   resetState() {
-    this.id = null;
-    this.title = '';
-    this.description = '';
-    this.like_count = '';
-    this.view_count = '';
-    this.state = '';
-    this.lat = 0;
-    this.lng = 0;
-    this.date_from = null;
-    this.date_to = null;
-    this.location = {};
-    this.user  = '';
-    this.created_at = '';
-    this.attachments = [];
-    this.collections = [];
+    Object.getOwnPropertyNames(this).map((property) => {
+      let value = this[property];
+      switch(value.constructor) {
+        case Array:
+          this[property] = [];
+          break;
+        case Object:
+          this[property] = {};
+          break;
+        case Number:
+          this[property] = 0;
+          break;
+        case String:
+          this[property] = "";
+          break;
+        default:
+          this[property] = null;
+          break;
+      }
+    });
 
+    this.id = null;
     return this;
   }
 }

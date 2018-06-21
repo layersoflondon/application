@@ -43,6 +43,7 @@ import Parser from 'html-react-parser';
     let icon = this.props.cardComponent.highlighted ? highlighted_icon : default_icon;
     const parsed_content = Parser(this.props.record.description);
 
+    console.log(this.props.record);
     return <Marker position={this.props.position} icon={icon} onMouseOver={()=>this.props.record.highlighted = true} onMouseOut={()=>this.props.record.highlighted = false}>
 
       <Popup>
@@ -51,7 +52,7 @@ import Parser from 'html-react-parser';
           <div className="m-record-card">
             <div className="wrapper">
                 {this.props.record.image &&
-                <div className="image" style={{'backgroundImage': 'url(' + this.props.record.image.thumb + ')'}}>
+                <div className="image" style={{'backgroundImage': 'url(' + this.props.record.image.marker + ')'}}>
                 </div>
                 }
 

@@ -23,11 +23,12 @@ import {Link, withRouter} from 'react-router-dom';
   render() {
     const parsed_content = Parser(this.props.card.data.description);
 
+
     let container_classes = "m-record-card";
     let image_styles = {background: '#2e3c4e'};
 
     if( this.props.card.is_collection ) container_classes += " m-record-card--collection";
-    if( this.props.card.image ) image_styles.backgroundImage = `url('${this.props.card.image.card}')`;
+    if( this.props.card.data.image ) image_styles.backgroundImage = `url('${this.props.card.data.image.card}')`;
 
     let resource = '/';
     if( this.props.card.is_collection ) {
