@@ -20,6 +20,7 @@ import initStore from '../stores/stores';
 
 document.addEventListener('DOMContentLoaded', () => {
     if( typeof window.__STATE === "undefined" ) return;
+    const userPresent = window.__USER_PRESENT;
 
     const browserHistory = createBrowserHistory();
     const routingStore = new RouterStore();
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stores.routing = routingStore;
 
         ReactDOM.render(
-          <Provider {...stores} >
+          <Provider {...stores} userPresent={userPresent} >
             <Router history={history}>
               <Main />
             </Router>

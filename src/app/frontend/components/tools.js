@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
-import {observer} from "mobx-react";
+import {observer, inject} from "mobx-react";
 import PropTypes from 'prop-types';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 
+@inject('userPresent')
 @withRouter
 @observer export default class Tools extends Component {
   constructor(props) {
@@ -21,9 +22,18 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
     }
   }
 
+  accountLink() {
+      if (this.props.userPresent) {
+          return <Link to="/map/account/account" data-label="Your profile"><span>Your profile</span></Link>
+      } else {
+          return <a data-label="Sign in" href="/users/sign_in?return_to=/map/account/account"><span>Sign in</span></a>
+      }
+  }
+
+
+
   render() {
     const logo = require('../assets/images/logo.svg');
-
     return <div className="m-sidebar">
       <div className="m-logo">
         <img src={logo} alt="Logo" />
@@ -42,11 +52,13 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
           <Link to='/map/records/new' data-label="Add record"><span>Add record</span></Link>
         </div>
       </div>
-      <div className="m-actions">
-        <div className="m-tool-button m-tool-button--your-account">
-          <Link to="/map/account" data-label="Your profile"><span>Your profile</span></Link>
+
+        <div className="m-actions">
+          <div className="m-tool-button m-tool-button--your-account">
+              {this.accountLink()}
+          </div>
         </div>
-      </div>
+
     </div>;
   }
 }
