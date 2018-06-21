@@ -23,6 +23,8 @@ class MapsController < ApplicationController
     @records =  RecordsIndex.filter(terms: {state: %w[published flagged]}).limit(5).order(created_at: :desc).to_a
     @collections = Collection.collections_for_user(current_user).limit(2)
 
+    @layers = LayersIndex.filter(terms: {layer_type: ["tileserver"]})
+
     # return unless params[:resource].present?
     #
     # Rails.logger.info("params parsing request params #{params}")

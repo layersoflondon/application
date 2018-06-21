@@ -16,5 +16,8 @@ class LayersIndex < Chewy::Index
     field :date_to, type: 'date'
     field :layer_type, type: 'keyword'
     field :layer_data, type: 'object'
+    field :image, type: :object, value: -> {
+      image.try(:data)
+    }
   end
 end
