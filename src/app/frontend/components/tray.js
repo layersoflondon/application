@@ -14,9 +14,12 @@ import {inject} from "mobx-react/index";
   }
 
   componentWillMount() {
-    setTimeout(() => {
-      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
-    },2);
+    if (this.props.routing.history.location.pathname === "/map") {
+      setTimeout(() => {
+        this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+      },2);
+      
+    }
   }
 
   componentWillReceiveProps() {
