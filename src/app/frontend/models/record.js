@@ -30,6 +30,8 @@ export default class RecordModel {
   @observable collections = [];
   @observable collection_ids = [];
 
+  @observable highlighted = false;
+
   persist() {
     if( this.id ) {
       return Record.update(null, this.id, {record: this.toJS()});

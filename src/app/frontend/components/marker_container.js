@@ -12,11 +12,18 @@ import Parser from 'html-react-parser';
 @observer export default class MarkerContainer extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {marker_hovered: false};
   }
 
   handleOnClick(event) {
     event.preventDefault();
     this.props.history.push(`/map/records/${this.props.record.id}`);
+  }
+
+  toggleHighlightCard() {
+    this.props.cardComponent.highlighted_by_marker = !this.props.cardComponent.highlighted_by_marker;
+    this.setState({marker_hovered: this.props.cardComponent.highlighted_by_marker});
   }
 
   render() {
@@ -40,11 +47,12 @@ import Parser from 'html-react-parser';
       popupAnchor: [0, 0]
     });
 
-    let icon = this.props.cardComponent.highlighted ? highlighted_icon : default_icon;
-    const parsed_content = Parser(this.props.record.description);
+    let icon = default_icon;
+    if(this.props.cardComponent.highlighted || this.state.marker_hovered) {
+      icon = highlighted_icon;
+    }
 
-    console.log(this.props.record);
-    return <Marker position={this.props.position} icon={icon} onMouseOver={()=>this.props.record.highlighted = true} onMouseOut={()=>this.props.record.highlighted = false}>
+    return <Marker position={this.props.position} icon={icon} onMouseOver={this.toggleHighlightCard.bind(this)} onMouseOut={this.toggleHighlightCard.bind(this)}>
 
       <Popup>
 

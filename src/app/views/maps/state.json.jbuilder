@@ -23,7 +23,7 @@ json.set! :data do
   end
 
   json.set! :map do
-    json.zoom 13
+    json.zoom 10
     if records.first
       json.center records.sample.pin.values
     else

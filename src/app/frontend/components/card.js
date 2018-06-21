@@ -39,7 +39,7 @@ import {Link, withRouter} from 'react-router-dom';
       resource = 'records';
     }
 
-    if( this.props.card.highlighted) {
+    if( this.props.card.highlighted_by_marker) {
       container_classes += " highlighted";
     }
 
