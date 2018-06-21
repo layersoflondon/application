@@ -1,6 +1,6 @@
 class CollectionPolicy < ApplicationPolicy
   def show?
-    record.public_read? || (user.present? && user.can_view(record))
+    record.read_state == "public_read" || (user.present? && user.can_view(record))
   end
 
   def create?

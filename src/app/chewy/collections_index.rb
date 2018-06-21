@@ -2,6 +2,7 @@ class CollectionsIndex < Chewy::Index
   define_type Collection.includes(:records).references(:records) do
     field :title, type: :text
     field :description, type: :text
+    field :read_state, type: :keyword
     field :image, type: :object, value: -> {
       primary_image.try(:attachable).try(:data)
     }
