@@ -35,7 +35,7 @@ import {inject} from "mobx-react/index";
           <div className="window">
             <div className="s-tray-area--default is-showing">
               <div className="m-tray-title-area">
-                <h1>No data to display</h1>
+                
               </div>
             </div>
           </div>
