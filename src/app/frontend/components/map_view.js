@@ -4,25 +4,34 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import MarkerContainer from './marker_container';
 
 import {observer} from "mobx-react";
+import {computed} from "mobx";
 import LayerToolsContainer from './layer_tools_container';
 
 @observer export default class MapView extends Component {
   constructor(props) {
     super(props);
 
+    this.initial_bounds = null;
+
     this.mapRef = null;
     this.setMapRef = element => {
       this.mapRef = element;
-      this.props.trayViewStore.map_ref = this.mapRef;
+      this.props.mapViewStore.map_ref = this.mapRef;
     }
   }
 
+  componentDidMount() {
+    this.initial_bounds = this.props.mapViewStore.current_bounds;
+  }
+
   handleOnDragEnd() {
-    // console.log("DRAGGED");
+    console.log("DRAGGED TO", this.props.mapViewStore.current_bounds);
+    this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
   }
 
   handleOnZoomEnd() {
-    // console.log("ZOOMED");
+    console.log("ZOOMED TO", this.props.mapViewStore.current_bounds);
+    this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
   }
 
   handleOnClick(event) {

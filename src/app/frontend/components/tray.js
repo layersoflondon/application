@@ -13,6 +13,14 @@ import {inject} from "mobx-react/index";
     super(props);
   }
 
+  // // componentWillMount() {
+  // //   if(this.props.showIntro) {
+  // //     //fetch intro
+  // //   }else {
+  // //     //fetch cards
+  // //   }
+  // }
+
   componentWillReceiveProps() {
     // this.props.trayViewStore.fetchInitialState();
     this.props.trayViewStore.restoreState();

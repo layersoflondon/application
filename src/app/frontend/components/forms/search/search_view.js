@@ -59,10 +59,10 @@ import Search from "../../../sources/search";
       let south_east = map.leafletElement.getBounds().getSouthEast();
 
       let bounds = {
-        center: {lat: center.lat, lng: center.lng},
+        // center: {lat: center.lat, lng: center.lng},
         top_left: {lat: north_west.lat, lng: north_west.lng},
         bottom_right: {lat: south_east.lat, lng: south_east.lng},
-        radius: radius
+        // radius: radius
       };
 
       this.setState({geobounding: bounds});

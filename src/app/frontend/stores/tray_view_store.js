@@ -4,6 +4,7 @@ import Collection from '../sources/collection';
 
 import CardModel from '../models/card';
 import axios from 'axios';
+import Search from "../sources/search";
 
 /**
  * The data store for the TrayView
@@ -27,9 +28,6 @@ export default class TrayViewStore {
   @observable record_id = null;
   @observable collection_id = null;
 
-  // dom reference to the leaflet element
-  map_ref = null;
-
   constructor() {
     observe(this, 'cards', (change) => {
       this.previous_cards = change.oldValue;
@@ -38,7 +36,7 @@ export default class TrayViewStore {
     observe(this, 'tray_is_visible', (change) => {
       // force leaflet to re-draw its layout so we can resize the mapview and it retains full-width of the container
       setTimeout(() => {
-        this.map_ref.leafletElement.invalidateSize();
+        this.props.mapViewStore.map_ref.leafletElement.invalidateSize();
       }, 100);
     });
 
@@ -93,6 +91,20 @@ export default class TrayViewStore {
 
   toggleTrayVisibility(event) {
     this.tray_is_visible = !this.tray_is_visible;
+  }
+
+  /**
+   * perform a search using just the current visible bounds of the map. this will be called
+   * whenever the user drags or zooms the map in order to show relevant markers
+   *
+   * @param bounds
+   */
+  reloadTrayDataForBounds(bounds) {
+    console.log("Reloading tray data for bounds", bounds);
+    Search.perform({geobounding: bounds}).then((response) => {
+      console.log(`Got ${response.data.length} records`);
+      this.showCollectionOfRecords(response.data);
+    });
   }
 
   moveToNextCard() {
