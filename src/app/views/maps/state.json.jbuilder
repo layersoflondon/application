@@ -23,8 +23,12 @@ json.set! :data do
   end
 
   json.set! :map do
-    json.zoom 10
-    json.center [51.55, -0.08]
+    json.zoom 13
+    if records.first
+      json.center records.sample.pin.values
+    else
+      json.center [51.55, -0.08]
+    end
   end
 end
 
