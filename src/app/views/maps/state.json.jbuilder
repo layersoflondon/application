@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 json.set! :data do
   json.set! :tray do
     json.set! :root, true
@@ -18,7 +17,7 @@ json.set! :data do
       json.partial! 'collections/collection', {locals: {collection: collection}}
     end
   end
-  
+
   json.set! :layers, @layers.collect do |layer|
     json.partial! 'maps/partials/layer_state', layer: layer
   end
