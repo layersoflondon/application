@@ -7,19 +7,17 @@ import Parser from 'html-react-parser';
 import Card from './card';
 import {inject} from "mobx-react/index";
 
-@inject('routing', 'trayViewStore')
+@inject('routing', 'trayViewStore', 'mapViewStore')
 @observer export default class Tray extends Component {
   constructor(props) {
     super(props);
   }
 
-  // // componentWillMount() {
-  // //   if(this.props.showIntro) {
-  // //     //fetch intro
-  // //   }else {
-  // //     //fetch cards
-  // //   }
-  // }
+  componentWillMount() {
+    setTimeout(() => {
+      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+    },2);
+  }
 
   componentWillReceiveProps() {
     // this.props.trayViewStore.fetchInitialState();

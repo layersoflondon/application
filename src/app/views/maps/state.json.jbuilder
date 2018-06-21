@@ -1,15 +1,7 @@
 json.set! :data do
   json.set! :tray do
     json.set! :root, true
-    json.set! :cards do
-      json.array! ((records+collections).sort_by(&:updated_at)) do |object|
-        if object.is_a?(RecordsIndex::Record)
-          json.partial! 'search/search', record: object
-        else
-          json.partial! 'collections/collection', {locals: {collection: object}}
-        end
-      end
-    end
+    json.set! :cards, []
   end
 
   json.set! :collections do
