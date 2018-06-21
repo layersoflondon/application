@@ -27,6 +27,7 @@ export default class TrayViewStore {
   @observable loading_collection = false;
   @observable record_id = null;
   @observable collection_id = null;
+  @observable locked = false;
 
   constructor() {
     observe(this, 'cards', (change) => {
@@ -75,6 +76,8 @@ export default class TrayViewStore {
           this.root = false;
           this.showCollectionOfRecords(response.data.records, response.data.title, response.data.description);
           // this.panTo(response.data.records[0])
+          //  Lock this view so dragging the map doesn't change the cards
+            this.locked = true;
         }).catch((error) => {
           console.log("Error getting collection", error, this.collection_id);
           this.collection_id = null;
@@ -85,6 +88,7 @@ export default class TrayViewStore {
         console.log("No newValue in collection_id change", change);
         this.collection_id = null;
         this.loading_collection = false;
+        this.locked = false;
       }
     });
   }
