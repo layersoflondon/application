@@ -49,7 +49,7 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
           <Link to='/map/collections/new' data-label="Create collection"><span>Create collection</span></Link>
         </div>
         <div className="m-tool-button m-tool-button--add">
-          <Link to='/map/records/new' data-label="Add record"><span>Add record</span></Link>
+          <Link to='/map/choose-place' data-label="Add record"><span>Add record</span></Link>
         </div>
       </div>
 

@@ -22,12 +22,10 @@ import CardModel from './../../../models/card';
     if( this.props.trayViewStore.record ) {
       const record = RecordModel.fromJS(this.props.trayViewStore.record.toJS(), this.props.trayViewStore.record.store);
       this.props.recordFormStore.record = record;
-    }else if( this.props.match.params.id ) {
+    }else if( this.props.match.params.id && this.props.match.params.id !== 'new'  ) {
       Record.show(null, this.props.match.params.id).then((response) => {
         this.props.recordFormStore.record = RecordModel.fromJS(response.data);
       });
-    }else {
-      this.props.recordFormStore.record = new RecordModel();
     }
   }
 

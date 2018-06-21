@@ -3,15 +3,14 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
 import MarkerContainer from './marker_container';
 
-import {observer} from "mobx-react";
-import {computed} from "mobx";
+import {observer, inject} from "mobx-react";
+
 import LayerToolsContainer from './layer_tools_container';
 
+@inject('routing')
 @observer export default class MapView extends Component {
   constructor(props) {
     super(props);
-
-    this.initial_bounds = null;
 
     this.mapRef = null;
     this.setMapRef = element => {
@@ -42,9 +41,11 @@ import LayerToolsContainer from './layer_tools_container';
 
     if( this.props.mapViewStore.add_record_mode ) {
       const {lat, lng} = event.latlng;
-      this.props.recordFormStore.latlng = event.latlng;
 
-      this.props.mapViewStore.overlay = "record_form";
+      this.props.recordFormStore.latlng = event.latlng;
+      this.props.recordFormStore.record.lat = lat;
+      this.props.recordFormStore.record.lng = lng;
+      this.props.routing.push('/map/records/new');
     }
   }
 

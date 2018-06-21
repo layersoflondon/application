@@ -8,8 +8,8 @@ import L from "leaflet";
 export default class RecordModel {
   id = null;
   state;
-  lat;
-  lng;
+  lat = 0;
+  lng = 0;
   user = {};
   created_at;
 

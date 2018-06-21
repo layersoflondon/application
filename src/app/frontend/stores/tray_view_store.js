@@ -34,18 +34,11 @@ export default class TrayViewStore {
       this.previous_cards = change.oldValue;
     });
 
-    observe(this, 'tray_is_visible', (change) => {
-      // force leaflet to re-draw its layout so we can resize the mapview and it retains full-width of the container
-      setTimeout(() => {
-        this.props.mapViewStore.map_ref.leafletElement.invalidateSize();
-      }, 100);
-    });
-
     // mutating the visible_record_id will fetch that record and update the RecordView component with the relevant state
     observe(this, 'record_id', (change) => {
       this.loading_record = true;
 
-      if( change.newValue ) {
+      if( change.newValue && change.newValue !== 'new' ) {
         if(this.cards.get(`record_${change.newValue}`)) {
           let card = this.cards.get(`record_${change.newValue}`);
           this.record = card.data;
