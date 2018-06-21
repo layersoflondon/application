@@ -11,17 +11,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Main from '../components/main';
-import axios from 'axios';
-
 import createBrowserHistory from 'history/createBrowserHistory';
 import {Provider} from 'mobx-react';
 import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
 import {Router} from 'react-router';
-import { Switch, Route, withRouter } from 'react-router-dom';
-import Parser from 'html-react-parser';
-import Search from '../sources/search.js';
-window.Parser = Parser;
-
+import axios from 'axios';
 import initStore from '../stores/stores';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,7 +25,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const routingStore = new RouterStore();
     const history = syncHistoryWithStore(browserHistory, routingStore);
 
-    // let stores = initStore(window.__STATE);
+    // // initialise the application with static data
+    // const stores = initStore({data: {tray: {root: true, cards: []}, collections: [], layers: [], map: {zoom: 10}}});
+    //
+    // stores.routing = routingStore;
+    // ReactDOM.render(
+    //   <Provider {...stores} >
+    //     <Router history={history}>
+    //       <Main />
+    //     </Router>
+    //   </Provider>,
+    //   document.getElementById("map-root")
+    // );
+
+    // fetch the initial app state then initialize the stores and components
     axios.get('/map/state.json').then((response) => {
         const stores = initStore(response.data);
         stores.routing = routingStore;

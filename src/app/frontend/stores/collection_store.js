@@ -29,10 +29,10 @@ export default class CollectionStore {
     this[`${collection_model.write_state}_collections`].set(collection_model.id, collection_model);
   }
 
-  static fromJS(object, tray_view_store) {
+  static fromJS(collections, tray_view_store) {
     const collection_store = new CollectionStore();
 
-    object.collections.map((c) => {
+    collections.map((c) => {
       let collection_model = CollectionModel.fromJS(c, tray_view_store);
       collection_store[`${collection_model.write_state}_collections`].set(collection_model.id, collection_model);
     });

@@ -1,13 +1,15 @@
-import {observable, observe} from 'mobx';
+import {observable, observe, computed} from 'mobx';
 import Record from '../sources/record';
 import Collection from '../sources/collection';
 
 import CardModel from '../models/card';
+import axios from 'axios';
 
 /**
  * The data store for the TrayView
  */
 export default class TrayViewStore {
+  root = true;
   // the TrayViewStore is given its data source (the cards attribute) and it renders it as a list in the tray
   @observable tray_is_visible = true;
 
@@ -30,7 +32,7 @@ export default class TrayViewStore {
 
   constructor() {
     observe(this, 'cards', (change) => {
-      this.previousCards = change.oldValue;
+      this.previous_cards = change.oldValue;
     });
 
     observe(this, 'tray_is_visible', (change) => {
@@ -68,11 +70,11 @@ export default class TrayViewStore {
     });
 
     observe(this, 'collection_id', (change) => {
-      this.loading_collection = true;
-      console.log("Get collection");
-
       if( change.newValue ) {
+        this.loading_collection = true;
+        console.log("Get collection", change.newValue);
         Collection.show(null, this.collection_id).then((response) => {
+          this.root = false;
           console.log(response.data);
           this.showCollectionOfRecords(response.data.records, response.data.title, response.data.description);
         }).catch((error) => {
@@ -82,7 +84,7 @@ export default class TrayViewStore {
           this.loading_collection = false;
         });
       }else {
-        // console.log("No newValue in collection_id change", change);
+        console.log("No newValue in collection_id change", change);
         this.collection_id = null;
         this.loading_collection = false;
       }
@@ -119,6 +121,22 @@ export default class TrayViewStore {
     // }
   }
 
+  restoreState() {
+    if( !this.root && this.previous_cards ) {
+      this.cards = this.previous_cards;
+      this.previous_cards = null;
+    }
+  }
+
+  /**
+   * What we should render when the user hits the /map route
+   */
+  fetchInitialState() {
+    axios.get('/map/state.json').then((response) => {
+      this.showCollectionOfRecords(response.data.data.tray.cards);
+    });
+  }
+
   /**
    * replace the current collection of cards with the given data
    *
@@ -130,29 +148,29 @@ export default class TrayViewStore {
     // this.title = title;
     // this.description = description;
 
-    this.cards = observable.map();
-
+    this.root = false;
+    let cards = observable.map();
     card_data.map((data) => {
       const card = CardModel.fromJS(data, this);
-      this.cards.set(card.id, card);
+      cards.set(card.id, card);
     });
+
+    this.cards = cards;
   }
 
   /**
    * build a new TrayViewStore instance from the given data
    *
-   * @param card_data
-   * @param title
-   * @param description
+   * @param tray_data
    * @returns {TrayViewStore}
    */
-  static fromJS(card_data, title = null, description = null) {
+  static fromJS(tray_data) {
     let store = new TrayViewStore();
 
-    store.title = title;
-    store.description = description;
+    store.title = tray_data.title;
+    store.description = tray_data.description;
 
-    card_data.map((data) => {
+    tray_data.cards.map((data) => {
       const card = CardModel.fromJS(data, store);
       store.cards.set(card.id, card);
     });

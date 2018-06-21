@@ -34,8 +34,9 @@ import RecordForm from './forms/records/record_form';
     return <div className={className}>
       {/* permanantly visible components */}
       <Tools {...this.props} />
-      <Tray {...this.props} />
       <MapView {...this.props} />
+      
+      <Route path='/map' component={Tray} />
 
       {/* Various Overlays ... */}
       <Route exact path='/map/account' component={UserForm} />

@@ -7,10 +7,15 @@ import Parser from 'html-react-parser';
 import Card from './card';
 import {inject} from "mobx-react/index";
 
-@inject('routing')
+@inject('routing', 'trayViewStore')
 @observer export default class Tray extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillReceiveProps() {
+    // this.props.trayViewStore.fetchInitialState();
+    this.props.trayViewStore.restoreState();
   }
 
   render() {
@@ -40,7 +45,7 @@ import {inject} from "mobx-react/index";
     }
 
     let trayCollectionDetails;
-    if(this.props.trayViewStore.title) {
+    if(!this.props.trayViewStore.root) {
       trayCollectionDetails = <div>
         <div className="m-tray-title-area">
           <div className="close">
@@ -48,11 +53,11 @@ import {inject} from "mobx-react/index";
           </div>
 
           <h1>{this.props.trayViewStore.title}</h1>
-          <div className="meta">Showing {this.props.trayViewStore.cards.length} records</div>
+          <div className="meta">Showing {this.props.trayViewStore.cards.size} records</div>
         </div>
 
         <div className="m-tray-introduction">
-          {Parser(this.props.trayViewStore.description)}
+          {this.props.trayViewStore.description}
         </div>
       </div>
     }
