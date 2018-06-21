@@ -2,7 +2,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def new
     super do
-      session[:return_to] = params[:return_to]
+      session[:return_to] = URI.parse(params[:return_to]).path
     end
   end
 
