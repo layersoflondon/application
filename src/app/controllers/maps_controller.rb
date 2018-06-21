@@ -25,6 +25,8 @@ class MapsController < ApplicationController
 
     @layers = LayersIndex.filter(terms: {layer_type: ["tileserver"]})
 
+    @layers = LayersIndex.filter(terms: {layer_type: ["tileserver"]})
+
     # return unless params[:resource].present?
     #
     # Rails.logger.info("params parsing request params #{params}")
