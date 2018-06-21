@@ -49,15 +49,6 @@ export default class MapViewStore {
     return bounds;
   }
 
-  panTo(lat, lng, zoom = null) {
-    this.initial_position = this.center;
-    this.center = [lat, lng];
-
-    if(zoom) {
-      this.zoom = zoom;
-    }
-  }
-
   static fromJS(object) {
     let map_view_store = new MapViewStore();
     Object.assign(map_view_store, object);

@@ -73,8 +73,8 @@ export default class TrayViewStore {
         console.log("Get collection", change.newValue);
         Collection.show(null, this.collection_id).then((response) => {
           this.root = false;
-          console.log(response.data);
           this.showCollectionOfRecords(response.data.records, response.data.title, response.data.description);
+          // this.panTo(response.data.records[0])
         }).catch((error) => {
           console.log("Error getting collection", error, this.collection_id);
           this.collection_id = null;
@@ -105,6 +105,15 @@ export default class TrayViewStore {
       console.log(`Got ${response.data.length} records`);
       this.showCollectionOfRecords(response.data);
     });
+  }
+
+  panTo(lat, lng, zoom = null) {
+    this.initial_position = this.center;
+    this.center = [lat, lng];
+
+    if(zoom) {
+      this.zoom = zoom;
+    }
   }
 
   moveToNextCard() {
@@ -160,7 +169,6 @@ export default class TrayViewStore {
     // this.title = title;
     // this.description = description;
 
-    this.root = false;
     let cards = observable.map();
     card_data.map((data) => {
       const card = CardModel.fromJS(data, this);

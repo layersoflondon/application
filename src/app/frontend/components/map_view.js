@@ -25,13 +25,18 @@ import LayerToolsContainer from './layer_tools_container';
   }
 
   handleOnDragEnd() {
-    console.log("DRAGGED TO", this.props.mapViewStore.current_bounds);
-    this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+    if(!this.props.trayViewStore.collection_id) {
+      console.log("DRAGGED TO", this.props.mapViewStore.current_bounds);
+      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+    }
   }
 
   handleOnZoomEnd() {
-    console.log("ZOOMED TO", this.props.mapViewStore.current_bounds);
-    this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+
+    if(!this.props.trayViewStore.collection_id) {
+      console.log("ZOOMED TO", this.props.mapViewStore.current_bounds);
+      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+    }
   }
 
   handleOnClick(event) {

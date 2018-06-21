@@ -69,11 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 switch(event.data.type) {
                     case 'record':
                         push(`/map/records/${event.data.id}`);
-                        stores.trayViewStore.visible_record_id = event.data.id;
+                        stores.trayViewStore.record_id = event.data.id;
                         break;
                     case 'collection':
                         push(`/map/collections/${event.data.id}`);
-                        stores.trayViewStore.visible_collection_id = event.data.id;
+                        stores.trayViewStore.collection_id = event.data.id;
                     default:
                         console.log(`Handle ${event.data.type}`);
                 }
