@@ -104,9 +104,7 @@ export default class TrayViewStore {
    * @param bounds
    */
   reloadTrayDataForBounds(bounds) {
-    console.log("Reloading tray data for bounds", bounds);
     Search.perform({geobounding: bounds}).then((response) => {
-      console.log(`Got ${response.data.length} records`);
       this.showCollectionOfRecords(response.data);
     });
   }
