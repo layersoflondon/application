@@ -7,7 +7,7 @@ export default class LayerModel {
   date = null;
   url = '';
   attribution = '';
-  enabled =  true;
+  enabled = false;
 
   @observable opacity = 0;
   @observable is_active = false;
@@ -21,7 +21,7 @@ export default class LayerModel {
     layer.date = object.date;
     layer.opacity = object.opacity;
     layer.url = object.url;
-    layer.attribution = object.attribution;
+    // layer.attribution = object.attribution;
     layer.enabled = object.enabled;
     layer.image = object.image;
 

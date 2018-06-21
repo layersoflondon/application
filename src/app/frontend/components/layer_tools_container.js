@@ -57,13 +57,13 @@ const getListStyle = isDraggingOver => ({
         <button className="open" onClick={this.handleOnClick.bind(this)}>Layer tools</button>
 
         <div className="layers">
-          {this.props.layersStore.activeLayers.map((l, index) => <span key={index}></span>)}
+          {this.props.layersStore.activeLayers.values().map((l, index) => <span key={index}></span>)}
 
           <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
                 <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                  {this.props.layersStore.activeLayers.map((l, index) => {
+                  {this.props.layersStore.activeLayers.values().map((l, index) => {
                     return (
                       <Draggable key={l.id} draggableId={l.id} index={index}>
                         {(provided, snapshot) => (
