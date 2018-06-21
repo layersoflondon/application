@@ -21,24 +21,36 @@ module LayersApp
     config.x.image_variants = {
       marker: {
         thumbnail: "200x200",
-        gravity: "center",
-        extent: "200x150",
-        quality: 90
+        combine_options: {
+          gravity: "North",
+          extent: "200x150",
+          crop: "200x150+0+0",
+          quality: 90
+        }
       },
       card: {
-        thumbnail: "600x600>",
-        gravity: "center",
-        extent: "600x280",
-        quality: 90
+          thumbnail: "600x600",
+          combine_options: {
+            gravity: "Center",
+            extent: "600x280",
+            crop: "600x280+0+0",
+            quality: 90
+          }
       },
       primary: {
-        resize: "1400>x1400",
-        gravity: "center",
-        extent: "1400x700"
+        resize: '1400x1400',
+        combine_options: {
+          gravity: "Center",
+          extent: "1400x700",
+          crop: "1400x700+0+0",
+          quality: 90
+        }
       },
       large: {
-        resize: "1400x1400",
-        quality: 95
+        combine_options: {
+          resize: "1400x1400",
+          quality: 95
+        }
       }
     }
 
