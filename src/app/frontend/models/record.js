@@ -31,6 +31,7 @@ export default class RecordModel {
   @observable collection_ids = [];
 
   @observable highlighted = false;
+  @observable errors = {};
 
   persist() {
     if( this.id ) {

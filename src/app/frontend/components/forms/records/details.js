@@ -23,14 +23,14 @@ import Parser from 'html-react-parser';
       <div>
         <div className="form-group form-group--title">
           <label>Title</label>
-          <input type="text" name="title" value={this.props.recordFormStore.record.title} onChange={this.handleOnChange} onBlur={this.createDraftRecord} />
+          <input type="text" name="title" value={this.props.recordFormStore.record.title} onChange={this.handleOnChange} onBlur={this.createDraftRecord} className={`${this.appendErrorClassNameToField('title')}`} />
         </div>
 
         <PlaceDetails {...this.props} />
 
         <div className="form-group">
           <label>Description</label>
-          <textarea rows="10" placeholder="" name="description" value={description} onChange={this.handleOnChange}>
+          <textarea rows="10" placeholder="" name="description" value={description} onChange={this.handleOnChange} className={`${this.appendErrorClassNameToField('description')}`}>
           </textarea>
         </div>
       </div>

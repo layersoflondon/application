@@ -44,8 +44,8 @@ import CardModel from './../../../models/card';
 
       const {push} = {...this.props.routing};
       push(`/map/records/${card.data.id}`);
-    }).catch((response) => {
-      console.log("Error Response: ", response);
+    }).catch((error) => {
+      this.props.recordFormStore.record.errors = error.response.data;
     })
   }
 
