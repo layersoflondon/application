@@ -1,5 +1,14 @@
 <% content_for :template do %>
 
+  <div class="m-page-header"></div>
+
+
+  <div class="m-content">
+    <h1 class="title">Faq: <%= faq.title %></h1>
+    <div class="m-article">
+      <p><%= faq.content %></p>
+    </div>
+  </div>
 
 <% end %>
 <%= render template: "layouts/application" %>

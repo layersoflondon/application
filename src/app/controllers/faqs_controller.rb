@@ -6,5 +6,4 @@ class FaqsController < ApplicationController
   def show
     @faq = Rooftop::FaqEntry.where(slug: params[:id]).first
   end
-
 end
