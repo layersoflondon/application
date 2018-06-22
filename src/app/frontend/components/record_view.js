@@ -105,7 +105,10 @@ import {Link, withRouter} from 'react-router-dom';
             <div className="attribution">
               <ul>
                 <li><h4>Created:</h4> {this.props.trayViewStore.record.created_at}</li>
-                {/*<li><h4>Credits:</h4> Curabitur eu euismod risus</li>*/}
+                {
+                  this.props.trayViewStore.record.credit &&
+                  <li><h4>Credit:</h4> {this.props.trayViewStore.record.credit}</li>
+                }
               </ul>
             </div>
 

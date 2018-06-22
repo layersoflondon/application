@@ -1,6 +1,7 @@
 json.id record.id
 json.title record.title
 json.description record.description
+json.credit record.credit
 json.like_count record.like_count
 json.view_count record.view_count
 json.state record.state

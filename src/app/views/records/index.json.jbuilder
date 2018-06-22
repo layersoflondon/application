@@ -1,1 +1,1 @@
-json.partial! 'search/search', collection: @records, as: :record
+json.partial! 'search/record', collection: @records, as: :record
