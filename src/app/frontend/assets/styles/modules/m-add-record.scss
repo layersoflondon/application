@@ -60,3 +60,7 @@
 .m-add-record .end-date {
   display:none;
 }
+
+.m-add-record input.has-errors {
+  background-color: lighten($red, 30%);
+}

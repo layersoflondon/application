@@ -4,20 +4,23 @@ class MultiIndexSearch
     CollectionsIndex
   ]
 
-  def self.filter_by_geobounds(search_params, indexes: INDEXES)
+  def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 100)
     es_query = Chewy::Search::Request.new(*indexes).query(
       match_all: {
+
       }
+
     )
 
     if search_params[:geobounding].present?
       es_query = add_geobounding_filter(search_params[:geobounding], es_query)
     end
 
-    es_query
+    es_query = filter_by_state(es_query)
+    es_query = es_query.limit(limit)
   end
 
-  def self.query(search_params, indexes: INDEXES)
+  def self.query(search_params, indexes: INDEXES, limit: 100)
     multi_match_fields = %w[title description location attachments.title attachments.caption taxonomy_terms.taxonomy.description]
 
 
@@ -26,7 +29,8 @@ class MultiIndexSearch
         'query': search_params[:q],
         'type': 'most_fields',
         'fields': multi_match_fields
-      }
+      },
+
     )
     if search_params[:attachment_type].present?
       search_params[:attachment_type].each do |type|
@@ -68,6 +72,8 @@ class MultiIndexSearch
       es_query = add_geobounding_filter(search_params[:geobounding], es_query)
     end
 
+    es_query = filter_by_state(es_query)
+    es_query = es_query.limit(limit)
     es_query
   end
 
@@ -92,5 +98,9 @@ class MultiIndexSearch
         }
       }
     })
+  end
+
+  def self.filter_by_state(query, state: 'published')
+    query.filter(term: {state: state})
   end
 end

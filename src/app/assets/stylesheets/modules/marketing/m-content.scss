@@ -3,16 +3,14 @@
 .m-content {
   width: 70%;
   margin:0 auto 0;
-  padding: 40px;
-
+  padding: 60px;
 }
 
 .m-sidebar + .m-content {
-  margin:-100px 0 0 0;
-  float: left;
+  margin:-100px auto 0;
   position: relative;
   z-index:2;
-  background:$black;
+  background:white;
 }
 
 .m-content .title {

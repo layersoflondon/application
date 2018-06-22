@@ -12,10 +12,10 @@
 
 .m-page-header {
   clear: both;
-  height: 580px;
+  height: 680px;
   background: #ccc;
   position: relative;
-  margin-bottom: 15px;
+  z-index:2;
 }
 
 .m-page-header--small {
@@ -34,11 +34,12 @@
 }
 
 .m-page-header .text-content {
-  width: 50%;
+  //width: 50%;
   height: 100%;
   position: relative;
   padding: 200px 80px 140px;
-  background: rgba(0, 0, 0, 0.6)
+  //background: rgba(0, 0, 0, 0.6);
+  color:white;
 }
 
 .m-page-header--small .text-content {
@@ -60,6 +61,7 @@
   background-position: center !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
+  border-bottom: 15px solid $black;
 }
 
 .t-help-centre .m-page-header .image {
@@ -77,8 +79,21 @@
 .m-page-header h1 {
   @include font-display;
   line-height: 1.2;
-  font-size: 64px;
-  margin-top: 20px;
+  margin-top: 80px;
+  font-family: 'Zilla Slab', serif;
+  font-weight: 400;
+  margin-bottom: 0;
+  padding: 20px 30px;
+  font-size: 54px;
+  display: inline-block;
+  background: #000c;
+  background:transparentize($yellow, 0.1);
+  color:black;
+  //float:left;
+  width:calc(40% - 40px);
+  text-align:right;
+  min-height: 440px;
+  font-weight:800;
 }
 
 .m-page-header a {
