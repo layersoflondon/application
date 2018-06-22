@@ -19,7 +19,6 @@ class RecordsController < ApplicationController
     else
       render json: @record.errors, status: :unprocessable_entity
     end
-    render json: @record.errors, status: :unprocessable_entity
   end
 
   def show
@@ -42,7 +41,7 @@ class RecordsController < ApplicationController
     else
       render json: @record.errors, status: :unprocessable_entity
     end
-
+                                          
   end
 
   def destroy
