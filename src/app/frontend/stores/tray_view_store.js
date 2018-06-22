@@ -57,28 +57,7 @@ export default class TrayViewStore {
           });
         }
 
-        if(this.fetch_additional_records) {
-          /**
-           *   @computed get current_bounds() {
-    let map = this.map_ref;
-    let center = map.leafletElement.getBounds().getCenter();
-    let radius = map.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
-
-    const north_west = map.leafletElement.getBounds().getNorthWest();
-    const south_east = map.leafletElement.getBounds().getSouthEast();
-
-    const bounds = {
-      center: {lat: center.lat, lng: center.lng},
-      top_left: {lat: north_west.lat, lng: north_west.lng},
-      bottom_right: {lat: south_east.lat, lng: south_east.lng},
-      radius: radius
-    };
-
-    return bounds;
-  }
-
-           */
-
+        if(this.fetch_additional_records && !this.locked) {
           setTimeout(() => {
             let center = this.map_ref.leafletElement.getBounds().getCenter();
             let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
@@ -93,7 +72,6 @@ export default class TrayViewStore {
             };
 
             this.reloadTrayDataForBounds(bounds, true);
-            console.log("calculate current bounds", bounds);
           }, 5);
         }
       }else {
