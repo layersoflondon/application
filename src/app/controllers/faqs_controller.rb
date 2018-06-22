@@ -4,7 +4,7 @@ class FaqsController < ApplicationController
   decorates_assigned :faqs, :faq, with: FaqDecorator
 
   def show
-    @faq = Rooftop::Faq.where(slug: params[:id]).first
+    @faq = Rooftop::FaqEntry.where(slug: params[:id]).first
   end
 
 end

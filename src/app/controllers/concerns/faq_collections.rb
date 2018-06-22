@@ -8,7 +8,7 @@ module FaqCollections
   end
 
   def get_faqs
-    @faqs = Rooftop::Faq.faqs
+    @faqs = Rooftop::FaqEntry.all
   end
 
 end
