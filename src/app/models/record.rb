@@ -36,6 +36,12 @@ class Record < ApplicationRecord
     where(user: nil)
   }
 
+  after_save do
+    if attachments.count == 1 && attachments.first.attachable.is_a?(Attachments::Image) && primary_image.nil?
+      attachments.first.attachable.set_as_only_primary!
+    end
+  end
+
   def date_is_in_the_past
     errors.add(:date_from, 'date is not in the past') if date_from.present? && Date.today < date_from
   end
@@ -48,7 +54,7 @@ class Record < ApplicationRecord
     state :deleted
 
     event :mark_as_draft do
-      transitions from: %i[draft], to: :draft
+      transitions from: %i[draft published pending_review flagged], to: :draft
     end
 
     event :mark_as_pending_review do

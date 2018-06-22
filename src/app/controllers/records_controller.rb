@@ -12,7 +12,13 @@ class RecordsController < ApplicationController
   def create
     @record = current_user.records.build(record_params)
     authorize(@record)
-    return @record if @record.save
+    @result = save_record_and_return_from_es(@record)
+
+    if @result.present?
+      return @result
+    else
+      render json: @record.errors, status: :unprocessable_entity
+    end
     render json: @record.errors, status: :unprocessable_entity
   end
 
@@ -28,8 +34,15 @@ class RecordsController < ApplicationController
     check_transition(update_record_params[:state])
     @record.assign_attributes(update_record_params)
     authorize(@record)
-    return @record if @record.save
-    render json: @record.errors, status: :unprocessable_entity
+
+    @result = save_record_and_return_from_es(@record)
+
+    if @result.present?
+      return @result
+    else
+      render json: @record.errors, status: :unprocessable_entity
+    end
+
   end
 
   def destroy
@@ -89,6 +102,22 @@ class RecordsController < ApplicationController
       @record.mark_as_draft
     when 'delete'
     @record.mark_as_deleted
+    end
+  end
+
+  def save_record_and_return_from_es(record)
+    Chewy.strategy(:urgent) do
+      if record.save
+        # Get the record from ES; it should be pretty quick but we have to check it's there
+        filter = RecordsIndex.filter(ids: {values: [record.id]})
+        loop do
+          break if filter.count > 0
+          sleep 0.1
+        end
+        return filter.first
+      else
+        nil
+      end
     end
   end
 end
