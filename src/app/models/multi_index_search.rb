@@ -4,7 +4,7 @@ class MultiIndexSearch
     CollectionsIndex
   ]
 
-  def self.filter_by_geobounds(search_params, indexes: INDEXES)
+  def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 100)
     es_query = Chewy::Search::Request.new(*indexes).query(
       match_all: {
 
@@ -17,10 +17,10 @@ class MultiIndexSearch
     end
 
     es_query = filter_by_state(es_query)
-    es_query
+    es_query = es_query.limit(limit)
   end
 
-  def self.query(search_params, indexes: INDEXES)
+  def self.query(search_params, indexes: INDEXES, limit: 100)
     multi_match_fields = %w[title description location attachments.title attachments.caption taxonomy_terms.taxonomy.description]
 
 
@@ -73,6 +73,7 @@ class MultiIndexSearch
     end
 
     es_query = filter_by_state(es_query)
+    es_query = es_query.limit(limit)
     es_query
   end
 
