@@ -1,1 +1,1 @@
-json.partial! 'search/search', record: record
+json.partial! 'search/record', record: record

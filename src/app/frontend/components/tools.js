@@ -30,6 +30,22 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
       }
   }
 
+  createCollectionLink() {
+      if (this.props.userPresent) {
+          return <Link to='/map/collections/new' data-label="Create collection"><span>Create collection</span></Link>
+      } else {
+          return <a data-label="Create collection" href="/users/sign_in?return_to=/map/collections/new"><span>Create collection</span></a>
+      }
+  }
+
+  addRecordLink() {
+      if (this.props.userPresent) {
+          return <Link to='/map/choose-place' data-label="Add record"><span>Add record</span></Link>
+      } else {
+          return <a data-label="Add record" href="/users/sign_in?return_to=/map/choose-place"><span>Add record</span></a>
+      }
+  }
+
 
 
   render() {
@@ -46,10 +62,10 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
           <Link to='/map/layers' data-label="Layers"><span>Layers</span></Link>
         </div>
         <div className="m-tool-button m-tool-button--add-collection">
-          <Link to='/map/collections/new' data-label="Create collection"><span>Create collection</span></Link>
+          {this.createCollectionLink()}
         </div>
         <div className="m-tool-button m-tool-button--add">
-          <Link to='/map/choose-place' data-label="Add record"><span>Add record</span></Link>
+            {this.addRecordLink()}
         </div>
       </div>
 
