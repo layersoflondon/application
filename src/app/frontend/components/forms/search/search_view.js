@@ -71,6 +71,12 @@ import Search from "../../../sources/search";
     }
   }
 
+  handleKeyUp(event) {
+    if( event.nativeEvent.key === "Enter" ) {
+      this.handleSearchOnClick();
+    }
+  }
+
   handleSearchOnClick(event) {
     const search_params = {
       q: this.state.q,
@@ -200,7 +206,7 @@ import Search from "../../../sources/search";
               </div>
 
               <div className="form-group form-group--primary-field">
-                <input placeholder="Enter a place or topic…" type="text" name="q" value={this.state.q} onChange={this.handleOnChange.bind(this)} />
+                <input placeholder="Enter a place or topic…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)} />
               </div>
 
               <div className="date-range">
