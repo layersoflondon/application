@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   get 'posts/show'
   get 'events/show'
   root to: "pages#index"
@@ -15,7 +17,7 @@ Rails.application.routes.draw do
                unlocks: 'users/unlocks',
                passwords: 'users/passwords',
                registrations: 'users/registrations'
-             }, skip: [:invitations] # TODO do we need the invitation routes or are we creating the invitations manually in the controller?
+             }
 
 
   get '/user/:id/teams', to: 'user_teams#index'
@@ -54,6 +56,8 @@ Rails.application.routes.draw do
   resources :layers, only: [:index, :show], defaults: {format: :json} do
     get 'search', on: :collection
   end
+
+  get  "/assets/:encoded_key/*filename" => "active_storage/assets#show", as: :asset
 
   resources :taxonomies, only: [:index], defaults: {format: :json}
 

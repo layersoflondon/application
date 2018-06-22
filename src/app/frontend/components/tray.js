@@ -7,32 +7,35 @@ import Parser from 'html-react-parser';
 import Card from './card';
 import {inject} from "mobx-react/index";
 
-@inject('routing')
+@inject('routing', 'trayViewStore', 'mapViewStore')
 @observer export default class Tray extends Component {
   constructor(props) {
     super(props);
   }
 
-  switchToPreviousCardStore() {
-    console.log("Switching to previous card store", this.props.trayViewStore.previous_card_store.title);
-    this.props.trayViewStore.card_store = this.props.trayViewStore.previous_card_store;
+  componentWillMount() {
+    if (this.props.routing.history.location.pathname === "/map") {
+      setTimeout(() => {
+        this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+      },2);
+      
+    }
+  }
 
-    this.props.trayViewStore.visible_collection_id = null;
-
-    // if( this.props.trayViewStore.collectionCard ) {
-    //   this.props.trayViewStore.collectionCard.highlighted = false;
-    // }
+  componentWillReceiveProps() {
+    // this.props.trayViewStore.fetchInitialState();
+    this.props.trayViewStore.restoreState();
   }
 
   render() {
     // if we dont have a trayViewStore with cards to render, show some info
-    if(!(this.props.trayViewStore && this.props.trayViewStore.card_store)) {
+    if(!(this.props.trayViewStore && this.props.trayViewStore.cards.size)) {
       return (
         <div className="m-tray-area">
           <div className="window">
             <div className="s-tray-area--default is-showing">
               <div className="m-tray-title-area">
-                <h1>No data to display</h1>
+                
               </div>
             </div>
           </div>
@@ -40,7 +43,7 @@ import {inject} from "mobx-react/index";
       );
     }
 
-    const cards = this.props.trayViewStore.card_store.cards.map( (c) => {
+    const cards = this.props.trayViewStore.cards.values().map( (c) => {
       const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;
       return <Card key={key} card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
     });
@@ -51,19 +54,19 @@ import {inject} from "mobx-react/index";
     }
 
     let trayCollectionDetails;
-    if(this.props.trayViewStore.previous_card_store && !this.props.trayViewStore.card_store.root_card_store) {
+    if(!this.props.trayViewStore.root) {
       trayCollectionDetails = <div>
         <div className="m-tray-title-area">
           <div className="close">
-            <Link to="/map" className="close" onClick={this.switchToPreviousCardStore.bind(this)}>Close</Link>
+            <Link to="/map" className="close">Close</Link>
           </div>
 
-          <h1>{this.props.trayViewStore.card_store.title}</h1>
-          <div className="meta">Collection, {this.props.trayViewStore.card_store.cards.length} records</div>
+          <h1>{this.props.trayViewStore.title}</h1>
+          <div className="meta">Showing {this.props.trayViewStore.cards.size} records</div>
         </div>
 
         <div className="m-tray-introduction">
-          {Parser(this.props.trayViewStore.card_store.description)}
+          {this.props.trayViewStore.description}
         </div>
       </div>
     }

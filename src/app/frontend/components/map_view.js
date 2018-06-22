@@ -3,9 +3,11 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
 import MarkerContainer from './marker_container';
 
-import {observer} from "mobx-react";
+import {observer, inject} from "mobx-react";
+
 import LayerToolsContainer from './layer_tools_container';
 
+@inject('routing')
 @observer export default class MapView extends Component {
   constructor(props) {
     super(props);
@@ -13,16 +15,25 @@ import LayerToolsContainer from './layer_tools_container';
     this.mapRef = null;
     this.setMapRef = element => {
       this.mapRef = element;
-      this.props.trayViewStore.map_ref = this.mapRef;
+      this.props.mapViewStore.map_ref = this.mapRef;
     }
   }
 
+  componentDidMount() {
+    this.initial_bounds = this.props.mapViewStore.current_bounds;
+  }
+
   handleOnDragEnd() {
-    console.log("DRAGGED");
+    if(!this.props.trayViewStore.locked) {
+      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+    }
   }
 
   handleOnZoomEnd() {
-    console.log("ZOOMED");
+
+    if(!this.props.trayViewStore.locked) {
+      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+    }
   }
 
   handleOnClick(event) {
@@ -30,9 +41,11 @@ import LayerToolsContainer from './layer_tools_container';
 
     if( this.props.mapViewStore.add_record_mode ) {
       const {lat, lng} = event.latlng;
-      this.props.recordFormStore.latlng = event.latlng;
 
-      this.props.mapViewStore.overlay = "record_form";
+      this.props.recordFormStore.latlng = event.latlng;
+      this.props.recordFormStore.record.lat = lat;
+      this.props.recordFormStore.record.lng = lng;
+      this.props.routing.push('/map/records/new');
     }
   }
 
@@ -56,17 +69,16 @@ import LayerToolsContainer from './layer_tools_container';
 
     let markers = [];
 
-    if( this.props.trayViewStore.card_store ) {
-      this.props.trayViewStore.card_store.cards.map((c) => {
+    if( this.props.trayViewStore.cards.size ) {
+      this.props.trayViewStore.cards.values().map((c) => {
         let key;
         if( c.is_collection ) {
-          c.records.map((r)=> {
+          c.data.records.map((r)=> {
             key = `collection_${c.id}_record_${r.id}`;
-            markers.push( <MarkerContainer key={key} position={r.position} card={r} cardComponent={c} trayViewStore={this.props.trayViewStore} /> )
+            markers.push( <MarkerContainer key={key} position={r.position} record={r} cardComponent={c} trayViewStore={this.props.trayViewStore} /> )
           })
         }else {
-          key = `record_${c.id}`;
-          markers.push( <MarkerContainer key={key} position={c.position} card={c} cardComponent={c} trayViewStore={this.props.trayViewStore} /> )
+          markers.push( <MarkerContainer key={c.id} position={c.data.position} record={c.data} cardComponent={c} trayViewStore={this.props.trayViewStore} /> )
         }
       });
     }
@@ -74,8 +86,8 @@ import LayerToolsContainer from './layer_tools_container';
     const layers = <span className="tile-layers">
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
 
-      {this.props.layersStore.activeLayers.map((layer, index) => {
-        return <TileLayer key={layer.id} url={layer.url} attribution={layer.attribution} opacity={layer.opacity} zIndex={1000-index} />
+      {this.props.layersStore.activeLayers.values().map((layer, index) => {
+        return <TileLayer key={layer.id} url={layer.url} opacity={layer.opacity} zIndex={1000-index} />
       })}
     </span>;
 

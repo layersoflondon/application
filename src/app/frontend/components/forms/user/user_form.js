@@ -23,8 +23,12 @@ import TeachersForm from "./teachers_form";
   setActiveTab(active) {
     // active => this.setState({active})
     this.setState({active: active});
+      if (active == "sign_out") {
+          window.location = "/users/sign_out";
 
-    history.pushState({}, '', `/map/account/${active}`);
+      } else {
+        history.pushState({}, '', `/map/account/${active}`);
+      }
   }
 
   handleChange(event) {
@@ -45,7 +49,9 @@ import TeachersForm from "./teachers_form";
       account: <iframe width="100%" height="650" src="/users/edit" frameBorder="0"></iframe>,
       teams: <TeamForm/>,
       records: <RecordsCollections/>,
-      teachers: <TeachersForm/>
+      teachers: <TeachersForm/>,
+        sign_out: <h2>Signing you out of your account</h2>
+
     };
     //TODO - we need to use meta tags to define the routes which we load into the iframe
 
@@ -61,6 +67,7 @@ import TeachersForm from "./teachers_form";
                       <span key="teams">Teams</span>
                       <span key="records">Records & Collections</span>
                       <span key="teachers">For teachers</span>
+                      <span key="sign_out">Sign out</span>
                   </Tabs>
               </div>
               <div className="m-account-page m-account-page--details">

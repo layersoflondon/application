@@ -10,14 +10,16 @@ export default class RecordFormComponentState {
         this.state = Object.assign({}, this.state);
 
         this.createDraftRecord = this.createDraftRecord.bind(this);
-
         this.handleOnChange = this.handleOnChange.bind(this);
         this.togglePaneVisibility = this.togglePaneVisibility.bind(this);
+        this.appendErrorClassNameToField = this.appendErrorClassNameToField.bind(this);
       }
 
       createDraftRecord(event) {
         this.props.recordFormStore.record.persist().then((response) => {
           this.props.recordFormStore.record.id = response.data.id;
+        }).catch((error) => {
+            this.props.recordFormStore.record.errors = error.response.data;
         });
       }
 
@@ -28,6 +30,21 @@ export default class RecordFormComponentState {
         });
 
         this.props.recordFormStore.record[name] = value;
+      }
+
+      appendErrorClassNameToField(fieldName, classes="") {
+          if (this.inputErrors(fieldName).length) {
+              classes += " has-errors";
+          }
+          return classes;
+      }
+
+      inputErrors(inputName) {
+          if (this.props.recordFormStore.record.errors[inputName]) {
+              return this.props.recordFormStore.record.errors[inputName];
+          } else {
+              return [];
+          }
       }
 
       togglePaneVisibility(event) {

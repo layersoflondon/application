@@ -1,17 +1,20 @@
-import {observable, observe} from "mobx";
+import {observable, computed} from "mobx";
 
 /**
  * Handle's map attributes like initial position (center), the zoom level, currently visible overlay
  */
 export default class MapViewStore {
   @observable center = [51.505, -0.09];
-  @observable zoom = 1;
+  @observable zoom = null;
 
   @observable latlng = null;
 
   @observable add_record_mode = false;
 
   initial_position = null;
+
+  // dom reference to the leaflet map instance (is assigned in by the map_view)
+  map_ref = null;
 
   constructor() {
     // if we render the record_form, we should hide the place_picker component by exiting 'add_record_mode'
@@ -28,9 +31,22 @@ export default class MapViewStore {
     // });
   }
 
-  panTo(lat, lng) {
-    this.initial_position = this.center;
-    this.center = [lat, lng];
+  @computed get current_bounds() {
+    let map = this.map_ref;
+    let center = map.leafletElement.getBounds().getCenter();
+    let radius = map.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+
+    const north_west = map.leafletElement.getBounds().getNorthWest();
+    const south_east = map.leafletElement.getBounds().getSouthEast();
+
+    const bounds = {
+      center: {lat: center.lat, lng: center.lng},
+      top_left: {lat: north_west.lat, lng: north_west.lng},
+      bottom_right: {lat: south_east.lat, lng: south_east.lng},
+      radius: radius
+    };
+
+    return bounds;
   }
 
   static fromJS(object) {

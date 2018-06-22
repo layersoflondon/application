@@ -36,21 +36,30 @@ end
 
 taxonomies = [
     Taxonomy.create(
+        title: 'Type',
         name: 'type',
         description: Faker::ChuckNorris.fact
     ),
     Taxonomy.create(
+       title: 'Theme',
        name: 'theme',
        description: Faker::ChuckNorris.fact
     ),
 ]
-taxonomy_terms_names = %w[places people items events political_and_government education industry_and_commerce religion_and_worship transport war_and_conflict]
-taxonomy_terms_names.each do |name|
-  taxonomy_terms << TaxonomyTerm.create(
-      name: name,
-      taxonomy: taxonomies[rand(0..1)]
-  )
+
+taxonomy_type  = taxonomies[0]
+taxonomy_theme = taxonomies[1]
+taxonomy_terms = []
+
+{places: "Places", people: "People", items: "Items", events: "Events"}.each do |name, title|
+  taxonomy_terms << TaxonomyTerm.create(title: title, name: name, taxonomy: taxonomy_type)
 end
+
+{political_and_government: "Political & Government", religion_and_worship: "Religion & Worship", war_and_conflict: "War & Conflict"}.each do |name, title|
+  taxonomy_terms << TaxonomyTerm.create(title: title, name: name, taxonomy: taxonomy_theme)
+end
+
+puts "Got #{taxonomy_terms.size} terms"
 
 5.times do |_i|
   record = Record.create(
@@ -72,7 +81,7 @@ end
             }
         }]
       )
-  record.taxonomy_terms << taxonomy_terms[rand(0..9)]
+  record.taxonomy_terms << taxonomy_terms.sample
 end
 
 # create teams
@@ -110,7 +119,7 @@ team.team_users << TeamUser.new(
       read_state: collection_read_state[rand(0..1)],
       write_state: collection_write_state[random_number],
       write_state_team_id: if random_number == 1 then team.id else nil end,
-      owner: user_team[Faker::Number.between(0, 1)],
+      owner: user_team.sample,
   )
   # Create collection records
   5.times do |_ri|
@@ -125,7 +134,7 @@ team.team_users << TeamUser.new(
         user: user_test,
         location: {:address => Faker::Address.street_address}
     )
-    record.taxonomy_terms << taxonomy_terms[rand(0..9)]
+    record.taxonomy_terms << taxonomy_terms.sample
     collection.records << record
   end
 end
@@ -140,21 +149,22 @@ end
 end
 
 # create layers
-5.times do |_i|
-
-  layer_data  = [
-      :georeferencer_table_id => '1OktmAP9za7OkU7l2VUf8yY-hf0bgCTg8VrNjvk0o',
-      :tileserver_url => 'http://georeferencer-0.tileserver.com/5678017802d5d23499ada6924aff9c417da0a58b/map/{entity_id}/polynomial/{z}/{x}/{y}.png'
-  ]
-
-  Layer.create(
-      title: Faker::Company.catch_phrase,
-      description: Faker::Company.bs,
-      lat: rand(51.400..51.700),
-      lng: (-1 + rand(0.80..1.00)).round(2),
-      date_from: Faker::Date.between(10.year.ago, Date.today),
-      date_to: Faker::Date.between(5.year.ago, Date.today),
-      layer_type: 'georeferenced_image',
-      layer_data: layer_data[0].as_json
-  )
-end
+# 5.times do |_i|
+#
+#   layer_data  = [
+#       :georeferencer_table_id => '1OktmAP9za7OkU7l2VUf8yY-hf0bgCTg8VrNjvk0o',
+#       :tileserver_url => 'http://georeferencer-0.tileserver.com/5678017802d5d23499ada6924aff9c417da0a58b/map/{entity_id}/polynomial/{z}/{x}/{y}.png'
+#   ]
+#
+#   Layer.create(
+#       title: Faker::Company.catch_phrase,
+#       description: Faker::Company.bs,
+#       lat: rand(51.400..51.700),
+#       lng: (-1 + rand(0.80..1.00)).round(2),
+#       date_from: Faker::Date.between(10.year.ago, Date.today),
+#       date_to: Faker::Date.between(5.year.ago, Date.today),
+#       layer_type: 'georeferenced_image',
+#       layer_data: layer_data[0].as_json
+#   )
+# end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

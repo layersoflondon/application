@@ -1,7 +1,7 @@
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: %i[show update destroy]
+  before_action :set_collection, only: %i[update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
-  skip_after_action :verify_authorized, only: %i[index]
+  skip_after_action :verify_authorized, only: %i[index show]
 
   decorates_assigned :collection, :collections
 
@@ -25,7 +25,8 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    authorize(@collection)
+    @collection = CollectionsIndex.filter(ids: {values: [params[:id]]}).first
+    raise Pundit::NotAuthorizedError, "Not allowed to show this Collection" unless CollectionPolicy.new(current_user, @collection).show?
   end
 
   def update

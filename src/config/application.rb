@@ -15,20 +15,49 @@ module LayersApp
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.autoload_paths << Rails.root.join('lib/alpha_migration')
-    config.eager_load_paths << Rails.root.join('lib/alpha_migration')
+    config.autoload_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
+    config.eager_load_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
 
     config.x.image_variants = {
-      thumb: {
-        resize: "200x200"
+      marker: {
+        thumbnail: "200x200",
+        combine_options: {
+          gravity: "North",
+          extent: "200x150",
+          crop: "200x150+0+0",
+          quality: 90
+        }
       },
-      small: {
-        resize: "600x600"
+      card: {
+          thumbnail: "600x600",
+          combine_options: {
+            gravity: "Center",
+            extent: "600x280",
+            crop: "600x280+0+0",
+            quality: 90
+          }
+      },
+      primary: {
+        resize: '1400x1400',
+        combine_options: {
+          gravity: "Center",
+          extent: "1400x700",
+          crop: "1400x700+0+0",
+          quality: 90
+        }
       },
       large: {
-        resize: "1200x1200"
+        combine_options: {
+          resize: "1400x1400",
+          quality: 95
+        }
       }
     }
+
+  #   600x280 tray
+    # 1400x700 record hero
+    # 1400x1400 large
+    # 200x150 pin
 
   end
 end

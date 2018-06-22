@@ -11,39 +11,41 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Main from '../components/main';
-import axios from 'axios';
-
 import createBrowserHistory from 'history/createBrowserHistory';
 import {Provider} from 'mobx-react';
 import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
 import {Router} from 'react-router';
-import { Switch, Route, withRouter } from 'react-router-dom';
-import Parser from 'html-react-parser';
-import Search from '../sources/search.js';
-window.Parser = Parser;
-
-/**
- * Create a CardStore from our dummy data, a TrayViewStore to pass
- * into the React App, and set the initial data for the trayViewStore
- * which will be rendered in the Tray component
- */
-
+import axios from 'axios';
 import initStore from '../stores/stores';
 
 document.addEventListener('DOMContentLoaded', () => {
     if( typeof window.__STATE === "undefined" ) return;
+    const userPresent = window.__USER_PRESENT;
 
     const browserHistory = createBrowserHistory();
     const routingStore = new RouterStore();
     const history = syncHistoryWithStore(browserHistory, routingStore);
 
-    // let stores = initStore(window.__STATE);
+    // // initialise the application with static data
+    // const stores = initStore({data: {tray: {root: true, cards: []}, collections: [], layers: [], map: {zoom: 10}}});
+    //
+    // stores.routing = routingStore;
+    // ReactDOM.render(
+    //   <Provider {...stores} >
+    //     <Router history={history}>
+    //       <Main />
+    //     </Router>
+    //   </Provider>,
+    //   document.getElementById("map-root")
+    // );
+
+    // fetch the initial app state then initialize the stores and components
     axios.get('/map/state.json').then((response) => {
         const stores = initStore(response.data);
         stores.routing = routingStore;
 
         ReactDOM.render(
-          <Provider {...stores} >
+          <Provider {...stores} userPresent={userPresent} >
             <Router history={history}>
               <Main />
             </Router>
@@ -68,11 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 switch(event.data.type) {
                     case 'record':
                         push(`/map/records/${event.data.id}`);
-                        stores.trayViewStore.visible_record_id = event.data.id;
+                        stores.trayViewStore.record_id = event.data.id;
                         break;
                     case 'collection':
                         push(`/map/collections/${event.data.id}`);
-                        stores.trayViewStore.visible_collection_id = event.data.id;
+                        stores.trayViewStore.collection_id = event.data.id;
                     default:
                         console.log(`Handle ${event.data.type}`);
                 }

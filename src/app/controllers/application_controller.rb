@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   if Rails.env.test?
     protect_from_forgery with: :null_session
   end
-  after_action :verify_authorized, unless: :devise_controller?
+  after_action :verify_authorized, unless: :should_skip_verify_authorized?
   before_action :authenticate_user!
 
   before_action :get_navigation_menu
@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
 
   def get_navigation_menu
     @main_navigation_menu, @footer_navigation_menu = *Rooftop::Menus::Menu.where(post__in: [2,3]).to_a.sort_by(&:id)
+  end
+
+  def should_skip_verify_authorized?
+    devise_controller? || is_a?(ActiveAdmin::BaseController)
   end
 
 end

@@ -110,3 +110,5 @@ gem 'geocoder'
 
 # S3 gem for activestorage
 gem 'aws-sdk-s3', require: false
+
+gem 'activeadmin'

@@ -7,7 +7,7 @@ import {Link, withRouter} from 'react-router-dom';
 import Tools from './tools';
 import Tray from './tray';
 import MapView from './map_view';
-import Search from './search';
+import SearchView from './forms/search/search_view';
 import RecordView from './record_view';
 import CollectionView from './collection_view';
 import PlacePicker from './place_picker';
@@ -34,21 +34,22 @@ import RecordForm from './forms/records/record_form';
     return <div className={className}>
       {/* permanantly visible components */}
       <Tools {...this.props} />
-      <Tray {...this.props} />
       <MapView {...this.props} />
+      
+      <Route path='/map' component={Tray} />
 
       {/* Various Overlays ... */}
       <Route exact path='/map/account' component={UserForm} />
       <Route exact path='/map/account/:tab' component={UserForm} />
       <Route path='/map/layers' component={LayersOverlay} />
-      <Route path='/map/search' component={Search} />
+      <Route path='/map/search' component={SearchView} />
 
       {/* show the collections form */}
       <Route exact path='/map/collections/new' component={CollectionForm} />
       <Route exact path='/map/collections/:id/edit' component={CollectionForm} />
 
       {/* the route we go to when '+ Add record' is clicked to allow the user to choose a place */}
-      <Route path='/map/records/choose-place' component={PlacePicker} />
+      <Route path='/map/choose-place' component={PlacePicker} />
       {/* once the user has chosen a place on the map, we show the form */}
       <Route path='/map/records/new' component={RecordForm} />
 

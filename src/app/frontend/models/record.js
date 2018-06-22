@@ -8,8 +8,8 @@ import L from "leaflet";
 export default class RecordModel {
   id = null;
   state;
-  lat;
-  lng;
+  lat = 0;
+  lng = 0;
   user = {};
   created_at;
 
@@ -29,6 +29,9 @@ export default class RecordModel {
   @observable current_attachment_item_index = this.attachments.length>0 ? 0 : null; //which media item is active (being edited)
   @observable collections = [];
   @observable collection_ids = [];
+
+  @observable highlighted = false;
+  @observable errors = {};
 
   persist() {
     if( this.id ) {
@@ -144,26 +147,14 @@ export default class RecordModel {
     }
   }
 
-  static fromJS(attributes) {
+  static fromJS(attributes, store) {
     let record = new RecordModel();
 
-    record.id = attributes.id;
-    record.title = attributes.title;
-    record.description = attributes.description;
-    record.like_count = attributes.like_count;
-    record.view_count = attributes.view_count;
-    record.state = attributes.state;
-    record.lat = attributes.lat;
-    record.lng = attributes.lng;
-    record.date_from = attributes.date_from;
-    record.date_to = attributes.date_to;
-    record.user  = attributes.user;
-    record.image = attributes.image;
-    record.created_at = attributes.created_at;
-    record.location = attributes.location;
+    record.store = store;
 
-    record.user_can_like = attributes.user_can_like;
-    record.user_can_edit = attributes.user_can_edit;
+    Object.keys(attributes).map((property) => {
+      record[property] = attributes[property];
+    });
 
     if( attributes.hasOwnProperty('attachments') ) {
       record.attachments = attributes.attachments.map((attachment) => {
@@ -172,29 +163,35 @@ export default class RecordModel {
     }
 
     if( attributes.hasOwnProperty('collections') ) {
-      record.collections = attributes.collections.map((c) => CollectionModel.fromJS(c, true));
+      record.collections = attributes.collections.map((c) => CollectionModel.fromJS(c, store, true));
     }
 
     return record;
   }
 
   resetState() {
-    this.id = null;
-    this.title = '';
-    this.description = '';
-    this.like_count = '';
-    this.view_count = '';
-    this.state = '';
-    this.lat = 0;
-    this.lng = 0;
-    this.date_from = null;
-    this.date_to = null;
-    this.location = {};
-    this.user  = '';
-    this.created_at = '';
-    this.attachments = [];
-    this.collections = [];
+    Object.getOwnPropertyNames(this).map((property) => {
+      let value = this[property];
+      switch(value.constructor) {
+        case Array:
+          this[property] = [];
+          break;
+        case Object:
+          this[property] = {};
+          break;
+        case Number:
+          this[property] = 0;
+          break;
+        case String:
+          this[property] = "";
+          break;
+        default:
+          this[property] = null;
+          break;
+      }
+    });
 
+    this.id = null;
     return this;
   }
 }

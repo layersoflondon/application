@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
-import {observer} from "mobx-react";
+import {observer, inject} from "mobx-react";
 import PropTypes from 'prop-types';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 
+@inject('userPresent')
 @withRouter
 @observer export default class Tools extends Component {
   constructor(props) {
@@ -21,9 +22,34 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
     }
   }
 
+  accountLink() {
+      if (this.props.userPresent) {
+          return <Link to="/map/account/account" data-label="Your profile"><span>Your profile</span></Link>
+      } else {
+          return <a data-label="Sign in" href="/users/sign_in?return_to=/map/account/account"><span>Sign in</span></a>
+      }
+  }
+
+  createCollectionLink() {
+      if (this.props.userPresent) {
+          return <Link to='/map/collections/new' data-label="Create collection"><span>Create collection</span></Link>
+      } else {
+          return <a data-label="Create collection" href="/users/sign_in?return_to=/map/collections/new"><span>Create collection</span></a>
+      }
+  }
+
+  addRecordLink() {
+      if (this.props.userPresent) {
+          return <Link to='/map/choose-place' data-label="Add record"><span>Add record</span></Link>
+      } else {
+          return <a data-label="Add record" href="/users/sign_in?return_to=/map/choose-place"><span>Add record</span></a>
+      }
+  }
+
+
+
   render() {
     const logo = require('../assets/images/logo.svg');
-
     return <div className="m-sidebar">
       <div className="m-logo">
         <img src={logo} alt="Logo" />
@@ -36,17 +62,19 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
           <Link to='/map/layers' data-label="Layers"><span>Layers</span></Link>
         </div>
         <div className="m-tool-button m-tool-button--add-collection">
-          <Link to='/map/collections/new' data-label="Create collection"><span>Create collection</span></Link>
+          {this.createCollectionLink()}
         </div>
         <div className="m-tool-button m-tool-button--add">
-          <Link to='/map/records/new' data-label="Add record"><span>Add record</span></Link>
+            {this.addRecordLink()}
         </div>
       </div>
-      <div className="m-actions">
-        <div className="m-tool-button m-tool-button--your-account">
-          <Link to="/map/account" data-label="Your profile"><span>Your profile</span></Link>
+
+        <div className="m-actions">
+          <div className="m-tool-button m-tool-button--your-account">
+              {this.accountLink()}
+          </div>
         </div>
-      </div>
+
     </div>;
   }
 }

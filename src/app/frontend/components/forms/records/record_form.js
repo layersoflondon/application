@@ -6,10 +6,11 @@ import Details from './details';
 import Dates from './dates';
 import Media from './media';
 import Collection from './collection';
-import RecordModel from './../../../models/record';
 import Record from './../../../sources/record';
+import RecordModel from './../../../models/record';
+import CardModel from './../../../models/card';
 
-@inject('mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore')
+@inject('routing', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore')
 @observer export default class RecordForm extends Component {
   constructor(props) {
     super(props);
@@ -18,41 +19,34 @@ import Record from './../../../sources/record';
   }
 
   componentWillMount() {
-    if( this.props.trayViewStore.visible_record ) {
-      this.props.recordFormStore.record = this.props.trayViewStore.visible_record;
-    }else if( this.props.match.params.id ) {
+    if( this.props.trayViewStore.record ) {
+      const record = RecordModel.fromJS(this.props.trayViewStore.record.toJS(), this.props.trayViewStore.record.store);
+      this.props.recordFormStore.record = record;
+    }else if( this.props.match.params.id && this.props.match.params.id !== 'new'  ) {
       Record.show(null, this.props.match.params.id).then((response) => {
-        const record = RecordModel.fromJS(response.data);
-        this.props.recordFormStore.record = record;
-      })
-    }else {
-      this.props.recordFormStore.record = new RecordModel();
+        this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+      });
     }
   }
 
   handleClickedOnSave(event) {
     event.preventDefault();
-    // when successfully updating a Record, we should propagate the updated data throughout the stores that are rendering it.
-    // since the tray and map render their data from a CardStore, we can just overwrite the data there (see insertOrUpdateRecord)
+    // when successfully updating a Record, we should propagate the updated data throughout the stores that are
+    // rendering it. since the tray and map render their data from the trayViewStore.cards observable, we can just
+    // overwrite the data there (see addOrUpdateRecord)
     this.props.recordFormStore.record.persist().then((response) => {
-      const record = RecordModel.fromJS(response.data);
+      let card = this.props.trayViewStore.addOrUpdateRecord(response.data);
 
-      this.props.recordFormStore.record.id = response.data.id;
+      card = this.props.trayViewStore.cards.get(card.id);
+      this.props.trayViewStore.record = card.data;
       this.props.trayViewStore.tray_is_visible = true;
-      this.props.trayViewStore.card_store.insertOrUpdateRecord(record);
-      this.props.mapViewStore.overlay = null;
+      this.props.recordFormStore.record = new RecordModel();
 
-      this.props.recordFormStore.record.resetState();
-    }).catch((response) => {
-      console.log("Error Response: ", response);
+      const {push} = {...this.props.routing};
+      push(`/map/records/${card.data.id}`);
+    }).catch((error) => {
+      this.props.recordFormStore.record.errors = error.response.data;
     })
-  }
-
-  handleClickedOnClose(event) {
-    event.preventDefault();
-
-    this.props.mapViewStore.overlay = null;
-    this.props.recordFormStore.record.resetState();
   }
 
   render() {

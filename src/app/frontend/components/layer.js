@@ -23,8 +23,10 @@ import Parser from 'html-react-parser';
 
     return <div className="layer">
       <a href="" onClick={this.handleOnClick.bind(this)}>
-        <div className="image">
-        </div>
+          {this.props.layer.image &&
+          <div className="image" style={{'backgroundImage': 'url(' + this.props.layer.image.card + ')'}}>
+          </div>
+          }
         <h2>{this.props.layer.title}</h2>
         {Parser(this.props.layer.description)}
 

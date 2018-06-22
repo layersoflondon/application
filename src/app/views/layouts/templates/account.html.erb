@@ -1,0 +1,21 @@
+<%= content_for :body_class do %>m-site-wrapper<% end %>
+<% content_for :template do %>
+    <%= render 'shared/page_header', class: "m-page-header--nano", page: OpenStruct.new({
+                                                              title:  content_for?(:title) ? yield(:title) : "Your account",
+                                                              root: OpenStruct.new({
+                                                                  title: "Your account"
+                                                              }),
+                                                              hero_image: nil
+                                                          }) %>
+
+    <div class="m-content">
+        <div class="m-article">
+            <%= yield %>
+        </div>
+    </div>
+
+<% end %>
+
+<%= render template: "layouts/application" %>
+
+

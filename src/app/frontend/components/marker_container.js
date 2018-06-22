@@ -1,20 +1,29 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import { Marker, Popup } from 'react-leaflet'
+import {Link, withRouter} from 'react-router-dom';
 
 import {Leaflet} from 'react-leaflet';
 import L from 'leaflet';
 import Parser from 'html-react-parser';
-
+@inject('routing')
+@withRouter
 @observer export default class MarkerContainer extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {marker_hovered: false};
   }
 
   handleOnClick(event) {
     event.preventDefault();
-    this.props.trayViewStore.visible_record_id = this.props.card.id;
+    this.props.history.push(`/map/records/${this.props.record.id}`);
+  }
+
+  toggleHighlightCard() {
+    this.props.cardComponent.highlighted_by_marker = !this.props.cardComponent.highlighted_by_marker;
+    this.setState({marker_hovered: this.props.cardComponent.highlighted_by_marker});
   }
 
   render() {
@@ -38,20 +47,25 @@ import Parser from 'html-react-parser';
       popupAnchor: [0, 0]
     });
 
-    let icon = this.props.cardComponent.highlighted ? highlighted_icon : default_icon;
-    const parsed_content = Parser(this.props.card.description);
+    let icon = default_icon;
+    if(this.props.cardComponent.highlighted || this.state.marker_hovered) {
+      icon = highlighted_icon;
+    }
 
-    return <Marker position={this.props.position} icon={icon} onMouseOver={()=>this.props.card.highlighted = true} onMouseOut={()=>this.props.card.highlighted = false}>
+    return <Marker position={this.props.position} icon={icon} onMouseOver={this.toggleHighlightCard.bind(this)} onMouseOut={this.toggleHighlightCard.bind(this)}>
+
       <Popup>
 
         <div className="m-map-popover" onClick={this.handleOnClick.bind(this)}>
           <div className="m-record-card">
             <div className="wrapper">
-              <div className="image" style={{'backgroundImage': 'url('+this.props.card.thumb+')'}}>
-              </div>
+                {this.props.record.image &&
+                <div className="image" style={{'backgroundImage': 'url(' + this.props.record.image.marker + ')'}}>
+                </div>
+                }
 
               <div className="text-content">
-                <h1>{this.props.card.title}</h1>
+                <h1>{this.props.record.title}</h1>
               </div>
             </div>
           </div>
@@ -63,5 +77,5 @@ import Parser from 'html-react-parser';
 }
 
 MarkerContainer.propTypes = {
-  card: PropTypes.object.isRequired
+  record: PropTypes.object.isRequired
 };

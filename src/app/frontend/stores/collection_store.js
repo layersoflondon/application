@@ -1,4 +1,4 @@
-import {observable, observe} from 'mobx';
+import {observable, computed} from 'mobx';
 import CollectionModel from '../models/collection';
 
 /**
@@ -12,52 +12,32 @@ import CollectionModel from '../models/collection';
  *
  */
 export default class CollectionStore {
-  @observable everyone_collections = [];
-  @observable team_collections = [];
-  @observable creator_collections = [];
+  @observable everyone_collections = observable.map();
+  @observable team_collections = observable.map();
+  @observable creator_collections = observable.map();
 
-  _collections = [];
+  @computed get collections() {
+    let _collections = [];
+    this.everyone_collections.values().map((c) => _collections.push(c));
+    this.team_collections.values().map((c) => _collections.push(c));
+    this.creator_collections.values().map((c) => _collections.push(c));
 
-  constructor() {
-    observe(this, 'everyone_collections', (change) => {
-      change.newValue.map((v)=>this._collections.push(v));
-    });
-
-    observe(this, 'team_collections', (change) => {
-      change.newValue.map((v)=>this._collections.push(v));
-    });
-
-    observe(this, 'creator_collections', (change) => {
-      change.newValue.map((v)=>this._collections.push(v));
-    });
+    return _collections;
   }
 
   addCollection(collection_model) {
-    let collection_array = this[`${collection_model.write_state}_collections`].slice();
-    collection_array.push(collection_model);
-    this[`${collection_model.write_state}_collections`] = collection_array;
+    this[`${collection_model.write_state}_collections`].set(collection_model.id, collection_model);
   }
 
-  static fromJS(object) {
-    const store = new CollectionStore();
+  static fromJS(collections, tray_view_store) {
+    const collection_store = new CollectionStore();
 
-    if( !object ) {
-      return store;
-    }
-
-    if( !object.hasOwnProperty('collections') ){
-      object.collections = [];
-    }
-
-    Object.assign(store, object);
-
-    object.collections.map((c) => {
-      let collection = CollectionModel.fromJS(c);
-      let collection_array = store[`${c.write_state}_collections`].slice();
-      collection_array.push(collection);
-      store[`${c.write_state}_collections`] = collection_array;
+    collections.map((c) => {
+      let collection_model = CollectionModel.fromJS(c, tray_view_store);
+      collection_store[`${collection_model.write_state}_collections`].set(collection_model.id, collection_model);
     });
 
-    return store;
+    tray_view_store.collection_store = collection_store;
+    return collection_store;
   }
 }

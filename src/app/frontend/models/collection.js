@@ -16,8 +16,11 @@ export default class CollectionModel {
     return [0, 0];
   }
 
-  static fromJS(attributes, from_record = false) {
+  static fromJS(attributes, store = null, from_record = false) {
     const collection = new CollectionModel();
+
+    collection.store = store;
+
     collection.id = attributes.id;
     collection.title = attributes.title;
     collection.description = attributes.description;
@@ -26,7 +29,18 @@ export default class CollectionModel {
     collection.owner = attributes.owner;
 
     if( !from_record && attributes.hasOwnProperty('records') ) {
-      collection.records = attributes.records.map((r) => RecordModel.fromJS(r));
+      // iterate over this collection's records and either fetch the existing record from the store, or build a new one
+      collection.records = attributes.records.map((r) => {
+        let card = store.cards.get(`record_${r.id}`);
+        let record = null;
+        if(card) {
+          record = card.data;
+        }else {
+          record = RecordModel.fromJS(r, store);
+        }
+
+        return record;
+      });
     }
 
     if( attributes.hasOwnProperty('image') ) {
