@@ -26,6 +26,16 @@ import {Link, withRouter} from 'react-router-dom';
     }
   }
 
+  handleCloseOnClick(event) {
+    event.preventDefault();
+
+    if(this.props.routing.history.length>1) {
+      this.props.routing.history.goBack();
+    }else {
+      this.props.routing.push("/map");
+    }
+  }
+
   render_state_loading_true() {
     return <div className="m-overlay is-loading">
       loading
@@ -45,7 +55,7 @@ import {Link, withRouter} from 'react-router-dom';
             {/*<button className="previous" onClick={() => this.props.trayViewStore.moveToPreviousCard()}>Previous</button>*/}
           </div>
           <div className="close">
-            <Link className="close" to={link_path}>Close</Link>
+            <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
           </div>
 
           <div className="wrap">

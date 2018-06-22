@@ -22,10 +22,6 @@ import {inject} from "mobx-react/index";
   }
 
   componentWillReceiveProps() {
-    if (this.props.routing.history.location.pathname === "/map" ) {
-      console.log("Received props at /map - fetching if !root", !this.props.trayViewStore.root);
-    }
-
     if (this.props.routing.history.location.pathname === "/map" && !this.props.trayViewStore.root ) {
       this.props.trayViewStore.restoreRootState();
     }

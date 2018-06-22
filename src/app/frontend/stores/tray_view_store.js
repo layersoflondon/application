@@ -33,14 +33,6 @@ export default class TrayViewStore {
   @observable collection_id = null;
 
   constructor() {
-    observe(this, 'loading', (change) => {
-      if(change.newValue) {
-        console.log("LOADING")
-      }else {
-        console.log("NOT LOADING");
-      }
-    });
-
     observe(this, 'cards', (change) => {
       if(this.root) {
         this.previous_cards = change.oldValue;
