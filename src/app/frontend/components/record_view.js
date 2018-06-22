@@ -57,7 +57,7 @@ import {Link, withRouter} from 'react-router-dom';
               <div className="dates">
                 <span className="date start-date">{this.props.trayViewStore.record.date_from}</span>
               </div>
-              <div className="creator">Created by {this.props.trayViewStore.record.user.name}</div>
+              <div className="creator">By {this.props.trayViewStore.record.user.name}</div>
             </div>
 
             <div className="social">
