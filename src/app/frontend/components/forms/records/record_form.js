@@ -29,6 +29,10 @@ import CardModel from './../../../models/card';
     }
   }
 
+  componentWillUnmount() {
+      this.props.recordFormStore.record = new RecordModel
+  }
+
   handleClickedOnSave(event) {
     event.preventDefault();
     // when successfully updating a Record, we should propagate the updated data throughout the stores that are
