@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   include Rooftop::Rails::NestedResource
   include EventCollections
   include PostCollections
+  include FaqCollections
 
   nested_rooftop_resource :page
   decorates_assigned :page, with: PageDecorator
