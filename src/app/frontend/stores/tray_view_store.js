@@ -10,7 +10,10 @@ import Search from "../sources/search";
  * The data store for the TrayView
  */
 export default class TrayViewStore {
-  root = true;
+  @observable root = true;
+  @observable locked = false;
+  @observable loading = false;
+
   // the TrayViewStore is given its data source (the cards attribute) and it renders it as a list in the tray
   @observable tray_is_visible = true;
 
@@ -28,11 +31,20 @@ export default class TrayViewStore {
   @observable loading_collection = false;
   @observable record_id = null;
   @observable collection_id = null;
-  @observable locked = false;
 
   constructor() {
+    observe(this, 'loading', (change) => {
+      if(change.newValue) {
+        console.log("LOADING")
+      }else {
+        console.log("NOT LOADING");
+      }
+    });
+
     observe(this, 'cards', (change) => {
-      this.previous_cards = change.oldValue;
+      if(this.root) {
+        this.previous_cards = change.oldValue;
+      }
     });
 
     // mutating the visible_record_id will fetch that record and update the RecordView component with the relevant state
@@ -59,19 +71,7 @@ export default class TrayViewStore {
 
         if(this.fetch_additional_records && !this.locked) {
           setTimeout(() => {
-            let center = this.map_ref.leafletElement.getBounds().getCenter();
-            let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
-            const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
-            const south_east = this.map_ref.leafletElement.getBounds().getSouthEast();
-
-            const bounds = {
-              top_left: north_west,
-              bottom_right: south_east,
-              center: center,
-              radius: radius
-            };
-
-            this.reloadTrayDataForBounds(bounds, true);
+            this.reloadTrayDataForBounds(this.boundsFromMapRef, true);
           }, 5);
         }
       }else {
@@ -90,13 +90,11 @@ export default class TrayViewStore {
           //  Lock this view so dragging the map doesn't change the cards
           this.locked = true;
         }).catch((error) => {
-          console.log("Error getting collection", error, this.collection_id);
           this.collection_id = null;
         }).finally(() => {
           this.loading_collection = false;
         });
       }else {
-        console.log("No newValue in collection_id change", change);
         this.collection_id = null;
         this.loading_collection = false;
         this.locked = false;
@@ -116,13 +114,16 @@ export default class TrayViewStore {
    * @param append_data
    */
   reloadTrayDataForBounds(bounds, append_data = false) {
+    this.loading = true;
+
     Search.perform({geobounding: bounds}).then((response) => {
       if( append_data ) {
-        console.log("Appending cards: ", response);
         this.updateCollectionOfCards(response.data);
       }else {
         this.showCollectionOfCards(response.data);
       }
+    }).finally(() => {
+      this.loading = false;
     });
   }
 
@@ -161,25 +162,40 @@ export default class TrayViewStore {
     // }
   }
 
+  @computed get boundsFromMapRef() {
+    let center = this.map_ref.leafletElement.getBounds().getCenter();
+    let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+    const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
+    const south_east = this.map_ref.leafletElement.getBounds().getSouthEast();
+
+    const bounds = {
+      top_left: north_west,
+      bottom_right: south_east,
+      center: center,
+      radius: radius
+    };
+
+    return bounds;
+  }
+
   fetchRecord(id, fetch_additional_records = false) {
     this.fetch_additional_records = fetch_additional_records;
     this.record_id = id;
   }
 
-  restoreState() {
-    if( !this.root && this.previous_cards ) {
-      this.cards = this.previous_cards;
-      this.previous_cards = null;
-    }
-  }
-
   /**
-   * What we should render when the user hits the /map route
+   * when we Route back to /map, check whether we a previous set of cards and restore those, rather than fetching again
+   * fixme: we might want to look at expiring this previous set and fetching updated data...
    */
-  fetchInitialState() {
-    axios.get('/map/state.json').then((response) => {
-      this.showCollectionOfCards(response.data.data.tray.cards);
-    });
+  restoreRootState() {
+    if(this.previous_cards && this.previous_cards.size) {
+      this.cards = this.previous_cards;
+    }else {
+      this.reloadTrayDataForBounds(this.boundsFromMapRef);
+    }
+
+    this.root = true;
+    this.locked = false;
   }
 
   /**
@@ -199,6 +215,7 @@ export default class TrayViewStore {
       cards.set(card.id, card);
     });
 
+    this.loading = false;
     this.cards = cards;
   }
 

@@ -17,32 +17,21 @@ import {inject} from "mobx-react/index";
     if (this.props.routing.history.location.pathname === "/map") {
       setTimeout(() => {
         this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
-      },2);
-      
+      }, 2);
     }
   }
 
   componentWillReceiveProps() {
-    // this.props.trayViewStore.fetchInitialState();
-    this.props.trayViewStore.restoreState();
+    if (this.props.routing.history.location.pathname === "/map" ) {
+      console.log("Received props at /map - fetching if !root", !this.props.trayViewStore.root);
+    }
+
+    if (this.props.routing.history.location.pathname === "/map" && !this.props.trayViewStore.root ) {
+      this.props.trayViewStore.restoreRootState();
+    }
   }
 
   render() {
-    // if we dont have a trayViewStore with cards to render, show some info
-    if(!(this.props.trayViewStore && this.props.trayViewStore.cards.size)) {
-      return (
-        <div className="m-tray-area">
-          <div className="window">
-            <div className="s-tray-area--default is-showing">
-              <div className="m-tray-title-area">
-                
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
     const cards = this.props.trayViewStore.cards.values().map( (c) => {
       const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;
       return <Card key={key} card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
@@ -53,7 +42,12 @@ import {inject} from "mobx-react/index";
       trayClassName += " is-closed";
     }
 
+    if( this.props.trayViewStore.loading ) {
+      trayClassName = "m-tray-area is-loading";
+    }
+
     let trayCollectionDetails;
+
     if(!this.props.trayViewStore.root) {
       trayCollectionDetails = <div>
         <div className="m-tray-title-area">

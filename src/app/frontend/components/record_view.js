@@ -14,7 +14,8 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   componentWillMount() {
-    this.props.trayViewStore.fetchRecord(this.props.match.params.id, true);
+    const fetch_nearby_data = this.props.trayViewStore.cards.size === 0;
+    this.props.trayViewStore.fetchRecord(this.props.match.params.id, fetch_nearby_data);
   }
 
   componentWillUnmount() {

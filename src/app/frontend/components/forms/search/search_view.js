@@ -111,11 +111,12 @@ import Search from "../../../sources/search";
       return [].concat.apply([], query).join('&');
     }
 
+    this.props.trayViewStore.loading = true;
     Search.perform(search_params).then((response) => {
+      this.props.trayViewStore.loading = false;
       const {push} = {...this.props.routing};
       const params = serializeQuery(search_params);
-
-      push(`?results=true&${params}`);
+      push(`?results=true&q=${this.state.q}`);
       this.setState({showing_results: true});
       this.props.trayViewStore.showCollectionOfCards(response.data, `Searched for ${this.state.q}`);
       this.props.trayViewStore.locked = true;
@@ -170,7 +171,7 @@ import Search from "../../../sources/search";
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'search' ) className += " is-showing";
 
-    if( this.state.showing_results ) {
+    if( this.state.showing_results || this.props.trayViewStore.loading ) {
       return <span></span>;
     }
 
