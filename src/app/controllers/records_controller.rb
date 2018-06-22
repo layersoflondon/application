@@ -81,6 +81,7 @@ class RecordsController < ApplicationController
         :lat,
         :lng,
         :date_from, :date_to,
+        :credit,
         collection_ids: [],
         location: %i[
           address

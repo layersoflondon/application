@@ -64,6 +64,7 @@ module Alpha
           r = Record.new(data.except("location"))
           r.location = {address: Geocoder.address([r.lat, r.lng])}
           r.state = "published"
+          r.credit = pin.content_entry.attribution
           r.save!
         rescue => e
           @logger.warn("Pin #{pin.id} (#{pin.title}): #{e}")
@@ -89,7 +90,7 @@ module Alpha
                               end
 
             # create new attachment of the correct type
-            attachment = record.attachments.build(attachment_type: attachment_type, attachable_attributes: {
+            attachment = record.attachments.build(attachment_type: attachment_type, credit: content_entry.attribution, attachable_attributes: {
               title: record.title,
               caption: content_entry.content
             })

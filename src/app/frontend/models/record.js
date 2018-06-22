@@ -15,6 +15,7 @@ export default class RecordModel {
 
   @observable title = '';
   @observable description = '';
+  @observable credit = '';
   @observable location = null;
   @observable latlng = null;
 
@@ -143,7 +144,8 @@ export default class RecordModel {
       date_from: this.date_from,
       date_to: this.date_to,
       collection_ids: this._collection_ids,
-      location: this.location
+      location: this.location,
+      credit: this.credit
     }
   }
 

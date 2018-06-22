@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import Details from './details';
+import Credits from './credits'
 import Dates from './dates';
 import Media from './media';
 import Collection from './collection';
@@ -70,6 +71,7 @@ import CardModel from './../../../models/card';
             <form action="" className="form--chunky form--over-white">
               <Dates   {...this.props} />
               <Details {...this.props} />
+              <Credits {...this.props} />
 
               <div className="m-accordion">
                 <Media {...this.props} />
