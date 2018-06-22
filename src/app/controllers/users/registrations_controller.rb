@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout 'iframe', only: [:edit]
+  layout :determine_layout
+  # layout 'templates/account', only: [:new, :create]
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -89,6 +90,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_update_path_for(resource)
-    redirect_to :action => 'update'
+    edit_user_registration_path
+  end
+
+  def after_sign_up_path_for(user)
+    map_path
+  end
+
+  private
+
+  def determine_layout
+    case action_name
+      when 'edit','update'
+        'iframe'
+      else
+        'templates/account'
+    end
   end
 end
