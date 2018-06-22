@@ -1,8 +1,8 @@
 module Rooftop
-  class Faq
+  class FaqEntry
     include Rooftop::Post
 
-    scope :faqs, -> {
+    scope :events, -> {
       all
     }
   end
