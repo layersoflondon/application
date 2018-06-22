@@ -14,7 +14,7 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   componentWillMount() {
-    this.props.trayViewStore.record_id = this.props.match.params.id;
+    this.props.trayViewStore.fetchRecord(this.props.match.params.id, true);
   }
 
   componentWillUnmount() {

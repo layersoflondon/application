@@ -16,6 +16,7 @@ import LayerToolsContainer from './layer_tools_container';
     this.setMapRef = element => {
       this.mapRef = element;
       this.props.mapViewStore.map_ref = this.mapRef;
+      this.props.trayViewStore.map_ref = this.mapRef;
     }
   }
 

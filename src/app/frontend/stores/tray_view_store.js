@@ -22,6 +22,7 @@ export default class TrayViewStore {
 
   @observable record = null; //the record we're viewing or editing
   @observable collection = null; //the collection we're viewing
+  @observable fetch_additional_records = false; // when set to true, some observers (like record_id) will fetch data associated with the current record
 
   @observable loading_record = false;
   @observable loading_collection = false;
@@ -55,6 +56,46 @@ export default class TrayViewStore {
             this.loading_record = false;
           });
         }
+
+        if(this.fetch_additional_records) {
+          /**
+           *   @computed get current_bounds() {
+    let map = this.map_ref;
+    let center = map.leafletElement.getBounds().getCenter();
+    let radius = map.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+
+    const north_west = map.leafletElement.getBounds().getNorthWest();
+    const south_east = map.leafletElement.getBounds().getSouthEast();
+
+    const bounds = {
+      center: {lat: center.lat, lng: center.lng},
+      top_left: {lat: north_west.lat, lng: north_west.lng},
+      bottom_right: {lat: south_east.lat, lng: south_east.lng},
+      radius: radius
+    };
+
+    return bounds;
+  }
+
+           */
+
+          setTimeout(() => {
+            let center = this.map_ref.leafletElement.getBounds().getCenter();
+            let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+            const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
+            const south_east = this.map_ref.leafletElement.getBounds().getSouthEast();
+
+            const bounds = {
+              top_left: north_west,
+              bottom_right: south_east,
+              center: center,
+              radius: radius
+            };
+
+            this.reloadTrayDataForBounds(bounds, true);
+            console.log("calculate current bounds", bounds);
+          }, 5);
+        }
       }else {
         this.record = null;
         this.loading_record = false;
@@ -64,13 +105,12 @@ export default class TrayViewStore {
     observe(this, 'collection_id', (change) => {
       if( change.newValue ) {
         this.loading_collection = true;
-        console.log("Get collection", change.newValue);
         Collection.show(null, this.collection_id).then((response) => {
           this.root = false;
-          this.showCollectionOfRecords(response.data.records, response.data.title, response.data.description);
+          this.showCollectionOfCards(response.data.records, response.data.title, response.data.description);
           // this.panTo(response.data.records[0])
           //  Lock this view so dragging the map doesn't change the cards
-            this.locked = true;
+          this.locked = true;
         }).catch((error) => {
           console.log("Error getting collection", error, this.collection_id);
           this.collection_id = null;
@@ -95,10 +135,16 @@ export default class TrayViewStore {
    * whenever the user drags or zooms the map in order to show relevant markers
    *
    * @param bounds
+   * @param append_data
    */
-  reloadTrayDataForBounds(bounds) {
+  reloadTrayDataForBounds(bounds, append_data = false) {
     Search.perform({geobounding: bounds}).then((response) => {
-      this.showCollectionOfRecords(response.data);
+      if( append_data ) {
+        console.log("Appending cards: ", response);
+        this.updateCollectionOfCards(response.data);
+      }else {
+        this.showCollectionOfCards(response.data);
+      }
     });
   }
 
@@ -137,6 +183,11 @@ export default class TrayViewStore {
     // }
   }
 
+  fetchRecord(id, fetch_additional_records = false) {
+    this.fetch_additional_records = fetch_additional_records;
+    this.record_id = id;
+  }
+
   restoreState() {
     if( !this.root && this.previous_cards ) {
       this.cards = this.previous_cards;
@@ -149,7 +200,7 @@ export default class TrayViewStore {
    */
   fetchInitialState() {
     axios.get('/map/state.json').then((response) => {
-      this.showCollectionOfRecords(response.data.data.tray.cards);
+      this.showCollectionOfCards(response.data.data.tray.cards);
     });
   }
 
@@ -160,7 +211,7 @@ export default class TrayViewStore {
    * @param title
    * @param description
    */
-  showCollectionOfRecords(card_data, title = null, description = null) {
+  showCollectionOfCards(card_data, title = null, description = null) {
     // this.title = title;
     // this.description = description;
 
@@ -171,6 +222,17 @@ export default class TrayViewStore {
     });
 
     this.cards = cards;
+  }
+
+  /**
+   * rather than replace the existing set of cards, append these onto it
+   * @param card_data
+   */
+  updateCollectionOfCards(card_data) {
+    card_data.map((data) => {
+      const card = CardModel.fromJS(data, this);
+      this.cards.set(card.id, card);
+    });
   }
 
   /**

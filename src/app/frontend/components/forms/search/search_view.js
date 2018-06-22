@@ -117,7 +117,7 @@ import Search from "../../../sources/search";
 
       push(`?results=true&${params}`);
       this.setState({showing_results: true});
-      this.props.trayViewStore.showCollectionOfRecords(response.data, `Searched for ${this.state.q}`);
+      this.props.trayViewStore.showCollectionOfCards(response.data, `Searched for ${this.state.q}`);
       this.props.trayViewStore.locked = true;
       this.props.trayViewStore.root = false;
     });

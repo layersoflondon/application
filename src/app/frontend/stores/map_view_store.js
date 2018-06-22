@@ -32,21 +32,17 @@ export default class MapViewStore {
   }
 
   @computed get current_bounds() {
-    let map = this.map_ref;
-    let center = map.leafletElement.getBounds().getCenter();
-    let radius = map.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
-
-    const north_west = map.leafletElement.getBounds().getNorthWest();
-    const south_east = map.leafletElement.getBounds().getSouthEast();
-
-    const bounds = {
-      center: {lat: center.lat, lng: center.lng},
-      top_left: {lat: north_west.lat, lng: north_west.lng},
-      bottom_right: {lat: south_east.lat, lng: south_east.lng},
+    let center = this.map_ref.leafletElement.getBounds().getCenter();
+    let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+    const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
+    const south_east = this.map_ref.leafletElement.getBounds().getSouthEast();
+    
+    return {
+      top_left: north_west,
+      bottom_right: south_east,
+      center: center,
       radius: radius
     };
-
-    return bounds;
   }
 
   static fromJS(object) {
