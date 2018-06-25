@@ -112,3 +112,6 @@ gem 'geocoder'
 gem 'aws-sdk-s3', require: false
 
 gem 'activeadmin'
+
+#ES6 for the marketing site
+gem 'sprockets-es6'
