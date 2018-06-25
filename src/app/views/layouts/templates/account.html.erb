@@ -1,12 +1,10 @@
 <%= content_for :body_class do %>m-site-wrapper<% end %>
 <% content_for :template do %>
-    <%= render 'shared/page_header', class: "m-page-header--nano", page: OpenStruct.new({
-                                                              title:  content_for?(:title) ? yield(:title) : "Your account",
-                                                              root: OpenStruct.new({
-                                                                  title: "Your account"
-                                                              }),
-                                                              hero_image: nil
-                                                          }) %>
+    <div id="m-page-header" class="m-page-header m-page-header--small">
+        <div class="image" id="m-page-header-image" style="background-image: url('<%# TODO static image in here %>');"></div>
+
+            <h1><%= yield(:title) %></h1>
+    </div>
 
     <div class="m-content">
         <div class="m-article">
