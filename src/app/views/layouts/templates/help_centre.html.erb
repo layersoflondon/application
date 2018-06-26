@@ -29,12 +29,12 @@
       <div class="m-guides">
 
         <h2 class="title">Guides</h2>
-        <% posts.each do |post| %>
+        <% guides.each do |guide| %>
         <div class="guide">
-          <%= link_to post_path(post.slug) do %>
+          <%= link_to guide_path(guide.slug) do %>
             <div class="image"></div>
-            <h3><%= post.title %></h3>
-            <p class="description"><%= post.description %></p>
+            <h3><%= guide.title %></h3>
+            <p class="description"><%= guide.content %></p>
           <% end %>
         </div>
         <% end %>

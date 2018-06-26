@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   resources :events, only: [:show], path: "events"
   resources :faqs, only: [:show], path: "faqs"
   resources :posts, only: [:show], path: "posts"
+  resources :guides, only: [:show], path: "guides"
 
   match 'search', via: [:get, :post], to: 'search#index', defaults: {format: :json}
 
