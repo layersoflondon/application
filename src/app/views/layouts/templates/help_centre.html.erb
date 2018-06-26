@@ -16,13 +16,12 @@
         <div class="top-faq">
           <h2 class="title">Top frequently asked questions</h2>
           <ul>
-            <li><a href="#">How can I edit a record i previously created?</a></li>
-            <li><a href="#">How do I delete one of my records?</a></li>
-            <li><a href="#">How do I see a list of records I’ve created?</a></li>
-            <li><a href="#">How do I contact team members?</a></li>
-            <li><a href="#">How do I report a problem with a record?</a></li>
+            <% faqs.each do |faq| %>
+              <li>
+                <%= link_to faq_path(faq.slug) do %><%= faq.title %><% end %></li>
+            <% end %>
           </ul>
-          <a href="#">See all FAQs</a>
+          <a href="/help-centre/faqs">See all FAQs</a>
         </div>
 
       </div>
@@ -30,12 +29,12 @@
       <div class="m-guides">
 
         <h2 class="title">Guides</h2>
-        <% posts.each do |post| %>
+        <% guides.each do |guide| %>
         <div class="guide">
-          <%= link_to post_path(post.slug) do %>
+          <%= link_to guide_path(guide.slug) do %>
             <div class="image"></div>
-            <h3><%= post.title %></h3>
-            <p class="description"><%= post.description %></p>
+            <h3><%= guide.title %></h3>
+            <p class="description"><%= guide.content %></p>
           <% end %>
         </div>
         <% end %>

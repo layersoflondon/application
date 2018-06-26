@@ -1,8 +1,8 @@
 module Rooftop
-  class Event
+  class Guide
     include Rooftop::Post
 
-    scope :events, -> {
+    scope :guides, -> {
       all
     }
   end
