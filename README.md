@@ -54,6 +54,9 @@ BDD with Postman collections and newman
 docker-compose exec -T ruby newman run LoL.postman_collection.json --globals LoL.postman_globals.json --environment Local.postman_environment.json
 ```
 
+note: to run newman or postman runner, we must have all the docker containers running, including the elasticsearch service. We should change as well environment to development in devise.rb (config.http_authenticatable = Rails.env.development?) and in application_controller.rb 
+
+
 Mocha tests
 
 ```bash

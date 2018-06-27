@@ -92,7 +92,7 @@ end
   )
   team.team_users << TeamUser.new(
       user: user_test,
-      role: team_user_role[rand(0..1)],
+      role: 'leader',
       state: 'access_granted'
   )
 end
@@ -148,6 +148,7 @@ end
   team.team_users << TeamUser.new(user: user_test, role: 'leader', state: 'access_granted')
 end
 
+# TODO: image must be attached to the layer
 # create layers
 # 5.times do |_i|
 #
