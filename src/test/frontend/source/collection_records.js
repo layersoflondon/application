@@ -16,6 +16,7 @@ var tempResourceId = null;
 
 describe('CollectionRecords', function() {
     this.slow(200);
+    this.timeout(10000);
 
     it('should list collections', function(done) {
         CollectionRecords.index()

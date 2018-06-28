@@ -10,7 +10,7 @@ var schema = JSON.parse(fs.readFileSync('./test/frontend/schema/record.json'));
 var createJSON = {
     "record" : {
         "title" : "record title",
-        "description" : "record description",
+        "description" : "<p>record description</p>",
         "state" : "draft",
         "lat" : 15,
         "lng" : 20,
@@ -20,8 +20,8 @@ var createJSON = {
 };
 var updateJSON = {
     "record" : {
-        "title" : "record title update",
-        "description" : "record description update",
+        "title" : "record title",
+        "description" : "record description",
         "state" : "pending_review",
         "lat" : 15,
         "lng" : 20,
@@ -70,25 +70,6 @@ describe('Record', function() {
             .catch((response) => {done(response);});
     });
 
-    it('should show a record', function(done) {
-        Record.show(null, tempResourceId)
-            .then((response)=>{
-                assert.equal("application/json; charset=utf-8", response.headers['content-type']);
-                assert.equal(validate(response.data, schema).errors.length, 0);
-                assert.equal(200, response.status);
-                assert.equal(tempResourceId, response.data.id);
-                assert.equal(createJSON.record.title, response.data.title);
-                assert.equal(createJSON.record.description, response.data.description);
-                assert.equal(createJSON.record.state, response.data.state);
-                assert.equal(createJSON.record.lat, response.data.lat);
-                assert.equal(createJSON.record.lng, response.data.lng);
-                assert.equal(createJSON.record.date_from, response.data.date_from);
-                assert.equal(createJSON.record.location.address, response.data.location.address);
-                done();
-            })
-            .catch((response) => {done(response);});
-    });
-
     it('should update a record', function(done) {
         Record.update(null, tempResourceId, updateJSON)
             .then((response)=>{
@@ -114,6 +95,25 @@ describe('Record', function() {
                 assert.equal(200, response.status);
                 assert.equal(tempResourceId, response.data.id);
                 assert.equal(patchJSON.record.state, response.data.state);
+                done();
+            })
+            .catch((response) => {done(response);});
+    });
+
+    it('should show a record', function(done) {
+        Record.show(null, tempResourceId)
+            .then((response)=>{
+                assert.equal("application/json; charset=utf-8", response.headers['content-type']);
+                assert.equal(validate(response.data, schema).errors.length, 0);
+                assert.equal(200, response.status);
+                assert.equal(tempResourceId, response.data.id);
+                assert.equal(createJSON.record.title, response.data.title);
+                assert.equal(createJSON.record.description, response.data.description);
+                assert.equal(createJSON.record.state, 'draft');
+                assert.equal(createJSON.record.lat, response.data.lat);
+                assert.equal(createJSON.record.lng, response.data.lng);
+                assert.equal(createJSON.record.date_from, response.data.date_from);
+                assert.equal(createJSON.record.location.address, response.data.location.address);
                 done();
             })
             .catch((response) => {done(response);});

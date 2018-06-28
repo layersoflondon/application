@@ -7,6 +7,7 @@ var fs = require('fs');
 import Collection from "../../../app/frontend/sources/collection";
 
 var schema = JSON.parse(fs.readFileSync('./test/frontend/schema/collection.json'));
+var schemaIndex = JSON.parse(fs.readFileSync('./test/frontend/schema/collection_index.json'));
 var createJSON = {
     "collection" : {
         "title" : "test",
@@ -33,6 +34,7 @@ var tempResourceId = null;
 
 describe('Collection', function() {
     this.slow(200);
+    this.timeout(10000);
 
     it('should list collections', function(done) {
         Collection.index()
@@ -52,8 +54,6 @@ describe('Collection', function() {
                 assert.equal(200, response.status);
                 assert.equal(createJSON.collection.title, response.data.title);
                 assert.equal(createJSON.collection.description, response.data.description);
-                assert.equal(createJSON.collection.read_state, response.data.read_state);
-                assert.equal(createJSON.collection.write_state, response.data.write_state);
                 tempResourceId  = response.data.id;
                 done();
             })
@@ -64,13 +64,12 @@ describe('Collection', function() {
         Collection.show(null, tempResourceId)
             .then((response)=>{
                 assert.equal("application/json; charset=utf-8", response.headers['content-type']);
-                assert.equal(validate(response.data, schema).errors.length, 0);
+                assert.equal(validate(response.data, schemaIndex).errors.length, 0);
                 assert.equal(200, response.status);
                 assert.equal(tempResourceId, response.data.id);
                 assert.equal(createJSON.collection.title, response.data.title);
                 assert.equal(createJSON.collection.description, response.data.description);
-                assert.equal(createJSON.collection.read_state, response.data.read_state);
-                assert.equal(createJSON.collection.write_state, response.data.write_state);
+
                 done();
             })
             .catch((response) => {done(response);});
@@ -84,8 +83,6 @@ describe('Collection', function() {
                 assert.equal(tempResourceId, response.data.id);
                 assert.equal(updateJSON.collection.title, response.data.title);
                 assert.equal(updateJSON.collection.description, response.data.description);
-                assert.equal(updateJSON.collection.read_state, response.data.read_state);
-                assert.equal(updateJSON.collection.write_state, response.data.write_state);
                 done();
             })
             .catch((response) => {done(response);});

@@ -24,7 +24,8 @@ describe('Layer', function() {
             .catch((response) => {done(response);});
     });
 
-    it('should show a layer', function(done) {
+    // TODO: layers are created from the backend
+    it.skip('should show a layer', function(done) {
         Layer.show(null, tempResourceId)
             .then((response)=>{
                 assert.equal("application/json; charset=utf-8", response.headers['content-type']);
@@ -36,7 +37,8 @@ describe('Layer', function() {
             .catch((response) => {done(response);});
     });
 
-    it('should search layers', function(done) {
+    // TODO: we first need layers
+    it.skip('should search layers', function(done) {
         Layer.search('query=test')
             .then((response)=>{
                 assert.equal(200, response.status);

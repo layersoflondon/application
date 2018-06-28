@@ -12,4 +12,3 @@ export default class Record extends LoLHTTPBase {
     return axios.patch(`${this.resource_path}/like.json`)
   }
 }
-window.Record = Record;

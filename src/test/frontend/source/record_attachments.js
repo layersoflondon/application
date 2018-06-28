@@ -45,7 +45,8 @@ var updateJSON = {
 var tempResourceId = null;
 
 describe('RecordAttachments', function() {
-    this.slow(200);
+    this.slow(500);
+    this.timeout(10000);
 
     it('should list record attachments', function(done) {
         RecordAttachments.index()

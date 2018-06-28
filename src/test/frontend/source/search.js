@@ -4,14 +4,10 @@ var assert = require('assert');
 import Search from "../../../app/frontend/sources/search";
 
 var searchParams = {
-    "q" : "Exclusive",
     "attachment_type" : [
         "Attachments::Url"
     ],
-    "type":[],
-    "theme": [
-        "political_and_government"
-    ],
+
     "geobounding": {
         "top_left": {
             "lat": 60.00,
@@ -21,18 +17,15 @@ var searchParams = {
             "lat" : 30.00,
             "lng" : 40.00
         }
-    },
-    "date_range": {
-        "gte": "2011-05-03",
-        "lte": "2011-05-05"
     }
 }
+
 
 describe('Search', function() {
     this.slow(200);
 
     it('should search records', function(done) {
-        Search.index(searchParams)
+        Search.perform(searchParams)
             .then((response)=>{
                 assert.equal("application/json; charset=utf-8", response.headers['content-type']);
                 assert.equal(200, response.status);
