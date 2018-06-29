@@ -12,6 +12,38 @@ class Attachment < ApplicationRecord
   accepts_nested_attributes_for :attachable
   validates_associated :attachable
 
+  scope :url, -> {
+    with_attachable_type('Attachments::Url')
+  }
+
+  scope :image, -> {
+    with_attachable_type('Attachments::Image')
+  }
+
+  scope :audio_file, -> {
+    with_attachable_type('Attachments::AudioFile')
+  }
+
+  scope :dataset, -> {
+    with_attachable_type('Attachments::Dataset')
+  }
+
+  scope :document, -> {
+    with_attachable_type('Attachments::Document')
+  }
+
+  scope :video, -> {
+    with_attachable_type('Attachments::Video')
+  }
+
+  scope :geodata, -> {
+    with_attachable_type('Attachments::Geodata')
+  }
+
+  scope :with_attachable_type, ->(type) {
+    where(attachable_type: type)
+  }
+
   def build_attachable(params)
     self.attachable = "Attachments::#{@attachment_type.classify}".constantize.new(params)
   end
