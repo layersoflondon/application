@@ -47,6 +47,7 @@ module Alpha
       Alpha::Pin.joins(content_entry: :content_type).references(content_entry: :content_type).all.each do |pin|
         begin
           migrate_pin(pin)
+          migrate_pin_url(pin)
           migrate_pin_attachment(pin)
         rescue
           next
@@ -72,14 +73,26 @@ module Alpha
       end
     end
 
+    def migrate_pin_url(pin)
+      if pin.link_url.present?
+        record = Record.find_by(id: pin.id)
+        unless record.attachments.where(attachable_type: "Attachments::Url").any?
+          record.attachments.create(attachment_type: 'url', attachable_attributes: {
+            title: record.title,
+            url: pin.link_url
+          })
+        end
+      end
+    end
+
     def migrate_pin_attachment(pin)
       content_entry = pin.content_entry
       content_type = content_entry.content_type
       record = Record.find_by(id: pin.id)
-      unless record.attachments.any?
+      # alpha only allowed one attachment per pin, so we can safely assume that if the record has an attachment, we can skip it (except for a url attachment).
+      unless record.attachments.where.not(attachable_type: "Attachments::Url").any?
         begin
           Record.transaction do
-            # alpha only allowed one attachment per pin, so we can safely assume that if the record has an attachment, we can skip it.
             attachment_type = case content_type.name
                                 when 'text'
                                   'document'
@@ -113,6 +126,7 @@ module Alpha
       end
     end
 
+
     def migrate_collections
       Alpha::Collection.all.each do |collection|
         ::Collection.create(
@@ -124,6 +138,8 @@ module Alpha
       #   todo migrate pins
       end
     end
+
+
 
 
     def log_backtrace(e)
