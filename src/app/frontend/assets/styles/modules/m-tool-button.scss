@@ -1,15 +1,15 @@
 // Tool button
 
-.m-tool-button a {
+.m-tool-button button {
   background: transparent;
   border: 0;
-  color:$main-accent;
+  color: $main-accent;
   padding: 15px 10px;
   position: relative;
-  display: block;
+  @include transition(all .2s);
 }
 
-.m-tool-button a:after {
+.m-tool-button button:after {
   content: attr(data-label);
   position: absolute;
   top: 0;
@@ -23,51 +23,52 @@
   transition: opacity .2s;
 }
 
-.m-tool-button a:focus {
+.m-tool-button button:focus {
   outline: 0;
 }
 
-.m-sidebar:hover .m-tool-button a:after {
+.m-sidebar:hover .m-tool-button button:after {
   opacity: 1;
 }
 
-.m-tool-button a:before {
+.m-tool-button button:before {
   font: normal normal normal 20px/1 FontAwesome;
-  color:#b3b3b3;
-  opacity:0.6;
+  color: #b3b3b3;
+  opacity: 0.6;
+  content: "";
+  width: 22px;
+  height: 22px;
+  display: block;
+  opacity: 0.7;
+  margin-top: -2px;
+  @include transition(all .2s);
 }
 
-.m-tool-button--search a:before {
-  //color:$red;
-  content: "\f002";
+.m-tool-button--search button:before {
+  background: url('../assets/images/icon-search.svg') center no-repeat;
 }
 
-.m-tool-button--date-range a:before {
-  //color:$orange;
-  content: "\f017";
+.m-tool-button--layers button:before {
+  background: url('../assets/images/icon-layers.svg') center no-repeat;
 }
 
-.m-tool-button--layers a:before {
-  //color:$green;
-  content: "\f24a";
+.m-tool-button--add-collection button:before {
+  background: url('../assets/images/icon-collection.svg') center no-repeat;
 }
 
-.m-tool-button--add-collection a:before {
-  //color:$light-blue;
-  content: "\f24d";
+.m-tool-button--add button:before {
+  background: url('../assets/images/icon-add.svg') center no-repeat;
 }
 
-.m-tool-button--add a:before {
-  //color:$lilac;
-  content: "\f067";
-}
-
-.m-tool-button--your-account a:before {
-  //color:$gray;
+.m-tool-button--your-content button:before {
   content: "\f2c0";
 }
 
-.m-tool-button a:hover {
+.m-tool-button--your-account button:before {
+  content: "\f2c0";
+}
+
+.m-tool-button button:hover {
   opacity: 0.5;
 }
 

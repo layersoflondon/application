@@ -19,3 +19,7 @@
   box-shadow: 0 0 20px rgba(0,0,0,0.2);
   border-right:0;
 }
+
+.m-sidebar.is-inactive {
+  pointer-events:none;
+}

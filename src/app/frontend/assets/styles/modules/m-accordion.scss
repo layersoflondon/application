@@ -6,6 +6,14 @@
 
 .m-accordion .section {
   border-bottom:2px dashed #ddd;
+  margin:0 -40px;
+  padding: 10px 40px;
+  transition:all .2s;
+}
+
+.m-accordion .section.is-open {
+  background:$yellow;
+  padding: 10px 40px;
 }
 
 .m-accordion .section:last-child {
