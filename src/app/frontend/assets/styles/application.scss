@@ -45,8 +45,6 @@
 @import "modules/m-refine";
 @import "modules/m-logo";
 
-@import "modules/marketing/m-site-wrapper";
-
 
 /*
 @import "modules/m-site-header";
@@ -58,3 +56,16 @@
 @import "modules/m-actions";
 @import "modules/m-search-popover";
 @import "modules/m-fixed-logo";*/
+
+// Do we need this?
+
+/* Site wrapper */
+
+.m-site-wrapper {
+  margin:0 auto;
+  //background:asset-url('shape.svg') -68px 76%/630px no-repeat, asset-url('shape-2.svg') 720px 90%/930px no-repeat;
+  //background:asset-url('shape.svg') -68px 76%/630px no-repeat;
+  padding:1px 0;
+  color:white;
+  @include clearfix;
+}

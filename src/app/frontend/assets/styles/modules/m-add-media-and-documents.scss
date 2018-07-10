@@ -4,10 +4,96 @@
   @include clearfix;
 }
 
-.m-add-media-and-documents .thumbs {
+.m-add-media-and-documents .add-tools {
+  clear: both;
+  margin-bottom: 20px;
+  @include clearfix;
+}
+
+.m-add-media-and-documents .add-tools .form-group {
+  background: #e7ca4c;
+  //overflow: hidden;
+  padding: 9px 10px;
+}
+
+.m-add-media-and-documents .add-tools .add-file {
+  width: 20%;
   float: left;
-  width: calc(100% - 250px);
+  color: $black;
+  text-align:center;
+  margin-right:20px;
+  padding: 10px;
+  position:relative;
+}
+
+.m-add-media-and-documents .add-tools .add-file:after {
+  content: "or";
+  position: absolute;
+  top: 35%;
+  right: -52px;
+  font-weight: 800;
+  font-size: 1.5em;
+  color: #ceb134;
+}
+
+.m-add-media-and-documents .add-tools .add-file a {
+  position: relative;
+  text-align: center;
+  color:#333;
+}
+
+.m-add-media-and-documents .add-tools .add-file .image {
+  position: relative;
+  background: $red;
+  width: 70px;
+  height: 70px;
+  border-radius: 100px;
+  display: block;
+  margin: 0 auto;
+  color:white;
+}
+
+.m-add-media-and-documents .add-tools .add-file .image:before {
+  content: "+";
+  font-size: 60px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -46px;
+  margin-left: -18px;
+}
+
+.m-add-media-and-documents .add-tools .add-file em {
+  font-size: 14px;
+  text-transform:uppercase;
+  font-style:normal;
+}
+
+.m-add-media-and-documents .add-tools .add-url {
+  width: 70%;
+  float:right;
+}
+
+.m-add-media-and-documents .add-tools .add-url button {
+  background:$red;
+  color:white;
+  float: right;
+  width:60px;
+  height:60px;
+  font-size: 40px;
+}
+
+.m-add-media-and-documents .add-tools .add-url input[type="text"] {
+  float: left;
   padding-right: 20px;
+  width: calc(100% - 60px);
+}
+
+// Thumbs
+
+.m-add-media-and-documents .thumbs {
+  margin-bottom:20px;
 }
 
 .m-add-media-and-documents .thumbs ul {
@@ -17,28 +103,38 @@
 .m-add-media-and-documents .thumbs li {
   float: left;
   padding: 0 10px 10px 0;
-  width: 25%;
+  width: 20%;
 }
 
 .m-add-media-and-documents .thumbs li.is-selected .image {
-  outline: 3px solid $link-color;
+  box-shadow: 0 0 0px 4px #ee1d46 inset;
 }
 
 .m-add-media-and-documents .thumbs .image {
   width: 100%;
   padding-bottom: 100%;
-  background-color: #eee;
+
   background-size: cover;
   background-position: center;
   display: block;
   position: relative;
+  //box-shadow: 0 0 25px #650b1d59;
+  color:#e8ca4c;
+
+
 }
 
 .m-add-media-and-documents .thumbs .add {
   position: relative;
 }
 
-.m-add-media-and-documents .thumbs .add .image:before {
+.m-add-media-and-documents .thumbs .add .image {
+  border: 4px dashed #e8ca4c;
+  box-sizing: border-box;
+  padding-bottom: calc(100% - 8px);
+}
+
+/*.m-add-media-and-documents .thumbs .add .image:before {
   content: "+";
   font-size: 60px;
   text-align: center;
@@ -47,50 +143,59 @@
   left: 50%;
   margin-top: -45px;
   margin-left: -19px;
-}
+}*/
+
+
+
 
 .m-add-media-and-documents .thumbs .add em {
   position: absolute;
   width: calc(100% - 10px);
-  bottom: 15px;
+  top:50%;
   text-align: center;
   font-style: normal;
   text-transform: uppercase;
   font-size: 13px;
 }
 
-.m-add-media-and-documents .thumbs .add-by-url {
-  clear: both;
-  background: #f7f5f5;
-  padding: 10px;
-  @include clearfix;
-}
 
-.m-add-media-and-documents .thumbs .add-by-url input[type="text"] {
-  width: calc(100% - 110px);
-  float: left;
-  padding-right: 20px;
-}
-
-.m-add-media-and-documents .thumbs .add-by-url button {
-  margin-left: 10px;
-  width: 100px;
-  float: left;
-}
-
-.m-add-media-and-documents .thumbs ul {
+.m-add-media-and-documents ul {
   margin-bottom: 47px;
   @include clearfix;
 }
 
+
+// Meta
+
 .m-add-media-and-documents .meta {
-  float: left;
-  width: 250px;
   padding: 10px;
-  background: #f7f5f5;
+  clear: both;
+  background: #e7ca4c;
+  overflow:hidden;
+}
+
+.m-add-media-and-documents .meta .form-group {
+  width:50%;
+  float:left;
+  padding-right:20px;
+}
+
+.m-add-media-and-documents .meta .form-group:nth-child(2) {
+  float:right;
 }
 
 .m-add-media-and-documents .meta input,
 .m-add-media-and-documents .meta textarea {
   padding: 10px;
 }
+
+
+.m-add-media-and-documents .meta .form-group--single-checkbox label {
+  color:$black;
+}
+
+.m-add-media-and-documents .meta .form-group--single-checkbox label {
+  margin-top: 4px;
+}
+
+
