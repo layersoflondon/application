@@ -9,6 +9,7 @@ import Tray from './tray';
 import MapView from './map_view';
 import SearchView from './forms/search/search_view';
 import RecordView from './record_view';
+import MediaItem from './media_item';
 import CollectionView from './collection_view';
 import PlacePicker from './place_picker';
 import LayersOverlay from './layers_overlay';
@@ -35,7 +36,7 @@ import RecordForm from './forms/records/record_form';
       {/* permanantly visible components */}
       <Tools {...this.props} />
       <MapView {...this.props} />
-      
+
       <Route path='/map' component={Tray} />
 
       {/* Various Overlays ... */}
@@ -59,7 +60,9 @@ import RecordForm from './forms/records/record_form';
       <Route exact path='/map/collections/:collection_id/records/:id/edit' component={RecordForm} />
 
       {/* view a record */}
-      <Route exact path='/map/records/:id' component={RecordView} />
+      <Route exact path='/map/records/:id/:view_type?' component={RecordView} />
+
+      <Route exact path='/map/records/:id/media/:media_id/:media_type?' component={MediaItem} />
 
       {/* view a collection */}
       <Route exact path='/map/collections/:id' component={CollectionView} />
