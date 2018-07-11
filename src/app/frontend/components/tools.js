@@ -46,8 +46,6 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
       }
   }
 
-
-
   render() {
     const logo = require('../assets/images/logo.svg');
     return <div className="m-sidebar">

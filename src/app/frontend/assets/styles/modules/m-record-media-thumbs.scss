@@ -1,0 +1,54 @@
+
+/* Record media thumbs */
+
+.m-record-media-thumbs {
+  position: relative;
+  @include clearfix;
+}
+
+.m-record-media-thumbs .thumb {
+  float:left;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  box-shadow: 0 0 20px 9px #00000063;
+  margin: 10px 10px 0 0;
+}
+
+.m-record-media-thumbs img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  transition: all .2s;
+}
+
+.m-record-media-thumbs .thumb--portrait img {
+  width: 100%;
+  height: auto;
+}
+
+.m-record-media-thumbs a:hover img {
+  filter:brightness(0.8);
+}
+
+.m-record-media-thumbs .thumb--video:after {
+  content: "\f04b";
+  font: normal normal normal 20px/1 FontAwesome;
+  border-radius:100px;
+  background:white;
+  width:50px;
+  height:50px;
+  position:absolute;
+  bottom:20px;
+  right:20px;
+  color:$green;
+  text-align:center;
+  padding-top: 15px;
+  padding-left: 5px;
+}

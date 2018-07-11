@@ -45,99 +45,113 @@ import {Link, withRouter} from 'react-router-dom';
     const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
 
     return <div>
-      <div className="m-record-media">
-        <div className="media-item image">
-          <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src="https://via.placeholder.com/600x150/E8117F/000000?text=image" alt=""/></Link>
+      <div className="m-record-media-expanded">
+        <div className="media-item media-item--image">
+          <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}>
+            <img src={require('../assets/images/example/1-large.jpg')} alt=""/>
+            <div className="attribution">
+              <p>Duis dapibus mollis erat ac.</p>
+            </div>
+            <div className="caption">
+              <p>Proin ornare sapien in nunc fermentum euismod. Sed lectus purus, ornare vel faucibus volutpat, pharetra vitae nisl. Nunc metus neque, dictum sit amet risus eget, porttitor tincidunt purus. Fusce ultricies est sed vulputate fermentum. Nunc vel tristique orci. Proin dapibus.</p>
+            </div>
+          </Link>
         </div>
 
-        <div className="media-item image">
-          <Link to={`/map/records/${this.props.match.params.id}/media/2/soundcloud`}><img src="https://via.placeholder.com/600x150/E8117F/000000?text=audio" alt=""/></Link>
+        <div className="media-item media-item--image">
+          <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}>
+            <img src={require('../assets/images/example/4-large.jpg')} alt=""/>
+            <div className="attribution">
+              <p>Duis dapibus mollis erat ac.</p>
+            </div>
+            <div className="caption">
+              <p>Proin ornare sapien in nunc fermentum eusismod. Sed lectus purus, ornare vel faucibus volutpat, pharetra vitae nisl. Nunc metus neque, dictum sit amet risus eget, porttitor tincidunt purus. Fusce ultricies est sed vulputate fermentum. Nunc vel tristique orci. Proin dapibus.</p>
+            </div>
+          </Link>
         </div>
 
-        <div className="media-item image">
-          <Link to={`/map/records/${this.props.match.params.id}/media/2/video`}><img src="https://via.placeholder.com/600x150/E8117F/000000?text=video" alt=""/></Link>
+        <div className="media-item media-item--image">
+          <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}>
+            <img src={require('../assets/images/example/5-large.jpg')} alt=""/>
+            <div className="attribution">
+              <p>Duis dapibus mollis erat ac.</p>
+            </div>
+            <div className="caption">
+              <p>Proin ornare sapien in nunc fermentum euismod. Sed lectus purus, ornare vel faucibus volutpat, pharetra vitae nisl. Nunc metus neque, dictum sit amet risus eget, porttitor tincidunt purus. Fusce ultricies est sed vulputate fermentum. Nunc vel tristique orci. Proin dapibus.</p>
+            </div>
+          </Link>
+        </div>
+
+        <div className="media-item media-item--audio">
+          <Link to={`/map/records/${this.props.match.params.id}/media/2/soundcloud`}>
+            <img src={require('../assets/images/example/2-large.jpg')} alt=""/>
+            <div className="attribution">
+              <p>Duis dapibus mollis erat ac.</p>
+            </div>
+            <div className="caption">
+              <p>Proin ornare sapien in nunc fermentum euismod. Sed lectus purus, ornare vel faucibus volutpat, pharetra vitae nisl. Nunc metus neque, dictum sit amet risus eget, porttitor tincidunt purus. Fusce ultricies est sed vulputate fermentum. Nunc vel tristique orci. Proin dapibus.</p>
+            </div>
+          </Link>
+        </div>
+
+        <div className="media-item media-item--video">
+          <Link to={`/map/records/${this.props.match.params.id}/media/2/video`}>
+            <img src={require('../assets/images/example/3-large.jpg')} alt=""/>
+            <div className="attribution">
+              <p>Duis dapibus mollis erat ac.</p>
+            </div>
+            <div className="caption">
+              <p>Proin ornare sapien in nunc fermentum euismod. Sed lectus purus, ornare vel faucibus volutpat, pharetra vitae nisl. Nunc metus neque, dictum sit amet risus eget, porttitor tincidunt purus. Fusce ultricies est sed vulputate fermentum. Nunc vel tristique orci. Proin dapibus.</p>
+            </div>
+          </Link>
         </div>
       </div>
-      
-      <div className="meta">
-        <div className="dates">
-          <span className="date start-date">{this.props.trayViewStore.record.date_from}</span>
-        </div>
-        <div className="creator">By {this.props.trayViewStore.record.user.name}</div>
-      </div>
 
-      <div className="social">
-        <div className="social-status">
-          <button className="like" onClick={() => this.props.trayViewStore.record.incrementLikeCount()}>
-            <span>Like</span>
-          </button>
-          {this.props.trayViewStore.record.view_count} views <br/>
-          {this.props.trayViewStore.record.like_count} likes
-        </div>
-
-        <div className="share-record">
-          <button className="share"><span>Share</span></button>
-          Share this record
-        </div>
-      </div>
-
-      <div className="title">
-        <h1>{this.props.trayViewStore.record.title}</h1>
-      </div>
-
-      <div className="sidebar">
-        <div className="place">
-          <div className="map">
-            <Map center={this.props.trayViewStore.record.position} zoom={14}>
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
-              <Marker position={this.props.trayViewStore.record.position} icon={this.props.trayViewStore.record.icon()} />
-            </Map>
-          </div>
-
-          <div className="text">{this.props.trayViewStore.record.location.address} | {this.props.trayViewStore.record.lat}, {this.props.trayViewStore.record.lng}</div>
-        </div>
-
-        <div className="actions">
-          <button className="add-to-collection">Add to collection</button>
-          <button className="contact-owner">Contact owner</button>
-          <button className="flag">Flag</button>
-          <Link to={`${link_path}/records/${this.props.match.params.id}/edit`} className="edit">Edit</Link>
-        </div>
-      </div>
-
-      <div className="m-article">
-        {this.props.trayViewStore.record.description}
-      </div>
-
-      <div className="attribution">
-        <ul>
-          <li><h4>Created:</h4> {this.props.trayViewStore.record.created_at}</li>
-          {
-            this.props.trayViewStore.record.credit &&
-            <li><h4>Credit:</h4> {this.props.trayViewStore.record.credit}</li>
-          }
-        </ul>
-      </div>
     </div>
   }
 
   render_gallery() {
     const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
 
-    return <div>
-      <div className="m-record-media">
-        <div className="media-item image">
-          <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src="https://via.placeholder.com/150/E8117F/000000?text=image" alt=""/></Link>
+      return <div>
+
+        <div className="m-record-media-thumbs">
+          <div className="thumb image">
+            <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/1.jpg')} alt=""/></Link>
+          </div>
+
+          <div className="thumb image">
+            <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/4.jpg')} alt=""/></Link>
+          </div>
+
+          <div className="thumb image">
+            <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/5.jpg')} alt=""/></Link>
+          </div>
+
+          <div className="thumb thumb--audio thumb--portrait">
+            <Link to={`/map/records/${this.props.match.params.id}/media/2/soundcloud`}><img src={require('../assets/images/example/2.jpg')} alt=""/></Link>
+          </div>
+
+          <div className="thumb thumb--video">
+            <Link to={`/map/records/${this.props.match.params.id}/media/2/video`}><img src={require('../assets/images/example/3.jpg')} alt=""/></Link>
+          </div>
         </div>
 
-        <div className="media-item image">
-          <Link to={`/map/records/${this.props.match.params.id}/media/2/soundcloud`}><img src="https://via.placeholder.com/150/E8117F/000000?text=audio" alt=""/></Link>
-        </div>
-
-        <div className="media-item image">
-          <Link to={`/map/records/${this.props.match.params.id}/media/2/video`}><img src="https://via.placeholder.com/150/E8117F/000000?text=video" alt=""/></Link>
-        </div>
       </div>
+  }
+
+  render_meta() {
+    return <div className="meta">
+      <div className="dates">
+        <span className="date start-date">{this.props.trayViewStore.record.date_from}</span>
+      </div>
+      <div className="creator">By {this.props.trayViewStore.record.user.name}</div>
+    </div>
+  }
+
+  render_title() {
+    return <div className="title">
+      <h1>{this.props.trayViewStore.record.title}</h1>
     </div>
   }
 
@@ -163,17 +177,74 @@ import {Link, withRouter} from 'react-router-dom';
             <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
           </div>
 
-          <div style={{position: 'absolute', top: '40px', left: '40px', border: '1px solid red'}}>
-            <Link to={`/map/records/${this.props.match.params.id}/gallery`}>Gallery</Link> / <Link to={`/map/records/${this.props.match.params.id}/full`}>Full</Link>
+          <div style={{position: 'absolute', top: '40px', left: '40px'}}>
+            <Link to={`/map/records/${this.props.match.params.id}/gallery`}>Gallery</Link> <br /> <Link to={`/map/records/${this.props.match.params.id}/full`}>Full</Link>
+              {this.props.match.params.view_type}
           </div>
 
           <div className="wrap">
+
+            {!this.props.match.params.view_type == 'gallery' && this.render_meta() && this.render_title()}
+
             <div className="m-record-hero">
-              {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
+                {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
             </div>
 
             {this.props.match.params.view_type && this[`render_${this.props.match.params.view_type}`]()}
             {!this.props.match.params.view_type && this.render_full()}  {/* if we dont have a view type, render the full view by default */}
+
+            {this.props.match.params.view_type == 'gallery' && this.render_meta() && this.render_title()}
+
+
+            <div className="sidebar">
+
+              <div className="place">
+                <div className="map">
+                  <Map center={this.props.trayViewStore.record.position} zoom={14}>
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
+                    <Marker position={this.props.trayViewStore.record.position} icon={this.props.trayViewStore.record.icon()} />
+                  </Map>
+                </div>
+
+                <div className="text">{this.props.trayViewStore.record.location.address} | {this.props.trayViewStore.record.lat}, {this.props.trayViewStore.record.lng}</div>
+              </div>
+
+              <div className="social">
+                <div className="social-status">
+                  <button className="like" onClick={() => this.props.trayViewStore.record.incrementLikeCount()}>
+                    <span>Like</span>
+                  </button>
+                    {this.props.trayViewStore.record.view_count} views <br/>
+                    {this.props.trayViewStore.record.like_count} likes
+                </div>
+
+                <div className="share-record">
+                  <button className="share"><span>Share</span></button>
+                  Share this record
+                </div>
+              </div>
+
+              <div className="actions">
+                <button className="add-to-collection">Add to collection</button>
+                <button className="contact-owner">Contact owner</button>
+                <button className="flag">Flag</button>
+                <Link to={`${link_path}/records/${this.props.match.params.id}/edit`} className="edit">Edit</Link>
+              </div>
+            </div>
+
+            <div className="m-article">
+                {this.props.trayViewStore.record.description}
+            </div>
+
+            <div className="attribution">
+              <ul>
+                <li><h4>Created:</h4> {this.props.trayViewStore.record.created_at}</li>
+                  {
+                      this.props.trayViewStore.record.credit &&
+                      <li><h4>Credit:</h4> {this.props.trayViewStore.record.credit}</li>
+                  }
+              </ul>
+            </div>
           </div>
         </div>
       </div>
