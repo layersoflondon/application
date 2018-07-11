@@ -184,7 +184,8 @@ import {Link, withRouter} from 'react-router-dom';
 
           <div className="wrap">
 
-            {!this.props.match.params.view_type == 'gallery' && this.render_meta() && this.render_title()}
+            {(!this.props.match.params.view_type || this.props.match.params.view_type !== 'gallery') && this.render_title()}
+            {(!this.props.match.params.view_type || this.props.match.params.view_type !== 'gallery') && this.render_meta()}
 
             <div className="m-record-hero">
                 {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
@@ -193,7 +194,7 @@ import {Link, withRouter} from 'react-router-dom';
             {this.props.match.params.view_type && this[`render_${this.props.match.params.view_type}`]()}
             {!this.props.match.params.view_type && this.render_full()}  {/* if we dont have a view type, render the full view by default */}
 
-            {this.props.match.params.view_type == 'gallery' && this.render_meta() && this.render_title()}
+            {this.props.match.params.view_type === 'gallery' && this.render_meta() && this.render_title()}
 
 
             <div className="sidebar">
