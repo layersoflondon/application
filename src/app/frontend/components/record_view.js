@@ -41,7 +41,7 @@ import {Link, withRouter} from 'react-router-dom';
     this.props.routing.push("/map");
   }
 
-  render_full() {
+  render_media_full() {
     const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
 
     return <div>
@@ -110,7 +110,7 @@ import {Link, withRouter} from 'react-router-dom';
     </div>
   }
 
-  render_gallery() {
+  render_media_gallery() {
     const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
 
       return <div>
@@ -155,6 +155,78 @@ import {Link, withRouter} from 'react-router-dom';
     </div>
   }
 
+  render_sidebar() {
+    return <div className="sidebar">
+
+      <div className="place">
+        <div className="map">
+          <Map center={this.props.trayViewStore.record.position} zoom={14}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
+            <Marker position={this.props.trayViewStore.record.position} icon={this.props.trayViewStore.record.icon()} />
+          </Map>
+        </div>
+
+        <div className="text">{this.props.trayViewStore.record.location.address} | {this.props.trayViewStore.record.lat}, {this.props.trayViewStore.record.lng}</div>
+      </div>
+
+      <div className="social">
+        <div className="add-to-collection">
+          <button><span>Add</span></button>
+          Add to collection
+        </div>
+
+        <div className="social-status">
+          <button className="like" onClick={() => this.props.trayViewStore.record.incrementLikeCount()}>
+            <span>Like</span>
+          </button>
+            {this.props.trayViewStore.record.view_count} views <br/>
+            {this.props.trayViewStore.record.like_count} likes
+        </div>
+
+        <div className="share-record">
+          <button className="share"><span>Share</span></button>
+          Share this record
+        </div>
+      </div>
+
+    </div>
+  }
+
+  render_gallery_header () {
+    return <div className="header--gallery">
+
+      <div className="m-record-hero">
+          {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
+      </div>
+
+        {this.render_media_gallery()}
+        {this.render_meta()}
+        {this.render_title()}
+        {this.render_sidebar()}
+
+    </div>
+  }
+
+  render_full_header () {
+      return <div className="header--full header--no-hero">
+
+        <div className="m-record-hero">
+            {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
+        </div>
+
+        <div className='title-area'>
+          <div className="text-content">
+              {this.render_meta()}
+              {this.render_title()}
+          </div>
+            {this.render_sidebar()}
+        </div>
+
+        {this.render_media_full()}
+
+      </div>
+  }
+
   render_state_loading_true() {
     return <div className="m-overlay is-loading">
       loading
@@ -184,68 +256,30 @@ import {Link, withRouter} from 'react-router-dom';
 
           <div className="wrap">
 
-            {(!this.props.match.params.view_type || this.props.match.params.view_type !== 'gallery') && this.render_title()}
-            {(!this.props.match.params.view_type || this.props.match.params.view_type !== 'gallery') && this.render_meta()}
-
-            <div className="m-record-hero">
-                {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
-            </div>
-
-            {this.props.match.params.view_type && this[`render_${this.props.match.params.view_type}`]()}
-            {!this.props.match.params.view_type && this.render_full()}  {/* if we dont have a view type, render the full view by default */}
-
-            {this.props.match.params.view_type === 'gallery' && this.render_meta() && this.render_title()}
-
-
-            <div className="sidebar">
-
-              <div className="place">
-                <div className="map">
-                  <Map center={this.props.trayViewStore.record.position} zoom={14}>
-                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
-                    <Marker position={this.props.trayViewStore.record.position} icon={this.props.trayViewStore.record.icon()} />
-                  </Map>
-                </div>
-
-                <div className="text">{this.props.trayViewStore.record.location.address} | {this.props.trayViewStore.record.lat}, {this.props.trayViewStore.record.lng}</div>
-              </div>
-
-              <div className="social">
-                <div className="social-status">
-                  <button className="like" onClick={() => this.props.trayViewStore.record.incrementLikeCount()}>
-                    <span>Like</span>
-                  </button>
-                    {this.props.trayViewStore.record.view_count} views <br/>
-                    {this.props.trayViewStore.record.like_count} likes
-                </div>
-
-                <div className="share-record">
-                  <button className="share"><span>Share</span></button>
-                  Share this record
-                </div>
-              </div>
-
-              <div className="actions">
-                <button className="add-to-collection">Add to collection</button>
-                <button className="contact-owner">Contact owner</button>
-                <button className="flag">Flag</button>
-                <Link to={`${link_path}/records/${this.props.match.params.id}/edit`} className="edit">Edit</Link>
-              </div>
-            </div>
+            {this.props.match.params.view_type && this[`render_${this.props.match.params.view_type}_header`]()}
+            {!this.props.match.params.view_type && this.render_full_header()}  {/* if we dont have a view type, render the full view by default */}
 
             <div className="m-article">
                 {this.props.trayViewStore.record.description}
             </div>
 
-            <div className="attribution">
-              <ul>
-                <li><h4>Created:</h4> {this.props.trayViewStore.record.created_at}</li>
-                  {
-                      this.props.trayViewStore.record.credit &&
-                      <li><h4>Credit:</h4> {this.props.trayViewStore.record.credit}</li>
-                  }
-              </ul>
+            <div className="footer">
+              <div className="attribution">
+                <ul>
+                  <li><h4>Created:</h4> {this.props.trayViewStore.record.created_at}</li>
+                    {
+                        this.props.trayViewStore.record.credit &&
+                        <li><h4>Credit:</h4> {this.props.trayViewStore.record.credit}</li>
+                    }
+                </ul>
+              </div>
+              <div className="footer-actions">
+                <button className="contact-owner">Contact owner</button>
+                <button className="flag">Report this record</button>
+                <Link to={`${link_path}/records/${this.props.match.params.id}/edit`} className="edit">Edit</Link>
+              </div>
             </div>
+
           </div>
         </div>
       </div>

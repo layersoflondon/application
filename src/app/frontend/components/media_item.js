@@ -36,7 +36,7 @@ import Parser from "html-react-parser";
   render() {
     return <div className="m-overlay is-showing" style={{zIndex: 12341234}}>
       <div className="s-overlay--media is-showing">
-        <div className="m-media-viewer">
+        <div className="m-media-viewer *m-media-viewer--basic">
           <div className="close">
             <Link to={`/map/records/${this.props.match.params.id}`}>Close</Link>
           </div>
@@ -51,30 +51,51 @@ import Parser from "html-react-parser";
                     <p>Duis dapibus mollis erat ac.</p>
                   </div>
                   <div className="caption">
-                    <p>Proin ornare sapien in nunc fermentum euismod. Sed lectus purus, ornare vel faucibus volutpat, pharetra vitae nisl. Nunc metus neque, dictum sit amet risus eget, porttitor tincidunt purus. Fusce ultricies est sed vulputate fermentum. Nunc vel tristique orci. Proin dapibus.</p>
+                    <p>Proin ornare sapien in nunc fermentum euismod. Sed lectus purus, ornare vel faucibus volutpat, pharetra vitae nisl. Nunc metus neque, dictum sit amet risus eget, porttitor tincidunt purus. Fusce ultricies est sed vulputate fermentum. Nunc vel tristique orci. Proin dapibus…</p>
+                    <button className="show-all">Read more</button>
                   </div>
                 </div>
               </div>
 
               <div className="m-record-media-thumbs">
-                <div className="thumb image">
-                  <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/1.jpg')} alt=""/></Link>
+                <div className="controls">
+                  <button className="scroll-left"></button>
+                  <button className="scroll-right"></button>
                 </div>
-
-                <div className="thumb image">
-                  <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/4.jpg')} alt=""/></Link>
-                </div>
-
-                <div className="thumb image">
-                  <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/5.jpg')} alt=""/></Link>
-                </div>
-
-                <div className="thumb thumb--audio thumb--portrait">
-                  <Link to={`/map/records/${this.props.match.params.id}/media/2/soundcloud`}><img src={require('../assets/images/example/2.jpg')} alt=""/></Link>
-                </div>
-
-                <div className="thumb thumb--video">
-                  <Link to={`/map/records/${this.props.match.params.id}/media/2/video`}><img src={require('../assets/images/example/3.jpg')} alt=""/></Link>
+                <div className="pane">
+                  <div className="thumb image">
+                    <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/1.jpg')} alt=""/></Link>
+                  </div>
+                  <div className="thumb image">
+                    <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/4.jpg')} alt=""/></Link>
+                  </div>
+                  <div className="thumb image">
+                    <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/5.jpg')} alt=""/></Link>
+                  </div>
+                  <div className="thumb thumb--audio thumb--portrait">
+                    <Link to={`/map/records/${this.props.match.params.id}/media/2/soundcloud`}><img src={require('../assets/images/example/2.jpg')} alt=""/></Link>
+                  </div>
+                  <div className="thumb thumb--video">
+                    <Link to={`/map/records/${this.props.match.params.id}/media/2/video`}><img src={require('../assets/images/example/3.jpg')} alt=""/></Link>
+                  </div>
+                  <div className="thumb image">
+                    <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/7.jpg')} alt=""/></Link>
+                  </div>
+                  <div className="thumb image">
+                    <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/8.jpg')} alt=""/></Link>
+                  </div>
+                  <div className="thumb image">
+                    <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/9.jpg')} alt=""/></Link>
+                  </div>
+                  <div className="thumb image">
+                    <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/10.jpg')} alt=""/></Link>
+                  </div>
+                  <div className="thumb image">
+                    <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/11.jpg')} alt=""/></Link>
+                  </div>
+                  <div className="thumb image">
+                    <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/12.jpg')} alt=""/></Link>
+                  </div>
                 </div>
               </div>
 

@@ -16,6 +16,7 @@
 
 .m-record-media-expanded .caption {
   @extend .m-article;
+  @include top-and-tail;
   background: white;
   padding: 40px 44px;
   color: #333;
@@ -32,5 +33,5 @@
   margin:0;
   color: #9c9c9c;
   padding-top: 0;
-  font-size: 14px;
+  font-size: 10px;
 }

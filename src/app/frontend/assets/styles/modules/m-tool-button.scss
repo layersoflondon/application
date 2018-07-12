@@ -6,6 +6,7 @@
   color: $main-accent;
   padding: 15px 10px;
   position: relative;
+  display: block;
   @include transition(all .2s);
 }
 
@@ -34,7 +35,6 @@
 .m-tool-button a:before {
   font: normal normal normal 20px/1 FontAwesome;
   color: #b3b3b3;
-  opacity: 0.6;
   content: "";
   width: 22px;
   height: 22px;
@@ -75,27 +75,3 @@
 .m-tool-button span {
   display: none;
 }
-
-/*
-$base-color: #910ade;
-
-.m-tool-button:nth-child(1) button {
-  color: adjust-hue($base-color, 5%);
-}
-
-.m-tool-button:nth-child(2) button {
-  color: adjust-hue($base-color, 10%);
-}
-
-.m-tool-button:nth-child(3) button {
-  color: adjust-hue($base-color, 15%);
-}
-
-.m-tool-button:nth-child(4) button {
-  color: adjust-hue($base-color, 20%);
-}
-
-.m-tool-button:nth-child(5) button {
-  color: adjust-hue($base-color, 25%);
-}
-*/
