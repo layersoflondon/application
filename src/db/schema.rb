@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_22_153822) do
+ActiveRecord::Schema.define(version: 2018_07_12_155747) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -198,6 +198,7 @@ ActiveRecord::Schema.define(version: 2018_06_22_153822) do
     t.integer "primary_image_id"
     t.text "credit"
     t.integer "credit_image_id"
+    t.integer "view_type", default: 0
   end
 
   create_table "taxonomies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|

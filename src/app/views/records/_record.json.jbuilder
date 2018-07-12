@@ -14,6 +14,8 @@ json.location record.location
 json.user_can_edit policy(record).edit?
 json.user_can_like policy(record).like?
 
+json.view_type record.view_type
+
 # TODO: change to use json builder user partial
 json.user do
     json.id record.user.id

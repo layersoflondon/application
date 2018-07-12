@@ -34,6 +34,8 @@ export default class RecordModel {
   @observable highlighted = false;
   @observable errors = {};
 
+  @observable view_type = null;
+
   persist() {
     if( this.id ) {
       return Record.update(null, this.id, {record: this.toJS()});
@@ -145,7 +147,8 @@ export default class RecordModel {
       date_to: this.date_to,
       collection_ids: this._collection_ids,
       location: this.location,
-      credit: this.credit
+      credit: this.credit,
+      view_type: this.view_type
     }
   }
 

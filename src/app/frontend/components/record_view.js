@@ -4,6 +4,12 @@ import {inject, observer} from "mobx-react";
 import Parser from 'html-react-parser';
 import {Link, withRouter} from 'react-router-dom';
 
+import RecordViewTitle from './record_view/record_view_title';
+import RecordViewMeta from './record_view/record_view_meta';
+import RecordViewAttribution from './record_view/record_view_attribution';
+import RecordViewSidebar from './record_view/record_view_sidebar';
+import RecordViewGallery from './record_view/record_view_gallery';
+
 @inject('routing', 'trayViewStore', 'mapViewStore', 'recordFormStore')
 @withRouter
 @observer export default class RecordView extends Component {
@@ -107,7 +113,6 @@ import {Link, withRouter} from 'react-router-dom';
           </Link>
         </div>
       </div>
-
     </div>
   }
 
@@ -189,7 +194,6 @@ import {Link, withRouter} from 'react-router-dom';
           Share this record
         </div>
       </div>
-
     </div>
   }
 

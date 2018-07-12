@@ -17,3 +17,4 @@ json.collections record.collections
 json.attachments record.attachments
 json.image record.image
 json.taxonomy_terms record.taxonomy_terms
+json.view_type record.view_type

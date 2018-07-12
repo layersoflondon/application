@@ -54,6 +54,8 @@ class RecordsIndex < Chewy::Index
       end
     end
 
+    field :view_type, type: 'text'
+
   end
 
   def self.published
