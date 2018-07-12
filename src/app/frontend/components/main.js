@@ -34,10 +34,10 @@ import RecordForm from './forms/records/record_form';
 
     return <div className={className}>
       {/* permanantly visible components */}
-      <Tools {...this.props} />
-      <MapView {...this.props} />
-
-      <Route path='/map' component={Tray} />
+      {/**/}
+      <Route path='*' component={Tools} />
+      <Route path='*' component={MapView} />
+      <Route path='*' component={Tray} />
 
       {/* Various Overlays ... */}
       <Route exact path='/map/account' component={UserForm} />
@@ -60,9 +60,16 @@ import RecordForm from './forms/records/record_form';
       <Route exact path='/map/collections/:collection_id/records/:id/edit' component={RecordForm} />
 
       {/* view a record */}
-      <Route exact path='/map/records/:id/:view_type?' component={RecordView} />
-
-      <Route exact path='/map/records/:id/media/:media_id/:media_type?' component={MediaItem} />
+      <Route exact path='/map/records/:id' component={RecordView} />
+      <Route path='/map/records/:id/media/:media_item_id' component={({match}) => {
+        if( match ) {
+          return <RecordView>
+            <MediaItem />
+          </RecordView>;
+        }else {
+          return null;
+        }
+      }} />
 
       {/* view a collection */}
       <Route exact path='/map/collections/:id' component={CollectionView} />

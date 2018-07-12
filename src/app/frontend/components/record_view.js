@@ -14,6 +14,7 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   componentWillMount() {
+    console.log("RecordView componentWillMount");
     const fetch_nearby_data = this.props.trayViewStore.cards.size === 0;
     this.props.trayViewStore.fetchRecord(this.props.match.params.id, fetch_nearby_data);
   }
@@ -21,13 +22,11 @@ import {Link, withRouter} from 'react-router-dom';
   componentWillUnmount() {
     if( this.props.routing.location.pathname.search(/\/edit$/) > -1 ) {
     }else {
-      this.props.trayViewStore.record_id = false;
-      this.props.trayViewStore.record = false;
     }
   }
 
   componentWillReceiveProps(props) {
-    console.log("Record view updated props: ", this.props.match.params, props.match.params);
+    console.log("Record view updated props: ", props.match.params);
   }
 
   handleCloseOnClick(event) {
@@ -38,6 +37,9 @@ import {Link, withRouter} from 'react-router-dom';
     // }else {
     //   this.props.routing.push("/map");
     // }
+
+    this.props.trayViewStore.record_id = false;
+    this.props.trayViewStore.record = false;
     this.props.routing.push("/map");
   }
 
@@ -117,15 +119,15 @@ import {Link, withRouter} from 'react-router-dom';
 
         <div className="m-record-media-thumbs">
           <div className="thumb image">
-            <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/1.jpg')} alt=""/></Link>
+            <Link to={`/map/records/${this.props.match.params.id}/media/1`}><img src={require('../assets/images/example/1.jpg')} alt=""/></Link>
           </div>
 
           <div className="thumb image">
-            <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/4.jpg')} alt=""/></Link>
+            <Link to={`/map/records/${this.props.match.params.id}/media/1`}><img src={require('../assets/images/example/4.jpg')} alt=""/></Link>
           </div>
 
           <div className="thumb image">
-            <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/5.jpg')} alt=""/></Link>
+            <Link to={`/map/records/${this.props.match.params.id}/media/1`}><img src={require('../assets/images/example/5.jpg')} alt=""/></Link>
           </div>
 
           <div className="thumb thumb--audio thumb--portrait">
@@ -287,13 +289,16 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   render() {
+    // console.log(this.props.children)
+
     if( this.props.trayViewStore.record ) {
       return <div className={`record-view-${this.props.match.params.view_type ? this.props.match.params.view_type : 'full'}`}>
-        {this.props.children}
         {this[`render_state_loading_${this.props.trayViewStore.loading_record}`]()}
+        {this.props.children}
       </div>
     }else {
-      return <span></span>
+      console.log("no this.props.trayViewStore.record ");
+      return <span>hiding RecordViewComponent</span>
     }
   }
 }

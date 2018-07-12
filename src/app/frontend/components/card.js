@@ -57,7 +57,7 @@ import {Link, withRouter} from 'react-router-dom';
           {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
           <div className="text-content">
             <h1>{this.props.card.data.title}</h1>
-            <p>{parsed_content[0] || parsed_content} Curabitur eget feugiat odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc feugiat porttitor sapien. Donec luctus.</p>
+            <p>Curabitur eget feugiat odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc feugiat porttitor sapien. Donec luctus.</p>
           </div>
 
           <div className="link-indicator">

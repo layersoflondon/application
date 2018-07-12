@@ -11,7 +11,6 @@ import Parser from "html-react-parser";
   }
 
   componentWillMount() {
-    console.log("Media item params: ", this.props.match.params);
   }
 
   componentWillUnmount() {

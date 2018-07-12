@@ -7,7 +7,7 @@ import {observer, inject} from "mobx-react";
 
 import LayerToolsContainer from './layer_tools_container';
 
-@inject('routing')
+@inject('routing', 'mapViewStore', 'trayViewStore', 'layersStore')
 @observer export default class MapView extends Component {
   constructor(props) {
     super(props);
