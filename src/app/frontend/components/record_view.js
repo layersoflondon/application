@@ -14,7 +14,6 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   componentWillMount() {
-    console.log("RecordView componentWillMount");
     const fetch_nearby_data = this.props.trayViewStore.cards.size === 0;
     this.props.trayViewStore.fetchRecord(this.props.match.params.id, fetch_nearby_data);
   }
@@ -297,7 +296,6 @@ import {Link, withRouter} from 'react-router-dom';
         {this.props.children}
       </div>
     }else {
-      console.log("no this.props.trayViewStore.record ");
       return <span>hiding RecordViewComponent</span>
     }
   }
