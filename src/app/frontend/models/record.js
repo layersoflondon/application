@@ -170,6 +170,7 @@ export default class RecordModel {
         id: i+1,
         title: "image",
         caption: "image caption",
+        attribution: "image attribution",
         url: require(`../assets/images/example/${id}-large.jpg`)
       }
     });

@@ -10,8 +10,11 @@ import RecordViewComponentState from './record_view_component_state';
   render() {
     // console.log(this.props.media.url);
 
-    return <div>
+    return <div className="">
       <img src={this.props.media.url} alt=""/>
+
+      {this.props.showAttribution && <div className="attribution">{this.props.media.attribution}</div>}
+      {this.props.showCaption && <div className="caption">{this.props.media.caption}</div>}
     </div>
   }
 }

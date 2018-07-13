@@ -13,7 +13,7 @@ import RecordViewComponentState from './record_view_component_state';
 
     gallery_class += this.props.record.view_type === 'expanded' ? 'm-media-viewer--expanded' : 'm-media-viewer--gallery';
 
-    const media = this.props.record.media.map((media) => <RecordViewGalleryMediaItem key={`media_${media.id}`} media={media} />);
+    const media = this.props.record.media.map((media) => <RecordViewGalleryMediaItem key={`media_${media.id}`} media={media} showCaption={this.props.record.view_type === 'expanded'} showAttribution={this.props.record.view_type === 'expanded'} />);
 
     return <div className={gallery_class}>
       {media}
