@@ -258,9 +258,15 @@ import RecordViewContent from './record_view_content';
 
   render() {
     if( this.props.trayViewStore.record ) {
-      const gallery_component = <RecordViewGallery record={this.props.trayViewStore.record} />;
       let header_classes = "m-record";
+      let header_gallery_component = null;
+      let content_gallery_component = null;
 
+      if( this.props.trayViewStore.record.view_type === 'gallery' ) {
+        header_gallery_component = <RecordViewGallery record={this.props.trayViewStore.record} />;
+      }else {
+        content_gallery_component = <RecordViewGallery record={this.props.trayViewStore.record} />;
+      }
 
       return <div className="m-overlay is-showing">
         <div className="s-overlay--record is-showing">
@@ -271,8 +277,8 @@ import RecordViewContent from './record_view_content';
             </div>
 
             <div className="wrap">
-              <RecordViewHeader  {...this.props} gallery={gallery_component} />
-              <RecordViewContent {...this.props} gallery={gallery_component} />
+              <RecordViewHeader  {...this.props} gallery={header_gallery_component} />
+              <RecordViewContent {...this.props} gallery={content_gallery_component} />
 
               {this.props.children}
             </div>

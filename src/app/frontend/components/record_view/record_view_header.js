@@ -30,7 +30,7 @@ import RecordViewComponentState from "./record_view_component_state";
   render_state_expanded() {
     console.log(`RecordView render method = render_state_expanded`);
 
-    return <div className="">
+    return <div className="m-header">
       <RecordViewTitle {...this.props} />
       <RecordViewMeta {...this.props} />
       <RecordViewSidebar {...this.props} />
@@ -42,7 +42,7 @@ import RecordViewComponentState from "./record_view_component_state";
 
     // this.props.record.hero_image => {url: '....'}
 
-    return <div className="">
+    return <div className="m-header">
       <RecordViewTitle {...this.props} />
       <RecordViewSidebar {...this.props} />
       <RecordViewMeta {...this.props} />
@@ -52,7 +52,7 @@ import RecordViewComponentState from "./record_view_component_state";
   render_state_gallery() {
     console.log(`RecordView render method = render_state_gallery`);
 
-    return <div className="">
+    return <div className="m-header">
       <RecordViewTitle {...this.props} />
       <RecordViewSidebar {...this.props} />
       <RecordViewMeta {...this.props} />
@@ -66,7 +66,7 @@ import RecordViewComponentState from "./record_view_component_state";
 
     // this.props.record.hero_image => {url: '....'}
 
-    return <div className="">
+    return <div className="m-header">
       <RecordViewTitle {...this.props} />
       <RecordViewSidebar {...this.props} />
       <RecordViewMeta {...this.props} />
