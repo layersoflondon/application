@@ -8,7 +8,7 @@ import Tools from './tools';
 import Tray from './tray';
 import MapView from './map_view';
 import SearchView from './forms/search/search_view';
-import RecordView from './record_view';
+import RecordView from './record_view_wrapper';
 import MediaItem from './media_item';
 import CollectionView from './collection_view';
 import PlacePicker from './place_picker';
@@ -34,10 +34,10 @@ import RecordForm from './forms/records/record_form';
 
     return <div className={className}>
       {/* permanantly visible components */}
-      <Tools {...this.props} />
-      <MapView {...this.props} />
-
-      <Route path='/map' component={Tray} />
+      {/**/}
+      <Route path='*' component={Tools} />
+      <Route path='*' component={MapView} />
+      <Route path='*' component={Tray} />
 
       {/* Various Overlays ... */}
       <Route exact path='/map/account' component={UserForm} />
@@ -61,8 +61,15 @@ import RecordForm from './forms/records/record_form';
 
       {/* view a record */}
       <Route exact path='/map/records/:id/:view_type?' component={RecordView} />
-
-      <Route exact path='/map/records/:id/media/:media_id/:media_type?' component={MediaItem} />
+      <Route path='/map/records/:id/media/:media_item_id/:media_type?' component={({match}) => {
+        if( match ) {
+          return <RecordView>
+            <MediaItem />
+          </RecordView>;
+        }else {
+          return null;
+        }
+      }} />
 
       {/* view a collection */}
       <Route exact path='/map/collections/:id' component={CollectionView} />

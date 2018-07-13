@@ -10,14 +10,6 @@ import Parser from "html-react-parser";
     super(props);
   }
 
-  componentWillMount() {
-    console.log("Media item params: ", this.props.match.params);
-  }
-
-  componentWillUnmount() {
-    console.log("media item unmounting");
-  }
-
   image() {
     console.log(`Showing image()`);
     return <img src={require('../assets/images/example/1-large.jpg')} alt=""/>
@@ -41,7 +33,6 @@ import Parser from "html-react-parser";
             <Link to={`/map/records/${this.props.match.params.id}`}>Close</Link>
           </div>
             <div className="wrap">
-
               <div className="main-media-item">
                 <div className="item">
                   {this.props.match.params.media_type && this[this.props.match.params.media_type]()}

@@ -1,12 +1,16 @@
 import React,{Component} from 'react';
 import { Map, Marker, TileLayer } from 'react-leaflet'
-import {inject, observer} from "mobx-react";
-import Parser from 'html-react-parser';
-import {Link, withRouter} from 'react-router-dom';
+import {observer} from "mobx-react";
+import {Link} from 'react-router-dom';
 
-@inject('routing', 'trayViewStore', 'mapViewStore', 'recordFormStore')
-@withRouter
-@observer export default class RecordView extends Component {
+import RecordViewTitle from './record_view_title';
+import RecordViewMeta from './record_view_meta';
+import RecordViewAttribution from './record_view_attribution';
+import RecordViewSidebar from './record_view_sidebar';
+import RecordViewGallery from './record_view_gallery';
+import RecordViewComponentState from "./record_view_component_state";
+
+@observer class RecordView extends Component {
   constructor(props) {
     super(props);
 
@@ -21,24 +25,10 @@ import {Link, withRouter} from 'react-router-dom';
   componentWillUnmount() {
     if( this.props.routing.location.pathname.search(/\/edit$/) > -1 ) {
     }else {
-      this.props.trayViewStore.record_id = false;
-      this.props.trayViewStore.record = false;
     }
   }
 
   componentWillReceiveProps(props) {
-    console.log("Record view updated props: ", this.props.match.params, props.match.params);
-  }
-
-  handleCloseOnClick(event) {
-    event.preventDefault();
-
-    // if(this.props.routing.history.length>1) {
-    //   this.props.routing.history.goBack();
-    // }else {
-    //   this.props.routing.push("/map");
-    // }
-    this.props.routing.push("/map");
   }
 
   render_media_full() {
@@ -48,7 +38,7 @@ import {Link, withRouter} from 'react-router-dom';
       <div className="m-record-media-expanded">
         <div className="media-item media-item--image">
           <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}>
-            <img src={require('../assets/images/example/1-large.jpg')} alt=""/>
+            <img src={require('../../assets/images/example/1-large.jpg')} alt=""/>
             <div className="attribution">
               <p>Duis dapibus mollis erat ac.</p>
             </div>
@@ -60,7 +50,7 @@ import {Link, withRouter} from 'react-router-dom';
 
         <div className="media-item media-item--image">
           <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}>
-            <img src={require('../assets/images/example/4-large.jpg')} alt=""/>
+            <img src={require('../../assets/images/example/4-large.jpg')} alt=""/>
             <div className="attribution">
               <p>Duis dapibus mollis erat ac.</p>
             </div>
@@ -72,7 +62,7 @@ import {Link, withRouter} from 'react-router-dom';
 
         <div className="media-item media-item--image">
           <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}>
-            <img src={require('../assets/images/example/5-large.jpg')} alt=""/>
+            <img src={require('../../assets/images/example/5-large.jpg')} alt=""/>
             <div className="attribution">
               <p>Duis dapibus mollis erat ac.</p>
             </div>
@@ -84,7 +74,7 @@ import {Link, withRouter} from 'react-router-dom';
 
         <div className="media-item media-item--audio">
           <Link to={`/map/records/${this.props.match.params.id}/media/2/soundcloud`}>
-            <img src={require('../assets/images/example/2-large.jpg')} alt=""/>
+            <img src={require('../../assets/images/example/2-large.jpg')} alt=""/>
             <div className="attribution">
               <p>Duis dapibus mollis erat ac.</p>
             </div>
@@ -96,7 +86,7 @@ import {Link, withRouter} from 'react-router-dom';
 
         <div className="media-item media-item--video">
           <Link to={`/map/records/${this.props.match.params.id}/media/2/video`}>
-            <img src={require('../assets/images/example/3-large.jpg')} alt=""/>
+            <img src={require('../../assets/images/example/3-large.jpg')} alt=""/>
             <div className="attribution">
               <p>Duis dapibus mollis erat ac.</p>
             </div>
@@ -106,12 +96,12 @@ import {Link, withRouter} from 'react-router-dom';
           </Link>
         </div>
       </div>
-
     </div>
   }
 
   render_media_gallery() {
     const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
+
 
       return <div>
 
@@ -120,17 +110,19 @@ import {Link, withRouter} from 'react-router-dom';
             <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/1.jpg')} alt=""/></Link>
           </div>
 
-          <div className="thumb image">
-            <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/4.jpg')} alt=""/></Link>
-          </div>
 
           <div className="thumb thumb--video">
             <Link to={`/map/records/${this.props.match.params.id}/media/2/video`}><img src={require('../assets/images/example/3.jpg')} alt=""/></Link>
           </div>
 
-          <div className="thumb thumb--audio thumb--portrait">
-            <Link to={`/map/records/${this.props.match.params.id}/media/2/soundcloud`}><img src={require('../assets/images/example/2.jpg')} alt=""/></Link>
-          </div>
+        <div className="thumb image">
+          <Link to={`/map/records/${this.props.match.params.id}/media/1`}><img src={require('../../assets/images/example/4.jpg')} alt=""/></Link>
+        </div>
+
+
+        <div className="thumb image">
+          <Link to={`/map/records/${this.props.match.params.id}/media/1`}><img src={require('../../assets/images/example/5.jpg')} alt=""/></Link>
+        </div>
 
           <div className="thumb thumb--extra-count">
             <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}>
@@ -139,11 +131,9 @@ import {Link, withRouter} from 'react-router-dom';
           </div>
 
 
-
-
-        </div>
-
       </div>
+
+    </div>
   }
 
   render_meta() {
@@ -185,8 +175,8 @@ import {Link, withRouter} from 'react-router-dom';
           <button className="like" onClick={() => this.props.trayViewStore.record.incrementLikeCount()}>
             <span>Like</span>
           </button>
-            {this.props.trayViewStore.record.view_count} views <br/>
-            {this.props.trayViewStore.record.like_count} likes
+          {this.props.trayViewStore.record.view_count} views <br/>
+          {this.props.trayViewStore.record.like_count} likes
         </div>
 
         <div className="share-record">
@@ -194,7 +184,6 @@ import {Link, withRouter} from 'react-router-dom';
           Share this record
         </div>
       </div>
-
     </div>
   }
 
@@ -202,35 +191,36 @@ import {Link, withRouter} from 'react-router-dom';
     return <div className="header header--gallery">
 
       <div className="m-record-hero">
-          {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
+        {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
       </div>
 
-        {this.render_media_gallery()}
-        {this.render_meta()}
-        {this.render_title()}
-        {this.render_sidebar()}
+      {this.render_media_gallery()}
+      {this.render_meta()}
+      {this.render_title()}
+      {this.render_sidebar()}
 
     </div>
   }
 
   render_full_header () {
-      return <div className="header header--full *header--no-hero">
 
-        <div className="m-record-hero">
-            {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
-        </div>
+    return <div className="header--full header--no-hero">
 
-        <div className='title-area'>
-          <div className="text-content">
-              {this.render_meta()}
-              {this.render_title()}
-          </div>
-            {this.render_sidebar()}
-        </div>
-
-        {this.render_media_full()}
-
+      <div className="m-record-hero">
+        {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
       </div>
+
+      <div className='title-area'>
+        <div className="text-content">
+          {this.render_meta()}
+          {this.render_title()}
+        </div>
+        {this.render_sidebar()}
+      </div>
+
+      {this.render_media_full()}
+
+    </div>
   }
 
   render_state_loading_true() {
@@ -239,7 +229,55 @@ import {Link, withRouter} from 'react-router-dom';
     </div>
   }
 
-  render_state_loading_false() {
+  render_state_expanded() {
+    console.log(`RecordView render method = render_state_expanded`);
+
+    return <div className="">
+      <RecordViewTitle {...this.props} />
+      <RecordViewMeta {...this.props} />
+      <RecordViewSidebar {...this.props} />
+      <RecordViewGallery {...this.props} />
+    </div>
+  }
+
+  render_state_expanded_with_hero() {
+    console.log(`RecordView render method = render_state_expanded_with_hero`);
+
+    // this.props.record.hero_image => {url: '....'}
+
+    return <div className="">
+      <RecordViewSidebar {...this.props} />
+      <RecordViewTitle {...this.props} />
+      <RecordViewMeta {...this.props} />
+      <RecordViewGallery {...this.props} />
+    </div>
+  }
+
+  render_state_gallery() {
+    console.log(`RecordView render method = render_state_gallery`);
+
+    return <div className="">
+      <RecordViewGallery {...this.props} />
+      <RecordViewTitle {...this.props} />
+      <RecordViewSidebar {...this.props} />
+      <RecordViewMeta {...this.props} />
+    </div>
+  }
+
+  render_state_gallery_with_hero() {
+    console.log(`RecordView render method = render_state_gallery_with_hero`);
+
+    // this.props.record.hero_image => {url: '....'}
+
+    return <div className="">
+      <RecordViewGallery {...this.props} />
+      <RecordViewTitle {...this.props} />
+      <RecordViewSidebar {...this.props} />
+      <RecordViewMeta {...this.props} />
+    </div>
+  }
+
+  render_state_loading_false_old() {
     const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
 
     return <div className="m-overlay is-showing">
@@ -252,12 +290,12 @@ import {Link, withRouter} from 'react-router-dom';
             {/*<button className="previous" onClick={() => this.props.trayViewStore.moveToPreviousCard()}>Previous</button>*/}
           </div>
           <div className="close">
-            <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
+            <a href="#" className="close" onClick={this.handleCloseOnClick}>Close</a>
           </div>
 
           <div style={{position: 'absolute', top: '40px', left: '40px'}}>
             <Link to={`/map/records/${this.props.match.params.id}/gallery`}>Gallery</Link> <br /> <Link to={`/map/records/${this.props.match.params.id}/full`}>Full</Link>
-              {this.props.match.params.view_type}
+            {this.props.match.params.view_type}
           </div>
 
           <div className="wrap">
@@ -266,17 +304,17 @@ import {Link, withRouter} from 'react-router-dom';
             {!this.props.match.params.view_type && this.render_full_header()}  {/* if we dont have a view type, render the full view by default */}
 
             <div className="m-article">
-                {this.props.trayViewStore.record.description}
+              {this.props.trayViewStore.record.description}
             </div>
 
             <div className="footer">
               <div className="attribution">
                 <ul>
                   <li><h4>Created:</h4> {this.props.trayViewStore.record.created_at}</li>
-                    {
-                        this.props.trayViewStore.record.credit &&
-                        <li><h4>Credit:</h4> {this.props.trayViewStore.record.credit}</li>
-                    }
+                  {
+                    this.props.trayViewStore.record.credit &&
+                    <li><h4>Credit:</h4> {this.props.trayViewStore.record.credit}</li>
+                  }
                 </ul>
               </div>
               <div className="footer-actions">
@@ -294,12 +332,30 @@ import {Link, withRouter} from 'react-router-dom';
 
   render() {
     if( this.props.trayViewStore.record ) {
-      return <div className={`record-view-${this.props.match.params.view_type ? this.props.match.params.view_type : 'full'}`}>
-        {this.props.children}
-        {this[`render_state_loading_${this.props.trayViewStore.loading_record}`]()}
-      </div>
+      // work out which renderer to call...
+      let method_name = `render_state_${this.props.trayViewStore.record.view_type}`;
+
+      if( this.props.trayViewStore.record.has_hero_image ) {
+        method_name += '_with_hero';
+      }
+
+      return <div className="m-overlay is-showing">
+        <div className="s-overlay--record is-showing">
+          <div className="m-record">
+            <div className="close">
+              <a href="#" className="close" onClick={this.handleCloseOnClick}>Close</a>
+            </div>
+
+            {this[method_name]()}
+            {this.props.children}
+
+          </div>
+        </div>
+      </div>;
     }else {
       return <span></span>
     }
   }
 }
+
+export default RecordViewComponentState.bindComponent(RecordView);

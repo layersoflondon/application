@@ -34,6 +34,8 @@ export default class RecordModel {
   @observable highlighted = false;
   @observable errors = {};
 
+  @observable view_type = null;
+
   persist() {
     if( this.id ) {
       return Record.update(null, this.id, {record: this.toJS()});
@@ -134,6 +136,21 @@ export default class RecordModel {
     return default_icon;
   }
 
+  // todo: wire this up to the record attachments
+  @computed get has_hero_image() {
+    return this.id%2 === 0;
+  }
+
+  // todo: wire this up to the hero_image_id attribute
+  @computed get hero_image() {
+    const image_ids = [1,2,3,4,5];
+    const id = image_ids[Math.floor(Math.random() * image_ids.length)];
+
+    return {
+      url: require(`../assets/images/example/${id}-large.jpg`)
+    }
+  }
+
   toJS() {
     return {
       id: this.id,
@@ -145,7 +162,8 @@ export default class RecordModel {
       date_to: this.date_to,
       collection_ids: this._collection_ids,
       location: this.location,
-      credit: this.credit
+      credit: this.credit,
+      view_type: this.view_type
     }
   }
 
