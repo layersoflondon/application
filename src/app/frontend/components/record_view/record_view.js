@@ -7,7 +7,7 @@ import RecordViewTitle from './record_view_title';
 import RecordViewMeta from './record_view_meta';
 import RecordViewAttribution from './record_view_attribution';
 import RecordViewSidebar from './record_view_sidebar';
-import RecordViewGallery from './record_view_gallery';
+import RecordViewMediaList from './record_view_media_list';
 import RecordViewComponentState from "./record_view_component_state";
 
 import RecordViewHeader from './record_view_header';
@@ -91,9 +91,9 @@ import RecordViewContent from './record_view_content';
       let content_gallery_component = null;
 
       if( this.props.trayViewStore.record.view_type === 'gallery' ) {
-        header_gallery_component = <RecordViewGallery record={this.props.trayViewStore.record} />;
+        header_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} />;
       }else {
-        content_gallery_component = <RecordViewGallery record={this.props.trayViewStore.record} />;
+        content_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} />;
       }
 
       return <div className="m-overlay is-showing">

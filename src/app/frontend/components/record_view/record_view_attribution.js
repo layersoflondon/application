@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {observer} from "mobx-react";
-import RecordViewGalleryMediaItem from './record_view_gallery_media_item';
+import RecordViewGalleryMediaItem from './record_view_media_list_item';
 import RecordViewComponentState from "./record_view_component_state";
 
 @observer class RecordViewAttribution extends Component {

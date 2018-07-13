@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom';
 import RecordViewTitle from './record_view_title';
 import RecordViewMeta from './record_view_meta';
 import RecordViewSidebar from './record_view_sidebar';
-import RecordViewGallery from './record_view_gallery';
 import RecordViewComponentState from "./record_view_component_state";
 
 @observer class RecordViewHeader extends Component {

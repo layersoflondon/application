@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {observer} from "mobx-react";
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import RecordViewComponentState from './record_view_component_state';
-import RecordViewGalleryMediaItem from "./record_view_gallery_media_item";
+import RecordViewGalleryMediaItem from "./record_view_media_list_item";
 
 @observer class RecordViewSidebar extends Component {
   constructor(props) {
