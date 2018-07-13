@@ -8,9 +8,12 @@ import RecordViewComponentState from './record_view_component_state';
   }
 
   render() {
-    return <div className="m-article">
+    return <div>
       {this.props.gallery}
-      {this.props.trayViewStore.record.description}
+
+      <div className="m-article">
+        {this.props.trayViewStore.record.description}
+      </div>
     </div>
   }
 }
