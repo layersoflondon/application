@@ -15,7 +15,7 @@
   height:100%;
 }
 
-.m-media-viewer--basic .wrap {
+.m-media-viewer--expanded .wrap {
   padding-bottom:50px;
 }
 
@@ -23,10 +23,9 @@
   height:calc(100% - 170px);
   position:relative;
   display: table;
-  //background:#000
 }
 
-.m-media-viewer--basic .main-media-item {
+.m-media-viewer--expanded .main-media-item {
   height:100%;
 }
 

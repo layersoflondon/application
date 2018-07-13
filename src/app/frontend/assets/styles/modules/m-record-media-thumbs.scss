@@ -1,6 +1,6 @@
 /* Record media summary */
 
-.m-record-media-summary {
+.m-record-media-thumbs {
   position: absolute;
   top: 30px;
   right: -40px;
@@ -9,7 +9,7 @@
   padding:10px;
 }
 
-.m-record-media-summary .thumb {
+.m-record-media-thumbs > div {
   position: relative;
   overflow: hidden;
   box-shadow: 0 0 20px 9px #00000063;
@@ -17,11 +17,11 @@
   width: 106px;
 }
 
-.m-record-media-summary .thumb + .thumb {
+.m-record-media-thumbs > div + div {
   margin-top:10px;
 }
 
-.m-record-media-summary .thumb--extra-count {
+.m-record-media-thumbs > div.extra-count {
   background:$blue;
   text-align:center;
   font-size:32px;
@@ -31,17 +31,17 @@
   font-weight:600;
 }
 
-.m-record-media-summary .thumb--extra-count a {
+.m-record-media-thumbs > div.extra-count a {
   color:white;
 }
 
-.m-record-media-summary .thumb--extra-count span {
+.m-record-media-thumbs > div.extra-count span {
   font-size:50px;
   position: relative;
   top: 4px;
 }
 
-.m-record-media-summary img {
+.m-record-media-thumbs > div img {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -53,16 +53,16 @@
   transition: all .2s;
 }
 
-.m-record-media-summary .thumb--portrait img {
+.m-record-media-thumbs > div.portrait img {
   width: 100%;
   height: auto;
 }
 
-.m-record-media-summary a:hover img {
+.m-record-media-thumbs a:hover img {
   filter: brightness(0.8);
 }
 
-.m-record-media-summary .thumb--video:after {
+.m-record-media-thumbs > div.video:after {
   content: "\f04b";
   font: normal normal normal 20px/1 FontAwesome;
   border-radius: 100px;
