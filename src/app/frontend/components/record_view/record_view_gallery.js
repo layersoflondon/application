@@ -9,9 +9,13 @@ import RecordViewComponentState from './record_view_component_state';
   }
 
   render() {
-    const media = this.props.trayViewStore.record.media.map((media, i) => <RecordViewGalleryMediaItem key={`record_${this.props.trayViewStore.record.id}_${i}`} media={media} />);
+    let gallery_class = 'm-record-media';
 
-    return <div>
+    gallery_class += this.props.record.view_type === 'expanded' ? '-expanded' : '-thumbs m-record-media-gallery';
+
+    const media = this.props.record.media.map((media) => <RecordViewGalleryMediaItem key={`media_${media.id}`} media={media} />);
+
+    return <div className={gallery_class}>
       {media}
     </div>
   }

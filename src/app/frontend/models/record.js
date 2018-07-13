@@ -165,8 +165,9 @@ export default class RecordModel {
 
     const image_ids = [1,2,3,4,5,2,5,4,3,1,2,5,4,2,1,5];
 
-    return image_ids.map((id) => {
+    return image_ids.map((id, i) => {
       return {
+        id: i+1,
         title: "image",
         caption: "image caption",
         url: require(`../assets/images/example/${id}-large.jpg`)

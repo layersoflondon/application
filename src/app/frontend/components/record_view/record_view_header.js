@@ -34,7 +34,6 @@ import RecordViewComponentState from "./record_view_component_state";
       <RecordViewTitle {...this.props} />
       <RecordViewMeta {...this.props} />
       <RecordViewSidebar {...this.props} />
-      <RecordViewGallery {...this.props} />
     </div>
   }
 
@@ -47,7 +46,6 @@ import RecordViewComponentState from "./record_view_component_state";
       <RecordViewTitle {...this.props} />
       <RecordViewSidebar {...this.props} />
       <RecordViewMeta {...this.props} />
-      <RecordViewGallery {...this.props} />
     </div>
   }
 
@@ -56,9 +54,10 @@ import RecordViewComponentState from "./record_view_component_state";
 
     return <div className="">
       <RecordViewTitle {...this.props} />
-      <RecordViewGallery {...this.props} />
       <RecordViewSidebar {...this.props} />
       <RecordViewMeta {...this.props} />
+
+      {this.props.gallery}
     </div>
   }
 
@@ -69,44 +68,23 @@ import RecordViewComponentState from "./record_view_component_state";
 
     return <div className="">
       <RecordViewTitle {...this.props} />
-      <RecordViewGallery {...this.props} />
       <RecordViewSidebar {...this.props} />
       <RecordViewMeta {...this.props} />
+
+      {this.props.gallery}
     </div>
   }
 
   render() {
-    let method_name    = `render_state_${this.props.trayViewStore.record.view_type}`;
-    let header_classes = `m-record`;
-
-    if( this.props.trayViewStore.record.has_hero_image ) {
-      method_name += '_with_hero';
-    }
-
+    let method_name = `render_state_${this.props.trayViewStore.record.view_type}`;
     if( this.props.trayViewStore.record.has_media ) {
-      header_classes += ` has-media has-${this.props.trayViewStore.record.media.length}-media-items`;
     }
 
     if( this.props.trayViewStore.record.has_hero_image ) {
-      header_classes += ` has-hero-image`;
+      method_name += '_with_hero'
     }
 
-    return <div className="m-overlay is-showing">
-      <div className="s-overlay--record is-showing">
-        <div className={header_classes}>
-
-          <div className="close">
-            <a href="#" className="close" onClick={this.handleCloseOnClick}>Close</a>
-          </div>
-
-          <div className="wrap">
-            {this[method_name]()}
-            {this.props.children}
-          </div>
-
-        </div>
-      </div>
-    </div>
+    return this[method_name]();
   }
 }
 

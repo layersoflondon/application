@@ -258,11 +258,28 @@ import RecordViewContent from './record_view_content';
 
   render() {
     if( this.props.trayViewStore.record ) {
+      const gallery_component = <RecordViewGallery record={this.props.trayViewStore.record} />;
+      let header_classes = "m-record";
 
-      return <div>
-        <RecordViewHeader {...this.props} />
-        <RecordViewContent {...this.props} />
-      </div>
+
+      return <div className="m-overlay is-showing">
+        <div className="s-overlay--record is-showing">
+          <div className={header_classes}>
+
+            <div className="close">
+              <a href="#" className="close" onClick={this.handleCloseOnClick}>Close</a>
+            </div>
+
+            <div className="wrap">
+              <RecordViewHeader  {...this.props} gallery={gallery_component} />
+              <RecordViewContent {...this.props} gallery={gallery_component} />
+
+              {this.props.children}
+            </div>
+
+          </div>
+        </div>
+      </div>;
     }else {
       return <span></span>
     }
