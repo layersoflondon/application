@@ -8,7 +8,7 @@ import Tools from './tools';
 import Tray from './tray';
 import MapView from './map_view';
 import SearchView from './forms/search/search_view';
-import RecordView from './record_view';
+import RecordView from './record_view_wrapper';
 import MediaItem from './media_item';
 import CollectionView from './collection_view';
 import PlacePicker from './place_picker';
