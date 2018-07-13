@@ -331,7 +331,7 @@ import RecordViewComponentState from "./record_view_component_state";
         method_name += '_with_hero';
       }
 
-      return <div className="m-overlay is-showing">
+      return <div className="m-overlay is-showing record-view-">
         <div className="s-overlay--record is-showing">
           <div className="m-record">
             <div className="close">

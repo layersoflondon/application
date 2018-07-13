@@ -151,6 +151,27 @@ export default class RecordModel {
     }
   }
 
+  @computed get has_media() {
+    const media = this.media;
+
+    return media.length > 0;
+  }
+
+  // todo: wire this up to the record attachments
+  @computed get media() {
+    if( this.id%2 !== 0 ) {
+      return [];
+    }
+
+    const image_ids = [1,2,3,4,5];
+
+    return image_ids.map((id) => {
+      return {
+        url: require(`../assets/images/example/${id}-large.jpg`)
+      }
+    });
+  }
+
   toJS() {
     return {
       id: this.id,
