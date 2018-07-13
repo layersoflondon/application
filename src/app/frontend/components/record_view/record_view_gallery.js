@@ -9,7 +9,11 @@ import RecordViewComponentState from './record_view_component_state';
   }
 
   render() {
-    return <div>RecordViewGallery</div>
+    const media = this.props.trayViewStore.record.media.map((media, i) => <RecordViewGalleryMediaItem key={`record_${this.props.trayViewStore.record.id}_${i}`} media={media} />);
+
+    return <div>
+      {media}
+    </div>
   }
 }
 

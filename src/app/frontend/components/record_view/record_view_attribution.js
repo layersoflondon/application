@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
 import {observer} from "mobx-react";
 import RecordViewGalleryMediaItem from './record_view_gallery_media_item';
+import RecordViewComponentState from "./record_view_component_state";
 
-@observer export default class RecordViewAttribution extends Component {
+@observer class RecordViewAttribution extends Component {
   constructor(props) {
     super(props);
   }
@@ -11,3 +12,5 @@ import RecordViewGalleryMediaItem from './record_view_gallery_media_item';
     return <div>RecordViewAttribution</div>
   }
 }
+
+export default RecordViewComponentState.bindComponent(RecordViewAttribution);

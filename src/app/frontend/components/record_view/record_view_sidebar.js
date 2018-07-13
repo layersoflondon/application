@@ -10,8 +10,6 @@ import RecordViewGalleryMediaItem from "./record_view_gallery_media_item";
   }
 
   render() {
-    return <div>RecordViewSidebar</div>
-
     return <div className="sidebar">
       <div className="place">
         <div className="map">

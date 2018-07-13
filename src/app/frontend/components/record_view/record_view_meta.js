@@ -18,4 +18,4 @@ import RecordViewGalleryMediaItem from "./record_view_gallery_media_item";
   }
 }
 
-export default RecordViewComponentState.bindComponent(RecordViewGalleryMediaItem);
+export default RecordViewComponentState.bindComponent(RecordViewMeta);

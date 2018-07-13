@@ -26,7 +26,6 @@ export default class RecordViewComponentState {
         this.props.routing.push("/map");
       }
 
-
       render() {
         return super.render();
       }

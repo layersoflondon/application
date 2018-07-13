@@ -8,7 +8,11 @@ import RecordViewComponentState from './record_view_component_state';
   }
 
   render() {
-    return <div>RecordViewGalleryMediaItem</div>
+    // console.log(this.props.media.url);
+
+    return <div>
+      <img src={this.props.media.url} alt=""/>
+    </div>
   }
 }
 

@@ -10,6 +10,9 @@ import RecordViewSidebar from './record_view_sidebar';
 import RecordViewGallery from './record_view_gallery';
 import RecordViewComponentState from "./record_view_component_state";
 
+import RecordViewHeader from './record_view_header';
+import RecordViewContent from './record_view_content';
+
 @observer class RecordView extends Component {
   constructor(props) {
     super(props);
@@ -129,21 +132,6 @@ import RecordViewComponentState from "./record_view_component_state";
     </div>
   }
 
-  render_meta() {
-    return <div className="meta">
-      <div className="dates">
-        <span className="date start-date">{this.props.trayViewStore.record.date_from}</span>
-      </div>
-      <div className="creator">By {this.props.trayViewStore.record.user.name}</div>
-    </div>
-  }
-
-  render_title() {
-    return <div className="title">
-      <h1>{this.props.trayViewStore.record.title}</h1>
-    </div>
-  }
-
   render_sidebar() {
     return <div className="sidebar">
 
@@ -215,60 +203,6 @@ import RecordViewComponentState from "./record_view_component_state";
     </div>
   }
 
-  render_state_loading_true() {
-    return <div className="m-overlay is-loading">
-      loading
-    </div>
-  }
-
-  render_state_expanded() {
-    console.log(`RecordView render method = render_state_expanded`);
-
-    return <div className="">
-      <RecordViewTitle {...this.props} />
-      <RecordViewMeta {...this.props} />
-      <RecordViewSidebar {...this.props} />
-      <RecordViewGallery {...this.props} />
-    </div>
-  }
-
-  render_state_expanded_with_hero() {
-    console.log(`RecordView render method = render_state_expanded_with_hero`);
-
-    // this.props.record.hero_image => {url: '....'}
-
-    return <div className="">
-      <RecordViewSidebar {...this.props} />
-      <RecordViewTitle {...this.props} />
-      <RecordViewMeta {...this.props} />
-      <RecordViewGallery {...this.props} />
-    </div>
-  }
-
-  render_state_gallery() {
-    console.log(`RecordView render method = render_state_gallery`);
-
-    return <div className="">
-      <RecordViewGallery {...this.props} />
-      <RecordViewTitle {...this.props} />
-      <RecordViewSidebar {...this.props} />
-      <RecordViewMeta {...this.props} />
-    </div>
-  }
-
-  render_state_gallery_with_hero() {
-    console.log(`RecordView render method = render_state_gallery_with_hero`);
-
-    // this.props.record.hero_image => {url: '....'}
-
-    return <div className="">
-      <RecordViewGallery {...this.props} />
-      <RecordViewTitle {...this.props} />
-      <RecordViewSidebar {...this.props} />
-      <RecordViewMeta {...this.props} />
-    </div>
-  }
-
   render_state_loading_false_old() {
     const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
 
@@ -324,26 +258,11 @@ import RecordViewComponentState from "./record_view_component_state";
 
   render() {
     if( this.props.trayViewStore.record ) {
-      // work out which renderer to call...
-      let method_name = `render_state_${this.props.trayViewStore.record.view_type}`;
 
-      if( this.props.trayViewStore.record.has_hero_image ) {
-        method_name += '_with_hero';
-      }
-
-      return <div className="m-overlay is-showing record-view-">
-        <div className="s-overlay--record is-showing">
-          <div className="m-record">
-            <div className="close">
-              <a href="#" className="close" onClick={this.handleCloseOnClick}>Close</a>
-            </div>
-
-            {this[method_name]()}
-            {this.props.children}
-
-          </div>
-        </div>
-      </div>;
+      return <div>
+        <RecordViewHeader {...this.props} />
+        <RecordViewContent {...this.props} />
+      </div>
     }else {
       return <span></span>
     }
