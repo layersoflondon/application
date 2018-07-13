@@ -90,7 +90,7 @@ Thumb images containers in the .m-media-viewer-thumbs and in .m-record-media-sum
 .header--gallery if the gallery template is used
 
 # Classes on .m-media-viewer (lightbox)
-.m-media-viewer--basic if the parent record is using expanded layout
+.m-media-viewer--expanded if the parent record is using expanded layout
    */
   render() {
     let header_class = `header header--${this.props.trayViewStore.record.view_type === 'gallery' ? 'gallery' : 'expanded'}`;
