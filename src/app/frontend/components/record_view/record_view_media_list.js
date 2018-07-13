@@ -9,11 +9,18 @@ import RecordViewComponentState from './record_view_component_state';
   }
 
   render() {
-    const media = this.props.record.media.map((media) => <RecordViewMediaListItem key={`media_${media.id}`} media={media} showCaption={this.props.record.view_type === 'expanded'} showAttribution={this.props.record.view_type === 'expanded'} />);
+    let media = this.props.record.media;
+    media = media.slice(0, this.props.numberOfItems);
+    let media_components = media.map((media) => <RecordViewMediaListItem key={`media_${media.id}`} media={media} showCaption={this.props.record.view_type === 'expanded'} showAttribution={this.props.record.view_type === 'expanded'} />);
+
+    let expandable_media_list = false;
+    if( this.props.record.media.length > media.length ) {
+      expandable_media_list = true;
+    }
 
     const media_container_class = this.props.record.view_type === 'expanded' ? 'expanded' : 'thumbs';
     return <div className={`m-record-media-list-${media_container_class}`}>
-      {media}
+      {media_components}
     </div>
   }
 }

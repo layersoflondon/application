@@ -91,7 +91,7 @@ import RecordViewContent from './record_view_content';
       let content_gallery_component = null;
 
       if( this.props.trayViewStore.record.view_type === 'gallery' ) {
-        header_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} />;
+        header_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} numberOfItems={4} />;
       }else {
         content_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} />;
       }
