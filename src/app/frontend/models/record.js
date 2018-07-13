@@ -138,7 +138,11 @@ export default class RecordModel {
 
   // todo: wire this up to the record attachments
   @computed get has_hero_image() {
-    return this.id%2 === 0 || this.id !== 230;
+    if( this.id %2 === 0 && this.id !== 230 ) {
+      return true;
+    }
+
+    return false;
   }
 
   // todo: wire this up to the hero_image_id attribute
