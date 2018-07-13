@@ -168,7 +168,7 @@ export default class RecordModel {
       return [];
     }
 
-    const image_ids = [1,2,3,4,5,2,5,4,3,1,2,5,4,2,1,5];
+    const image_ids = [1,2,3,4,5,2,5,4,1,2,5,4,2,1,5];
 
     return image_ids.map((id, i) => {
       return {
