@@ -34,20 +34,6 @@ import RecordViewGallery from './record_view/record_view_gallery';
     console.log("Record view updated props: ", props.match.params);
   }
 
-  handleCloseOnClick(event) {
-    event.preventDefault();
-
-    // if(this.props.routing.history.length>1) {
-    //   this.props.routing.history.goBack();
-    // }else {
-    //   this.props.routing.push("/map");
-    // }
-
-    this.props.trayViewStore.record_id = false;
-    this.props.trayViewStore.record = false;
-    this.props.routing.push("/map");
-  }
-
   render_media_full() {
     const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
 
@@ -238,7 +224,55 @@ import RecordViewGallery from './record_view/record_view_gallery';
     </div>
   }
 
-  render_state_loading_false() {
+  render_state_expanded() {
+    console.log(`RecordView render method = render_state_expanded`);
+
+    return <div className="m-overlay is-showing">
+      <RecordViewTitle {...this.props} />
+      <RecordViewMeta {...this.props} />
+      <RecordViewSidebar {...this.props} />
+      <RecordViewGallery {...this.props} />
+    </div>
+  }
+
+  render_state_expanded_with_hero() {
+    console.log(`RecordView render method = render_state_expanded_with_hero`);
+
+    // this.props.record.hero_image => {url: '....'}
+
+    return <div className="m-overlay is-showing">
+      <RecordViewSidebar {...this.props} />
+      <RecordViewTitle {...this.props} />
+      <RecordViewMeta {...this.props} />
+      <RecordViewGallery {...this.props} />
+    </div>
+  }
+
+  render_state_gallery() {
+    console.log(`RecordView render method = render_state_gallery`);
+
+    return <div className="m-overlay is-showing">
+      <RecordViewGallery {...this.props} />
+      <RecordViewTitle {...this.props} />
+      <RecordViewSidebar {...this.props} />
+      <RecordViewMeta {...this.props} />
+    </div>
+  }
+
+  render_state_gallery_with_hero() {
+    console.log(`RecordView render method = render_state_gallery_with_hero`);
+
+    // this.props.record.hero_image => {url: '....'}
+
+    return <div className="m-overlay is-showing">
+      <RecordViewGallery {...this.props} />
+      <RecordViewTitle {...this.props} />
+      <RecordViewSidebar {...this.props} />
+      <RecordViewMeta {...this.props} />
+    </div>
+  }
+
+  render_state_loading_false_old() {
     const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
 
     return <div className="m-overlay is-showing">
@@ -292,15 +326,21 @@ import RecordViewGallery from './record_view/record_view_gallery';
   }
 
   render() {
-    // console.log(this.props.children)
-
     if( this.props.trayViewStore.record ) {
-      return <div className={`record-view-${this.props.match.params.view_type ? this.props.match.params.view_type : 'full'}`}>
-        {this[`render_state_loading_${this.props.trayViewStore.loading_record}`]()}
+      // work out which renderer to call...
+      let method_name = `render_state_${this.props.trayViewStore.record.view_type}`;
+
+      if( this.props.trayViewStore.record.has_hero_image ) {
+        method_name += '_with_hero';
+      }
+
+      return <div>
+        {this[method_name]()}
+
         {this.props.children}
       </div>
     }else {
-      return <span>hiding RecordViewComponent</span>
+      return <span></span>
     }
   }
 }
