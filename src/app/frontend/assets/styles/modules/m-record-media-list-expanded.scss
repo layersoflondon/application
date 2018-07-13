@@ -5,11 +5,11 @@
   margin-bottom:40px;
 }
 
-..m-record-media-list-expanded > div img {
+.m-record-media-list-expanded > div img {
   max-width:100%;
 }
 
-..m-record-media-list-expanded > div .caption {
+.m-record-media-list-expanded > div .caption {
   @extend .m-article;
   @include top-and-tail;
   background: white;
