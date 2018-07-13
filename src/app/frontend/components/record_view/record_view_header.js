@@ -55,9 +55,9 @@ import RecordViewComponentState from "./record_view_component_state";
     console.log(`RecordView render method = render_state_gallery`);
 
     return <div className={header_class}>
+      <RecordViewMeta {...this.props} />
       <RecordViewTitle {...this.props} />
       <RecordViewSidebar {...this.props} />
-      <RecordViewMeta {...this.props} />
 
       {this.props.gallery}
     </div>
@@ -69,11 +69,11 @@ import RecordViewComponentState from "./record_view_component_state";
     // this.props.record.hero_image => {url: '....'}
 
     return <div className={header_class}>
-      <div className="image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.hero_image.url}')`}} />
 
+      <RecordViewMeta {...this.props} />
+      <div className="image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.hero_image.url}')`}} />
       <RecordViewTitle {...this.props} />
       <RecordViewSidebar {...this.props} />
-      <RecordViewMeta {...this.props} />
 
       {this.props.gallery}
     </div>
