@@ -9,9 +9,9 @@ import RecordViewComponentState from './record_view_component_state';
   }
 
   render() {
-    let gallery_class = 'm-media-viewer';
+    let gallery_class = 'm-media-viewer ';
 
-    gallery_class += this.props.record.view_type === 'expanded' ? 'm-media-viewer--expanded' : '-thumbs m-media-viewer--gallery';
+    gallery_class += this.props.record.view_type === 'expanded' ? 'm-media-viewer--expanded' : 'm-media-viewer--gallery';
 
     const media = this.props.record.media.map((media) => <RecordViewGalleryMediaItem key={`media_${media.id}`} media={media} />);
 
