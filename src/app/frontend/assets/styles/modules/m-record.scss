@@ -101,8 +101,8 @@
 }
 
 .m-record .header--no-hero .title-area {
-  float:none;
-  width:auto;
+  float: none;
+  width: auto;
   @include clearfix;
 }
 
@@ -111,9 +111,9 @@
 }
 
 .m-record .header--no-hero .title-area .text-content {
-  float:left;
-  width:50%;
-  padding-right:40px;
+  float: left;
+  width: 50%;
+  padding-right: 40px;
 }
 
 .m-record .header--full .title {
@@ -256,12 +256,13 @@
 // Place
 
 .m-record .place {
-
+  margin-bottom: 20px;
 }
 
 .record-view-full .m-record .place {
   float: left;
   width: 50%;
+  margin-bottom: 0;
 }
 
 .m-record .place .map {
@@ -288,7 +289,7 @@
   margin-left: -40px;
   float: right;
   position: relative;
-  margin-bottom:100px;
+  margin-bottom: 100px;
 }
 
 .record-view-full .m-record .m-article {
@@ -365,7 +366,12 @@
 .m-record-hero {
   background: #eee;
   height: 580px;
-  //margin-bottom: -169px;
+}
+
+.record-view-gallery .m-record-hero {
+  margin-bottom: -100px;
+  height: 650px;
+  margin-bottom: -100px;
 }
 
 .m-record-hero .image {
@@ -389,7 +395,7 @@
 }
 
 .m-record .header--no-hero .m-record-hero {
-  display:none;
+  display: none;
 }
 
 // Footer
@@ -398,7 +404,7 @@
   border-top: 2px solid #4b4b4b;
   padding-top: 40px;
   margin-top: 40px;
-  clear:both;
+  clear: both;
 }
 
 .m-record .attribution {
@@ -419,7 +425,7 @@
 .m-record .footer-actions {
   float: left;
   width: 50%;
-  text-align:right;
+  text-align: right;
 }
 
 .m-record .footer-actions button,

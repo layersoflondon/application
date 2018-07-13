@@ -1,21 +1,21 @@
-/* Record media thumbs */
+/* Media viewer thumbs */
 
-.m-record-media-thumbs {
+.m-media-viewer-thumbs {
   position: relative;
   @include clearfix;
 }
 
-.m-record-media-thumbs .thumb {
+.m-media-viewer-thumbs .thumb {
   float: left;
   position: relative;
-  width: 200px;
-  height: 200px;
   overflow: hidden;
   box-shadow: 0 0 20px 9px #00000063;
   margin: 10px 10px 0 0;
+  height:120px;
+  width:120px;
 }
 
-.m-record-media-thumbs img {
+.m-media-viewer-thumbs img {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -27,16 +27,16 @@
   transition: all .2s;
 }
 
-.m-record-media-thumbs .thumb--portrait img {
+.m-media-viewer-thumbs .thumb--portrait img {
   width: 100%;
   height: auto;
 }
 
-.m-record-media-thumbs a:hover img {
+.m-media-viewer-thumbs a:hover img {
   filter: brightness(0.8);
 }
 
-.m-record-media-thumbs .thumb--video:after {
+.m-media-viewer-thumbs .thumb--video:after {
   content: "\f04b";
   font: normal normal normal 20px/1 FontAwesome;
   border-radius: 100px;
@@ -52,13 +52,13 @@
   padding-left: 5px;
 }
 
-.m-record-media-thumbs .controls {
+.m-media-viewer-thumbs .controls {
   position: static;
   display: inline;
 }
 
-.m-record-media-thumbs .controls .scroll-left,
-.m-record-media-thumbs .controls .scroll-right {
+.m-media-viewer-thumbs .controls .scroll-left,
+.m-media-viewer-thumbs .controls .scroll-right {
   position: absolute;
   top: 50px;
   background: $red;
@@ -68,31 +68,31 @@
   height:42px;
 }
 
-.m-record-media-thumbs .controls .scroll-left {
+.m-media-viewer-thumbs .controls .scroll-left {
   left: -60px
 }
 
-.m-record-media-thumbs .controls .scroll-left:before {
+.m-media-viewer-thumbs .controls .scroll-left:before {
   content: "\f053";
   font: normal normal normal 18px/1 FontAwesome;
 }
 
-.m-record-media-thumbs .controls .scroll-right {
+.m-media-viewer-thumbs .controls .scroll-right {
   right: -60px
 }
 
-.m-record-media-thumbs .controls .scroll-right:before {
+.m-media-viewer-thumbs .controls .scroll-right:before {
   content: "\f054";
   font: normal normal normal 18px/1 FontAwesome;
 }
 
-.m-record-media-thumbs .pane {
+.m-media-viewer-thumbs .pane {
   width:100%;
   overflow:hidden;
   height:130px;
 }
 
-.m-media-viewer .m-record-media-thumbs .thumb--video:after {
+.m-media-viewer .m-media-viewer-thumbs .thumb--video:after {
   width:30px;
   height:30px;
   font-size:14px;
