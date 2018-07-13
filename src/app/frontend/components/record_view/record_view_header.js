@@ -27,32 +27,32 @@ import RecordViewComponentState from "./record_view_component_state";
     }
   }
 
-  render_state_expanded() {
+  render_state_expanded(header_class) {
     console.log(`RecordView render method = render_state_expanded`);
 
-    return <div className="m-header">
+    return <div className={header_class}>
       <RecordViewTitle {...this.props} />
       <RecordViewMeta {...this.props} />
       <RecordViewSidebar {...this.props} />
     </div>
   }
 
-  render_state_expanded_with_hero() {
+  render_state_expanded_with_hero(header_class) {
     console.log(`RecordView render method = render_state_expanded_with_hero`);
 
     // this.props.record.hero_image => {url: '....'}
 
-    return <div className="m-header">
+    return <div className={header_class}>
       <RecordViewTitle {...this.props} />
       <RecordViewSidebar {...this.props} />
       <RecordViewMeta {...this.props} />
     </div>
   }
 
-  render_state_gallery() {
+  render_state_gallery(header_class) {
     console.log(`RecordView render method = render_state_gallery`);
 
-    return <div className="m-header">
+    return <div className={header_class}>
       <RecordViewTitle {...this.props} />
       <RecordViewSidebar {...this.props} />
       <RecordViewMeta {...this.props} />
@@ -61,12 +61,12 @@ import RecordViewComponentState from "./record_view_component_state";
     </div>
   }
 
-  render_state_gallery_with_hero() {
+  render_state_gallery_with_hero(header_class) {
     console.log(`RecordView render method = render_state_gallery_with_hero`);
 
     // this.props.record.hero_image => {url: '....'}
 
-    return <div className="m-header">
+    return <div className={header_class}>
       <RecordViewTitle {...this.props} />
       <RecordViewSidebar {...this.props} />
       <RecordViewMeta {...this.props} />
@@ -75,16 +75,41 @@ import RecordViewComponentState from "./record_view_component_state";
     </div>
   }
 
+  /*
+# Portrait thumbnails
+Thumb images containers in the .m-media-viewer-thumbs and in .m-record-media-summary need .thumb--portrait class adding if the image is portrait.
+
+# Classes on record .header
+.header--no-hero if there’s no hero image
+.header--no-media if there’s no media
+.header--full if the expanded layout is used (we could rename full to expanded to avoid confusion)
+.header--gallery if the gallery template is used
+
+# Classes on .m-media-viewer (lightbox)
+.m-media-viewer--basic if the parent record is using expanded layout
+   */
   render() {
+    let header_class = `header header--${this.props.trayViewStore.record.view_type === 'gallery' ? 'gallery' : 'full'}`;
     let method_name = `render_state_${this.props.trayViewStore.record.view_type}`;
-    if( this.props.trayViewStore.record.has_media ) {
-    }
 
     if( this.props.trayViewStore.record.has_hero_image ) {
       method_name += '_with_hero'
     }
 
-    return this[method_name]();
+
+    if( !this.props.trayViewStore.record.has_media ) {
+      header_class += ' header--no-media'
+    }
+
+    if( !this.props.trayViewStore.record.has_hero_image ) {
+      header_class += ' header--no-hero'
+    }
+
+    if( this.props.gallery ) {
+      header_class += ' header--gallery'
+    }
+
+    return this[method_name](header_class);
   }
 }
 
