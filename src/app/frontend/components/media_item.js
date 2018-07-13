@@ -57,7 +57,7 @@ import Parser from "html-react-parser";
                 </div>
               </div>
 
-              <div className="m-record-media-thumbs">
+              <div className="m-media-viewer-thumbs">
                 <div className="controls">
                   <button className="scroll-left"></button>
                   <button className="scroll-right"></button>

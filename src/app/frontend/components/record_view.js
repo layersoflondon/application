@@ -115,7 +115,7 @@ import {Link, withRouter} from 'react-router-dom';
 
       return <div>
 
-        <div className="m-record-media-thumbs">
+        <div className="m-record-media-summary">
           <div className="thumb image">
             <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/1.jpg')} alt=""/></Link>
           </div>
@@ -124,17 +124,23 @@ import {Link, withRouter} from 'react-router-dom';
             <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/4.jpg')} alt=""/></Link>
           </div>
 
-          <div className="thumb image">
-            <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}><img src={require('../assets/images/example/5.jpg')} alt=""/></Link>
+          <div className="thumb thumb--video">
+            <Link to={`/map/records/${this.props.match.params.id}/media/2/video`}><img src={require('../assets/images/example/3.jpg')} alt=""/></Link>
           </div>
 
           <div className="thumb thumb--audio thumb--portrait">
             <Link to={`/map/records/${this.props.match.params.id}/media/2/soundcloud`}><img src={require('../assets/images/example/2.jpg')} alt=""/></Link>
           </div>
 
-          <div className="thumb thumb--video">
-            <Link to={`/map/records/${this.props.match.params.id}/media/2/video`}><img src={require('../assets/images/example/3.jpg')} alt=""/></Link>
+          <div className="thumb thumb--extra-count">
+            <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}>
+              + <span>12</span>
+            </Link>
           </div>
+
+
+
+
         </div>
 
       </div>
@@ -193,7 +199,7 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   render_gallery_header () {
-    return <div className="header--gallery">
+    return <div className="header header--gallery">
 
       <div className="m-record-hero">
           {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
@@ -208,7 +214,7 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   render_full_header () {
-      return <div className="header--full header--no-hero">
+      return <div className="header header--full *header--no-hero">
 
         <div className="m-record-hero">
             {this.props.trayViewStore.record.image && <div className="image random-image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.image.primary}')`}}></div>}
