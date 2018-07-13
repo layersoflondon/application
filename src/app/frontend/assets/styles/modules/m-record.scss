@@ -68,6 +68,13 @@
   left: 25px;
 }
 
+
+// Header
+
+.m-record .header--no-media {
+  margin-top:200px;
+}
+
 // Title
 
 .m-record .title {
@@ -100,7 +107,7 @@
   margin-left: -20px;
 }
 
-.m-record .header--no-hero .title-area {
+.m-record .header--gallery.header--no-hero .title-area {
   float: none;
   width: auto;
   @include clearfix;
@@ -110,7 +117,7 @@
   padding-bottom: 20px;
 }
 
-.m-record .header--no-hero .title-area .text-content {
+.m-record .header--full.header--no-hero .title-area .text-content {
   float: left;
   width: 50%;
   padding-right: 40px;
@@ -248,7 +255,7 @@
   float: none;
 }
 
-.m-record .header--no-hero .sidebar {
+.m-record .header--full.header--no-hero .sidebar {
   width: 50%;
   float: left;
 }
