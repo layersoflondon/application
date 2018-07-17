@@ -10,11 +10,11 @@ import {Link} from 'react-router-dom';
   }
 
   render() {
-    let media = this.props.record.media;
+    let media = this.props.record.attachments.filter((a) => a.is_media);
     const media_items_total = media.length;
 
     media = media.slice(0, this.props.numberOfItems);
-    let media_components = media.map((media) => <RecordViewMediaListItem key={`media_${media.id}`} media={media} showCaption={this.props.record.view_type === 'expanded'} showAttribution={this.props.record.view_type === 'expanded'} />);
+    let media_components = media.map((media) => <RecordViewMediaListItem key={`media_${media.id}`} media={media} record={this.props.record} />);
 
     let expandable_media_list = false;
     if( this.props.record.media.length > media.length ) {

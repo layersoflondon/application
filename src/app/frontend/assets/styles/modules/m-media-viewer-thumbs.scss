@@ -6,13 +6,15 @@
 }
 
 .m-media-viewer-thumbs .thumb {
-  float: left;
+  //float: left;
   position: relative;
   overflow: hidden;
   box-shadow: 0 0 20px 9px #00000063;
   margin: 10px 10px 0 0;
   height:120px;
   width:120px;
+
+  flex: 0 0 auto;
 }
 
 .m-media-viewer-thumbs img {
@@ -90,6 +92,15 @@
   width:100%;
   overflow:hidden;
   height:130px;
+
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .m-media-viewer .m-media-viewer-thumbs .thumb--video:after {

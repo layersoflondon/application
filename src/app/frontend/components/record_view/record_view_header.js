@@ -27,8 +27,6 @@ import RecordViewComponentState from "./record_view_component_state";
   }
 
   render_state_expanded(header_class) {
-    console.log(`RecordView render method = render_state_expanded`);
-
     return <div className={header_class}>
       <RecordViewMeta {...this.props} />
       <RecordViewTitle {...this.props} />
@@ -37,14 +35,12 @@ import RecordViewComponentState from "./record_view_component_state";
   }
 
   render_state_expanded_with_hero(header_class) {
-    console.log(`RecordView render method = render_state_expanded_with_hero`);
-
     // this.props.record.hero_image => {url: '....'}
 
     return <div className={header_class}>
 
       <div className="m-record-hero">
-        <div className="image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.hero_image.url}')`}} />
+        <div className="image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.hero_image.primary}')`}} />
       </div>
 
       <RecordViewMeta {...this.props} />
@@ -55,8 +51,6 @@ import RecordViewComponentState from "./record_view_component_state";
   }
 
   render_state_gallery(header_class) {
-    console.log(`RecordView render method = render_state_gallery`);
-
     return <div className={header_class}>
       <RecordViewMeta {...this.props} />
       <RecordViewTitle {...this.props} />
@@ -67,14 +61,12 @@ import RecordViewComponentState from "./record_view_component_state";
   }
 
   render_state_gallery_with_hero(header_class) {
-    console.log(`RecordView render method = render_state_gallery_with_hero`);
-
     // this.props.record.hero_image => {url: '....'}
 
     return <div className={header_class}>
 
       <div className="m-record-hero">
-        <div className="image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.hero_image.url}')`}} />
+        <div className="image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.hero_image.primary}')`}} />
       </div>
 
       <RecordViewMeta {...this.props} />

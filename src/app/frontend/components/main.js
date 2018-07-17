@@ -9,6 +9,7 @@ import Tray from './tray';
 import MapView from './map_view';
 import SearchView from './forms/search/search_view';
 import RecordView from './record_view_wrapper';
+import MediaView from './media_view';
 import MediaItem from './media_item';
 import CollectionView from './collection_view';
 import PlacePicker from './place_picker';
@@ -17,7 +18,6 @@ import LayersOverlay from './layers_overlay';
 import CollectionForm from './forms/collections/collection_form';
 import UserForm from './forms/user/user_form';
 import RecordForm from './forms/records/record_form';
-
 
 @inject('routing', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore')
 @withRouter
@@ -61,10 +61,12 @@ import RecordForm from './forms/records/record_form';
 
       {/* view a record */}
       <Route exact path='/map/records/:id/:view_type?' component={RecordView} />
-      <Route path='/map/records/:id/media/:media_item_id/:media_type?' component={({match}) => {
+      <Route path='/map/records/:id/media/:media_item_id' component={({match}) => {
         if( match ) {
           return <RecordView>
-            <MediaItem />
+            <MediaView>
+              <MediaItem />
+            </MediaView>
           </RecordView>;
         }else {
           return null;

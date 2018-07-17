@@ -1,7 +1,7 @@
 import {observable, computed} from 'mobx';
 import CollectionModel from './collection';
 import Record from "../sources/record";
-import MediaItemStore from "../stores/media_item_store";
+import Attachment from './attachment';
 import Parser from "html-react-parser";
 import L from "leaflet";
 
@@ -138,22 +138,18 @@ export default class RecordModel {
 
   // todo: wire this up to the record attachments
   @computed get has_hero_image() {
-    if( this.id %2 === 0 && this.id !== 230 ) {
-      return true;
-    }
-
-    return false;
+    return this.image || this.hero_image();
   }
 
   // todo: wire this up to the hero_image_id attribute
   @computed get hero_image() {
-    // fixme
-    const image_ids = [1,2,3,4,5];
-    const id = image_ids[Math.floor(Math.random() * image_ids.length)];
+    let hero = this.image;
 
-    return {
-      url: require(`../assets/images/example/${id}-large.jpg`)
+    if( !hero ) {
+      hero = this.media.first;
     }
+
+    return hero;
   }
 
   @computed get has_media() {
@@ -162,23 +158,12 @@ export default class RecordModel {
     return media.length > 0;
   }
 
-  // todo: wire this up to the record attachments
   @computed get media() {
-    if( this.id%2 !== 0 ) {
-      return [];
-    }
+    return this.attachments.filter((a) => a.is_media);
+  }
 
-    const image_ids = [1,2,3,4,5,2,5,4,1,2,5,4,2,1,5];
-
-    return image_ids.map((id, i) => {
-      return {
-        id: i+1,
-        title: "image",
-        caption: "image caption",
-        attribution: "image attribution",
-        url: require(`../assets/images/example/${id}-large.jpg`)
-      }
-    });
+  get_attachment(id) {
+    return this.attachments.find((a) => parseInt(a.id, 10) === parseInt(id, 10));
   }
 
   toJS() {
@@ -208,7 +193,7 @@ export default class RecordModel {
 
     if( attributes.hasOwnProperty('attachments') ) {
       record.attachments = attributes.attachments.map((attachment) => {
-        return MediaItemStore.fromJS(attachment, attributes.id);
+        return Attachment.fromJS(attachment, attributes.id);
       });
     }
 
