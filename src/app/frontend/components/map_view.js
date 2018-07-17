@@ -85,7 +85,7 @@ import LayerToolsContainer from './layer_tools_container';
     }
 
     const layers = <span className="tile-layers">
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
+      <TileLayer url="https://maps.tilehosting.com/styles/basic/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
 
       {this.props.layersStore.activeLayers.values().map((layer, index) => {
         return <TileLayer key={layer.id} url={layer.url} opacity={layer.opacity} zIndex={1000-index} />
