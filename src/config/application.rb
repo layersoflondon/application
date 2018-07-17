@@ -55,6 +55,7 @@ module LayersApp
       }
     }
 
+    config.x.asset_cache_expires_in = 2.years
   #   600x280 tray
     # 1400x700 record hero
     # 1400x1400 large

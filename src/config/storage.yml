@@ -8,7 +8,7 @@ local:
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 amazon:
-  service: S3
+  service: S3CDN
   access_key_id: <%= Rails.application.secrets.aws_access_key_id %>
   secret_access_key: <%= Rails.application.secrets.aws_secret_access_key %>
   region: eu-west-1
@@ -29,7 +29,7 @@ amazon:
 #   storage_access_key: <%= Rails.application.credentials.dig(:azure_storage, :storage_access_key) %>
 #   container: your_container_name
 
-# mirror:
-#   service: Mirror
-#   primary: local
-#   mirrors: [ amazon, google, microsoft ]
+#mirror:
+#  service: Mirror
+#  primary: local
+#  mirrors: [ amazon ]
