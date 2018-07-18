@@ -1,19 +1,14 @@
+# we always need this lot
 json.id record.id
 json.title record.title
 json.description record.description
-json.credit record.credit
-json.like_count record.like_count
-json.view_count record.view_count
-json.state record.state
 json.lat record.pin["lat"]
 json.lng record.pin["lon"]
-json.location record.location
-json.date_from record.date_from
-json.date_to record.date_to
-json.created_at DateTime.parse(record.created_at).strftime("%d/%m/%Y")
-json.updated_at DateTime.parse(record.updated_at).strftime("%d/%m/%Y")
-json.user record.user
-json.collections record.collections
-json.attachments record.attachments
-json.image record.image
-json.taxonomy_terms record.taxonomy_terms
+if local_assigns.has_key?(:full) && full
+  # stuff we only need for the full record render
+  json.partial! 'search/record_full', record: record
+else
+  json.partial! 'search/record_card', record: record
+  
+  
+end
