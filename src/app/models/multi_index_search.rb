@@ -4,7 +4,7 @@ class MultiIndexSearch
     CollectionsIndex
   ]
 
-  def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 1000)
+  def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 100)
     es_query = Chewy::Search::Request.new(*indexes)
 
     if search_params[:geobounding].present?
