@@ -44,22 +44,23 @@ export default class TrayViewStore {
       this.loading_record = true;
 
       if( change.newValue && change.newValue !== 'new' ) {
-        if(this.cards.get(`record_${change.newValue}`)) {
-          let card = this.cards.get(`record_${change.newValue}`);
-          this.record = card.data;
-          this.loading_record = false;
-        }else {
+        // if(this.cards.get(`record_${change.newValue}`)) {
+        //   let card = this.cards.get(`record_${change.newValue}`);
+        //   this.record = card.data;
+        //   this.loading_record = false;
+        // }else {
           Record.show(null, this.record_id).then((response) => {
             let card = CardModel.fromJS(response.data, this);
             this.cards.set(card.id, card);
             this.record = card.data;
+            this.loading_record = true;
           }).catch((error) => {
             console.log("Error getting record", error);
             this.record_id = null;
           }).finally(() => {
             this.loading_record = false;
           });
-        }
+        // }
 
         if(this.fetch_additional_records && !this.locked) {
           setTimeout(() => {
