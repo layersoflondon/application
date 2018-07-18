@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {inject, observer} from "mobx-react";
 import { Marker, Popup } from 'react-leaflet'
 import {Link, withRouter} from 'react-router-dom';
+import Img from 'react-image';
 
 import {Leaflet} from 'react-leaflet';
 import L from 'leaflet';
@@ -60,7 +61,8 @@ import Parser from 'html-react-parser';
           <div className="m-record-card">
             <div className="wrapper">
                 {this.props.record.image &&
-                <div className="image" style={{'backgroundImage': 'url(' + this.props.record.image.marker + ')'}}>
+                <div className="image">
+                  <Img src={this.props.record.image.marker} loader={<span className="is-loading"></span>} />
                 </div>
                 }
 
