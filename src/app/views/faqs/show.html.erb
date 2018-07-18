@@ -1,0 +1,18 @@
+<% content_for :template do %>
+
+  <div class="m-page-header <%= local_assigns.has_key?(:class) ? local_assigns[:class] : "" %>">
+    <div class="image" style="background-image: url('<%= faq.hero_image %>');"></div>
+    <div class="text-content">
+      <span class="surtitle"<%= faq.title %></span>
+      <h1 class="viewable"><%= faq.title %></h1>
+    </div>
+  </div>
+
+  <div class="m-content">
+    <div class="m-article">
+      <%= faq.content %>
+    </div>
+  </div>
+
+<% end %>
+<%= render template: "layouts/application" %>

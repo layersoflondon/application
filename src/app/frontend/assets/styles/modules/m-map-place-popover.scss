@@ -1,0 +1,39 @@
+
+// Map popover
+
+.m-map-place-popover {
+  background:white;
+  position:absolute;
+  left:100px;
+  top:200px;
+  width:200px;
+  z-index:100;
+  box-shadow:0 0 20px rgba(0,0,0,0.2);
+  display:none;
+  padding:10px;
+}
+
+.m-map-place-popover:after {
+  content:"";
+  position:absolute;
+  display:block;
+  bottom: -40px;
+  left: 50%;
+  margin-left: -20px;
+  border-top: 40px solid white;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+}
+
+.showing-place-picker .m-map-place-popover {
+  display:none !important;
+}
+
+.m-map-place-popover h1 {
+  font-size:16px;
+  margin-top:0;
+}
+
+.m-map-place-popover p {
+  font-size:14px;
+}

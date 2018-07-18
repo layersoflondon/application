@@ -1,0 +1,96 @@
+
+@import "../assets/styles/application";
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.record-card-container {
+  background: #fff;
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: transparent;
+  color: #333;
+  box-shadow: none;
+}
+
+// fixme: remove these once prototype is frozen.
+// we need to override some styles from the prototype
+
+.m-map-popover .m-record-card {
+  width: 200px;
+
+  .wrapper {
+    height: 100%;
+  }
+}
+
+.m-overlay {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.m-overlay .close a {
+  display: block;
+  background: url('../assets/images/icon-close.svg') center no-repeat;
+}
+.m-map-area {
+  z-index: 1;
+}
+.m-map-popover {
+  display: block !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  width: 100% !important;
+}
+.m-layer-tools {
+  z-index: 1099;
+}
+
+@import 'rc-slider/assets/index.css';
+
+.m-layer-tools .panel div[data-react-beautiful-dnd-draggable] {
+  height: 30px;
+}
+
+.clipped-tilelayer {
+  clip-path: circle(140px at calc(var(--mouse-x, 0) * 100%) calc(var(--mouse-y, 0) * 100%));
+}
+
+.m-add-media-and-documents .thumbs {
+  li[class^=type-] {
+    a span:after {
+      font-family: FontAwesome;
+      font-size: 5em;
+      position: absolute;
+      margin: 0 25%;
+    }
+  }
+
+  li.type-document {
+    a span {
+      background: transparent;
+
+      &:after {
+        content: "\f1c1";
+      }
+    }
+  }
+
+  li.type-geodata {
+    a span {
+      background: transparent;
+
+      &:after {
+        content: "\f279";
+      }
+    }
+  }
+}
+
+.m-search-overlay .filters-content {
+  display: block !important;
+}

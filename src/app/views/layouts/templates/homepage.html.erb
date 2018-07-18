@@ -1,0 +1,73 @@
+<%= content_for :body_class do %>t-homepage<% end %>
+<% content_for :template do %>
+
+    <div class="m-hero m-hero--large m-hero--home">
+      <div class="image random-image-large"></div>
+      <div class="m-home-logo">
+        <h1>Layers of London</h1>
+        <%= image_tag(("logotype.svg"), :class => "viewable") %>
+      </div>
+      <div class="text-content">
+        <!--<span class="surtitle">Layers of London</span>-->
+        <h1 class="viewable">Recording the rich layers of heritage across London</h1>
+        <a href="/map">Start exploring</a>
+      </div>
+    </div>
+    <div class="m-highlighted-content">
+      <h2>Highlights</h2>
+      <% 5.times do %>
+        <%= render "shared/record-card" %>
+        <% end %>
+      <%#= render "shared/record-card--collection" %>
+      <%#= render "shared/record-card" %>
+      <%#= render "shared/record-card" %>
+      <%#= render "shared/record-card--collection" %>
+    </div>
+    <div class="m-big-search">
+      <!--<h1>Search</h1>-->
+      <div class="search">
+        <input type="text" placeholder="Search the maps"/>
+        <input type="submit" value="Go"/>
+      </div>
+      <p>See the history of your street, or explore a topic you're interested in…</p>
+    </div>
+    <div class="m-home-cta-block">
+      <div class="image"></div>
+      <div class="text-content viewable">
+        <h3>Tell your story</h3>
+        <div class="description">
+          <p>Tortor libero sagittis mi, pellentesque dignissim tellus nisl ut tortor. Nulla eu enim risus.
+            Aenean porta ligula.
+          </p>
+        </div>
+        <a class="button" href="#">Get started</a>
+      </div>
+    </div>
+    <div class="m-home-cta-block m-home-cta-block--flipped">
+      <div class="image"></div>
+      <div class="text-content viewable">
+        <h3>Fancy being a Layers of London map maker?</h3>
+        <div class="description">
+          <p>We’ve a lot of hard work to do to get our historic maps look more accurate. You can help out by
+            fixing some old maps.
+          </p>
+        </div>
+        <a class="button" href="#">Let's do it</a>
+      </div>
+    </div>
+    <div class="m-home-cta-block m-home-cta-block--gray">
+      <div class="image"></div>
+      <div class="text-content viewable">
+        <span class="surtitle">Featurette </span>
+        <h3>A History of Feminism in London</h3>
+        <div class="description">
+          <p>Donec egestas dolor non felis semper feugiat. Morbi pretium eget.</p>
+        </div>
+        <a class="button" href="#">Let's do it</a>
+      </div>
+    </div>
+
+<% end %>
+
+
+<%= render template: "layouts/application" %>

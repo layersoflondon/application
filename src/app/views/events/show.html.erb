@@ -1,0 +1,47 @@
+<% content_for :template do %>
+
+<div class="m-page-header">
+  <a href="#">Back to events</a>
+  <h1>Events</h1>
+</div>
+
+<div class="m-sidebar m-sidebar--right">
+  <div class="m-event-meta">
+    <div>
+      <h3>Date</h3>
+      <span><%= event.full_date %></span>
+    </div>
+    <div>
+      <h3>Location</h3>
+      <span><%= event.full_date %><</span>
+    </div>
+
+    <div>
+      <h3>Booking</h3>
+      <span><%= event.booking %></span>
+    </div>
+  </div>
+</div>
+
+<div class="m-content">
+
+  <h1 class="title">Event: <%= @event.title %></h1>
+
+  <div class="m-article">
+    <p><%= event.content %></p>
+  </div>
+
+</div>
+
+
+<div class="m-layermaker-banner">
+  <div class="title-wrapper">
+    <h2 class="subtitle">Volunteer for Layers of London</h2>
+    <h3 class="title">Become a layer maker</h3>
+  </div>
+  <p>Praesent vel lectus non est semper condimentum. Sed dictum, tortor nec sagittis ultrices, risus nulla
+    pretium arcu.</p>
+  <a class="button">Let's do it</a>
+</div>
+<% end %>
+<%= render template: "layouts/application" %>

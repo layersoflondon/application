@@ -1,0 +1,25 @@
+<%= content_for :body_class do %>m-site-wrapper<% end %>
+<% content_for :template do %>
+  <%= render 'shared/page_header' %>
+
+  <div class="m-content">
+    <div class="m-article">
+      <%= yield %>
+    </div>
+    <div class="m-help-header" >
+
+      <div class="top-faq" style="width: 100%;">
+        <h2 class="title">All frequently asked questions</h2>
+        <ul>
+          <% faqs.each do |faq| %>
+          <li>
+            <%= link_to faq_path(faq.slug) do %><%= faq.title %><% end %></li>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+<% end %>
+
+<%= render template: "layouts/application" %>

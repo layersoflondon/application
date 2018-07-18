@@ -1,0 +1,2157 @@
+{
+	"info": {
+		"name": "LoL",
+		"_postman_id": "b922c2b3-af0c-4011-b7db-12ee9b555962",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Collections",
+			"description": null,
+			"item": [
+				{
+					"name": "Index Collections",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3c561ba9-f0cd-425e-859c-330728a50e77",
+								"type": "text/javascript",
+								"exec": [
+									"// https://www.getpostman.com/docs/v6/postman/scripts/test_scripts",
+									"// http://blog.getpostman.com/2017/07/28/api-testing-tips-from-a-postman-professional/",
+									"",
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Index collections', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f0c9ff58-c232-4b30-bbed-0363f8ffa8b0",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', JSON.parse(responseBody).id);",
+									"  });",
+									"",
+									"  it('should match the collection schema', () => {",
+									"    var schema = JSON.parse(environment.collectionSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"collection\" : {\n    \"title\" : \"test\",\n    \"description\" : \"test description\",\n    \"read_state\" : \"public_read\",\n    \"write_state\" : \"everyone\",\n    \"owner_id\" : 1,\n    \"owner_type\" : \"User\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Show Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "839a4a8f-753a-4fc8-adeb-c55bc42ca887",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Show collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the collection schema', () => {",
+									"    var schema = JSON.parse(environment.collectionSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Update Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a24f1593-9e1f-4679-b3f2-29e62201de8a",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Update collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the collection schema', () => {",
+									"    var schema = JSON.parse(environment.collectionSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"collection\" : {\n    \"title\" : \"test\",\n    \"description\" : \"test description\",\n    \"read_state\" : \"public_read\",\n    \"write_state\" : \"everyone\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1bf3cadc-03b9-4bf7-a762-afc943fd3e8c",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CollectionRecords",
+			"description": null,
+			"item": [
+				{
+					"name": "Index Collection Records",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd102319-735d-4a7a-b296-138bca879dcb",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Index collections records', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/1/records",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections",
+								"1",
+								"records"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Add Record to Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e26df642-f8e1-427b-9320-98e03f60306d",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('add record to collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"    var data = JSON.parse(responseBody);",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', data[data.length - 1].id);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\" : 1\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/1/records",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections",
+								"1",
+								"records"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Record from Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "276f2ba0-9c9d-4500-ae6c-d9367808ce86",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete record from collection', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/collections/1/records/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"collections",
+								"1",
+								"records",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Records",
+			"description": null,
+			"item": [
+				{
+					"name": "Index Records",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e8667d7-88ee-4541-9d4c-6c8bd572ff81",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Index records', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/records",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"records"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create Record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "766e9f71-c3bd-4c0d-bf10-a2303609ac72",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create record', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', JSON.parse(responseBody).id);",
+									"  });",
+									"",
+									"  it('should match the record schema', () => {",
+									"    var schema = JSON.parse(environment.recordSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title\",\n    \"state\" : \"draft\",\n    \"description\" : \"record description\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\",\n    \"location\" : {\"address\" : \"address\"}\n  }\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/records",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"records"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Update record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "feb120f8-076f-45ec-9ed9-cefaaaace41d",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Update record', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the record schema', () => {",
+									"    var schema = JSON.parse(environment.recordSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"record\" : {\n    \"title\" : \"record title update\",\n    \"state\" : \"pending_review\",\n    \"description\" : \"record description update\",\n    \"lat\" : 15,\n    \"lng\" : 20,\n    \"date\" : \"2017-01-01\",\n    \"date_from\": \"2017-01-01\",\n    \"location\" : {\"address\" : \"address\"}\n  }\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/records/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"records",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Patch record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "feb120f8-076f-45ec-9ed9-cefaaaace41d",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Update record', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the record schema', () => {",
+									"    var schema = JSON.parse(environment.recordSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"record\" : {\n    \"state\" : \"flagged\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/records/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"records",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Show Record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "13eb0ebd-4c14-46ab-a650-197c084e7fde",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Show record', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the record schema', () => {",
+									"    var schema = JSON.parse(environment.recordSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/records/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"records",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c1a26356-c51b-4fa2-a6ea-c8b0576f0762",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete record', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/records/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"records",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Record Attachments",
+			"description": null,
+			"item": [
+				{
+					"name": "Index Record Attachments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/records/1/attachments",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"records",
+								"1",
+								"attachments"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create Record Attachment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1150665a-9df0-462d-a3d6-7bf471a8f41a",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create record attachment', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', JSON.parse(responseBody).id);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachable_attributes[title]",
+									"value": "name",
+									"type": "text"
+								},
+								{
+									"key": "attachable_attributes[caption]",
+									"value": "caption",
+									"type": "text"
+								},
+								{
+									"key": "attachable_attributes[credit]",
+									"value": "credits",
+									"type": "text"
+								},
+								{
+									"key": "attachable_attributes[youtube_id]",
+									"value": "12345",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "attachable_attributes[primary]",
+									"value": "1",
+									"description": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "attachment_type",
+									"value": "url",
+									"type": "text"
+								},
+								{
+									"key": "attachable_attributes[url]",
+									"value": "http://localhost:3000/records/1/attachments",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "attachable_attributes[file]",
+									"type": "file",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/records/1/attachments",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"records",
+								"1",
+								"attachments"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Update Record Attachment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "068bf2b8-8d29-4315-b11d-41df2532c41c",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Update record attachment', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachable_attributes[title]",
+									"value": "nameaa",
+									"type": "text"
+								},
+								{
+									"key": "attachable_attributes[caption]",
+									"value": "caption",
+									"type": "text"
+								},
+								{
+									"key": "attachable_attributes[credit]",
+									"value": "credits",
+									"type": "text"
+								},
+								{
+									"key": "attachable_attributes[description]",
+									"value": "description",
+									"type": "text"
+								},
+								{
+									"key": "attachment_type",
+									"value": "url",
+									"type": "text"
+								},
+								{
+									"key": "attachable_attributes[url]",
+									"value": "localhost:3000/records/1/attachments",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/records/1/attachments/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"records",
+								"1",
+								"attachments",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Show Record Attachment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "24552235-3d89-4bd2-8cf4-1dbbb0f3a77e",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('show record attachment', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/records/1/attachments/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"records",
+								"1",
+								"attachments",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Document",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e123e57f-e438-4a8d-9ec3-dd985b9b9914",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete record attachment', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/records/1/attachments/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"records",
+								"1",
+								"attachments",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "42e9833f-e17d-47ca-aad9-5be019e8574f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b3e4314-bd08-42de-b805-f76ee57dd84b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"description": null,
+			"item": [
+				{
+					"name": "Index Teams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/teams",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"teams"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create Team",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "429eaa98-2cb1-4e3b-a2d9-e9c8fa4e3de4",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Create team', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', JSON.parse(responseBody).id);",
+									"  });",
+									"",
+									"  it('should match the team schema', () => {",
+									"    var schema = JSON.parse(environment.teamSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"team\" : {\n    \"name\" : \"test\",\n    \"description\" : \"test description\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/teams",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"teams"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Show Team",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c079c487-2675-4109-a221-5a4669eaa189",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Show team', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the team schema', () => {",
+									"    var schema = JSON.parse(environment.teamSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/teams/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"teams",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Update Team",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9e81e5a-8103-49c8-9bd5-dd7b138a6979",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Update team', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"  ",
+									"  it('should match the team schema', () => {",
+									"    var schema = JSON.parse(environment.teamSchema);",
+									"    response.body.should.have.schema(schema);",
+									"  });  ",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"team\" : {\n    \"name\" : \"test update\",\n    \"description\" : \"test description update\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/teams/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"teams",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Team",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "81343d5e-5ed0-459b-a7af-3819ae05c1f5",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete team', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/teams/{{lastResourceCreatedId}}",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"teams",
+								"{{lastResourceCreatedId}}"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Layer",
+			"description": null,
+			"item": [
+				{
+					"name": "Index Layers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/layers",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"layers"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Search Layers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2f9fe1ae-4cb4-4b51-b52e-65e810faa867",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete team', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/layers/search?query=Innovative",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"layers",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "Innovative",
+									"equals": true
+								}
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "777ba434-4111-4c5d-befa-611a315deebf",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7e816b0b-fc11-42b2-9658-9675298d311c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Team Users",
+			"description": null,
+			"item": [
+				{
+					"name": "Index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f631a0e-2e3a-484c-b8c0-487fb4e76511",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Index team users', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/teams/1/users",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"teams",
+								"1",
+								"users"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cfa41417-ab48-4016-b9d6-03dc0439e648",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('add team users', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"    var data = JSON.parse(responseBody);",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', data[data.length - 1].id);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : 2\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/teams/1/users",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"teams",
+								"1",
+								"users"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f078c11a-64dc-4777-b1c0-287a941111da",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"",
+									"describe('Delete team users', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(204);",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/teams/1/users/2",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"teams",
+								"1",
+								"users",
+								"2"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Teams",
+			"description": null,
+			"item": [
+				{
+					"name": "Index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f631a0e-2e3a-484c-b8c0-487fb4e76511",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Index team users', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/user/1/teams",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"user",
+								"1",
+								"teams"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f17c4324-0764-450d-8909-6331bfef40a7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6fcf6ce-9294-4c5c-bf90-a94fb4ddfa34",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Taxonomies",
+			"description": null,
+			"item": [
+				{
+					"name": "Index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f631a0e-2e3a-484c-b8c0-487fb4e76511",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('Index team users', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"  });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/taxonomies",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"taxonomies"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f17c4324-0764-450d-8909-6331bfef40a7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6fcf6ce-9294-4c5c-bf90-a94fb4ddfa34",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"description": "",
+			"item": [
+				{
+					"name": "Search",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cfa41417-ab48-4016-b9d6-03dc0439e648",
+								"type": "text/javascript",
+								"exec": [
+									"eval(globals.postmanBDD);",
+									"eval(globals.commonTests)();",
+									"",
+									"describe('add team users', () => {",
+									"  it('should return a valid response', () => {",
+									"    response.should.have.status(200);",
+									"    response.should.be.json;",
+									"    response.body.should.not.be.empty;",
+									"    var data = JSON.parse(responseBody);",
+									"    postman.setEnvironmentVariable('lastResourceCreatedId', data[data.length - 1].id);",
+									"  });",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test@error.agency",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"attachment_type\" : [\n        \"Attachments::Url\"\n    ],\n\n    \"geobounding\": {\n        \"top_left\": {\n            \"lat\": 60.00,\n            \"lng\": -30.00\n        },\n        \"bottom_right\" : {\n            \"lat\" : 30.00,\n            \"lng\" : 40.00\n        }\n    }\n}\n"
+						},
+						"url": {
+							"raw": "{{protocol}}{{domain}}:{{port}}/search",
+							"host": [
+								"{{protocol}}{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"search"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "First Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bfa88335-9084-47cf-925e-87f9a4319ab4",
+						"type": "text/javascript",
+						"exec": [
+							"// https://www.getpostman.com/docs/v6/postman/scripts/test_scripts",
+							"// http://blog.getpostman.com/2017/07/28/api-testing-tips-from-a-postman-professional/",
+							"",
+							"postman.setGlobalVariable(\"commonTests\", () => {",
+							"  // The Content-Type must be JSON",
+							"  tests[\"Content-Type header is set\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json; charset=utf-8\";",
+							"",
+							"  // The response time must be less than 500 milliseconds",
+							"  tests[\"Response time is acceptable\"] = responseTime < 1000;",
+							"",
+							"  // The response body must include an \"id\" property",
+							"  // var data = JSON.parse(responseBody);",
+							"  // tests[\"Response has an ID\"] = data.id !== undefined;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}{{domain}}:{{port}}/collections",
+					"host": [
+						"{{protocol}}{{domain}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"collections"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		}
+	]
+}

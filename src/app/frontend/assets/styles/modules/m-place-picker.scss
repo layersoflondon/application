@@ -1,0 +1,25 @@
+// Place picker
+
+.m-place-picker {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  //display:none;
+  z-index: 9999;
+}
+
+.showing-place-picker .m-place-picker {
+  display:block;
+}
+
+.showing-place-picker .m-map {
+  cursor:crosshair;
+}
+
+.m-place-picker .wrap {
+  padding: 20px 30px;
+  font-size:26px;
+  background:rgba(0,0,0,0.8);
+  display:inline-block;
+  color:white;
+}

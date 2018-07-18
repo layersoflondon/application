@@ -1,0 +1,19 @@
+/* Content */
+
+.m-content {
+  width: 70%;
+  margin:0 auto 0;
+  padding: 60px;
+}
+
+.m-sidebar + .m-content {
+  margin:-100px auto 0;
+  position: relative;
+  z-index:2;
+  background:white;
+}
+
+.m-content .title {
+  margin-top:0;
+  margin-bottom:50px;
+}

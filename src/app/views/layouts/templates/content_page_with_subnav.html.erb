@@ -1,0 +1,24 @@
+<%= content_for :body_class do %>t-content-page<% end %>
+
+<% content_for :template do %>
+
+    <%= render 'shared/page_header' %>
+
+    <main class="main--content">
+        <div class="background"><div class="motion-background" id="motion-background"></div></div>
+        <div id="m-sidebar" class="m-sidebar">
+            <%= render partial: "pages/sidebar_cta", collection: page.sidebar_ctas %>
+        </div>
+        <div class="m-content">
+            <div class="m-article">
+                <div class="intro">
+                    Providing architectural, historic, economic and scientific information on the city and its people; and are important records of everyday life, work and culture in the capital.
+                </div>
+                <%= yield %>
+            </div>
+        </div>
+    </main>
+
+<% end %>
+
+<%= render template: "layouts/application" %>

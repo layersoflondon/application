@@ -1,0 +1,77 @@
+// Tool button
+
+.m-tool-button a {
+  background: transparent;
+  border: 0;
+  color: $main-accent;
+  padding: 15px 10px;
+  position: relative;
+  display: block;
+  @include transition(all .2s);
+}
+
+.m-tool-button a:after {
+  content: attr(data-label);
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 15px 0 15px 50px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
+  width: 170px;
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.m-tool-button a:focus {
+  outline: 0;
+}
+
+.m-sidebar:hover .m-tool-button a:after {
+  opacity: 1;
+}
+
+.m-tool-button a:before {
+  font: normal normal normal 20px/1 FontAwesome;
+  color: #b3b3b3;
+  content: "";
+  width: 22px;
+  height: 22px;
+  display: block;
+  opacity: 0.7;
+  margin-top: -2px;
+  @include transition(all .2s);
+}
+
+.m-tool-button--search a:before {
+  background: url('../assets/images/icon-search.svg') center no-repeat;
+}
+
+.m-tool-button--layers a:before {
+  background: url('../assets/images/icon-layers.svg') center no-repeat;
+}
+
+.m-tool-button--add-collection a:before {
+  background: url('../assets/images/icon-collection.svg') center no-repeat;
+}
+
+.m-tool-button--add a:before {
+  background: url('../assets/images/icon-add.svg') center no-repeat;
+}
+
+.m-tool-button--your-content a:before {
+  content: "\f2c0";
+}
+
+.m-tool-button--your-account a:before {
+  content: "\f2c0";
+}
+
+.m-tool-button a:hover {
+  opacity: 0.5;
+}
+
+.m-tool-button span {
+  display: none;
+}

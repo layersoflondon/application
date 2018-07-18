@@ -1,0 +1,52 @@
+/* Subnavigation */
+
+.m-subnavigation {
+  margin-bottom: 60px;
+  position: relative;
+  z-index:3;
+  background:transparentize($black, 0.1);
+  display:block;
+  padding: 30px;
+  margin:0 auto;
+  width: 80%;
+  float:right;
+  width: calc(40% - 40px);
+  margin-top: 190px;
+  min-height: 300px;
+}
+
+.m-subnavigation h2 {
+  text-transform: uppercase;
+  font-size:14px;
+  margin-top:0;
+}
+
+.m-subnavigation ul {
+  @include unlist;
+}
+
+.m-subnavigation li {
+//display:inline;
+}
+
+.m-subnavigation a {
+  background:none;
+  padding:0;
+  border-radius:0;
+  float:none;
+  text-transform:none;
+  margin-bottom:10px;
+}
+
+.m-subnavigation a:hover {
+  background: $red;
+}
+
+.m-subnavigation a:before {
+  content: "\f0da";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 1em;
+  margin-right:10px;
+  z-index: 1;
+}

@@ -1,0 +1,123 @@
+/* Page header */
+
+.m-page-header {
+  background: #ccc;
+}
+
+.m-page-header a {
+  float: right;
+}
+
+/* Hero */
+
+.m-page-header {
+  clear: both;
+  height: 680px;
+  background: #ccc;
+  position: relative;
+  z-index:2;
+}
+
+.m-page-header--small {
+  height: 380px;
+}
+
+.m-page-header--nano {
+  height: 280px;
+}
+
+.m-page-header .surtitle {
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 600;
+  color: $yellow;
+}
+
+.m-page-header .text-content {
+  //width: 50%;
+  height: 100%;
+  position: relative;
+  padding: 200px 80px 140px;
+  //background: rgba(0, 0, 0, 0.6);
+  color:white;
+}
+
+.m-page-header--small .text-content {
+  padding: 220px 80px 140px;
+}
+
+.m-page-header--nano .text-content {
+  padding: 140px 80px 140px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.31);
+}
+
+.m-page-header .image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  border-bottom: 15px solid $black;
+}
+
+.t-help-centre .m-page-header .image {
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+.t-content-page .m-page-header .image {
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+.m-page-header h1 {
+  @include font-display;
+  line-height: 1.2;
+  margin-top: 80px;
+  font-family: 'Zilla Slab', serif;
+  font-weight: 400;
+  margin-bottom: 0;
+  padding: 20px 30px;
+  font-size: 54px;
+  display: inline-block;
+  background: #000c;
+  background:transparentize($yellow, 0.1);
+  color:black;
+  //float:left;
+  width:calc(40% - 40px);
+  text-align:right;
+  min-height: 440px;
+  font-weight:800;
+}
+
+.m-page-header a {
+  background: #efdf5b6b;
+  color: #ffffff;
+  padding: 17px 25px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: -1px;
+  display: inline-block;
+  transition: all .2s;
+}
+
+.m-page-header a:hover {
+  background: #efdf5b;
+  color: $black;
+}
+
+.m-page-header a:before {
+  content: "\f0da";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 1em;
+  margin-right: 10px;
+  z-index: 1;
+}

@@ -1,0 +1,334 @@
+/* Article */
+
+.m-article {
+  max-width: 740px;
+  margin-bottom: 60px;
+}
+
+.m-content .m-article {
+  max-width: none;
+}
+
+/*.m-article {
+
+  .image {
+    background: #ccc;
+    width: 100%;
+    padding-bottom: 50%;
+  }
+
+  .image--left {
+    width: 50%;
+    padding-bottom: 25%;
+    float: left;
+    margin-right: 20px;
+  }
+
+  .image--right {
+    width: 50%;
+    padding-bottom: 25%;
+    float: right;
+    margin-left: 20px;
+  }
+
+}*/
+
+.m-article {
+  font-size: 18.1px;
+  line-height: 1.9;
+
+  @include mq(tablet) {
+    font-size: 16.1px;
+  }
+  @include mq(smartphone) {
+    font-size: 14.1px;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  * + * {
+    margin: 1.2em 0 0 0;
+  }
+
+  .intro {
+    font-size: 36px;
+    line-height: 1.5;
+    @include font-display;
+    color:$lilac;
+    margin-bottom: 50px;
+  }
+
+  ul,
+  ol,
+  blockquote {
+    //margin: 0;
+    padding: 0;
+  }
+
+  /* Typography */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 500;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+
+  h2 {
+    font-size: 2em;
+    @include font-display;
+    color: $orange;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
+  h4 {
+    font-size: 1em;
+    color: $red;
+  }
+
+  h5 {
+    font-size: .9em;
+    text-transform: uppercase;
+    margin-top: 1.8em;
+  }
+
+  h6 {
+    font-size: .8em;
+    text-transform: uppercase;
+    margin-top: 2em;
+  }
+
+  ol,
+  ul,
+  blockquote,
+  pre {
+    margin-left: 1em;
+  }
+
+  ol,
+  ul {
+    list-style-position: outside;
+    list-style-type: disc;
+    margin-left: 2em;
+  }
+
+  li {
+    margin-top: 0.5em;
+  }
+
+  ol ol,
+  ul ul,
+  ol ul,
+  ul ol {
+    margin-left: 1.5em;
+    list-style-type: circle;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  ol ol {
+    list-style-type: lower-latin;
+  }
+
+  a,
+  a:visited {
+    color: $orange;
+  }
+  a:hover {
+  }
+
+  blockquote {
+    /*    margin: 0;
+        padding: 0;*/
+    background: $green;
+    color: $yellow;
+    font-size: 1.4em;
+    /*    padding: 30px;
+        margin: 1em 0;*/
+    @include top-and-tail;
+    //border-bottom: 10px solid;
+    box-shadow: 10px 10px $yellow;
+    position: relative;
+    padding: 50px;
+    margin: 1em 0;
+    margin-top:50px;
+    margin-left: -100px;
+    margin-bottom: 70px;
+
+    line-height: 1.7;
+  }
+
+  blockquote:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 80%;
+    display: block;
+    border-top: 58px solid $green;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+
+  }
+  blockquote p {
+    //padding-left: 25px;
+    //border-left: 2px solid #ddd;
+
+  }
+
+  // Tables 
+
+  table {
+  }
+
+  table th {
+    font-weight: 500;
+    border-bottom: 1px solid #bbb;
+  }
+  table th,
+  table td {
+    padding: 5px 7px;
+  }
+
+  // Images
+
+  img {
+    height: auto;
+    max-width: 100%;
+    box-shadow: 10px 10px $red;
+  }
+
+  .wp-caption {
+    background: $red;
+  }
+
+  .wp-caption img {
+    position: relative;
+    top: -10px;
+    left: -10px;
+    box-shadow: none;
+  }
+
+  img.alignleft,
+  .wp-caption.alignleft {
+    float: left;
+    margin-right: 40px;
+    max-width: 50%;
+    margin-left: -100px;
+    margin-top: 0.5em;
+    margin-bottom: 30px;
+    background: $red;
+    color: white;
+    @include mq(small-tablet) {
+      margin-left: -40px;
+    }
+    @include mq(smartphone) {
+      margin-left: -15px;
+    }
+  }
+
+  img.alignright,
+  .wp-caption.alignright {
+    float: right;
+    margin-left: 40px;
+    max-width: 50%;
+    margin-right: -100px;
+    margin-top: 0.5em;
+    margin-bottom: 30px;
+    background: $red;
+    color: white;
+    @include mq(small-tablet) {
+      margin-right: -40px;
+    }
+    @include mq(smartphone) {
+      margin-right: -15px;
+    }
+  }
+
+  .aligncenter {
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+    background: $red;
+    color: white;
+  }
+
+  .wp-caption-text {
+    background: #F4F4F4;
+    margin: 0;
+    font-size: 0.8em;
+    line-height: 1.4;
+    padding: 10px 12px;
+    padding-top: 0;
+    background: $red;
+    color: white;
+  }
+
+}
+
+/*
+.m-article {
+  img.alignleft,
+  .wp-caption.alignleft {
+    margin-left: -100px;
+    @include mq(small-tablet) {
+      margin-left: -60px;
+    }
+    @include mq(smartphone) {
+      margin-left: -15px;
+    }
+  }
+}
+*/
+
+// Content no subnav
+
+.m-article {
+  img.alignleft,
+  .wp-caption.alignleft {
+    //margin-left:-100px;
+    margin-left: -120px;
+    @include mq(small-tablet) {
+      margin-left: -60px;
+    }
+    @include mq(smartphone) {
+      margin-left: -15px;
+    }
+  }
+  img.alignright,
+  .wp-caption.alignright {
+    margin-right: -120px;
+    @include mq(small-tablet) {
+      margin-right: -60px;
+    }
+    @include mq(smartphone) {
+      margin-right: -15px;
+    }
+  }
+}
+
+/*
+
+.m-article .image {
+  background: url(/example/10.jpg) center/cover no-repeat;
+}
+
+.m-article .image--right {
+  background: url(/example/8.jpg) center/cover no-repeat;
+}
+
+.m-article .image--left {
+  background: url(/example/7.jpg) center/cover no-repeat;
+}*/

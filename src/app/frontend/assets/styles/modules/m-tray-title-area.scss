@@ -1,0 +1,67 @@
+// Tray title area
+
+.m-tray-title-area {
+  @include clearfix;
+  margin-bottom: 25px;
+}
+
+.m-tray-title-area h1 {
+  margin-top: 0;
+  margin-bottom: 7px;
+  @include font-display;
+
+  background: $yellow;
+  display: inline-block;
+  float:left;
+  color: $black;
+  padding: 3px 10px;
+}
+
+.m-tray-title-area .close {
+  float: right;
+  margin-top: -2px;
+  margin-right: -4px;
+}
+
+.m-tray-title-area .close button {
+  background: url('../assets/images/icon-close.svg') center no-repeat;
+  width: 50px;
+  height: 50px;
+  @include kellum;
+  padding: 0;
+  opacity: 0.7;
+  @include transition(all .2s);
+}
+
+.m-tray-title-area .close button:hover {
+  opacity: 1;
+}
+
+.m-tray-title-area .meta {
+  float: left;
+  clear:both;
+  @include caps-subtitle;
+}
+
+.m-tray-title-area .creator-link {
+  float: right;
+}
+
+.m-tray-title-area .request-to-join {
+  @include lozenge-button;
+  margin-left: 10px;
+  margin-top: -3px;
+}
+
+.m-tray-title-area .profile-pic .image {
+  width: 70px;
+  height: 70px;
+  float: left;
+  margin-right: 10px;
+  border-radius: 100px;
+}
+
+.m-tray-title-area--search-results .refine {
+  float: right;
+  margin-top: -10px;
+}

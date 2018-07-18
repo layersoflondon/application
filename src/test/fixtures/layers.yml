@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lat: 1.5
+  lng: 1.5
+  date_from: 2018-05-09
+  date_to: 2018-05-09
+  layer_type: 1
+  layer_data: MyText
+
+two:
+  lat: 1.5
+  lng: 1.5
+  date_from: 2018-05-09
+  date_to: 2018-05-09
+  layer_type: 1
+  layer_data: MyText

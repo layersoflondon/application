@@ -1,0 +1,108 @@
+import React, {Component} from 'react';
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+
+import MarkerContainer from './marker_container';
+
+import {observer, inject} from "mobx-react";
+
+import LayerToolsContainer from './layer_tools_container';
+
+@inject('routing')
+@observer export default class MapView extends Component {
+  constructor(props) {
+    super(props);
+
+    this.mapRef = null;
+    this.setMapRef = element => {
+      this.mapRef = element;
+      this.props.mapViewStore.map_ref = this.mapRef;
+      this.props.trayViewStore.map_ref = this.mapRef;
+    }
+  }
+
+  componentDidMount() {
+    this.initial_bounds = this.props.mapViewStore.current_bounds;
+  }
+
+  handleOnDragEnd() {
+    if(!this.props.trayViewStore.locked) {
+      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+    }
+  }
+
+  handleOnZoomEnd() {
+
+    if(!this.props.trayViewStore.locked) {
+      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+    }
+  }
+
+  handleOnClick(event) {
+    this.props.mapViewStore.latlng = event.latlng;
+
+    if( this.props.mapViewStore.add_record_mode ) {
+      const {lat, lng} = event.latlng;
+
+      this.props.recordFormStore.latlng = event.latlng;
+      this.props.recordFormStore.record.lat = lat;
+      this.props.recordFormStore.record.lng = lng;
+      this.props.routing.push('/map/records/new');
+    }
+  }
+
+  updateLoopLayer(event) {
+    if( !this.props.layersStore.loop_layer_id ) return;
+
+    const leafletElement = this.refs['clipped-tilelayer'].leafletElement;
+    const container_position = leafletElement._container.closest('.m-map').getBoundingClientRect();
+
+    window.leafletElement = leafletElement;
+
+    const x = event.clientX - container_position.x;
+    const y = event.clientY - container_position.y;
+
+    this.refs['clipped-tilelayer'].leafletElement._container.style.clipPath = `circle(200px at ${x}px ${y}px)`
+  }
+
+  render() {
+    const position = this.props.mapViewStore.center.toJS();
+    const map_zoom = this.props.mapViewStore.zoom;
+
+    let markers = [];
+
+    if( this.props.trayViewStore.cards.size ) {
+      this.props.trayViewStore.cards.values().map((c) => {
+        let key;
+        if( c.is_collection ) {
+          c.data.records.map((r)=> {
+            key = `collection_${c.id}_record_${r.id}`;
+            markers.push( <MarkerContainer key={key} position={r.position} record={r} cardComponent={c} trayViewStore={this.props.trayViewStore} /> )
+          })
+        }else {
+          markers.push( <MarkerContainer key={c.id} position={c.data.position} record={c.data} cardComponent={c} trayViewStore={this.props.trayViewStore} /> )
+        }
+      });
+    }
+
+    const layers = <span className="tile-layers">
+      <TileLayer url="https://maps.tilehosting.com/styles/basic/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
+
+      {this.props.layersStore.activeLayers.values().map((layer, index) => {
+        return <TileLayer key={layer.id} url={layer.url} opacity={layer.opacity} zIndex={1000-index} />
+      })}
+    </span>;
+
+    return <div className="m-map-area" onMouseMove={this.updateLoopLayer.bind(this)}>
+      <div className="m-map">
+        <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
+          {layers}
+          {this.props.layersStore.loop_layer && <TileLayer key={this.props.layersStore.loop_layer.id} url={this.props.layersStore.loop_layer.url} attribution={this.props.layersStore.loop_layer.attribution} opacity={this.props.layersStore.loop_layer.opacity} zIndex={1000+1} className="clipped-tilelayer" ref='clipped-tilelayer' />}
+
+          {markers}
+        </Map>
+      </div>
+
+      <LayerToolsContainer {...this.props} />
+    </div>;
+  }
+}

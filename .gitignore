@@ -5,29 +5,51 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
-/.bundle
+/src/.bundle
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+/src/log/*
+/src/tmp/*
+!/src/log/.keep
+!/src/tmp/.keep
 
 # Ignore uploaded files in development
-/storage/*
+/src/storage/*
 
-/node_modules
-/yarn-error.log
+/src/node_modules
+/src/yarn-error.log
 
-/public/assets
+/src/public/assets
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
-/public/packs
-/public/packs-test
-/node_modules
-yarn-debug.log*
-yarn-error.log*
-.yarn-integrity
+/src/config/master.key
+/src/public/packs
+/src/public/packs-test
+/src/node_modules
+/src/yarn-debug.log*
+/src/yarn-error.log*
+/src/.yarn-integrity
+
+# Ignore IDE Rubymine project files
 .idea/*
+/src/.idea
+/src/src.iml
+.generators
+
+# Docker
+/src/database/data/*
+/src/database/import/*.sql
+docker-key
+docker-key.pub
+**/secrets.yml
+src/public/uploads
+
+
+/node_modules
+/tmp
+/log
+
+capistrano.log
+
+src/alpha

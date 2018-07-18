@@ -1,0 +1,45 @@
+{
+  "$schema":"http://json-schema.org/draft-04/schema#",
+  "type":"object",
+  "properties":{
+    "id":{
+      "type":"integer"
+    },
+    "title":{
+      "type":"string"
+    },
+    "description":{
+      "type":"string"
+    },
+    "read_state":{
+      "type":"string"
+    },
+    "write_state":{
+      "type":"string"
+    },
+    "owner":{
+      "type": "object"
+    },
+    "records" : {
+      "type":"array"
+    },
+    "image":{
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required":[
+    "id",
+    "title",
+    "description",
+    "read_state",
+    "write_state",
+    "created_at",
+    "updated_at",
+    "owner",
+    "records",
+    "image"
+  ]
+}
