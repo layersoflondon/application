@@ -106,6 +106,40 @@ $element-border-radius-small: 3px;
   background: #e6e5e5;
 }
 
+
+@mixin loading-spinner {
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+  &:after {
+    font: normal normal normal 45px/1 FontAwesome;
+    content: "\f110";
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg)
+      }
+
+      to {
+        transform: rotate(1turn)
+      }
+    }
+    -webkit-animation: spin 2s infinite;
+    -o-animation: spin 2s infinite;
+    animation: spin 2s infinite;
+
+    position: absolute;
+    top: calc(50% - 45px);
+    left: calc(50% - 45px);
+    z-index: 11;
+    color: #fff;
+  }
+}
 @mixin record-card {
 
   .wrapper {
@@ -121,6 +155,9 @@ $element-border-radius-small: 3px;
     width: 100%;
     height: 100%;
     position: absolute;
+    span.is-loading {
+      @include loading-spinner;
+    }
   }
 
   .image:before {

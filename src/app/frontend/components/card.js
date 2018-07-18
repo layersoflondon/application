@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import Parser from 'html-react-parser';
 import {Link, withRouter} from 'react-router-dom';
+import Img from 'react-image';
+
+
 
 @withRouter
 @observer export default class Card extends Component {
@@ -28,7 +31,6 @@ import {Link, withRouter} from 'react-router-dom';
     let image_styles = {background: '#2e3c4e'};
 
     if( this.props.card.is_collection ) container_classes += " m-record-card--collection";
-    if( this.props.card.data.image ) image_styles.backgroundImage = `url('${this.props.card.data.image.card}')`;
 
     let resource = '/';
     if( this.props.card.is_collection ) {
@@ -53,6 +55,11 @@ import {Link, withRouter} from 'react-router-dom';
       <Link to={path} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseOut={()=>this.props.card.highlighted=false}>
         <div className="wrapper">
           <div className="image" style={image_styles}>
+            {
+              this.props.card.data.image &&
+              <Img src={this.props.card.data.image.card} loader={<span className="is-loading"></span>}
+              />
+            }
           </div>
           {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
           <div className="text-content">
