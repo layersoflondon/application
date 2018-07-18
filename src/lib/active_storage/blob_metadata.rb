@@ -1,3 +1,4 @@
+require 'active_storage/blob'
 module ActiveStorage
   module BlobMetadata
     extend ActiveSupport::Concern
