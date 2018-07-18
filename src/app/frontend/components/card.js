@@ -59,7 +59,7 @@ import VisibilitySensor from 'react-visibility-sensor';
     };
 
     return (
-      <VisibilitySensor onChange={visibilityChanged}>
+      <VisibilitySensor onChange={visibilityChanged} partialVisibility={true}>
         <Link to={path} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseOut={()=>this.props.card.highlighted=false}>
           <div className="wrapper">
             <div className="image" style={image_styles}>
