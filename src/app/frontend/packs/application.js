@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // fetch the initial app state then initialize the stores and components
     axios.get('/map/state.json').then((response) => {
         const stores = initStore(response.data);
-        stores.routing = routingStore;
+        stores.router = routingStore;
 
         ReactDOM.render(
           <Provider {...stores} userPresent={userPresent} >
-            <Router history={history}>
+            <Router history={history} >
               <Main />
             </Router>
           </Provider>,

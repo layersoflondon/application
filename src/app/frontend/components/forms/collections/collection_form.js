@@ -7,7 +7,7 @@ import {inject} from "mobx-react/index";
 import Record from "../../../sources/record";
 import RecordModel from "../../../models/record";
 
-@inject('routing', 'mapViewStore', 'collectionStore', 'layersStore')
+@inject('router', 'mapViewStore', 'collectionStore', 'layersStore')
 @withRouter
 @observer export default class CollectionForm extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ import RecordModel from "../../../models/record";
       const collection = CollectionModel.fromJS(response.data);
       this.props.collectionStore.addCollection(collection);
 
-      const {push} = {...this.props.routing};
+      const {push} = {...this.props.router};
       push(`/map`);
     }).catch((response) => {
       console.log("Error creating collection", response);

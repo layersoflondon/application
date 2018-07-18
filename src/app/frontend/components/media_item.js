@@ -1,9 +1,9 @@
 import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
-import {Link, withRouter} from 'react-router-dom';
-import Parser from "html-react-parser";
+import { Route } from 'react-router';
+import {Switch, withRouter} from 'react-router-dom';
 
-@inject('routing', 'trayViewStore')
+@inject('router', 'trayViewStore')
 @withRouter
 @observer export default class MediaItem extends Component {
   constructor(props) {
@@ -34,18 +34,24 @@ import Parser from "html-react-parser";
     const render_method = this.state.media_item.media_type;
 
     return <div className="main-media-item">
-      <div className="item">
-        {this.state.media_item && this[render_method]()}
-      </div>
-      <div className="meta">
-        <div className="attribution">
-          <p>Duis dapibus mollis erat ac.</p>
-        </div>
-        <div className="caption">
-          <p>Proin ornare sapien in nunc fermentum euismod. Sed lectus purus, ornare vel faucibus volutpat, pharetra vitae nisl. Nunc metus neque, dictum sit amet risus eget, porttitor tincidunt purus. Fusce ultricies est sed vulputate fermentum. Nunc vel tristique orci. Proin dapibus…</p>
-          <button className="show-all">Read more</button>
-        </div>
-      </div>
+      <Switch location={this.props.location}>
+        <Route exact={true}>
+          <div>
+            <div className="item">
+              {this.state.media_item && this[render_method]()}
+            </div>
+            <div className="meta">
+              <div className="attribution">
+                <p>Duis dapibus mollis erat ac.</p>
+              </div>
+              <div className="caption">
+                <p>Proin ornare sapien in nunc fermentum euismod. Sed lectus purus, ornare vel faucibus volutpat, pharetra vitae nisl. Nunc metus neque, dictum sit amet risus eget, porttitor tincidunt purus. Fusce ultricies est sed vulputate fermentum. Nunc vel tristique orci. Proin dapibus…</p>
+                <button className="show-all">Read more</button>
+              </div>
+            </div>
+          </div>
+        </Route>
+      </Switch>
     </div>
   }
 }

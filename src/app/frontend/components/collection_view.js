@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 import Parser from 'html-react-parser';
 import {Link, withRouter} from 'react-router-dom';
 
-@inject('routing', 'trayViewStore', 'mapViewStore', 'recordFormStore')
+@inject('router', 'trayViewStore', 'mapViewStore', 'recordFormStore')
 @withRouter
 @observer export default class CollectionView extends Component {
   constructor(props) {

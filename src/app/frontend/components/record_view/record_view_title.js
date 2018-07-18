@@ -9,7 +9,7 @@ import RecordViewComponentState from './record_view_component_state';
 
   render() {
     return <div className="title">
-      <h1>Title {this.props.trayViewStore.record.title}</h1>
+      <h1>{this.props.trayViewStore.record.title}</h1>
     </div>
   }
 }

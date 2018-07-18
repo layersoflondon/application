@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom';
 import RecordViewComponentState from './record_view/record_view_component_state';
 import RecordView from './record_view/record_view';
 
-@inject('routing', 'trayViewStore', 'mapViewStore', 'recordFormStore')
+@inject('router', 'trayViewStore', 'mapViewStore', 'recordFormStore')
 @withRouter
 @observer class RecordViewWrapper extends Component {
   constructor(props) {

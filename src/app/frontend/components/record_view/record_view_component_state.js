@@ -15,15 +15,15 @@ export default class RecordViewComponentState {
         event.preventDefault();
 
         console.log("Close");
-        // if(this.props.routing.history.length>1) {
-        //   this.props.routing.history.goBack();
+        // if(this.props.router.history.length>1) {
+        //   this.props.router.history.goBack();
         // }else {
-        //   this.props.routing.push("/map");
+        //   this.props.router.push("/map");
         // }
 
         this.props.trayViewStore.record_id = false;
         this.props.trayViewStore.record = false;
-        this.props.routing.push("/map");
+        this.props.router.push("/map");
       }
 
       render() {

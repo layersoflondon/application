@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 import SearchViewTaxonomy from "./_search_view_taxonomy";
 import Search from "../../../sources/search";
 
-@inject('routing', 'mapViewStore', 'trayViewStore')
+@inject('router', 'mapViewStore', 'trayViewStore')
 @withRouter
 @observer export default class SearchView extends Component {
   constructor(props) {
@@ -120,7 +120,7 @@ import Search from "../../../sources/search";
     this.props.trayViewStore.loading = true;
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
-      const {push} = {...this.props.routing};
+      const {push} = {...this.props.router};
       const params = serializeQuery(search_params);
       push(`?results=true&q=${this.state.q}`);
       this.setState({showing_results: true});

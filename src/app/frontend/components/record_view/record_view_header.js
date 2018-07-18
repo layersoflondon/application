@@ -21,7 +21,7 @@ import RecordViewComponentState from "./record_view_component_state";
   }
 
   componentWillUnmount() {
-    if( this.props.routing.location.pathname.search(/\/edit$/) > -1 ) {
+    if( this.props.router.location.pathname.search(/\/edit$/) > -1 ) {
     }else {
     }
   }

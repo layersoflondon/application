@@ -7,7 +7,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {Leaflet} from 'react-leaflet';
 import L from 'leaflet';
 import Parser from 'html-react-parser';
-@inject('routing')
+@inject('router')
 @withRouter
 @observer export default class MarkerContainer extends Component {
   constructor(props) {
