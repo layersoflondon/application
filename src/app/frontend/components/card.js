@@ -4,13 +4,16 @@ import {observer} from "mobx-react";
 import Parser from 'html-react-parser';
 import {Link, withRouter} from 'react-router-dom';
 import Img from 'react-image';
-
+import VisibilitySensor from 'react-visibility-sensor';
 
 
 @withRouter
 @observer export default class Card extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      visible: false
+    };
   }
 
   highlightCard() {
@@ -51,26 +54,32 @@ import Img from 'react-image';
       path = `/map/collections/${collection_path[1]}/records/${this.props.card.data.id}`;
     }
 
-    return (
-      <Link to={path} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseOut={()=>this.props.card.highlighted=false}>
-        <div className="wrapper">
-          <div className="image" style={image_styles}>
-            {
-              this.props.card.data.image &&
-              <Img src={this.props.card.data.image.card} loader={<span className="is-loading"></span>}
-              />
-            }
-          </div>
-          {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
-          <div className="text-content">
-            <h1>{this.props.card.data.title}</h1>
-            <p>{parsed_content[0] || parsed_content} Curabitur eget feugiat odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc feugiat porttitor sapien. Donec luctus.</p>
-          </div>
+    let visibilityChanged = (visible) => {
+      this.setState({visible: visible})
+    };
 
-          <div className="link-indicator">
+    return (
+      <VisibilitySensor onChange={visibilityChanged}>
+        <Link to={path} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseOut={()=>this.props.card.highlighted=false}>
+          <div className="wrapper">
+            <div className="image" style={image_styles}>
+              {
+                this.props.card.data.image && this.state.visible && 
+                <Img src={this.props.card.data.image.card} loader={<span className="is-loading"></span>}/>
+              }
+            </div>
+            {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
+            <div className="text-content">
+              <h1>{this.props.card.data.title}</h1>
+              <p>{parsed_content[0] || parsed_content} Curabitur eget feugiat odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc feugiat porttitor sapien. Donec luctus.</p>
+            </div>
+
+            <div className="link-indicator">
+            </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </VisibilitySensor>
+
     );
   }
 }
