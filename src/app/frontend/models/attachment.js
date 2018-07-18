@@ -1,7 +1,7 @@
 import {observable, computed} from 'mobx';
 import RecordAttachments from '../sources/record_attachments';
 
-export default class MediaItemStore {
+export default class Attachment {
   id = null;
   attachable_type = null;
 
@@ -35,8 +35,25 @@ export default class MediaItemStore {
     return this.attachable_type === 'Attachments::Image' || this.attachable_type === 'Attachments::Video';
   }
 
+  @computed get media_type() {
+    let type = null;
+    switch(this.attachable_type) {
+      case 'Attachments::Image':
+        type = 'image';
+        break;
+      case 'Attachments::Video':
+        type = 'video';
+        break;
+      default:
+        type = this.attachable_type.split("::")[1].toLowerCase();
+        break;
+    }
+
+    return type;
+  }
+
   static fromJS(object, record_id) {
-    const store = new MediaItemStore();
+    const store = new Attachment();
 
     Object.assign(store, object);
     store.record_id = record_id;

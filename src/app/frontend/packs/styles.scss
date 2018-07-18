@@ -94,3 +94,19 @@
 .m-search-overlay .filters-content {
   display: block !important;
 }
+
+
+.media-item-enter {
+  opacity: 0;
+  z-index: 1;
+}
+
+
+.media-item.media-item-enter-active {
+  opacity: 1;
+  -webkit-transition: opacity 2500ms ease-in;
+  -moz-transition: opacity 2500ms ease-in;
+  -ms-transition: opacity 2500ms ease-in;
+  -o-transition: opacity 2500ms ease-in;
+  transition: opacity 2500ms ease-in;
+}

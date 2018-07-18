@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
 import MediaItem from './media_item';
 import MediaItemEditor from './media_item_editor';
-import MediaItemStore from '../../../stores/media_item_store';
+import Attachment from '../../../models/attachment';
 
 import Dropzone from 'react-dropzone';
 import {observer} from "mobx-react";
@@ -45,7 +45,7 @@ import {observer} from "mobx-react";
 
         console.log("Dropped attachment", new_attachment);
 
-        const media_item = MediaItemStore.fromJS(new_attachment, this.props.recordFormStore.record.id);
+        const media_item = Attachment.fromJS(new_attachment, this.props.recordFormStore.record.id);
         media_item.persist().then((response) => {
           let data = response.data;
           media_item.record_id = this.props.recordFormStore.record.id;
@@ -66,7 +66,7 @@ import {observer} from "mobx-react";
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
 
     const media_items = this.props.recordFormStore.record.attachments.map((item,i) => {
-      let media_item = MediaItemStore.fromJS(item, this.props.recordFormStore.record.id);
+      let media_item = Attachment.fromJS(item, this.props.recordFormStore.record.id);
       return <MediaItem {...item} {...this.props} object={media_item} key={i} index={i} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
     });
 

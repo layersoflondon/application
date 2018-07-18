@@ -55,7 +55,7 @@ export default class TrayViewStore {
             this.record = card.data;
             this.loading_record = true;
           }).catch((error) => {
-            console.log("Error getting record", error);
+            console.log(`Error getting record ${this.record_id}`, error);
             this.record_id = null;
           }).finally(() => {
             this.loading_record = false;

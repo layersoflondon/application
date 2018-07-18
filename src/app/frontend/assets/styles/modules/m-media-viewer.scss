@@ -1,0 +1,85 @@
+/* Media viewer */
+
+.m-media-viewer {
+  height:100%;
+}
+
+.m-media-viewer .wrap {
+  @include overlay-wrap;
+  max-width: 1100px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 50px;
+  color: white;
+  position: relative;
+  height:100%;
+}
+
+.m-media-viewer--expanded .wrap {
+  padding-bottom:50px;
+}
+
+.m-media-viewer .main-media-item {
+  height:calc(100% - 170px);
+  position:relative;
+  display: table;
+}
+
+.m-media-viewer--expanded .main-media-item {
+  height:100%;
+}
+
+.m-media-viewer .main-media-item .item {
+  height:100%;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.m-media-viewer .main-media-item img,
+.m-media-viewer .main-media-item iframe {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  margin:0 auto;
+  display: block;
+}
+
+.m-media-viewer .main-media-item .attribution {
+  position:absolute;
+  bottom:20px;
+  right: 20px;
+  max-width:200px;
+  color: #9c9c9c;
+  font-size: 11px;
+  text-align:right;
+  background-color:#000;
+  padding:3px 6px;
+}
+
+.m-media-viewer .main-media-item .attribution > * {
+  margin:0;
+}
+
+.m-media-viewer .main-media-item .caption {
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  max-width:600px;
+  max-height:100px;
+}
+
+.m-media-viewer .main-media-item .caption .show-all {
+  bottom: -16px;
+  position: absolute;
+  right: 24px;
+  font-size:12px;
+  padding: 3px 8px;
+  background:#000;
+  color:$yellow;
+}
+
+.m-media-viewer .main-media-item .caption .show-all:after {
+  content: "\f0d7";
+  font: normal normal normal 12px/1 FontAwesome;
+  margin-left:8px;
+}

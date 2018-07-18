@@ -1,6 +1,6 @@
 GIT
   remote: ssh://git@bitbucket.org/errorstudio/errorstudio_capistrano_recipes
-  revision: c2912e50b158dab06ddef8ea6c0b8cb9867e04f5
+  revision: b92d835e5ef002236b1cc2c229cfedabbb989b0d
   specs:
     errorstudio_capistrano_recipes (0.1.10)
       capistrano (~> 3.11.0)
@@ -40,7 +40,7 @@ GEM
     rvm1-capistrano3 (1.4.0)
       capistrano (~> 3.0)
       sshkit (>= 1.2)
-    sshkit (1.16.1)
+    sshkit (1.17.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
 

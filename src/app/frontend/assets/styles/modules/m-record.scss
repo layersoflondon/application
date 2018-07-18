@@ -68,6 +68,13 @@
   left: 25px;
 }
 
+
+// Header
+
+.m-record .header--no-media {
+  margin-top:200px;
+}
+
 // Title
 
 .m-record .title {
@@ -89,6 +96,36 @@
   margin-bottom: 0;
   position: relative;
   font-size: 28px;
+  font-size: 44px;
+}
+
+.m-record .header--full .title-area {
+  float: left;
+  width: 45%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-left: -20px;
+}
+
+.m-record .header--gallery.header--no-hero .title-area {
+  float: none;
+  width: auto;
+  @include clearfix;
+}
+
+.m-record .header--full .title-area .text-content {
+  padding-bottom: 20px;
+}
+
+.m-record .header--full.header--no-hero .title-area .text-content {
+  float: left;
+  width: 50%;
+  padding-right: 40px;
+}
+
+.m-record .header--full .title {
+  margin-left: 0;
+  width: auto;
 }
 
 // Meta
@@ -100,6 +137,10 @@
   margin-left: 300px;
   display: inline-block;
   position: relative;
+}
+
+.m-record .header--full .meta {
+  margin-left: 0;
 }
 
 .m-record .meta .dates {
@@ -123,72 +164,76 @@
 // Social
 
 .m-record .social {
-  position: absolute;
-  right: 0;
   z-index: 2;
-  margin-top: -10px;
-  margin-right: -50px;
   font-size: 12px;
   text-transform: uppercase;
-}
-
-.m-record .social-status {
-  text-align: center;
-  padding: 12px;
-  background: $green;
-  color: $yellow;
-  float: left;
-}
-
-.m-record .social-status button {
-  background: transparent;
-  display: block;
-  margin: 0 auto;
-  color: #ffeb57;
-}
-
-.m-record .social-status button.like:before {
-  content: "\f164";
-  font-size: 40px;
-  font: normal normal normal 24px/1 FontAwesome;
-  width: 60px;
-  height: 40px;
-  line-height: 45px;
   text-align: center;
 }
 
-.m-record .social-status button span {
-  display: none;
+.m-record .header--full .social {
+  margin-right: -30px;
 }
 
-.m-record .share-record {
+.m-record .social > div {
+  width: 96px;
   text-align: center;
-  padding: 12px 20px;
+  padding: 12px 6px;
   background: $red;
   color: $orange;
-  float: left;
   margin-right: 20px;
+  display: inline-block;
+  margin-bottom: 20px;
 }
 
-.m-record .share-record button {
+.m-record .social > div.add-to-collection {
+  color: $orange;
+}
+
+.m-record .social > div.social-status {
+  background: $green;
+  color: $yellow;
+}
+
+.m-record .social > div.share-record {
+  background: $blue;
+  color: #fff;
+}
+
+.m-record .social button {
+  background: transparent;
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+.m-record .social button:before {
   background: transparent;
   display: block;
   margin: 0 auto;
-  color: #ffeb57;
+  content: "\f1e0";
+  font-size: 32px;
+  font: normal normal normal 24px/1 FontAwesome;
+  line-height: 45px;
+  text-align: center;
+  color: $yellow;
+}
+
+.m-record .add-to-collection button:before {
+  content: "\f1e0";
+  color: $orange;
+}
+
+.m-record .social-status button:before {
+  content: "\f164";
+  color: $yellow;
 }
 
 .m-record .share-record button:before {
   content: "\f1e0";
-  font-size: 32px;
-  font: normal normal normal 24px/1 FontAwesome;
-  width: 60px;
-  height: 40px;
-  line-height: 45px;
-  text-align: center;
-  color:$orange;
+  color: #fff;
 }
 
-.m-record .share-record button span {
+.m-record .social button span {
   display: none;
 }
 
@@ -203,10 +248,28 @@
   z-index: 1;
 }
 
+.m-record .header--full .sidebar {
+  margin-top: 20px;
+  margin-left: 0;
+  width: auto;
+  float: none;
+}
+
+.m-record .header--full.header--no-hero .sidebar {
+  width: 50%;
+  float: left;
+}
+
 // Place
 
 .m-record .place {
+  margin-bottom: 20px;
+}
 
+.record-view-full .m-record .place {
+  float: left;
+  width: 50%;
+  margin-bottom: 0;
 }
 
 .m-record .place .map {
@@ -216,8 +279,8 @@
 }
 
 .m-record .place .text {
-  background: $black;
-  color: $orange;
+  background: #4f4d4d;
+  color: white;
   padding: 10px 14px;
   font-size: 12px;
   font-weight: 600;
@@ -227,17 +290,21 @@
 
 .m-record .m-article {
   background: white;
-  //padding: 50px 60px;
   padding: 40px 44px;
   color: #333;
   width: calc(100% - 300px);
+  margin-left: -40px;
   float: right;
   position: relative;
+  margin-bottom: 100px;
+}
+
+.record-view-full .m-record .m-article {
+  margin-right: 40px;
 }
 
 .m-record .m-article p:first-child {
   @include font-display;
-  //font-weight: 800;
   font-size: 20px;
   margin-top: 0;
 }
@@ -252,8 +319,8 @@
   display: block;
   padding: 10px 22px;
   margin-right: 20px;
-  color:white;
-  background:$red;
+  color: white;
+  background: $red;
   margin-bottom: 3px;
 }
 
@@ -297,21 +364,6 @@
   display: inline;
 }
 
-.m-record .attribution {
-  clear: both;
-  margin-left:300px;
-  padding-top:40px;
-}
-
-.m-record .attribution ul {
-  @include unlist;
-}
-
-.m-record .attribution h4 {
-  font-weight: normal;
-  display: inline;
-}
-
 .m-record .dates {
   font-weight: bold;
 }
@@ -321,13 +373,17 @@
 .m-record-hero {
   background: #eee;
   height: 580px;
-  margin-bottom: -169px;
+}
+
+.record-view-gallery .m-record-hero {
+  margin-bottom: -100px;
+  height: 650px;
+  margin-bottom: -100px;
 }
 
 .m-record-hero .image {
   width: 100%;
   height: 100%;
-
   filter: grayscale(100%);
   position: relative;
   background-position: center;
@@ -339,18 +395,51 @@
   filter: grayscale(0%);
 }
 
-/*
-.m-record-hero .image:after {
-  height: 100%;
-  width: 100%;
-  content: "";
-  opacity: 0.6;
-  position: absolute;
-  background: -moz-linear-gradient(right, transparent 0%, #000 100%);
-  background: -webkit-gradient(linear, right top, left top, color-stop(0%, transparent), color-stop(100%, #000));
-  background: -webkit-linear-gradient(right, transparent 0%, #000 100%);
-  background: -o-linear-gradient(right, transparent 0%, #000 100%);
-  background: -ms-linear-gradient(right, transparent 0%, #000 100%);
-  background: linear-gradient(to right, transparent 0%, #000 100%);
-  @include transition(all .4s);
-}*/
+.m-record .header--full .m-record-hero {
+  width: 55%;
+  float: left;
+  margin-bottom: 40px;
+}
+
+.m-record .header--no-hero .m-record-hero {
+  display: none;
+}
+
+// Footer
+
+.m-record .footer {
+  border-top: 2px solid #4b4b4b;
+  padding-top: 40px;
+  margin-top: 40px;
+  clear: both;
+}
+
+.m-record .attribution {
+  float: left;
+  width: 50%;
+  padding-right: 40px;
+}
+
+.m-record .attribution ul {
+  @include unlist;
+}
+
+.m-record .attribution h4 {
+  font-weight: normal;
+  display: inline;
+}
+
+.m-record .footer-actions {
+  float: left;
+  width: 50%;
+  text-align: right;
+}
+
+.m-record .footer-actions button,
+.m-record .footer-actions a {
+  background: none;
+  padding: 0;
+  color: $yellow;
+  display: inline-block;
+  margin-left: 20px;
+}

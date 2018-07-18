@@ -7,7 +7,7 @@ import {observer, inject} from "mobx-react";
 
 import LayerToolsContainer from './layer_tools_container';
 
-@inject('routing')
+@inject('router', 'mapViewStore', 'trayViewStore', 'layersStore')
 @observer export default class MapView extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +46,7 @@ import LayerToolsContainer from './layer_tools_container';
       this.props.recordFormStore.latlng = event.latlng;
       this.props.recordFormStore.record.lat = lat;
       this.props.recordFormStore.record.lng = lng;
-      this.props.routing.push('/map/records/new');
+      this.props.router.push('/map/records/new');
     }
   }
 

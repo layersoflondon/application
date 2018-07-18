@@ -12,7 +12,7 @@ import Parser from 'html-react-parser';
   }
 
   render() {
-    let credit = this.props.recordFormStore.record.credit;
+    let credit = this.props.recordFormStore.record.credit || "";
     // if(description.length) {
     //   description = description.map((el) => el.props.children).join("\n").replace(/^\n/,'');
     // }else {

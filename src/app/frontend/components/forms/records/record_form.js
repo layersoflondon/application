@@ -11,7 +11,7 @@ import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
 import CardModel from './../../../models/card';
 
-@inject('routing', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore')
+@inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore')
 @observer export default class RecordForm extends Component {
   constructor(props) {
     super(props);
@@ -47,7 +47,7 @@ import CardModel from './../../../models/card';
       this.props.trayViewStore.tray_is_visible = true;
       this.props.recordFormStore.record = new RecordModel();
 
-      const {push} = {...this.props.routing};
+      const {push} = {...this.props.router};
       push(`/map/records/${card.data.id}`);
     }).catch((error) => {
       this.props.recordFormStore.record.errors = error.response.data;
