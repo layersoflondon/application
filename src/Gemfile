@@ -52,6 +52,8 @@ group :development do
   # gem 'slickplan', path: '~/dev/slickplan'
   # gem 'terminal-table'
   gem 'bullet'
+
+  gem 'bundler-audit'
 end
 
 group :test do

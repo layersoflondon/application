@@ -126,6 +126,9 @@ GEM
     bullet (5.7.5)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11.0)
+    bundler-audit (0.6.0)
+      bundler (~> 1.2)
+      thor (~> 0.18)
     byebug (10.0.2)
     capybara (2.18.0)
       addressable
@@ -265,7 +268,7 @@ GEM
     multipart-post (2.0.0)
     mysql2 (0.4.10)
     nio4r (2.3.1)
-    nokogiri (1.8.2)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
     parallel (1.12.1)
@@ -416,6 +419,7 @@ DEPENDENCIES
   aws-sdk-s3
   bootsnap (>= 1.1.0)
   bullet
+  bundler-audit
   byebug
   capybara (~> 2.15)
   carrierwave
