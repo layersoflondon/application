@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
 import {NavLink, Link, withRouter} from 'react-router-dom';
-
 import { Route } from 'react-router';
+import Img from 'react-image';
 
 @inject('router', 'trayViewStore')
 @withRouter
@@ -19,7 +19,7 @@ import { Route } from 'react-router';
     const media_list = this.props.trayViewStore.record.media.map((media) => {
       return <div key={media.id} className="thumb image">
         <NavLink to={`/map/records/${this.props.match.params.id}/media/${media.id}`}>
-          <img src={media.attachable.card} alt=""/>
+          <Img src={media.attachable.card} alt="" loader={<span className="is-loading" /> }/>
         </NavLink>
       </div>;
     });

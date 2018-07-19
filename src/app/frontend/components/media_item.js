@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
 import { Route } from 'react-router';
 import {Switch, withRouter} from 'react-router-dom';
+import Img from 'react-image';
 
 @inject('router', 'trayViewStore')
 @withRouter
@@ -17,7 +18,7 @@ import {Switch, withRouter} from 'react-router-dom';
   }
 
   image() {
-    return <img src={this.state.media_item.attachable.large} alt=""/>
+    return <Img src={this.state.media_item.attachable.large} alt="" loader={<span className="is-loading" />}/>
   }
 
   soundcloud() {

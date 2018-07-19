@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {observer, inject} from "mobx-react";
 import PropTypes from 'prop-types';
 import { NavLink, Link, withRouter } from 'react-router-dom';
+import Img from 'react-image';
 
 @inject('userPresent', 'mapViewStore', 'trayViewStore')
 @withRouter
@@ -50,7 +51,7 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
     const logo = require('../assets/images/logo.svg');
     return <div className="m-sidebar">
       <div className="m-logo">
-        <img src={logo} alt="Logo" />
+        <Img src={logo} alt="Logo" loader={<span className="is-loading" /> }/>
       </div>
       <div className="m-tools">
         <div className="m-tool-button m-tool-button--search">

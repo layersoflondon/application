@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {observer} from "mobx-react";
 import {Link} from 'react-router-dom';
 import RecordViewComponentState from './record_view_component_state';
+import Img from 'react-image';
 
 @observer class RecordViewMediaListItem extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ import RecordViewComponentState from './record_view_component_state';
 
     return <div className="media-item media-item--image">
       <Link to={`${this.props.record.id}/media/${this.props.media.id}`}>
-        <img src={this.props.media.attachable.card} alt="" />
+        <Img src={this.props.media.attachable.card} alt="" loader={<span className="is-loading" /> }/>
         {this.props.record.view_type === 'expanded' && <div className="attribution">{this.props.media.attribution}</div>}
         {this.props.record.view_type === 'expanded' && <div className="caption">{this.props.media.caption}</div>}
       </Link>

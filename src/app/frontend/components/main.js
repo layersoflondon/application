@@ -71,7 +71,7 @@ import RecordForm from './forms/records/record_form';
         <RecordView>
           <MediaView>
             <TransitionGroup>
-              <CSSTransition timeout={10000} classNames={'media-item'} key={location.key} >
+              <CSSTransition timeout={100} classNames={'media-item'} key={location.key} >
                 <Route exact={true} path='/map/records/:id/media/:media_item_id' component={MediaItem} />
               </CSSTransition>
             </TransitionGroup>
