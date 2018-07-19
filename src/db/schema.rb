@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_12_155747) do
+ActiveRecord::Schema.define(version: 2018_07_19_122146) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -149,8 +149,8 @@ ActiveRecord::Schema.define(version: 2018_07_12_155747) do
     t.string "owner_type", null: false
     t.integer "owner_id", null: false
     t.integer "attachment_id"
-    t.integer "read_state"
-    t.integer "write_state"
+    t.integer "read_state", default: 0
+    t.integer "write_state", default: 0
     t.integer "write_state_team_id"
     t.integer "creator_id"
     t.datetime "created_at", null: false
