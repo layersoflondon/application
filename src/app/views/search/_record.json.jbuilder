@@ -2,6 +2,7 @@
 json.id record.id
 json.title record.title
 json.description record.description
+json.excerpt record.description.truncate(80)
 json.lat record.pin["lat"]
 json.lng record.pin["lon"]
 if local_assigns.has_key?(:full) && full

@@ -67,7 +67,7 @@ import VisibilitySensor from 'react-visibility-sensor';
             {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
             <div className="text-content">
               <h1>{this.props.card.data.title}</h1>
-              <p dangerouslySetInnerHTML={{__html: this.props.card.data.description}}>
+              <p dangerouslySetInnerHTML={{__html: this.props.card.data.excerpt}}>
               </p>
             </div>
 
