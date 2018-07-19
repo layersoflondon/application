@@ -16,12 +16,8 @@ import Parser from 'html-react-parser';
   }
 
   render() {
-    let button_class = "";
-    if(this.props.layer.is_active) {
-      button_class = "is-selected";
-    }
 
-    return <div className="layer">
+    return <div className={`layer ${(this.props.layer.is_active) ? "layer is-selected" : ""}`}>
       <a href="" onClick={this.handleOnClick.bind(this)}>
           {this.props.layer.image &&
           <div className="image" style={{'backgroundImage': 'url(' + this.props.layer.image.card + ')'}}>
@@ -30,7 +26,7 @@ import Parser from 'html-react-parser';
         <h2>{this.props.layer.title}</h2>
         {Parser(this.props.layer.description)}
 
-        <button className={button_class}>
+        <button>
           <span>Select</span>
         </button>
       </a>

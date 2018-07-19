@@ -8,7 +8,7 @@ export default class LayersStore {
 
   toggleLayer(layer_id) {
     if(this.active_layers.get(layer_id)) {
-      this.active_layers.remove(layer_id);
+      this.active_layers.delete(layer_id);
     }else {
       this.active_layers.set(layer_id, this.layers.get(layer_id));
     }
