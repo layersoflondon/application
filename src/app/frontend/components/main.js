@@ -62,10 +62,9 @@ import RecordForm from './forms/records/record_form';
       {/* view a record */}
       <Route exact path='/map/records/:id/:view_type?' component={RecordView} />
 
-      <Route exact={true} path='/map/' render={() => (
-        <Redirect to='/map' />
-      )} />
-
+      {/*<Route exact={true} path='/map/' render={() => (*/}
+        {/*<Redirect to='/map' />*/}
+      {/*)} />*/}
 
       <Route exact={true} path='/map/records/:id/media/:media_item_id' render={( {match, location} ) => (
         <RecordView>

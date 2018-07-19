@@ -11,8 +11,7 @@ import RecordViewComponentState from './record_view_component_state';
     return <div>
       {this.props.gallery}
 
-      <div className="m-article">
-        {this.props.trayViewStore.record.description}
+      <div className="m-article" dangerouslySetInnerHTML={{__html: this.props.trayViewStore.record.description}}>
       </div>
     </div>
   }

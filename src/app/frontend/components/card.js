@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
-import Parser from 'html-react-parser';
 import {Link, withRouter} from 'react-router-dom';
 import Img from 'react-image';
 import VisibilitySensor from 'react-visibility-sensor';
@@ -27,9 +26,6 @@ import VisibilitySensor from 'react-visibility-sensor';
   }
 
   render() {
-    const parsed_content = Parser(this.props.card.data.description);
-
-
     let container_classes = "m-record-card";
     let image_styles = {background: '#2e3c4e'};
 
@@ -71,7 +67,8 @@ import VisibilitySensor from 'react-visibility-sensor';
             {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
             <div className="text-content">
               <h1>{this.props.card.data.title}</h1>
-              <p>{parsed_content[0] || parsed_content} Curabitur eget feugiat odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc feugiat porttitor sapien. Donec luctus.</p>
+              <p dangerouslySetInnerHTML={{__html: this.props.card.data.description}}>
+              </p>
             </div>
 
             <div className="link-indicator">
