@@ -45,6 +45,7 @@ class Attachment < ApplicationRecord
   }
 
   def build_attachable(params)
+    byebug
     self.attachable = "Attachments::#{@attachment_type.classify}".constantize.new(params)
   end
 

@@ -25,6 +25,32 @@
   display: table;
 }
 
+.m-media-viewer .main-media-item.audio {
+  display: block;
+  height: 200px;
+}
+
+.m-media-viewer .main-media-item.audio .item {
+  display: block;
+  width: 100%;
+  height: 150px;
+}
+
+.m-media-viewer .main-media-item.audio .item .mejs__broadcast {
+  display: none;
+}
+
+.m-media-viewer .main-media-item.video {
+  display: block;
+  height: 500px;
+}
+
+.m-media-viewer .main-media-item.video .item {
+  display: block;
+  width: 100%;
+  height: 550px;
+}
+
 .m-media-viewer--expanded .main-media-item {
   height:100%;
 }

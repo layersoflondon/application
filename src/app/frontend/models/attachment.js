@@ -32,7 +32,7 @@ export default class Attachment {
   }
 
   @computed get is_media() {
-    return this.attachable_type === 'Attachments::Image' || this.attachable_type === 'Attachments::Video';
+    return this.attachable_type === 'Attachments::Image' || this.attachable_type === 'Attachments::Video' || this.attachable_type === 'Attachments::AudioFile';
   }
 
   @computed get media_type() {
@@ -43,6 +43,9 @@ export default class Attachment {
         break;
       case 'Attachments::Video':
         type = 'video';
+        break;
+      case 'Attachments::AudioFile':
+        type = 'audio';
         break;
       default:
         type = this.attachable_type.split("::")[1].toLowerCase();
