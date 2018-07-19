@@ -11,7 +11,7 @@ import {observer} from "mobx-react";
   constructor(props) {
     super(props);
 
-    this.state = {is_visible: false, items: this.props.recordFormStore.record.attachments};
+    this.state = {is_visible: false, items: this.props.recordFormStore.record.attachments, errors: []};
   }
 
   onDrop(acceptedFiles, rejectedFiles, event) {
@@ -36,6 +36,11 @@ import {observer} from "mobx-react";
               return 'document';
             case 'application/json':
               return 'geodata';
+            case 'audio/mpeg':
+            case 'audio/m4a':
+              return 'audio_file';
+            default:
+              return null;
           }
         };
 
@@ -44,6 +49,9 @@ import {observer} from "mobx-react";
         const new_attachment = {file: file, url: file.preview, attachment_type: attachment_type(file.type), type: attachment_type(file.type), title: f.target.fileName, caption: '', credit: ''};
 
         console.log("Dropped attachment", new_attachment);
+        if( !attachment_type(file.type)) {
+          this.setState({errors: ['Unsupported file type']});
+        }
 
         const media_item = Attachment.fromJS(new_attachment, this.props.recordFormStore.record.id);
         media_item.persist().then((response) => {
@@ -78,7 +86,7 @@ import {observer} from "mobx-react";
           <div className="m-add-media-and-documents">
 
             <div className="thumbs">
-              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json" onDrop={this.onDrop.bind(this)}>
+              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a" onDrop={this.onDrop.bind(this)}>
                 <ul>
                   {media_items}
 
