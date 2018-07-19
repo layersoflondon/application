@@ -60,7 +60,7 @@ import RecordForm from './forms/records/record_form';
       <Route exact path='/map/collections/:collection_id/records/:id/edit' component={RecordForm} />
 
       {/* view a record */}
-      <Route exact path='/map/records/:id/:view_type?' component={RecordView} />
+      <Route exact path='/map/records/:id' component={RecordView} />
 
       {/*<Route exact={true} path='/map/' render={() => (*/}
         {/*<Redirect to='/map' />*/}
