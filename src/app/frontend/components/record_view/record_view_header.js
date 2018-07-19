@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import {observer} from "mobx-react";
 import {Link} from 'react-router-dom';
+import Img from 'react-image'
 
 import RecordViewTitle from './record_view_title';
 import RecordViewMeta from './record_view_meta';
@@ -40,7 +41,13 @@ import RecordViewComponentState from "./record_view_component_state";
     return <div className={header_class}>
 
       <div className="m-record-hero">
-        <div className="image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.hero_image.primary}')`}} />
+        <div className="image">
+          {
+            this.props.trayViewStore.record.hero_image.primary &&
+            <Img src={this.props.trayViewStore.record.hero_image.primary} loader={<span className='is-loading'></span>} />
+
+          }
+        </div>
       </div>
 
       <RecordViewMeta {...this.props} />
@@ -66,7 +73,13 @@ import RecordViewComponentState from "./record_view_component_state";
     return <div className={header_class}>
 
       <div className="m-record-hero">
-        <div className="image" style={{'backgroundImage': `url('${this.props.trayViewStore.record.hero_image.primary}')`}} />
+        <div className="image">
+          {
+            this.props.trayViewStore.record.hero_image.primary &&
+            <Img src={this.props.trayViewStore.record.hero_image.primary} loader={<span className='is-loading'></span>} />
+
+          }
+        </div>
       </div>
 
       <RecordViewMeta {...this.props} />

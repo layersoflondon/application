@@ -389,6 +389,13 @@
   position: relative;
   background-position: center;
   background-size: cover;
+  span.is-loading {
+    @include loading-spinner;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .m-overlay.is-showing .m-record-hero .image {
