@@ -6,6 +6,8 @@ class MultiIndexSearch
 
   def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 100)
     es_query = Chewy::Search::Request.new(*indexes)
+    es_query = boost_collections(es_query)
+
 
     if search_params[:geobounding].present?
       es_query = add_geobounding_filter(search_params[:geobounding], es_query)
@@ -56,12 +58,11 @@ class MultiIndexSearch
           }
         }
 
-    ).indices_boost(
-      {
-        collections: 10,
-        records: 1
-      }
     )
+
+    es_query = boost_collections(es_query)
+
+
     if search_params[:attachment_type].present?
       search_params[:attachment_type].each do |type|
         es_query = es_query.filter('term': { 'attachments.attachable_type': type })
@@ -132,5 +133,14 @@ class MultiIndexSearch
 
   def self.filter_by_state(query, states: ['published'])
     query.filter(terms: {state: states})
+  end
+
+  def self.boost_collections(query)
+    query.indices_boost(
+      {
+        collections: 10,
+        records: 1
+      }
+    )
   end
 end
