@@ -1,1 +1,1 @@
-json.partial! 'search/record', record: @result
+json.partial! 'search/record', record: @result, full: true
