@@ -10,3 +10,4 @@ This is a changelog of our development on the Layers of London application. Prio
 - import collections from Alpha
 - import groups from Alpha
 - records view now has a gallery of images
+- add affordance on clicking one of the layers in the layer-chooser pane: there is a big tick now, and the layer tools are automatically open.
