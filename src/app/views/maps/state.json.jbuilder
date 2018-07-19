@@ -6,7 +6,7 @@ json.set! :data do
 
   json.set! :collections do
     json.array! @collections do |collection|
-      json.partial! 'collections/collection', {locals: {collection: collection}}
+      json.partial! 'search/collection', {locals: {collection: collection}}
     end
   end
 

@@ -21,7 +21,7 @@ class MapsController < ApplicationController
   def set_state_variables
     # @records =  RecordsIndex.filter(terms: {state: %w[published flagged]}).to_a
     @records =  RecordsIndex.filter(terms: {state: %w[published flagged]}).limit(5).order(created_at: :desc).to_a
-    @collections = Collection.collections_for_user(current_user).limit(2)
+    @collections = CollectionsIndex.filter(terms: {state: ["published"]}).limit(5).order(created_at: :desc).to_a
 
     @layers = LayersIndex.filter(terms: {layer_type: ["tileserver"]})
 
