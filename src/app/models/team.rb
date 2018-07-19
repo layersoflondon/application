@@ -1,6 +1,10 @@
 class Team < ApplicationRecord
 
   has_many :team_users
+  has_many :leader_users, -> {leader}, class_name: "TeamUser"
+  has_many :contributor_users, -> {contributor}, class_name: "TeamUser"
+  has_many :leaders, through: :leader_users, source: :user
+  has_many :contributors, through: :contributor_users, source: :user
   has_many :users, through: :team_users, dependent: :delete_all
   has_many :collections, as: :owner
 

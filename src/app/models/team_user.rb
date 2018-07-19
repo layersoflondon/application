@@ -1,6 +1,14 @@
 class TeamUser < ApplicationRecord
   include AASM
 
+  scope :leader, -> {
+    where(role: :leader)
+  }
+
+  scope :contributor, -> {
+    where(role: :contributor)
+  }
+
   belongs_to :team
   belongs_to :user
 

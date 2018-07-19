@@ -37,10 +37,6 @@ module Alpha
       end
     end
 
-    def migrate_groups
-      # todo - don't appear to *be* any groups in use
-    end
-
     def migrate_pins
       # get fields which match on both sides
 
@@ -126,17 +122,37 @@ module Alpha
       end
     end
 
+    def migrate_groups
+      Alpha::UserGroup.all.each do |group|
+        t = Team.find_or_initialize_by(id: group.id)
+        t.assign_attributes(
+           name: group.name,
+           description: group.description
+        )
+        t.save
+        t.leaders << ::User.find(group.primary_user_id)
+        t.contributors << ::User.where(id: group.users.reject {|u| u == group.primary_user})
+        t.save
+      end
+    end
+
 
     def migrate_collections
       Alpha::Collection.all.each do |collection|
-        c = ::Collection.find_or_create_by(id: collection.id)
+        c = ::Collection.find_or_initialize_by(id: collection.id)
         c.update_attributes(
                       title: collection.name,
                       description: collection.description,
                       created_at: collection.created_at,
-                      updated_at: collection.updated_at,
-                      owner: User.find(collection.user.id)
+                      updated_at: collection.updated_at
+
         )
+        if collection.user.present?
+          owner = User.find(collection.user.id)
+        elsif collection.user_group.present?
+          owner = Team.find(collection.user_group.id)
+        end
+        c.update_attributes(owner: owner)
         c.records << Record.where(id: collection.pin_ids)
         c.save
       end
