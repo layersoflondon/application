@@ -8,4 +8,5 @@ This is a changelog of our development on the Layers of London application. Prio
 - Use a basemap from Maptiler Cloud (Klokan)
 - tune search queries and analysis
 - import collections from Alpha
-
+- import groups from Alpha
+- records view now has a gallery of images
