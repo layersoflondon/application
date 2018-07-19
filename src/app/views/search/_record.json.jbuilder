@@ -1,4 +1,5 @@
 # we always need this lot
+json.score record._score
 json.id record.id
 json.title record.title
 json.description record.description

@@ -2,19 +2,12 @@ class RecordsIndex < Chewy::Index
   def self.policy_class
     "Record"
   end
-  settings analysis: {
-      analyzer: {
-          email: {
-              tokenizer: 'keyword',
-              filter: ['lowercase']
-          }
-      }
-  }
+  
   define_type Record.includes(:user, :collections, :attachments) do
 
     field :id, type: 'integer'
-    field :title, type: 'text'
-    field :description, type: 'text'
+    field :title, type: 'text', analyzer: :english
+    field :description, type: 'text', analyzer: :english
     field :like_count, type: 'integer'
     field :view_count, type: 'integer'
     field :state, type: 'keyword'
@@ -34,9 +27,9 @@ class RecordsIndex < Chewy::Index
     end
     field :attachments, type: 'object' do
       field :id, type: 'integer'
-      field :title, type: 'text'
-      field :caption, type: 'text'
-      field :credit, type: 'text'
+      field :title, type: 'text', analyzer: :english
+      field :caption, type: 'text', analyzer: :english
+      field :credit, type: 'text', analyzer: :english
       field :attachable_type, type: 'keyword'
       field :attachable, type: 'object', value: -> {attachable.data}
     end
@@ -50,11 +43,11 @@ class RecordsIndex < Chewy::Index
       field :taxonomy, type: 'object' do
         field :id, type: 'integer'
         field :name, type: 'keyword'
-        field :description, type: 'text'
+        field :description, type: 'text', analyzer: :english
       end
     end
 
-    field :view_type, type: 'text'
+    field :view_type, type: 'keyword'
 
   end
 
