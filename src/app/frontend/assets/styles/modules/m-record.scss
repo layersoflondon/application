@@ -134,7 +134,8 @@
   background: transparentize($black, 0.1);
   color: white;
   font-size: 14px;
-  margin-left: 300px;
+  //margin-left: 300px;
+  width: 100%;
   display: inline-block;
   position: relative;
 }

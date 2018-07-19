@@ -16,6 +16,8 @@ import Img from 'react-image';
   }
 
   render() {
+    const in_gallery_view = this.props.trayViewStore.record.view_type === 'gallery';
+
     const media_list = this.props.trayViewStore.record.media.map((media) => {
       return <div key={media.id} className="thumb image">
         <NavLink to={`/map/records/${this.props.match.params.id}/media/${media.id}`}>
@@ -35,17 +37,17 @@ import Img from 'react-image';
 
             {this.props.children}
 
-            <div className="m-media-viewer-thumbs">
-              <div className="controls">
-                <button className="scroll-left"></button>
-                <button className="scroll-right"></button>
+            {in_gallery_view && (
+              <div className="m-media-viewer-thumbs">
+                <div className="controls">
+                  <button className="scroll-left"></button>
+                  <button className="scroll-right"></button>
+                </div>
+                <div className="pane">
+                  {media_list}
+                </div>
               </div>
-              <div className="pane">
-
-                {media_list}
-
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

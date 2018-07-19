@@ -33,6 +33,7 @@ import Img from 'react-image';
 
   render() {
     const render_method = this.state.media_item.media_type;
+    const in_gallery_view = this.props.trayViewStore.record.view_type === 'gallery';
 
     return <div className="main-media-item">
       <Switch location={this.props.location}>
@@ -41,15 +42,18 @@ import Img from 'react-image';
             <div className="item">
               {this.state.media_item && this[render_method]()}
             </div>
-            <div className="meta">
-              <div className="attribution">
-                <p>Duis dapibus mollis erat ac.</p>
+
+            {in_gallery_view && (
+              <div className="meta">
+                <div className="attribution">
+                  <p>Duis dapibus mollis erat ac.</p>
+                </div>
+                <div className="caption">
+                  <p>Proin ornare sapien in nunc fermentum euismod. Sed lectus purus, ornare vel faucibus volutpat, pharetra vitae nisl. Nunc metus neque, dictum sit amet risus eget, porttitor tincidunt purus. Fusce ultricies est sed vulputate fermentum. Nunc vel tristique orci. Proin dapibus…</p>
+                  <button className="show-all">Read more</button>
+                </div>
               </div>
-              <div className="caption">
-                <p>Proin ornare sapien in nunc fermentum euismod. Sed lectus purus, ornare vel faucibus volutpat, pharetra vitae nisl. Nunc metus neque, dictum sit amet risus eget, porttitor tincidunt purus. Fusce ultricies est sed vulputate fermentum. Nunc vel tristique orci. Proin dapibus…</p>
-                <button className="show-all">Read more</button>
-              </div>
-            </div>
+            )}
           </div>
         </Route>
       </Switch>
