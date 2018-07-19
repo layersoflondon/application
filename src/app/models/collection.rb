@@ -7,8 +7,15 @@ class Collection < ApplicationRecord
 
   # TODO: permissions for reading and writing should go in a Pundit policy (see https://github.com/varvet/pundit).
   # I think we still need these enums though.
-  enum read_state: %i[public_read private_read]
-  enum write_state: %i[everyone team creator]
+  enum read_state: {
+    public_read: 0,
+    private_read: 1
+  }
+  enum write_state: {
+    creator: 0,
+    team: 1,
+    everyone: 2
+  }
 
   validates :title, :description, presence: true
   validates :title, length: { in: 3..255 }
