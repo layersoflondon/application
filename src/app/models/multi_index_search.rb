@@ -20,39 +20,47 @@ class MultiIndexSearch
 
 
     es_query = Chewy::Search::Request.new(*indexes).query(
-        bool: {
-          must: [
-            {
-              multi_match: {
-                query: search_params[:q],
-                type: "best_fields",
-                fields: multi_match_fields,
-                analyzer: :english
+        {
+          bool: {
+            must: [
+              {
+                multi_match: {
+                  query: search_params[:q],
+                  type: "best_fields",
+                  fields: multi_match_fields,
+                  analyzer: :english
 
+                }
               }
-            }
-          ],
-          should: [
-            {
-              multi_match: {
-                query: search_params[:q],
-                fields: multi_match_fields,
-                type: 'phrase',
-                boost: 10,
-                analyzer: :english
+            ],
+            should: [
+              {
+                multi_match: {
+                  query: search_params[:q],
+                  fields: multi_match_fields,
+                  type: 'phrase',
+                  boost: 10,
+                  analyzer: :english
+                }
+              },
+              {
+                multi_match: {
+                  query: search_params[:q],
+                  fields: multi_match_fields,
+                  operator: 'and',
+                  boost: 5,
+                  analyzer: :english
+                }
               }
-            },
-            {
-              multi_match: {
-                query: search_params[:q],
-                fields: multi_match_fields,
-                operator: 'and',
-                boost: 5,
-                analyzer: :english
-              }
-            }
-          ]
+            ]
+          }
         }
+
+    ).indices_boost(
+      {
+        collections: 10,
+        records: 1
+      }
     )
     if search_params[:attachment_type].present?
       search_params[:attachment_type].each do |type|
