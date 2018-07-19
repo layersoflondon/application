@@ -129,13 +129,16 @@ module Alpha
 
     def migrate_collections
       Alpha::Collection.all.each do |collection|
-        ::Collection.create(
+        c = ::Collection.find_or_create_by(id: collection.id)
+        c.update_attributes(
                       title: collection.name,
                       description: collection.description,
                       created_at: collection.created_at,
-                      updated_at: collection.updated_at
+                      updated_at: collection.updated_at,
+                      owner: User.find(collection.user.id)
         )
-      #   todo migrate pins
+        c.records << Record.where(id: collection.pin_ids)
+        c.save
       end
     end
 
