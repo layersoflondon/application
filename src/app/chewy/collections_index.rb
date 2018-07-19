@@ -20,7 +20,7 @@ class CollectionsIndex < Chewy::Index
     field :created_at, type: 'date'
     field :updated_at, type: 'date'
     field :date_from, type: 'date', value: -> {
-      records.collect(&:date_from).min
+      records.collect(&:date_from).try(:min)
     }
     field :pin, type: 'geo_point', value: ->{
       if records.any?
