@@ -30,13 +30,22 @@ module LayersApp
         }
       },
       card: {
-          thumbnail: "600x600",
-          combine_options: {
-            gravity: "Center",
-            extent: "600x280",
-            crop: "600x280+0+0",
-            quality: 90
-          }
+        thumbnail: "600x600",
+        combine_options: {
+          gravity: "Center",
+          extent: "600x280",
+          crop: "600x280+0+0",
+          quality: 90
+        }
+      },
+      thumb: {
+        thumbnail: "200x200",
+        combine_options: {
+          gravity: "Center",
+          extent: "120x120",
+          crop: "120x120+0+0",
+          quality: 80
+        }
       },
       primary: {
         resize: '1400x1400',
