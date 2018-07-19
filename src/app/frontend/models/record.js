@@ -138,7 +138,7 @@ export default class RecordModel {
 
   // todo: wire this up to the record attachments
   @computed get has_hero_image() {
-    return this.image || this.hero_image;
+    return !!(this.image || this.hero_image);
   }
 
   // todo: wire this up to the hero_image_id attribute
