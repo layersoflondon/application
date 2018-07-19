@@ -1,3 +1,4 @@
+json.score collection._score
 json.id collection.id
 json.title collection.title
 json.description collection.description

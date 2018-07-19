@@ -16,16 +16,43 @@ class MultiIndexSearch
   end
 
   def self.query(search_params, indexes: INDEXES, limit: 100)
-    multi_match_fields = %w[title description location attachments.title attachments.caption taxonomy_terms.taxonomy.description]
+    multi_match_fields = %w[title^10 description]
 
 
     es_query = Chewy::Search::Request.new(*indexes).query(
-      multi_match: {
-        'query': search_params[:q],
-        'type': 'most_fields',
-        'fields': multi_match_fields
-      },
+        bool: {
+          must: [
+            {
+              multi_match: {
+                query: search_params[:q],
+                type: "best_fields",
+                fields: multi_match_fields,
+                analyzer: :english
 
+              }
+            }
+          ],
+          should: [
+            {
+              multi_match: {
+                query: search_params[:q],
+                fields: multi_match_fields,
+                type: 'phrase',
+                boost: 10,
+                analyzer: :english
+              }
+            },
+            {
+              multi_match: {
+                query: search_params[:q],
+                fields: multi_match_fields,
+                operator: 'and',
+                boost: 5,
+                analyzer: :english
+              }
+            }
+          ]
+        }
     )
     if search_params[:attachment_type].present?
       search_params[:attachment_type].each do |type|
@@ -95,7 +122,7 @@ class MultiIndexSearch
     })
   end
 
-  def self.filter_by_state(query, state: 'published')
-    query.filter(term: {state: state})
+  def self.filter_by_state(query, states: ['published'])
+    query.filter(terms: {state: states})
   end
 end

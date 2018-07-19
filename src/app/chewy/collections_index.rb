@@ -1,10 +1,14 @@
 class CollectionsIndex < Chewy::Index
+
   define_type Collection.includes(:records).references(:records) do
     field :id, type: :integer
-    field :title, type: :text
-    field :description, type: :text
+    field :title, type: :text, analyzer: :english
+    field :description, type: :text, analyzer: :english
     field :read_state, type: :keyword
     field :write_state, type: :keyword
+    field :state, type: :keyword, value: -> {
+      public_read? ? "published" : nil
+    }
     field :image, type: :object, value: -> {
       primary_image.try(:attachable).try(:data)
     }
@@ -30,8 +34,8 @@ class CollectionsIndex < Chewy::Index
     }
     field :records, type: :object do
       field :id, type: 'integer'
-      field :title, type: 'text'
-      field :description, type: 'text'
+      field :title, type: 'text', analyzer: :english
+      field :description, type: 'text', analyzer: :english
       field :like_count, type: 'integer'
       field :view_count, type: 'integer'
       field :state, type: 'keyword'
@@ -41,7 +45,7 @@ class CollectionsIndex < Chewy::Index
       field :created_at, type: 'date'
       field :updated_at, type: 'date'
       field :location, type: 'object'
-      field :credit, type: 'text'
+      field :credit, type: 'text', analyzer: :english
       field :user, type: 'object' do
         field :id, type: 'integer'
         field :name, type: 'text'
@@ -67,7 +71,7 @@ class CollectionsIndex < Chewy::Index
         field :taxonomy, type: 'object' do
           field :id, type: 'integer'
           field :name, type: 'keyword'
-          field :description, type: 'text'
+          field :description, type: 'text', analyzer: :english
         end
       end
     end
