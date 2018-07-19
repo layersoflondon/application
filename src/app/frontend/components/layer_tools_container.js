@@ -29,7 +29,7 @@ const getListStyle = isDraggingOver => ({
   constructor(props) {
     super(props);
 
-    this.state = {is_open: false}
+    this.state = {is_open: false};
   }
 
   handleOnClick(event) {
@@ -46,6 +46,7 @@ const getListStyle = isDraggingOver => ({
   }
 
   render() {
+    this.state.is_open = (this.props.layersStore.active_layers.size) ? true : false;
     let classes = "m-layer-tools";
     if( !this.state.is_open ) {
       classes += " is-closed";
