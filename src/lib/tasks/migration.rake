@@ -1,3 +1,4 @@
+require 'alpha_migration/alpha/migration'
 namespace :lol do
   @migration = Alpha::Migration.new
   desc "Set up migration tasks"
