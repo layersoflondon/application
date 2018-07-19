@@ -10,6 +10,6 @@ json.updated_at DateTime.parse(record.updated_at).strftime("%d/%m/%Y")
 json.user record.user
 json.collections record.collections
 json.attachments record.attachments
-json.image record.image
+json.image record.image.select {|k,v| k.in?(['thumb','primary', 'large'])}
 json.taxonomy_terms record.taxonomy_terms
 json.view_type record.view_type
