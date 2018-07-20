@@ -25,6 +25,10 @@
   display: table;
 }
 
+.m-media-viewer .main-media-item > div {
+  height: 100%;
+}
+
 .m-media-viewer .main-media-item.audio {
   display: block;
   height: 200px;
@@ -48,7 +52,12 @@
 .m-media-viewer .main-media-item.video .item {
   display: block;
   width: 100%;
-  height: 550px;
+  height: 80%;
+  margin-bottom: 5%;
+}
+
+.m-media-viewer .main-media-item.video .item iframe {
+  height: 100%;
 }
 
 .m-media-viewer--expanded .main-media-item {

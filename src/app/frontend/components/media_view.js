@@ -12,7 +12,6 @@ import Img from 'react-image';
   }
 
   componentWillReceiveProps() {
-    console.log("MediaView componentWillReceiveProps", arguments);
   }
 
   render() {

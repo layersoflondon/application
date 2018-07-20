@@ -15,7 +15,6 @@ import MediaElement from './media_element';
   }
 
   componentWillReceiveProps() {
-    console.log("MediaItem componentWillReceiveProps", arguments);
   }
 
   image() {
@@ -23,17 +22,13 @@ import MediaElement from './media_element';
   }
 
   audio() {
-    console.log(`Showing soundcloud()`);
-    // return <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/249483615&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-    // const sources = [{src: 'http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBb0FVIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--40a994ee9320f2c255848f88e185bbe910f11cec/Audio%20file%20mp3', type: 'audio/mpeg'}];
     const sources = [{src: this.state.media_item.attachable.url, type: this.state.media_item.attachable.content_type}], config = {}, tracks = {};
 
     return <MediaElement width='100%' height='100%' id='player' sources={sources} tracks={tracks} options={config} mediaType='audio' />
   }
 
   video() {
-    console.log(`Showing video()`);
-    return <iframe width="560" height="315" src="https://www.youtube.com/embed/_jn2bUFFzY8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    return <iframe width="100%" height="100%" src={`//www.youtube.com/embed/${this.state.media_item.attachable.youtube_id}?rel=0`} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
   }
 
   render() {
@@ -62,7 +57,9 @@ import MediaElement from './media_element';
                       <span dangerouslySetInnerHTML={{__html: this.state.media_item.caption}}></span>
                     </p>
 
-                    <button className="show-all">Read more</button>
+                    {this.state.media_item.caption.length > 50 && (
+                      <button className="show-all">Read more</button>
+                    )}
                   </div>
                 )}
               </div>
