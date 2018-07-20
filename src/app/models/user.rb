@@ -7,12 +7,13 @@ class User < ApplicationRecord
 
   has_many :records, dependent: :nullify
   update_index('records#record') { records }
-  has_many :team_users
+  has_many :team_users, dependent: :destroy
   has_many :teams, through: :team_users
   has_many :collections, as: :owner
   has_one_attached :avatar
 
   serialize :record_likes, Array
+  serialize :metadata, Hash
 
   # TODO: - users should change the state of their records before being deleted.
   # before_destroy do

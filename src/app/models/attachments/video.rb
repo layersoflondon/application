@@ -13,8 +13,8 @@ class Attachments::Video < ApplicationRecord
     {
       content_type: "url/video",
       youtube_id: youtube_id,
-      thumb: ActionController::Base.helpers.asset_path("audio-image-thumb.jpeg"),
-      poster: ActionController::Base.helpers.asset_path("audio-image.jpeg")
+      thumb: ActionController::Base.helpers.asset_url("/audio-image-thumb.jpeg"),
+      poster: ActionController::Base.helpers.asset_url("/audio-image.jpeg")
     }
   end
 end
