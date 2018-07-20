@@ -135,7 +135,7 @@ module Alpha
         t.save
         leader = ::User.where(id: group.primary_user_id).first # won't raise if missing
         contributors = ::User.where(id: group.users.reject {|u| u == group.primary_user})
-        t.leaders << leader || contributors.first
+        t.leaders << (leader || contributors.first)
         t.contributors << contributors
         t.save
       end
