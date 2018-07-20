@@ -23,26 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const userPresent = window.__USER_PRESENT;
 
     const browserHistory = createBrowserHistory();
-    const routingStore = new RouterStore();
-    const history = syncHistoryWithStore(browserHistory, routingStore);
-
-    // // initialise the application with static data
-    // const stores = initStore({data: {tray: {root: true, cards: []}, collections: [], layers: [], map: {zoom: 10}}});
-    //
-    // stores.routing = routingStore;
-    // ReactDOM.render(
-    //   <Provider {...stores} >
-    //     <Router history={history}>
-    //       <Main />
-    //     </Router>
-    //   </Provider>,
-    //   document.getElementById("map-root")
-    // );
+    const routerStore = new RouterStore();
+    const history = syncHistoryWithStore(browserHistory, routerStore);
 
     // fetch the initial app state then initialize the stores and components
     axios.get('/map/state.json').then((response) => {
         const stores = initStore(response.data);
-        stores.router = routingStore;
+        stores.router = routerStore;
 
         ReactDOM.render(
           <Provider {...stores} userPresent={userPresent} >

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
-import {Link, withRouter} from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
 import Parser from 'html-react-parser';
 
 import Card from './card';
@@ -48,7 +48,7 @@ import {inject} from "mobx-react/index";
       trayCollectionDetails = <div>
         <div className="m-tray-title-area">
           <div className="close">
-            <Link to="/map" className="close">Close</Link>
+            <NavLink to="/map" className="close">Close</NavLink>
           </div>
 
           <h1>{this.props.trayViewStore.title}</h1>

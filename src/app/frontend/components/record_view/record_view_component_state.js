@@ -14,16 +14,15 @@ export default class RecordViewComponentState {
       handleCloseOnClick(event) {
         event.preventDefault();
 
-        console.log("Close");
-        // if(this.props.router.history.length>1) {
-        //   this.props.router.history.goBack();
-        // }else {
-        //   this.props.router.push("/map");
-        // }
-
         this.props.trayViewStore.record_id = false;
         this.props.trayViewStore.record = false;
-        this.props.router.push("/map");
+
+        if(this.props.match.params.collection_id) {
+          this.props.router.push(`/map/collections/${this.props.match.params.collection_id}`);
+        }else {
+          this.props.trayViewStore.locked = false;
+          this.props.router.push(`/map`);
+        }
       }
 
       render() {
