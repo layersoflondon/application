@@ -1,12 +1,8 @@
 import React,{Component} from 'react';
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import {observer} from "mobx-react";
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
-import RecordViewTitle from './record_view_title';
-import RecordViewMeta from './record_view_meta';
-import RecordViewAttribution from './record_view_attribution';
-import RecordViewSidebar from './record_view_sidebar';
 import RecordViewMediaList from './record_view_media_list';
 import RecordViewComponentState from "./record_view_component_state";
 
@@ -53,7 +49,7 @@ import RecordViewContent from './record_view_content';
           </div>
 
           <div style={{position: 'absolute', top: '40px', left: '40px'}}>
-            <Link to={`/map/records/${this.props.match.params.id}/gallery`}>Gallery</Link> <br /> <Link to={`/map/records/${this.props.match.params.id}/full`}>Full</Link>
+            <NavLink to={`/map/records/${this.props.match.params.id}/gallery`}>Gallery</NavLink> <br /> <NavLink to={`/map/records/${this.props.match.params.id}/full`}>Full</NavLink>
             {this.props.match.params.view_type}
           </div>
 
@@ -79,7 +75,7 @@ import RecordViewContent from './record_view_content';
               <div className="footer-actions">
                 <button className="contact-owner">Contact owner</button>
                 <button className="flag">Report this record</button>
-                <Link to={`${link_path}/records/${this.props.match.params.id}/edit`} className="edit">Edit</Link>
+                <NavLink to={`${link_path}/records/${this.props.match.params.id}/edit`} className="edit">Edit</NavLink>
               </div>
             </div>
 

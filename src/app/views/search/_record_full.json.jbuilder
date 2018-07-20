@@ -10,6 +10,8 @@ json.updated_at DateTime.parse(record.updated_at).strftime("%d/%m/%Y")
 json.user record.user
 json.collections record.collections
 json.attachments record.attachments
+json.user_can_edit policy(record).edit?
+json.user_can_like policy(record).like?
 if record.image
   json.image record.image.select {|k,v| k.in?(['thumb','primary', 'large'])}
 else

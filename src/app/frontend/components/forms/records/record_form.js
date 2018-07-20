@@ -1,6 +1,4 @@
 import React,{Component} from 'react';
-import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import Details from './details';
 import Credits from './credits'
@@ -9,7 +7,6 @@ import Media from './media';
 import Collection from './collection';
 import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
-import CardModel from './../../../models/card';
 
 @inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore')
 @observer export default class RecordForm extends Component {
@@ -54,6 +51,17 @@ import CardModel from './../../../models/card';
     })
   }
 
+  handleCloseOnClick(event) {
+    event.preventDefault();
+
+    if(this.props.match.params.collection_id) {
+      this.props.router.push(`/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}`);
+    }else {
+      this.props.trayViewStore.locked = false;
+      this.props.router.push(`/map/records/${this.props.match.params.id}`);
+    }
+  }
+
   render() {
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'record_form' ) className+=" is-showing";
@@ -62,7 +70,7 @@ import CardModel from './../../../models/card';
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
           <div className="close">
-            <Link className="close" to='/map'>Close</Link>
+            <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
           </div>
 
           <div className="m-add-record">

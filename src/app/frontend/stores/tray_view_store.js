@@ -35,7 +35,7 @@ export default class TrayViewStore {
   constructor() {
     observe(this, 'cards', (change) => {
       if(this.root) {
-        this.previous_cards = change.oldValue;
+        // this.previous_cards = change.oldValue;
       }
     });
 
@@ -116,6 +116,8 @@ export default class TrayViewStore {
         this.showCollectionOfCards(response.data);
       }
     }).finally(() => {
+      this.root = true;
+      this.locked = false;
       this.loading = false;
     });
   }
@@ -198,13 +200,11 @@ export default class TrayViewStore {
    */
   restoreRootState() {
     if(this.previous_cards && this.previous_cards.size) {
-      this.cards = this.previous_cards;
+      // this.cards = this.previous_cards;
+      this.reloadTrayDataForBounds(this.boundsFromMapRef);
     }else {
       this.reloadTrayDataForBounds(this.boundsFromMapRef);
     }
-
-    this.root = true;
-    this.locked = false;
   }
 
   /**

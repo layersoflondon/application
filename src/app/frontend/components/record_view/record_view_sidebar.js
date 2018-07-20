@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {observer} from "mobx-react";
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import RecordViewComponentState from './record_view_component_state';
-import RecordViewGalleryMediaItem from "./record_view_media_list_item";
+import {NavLink} from 'react-router-dom';
 
 @observer class RecordViewSidebar extends Component {
   constructor(props) {
@@ -26,6 +26,10 @@ import RecordViewGalleryMediaItem from "./record_view_media_list_item";
         <div className="add-to-collection">
           <button><span>Add</span></button>
           Add to collection
+        </div>
+
+        <div className="edit-record">
+          <NavLink to={`${this.props.router.history.location.pathname}/edit`}>Edit</NavLink>
         </div>
 
         <div className="social-status">
