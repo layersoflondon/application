@@ -28,6 +28,9 @@ module Alpha
           unless existing_user.present?
             fields = user.attributes.select {|k, v| k.in?(user_fields)}
             u = ::User.new(fields)
+            u.metadata[:migrated_from_alpha] = true
+            u.created_at = user.created_at
+            u.updated_at = user.updated_at
             u.save(validate: false)
           end
         rescue => e

@@ -1,8 +1,8 @@
-require 'alpha_migration/alpha/migration'
+# require 'alpha_migration/alpha/migration'
 namespace :lol do
-  @migration = Alpha::Migration.new
   desc "Set up migration tasks"
   task setup: :environment do
+    @migration = Alpha::Migration.new
     puts "starting migration"
   end
 
@@ -25,8 +25,8 @@ namespace :lol do
   end
 
   desc "Migrate collections"
-  puts "migrating collections"
   task migrate_collections: :migrate_pins do
+    puts "migrating collections"
     @migration.migrate_collections
   end
 
