@@ -9,9 +9,19 @@ import Img from 'react-image';
 @observer export default class MediaView extends Component {
   constructor(props) {
     super(props);
+
+    this.scrollingPaneRef = React.createRef();
   }
 
   componentWillReceiveProps() {
+  }
+
+  componentDidMount() {
+    const active_item = this.scrollingPaneRef.current.querySelector('.active');
+
+    if( active_item ) {
+      this.scrollingPaneRef.current.scrollLeft = active_item.parentElement.offsetLeft;
+    }
   }
 
   render() {
@@ -43,7 +53,7 @@ import Img from 'react-image';
                   <button className="scroll-left"></button>
                   <button className="scroll-right"></button>
                 </div>
-                <div className="pane">
+                <div className="pane" ref={this.scrollingPaneRef}>
                   {media_list}
                 </div>
               </div>
