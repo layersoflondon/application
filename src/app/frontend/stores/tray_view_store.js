@@ -176,32 +176,10 @@ export default class TrayViewStore {
    * @param id
    * @param record_id
    */
-  fetchCollectionForRecord(id, record_id) {
-    // this.fetch_additional_records = false;
-    // this.record_id = record_id;
-    // this.collection_id = id;
-
-    // todo: find a way to dry this up. we're replicating what the collection_id observer does, so that we can then get
-    // the record out of the fetched collection and use that, rather than fetch the collection *then* fetch the record.
-    // (assigning record_id always fetches now, rather than looking at the current set...
-    this.loading_collection = true;
-    Collection.show(null, id).then((response) => {
-      this.root = false;
-      this.showCollectionOfCards(response.data.records, response.data.title, response.data.description);
-
-      const collection_record = response.data.records.find((record) => record.id === parseInt(record_id, 10));
-      const card = CardModel.fromJS(collection_record, this);
-      this.cards.set(card.id, card);
-      this.record = card.data;
-
-      // this.panTo(response.data.records[0])
-      //  Lock this view so dragging the map doesn't change the cards
-      this.locked = true;
-    }).catch((error) => {
-      this.collection_id = null;
-    }).finally(() => {
-      this.loading_collection = false;
-    });
+  fetchCollectionAndRecord(id, record_id) {
+    this.fetch_additional_records = false;
+    this.collection_id = id;
+    this.record_id = record_id;
   }
 
   /**

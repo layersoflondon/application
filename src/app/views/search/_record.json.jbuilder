@@ -6,13 +6,9 @@ json.description record.description
 json.excerpt record.description.truncate(80)
 json.lat record.pin["lat"]
 json.lng record.pin["lon"]
-json.view_type record.view_type
-json.location record.location
 if local_assigns.has_key?(:full) && full
   # stuff we only need for the full record render
   json.partial! 'search/record_full', record: record
 else
   json.partial! 'search/record_card', record: record
-  
-  
 end

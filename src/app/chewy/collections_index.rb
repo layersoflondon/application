@@ -46,7 +46,6 @@ class CollectionsIndex < Chewy::Index
       field :updated_at, type: 'date'
       field :location, type: 'object'
       field :credit, type: 'text', analyzer: :english
-      field :view_type, type: 'text'
       field :user, type: 'object' do
         field :id, type: 'integer'
         field :name, type: 'text'

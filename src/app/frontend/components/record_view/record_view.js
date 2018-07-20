@@ -24,7 +24,7 @@ import RecordViewContent from './record_view_content';
     const fetch_nearby_data = this.props.trayViewStore.cards.size === 0;
 
     if( this.props.match.params.collection_id ) {
-      this.props.trayViewStore.fetchCollectionForRecord(this.props.match.params.collection_id, this.props.match.params.id);
+      this.props.trayViewStore.fetchCollectionAndRecord(this.props.match.params.collection_id, this.props.match.params.id);
     }else if( this.props.match.params.id ) {
       this.props.trayViewStore.fetchRecord(this.props.match.params.id, fetch_nearby_data);
     }
