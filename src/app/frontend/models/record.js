@@ -186,7 +186,8 @@ export default class RecordModel {
       collection_ids: this._collection_ids,
       location: this.location,
       credit: this.credit,
-      view_type: this.view_type
+      view_type: this.view_type,
+      attachments: this.attachments,
     }
   }
 
