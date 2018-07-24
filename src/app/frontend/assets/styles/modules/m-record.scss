@@ -200,14 +200,16 @@
   color: #fff;
 }
 
-.m-record .social button {
+.m-record .social button,
+.m-record .social a {
   background: transparent;
   display: block;
   width: 100%;
   padding: 0;
 }
 
-.m-record .social button:before {
+.m-record .social button:before,
+.m-record .social a:before {
   background: transparent;
   display: block;
   margin: 0 auto;
@@ -237,6 +239,16 @@
 .m-record .social button span {
   display: none;
 }
+
+.m-record .social > div.edit-record {
+  color: $orange;
+}
+
+.m-record .edit-record a:before {
+  content: "\f044";
+}
+
+
 
 // Sidebar
 
