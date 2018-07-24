@@ -7,7 +7,7 @@ class TeamForm extends React.Component {
     }
 
     render() {
-        let srcValue = `${ConfigEnv}/user/teams`;
+        let srcValue = `/user/teams`;
         return (
             <iframe width="100%" height="600" src={srcValue} frameBorder="0"></iframe>
         );

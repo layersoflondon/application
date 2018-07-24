@@ -50,7 +50,7 @@ import TeachersForm from "./teachers_form";
       teams: <TeamForm/>,
       records: <RecordsCollections/>,
       teachers: <TeachersForm/>,
-        sign_out: <h2>Signing you out of your account</h2>
+      sign_out: <h2>Signing you out of your account</h2>
 
     };
     //TODO - we need to use meta tags to define the routes which we load into the iframe
@@ -66,7 +66,7 @@ import TeachersForm from "./teachers_form";
                       <span key="account">Account details</span>
                       <span key="teams">Teams</span>
                       <span key="records">Records & Collections</span>
-                      <span key="teachers">For teachers</span>
+                      {/*<span key="teachers">For teachers</span>*/}
                       <span key="sign_out">Sign out</span>
                   </Tabs>
               </div>
