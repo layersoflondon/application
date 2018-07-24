@@ -170,6 +170,10 @@ export default class RecordModel {
     return this.attachments.filter((a) => a.is_document);
   }
 
+  @computed get text() {
+    return this.attachments.filter((a) => a.is_text);
+  }
+
   get_attachment(id) {
     return this.attachments.find((a) => parseInt(a.id, 10) === parseInt(id, 10));
   }

@@ -97,7 +97,7 @@ module Alpha
           Record.transaction do
             attachment_type = case content_type.name
                                 when 'text'
-                                  'document'
+                                  content_entry.attached_file.present? ? "document" : "text"
                                 when 'audio'
                                   'audio_file'
                                 else
@@ -106,15 +106,17 @@ module Alpha
 
             # create new attachment of the correct type
             attachment = record.attachments.build(attachment_type: attachment_type, credit: content_entry.attribution, attachable_attributes: {
-              title: record.title,
-              caption: content_entry.content
+              title: record.title
             })
             # attachment.attachable.primary = true if attachment_type == "image"
             if content_entry.attached_file.present?
               # we need to move the file across
               attachment.attachable.file.attach(io: StringIO.new(content_entry.attached_file.file.read), filename: content_entry.file_name)
+              attachment.attachable.caption = content_entry.content
             elsif content_entry.video_url.present?
               attachment.attachable.youtube_id = YoutubeID.from(content_entry.video_url)
+            elsif content_entry.content.present?
+              attachment.attachable.content = content_entry.content
             end
 
             record.save!

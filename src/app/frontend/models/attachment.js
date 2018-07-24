@@ -40,8 +40,14 @@ export default class Attachment {
   }
 
   @computed get is_document() {
-    return this.attachable_type === 'Attachments::Document';
+    return this.attachable_type === 'Attachments::Document' || this.attachable_type === 'Attachments::Dataset';
   }
+
+  @computed get is_text() {
+    return this.attachable_type === 'Attachments::Text';
+  }
+
+
 
   @computed get media_type() {
     let type = null;
