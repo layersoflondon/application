@@ -33,18 +33,27 @@ Rails.application.routes.draw do
     resources :records, controller: 'collection_records', only: %i[index create destroy]
   end
 
-  post '/teams/join', to: 'teams#request_to_join_team'
-  resources :teams, only: %i[index create show update destroy], defaults: {format: :json} do
+
+  resources :teams, defaults: {format: :html} do
+    collection do
+      post 'join', to: 'teams#request_to_join_team', defaults: {format: :html}
+    end
+
+    member do
+      with_options defaults: {format: :html} do
+        get 'accept-request', to: 'teams#accept_request'
+        get 'deny-request', to: 'teams#deny_request'
+
+        post 'invite-user', to: 'teams#invite_user'
+        get 'accept-invitation', to: 'teams#accept_invitation'
+
+        post 'leave', to: 'teams#leave'
+      end
+    end
     resources :users, controller: 'team_users', only: %i[index create show update destroy]
   end
 
-  get '/teams/:id/accept-request', to: 'teams#accept_request'
-  get '/teams/:id/deny-request', to: 'teams#deny_request'
 
-  post '/teams/:id/invite-user', to: 'teams#invite_user'
-  get '/teams/:id/accept-invitation', to: 'teams#accept_invitation'
-
-  post '/teams/:id/leave', to: 'teams#leave'
 
   resource :map, controller: 'maps' do
     match '/state', via: :get, to: 'maps#state', as: :map_state, format: :json

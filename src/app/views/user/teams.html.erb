@@ -5,7 +5,7 @@
       <ul>
         <% @leader_teams.each do |team| %>
           <li>
-            <a href="/teams/<%= team.id %>.html" class="teamlink-member"><%= team.name %></a>
+            <a href="/teams/<%= team.id %>" class="teamlink-member"><%= team.name %></a>
             <span class="ownership-indicator">Owner</span>
           </li>
         <% end %>
