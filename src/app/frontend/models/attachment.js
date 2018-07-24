@@ -35,6 +35,14 @@ export default class Attachment {
     return this.attachable_type === 'Attachments::Image' || this.attachable_type === 'Attachments::Video' || this.attachable_type === 'Attachments::AudioFile';
   }
 
+  @computed get is_link() {
+    return this.attachable_type === 'Attachments::Url';
+  }
+
+  @computed get is_document() {
+    return this.attachable_type === 'Attachments::Document';
+  }
+
   @computed get media_type() {
     let type = null;
     switch(this.attachable_type) {

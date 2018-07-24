@@ -162,6 +162,14 @@ export default class RecordModel {
     return this.attachments.filter((a) => a.is_media);
   }
 
+  @computed get links() {
+    return this.attachments.filter((a) => a.is_link);
+  }
+
+  @computed get documents() {
+    return this.attachments.filter((a) => a.is_document);
+  }
+
   get_attachment(id) {
     return this.attachments.find((a) => parseInt(a.id, 10) === parseInt(id, 10));
   }
