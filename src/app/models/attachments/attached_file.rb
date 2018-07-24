@@ -16,6 +16,7 @@ module Attachments
     def data
       {
         content_type: file.try(:content_type),
+        suffix: Mime::Type.lookup(file.try(:content_type)).try(:symbol) || :unknown,
         url: (ApplicationController.helpers.activestorage_url_for(file) rescue nil)
       }
     end
