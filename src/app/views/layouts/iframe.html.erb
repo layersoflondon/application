@@ -3,8 +3,10 @@
     <head>
         <%= csrf_meta_tags %>
         <%= stylesheet_link_tag 'iframe' %>
+        <%= javascript_include_tag 'application' %>
     </head>
-    <body>
+    <body class="iframe-view">
+        <%= render partial: "shared/flash" %>
         <%= yield %>
     </body>
 </html>
