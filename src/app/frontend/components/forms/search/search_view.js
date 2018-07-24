@@ -249,45 +249,46 @@ import Search from "../../../sources/search";
                 }
               </div>
 
-              <div className="filters">
+              {/*TODO this needs to work. Hiding for now*/}
+              {/*<div className="filters">*/}
 
-                <div className="filters-show">
-                  <button onClick={() => this.setState({type_picker_visible: !this.state.type_picker_visible})}>Filter by Media, Type, Theme</button>
-                </div>
+                {/*<div className="filters-show">*/}
+                  {/*<button onClick={() => this.setState({type_picker_visible: !this.state.type_picker_visible})}>Filter by Media, Type, Theme</button>*/}
+                {/*</div>*/}
 
-                {this.state.type_picker_visible &&
-                <div className="filters-content">
-                  <div className="form-group form-group--checklist form-group--replaced-checkboxes">
-                    <h2 className="label">Media</h2>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Images</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Video</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Audio</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Documents</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                  </div>
+                {/*{this.state.type_picker_visible &&*/}
+                {/*<div className="filters-content">*/}
+                  {/*<div className="form-group form-group--checklist form-group--replaced-checkboxes">*/}
+                    {/*<h2 className="label">Media</h2>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Images</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Video</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Audio</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Documents</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                  {/*</div>*/}
 
 
-                  {taxonomies}
+                  {/*{taxonomies}*/}
 
-                </div>
-                }
+                {/*</div>*/}
+                {/*}*/}
 
-              </div>
+              {/*</div>*/}
 
               <div className="form-group">
                 <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search</button>
