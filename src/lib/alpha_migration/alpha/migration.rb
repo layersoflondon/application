@@ -58,24 +58,27 @@ module Alpha
     def migrate_pin(pin)
       record_fields = Alpha::Pin.columns.collect(&:name) & ::Record.columns.collect(&:name)
       data = pin.attributes.select {|k,v| k.in?(record_fields)}
-      record = ::Record.find_by(id: pin.id)
-      unless record.present?
-        begin
-          r = ::Record.new(data.except("location"))
-          r.location = {address: Geocoder.address([r.lat, r.lng])}
-          r.state = "published"
-          r.credit = pin.content_entry.attribution
-          r.save!
-        rescue => e
-          @logger.warn("Pin #{pin.id} (#{pin.title}): #{e}")
-        end
+      begin
+        r = ::Record.find_or_initialize_by(id: pin.id)
+        r.update_attributes(data.except("location"))
+        r.location = {address: Geocoder.address([r.lat, r.lng])}
+        r.state = "published"
+        r.credit = pin.content_entry.attribution
+        r.user = ::User.where(id: pin.user.id).first
+        r.save!
+      rescue => e
+        @logger.warn("Pin #{pin.id} (#{pin.title}): #{e}")
       end
     end
 
     def migrate_pin_url(pin)
       if pin.link_url.present?
         record = Record.find_by(id: pin.id)
-        unless record.attachments.where(attachable_type: "Attachments::Url").any?
+        if record.attachments.url.any?
+          # there's already a URL; let's just touch it
+          record.attachments.url.first.touch
+        else
+          # we need to add a url
           record.attachments.create(attachment_type: 'url', attachable_attributes: {
             title: record.title,
             url: pin.link_url
