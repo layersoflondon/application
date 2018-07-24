@@ -25,9 +25,11 @@ class User < ApplicationRecord
   def name
     "#{first_name} #{last_name}"
   end
+
   def leading_teams
-    team_user_leader = TeamUser.where(user_id: self.id, role: 'leader', state: 'access_granted')
-    Team.where(id: team_user_leader.collect{|t| t.team_id})
+    Team.includes(:team_users).references(:team_users).where(team_users: {user_id: id, role: "leader", state: 'access_granted'})
+    # team_user_leader = TeamUser.where(user_id: self.id, role: 'leader', state: 'access_granted')
+    # Team.where(id: team_user_leader.collect{|t| t.team_id})
   end
 
   def contributing_teams
@@ -47,7 +49,7 @@ class User < ApplicationRecord
 
   def accept_team_invitation(team, key)
     team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'invited')
-    if team_user&.mark_as_access_granted
+    if team_user&.grant_access
       team_user.key = nil
       return team_user.save
     end
@@ -69,7 +71,7 @@ class User < ApplicationRecord
 
   def accept_team_request(team, key)
     team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'access_requested')
-    if team_user&.mark_as_access_granted
+    if team_user&.grant_access
       team_user.key = nil
       return team_user.save
     end
@@ -78,7 +80,7 @@ class User < ApplicationRecord
 
   def deny_team_request(team, key)
     team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'access_requested')
-    if team_user&.mark_as_access_denied
+    if team_user&.deny_access
       team_user.key = nil
       return team_user.save
     end
@@ -98,6 +100,10 @@ class User < ApplicationRecord
 
   def can_view(collection)
     collection_ids.include? collection.id
+  end
+
+  def state_on_team(team)
+    team.team_users.find_by(user_id: id).try(:state)
   end
 
 end

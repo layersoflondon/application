@@ -33,7 +33,7 @@ class TeamsController < ApplicationController
   end
 
   def show
-    authorize(@team_user)
+    authorize(@team)
     if params[:error].present?
       @error = params[:error]
     end
@@ -84,15 +84,9 @@ class TeamsController < ApplicationController
 
     query = params[:query]
     emails = query.split(',')
-    valid_emails = true
-    emails.each do |email|
-      unless (email.match(Devise.email_regexp))
-        valid_emails = false
-        break
-      end
-    end
+    emails.reject! {|e| !e.match(Devise.email_regexp)}
 
-    if valid_emails
+    if emails.any?
       # get existing users
       existing_users = User.where(email: emails)
       # get emails of new users
@@ -110,20 +104,12 @@ class TeamsController < ApplicationController
             state: 'access_granted'
         )
       end
-
-    end
-
-    if valid_emails
-      redirect_to team_path(format: :html, :id => @team.id)
+      redirect_to team_path(@team.id), flash: {success: "Your email invitations were sent"}
     else
-      redirect_to team_path(format: :html, :id => @team.id, :error => 'Error validating emails input')
+      redirect_to team_path(@team.id), flash: {error: "You didn't include any valid email addresses"}
+
     end
 
-    if valid_emails
-      redirect_to team_path(format: :html, :id => @team.id)
-    else
-      redirect_to team_path(format: :html, :id => @team.id, :error => 'Error validating emails input')
-    end
   end
 
   def accept_invitation
@@ -150,8 +136,7 @@ class TeamsController < ApplicationController
   private
 
   def set_team
-    @team = Team.find_by_id(params[:id])
-    render json: '', status: :not_found unless @team
+    @team = Team.find(params[:id])
     @team_user = @team.team_users.find_by(user_id: current_user.id)
   end
 
