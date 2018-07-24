@@ -25,5 +25,6 @@ namespace :lol do
       l.image = i
       l.save
     end
+    LayersIndex.import
   end
 end
