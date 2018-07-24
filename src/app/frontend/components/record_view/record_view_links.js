@@ -12,7 +12,10 @@ import RecordViewComponentState from "./record_view_component_state";
     const links = this.props.trayViewStore.record.links.map((link, i) => (
       <li key={`link_${i}`}><NavLink to={link.attachable.url} target='_blank'>{link.title}</NavLink></li>
     ));
-    return <div><ul>{links}</ul></div>
+    return <div className="links">
+      <h3>Related Links</h3>
+      <ul>{links}</ul>
+    </div>
   }
 }
 
