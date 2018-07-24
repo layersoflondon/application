@@ -138,10 +138,10 @@ module Alpha
            description: group.description
         )
         t.save
-        leader = ::User.where(id: group.primary_user_id).first # won't raise if missing
         contributors = ::User.where(id: group.users.reject {|u| u == group.primary_user})
-        t.leaders << (leader || contributors.first)
-        t.contributors << contributors
+        leader = ::User.where(id: group.primary_user_id).first || contributors.first
+        t.leaders << leader unless t.leaders.include?(leader)
+        t.contributors << (contributors - t.contributors)
         t.save
       end
     end
