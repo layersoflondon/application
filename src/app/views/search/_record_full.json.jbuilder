@@ -12,12 +12,12 @@ json.collection_ids record.collection_ids
 json.user_collections record.user_collections
 json.everyone_collections record.everyone_collections
 json.attachments record.attachments
-json.user_can_edit policy(record).edit?
-json.user_can_like policy(record).like?
+json.user_can_edit RecordPolicy.new(current_user,record).edit?
+json.user_can_like RecordPolicy.new(current_user,record).like?
 if record.image
   json.image record.image.select {|k,v| k.in?(['thumb','primary', 'large'])}
 else
-  json.image = nil
+  json.image nil
 end
 json.taxonomy_terms record.taxonomy_terms
 json.view_type record.view_type
