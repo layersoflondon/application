@@ -8,6 +8,6 @@ class Attachments::Dataset < ApplicationRecord
   private
 
   def validate_text_file
-    errors.add(:attachment, 'file is not text') unless file.try(:text?)
+    # errors.add(:attachment, 'file is not text') unless file.try(:text?)
   end
 end
