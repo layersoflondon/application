@@ -16,3 +16,16 @@
   url: https://tiles.layersoflondon.org/tudor/{z}/{x}/{y}.png
   date: 1520-01-01
   image: tudor.png
+-
+  title: Ordnance Survey Five-foot to the mile (1893-1896)
+  description: The most detailed mapping of London by Ordnance Survey, from just over a century ago, covering London in 729 sheets, based on a revision and survey of 1891-5.
+  url: https://nls-0.tileserver.com/uTGqlPPLkqTr/{z}/{x}/{y}.jpg
+  date: 1893-01-01
+  image: os-1893.png
+-
+  title: Ordnance Survey National Grid maps (1940s-1960s)
+  description: The most detailed Ordnance Survey maps after the Second World War.
+  url: http://geo.nls.uk/mapdata3/os/ldn_tile/{z}/{x}/{y}.png
+  date: 1940-01-01
+  image: os-1940.png
+

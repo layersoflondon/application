@@ -76,4 +76,8 @@ class CollectionsIndex < Chewy::Index
       end
     end
   end
+
+  def self.published
+    filter(terms: {state: ['published']})
+  end
 end

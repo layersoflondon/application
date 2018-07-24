@@ -58,10 +58,10 @@ module Alpha
     def migrate_pin(pin)
       record_fields = Alpha::Pin.columns.collect(&:name) & ::Record.columns.collect(&:name)
       data = pin.attributes.select {|k,v| k.in?(record_fields)}
-      record = Record.find_by(id: pin.id)
+      record = ::Record.find_by(id: pin.id)
       unless record.present?
         begin
-          r = Record.new(data.except("location"))
+          r = ::Record.new(data.except("location"))
           r.location = {address: Geocoder.address([r.lat, r.lng])}
           r.state = "published"
           r.credit = pin.content_entry.attribution
