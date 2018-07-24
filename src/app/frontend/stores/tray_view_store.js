@@ -41,6 +41,12 @@ export default class TrayViewStore {
       }
     });
 
+    observe(this, 'tray_is_visible', (change) => {
+      setTimeout(() => {
+        this.map_ref.leafletElement.invalidateSize();
+      }, 250);
+    });
+
     // mutating the visible_record_id will fetch that record and update the RecordView component with the relevant state
     observe(this, 'record_id', (change) => {
       this.loading_record = true;
