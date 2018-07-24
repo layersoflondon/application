@@ -11,8 +11,8 @@ module Attachments
     def data
       super.merge(
              {
-               thumb: ActionController::Base.helpers.asset_path("audio-image-thumb.jpeg"),
-               poster: ActionController::Base.helpers.asset_path("audio-image.jpeg")
+               thumb: ActionController::Base.helpers.asset_path("/audio-image-thumb.jpeg"),
+               poster: ActionController::Base.helpers.asset_path("/audio-image.jpeg")
              }
       )
     end
