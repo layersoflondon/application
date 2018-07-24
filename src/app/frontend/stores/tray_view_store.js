@@ -32,6 +32,8 @@ export default class TrayViewStore {
   @observable record_id = null;
   @observable collection_id = null;
 
+  map_ref = null;
+
   constructor() {
     observe(this, 'cards', (change) => {
       if(this.root) {
@@ -79,7 +81,6 @@ export default class TrayViewStore {
         Collection.show(null, this.collection_id).then((response) => {
           this.root = false;
           this.showCollectionOfCards(response.data.records, response.data.title, response.data.description);
-          // this.panTo(response.data.records[0])
           //  Lock this view so dragging the map doesn't change the cards
           this.locked = true;
         }).catch((error) => {
@@ -120,15 +121,6 @@ export default class TrayViewStore {
       this.locked = false;
       this.loading = false;
     });
-  }
-
-  panTo(lat, lng, zoom = null) {
-    this.initial_position = this.center;
-    this.center = [lat, lng];
-
-    if(zoom) {
-      this.zoom = zoom;
-    }
   }
 
   moveToNextCard() {

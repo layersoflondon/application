@@ -125,6 +125,14 @@ import Search from "../../../sources/search";
       push(`?results=true&q=${this.state.q}`);
       this.setState({showing_results: true});
       this.props.trayViewStore.showCollectionOfCards(response.data, `Searched for ${this.state.q}`);
+
+      if( response.data.length > 0 ) {
+        const lat = response.data[0].lat;
+        const lng = response.data[0].lng;
+
+        this.props.mapViewStore.panTo(lat, lng);
+      }
+
       this.props.trayViewStore.locked = true;
       this.props.trayViewStore.root = false;
     });
