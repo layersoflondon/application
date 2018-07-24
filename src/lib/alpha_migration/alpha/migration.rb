@@ -153,7 +153,7 @@ module Alpha
 
         )
         if collection.user.present?
-          owner = User.find(collection.user.id)
+          owner = ::User.find(collection.user.id)
         elsif collection.user_group.present?
           owner = Team.find(collection.user_group.id)
         end
