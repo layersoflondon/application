@@ -11,14 +11,8 @@ class Team < ApplicationRecord
   # TODO: add a before_validation hook to add the owner of the team based on the current_user who created it.
   validates :name, presence: true
 
-  def members
-    team_users.order(:role).includes(:user)
-  end
-
-  def is_owner(user)
-    user_found = team_users.find_by(user_id: user.id)
-    return user_found.role == 'leader' if user_found
-    false
+  def owned_by?(user)
+    leaders.include?(user)
   end
 
   def invite(user, user_invited)
@@ -33,4 +27,10 @@ class Team < ApplicationRecord
       AccountMailer.team_invite_request(user, user_invited, self, key).deliver_now
     end
   end
+
+  def role_for_user(user)
+    team_users.find_by(user_id: user).try(:role)
+  end
+
+
 end
