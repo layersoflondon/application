@@ -6,8 +6,8 @@ class CollectionsController < ApplicationController
   decorates_assigned :collection, :collections
 
   def index
-    @collections = if user_signed_in?
-                     current_user.collections
+    @collections = if user_signed_in? && !params[:everyone].present?
+                     CollectionsIndex.filter(terms: {contributor_ids: [current_user.id]}).to_a
                    else
                      # Collection.includes(:owner, records: [:user, record_taxonomy_terms: [:taxonomy_term]]).public_read
                      CollectionsIndex.published

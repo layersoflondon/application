@@ -16,7 +16,7 @@ export default class CollectionModel {
     return [0, 0];
   }
 
-  static fromJS(attributes, store = null, from_record = false) {
+  static fromJS(attributes, store = null, from_record = false, build_records = true) {
     const collection = new CollectionModel();
 
     collection.store = store;
@@ -27,8 +27,9 @@ export default class CollectionModel {
     collection.read_state = attributes.read_state;
     collection.write_state = attributes.write_state;
     collection.owner = attributes.owner;
+    collection.contributor_ids = attributes.contributor_ids;
 
-    if( !from_record && attributes.hasOwnProperty('records') ) {
+    if( !from_record && attributes.hasOwnProperty('records') && build_records ) {
       // iterate over this collection's records and either fetch the existing record from the store, or build a new one
       collection.records = attributes.records.map((r) => {
         let card = store.cards.get(`record_${r.id}`);

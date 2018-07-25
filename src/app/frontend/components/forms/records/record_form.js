@@ -4,11 +4,11 @@ import Details from './details';
 import Credits from './credits'
 import Dates from './dates';
 import Media from './media';
-import Collection from './collection';
+import CollectionsEditor from './collections_editor';
 import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
 
-@inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore')
+@inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore', 'currentUser')
 @observer export default class RecordForm extends Component {
   constructor(props) {
     super(props);
@@ -84,7 +84,7 @@ import RecordModel from './../../../models/record';
               <div className="m-accordion">
                 <Media {...this.props} />
                 {/*<Links {...this.props} />*/}
-                <Collection {...this.props} />
+                <CollectionsEditor {...this.props} />
                 {/*<Team {...this.props} />*/}
               </div>
 

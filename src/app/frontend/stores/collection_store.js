@@ -13,14 +13,12 @@ import CollectionModel from '../models/collection';
  */
 export default class CollectionStore {
   @observable everyone_collections = observable.map();
-  @observable team_collections = observable.map();
-  @observable creator_collections = observable.map();
+  @observable user_collections = observable.map();
 
   @computed get collections() {
     let _collections = [];
     this.everyone_collections.values().map((c) => _collections.push(c));
-    this.team_collections.values().map((c) => _collections.push(c));
-    this.creator_collections.values().map((c) => _collections.push(c));
+    this.user_collections.values().map((c) => _collections.push(c));
 
     return _collections;
   }
@@ -29,12 +27,22 @@ export default class CollectionStore {
     this[`${collection_model.write_state}_collections`].set(collection_model.id, collection_model);
   }
 
+  collectionsCreatedByUser(user) {
+    const created_by_user = this.user_collections.entries().filter((c) => c[1].owner.type.search(/^(Alpha::)?User$/)>-1 && c[1].owner.id === user.id );
+    return created_by_user.map((c) => c[1]);
+  }
+
   static fromJS(collections, tray_view_store) {
     const collection_store = new CollectionStore();
 
     collections.map((c) => {
       let collection_model = CollectionModel.fromJS(c, tray_view_store);
-      collection_store[`${collection_model.write_state}_collections`].set(collection_model.id, collection_model);
+
+      if( collection_model.write_state === 'everyone' ) {
+        collection_store[`${collection_model.write_state}_collections`].set(collection_model.id, collection_model);
+      }else {
+        collection_store.user_collections.set(collection_model.id, collection_model);
+      }
     });
 
     tray_view_store.collection_store = collection_store;

@@ -30,9 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     axios.get('/map/state.json').then((response) => {
         const stores = initStore(response.data);
         stores.router = routerStore;
+        stores.currentUser = window.__USER;
 
         ReactDOM.render(
-          <Provider {...stores} userPresent={userPresent} >
+          <Provider {...stores} userPresent={userPresent}>
             <Router history={history} >
               <Main />
             </Router>
