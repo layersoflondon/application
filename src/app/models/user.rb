@@ -48,12 +48,12 @@ class User < ApplicationRecord
   end
 
   def accept_team_invitation(team, key)
-    team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'invited')
-    if team_user&.grant_access
-      team_user.key = nil
-      return team_user.save
+    team_user = TeamUser.invited.find_by(team_id: team.id, key: key)
+    if team_user.try(:grant_access!)
+      true
+    else
+      false
     end
-    false
   end
 
   def request_join_team(team)
@@ -70,21 +70,21 @@ class User < ApplicationRecord
   end
 
   def accept_team_request(team, key)
-    team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'access_requested')
-    if team_user&.grant_access
-      team_user.key = nil
-      return team_user.save
+    team_user = TeamUser.access_requested.find_by(team_id: team.id, key: key)
+    if team_user.try(:grant_access!)
+      true
+    else
+      false
     end
-    false
   end
 
   def deny_team_request(team, key)
-    team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'access_requested')
-    if team_user&.deny_access
-      team_user.key = nil
-      return team_user.save
+    team_user = TeamUser.access_requested.find_by(team_id: team.id, key: key)
+    if team_user.try(:deny_access!)
+      true
+    else
+      false
     end
-    false
   end
 
   def team_collections_granted
