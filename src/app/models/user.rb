@@ -56,22 +56,28 @@ class User < ApplicationRecord
     end
   end
 
-  def request_join_team(team)
-    unless team_users.find_by(team_id: team.id)
-      key = Devise.friendly_token
-      team_users << TeamUser.new(
-        team: team,
-        role: 'contributor',
-        state: 'access_requested',
-        key: key
-      )
-      AccountMailer.team_join_request(self, team, key).deliver_now
-    end
+  def request_to_join_team!(team)
+
+    # begin
+      unless team_users.find_by(team_id: team.id)
+        key = Devise.friendly_token
+        team_users << TeamUser.new(
+          team: team,
+          role: 'contributor',
+          state: 'access_requested',
+          key: key
+        )
+        AccountMailer.team_join_request(self, team, key).deliver_now
+      end
+      # return true
+    # rescue
+    #   return false
+    # end
   end
 
   def accept_team_request(team, key)
     team_user = TeamUser.access_requested.find_by(team_id: team.id, key: key)
-    if team_user.try(:grant_access!)
+    if team_user.present? && team_user.grant_access!
       true
     else
       false
@@ -80,7 +86,7 @@ class User < ApplicationRecord
 
   def deny_team_request(team, key)
     team_user = TeamUser.access_requested.find_by(team_id: team.id, key: key)
-    if team_user.try(:deny_access!)
+    if team_user.present? && team_user.deny_access!
       true
     else
       false

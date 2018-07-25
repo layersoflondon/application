@@ -33,14 +33,16 @@ Rails.application.routes.draw do
 
 
   resources :teams do
-    member do
+    collection do
       post 'request_to_join', to: 'teams#request_to_join', as: :request_to_join
+    end
+    member do
 
       get 'accept_request', to: 'teams#accept_request', as: :accept_request_to_join
       get 'deny_request', to: 'teams#deny_request', as: :deny_request_to_join
 
       post 'invite', to: 'teams#invite_users', as: :invite_users_to
-      get 'accept_invitation', to: 'teams#accept_invitation', as: :accept_invitation_to
+      get 'accept_invitation', to: 'teams#accept_invitation', as: :accept_invitation_to_join
 
       post 'leave', to: 'teams#leave', as: :leave
 
@@ -60,8 +62,6 @@ Rails.application.routes.draw do
   resources :layers, only: [:index, :show], defaults: {format: :json} do
     get 'search', on: :collection
   end
-
-  get  "/assets/:encoded_key/*filename" => "active_storage/assets#show", as: :asset
 
   resources :taxonomies, only: [:index], defaults: {format: :json}
 

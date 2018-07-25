@@ -1,13 +1,14 @@
 class TeamsController < ApplicationController
   layout 'iframe'
 
-  before_action :get_team, except: [:index, :create]
-  before_action :get_team_user, except: [:index, :create, :remove]
+  before_action :get_team, except: [:index, :create, :request_to_join]
+  before_action :get_team_user, except: [:index, :create, :remove, :request_to_join]
   before_action :get_teams, only: [:index, :create]
 
 
   def index
     authorize @teams
+    @other_teams = Team.where.not(id: current_user.teams.collect(&:id))
     respond_to do |format|
       format.json
       format.html
@@ -53,15 +54,38 @@ class TeamsController < ApplicationController
 
   def request_to_join
     # Create team_user record for team and current_user
+    @team = Team.find(params[:team_id])
+    authorize(@team)
+    if current_user.request_to_join_team!(@team)
+      flash[:success] = "Your request to join the #{@team.name} team has been sent."
+    else
+      flash[:error] = "Something went wrong when requesting to join the #{@team.name} team"
+    end
+
+    redirect_to teams_path
   end
 
   def accept_request
     # token-authenticated method from leader's email
+    authorize(@team)
+    if current_user.accept_team_request(@team, params[:key])
+      flash[:success] = "Request to join the #{@team.name} team has been accepted"
+    else
+      flash[:error] = "Something went wrong while accepting the request. Have you already accepted it?"
+    end
+    redirect_to team_path(@team)
   end
 
   def deny_request
     # token-authenticated method from leader's email
     # the team_user record should be removed (otherwise they'll never be able to apply again)
+    authorize(@team)
+    if current_user.deny_team_request(@team, params[:key])
+      flash[:success] = "The request was denied. If this was a mistake, you can invite the user again."
+    else
+      flash[:error] = "Something went wrong while denying the request."
+    end
+    redirect_to team_path(@team)
   end
 
   def invite_users
@@ -123,7 +147,7 @@ class TeamsController < ApplicationController
     else
       flash[:error] = "There was a problem removing #{user.name} from the team"
     end
-    redirect_to teams_path
+    redirect_to team_path(@team)
   end
 
   # layout 'iframe', only: [:show]
