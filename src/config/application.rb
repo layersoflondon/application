@@ -66,8 +66,8 @@ module LayersApp
 
     config.x.asset_cache_expires_in = 2.years
 
-    config.x.mailer_from_address = "Layers of London <lol@sas.ac.uk>"
-    config.x.contact_mail = "lol@sas.ac.uk"
+    config.x.mailer_from_address = "Layers of London <layersoflondon@lon.ac.uk>"
+    config.x.contact_mail_address = "layersoflondon@lon.ac.uk"
   #   600x280 tray
     # 1400x700 record hero
     # 1400x1400 large
