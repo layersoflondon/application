@@ -44,12 +44,22 @@ class TeamPolicy < ApplicationPolicy
     manage_members?
   end
 
-  def join?
-    search?
+  def request_to_join?
+    team_user = record.team_users.find_by(user_id: user.id)
+    # record in this case it the team they want to join
+    user.present? && (team_user.nil? || team_user.access_requested?)
   end
 
   def accept_invitation?
     user.present? && record.users.include?(user)
+  end
+
+  def accept_request?
+    is_leader?
+  end
+
+  def deny_request?
+    is_leader?
   end
 
   private
@@ -62,7 +72,7 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def is_contributor?
-    user.present? && record.contributors.include?(user)
+    user.present? && record.contributors.include?(user) && record.team_users.find_by(user_id: user.id).access_granted?
   end
 
   class Scope < Scope

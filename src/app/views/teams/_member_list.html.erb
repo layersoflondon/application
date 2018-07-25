@@ -10,6 +10,10 @@
             </a>
             <% if team_user.invited? %>
                 <span class="badge">Invited</span>
+            <% elsif team_user.access_requested? %>
+                <span class="badge">Awaiting approval</span>
+            <% elsif team_user.access_denied? %>
+                <span class="badge">Access denied</span>
             <% end %>
             <% if @team.role_for_user(user) == 'leader' %>
                 <span class="ownership-indicator">Owner</span>

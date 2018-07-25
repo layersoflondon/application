@@ -4,16 +4,16 @@
     <div class="m-account-page">
         <% if @teams.any? %>
         <div class="section">
-            <h2>Your teams</h2>
+            <h2>Your teams and requests</h2>
             <ul>
-                <%= render partial: "team", collection: @teams %>
+                <%= render partial: 'teams/team', collection: @teams %>
             </ul>
         </div>
         <% end %>
-        <% if policy(Team).join? %>
+        <% if policy(Team).search? %>
             <div class="section">
-                <h2>Join a team</h2>
-                <%# render 'form_join_team' %>
+                <h2>Apply to join a team</h2>
+                <%= render 'teams/forms/join_team' %>
 
             </div>
         <% end %>

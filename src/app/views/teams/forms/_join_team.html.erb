@@ -1,0 +1,11 @@
+<%= form_with(url: request_to_join_teams_path, method: :post, class: 'form--chunky form--over-white', local: true) do %>
+
+  <div class="form-group">
+    <label>Choose a team</label>
+      <%= select_tag(:team_id, options_from_collection_for_select(@other_teams, :id, :name)) %>
+  </div>
+
+
+  <%= submit_tag("Request to join") %>
+
+<% end %>
