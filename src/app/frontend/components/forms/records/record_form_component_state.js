@@ -29,6 +29,8 @@ export default class RecordFormComponentState {
           [name]: value
         });
 
+        console.log(event);
+
         this.props.recordFormStore.record[name] = value;
       }
 

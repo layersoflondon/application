@@ -97,16 +97,16 @@ export default class RecordModel {
     }
   }
 
-  @computed get _collection_ids() {
-    return this.collections.map((c)=>c.id);
-  }
-  set _collection_ids(id) {
-    //todo: make this work for multiple collections
-    // const collection_ids = this.collection_ids.slice();
-    // collection_ids.push(id);
-    // this.collection_ids = collection_ids;
-    this.collection_ids = [parseInt(id, 10)];
-  }
+  // @computed get _collection_ids() {
+  //   return this.collections.map((c)=>c.id);
+  // }
+  // set _collection_ids(id) {
+  //   //todo: make this work for multiple collections
+  //   // const collection_ids = this.collection_ids.slice();
+  //   // collection_ids.push(id);
+  //   // this.collection_ids = collection_ids;
+  //   this.collection_ids = [parseInt(id, 10)];
+  // }
 
   @computed get user_can_edit_record() {
     return this.user_can_edit;
@@ -183,7 +183,7 @@ export default class RecordModel {
       lng: this.lng,
       date_from: this.date_from,
       date_to: this.date_to,
-      collection_ids: this._collection_ids,
+      collection_ids: this.collection_ids,
       location: this.location,
       credit: this.credit,
       view_type: this.view_type,

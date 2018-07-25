@@ -29,6 +29,8 @@ class RecordsController < ApplicationController
   end
 
   def update
+    Rails.logger.info("\n\n\n\n#{record_params}\n\n\n\n")
+
     update_record_params = record_params.to_h
     check_transition(update_record_params[:state])
     @record.assign_attributes(update_record_params)
