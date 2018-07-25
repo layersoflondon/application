@@ -68,11 +68,10 @@
   left: 25px;
 }
 
-
 // Header
 
 .m-record .header--no-media {
-  margin-top:200px;
+  margin-top: 200px;
 }
 
 // Title
@@ -95,11 +94,10 @@
   font-weight: 200;
   margin-bottom: 0;
   position: relative;
-  font-size: 28px;
   font-size: 44px;
 }
 
-.m-record .header--full .title-area {
+.m-record .header--expanded .title-area {
   float: left;
   width: 45%;
   padding-top: 40px;
@@ -107,23 +105,23 @@
   margin-left: -20px;
 }
 
-.m-record .header--gallery.header--no-hero .title-area {
+.m-record .header--expanded.header--no-hero .title-area {
   float: none;
   width: auto;
   @include clearfix;
 }
 
-.m-record .header--full .title-area .text-content {
+.m-record .header--expanded .title-area .text-content {
   padding-bottom: 20px;
 }
 
-.m-record .header--full.header--no-hero .title-area .text-content {
+.m-record .header--expanded.header--no-hero .title-area .text-content {
   float: left;
   width: 50%;
   padding-right: 40px;
 }
 
-.m-record .header--full .title {
+.m-record .header--expanded .title {
   margin-left: 0;
   width: auto;
 }
@@ -140,7 +138,7 @@
   position: relative;
 }
 
-.m-record .header--full .meta {
+.m-record .header--expanded .meta {
   margin-left: 0;
 }
 
@@ -171,7 +169,7 @@
   text-align: center;
 }
 
-.m-record .header--full .social {
+.m-record .header--expanded .social {
   margin-right: -30px;
 }
 
@@ -248,8 +246,6 @@
   content: "\f044";
 }
 
-
-
 // Sidebar
 
 .m-record .sidebar {
@@ -261,14 +257,14 @@
   z-index: 1;
 }
 
-.m-record .header--full .sidebar {
+.m-record .header--expanded .sidebar {
   margin-top: 20px;
   margin-left: 0;
   width: auto;
   float: none;
 }
 
-.m-record .header--full.header--no-hero .sidebar {
+.m-record .header--expanded.header--no-hero .sidebar {
   width: 50%;
   float: left;
 }
@@ -279,7 +275,7 @@
   margin-bottom: 20px;
 }
 
-.record-view-full .m-record .place {
+.m-record .header--expanded.header--no-hero .sidebar {
   float: left;
   width: 50%;
   margin-bottom: 0;
@@ -312,9 +308,9 @@
   margin-bottom: 100px;
 }
 
-.record-view-full .m-record .m-article {
+/*.record-view-full .m-record .m-article {
   margin-right: 40px;
-}
+}*/
 
 .m-record .m-article p:first-child {
   @include font-display;
@@ -388,8 +384,7 @@
   height: 580px;
 }
 
-.record-view-gallery .m-record-hero {
-  margin-bottom: -100px;
+.header--gallery .m-record-hero {
   height: 650px;
   margin-bottom: -100px;
 }
@@ -415,7 +410,7 @@
   filter: grayscale(0%);
 }
 
-.m-record .header--full .m-record-hero {
+.m-record .header--expanded .m-record-hero {
   width: 55%;
   float: left;
   margin-bottom: 40px;

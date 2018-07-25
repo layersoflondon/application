@@ -177,8 +177,8 @@ $element-border-radius-small: 3px;
   .image {
     width: 100%;
     height: 100%;
-    position: absolute;
     @include centered-image-holder;
+    position: absolute;
     span.is-loading {
       @include loading-spinner;
     }
@@ -234,6 +234,11 @@ $element-border-radius-small: 3px;
     padding: 7px 12px;
     @include transition(all .4s);
     background: transparentize($black, 0.1);
+  }
+
+  .text-content p p {
+    margin:0;
+    padding:0;
   }
 
   .collection-indicator {
