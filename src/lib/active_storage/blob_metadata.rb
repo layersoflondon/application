@@ -1,10 +1,9 @@
 require 'active_storage/blob'
 module ActiveStorage
   module BlobMetadata
-    extend ActiveSupport::Concern
 
-    included do
-      after_save do
+    def self.included(base)
+      base.send(:after_save, -> {
         object.copy_to(object,
                        content_type: content_type,
                        cache_control: 'public',
@@ -14,7 +13,8 @@ module ActiveStorage
                        metadata: {'lol-id': id.to_s},
                        metadata_directive: 'REPLACE'
                        )
-      end
+
+      })
     end
 
     def object
