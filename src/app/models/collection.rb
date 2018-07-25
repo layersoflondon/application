@@ -1,6 +1,6 @@
 class Collection < ApplicationRecord
-  has_many :collection_records
-  has_many :records, through: :collection_records, dependent: :destroy
+  has_many :collection_records, dependent: :destroy
+  has_many :records, through: :collection_records
   update_index('records#record') { records }
   update_index('collections#collection') {self}
   belongs_to :owner, polymorphic: true
