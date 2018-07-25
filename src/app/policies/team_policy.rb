@@ -1,23 +1,35 @@
 class TeamPolicy < ApplicationPolicy
 
+  def index?
+    user.present?
+  end
+
   def show?
     is_leader? || is_contributor?
   end
 
   def search?
-    true
+    user.present?
+  end
+
+  def new?
+    user.present?
   end
 
   def create?
-    is_leader? && access_granted?
+    new?
   end
 
-  def delete?
-    create?
+  def destroy?
+    manage_members?
   end
 
   def manage_members?
-    create?
+    is_leader? && access_granted?
+  end
+
+  def invite_users?
+    manage_members?
   end
 
   def view_members?
@@ -26,6 +38,18 @@ class TeamPolicy < ApplicationPolicy
 
   def leave?
     is_contributor?
+  end
+
+  def remove?
+    manage_members?
+  end
+
+  def join?
+    search?
+  end
+
+  def accept_invitation?
+    user.present? && record.users.include?(user)
   end
 
   private
@@ -43,7 +67,7 @@ class TeamPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-
+      user.teams.includes(:team_users).references(:team_users)
     end
   end
 end

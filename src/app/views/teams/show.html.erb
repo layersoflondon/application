@@ -1,44 +1,31 @@
+<% content_for :equivalent_url_in_iframe, '/map/account/teams' %>
 <div class="m-account-page m-account-page--team">
 
     <div class="wrap">
 
+        <div class="navigation">
+            <%= link_to teams_path do %>
+                <i class="fa fa-arrow-left"></i> Your teams
+            <% end %>
+        </div>
+
         <div class="section section--team-header">
 
             <h1><%= @team.name %></h1>
-            <% if policy(@team).delete? %>
-                <%= render 'form_delete_team', team: @team %>
-            <% elsif policy(@team).leave? %>
-                <%= render 'form_leave_team', team: @team %>
-            <% end %>
-            <button class="show-on-map">Show on map</button>
+            <%= render 'teams/forms/delete_team', team: @team if policy(@team).destroy? %>
+            <%= render 'teams/forms/leave_team', team: @team if policy(@team).leave? %>
+            <%# TODO we need to have a map view for a team
+                <button class="show-on-map">Show on map</button>
+            %>
             <span class="type">
-          <%= "You are #{@team.leaders.include?(current_user) ? "a leader" : "a member"} of this team" %>
-      </span>
+                <%= "You are #{@team.leaders.include?(current_user) ? "a leader" : "a member"} of this team" %>
+            </span>
         </div>
 
         <div class="section section--members">
 
-            <h2>Invite a new member</h2>
-
-            <%= render 'form_invite_member', team: @team %>
-            <% if policy(@team).view_members? %>
-                <h2>Members</h2>
-
-                <ul>
-                    <% @team.users.each do |user| %>
-                        <li>
-                            <a href="mailto:<%= user.email %>" class="clickable" data-type="user" data-id="<%= user.id %>">
-                                <%= user.name.present? ? user.name : user.email %>
-                            </a>
-                            <% if @team.role_for_user(user) == 'leader' %>
-                                <span class="ownership-indicator">Owner</span>
-                            <% elsif policy(@team).manage_members? %>
-                                <button class="remove" data-confirm="Are you sure you want to remove <%= user.name %>?">Remove from team</button>
-                            <% end %>
-                        </li>
-                    <% end %>
-                </ul>
-            <% end %>
+            <%= render 'teams/forms/invite_member', team: @team if policy(@team).manage_members? %>
+            <%= render 'member_list' if policy(@team).view_members? %>
 
         </div>
 
@@ -49,7 +36,7 @@
                 <% @team.collections.each do |collection| %>
                     <li>
                         <a href="#" class="clickable" data-type="collection" data-id="<%= collection.id %>"><%= collection.title %></a>
-                        <button class="remove">Remove from team</button>
+<!--                        <button class="remove">Remove from team</button>-->
                     </li>
                 <% end %>
             </ul>
