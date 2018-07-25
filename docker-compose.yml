@@ -66,13 +66,4 @@ services:
       timeout: 1s
       retries: 10
 
-  elastichq:
-    image: elastichq/elasticsearch-hq
-    networks:
-      - error-network
-    ports:
-      - "5000:5000"
-    environment:
-      HQ_DEFAULT_URL: 'http://elasticsearch:9200'
-
 
