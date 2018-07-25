@@ -6,8 +6,6 @@
 <tr>
     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
         <p style="margin: 0;">Hello there. You've been invited to create an account on <%= link_to "Layers of London", root_url %> by the owner of a team on the site. To get started, just click the button below and choose a password.
-            <br><br>
-        You've already been added to <%= pluralize(@resource.teams.count, "team") %>: <%= @resource.teams.collect(&:name).to_sentence %>. As soon as you log in, you can start exploring and adding records.
         </p>
 
 
