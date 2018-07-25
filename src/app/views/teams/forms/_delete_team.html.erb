@@ -1,0 +1,3 @@
+<%= form_with(object: @team, method: :delete, local: true) do |form|%>
+  <button type="submit" class="delete-team" data-confirm="Are you sure you want to delete this team? Any collections belonging to this team will be deleted.">Delete team</button>
+<% end %>

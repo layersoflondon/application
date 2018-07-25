@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get 'events/show'
   root to: "pages#index"
 
-  get '/user/teams', to: 'user#teams'
   get '/user/record_collections'
 
   devise_for :users,
@@ -20,7 +19,6 @@ Rails.application.routes.draw do
              }
 
 
-  get '/user/:id/teams', to: 'user_teams#index'
 
   resources :records, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]
@@ -34,23 +32,20 @@ Rails.application.routes.draw do
   end
 
 
-  resources :teams, defaults: {format: :html} do
-    collection do
-      post 'join', to: 'teams#request_to_join_team', defaults: {format: :html}
-    end
-
+  resources :teams do
     member do
-      with_options defaults: {format: :html} do
-        get 'accept-request', to: 'teams#accept_request'
-        get 'deny-request', to: 'teams#deny_request'
+      post 'request_to_join', to: 'teams#request_to_join', as: :request_to_join
 
-        post 'invite-user', to: 'teams#invite_user'
-        get 'accept-invitation', to: 'teams#accept_invitation'
+      get 'accept_request', to: 'teams#accept_request', as: :accept_request_to_join
+      get 'deny_request', to: 'teams#deny_request', as: :deny_request_to_join
 
-        post 'leave', to: 'teams#leave'
-      end
+      post 'invite', to: 'teams#invite_users', as: :invite_users_to
+      get 'accept_invitation', to: 'teams#accept_invitation', as: :accept_invitation_to
+
+      post 'leave', to: 'teams#leave', as: :leave
+
+      post 'remove', to: 'teams#remove', as: :remove_from
     end
-    resources :users, controller: 'team_users', only: %i[index create show update destroy]
   end
 
 

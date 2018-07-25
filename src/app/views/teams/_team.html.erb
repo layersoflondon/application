@@ -1,0 +1,6 @@
+<li>
+    <a href="/teams/<%= team.id %>" class="teamlink-member"><%= team.name %></a>
+    <% if team.role_for_user(current_user) == "leader" %>
+        <span class="ownership-indicator">Owner</span>
+    <% end %>
+</li>
