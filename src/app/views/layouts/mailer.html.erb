@@ -305,7 +305,7 @@
 
                     <!-- start permission -->
                     <tr>
-                        <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
+                        <td align="left" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
                             <p style="margin: 0;">
                                 <% if content_for?(:email_reason) %>
                                     <%= yield(:email_reason) %>
@@ -319,9 +319,9 @@
 
                     <!-- start unsubscribe -->
                     <tr>
-                        <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
+                        <td align="left" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
                             <p style="margin: 0;">This email was account-related so you can't unsubscribe from it. But <a href="mailto:<%=  Rails.configuration.x.contact_mail_address %>">please get in touch</a> if you think there's a problem</p>
-                            <p style="margin: 0;">Layers of London, The Centre for Metropolitan History, The Institute of Historical Research, University of London, Senate House, Malet Street, LONDON WC1E 7HU</p>
+                            <p style="margin-top: 5px;">Our address is: Layers of London, The Centre for Metropolitan History, The Institute of Historical Research, University of London, Senate House, Malet Street, LONDON WC1E 7HU</p>
                         </td>
                     </tr>
                     <!-- end unsubscribe -->
