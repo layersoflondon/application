@@ -1,12 +1,12 @@
 class Team < ApplicationRecord
 
-  has_many :team_users
+  has_many :team_users, dependent: :destroy
   has_many :leader_users, -> {leader}, class_name: "TeamUser"
   has_many :contributor_users, -> {contributor}, class_name: "TeamUser"
   has_many :leaders, through: :leader_users, source: :user
   has_many :contributors, through: :contributor_users, source: :user
-  has_many :users, through: :team_users, dependent: :delete_all
-  has_many :collections, as: :owner
+  has_many :users, through: :team_users
+  has_many :collections, as: :owner, dependent: :destroy
 
   # TODO: add a before_validation hook to add the owner of the team based on the current_user who created it.
   validates :name, presence: true
@@ -15,7 +15,7 @@ class Team < ApplicationRecord
     leaders.include?(user)
   end
 
-  def invite(user, user_invited)
+  def invite!(user, user_invited)
     unless team_users.find_by(user_id: user_invited.id)
       key = Devise.friendly_token
       team_users << TeamUser.new(
