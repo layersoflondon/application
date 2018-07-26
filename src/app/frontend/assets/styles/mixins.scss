@@ -738,3 +738,14 @@ $gutter-width: 10px;
   -moz-box-shadow: $string;
   box-shadow: $string;
 }
+
+@mixin badge {
+  color:$black;
+  padding: 5px 10px;
+  background:$gray;
+  border-radius:100px;
+  white-space:nowrap;
+  display:inline-block;
+  font-size: 12px;
+  text-transform: uppercase;
+}

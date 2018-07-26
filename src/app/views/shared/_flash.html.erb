@@ -1,0 +1,23 @@
+
+<% flash.each do |name, message| %>
+    <%
+        class_name = case name
+                     when 'alert', 'error'
+                       "message--bad"
+                     when 'success','notice'
+                       "message--good"
+                     end
+
+    %>
+
+    <div class="m-flash-messages">
+
+        <div class="message <%= class_name %>">
+            <div>
+                <span><%= message %></span>
+                <button><span>Close</span></button>
+            </div>
+        </div>
+
+    </div>
+<% end %>

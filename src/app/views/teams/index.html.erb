@@ -1,0 +1,30 @@
+<% content_for :equivalent_url_in_iframe, '/map/account/teams' %>
+
+<div class="s-overlay--your-account--teams is-showing">
+    <div class="m-account-page">
+        <% if @teams.any? %>
+        <div class="section">
+            <h2>Your teams and requests</h2>
+            <ul>
+                <%= render partial: 'teams/team', collection: @teams %>
+            </ul>
+        </div>
+        <% end %>
+        <% if policy(Team).search? %>
+            <div class="section">
+                <h2>Apply to join a team</h2>
+                <%= render 'teams/forms/join_team' %>
+
+            </div>
+        <% end %>
+        <% if policy(Team).new? %>
+            <div class="section">
+                <h2>Create a new team</h2>
+                <%= render 'teams/forms/create_team', team: @team %>
+            </div>
+
+        <% end %>
+
+        
+    </div>
+</div>

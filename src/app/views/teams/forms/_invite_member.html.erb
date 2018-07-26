@@ -1,0 +1,13 @@
+<h2>Invite new teammates</h2>
+<%= form_with(model: team, url: invite_users_to_team_path, method: :post, local: true, class: 'form--chunky form--over-white') do |form| %>
+    <% if @invitation_error.present? %>
+        <div class="form-errors">
+            There was a problem inviting people: <%= @invitation_error[:message] %>
+        </div>
+    <% end %>
+    <div class="form-group">
+        <%= text_field_tag :emails, @invitation_error.try(:[],:value), placeholder: "person1@example.com, person2@example.com" %>
+        <p class="helper-text">A comma-separated list of emails is fine</p>
+    </div>
+  <%= form.submit "Invite" %>
+<% end %>

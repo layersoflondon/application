@@ -25,9 +25,11 @@ class User < ApplicationRecord
   def name
     "#{first_name} #{last_name}"
   end
+
   def leading_teams
-    team_user_leader = TeamUser.where(user_id: self.id, role: 'leader', state: 'access_granted')
-    Team.where(id: team_user_leader.collect{|t| t.team_id})
+    Team.includes(:team_users).references(:team_users).where(team_users: {user_id: id, role: "leader", state: 'access_granted'})
+    # team_user_leader = TeamUser.where(user_id: self.id, role: 'leader', state: 'access_granted')
+    # Team.where(id: team_user_leader.collect{|t| t.team_id})
   end
 
   def contributing_teams
@@ -46,43 +48,49 @@ class User < ApplicationRecord
   end
 
   def accept_team_invitation(team, key)
-    team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'invited')
-    if team_user&.mark_as_access_granted
-      team_user.key = nil
-      return team_user.save
+    team_user = TeamUser.invited.find_by(team_id: team.id, key: key)
+    if team_user.try(:grant_access!)
+      true
+    else
+      false
     end
-    false
   end
 
-  def request_join_team(team)
-    unless team_users.find_by(team_id: team.id)
-      key = Devise.friendly_token
-      team_users << TeamUser.new(
-        team: team,
-        role: 'contributor',
-        state: 'access_requested',
-        key: key
-      )
-      AccountMailer.team_join_request(self, team, key).deliver_now
-    end
+  def request_to_join_team!(team)
+
+    # begin
+      unless team_users.find_by(team_id: team.id)
+        key = Devise.friendly_token
+        team_users << TeamUser.new(
+          team: team,
+          role: 'contributor',
+          state: 'access_requested',
+          key: key
+        )
+        AccountMailer.team_join_request(self, team, key).deliver_now
+      end
+      # return true
+    # rescue
+    #   return false
+    # end
   end
 
   def accept_team_request(team, key)
-    team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'access_requested')
-    if team_user&.mark_as_access_granted
-      team_user.key = nil
-      return team_user.save
+    team_user = TeamUser.access_requested.find_by(team_id: team.id, key: key)
+    if team_user.present? && team_user.grant_access!
+      true
+    else
+      false
     end
-    false
   end
 
   def deny_team_request(team, key)
-    team_user = TeamUser.find_by(team_id: team.id, key: key, state: 'access_requested')
-    if team_user&.mark_as_access_denied
-      team_user.key = nil
-      return team_user.save
+    team_user = TeamUser.access_requested.find_by(team_id: team.id, key: key)
+    if team_user.present? && team_user.deny_access!
+      true
+    else
+      false
     end
-    false
   end
 
   def team_collections_granted
@@ -98,6 +106,10 @@ class User < ApplicationRecord
 
   def can_view(collection)
     collection_ids.include? collection.id
+  end
+
+  def state_on_team(team)
+    team.team_users.find_by(user_id: id).try(:state)
   end
 
 end

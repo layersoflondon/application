@@ -11,5 +11,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w( map.scss iframe.scss marketing.scss marketing.js)
+Rails.application.config.assets.precompile += %w( map.scss iframe.scss marketing.scss marketing.js iframe.js)
 

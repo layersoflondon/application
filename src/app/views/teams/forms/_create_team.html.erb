@@ -1,11 +1,10 @@
-<%= form_with(model: team, html: { method: :post, class: 'form--chunky form--over-white' }, format: :html) do |form| %>
-  <input type="hidden" name="is_form" value="1">
-  <% if team.errors.any? %>
+<%= form_with(model: team || Team.new, html: { method: :post, class: 'form--chunky form--over-white' }, local: true) do |form| %>
+  <% if form.object.errors.any? %>
     <div>
-      <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
+      <h2>Couldn't save your new team.</h2>
 
       <ul>
-        <% team.errors.full_messages.each do |message| %>
+        <% form.object.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>

@@ -1,0 +1,14 @@
+<li>
+    <% team_user = team.team_users.find_by(user_id: current_user.id) %>
+    <%= link_to_if(policy(team).show?, team.name, team_path(team), {class: 'teamlink-member'}) do %>
+        <%= team.name %>
+    <% end %>
+    <% if team_user.access_requested? %>
+        <span class="badge">Awaiting approval</span>
+    <% elsif team_user.access_denied? %>
+        <span class="badge">Approval denied</span>
+    <% end %>
+    <% if team.role_for_user(current_user) == "leader" %>
+        <span class="ownership-indicator">Owner</span>
+    <% end %>
+</li>

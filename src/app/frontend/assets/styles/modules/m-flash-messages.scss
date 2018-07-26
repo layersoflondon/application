@@ -1,0 +1,74 @@
+
+/* Flash messages */
+
+.m-flash-messages {
+  color:white;
+}
+
+.m-flash-messages .message {
+  overflow: hidden;
+  padding:12px 0 16px;
+}
+
+.m-flash-messages .message.message--fixed {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 9999;
+}
+
+.m-flash-messages .message:nth-child(odd) {
+  background:#3b4348;
+}
+
+.m-flash-messages .message:nth-child(even) {
+  background:lighten(#3b4348, 10%);
+}
+
+.m-flash-messages .message--good:nth-child(odd) {
+  background:$green;
+}
+
+.m-flash-messages .message--good:nth-child(even) {
+  background:lighten($green, 10%);
+}
+
+.m-flash-messages .message--neutral:nth-child(odd) {
+  background:#3b4348;
+}
+
+.m-flash-messages .message--neutral:nth-child(even) {
+  background:lighten(#3b4348, 10%);
+}
+
+.m-flash-messages .message--bad:nth-child(odd) {
+  background:darken($red, 10%);
+}
+
+.m-flash-messages .message--bad:nth-child(even) {
+  background:lighten($red, 10%);
+}
+
+.m-flash-messages .message > div {
+  max-width:1200px;
+  margin:0 auto;
+  text-align:center
+}
+
+.m-flash-messages button span {
+  display:none;
+}
+
+.m-flash-messages button {
+  display:inline-block;
+  margin:0;
+  padding:0;
+  background:none;
+  margin-left:20px;
+}
+//
+//.m-flash-messages button:after {
+//  color:white;
+//  font: normal normal normal 16px/1 FontAwesome;
+//  content: "\f00d";
+//}
