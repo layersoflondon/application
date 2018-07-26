@@ -6,10 +6,17 @@ class TeamForm extends React.Component {
         super(props);
     }
 
+
+
     render() {
-        let srcValue = `/teams`;
+        let source = "";
+        if (this.props.id) {
+            source = `/teams/${this.props.id}`
+        } else {
+            source = '/teams'
+        }
         return (
-            <iframe width="100%" height="600" src={srcValue} frameBorder="0"></iframe>
+            <iframe width="100%" height="600" src={source} frameBorder="0"></iframe>
         );
     }
 }
