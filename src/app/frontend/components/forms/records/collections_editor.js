@@ -13,6 +13,8 @@ import {observer, inject} from "mobx-react";
 
     this.selectRef = React.createRef();
 
+    console.log(this.props.recordFormStore.record.user_collections, this.props.recordFormStore.record.everyone_collections);
+
     this.state = {
       showing: 'user_collections',
       collections: [],
