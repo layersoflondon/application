@@ -46,11 +46,4 @@ set :ssl_key, "layersoflondon.org.key.gpg" #this should be a gpg-encrypted key
 set :ssl_dh, "dhparams.pem.gpg" #this should be a gpg-encrypted key
 
 
-#http basic auth
-set :basic_auth_required, true
-set :basic_auth_username, 'lol'
-set :basic_auth_password, 'lolbeta'
-
-
-
 
