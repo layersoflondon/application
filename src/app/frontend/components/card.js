@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import {Link, withRouter} from 'react-router-dom';
@@ -27,7 +27,6 @@ import VisibilitySensor from 'react-visibility-sensor';
 
   render() {
     let container_classes = "m-record-card";
-    let image_styles = {background: '#2e3c4e'};
 
     if( this.props.card.is_collection ) container_classes += " m-record-card--collection";
 
@@ -58,12 +57,21 @@ import VisibilitySensor from 'react-visibility-sensor';
       <VisibilitySensor onChange={visibilityChanged} partialVisibility={true}>
         <Link to={path} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseOut={()=>this.props.card.highlighted=false}>
           <div className="wrapper">
-            <div className="image" style={image_styles}>
+
               {
-                this.props.card.data.image && this.state.visible && 
-                <Img src={this.props.card.data.image.card} loader={<span className="is-loading"></span>}/>
+                this.props.card.data.image &&
+                  <div className="image">
+                      {
+                          this.state.visible &&
+                              <Fragment>
+                                <Img src={this.props.card.data.image.card} loader={<span className="is-loading"></span>}/>
+                              </Fragment>
+                      }
+                  </div>
               }
-            </div>
+
+
+
             {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
             <div className="text-content">
               <h1>{this.props.card.data.title}</h1>
