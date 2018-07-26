@@ -1,6 +1,7 @@
 class AccountMailer < ApplicationMailer
   layout 'mailer'
   before_action :add_inline_attachments!
+  default from: Rails.application.config.x.mailer_from_address
   
   def team_join_request(user, team, key)
     @user = user
