@@ -19,6 +19,8 @@ import LayersOverlay from './layers_overlay';
 import CollectionForm from './forms/collections/collection_form';
 import UserForm from './forms/user/user_form';
 import RecordForm from './forms/records/record_form';
+import CardModel from "../models/card";
+import Record from "../sources/record";
 
 @inject('router', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore')
 @withRouter
