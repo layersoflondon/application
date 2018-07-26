@@ -15,13 +15,7 @@
     </div>
     <div class="m-highlighted-content">
       <h2>Highlights</h2>
-      <% 5.times do %>
-        <%= render "shared/record-card" %>
-        <% end %>
-      <%#= render "shared/record-card--collection" %>
-      <%#= render "shared/record-card" %>
-      <%#= render "shared/record-card" %>
-      <%#= render "shared/record-card--collection" %>
+        <%= render partial: "shared/feature_record_card", collection: featured_items %>
     </div>
     <div class="m-big-search">
       <!--<h1>Search</h1>-->

@@ -38,6 +38,15 @@ module LayersApp
           quality: 90
         }
       },
+      feature: {
+        thumbnail: "500x500",
+        combine_options: {
+          gravity: "Center",
+          extent: "466x280",
+          crop: "466x280+0+0",
+          quality: 90
+        }
+      },
       thumb: {
         thumbnail: "200x200",
         combine_options: {
@@ -62,6 +71,7 @@ module LayersApp
           quality: 95
         }
       }
+
     }
 
     config.x.asset_cache_expires_in = 2.years

@@ -6,6 +6,7 @@ class PagesController < ApplicationController
 
   nested_rooftop_resource :page
   decorates_assigned :page, with: PageDecorator
+  decorates_assigned :featured_items, with: FeaturedItemDecorator
 
   skip_before_action :authenticate_user!
   skip_after_action :verify_authorized
@@ -50,6 +51,7 @@ class PagesController < ApplicationController
 
   def get_homepage_content
     # This is where you put homepage-specific stuff - usually other calls to Rooftop which you assign to instance variables.
+    @featured_items = FeaturedItemsIndex.order(sort_order: :asc).limit(5)
   end
 
 
