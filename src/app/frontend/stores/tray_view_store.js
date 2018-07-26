@@ -65,7 +65,7 @@ export default class TrayViewStore {
           }).catch((error) => {
             console.log(`Error getting record ${this.record_id}`, error);
             this.record_id = null;
-          }).finally(() => {
+          }).then(() => {
             this.loading_record = false;
           });
         // }
@@ -84,6 +84,7 @@ export default class TrayViewStore {
     observe(this, 'collection_id', (change) => {
       if( change.newValue ) {
         this.loading_collection = true;
+        window.Collection = Collection;
         Collection.show(null, this.collection_id).then((response) => {
           this.root = false;
           this.showCollectionOfCards(response.data.records, response.data.title, response.data.description);
@@ -91,7 +92,7 @@ export default class TrayViewStore {
           this.locked = true;
         }).catch((error) => {
           this.collection_id = null;
-        }).finally(() => {
+        }).then(() => {
           this.loading_collection = false;
         });
       }else {
@@ -122,7 +123,7 @@ export default class TrayViewStore {
       }else {
         this.showCollectionOfCards(response.data);
       }
-    }).finally(() => {
+    }).then(() => {
       this.root = true;
       this.locked = false;
       this.loading = false;

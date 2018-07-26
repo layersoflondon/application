@@ -10,6 +10,7 @@ import Img from 'react-image';
   }
 
   render() {
+    console.log(this.props.media);
     /*
   <div className="media-item media-item--image">
           <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}>
@@ -29,7 +30,7 @@ import Img from 'react-image';
 
     const image_attribute = this.props.record.view_type === 'gallery' ? 'card' : 'large';
 
-    return <div className="media-item media-item--image">
+    return <div className={`media-item media-item--${this.props.media.media_type}`}>
       <Link to={`${this.props.record.id}/media/${this.props.media.id}`}>
         <Img src={this.props.media.attachable[image_attribute]} alt="" loader={<span className="is-loading" /> }/>
         {this.props.record.view_type === 'expanded' && <div className="attribution" dangerouslySetInnerHTML={{__html: this.props.media.attribution}}></div>}
