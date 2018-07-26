@@ -57,22 +57,21 @@ class User < ApplicationRecord
   end
 
   def request_to_join_team!(team)
+    # if we're already in team, don't send anything
+    unless teams.include?(team)
 
-    # begin
-      unless team_users.find_by(team_id: team.id)
-        key = Devise.friendly_token
-        team_users << TeamUser.new(
-          team: team,
-          role: 'contributor',
-          state: 'access_requested',
-          key: key
-        )
-        AccountMailer.team_join_request(self, team, key).deliver_now
-      end
-      # return true
-    # rescue
-    #   return false
-    # end
+      # Generate key and add team_user for this user
+      key = Devise.friendly_token
+      team_users << TeamUser.new(
+        team: team,
+        role: 'contributor',
+        state: 'access_requested',
+        key: key
+      )
+
+      # Mail the admins with the details of the person who wants to join (this user)
+      AccountMailer.team_join_request(self, team, key).deliver_now
+    end
   end
 
   def accept_team_request(team, key)
