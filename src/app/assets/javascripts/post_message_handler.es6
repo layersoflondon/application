@@ -7,13 +7,11 @@ class PostMessageHandler {
   bindClickable() {
     $('.clickable').on('click tap', (event) => {
       const elem = $(event.currentTarget);
+      // Post a message to the parent window with the data attributes assigned to the clickable element
       parent.postMessage(
-        {
-          'scope': 'clickable-iframe-element',
-          'type': elem.data().type,
-          'id': elem.data().id,
-          'action': (elem.data().action) ? elem.data().action : null
-        },
+        Object.assign(elem.data(),{
+          'scope': 'clickable-iframe-element'
+        }),
         this.targetOrigin
       );
     });

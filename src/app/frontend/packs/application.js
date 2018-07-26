@@ -48,25 +48,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen to message from child window
     eventer(messageEvent, (event) => {
-        // fixme: restore this functionality using the new router pattern
-        if (false && event.data.scope === 'clickable-iframe-element') {
-            stores.mapViewStore.overlay = null;
-            // TODO: Open requested modal
-            const {push} = routingStore;
-
-            setTimeout(() => {
-                switch(event.data.type) {
-                    case 'record':
-                        push(`/map/records/${event.data.id}`);
-                        stores.trayViewStore.record_id = event.data.id;
-                        break;
-                    case 'collection':
-                        push(`/map/collections/${event.data.id}`);
-                        stores.trayViewStore.collection_id = event.data.id;
-                    default:
-                        console.log(`Handle ${event.data.type}`);
+        if (event.data.scope === 'clickable-iframe-element') {
+            let path = "/map";
+            if (event.data.type && event.data.id) {
+                switch (event.data.type) {
+                  case 'record':
+                      path += '/records';
+                      break;
+                  case 'collection':
+                      path += '/collections';
+                      break;
+                  case 'team':
+                      path += '/teams';
+                      break;
                 }
-            }, 500);
+
+                if (event.data.id) {
+                    path += `/${event.data.id}`;
+                }
+
+                if (event.data.action) {
+                    path += `/${event.data.action}`;
+                }
+
+                history.push(path);
+            }
         }
     },false);
 });
