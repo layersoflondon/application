@@ -12,7 +12,13 @@ import {observer, inject} from "mobx-react";
     super(props);
 
     this.selectRef = React.createRef();
-    this.state = {showing: 'user_collections', collections: [], enabled_user_collections: [], enabled_everyone_collections: []};
+
+    this.state = {
+      showing: 'user_collections',
+      collections: [],
+      enabled_user_collections: this.props.recordFormStore.record.user_collections,
+      enabled_everyone_collections: this.props.recordFormStore.record.everyone_collections
+    };
   }
 
   componentWillMount() {
@@ -56,7 +62,6 @@ import {observer, inject} from "mobx-react";
       });
     }
 
-    // console.log(`setting enabled_${this.state.showing}`, updated_collections, collection_ids);
     this.props.recordFormStore.record.collection_ids = collection_ids;
     this.setState({[`enabled_${this.state.showing}`] : updated_collections});
   }

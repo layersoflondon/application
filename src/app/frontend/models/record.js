@@ -184,6 +184,8 @@ export default class RecordModel {
       date_from: this.date_from,
       date_to: this.date_to,
       collection_ids: this.collection_ids,
+      user_collections: this.user_collections,
+      everyone_collections: this.everyone_collections,
       location: this.location,
       credit: this.credit,
       view_type: this.view_type,
