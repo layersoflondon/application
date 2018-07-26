@@ -76,6 +76,14 @@ class Record < ApplicationRecord
     end
   end
 
+  def everyone_collections
+    collections.where(write_state: 'everyone')
+  end
+
+  def user_collections
+    collections.where(write_state: ['creator', 'team'])
+  end
+
   def get_primary_image(fallback_to_first: true)
     if primary_image_id && primary_image
       primary_image

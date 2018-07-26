@@ -24,7 +24,11 @@ export default class CollectionStore {
   }
 
   addCollection(collection_model) {
-    this[`${collection_model.write_state}_collections`].set(collection_model.id, collection_model);
+    if(collection_model.write_state === 'everyone') {
+      this.everyone_collections.set(collection_model.id, collection_model);
+    }else {
+      this.user_collections.set(collection_model.id, collection_model);
+    }
   }
 
   collectionsCreatedByUser(user) {

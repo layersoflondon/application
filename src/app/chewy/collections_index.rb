@@ -12,7 +12,7 @@ class CollectionsIndex < Chewy::Index
     field :image, type: :object, value: -> {
       primary_image.try(:attachable).try(:data)
     }
-    field :owner, type: :object do
+    field :owner, type: :nested do
       field :name, type: :text
       field :id, type: :text
       field :type, type: :keyword, value: -> {self.class.to_s}

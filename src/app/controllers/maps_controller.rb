@@ -23,7 +23,30 @@ class MapsController < ApplicationController
     @records =  RecordsIndex.filter(terms: {state: %w[published flagged]}).limit(5).order(created_at: :desc).to_a
 
     if user_signed_in?
-      query = {bool: {should: [{terms: {contributor_ids: [current_user.id]}}, {term: {write_state: "everyone"}}]}}
+      query = {
+        bool: {
+          should: [
+            {
+              terms: {
+                contributor_ids: [current_user.id]
+              }
+            }, {
+              nested: {
+                path: "owner",
+                query: {
+                  bool: {
+                    must: [
+                      {
+                        match: { "owner.id" => current_user.id}
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
       @collections = CollectionsIndex.filter(query).limit(250)
     else
       @collections = CollectionsIndex.filter(terms: {state: ["published"]}).limit(5).order(created_at: :desc).to_a
