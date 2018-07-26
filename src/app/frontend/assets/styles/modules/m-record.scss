@@ -132,14 +132,17 @@
   background: transparentize($black, 0.1);
   color: white;
   font-size: 14px;
-  //margin-left: 300px;
-  width: 100%;
+  margin-left: 300px;
   display: inline-block;
   position: relative;
 }
 
 .m-record .header--expanded .meta {
   margin-left: 0;
+}
+
+.m-record .header--expanded.header--no-hero .meta {
+  margin-top: 50px;
 }
 
 .m-record .meta .dates {
@@ -275,7 +278,7 @@
   margin-bottom: 20px;
 }
 
-.m-record .header--expanded.header--no-hero .sidebar {
+.m-record .header--expanded.header--no-hero .place {
   float: left;
   width: 50%;
   margin-bottom: 0;

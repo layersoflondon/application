@@ -35,9 +35,11 @@ import {observer} from 'mobx-react';
       <div className="form-group form-group--date">
         <div className="start-date">
           <label>When did this happen?</label>
-          <input placeholder="Day" type="text" name="date_from_day" data-date-field="date_from_object" data-date-attribute-name="date" value={this.props.recordFormStore.record.date_from_object.date} onChange={this.handleOnDateChange.bind(this)} />
-          <input placeholder="Month" type="text" name="date_from_month" data-date-field="date_from_object" data-date-attribute-name="month" value={this.props.recordFormStore.record.date_from_object.month} onChange={this.handleOnDateChange.bind(this)} />
-          <input placeholder="Year" type="text" name="date_from_year" data-date-field="date_from_object" data-date-attribute-name="year" value={this.props.recordFormStore.record.date_from_object.year} onChange={this.handleOnDateChange.bind(this)} />
+            <div className="date-input-wrap">
+              <input placeholder="Day" type="text" name="date_from_day" data-date-field="date_from_object" data-date-attribute-name="date" value={this.props.recordFormStore.record.date_from_object.date} onChange={this.handleOnDateChange.bind(this)} />
+              <input placeholder="Month" type="text" name="date_from_month" data-date-field="date_from_object" data-date-attribute-name="month" value={this.props.recordFormStore.record.date_from_object.month} onChange={this.handleOnDateChange.bind(this)} />
+              <input placeholder="Year" type="text" name="date_from_year" data-date-field="date_from_object" data-date-attribute-name="year" value={this.props.recordFormStore.record.date_from_object.year} onChange={this.handleOnDateChange.bind(this)} />
+            </div>
           <span className="helper-text">An estimate is ok - an exact date is fantastic!</span>
         </div>
 
