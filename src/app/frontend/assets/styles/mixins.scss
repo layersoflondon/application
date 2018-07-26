@@ -258,6 +258,7 @@ $element-border-radius-small: 3px;
     display: block;
     float: left;
     @include font-display;
+    font-weight:600;
     transition: all .2s;
     color: black;
     padding: 7px 12px;
