@@ -7,7 +7,7 @@ class AccountMailer < ApplicationMailer
     @team = team
     @url_accept = accept_request_to_join_team_url(id: @team.id, key: key)
     @url_deny = deny_request_to_join_team_url(id: @team.id, key: key)
-    mail(to: @user.email, subject: 'Layers of London - Request to join a team')
+    mail(to: team.leaders.collect(&:email), subject: 'Layers of London - Request to join a team')
   end
 
   def team_invite_request(user, user_invited, team, key)
