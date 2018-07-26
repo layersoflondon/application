@@ -28,4 +28,10 @@
   url: http://geo.nls.uk/mapdata3/os/ldn_tile/{z}/{x}/{y}.png
   date: 1940-01-01
   image: os-1940.png
+-
+  title: Modern satellite map
+  description: A modern satellite map
+  url: https://maps.tilehosting.com/c/1df1ac08-8dde-4875-bda5-dbb044c43268/styles/hybrid/{z}/{x}/{y}.jpg?key=23hrAY6lilqs9xizcz03
+  date: 2018-01-01
+  image: satellite.png
 
