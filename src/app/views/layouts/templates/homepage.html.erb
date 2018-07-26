@@ -2,7 +2,7 @@
 <% content_for :template do %>
 
     <div class="m-hero m-hero--large m-hero--home">
-      <div class="image random-image-large"></div>
+      <div class="image"></div>
       <div class="m-home-logo">
         <h1>Layers of London</h1>
         <%= image_tag(("logotype.svg"), :class => "viewable") %>
@@ -10,21 +10,14 @@
       <div class="text-content">
         <!--<span class="surtitle">Layers of London</span>-->
         <h1 class="viewable">Recording the rich layers of heritage across London</h1>
-        <a href="/map">Start exploring</a>
+          <%= link_to "Start exploring", map_path %>
       </div>
     </div>
     <div class="m-highlighted-content">
       <h2>Highlights</h2>
         <%= render partial: "shared/feature_record_card", collection: featured_items %>
     </div>
-    <div class="m-big-search">
-      <!--<h1>Search</h1>-->
-      <div class="search">
-        <input type="text" placeholder="Search the maps"/>
-        <input type="submit" value="Go"/>
-      </div>
-      <p>See the history of your street, or explore a topic you're interested in…</p>
-    </div>
+    <%= render 'pages/big_search' %>
     <div class="m-home-cta-block">
       <div class="image"></div>
       <div class="text-content viewable">
