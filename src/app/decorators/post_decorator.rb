@@ -3,17 +3,12 @@ class PostDecorator < Draper::Decorator
 
   include DecoratorConcerns::BasicContent
 
-  decorates_association :post
 
-  def title
-    if has_field?(:title, String)
-      h.strip_tags(fields.title).html_safe
-    end
-  end
-
-  def description
-    if has_field?(:description, String)
-      h.strip_tags(fields.description).html_safe
+  def excerpt
+    if has_field?(:excerpt, String) && fields.excerpt.present?
+      fields.excerpt
+    else
+      content.truncate(100)
     end
   end
 end

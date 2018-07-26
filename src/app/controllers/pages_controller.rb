@@ -3,7 +3,6 @@ class PagesController < ApplicationController
   include PostCollections
   include FaqCollections
   include GuideCollections
-  include ArticleCollections
 
   nested_rooftop_resource :page
   decorates_assigned :page, with: PageDecorator
