@@ -3,7 +3,7 @@ class RecordsIndex < Chewy::Index
     "Record"
   end
   
-  define_type Record.includes(:user, :collections, :attachments) do
+  define_type Record.includes(:user, :attachments, collections: [:owner]) do
 
     field :id, type: 'integer'
     field :title, type: 'text', analyzer: :english
@@ -22,9 +22,19 @@ class RecordsIndex < Chewy::Index
       field :id, type: 'integer'
       field :name, type: 'text'
     end
-    field :collections, type: 'object' do
-      field :read_state, type: 'keyword'
+
+    field :collection_ids
+
+    field :user_collections do
+      field :value, value: ->{id}
+      field :label, value: ->{title}
     end
+
+    field :everyone_collections do
+      field :value, value: ->{id}
+      field :label, value: ->{title}
+    end
+
     field :attachments, type: 'object' do
       field :id, type: 'integer'
       field :title, type: 'text', analyzer: :english

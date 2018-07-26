@@ -53,7 +53,7 @@ import Parser from 'html-react-parser';
       icon = highlighted_icon;
     }
 
-    return <Marker position={this.props.position} icon={icon} onMouseOver={this.toggleHighlightCard.bind(this)} onMouseOut={this.toggleHighlightCard.bind(this)}>
+    return <Marker position={this.props.position} icon={icon}>
 
       <Popup>
 

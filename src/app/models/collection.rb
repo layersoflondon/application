@@ -43,18 +43,12 @@ class Collection < ApplicationRecord
   end
 
   def write_state_team
-    if team? && write_state_team_id == nil
-      errors.add(:write_state, 'write_state_team_id value not provided')
+    if team? && owner_id == nil
+      errors.add(:write_state, 'team not provided')
     end
 
-    if team? && write_state_team_id > 0
-      unless Team.find_by_id(write_state_team_id)
-        errors.add(:write_state, 'team does not exists')
-      end
-    end
-
-    if write_state_team_id != nil &&  (creator? || everyone?)
-      self.write_state_team_id = nil
+    if team? && !(owner.present? || owner.is_a?(Team))
+      errors.add(:write_state, 'team does not exists')
     end
   end
 

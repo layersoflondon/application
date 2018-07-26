@@ -7,6 +7,7 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+import "babel-polyfill";
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -30,9 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
     axios.get('/map/state.json').then((response) => {
         const stores = initStore(response.data);
         stores.router = routerStore;
+        stores.currentUser = window.__USER;
 
         ReactDOM.render(
-          <Provider {...stores} userPresent={userPresent} >
+          <Provider {...stores} userPresent={userPresent}>
             <Router history={history} >
               <Main />
             </Router>

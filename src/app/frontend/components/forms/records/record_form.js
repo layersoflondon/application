@@ -4,11 +4,11 @@ import Details from './details';
 import Credits from './credits'
 import Dates from './dates';
 import Media from './media';
-import Collection from './collection';
+import CollectionsEditor from './collections_editor';
 import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
 
-@inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore')
+@inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore', 'currentUser')
 @observer export default class RecordForm extends Component {
   constructor(props) {
     super(props);
@@ -18,17 +18,20 @@ import RecordModel from './../../../models/record';
 
   componentWillMount() {
     if( this.props.trayViewStore.record ) {
+      // duplicate the record object so that the one we're mutating isn't what may be visible in the tray (its observed
+      // attributes will change in real-time, but aren't actually persisted which might be confusing...)
       const record = RecordModel.fromJS(this.props.trayViewStore.record.toJS(), this.props.trayViewStore.record.store);
       this.props.recordFormStore.record = record;
     }else if( this.props.match.params.id && this.props.match.params.id !== 'new'  ) {
       Record.show(null, this.props.match.params.id).then((response) => {
         this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+        console.log("Got record", this.props.recordFormStore.record);
       });
     }
   }
 
   componentWillUnmount() {
-      this.props.recordFormStore.record = new RecordModel
+      this.props.recordFormStore.record = new RecordModel()
   }
 
   handleClickedOnSave(event) {
@@ -63,6 +66,11 @@ import RecordModel from './../../../models/record';
   }
 
   render() {
+    if( parseInt(this.props.match.params.id, 10) !== this.props.recordFormStore.record.id ) {
+      // fixme: show a spinner here whilst we load the record we're editing
+      return <div />
+    }
+
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'record_form' ) className+=" is-showing";
 
@@ -84,7 +92,7 @@ import RecordModel from './../../../models/record';
               <div className="m-accordion">
                 <Media {...this.props} />
                 {/*<Links {...this.props} />*/}
-                <Collection {...this.props} />
+                <CollectionsEditor {...this.props} />
                 {/*<Team {...this.props} />*/}
               </div>
 

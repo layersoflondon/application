@@ -21,7 +21,36 @@ class MapsController < ApplicationController
   def set_state_variables
     # @records =  RecordsIndex.filter(terms: {state: %w[published flagged]}).to_a
     @records =  RecordsIndex.filter(terms: {state: %w[published flagged]}).limit(5).order(created_at: :desc).to_a
-    @collections = CollectionsIndex.filter(terms: {state: ["published"]}).limit(5).order(created_at: :desc).to_a
+
+    if user_signed_in?
+      query = {
+        bool: {
+          should: [
+            {
+              terms: {
+                contributor_ids: [current_user.id]
+              }
+            }, {
+              nested: {
+                path: "owner",
+                query: {
+                  bool: {
+                    must: [
+                      {
+                        match: { "owner.id" => current_user.id}
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+      @collections = CollectionsIndex.filter(query).limit(250)
+    else
+      @collections = CollectionsIndex.filter(terms: {state: ["published"]}).limit(5).order(created_at: :desc).to_a
+    end
 
     @layers = LayersIndex.filter(terms: {layer_type: ["tileserver"]})
 

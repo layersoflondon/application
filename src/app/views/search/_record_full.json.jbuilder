@@ -8,7 +8,9 @@ json.date_to record.date_to
 json.created_at DateTime.parse(record.created_at).strftime("%d/%m/%Y")
 json.updated_at DateTime.parse(record.updated_at).strftime("%d/%m/%Y")
 json.user record.user
-json.collections record.collections
+json.collection_ids record.collection_ids
+json.user_collections record.user_collections
+json.everyone_collections record.everyone_collections
 json.attachments record.attachments
 json.user_can_edit RecordPolicy.new(current_user,record).edit?
 json.user_can_like RecordPolicy.new(current_user,record).like?

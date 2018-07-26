@@ -21,7 +21,6 @@ import {observer} from "mobx-react";
     let classes = 'image';
 
     if( this.state.type === 'image' ) {
-      console.log(this.state.type, this.state.url);
       style['backgroundImage'] = `url("${this.state.url}")`;
     }
 

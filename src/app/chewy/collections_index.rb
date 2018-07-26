@@ -12,7 +12,7 @@ class CollectionsIndex < Chewy::Index
     field :image, type: :object, value: -> {
       primary_image.try(:attachable).try(:data)
     }
-    field :owner, type: :object do
+    field :owner, type: :nested do
       field :name, type: :text
       field :id, type: :text
       field :type, type: :keyword, value: -> {self.class.to_s}
@@ -32,6 +32,17 @@ class CollectionsIndex < Chewy::Index
       end
       
     }
+
+    field :contributor_ids, value: -> {
+      if owner.is_a?(Team)
+        owner.user_ids.uniq
+      elsif write_state == 'everyone'
+        records.collect(&:user_id).uniq
+      else
+        [owner_id]
+      end
+    }
+
     field :records, type: :object do
       field :id, type: 'integer'
       field :title, type: 'text', analyzer: :english
