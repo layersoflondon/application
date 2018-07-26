@@ -1,7 +1,7 @@
 import {observable, computed} from 'mobx';
 import CollectionModel from './collection';
 import Record from "../sources/record";
-import MediaItemStore from "../stores/media_item_store";
+import Attachment from './attachment';
 import Parser from "html-react-parser";
 import L from "leaflet";
 
@@ -33,6 +33,8 @@ export default class RecordModel {
 
   @observable highlighted = false;
   @observable errors = {};
+
+  @observable view_type = null;
 
   persist() {
     if( this.id ) {
@@ -95,16 +97,16 @@ export default class RecordModel {
     }
   }
 
-  @computed get _collection_ids() {
-    return this.collections.map((c)=>c.id);
-  }
-  set _collection_ids(id) {
-    //todo: make this work for multiple collections
-    // const collection_ids = this.collection_ids.slice();
-    // collection_ids.push(id);
-    // this.collection_ids = collection_ids;
-    this.collection_ids = [parseInt(id, 10)];
-  }
+  // @computed get _collection_ids() {
+  //   return this.collections.map((c)=>c.id);
+  // }
+  // set _collection_ids(id) {
+  //   //todo: make this work for multiple collections
+  //   // const collection_ids = this.collection_ids.slice();
+  //   // collection_ids.push(id);
+  //   // this.collection_ids = collection_ids;
+  //   this.collection_ids = [parseInt(id, 10)];
+  // }
 
   @computed get user_can_edit_record() {
     return this.user_can_edit;
@@ -134,6 +136,48 @@ export default class RecordModel {
     return default_icon;
   }
 
+  // todo: wire this up to the record attachments
+  @computed get has_hero_image() {
+    return !!(this.image || this.hero_image);
+  }
+
+  // todo: wire this up to the hero_image_id attribute
+  @computed get hero_image() {
+    let hero = this.image;
+
+    if( !hero ) {
+      hero = this.media.first;
+    }
+
+    return hero;
+  }
+
+  @computed get has_media() {
+    const media = this.media;
+
+    return media.length > 0;
+  }
+
+  @computed get media() {
+    return this.attachments.filter((a) => a.is_media);
+  }
+
+  @computed get links() {
+    return this.attachments.filter((a) => a.is_link);
+  }
+
+  @computed get documents() {
+    return this.attachments.filter((a) => a.is_document);
+  }
+
+  @computed get text() {
+    return this.attachments.filter((a) => a.is_text);
+  }
+
+  get_attachment(id) {
+    return this.attachments.find((a) => parseInt(a.id, 10) === parseInt(id, 10));
+  }
+
   toJS() {
     return {
       id: this.id,
@@ -143,9 +187,13 @@ export default class RecordModel {
       lng: this.lng,
       date_from: this.date_from,
       date_to: this.date_to,
-      collection_ids: this._collection_ids,
+      collection_ids: this.collection_ids,
+      user_collections: this.user_collections,
+      everyone_collections: this.everyone_collections,
       location: this.location,
-      credit: this.credit
+      credit: this.credit,
+      view_type: this.view_type,
+      attachments: this.attachments,
     }
   }
 
@@ -160,7 +208,7 @@ export default class RecordModel {
 
     if( attributes.hasOwnProperty('attachments') ) {
       record.attachments = attributes.attachments.map((attachment) => {
-        return MediaItemStore.fromJS(attachment, attributes.id);
+        return Attachment.fromJS(attachment, attributes.id);
       });
     }
 

@@ -8,25 +8,25 @@ const handle = (props) => {
 };
 
 @observer export default class LayerTool extends Component {
-  handleLoopToolClick(event) {
+  handleLoupeToolClick(event) {
     event.preventDefault();
 
-    if( this.props.layersStore.loop_layer_id === this.props.layer.id ) {
-      this.props.layersStore.loop_layer_id = null;
+    if( this.props.layersStore.loupe_layer_id === this.props.layer.id ) {
+      this.props.layersStore.loupe_layer_id = null;
     }else {
-      this.props.layersStore.loop_layer_id = this.props.layer.id;
+      this.props.layersStore.loupe_layer_id = this.props.layer.id;
     }
   }
 
-  toggleLoopTool() {
+  toggleLoupeTool() {
     if( this.props.index === 0 ) return false;
 
     const options = {};
 
-    if( this.props.layersStore.loop_layer_id === this.props.layer.id ) {
+    if( this.props.layersStore.loupe_layer_id === this.props.layer.id ) {
       options.label = "Off";
     }else {
-      options.label = "Loop";
+      options.label = "Loupe";
     }
 
     return options;
@@ -36,7 +36,7 @@ const handle = (props) => {
     return <div className="layer">
       <span className="name">{this.props.layer.title}</span>
 
-      {this.toggleLoopTool() && <span onClick={this.handleLoopToolClick.bind(this)}>{this.toggleLoopTool().label}</span>}
+      {this.toggleLoupeTool() && <span onClick={this.handleLoupeToolClick.bind(this)}>{this.toggleLoupeTool().label}</span>}
       <span className="slider">
         <Slider min={0} max={1} step={0.1} handle={handle} defaultValue={this.props.layer.opacity} onChange={(value) => this.props.layer.opacity = value} />
       </span>

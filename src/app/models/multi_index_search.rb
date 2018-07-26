@@ -5,12 +5,9 @@ class MultiIndexSearch
   ]
 
   def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 100)
-    es_query = Chewy::Search::Request.new(*indexes).query(
-      match_all: {
+    es_query = Chewy::Search::Request.new(*indexes)
+    es_query = boost_collections(es_query)
 
-      }
-
-    )
 
     if search_params[:geobounding].present?
       es_query = add_geobounding_filter(search_params[:geobounding], es_query)
@@ -21,17 +18,51 @@ class MultiIndexSearch
   end
 
   def self.query(search_params, indexes: INDEXES, limit: 100)
-    multi_match_fields = %w[title description location attachments.title attachments.caption taxonomy_terms.taxonomy.description]
+    multi_match_fields = %w[title^10 description]
 
 
     es_query = Chewy::Search::Request.new(*indexes).query(
-      multi_match: {
-        'query': search_params[:q],
-        'type': 'most_fields',
-        'fields': multi_match_fields
-      },
+        {
+          bool: {
+            must: [
+              {
+                multi_match: {
+                  query: search_params[:q],
+                  type: "best_fields",
+                  fields: multi_match_fields,
+                  analyzer: :english
+
+                }
+              }
+            ],
+            should: [
+              {
+                multi_match: {
+                  query: search_params[:q],
+                  fields: multi_match_fields,
+                  type: 'phrase',
+                  boost: 10,
+                  analyzer: :english
+                }
+              },
+              {
+                multi_match: {
+                  query: search_params[:q],
+                  fields: multi_match_fields,
+                  operator: 'and',
+                  boost: 5,
+                  analyzer: :english
+                }
+              }
+            ]
+          }
+        }
 
     )
+
+    es_query = boost_collections(es_query)
+
+
     if search_params[:attachment_type].present?
       search_params[:attachment_type].each do |type|
         es_query = es_query.filter('term': { 'attachments.attachable_type': type })
@@ -100,7 +131,16 @@ class MultiIndexSearch
     })
   end
 
-  def self.filter_by_state(query, state: 'published')
-    query.filter(term: {state: state})
+  def self.filter_by_state(query, states: ['published'])
+    query.filter(terms: {state: states})
+  end
+
+  def self.boost_collections(query)
+    query.indices_boost(
+      {
+        collections: 10,
+        records: 1
+      }
+    )
   end
 end

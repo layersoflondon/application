@@ -1,1 +1,1 @@
-json.partial! 'teams/team', collection: @teams, as: :team
+json.partial! 'search/team', collection: @teams, as: :team

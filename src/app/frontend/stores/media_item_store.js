@@ -1,12 +1,12 @@
-import {observable} from 'mobx';
+import {observable, computed} from 'mobx';
 import RecordAttachments from '../sources/record_attachments';
 
 export default class MediaItemStore {
   id = null;
-  @observable record_id = null;
+  attachable_type = null;
 
+  @observable record_id = null;
   @observable file = null;
-  @observable attachment_type = null;
   @observable title = null;
   @observable caption = null;
   @observable credit = null;
@@ -29,6 +29,10 @@ export default class MediaItemStore {
       data.append('attachable_attributes[file]', this.file);
       return RecordAttachments.create(this.record_id, data);
     }
+  }
+
+  @computed get is_media() {
+    return this.attachable_type === 'Attachments::Image' || this.attachable_type === 'Attachments::Video';
   }
 
   static fromJS(object, record_id) {

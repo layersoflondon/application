@@ -1,6 +1,14 @@
 class TeamUser < ApplicationRecord
   include AASM
 
+  scope :leader, -> {
+    where(role: :leader)
+  }
+
+  scope :contributor, -> {
+    where(role: :contributor)
+  }
+
   belongs_to :team
   belongs_to :user
 
@@ -12,15 +20,15 @@ class TeamUser < ApplicationRecord
     state :access_denied
     state :invited
 
-    event :mark_as_access_requested do
+    event :request_access do
       transitions from: %i[access_requested], to: :access_requested
     end
 
-    event :mark_as_access_granted do
+    event :grant_access do
       transitions from: %i[access_requested invited], to: :access_granted
     end
 
-    event :mark_as_access_denied do
+    event :deny_access do
       transitions from: %i[access_requested access_granted invited], to: :access_denied
     end
 

@@ -117,3 +117,8 @@ gem 'activeadmin'
 
 #ES6 for the marketing site
 gem 'sprockets-es6'
+
+# OJ for fast json parsing
+gem 'oj'
+
+gem 'rollbar'

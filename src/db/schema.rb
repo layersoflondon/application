@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_22_153822) do
+ActiveRecord::Schema.define(version: 2018_07_26_204036) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -116,6 +116,15 @@ ActiveRecord::Schema.define(version: 2018_06_22_153822) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "attachments_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "caption"
+    t.text "credit"
+  end
+
   create_table "attachments_urls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
@@ -149,13 +158,21 @@ ActiveRecord::Schema.define(version: 2018_06_22_153822) do
     t.string "owner_type", null: false
     t.integer "owner_id", null: false
     t.integer "attachment_id"
-    t.integer "read_state"
-    t.integer "write_state"
+    t.integer "read_state", default: 0
+    t.integer "write_state", default: 0
     t.integer "write_state_team_id"
     t.integer "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id"], name: "index_collections_on_owner_type_and_owner_id"
+  end
+
+  create_table "featured_items", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.integer "item_id"
+    t.string "item_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "sort_order"
   end
 
   create_table "layers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -198,6 +215,7 @@ ActiveRecord::Schema.define(version: 2018_06_22_153822) do
     t.integer "primary_image_id"
     t.text "credit"
     t.integer "credit_image_id"
+    t.integer "view_type", default: 0
   end
 
   create_table "taxonomies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -262,6 +280,7 @@ ActiveRecord::Schema.define(version: 2018_06_22_153822) do
     t.string "invited_by_type"
     t.string "first_name"
     t.string "last_name"
+    t.text "metadata"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

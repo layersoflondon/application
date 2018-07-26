@@ -1,20 +1,20 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
-import {Link, withRouter} from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
 import Parser from 'html-react-parser';
 
 import Card from './card';
 import {inject} from "mobx-react/index";
 
-@inject('routing', 'trayViewStore', 'mapViewStore')
+@inject('router', 'trayViewStore', 'mapViewStore')
 @observer export default class Tray extends Component {
   constructor(props) {
     super(props);
   }
 
   componentWillMount() {
-    if (this.props.routing.history.location.pathname === "/map") {
+    if (this.props.router.history.location.pathname === "/map") {
       setTimeout(() => {
         this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
       }, 2);
@@ -22,7 +22,7 @@ import {inject} from "mobx-react/index";
   }
 
   componentWillReceiveProps() {
-    if (this.props.routing.history.location.pathname === "/map" && !this.props.trayViewStore.root ) {
+    if (this.props.router.history.location.pathname === "/map" && !this.props.trayViewStore.root ) {
       this.props.trayViewStore.restoreRootState();
     }
   }
@@ -48,7 +48,7 @@ import {inject} from "mobx-react/index";
       trayCollectionDetails = <div>
         <div className="m-tray-title-area">
           <div className="close">
-            <Link to="/map" className="close">Close</Link>
+            <NavLink to="/map" className="close">Close</NavLink>
           </div>
 
           <h1>{this.props.trayViewStore.title}</h1>
@@ -62,6 +62,7 @@ import {inject} from "mobx-react/index";
     }
 
     return <div className={trayClassName}>
+
       <div className="open-close" onClick={() => this.props.trayViewStore.toggleTrayVisibility()}>
         <span>Close</span>
       </div>
@@ -76,6 +77,7 @@ import {inject} from "mobx-react/index";
 
         </div>
       </div>
+
     </div>;
   }
 }

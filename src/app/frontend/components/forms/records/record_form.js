@@ -1,17 +1,14 @@
 import React,{Component} from 'react';
-import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import Details from './details';
 import Credits from './credits'
 import Dates from './dates';
 import Media from './media';
-import Collection from './collection';
+import CollectionsEditor from './collections_editor';
 import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
-import CardModel from './../../../models/card';
 
-@inject('routing', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore')
+@inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore', 'currentUser')
 @observer export default class RecordForm extends Component {
   constructor(props) {
     super(props);
@@ -21,17 +18,20 @@ import CardModel from './../../../models/card';
 
   componentWillMount() {
     if( this.props.trayViewStore.record ) {
+      // duplicate the record object so that the one we're mutating isn't what may be visible in the tray (its observed
+      // attributes will change in real-time, but aren't actually persisted which might be confusing...)
       const record = RecordModel.fromJS(this.props.trayViewStore.record.toJS(), this.props.trayViewStore.record.store);
       this.props.recordFormStore.record = record;
     }else if( this.props.match.params.id && this.props.match.params.id !== 'new'  ) {
       Record.show(null, this.props.match.params.id).then((response) => {
         this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+        console.log("Got record", this.props.recordFormStore.record);
       });
     }
   }
 
   componentWillUnmount() {
-      this.props.recordFormStore.record = new RecordModel
+      this.props.recordFormStore.record = new RecordModel()
   }
 
   handleClickedOnSave(event) {
@@ -47,14 +47,30 @@ import CardModel from './../../../models/card';
       this.props.trayViewStore.tray_is_visible = true;
       this.props.recordFormStore.record = new RecordModel();
 
-      const {push} = {...this.props.routing};
+      const {push} = {...this.props.router};
       push(`/map/records/${card.data.id}`);
     }).catch((error) => {
       this.props.recordFormStore.record.errors = error.response.data;
     })
   }
 
+  handleCloseOnClick(event) {
+    event.preventDefault();
+
+    if(this.props.match.params.collection_id) {
+      this.props.router.push(`/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}`);
+    }else {
+      this.props.trayViewStore.locked = false;
+      this.props.router.push(`/map/records/${this.props.match.params.id}`);
+    }
+  }
+
   render() {
+    if( parseInt(this.props.match.params.id, 10) !== this.props.recordFormStore.record.id ) {
+      // fixme: show a spinner here whilst we load the record we're editing
+      return <div />
+    }
+
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'record_form' ) className+=" is-showing";
 
@@ -62,7 +78,7 @@ import CardModel from './../../../models/card';
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
           <div className="close">
-            <Link className="close" to='/map'>Close</Link>
+            <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
           </div>
 
           <div className="m-add-record">
@@ -76,7 +92,7 @@ import CardModel from './../../../models/card';
               <div className="m-accordion">
                 <Media {...this.props} />
                 {/*<Links {...this.props} />*/}
-                <Collection {...this.props} />
+                <CollectionsEditor {...this.props} />
                 {/*<Team {...this.props} />*/}
               </div>
 

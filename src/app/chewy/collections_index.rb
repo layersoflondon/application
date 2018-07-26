@@ -1,14 +1,18 @@
 class CollectionsIndex < Chewy::Index
+
   define_type Collection.includes(:records).references(:records) do
     field :id, type: :integer
-    field :title, type: :text
-    field :description, type: :text
+    field :title, type: :text, analyzer: :english
+    field :description, type: :text, analyzer: :english
     field :read_state, type: :keyword
     field :write_state, type: :keyword
+    field :state, type: :keyword, value: -> {
+      public_read? ? "published" : nil
+    }
     field :image, type: :object, value: -> {
       primary_image.try(:attachable).try(:data)
     }
-    field :owner, type: :object do
+    field :owner, type: :nested do
       field :name, type: :text
       field :id, type: :text
       field :type, type: :keyword, value: -> {self.class.to_s}
@@ -16,7 +20,7 @@ class CollectionsIndex < Chewy::Index
     field :created_at, type: 'date'
     field :updated_at, type: 'date'
     field :date_from, type: 'date', value: -> {
-      records.collect(&:date_from).min
+      records.collect(&:date_from).compact.try(:min)
     }
     field :pin, type: 'geo_point', value: ->{
       if records.any?
@@ -28,10 +32,21 @@ class CollectionsIndex < Chewy::Index
       end
       
     }
+
+    field :contributor_ids, value: -> {
+      if owner.is_a?(Team)
+        owner.user_ids.uniq
+      elsif write_state == 'everyone'
+        records.collect(&:user_id).uniq
+      else
+        [owner_id]
+      end
+    }
+
     field :records, type: :object do
       field :id, type: 'integer'
-      field :title, type: 'text'
-      field :description, type: 'text'
+      field :title, type: 'text', analyzer: :english
+      field :description, type: 'text', analyzer: :english
       field :like_count, type: 'integer'
       field :view_count, type: 'integer'
       field :state, type: 'keyword'
@@ -41,7 +56,7 @@ class CollectionsIndex < Chewy::Index
       field :created_at, type: 'date'
       field :updated_at, type: 'date'
       field :location, type: 'object'
-      field :credit, type: 'text'
+      field :credit, type: 'text', analyzer: :english
       field :user, type: 'object' do
         field :id, type: 'integer'
         field :name, type: 'text'
@@ -67,9 +82,13 @@ class CollectionsIndex < Chewy::Index
         field :taxonomy, type: 'object' do
           field :id, type: 'integer'
           field :name, type: 'keyword'
-          field :description, type: 'text'
+          field :description, type: 'text', analyzer: :english
         end
       end
     end
+  end
+
+  def self.published
+    filter(terms: {state: ['published']})
   end
 end

@@ -1,14 +1,21 @@
 class Collection < ApplicationRecord
-  has_many :collection_records
-  has_many :records, through: :collection_records, dependent: :destroy
+  has_many :collection_records, dependent: :destroy
+  has_many :records, through: :collection_records
   update_index('records#record') { records }
   update_index('collections#collection') {self}
   belongs_to :owner, polymorphic: true
 
   # TODO: permissions for reading and writing should go in a Pundit policy (see https://github.com/varvet/pundit).
   # I think we still need these enums though.
-  enum read_state: %i[public_read private_read]
-  enum write_state: %i[everyone team creator]
+  enum read_state: {
+    public_read: 0,
+    private_read: 1
+  }
+  enum write_state: {
+    creator: 0,
+    team: 1,
+    everyone: 2
+  }
 
   validates :title, :description, presence: true
   validates :title, length: { in: 3..255 }
@@ -36,18 +43,12 @@ class Collection < ApplicationRecord
   end
 
   def write_state_team
-    if team? && write_state_team_id == nil
-      errors.add(:write_state, 'write_state_team_id value not provided')
+    if team? && owner_id == nil
+      errors.add(:write_state, 'team not provided')
     end
 
-    if team? && write_state_team_id > 0
-      unless Team.find_by_id(write_state_team_id)
-        errors.add(:write_state, 'team does not exists')
-      end
-    end
-
-    if write_state_team_id != nil &&  (creator? || everyone?)
-      self.write_state_team_id = nil
+    if team? && !(owner.present? || owner.is_a?(Team))
+      errors.add(:write_state, 'team does not exists')
     end
   end
 

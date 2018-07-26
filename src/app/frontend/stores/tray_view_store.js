@@ -32,11 +32,19 @@ export default class TrayViewStore {
   @observable record_id = null;
   @observable collection_id = null;
 
+  map_ref = null;
+
   constructor() {
     observe(this, 'cards', (change) => {
       if(this.root) {
-        this.previous_cards = change.oldValue;
+        // this.previous_cards = change.oldValue;
       }
+    });
+
+    observe(this, 'tray_is_visible', (change) => {
+      setTimeout(() => {
+        this.map_ref.leafletElement.invalidateSize();
+      }, 250);
     });
 
     // mutating the visible_record_id will fetch that record and update the RecordView component with the relevant state
@@ -44,22 +52,23 @@ export default class TrayViewStore {
       this.loading_record = true;
 
       if( change.newValue && change.newValue !== 'new' ) {
-        if(this.cards.get(`record_${change.newValue}`)) {
-          let card = this.cards.get(`record_${change.newValue}`);
-          this.record = card.data;
-          this.loading_record = false;
-        }else {
+        // if(this.cards.get(`record_${change.newValue}`)) {
+        //   let card = this.cards.get(`record_${change.newValue}`);
+        //   this.record = card.data;
+        //   this.loading_record = false;
+        // }else {
           Record.show(null, this.record_id).then((response) => {
             let card = CardModel.fromJS(response.data, this);
             this.cards.set(card.id, card);
             this.record = card.data;
+            this.loading_record = true;
           }).catch((error) => {
-            console.log("Error getting record", error);
+            console.log(`Error getting record ${this.record_id}`, error);
             this.record_id = null;
-          }).finally(() => {
+          }).then(() => {
             this.loading_record = false;
           });
-        }
+        // }
 
         if(this.fetch_additional_records && !this.locked) {
           setTimeout(() => {
@@ -75,15 +84,15 @@ export default class TrayViewStore {
     observe(this, 'collection_id', (change) => {
       if( change.newValue ) {
         this.loading_collection = true;
+        window.Collection = Collection;
         Collection.show(null, this.collection_id).then((response) => {
           this.root = false;
           this.showCollectionOfCards(response.data.records, response.data.title, response.data.description);
-          // this.panTo(response.data.records[0])
           //  Lock this view so dragging the map doesn't change the cards
           this.locked = true;
         }).catch((error) => {
           this.collection_id = null;
-        }).finally(() => {
+        }).then(() => {
           this.loading_collection = false;
         });
       }else {
@@ -114,18 +123,11 @@ export default class TrayViewStore {
       }else {
         this.showCollectionOfCards(response.data);
       }
-    }).finally(() => {
+    }).then(() => {
+      this.root = true;
+      this.locked = false;
       this.loading = false;
     });
-  }
-
-  panTo(lat, lng, zoom = null) {
-    this.initial_position = this.center;
-    this.center = [lat, lng];
-
-    if(zoom) {
-      this.zoom = zoom;
-    }
   }
 
   moveToNextCard() {
@@ -170,6 +172,22 @@ export default class TrayViewStore {
     return bounds;
   }
 
+  /**
+   *
+   * @param id
+   * @param record_id
+   */
+  fetchCollectionAndRecord(id, record_id) {
+    this.fetch_additional_records = false;
+    this.collection_id = id;
+    this.record_id = record_id;
+  }
+
+  /**
+   *
+   * @param id
+   * @param fetch_additional_records
+   */
   fetchRecord(id, fetch_additional_records = false) {
     this.fetch_additional_records = fetch_additional_records;
     this.record_id = id;
@@ -181,13 +199,11 @@ export default class TrayViewStore {
    */
   restoreRootState() {
     if(this.previous_cards && this.previous_cards.size) {
-      this.cards = this.previous_cards;
+      // this.cards = this.previous_cards;
+      this.reloadTrayDataForBounds(this.boundsFromMapRef);
     }else {
       this.reloadTrayDataForBounds(this.boundsFromMapRef);
     }
-
-    this.root = true;
-    this.locked = false;
   }
 
   /**

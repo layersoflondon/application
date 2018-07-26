@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 import SearchViewTaxonomy from "./_search_view_taxonomy";
 import Search from "../../../sources/search";
 
-@inject('routing', 'mapViewStore', 'trayViewStore')
+@inject('router', 'mapViewStore', 'trayViewStore')
 @withRouter
 @observer export default class SearchView extends Component {
   constructor(props) {
@@ -120,11 +120,30 @@ import Search from "../../../sources/search";
     this.props.trayViewStore.loading = true;
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
-      const {push} = {...this.props.routing};
+      const {push} = {...this.props.router};
       const params = serializeQuery(search_params);
       push(`?results=true&q=${this.state.q}`);
       this.setState({showing_results: true});
       this.props.trayViewStore.showCollectionOfCards(response.data, `Searched for ${this.state.q}`);
+
+      if( response.data.length > 0 ) {
+        // get first response object with a lat & lng (if it's a collection, get the first one with records)
+        const results_with_coords = response.data.filter((obj) => {
+          return (obj.hasOwnProperty('records') && obj.records.length>0) || obj.hasOwnProperty('lat');
+        });
+
+        let first_result = results_with_coords[0];
+
+        if( first_result.hasOwnProperty('records') ) {
+          first_result = first_result.records[0];
+        }
+
+        const lat = first_result.lat;
+        const lng = first_result.lng;
+
+        this.props.mapViewStore.panTo(lat, lng);
+      }
+
       this.props.trayViewStore.locked = true;
       this.props.trayViewStore.root = false;
     });
@@ -249,45 +268,46 @@ import Search from "../../../sources/search";
                 }
               </div>
 
-              <div className="filters">
+              {/*TODO this needs to work. Hiding for now*/}
+              {/*<div className="filters">*/}
 
-                <div className="filters-show">
-                  <button onClick={() => this.setState({type_picker_visible: !this.state.type_picker_visible})}>Filter by Media, Type, Theme</button>
-                </div>
+                {/*<div className="filters-show">*/}
+                  {/*<button onClick={() => this.setState({type_picker_visible: !this.state.type_picker_visible})}>Filter by Media, Type, Theme</button>*/}
+                {/*</div>*/}
 
-                {this.state.type_picker_visible &&
-                <div className="filters-content">
-                  <div className="form-group form-group--checklist form-group--replaced-checkboxes">
-                    <h2 className="label">Media</h2>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Images</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Video</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Audio</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                    <label>
-                      <input type="checkbox"/>
-                      <span>Documents</span>
-                      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-                    </label>
-                  </div>
+                {/*{this.state.type_picker_visible &&*/}
+                {/*<div className="filters-content">*/}
+                  {/*<div className="form-group form-group--checklist form-group--replaced-checkboxes">*/}
+                    {/*<h2 className="label">Media</h2>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Images</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Video</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Audio</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Documents</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                  {/*</div>*/}
 
 
-                  {taxonomies}
+                  {/*{taxonomies}*/}
 
-                </div>
-                }
+                {/*</div>*/}
+                {/*}*/}
 
-              </div>
+              {/*</div>*/}
 
               <div className="form-group">
                 <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search</button>

@@ -28,8 +28,10 @@
 }
 
 .m-add-record .form-group--date input {
-  width: 96px;
+  width: calc(33.333333% - 10px);
+  margin-right:10px;
   display: inline-block;
+  padding-left: 2px;
 }
 
 .m-add-record .form-group--title {

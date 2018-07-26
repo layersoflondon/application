@@ -2,8 +2,9 @@ import React,{Component} from 'react';
 import {observer, inject} from "mobx-react";
 import PropTypes from 'prop-types';
 import { NavLink, Link, withRouter } from 'react-router-dom';
+import Img from 'react-image';
 
-@inject('userPresent')
+@inject('userPresent', 'mapViewStore', 'trayViewStore')
 @withRouter
 @observer export default class Tools extends Component {
   constructor(props) {
@@ -46,13 +47,14 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
       }
   }
 
-
-
   render() {
     const logo = require('../assets/images/logo.svg');
     return <div className="m-sidebar">
+        
       <div className="m-logo">
-        <img src={logo} alt="Logo" />
+        <a href="/" title="Return to homepage">
+          <Img src={logo} alt="Logo" loader={<span className="is-loading" /> }/>
+        </a>
       </div>
       <div className="m-tools">
         <div className="m-tool-button m-tool-button--search">
@@ -79,7 +81,7 @@ import { NavLink, Link, withRouter } from 'react-router-dom';
   }
 }
 
-Tools.propTypes = {
-  mapViewStore: PropTypes.object.isRequired,
-  trayViewStore: PropTypes.object.isRequired
-};
+// Tools.propTypes = {
+//   mapViewStore: PropTypes.object.isRequired,
+//   trayViewStore: PropTypes.object.isRequired
+// };

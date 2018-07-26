@@ -175,16 +175,6 @@ $element-border-radius-small: 3px;
     background: transparentize($black, 0.1);
   }
 
-  .collection-indicator {
-    display: block;
-    float: left;
-    @include font-display;
-    transition: all .2s;
-    color: black;
-    padding: 7px 12px;
-    @include polygon-background(yellow, bottom, false);
-  }
-
 }
 
 @mixin link-animation {

@@ -30,13 +30,31 @@ module LayersApp
         }
       },
       card: {
-          thumbnail: "600x600",
-          combine_options: {
-            gravity: "Center",
-            extent: "600x280",
-            crop: "600x280+0+0",
-            quality: 90
-          }
+        thumbnail: "600x600",
+        combine_options: {
+          gravity: "Center",
+          extent: "600x280",
+          crop: "600x280+0+0",
+          quality: 90
+        }
+      },
+      feature: {
+        thumbnail: "500x500",
+        combine_options: {
+          gravity: "Center",
+          extent: "466x280",
+          crop: "466x280+0+0",
+          quality: 90
+        }
+      },
+      thumb: {
+        thumbnail: "200x200",
+        combine_options: {
+          gravity: "Center",
+          extent: "120x120",
+          crop: "120x120+0+0",
+          quality: 80
+        }
       },
       primary: {
         resize: '1400x1400',
@@ -53,9 +71,13 @@ module LayersApp
           quality: 95
         }
       }
+
     }
 
     config.x.asset_cache_expires_in = 2.years
+
+    config.x.mailer_from_address = "Layers of London <layersoflondon@lon.ac.uk>"
+    config.x.contact_mail_address = "layersoflondon@lon.ac.uk"
   #   600x280 tray
     # 1400x700 record hero
     # 1400x1400 large

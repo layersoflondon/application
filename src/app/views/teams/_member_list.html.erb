@@ -1,0 +1,27 @@
+<h2>Members</h2>
+
+<ul>
+    <% @team.users.each do |user| %>
+        <% identifier = user.name.present? ? user.name : user.email %>
+        <% team_user = @team.team_users.find_by(user_id: user.id) %>
+        <li>
+            <a href="mailto:<%= user.email %>" class="clickable" data-type="user" data-id="<%= user.id %>">
+                <%= identifier %>
+            </a>
+            <% if team_user.invited? %>
+                <span class="badge">Invited</span>
+            <% elsif team_user.access_requested? %>
+                <span class="badge">Awaiting approval</span>
+            <% elsif team_user.access_denied? %>
+                <span class="badge">Access denied</span>
+            <% end %>
+            <% if @team.role_for_user(user) == 'leader' %>
+                <span class="ownership-indicator">Owner</span>
+            <% elsif policy(@team).remove? %>
+                <%= form_with(url: remove_from_team_path(@team, user_id: user.id), method: :post, local: true) do %>
+                    <button class="remove" data-confirm="Are you sure you want to remove <%= identifier %> from the team?">Remove from team</button>
+                <% end %>
+            <% end %>
+        </li>
+    <% end %>
+</ul>

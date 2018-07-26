@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
 import MediaItem from './media_item';
 import MediaItemEditor from './media_item_editor';
-import MediaItemStore from '../../../stores/media_item_store';
+import Attachment from '../../../models/attachment';
 
 import Dropzone from 'react-dropzone';
 import {observer} from "mobx-react";
@@ -11,7 +11,7 @@ import {observer} from "mobx-react";
   constructor(props) {
     super(props);
 
-    this.state = {is_visible: false, items: this.props.recordFormStore.record.attachments};
+    this.state = {is_visible: false, items: this.props.recordFormStore.record.attachments, errors: []};
   }
 
   onDrop(acceptedFiles, rejectedFiles, event) {
@@ -36,6 +36,11 @@ import {observer} from "mobx-react";
               return 'document';
             case 'application/json':
               return 'geodata';
+            case 'audio/mpeg':
+            case 'audio/m4a':
+              return 'audio_file';
+            default:
+              return null;
           }
         };
 
@@ -44,8 +49,11 @@ import {observer} from "mobx-react";
         const new_attachment = {file: file, url: file.preview, attachment_type: attachment_type(file.type), type: attachment_type(file.type), title: f.target.fileName, caption: '', credit: ''};
 
         console.log("Dropped attachment", new_attachment);
+        if( !attachment_type(file.type)) {
+          this.setState({errors: ['Unsupported file type']});
+        }
 
-        const media_item = MediaItemStore.fromJS(new_attachment, this.props.recordFormStore.record.id);
+        const media_item = Attachment.fromJS(new_attachment, this.props.recordFormStore.record.id);
         media_item.persist().then((response) => {
           let data = response.data;
           media_item.record_id = this.props.recordFormStore.record.id;
@@ -66,7 +74,7 @@ import {observer} from "mobx-react";
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
 
     const media_items = this.props.recordFormStore.record.attachments.map((item,i) => {
-      let media_item = MediaItemStore.fromJS(item, this.props.recordFormStore.record.id);
+      let media_item = Attachment.fromJS(item, this.props.recordFormStore.record.id);
       return <MediaItem {...item} {...this.props} object={media_item} key={i} index={i} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
     });
 
@@ -78,7 +86,7 @@ import {observer} from "mobx-react";
           <div className="m-add-media-and-documents">
 
             <div className="thumbs">
-              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json" onDrop={this.onDrop.bind(this)}>
+              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a" onDrop={this.onDrop.bind(this)}>
                 <ul>
                   {media_items}
 

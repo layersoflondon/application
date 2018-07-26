@@ -323,6 +323,10 @@ input[type="submit"] {
 
 }
 
+span.is-loading {
+  @include loading-spinner;
+}
+
 // Radios & checkboxes
 
 .form-group--replaced-checkboxes label {

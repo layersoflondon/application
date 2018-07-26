@@ -40,6 +40,10 @@ class Attachment < ApplicationRecord
     with_attachable_type('Attachments::Geodata')
   }
 
+  scope :text, -> {
+    with_attachable_type('Attachments::Text')
+  }
+
   scope :with_attachable_type, ->(type) {
     where(attachable_type: type)
   }

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 class Users::InvitationsController < Devise::InvitationsController
-  layout 'iframe'
+  layout 'templates/account'
 end

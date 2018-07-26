@@ -4,11 +4,11 @@ import LayerModel from '../models/layer';
 export default class LayersStore {
   @observable layers = observable.map();
   @observable active_layers = observable.map();
-  @observable loop_layer_id = null;
+  @observable loupe_layer_id = null;
 
   toggleLayer(layer_id) {
     if(this.active_layers.get(layer_id)) {
-      this.active_layers.remove(layer_id);
+      this.active_layers.delete(layer_id);
     }else {
       this.active_layers.set(layer_id, this.layers.get(layer_id));
     }
@@ -50,9 +50,9 @@ export default class LayersStore {
     return layers_store;
   }
 
-  @computed get loop_layer() {
-    if( this.loop_layer_id ) {
-      return this.layers.get(this.loop_layer_id);
+  @computed get loupe_layer() {
+    if( this.loupe_layer_id ) {
+      return this.layers.get(this.loupe_layer_id);
     }
 
     return false;

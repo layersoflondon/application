@@ -34,8 +34,8 @@ Rails.application.configure do
       port: 3000
   }
   config.action_mailer.default_options = {
-      from: 'from@error.agency',
-      reply: 'noreply@error.agency'
+      from: Rails.configuration.x.mailer_from_address,
+      reply: Rails.configuration.x.mailer_from_address
   }
 
   # Print deprecation notices to the Rails logger.

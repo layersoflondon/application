@@ -7,7 +7,7 @@ import {observer, inject} from "mobx-react";
 
 import LayerToolsContainer from './layer_tools_container';
 
-@inject('routing')
+@inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapView extends Component {
   constructor(props) {
     super(props);
@@ -46,12 +46,12 @@ import LayerToolsContainer from './layer_tools_container';
       this.props.recordFormStore.latlng = event.latlng;
       this.props.recordFormStore.record.lat = lat;
       this.props.recordFormStore.record.lng = lng;
-      this.props.routing.push('/map/records/new');
+      this.props.router.push('/map/records/new');
     }
   }
 
-  updateLoopLayer(event) {
-    if( !this.props.layersStore.loop_layer_id ) return;
+  updateLoupeLayer(event) {
+    if( !this.props.layersStore.loupe_layer_id ) return;
 
     const leafletElement = this.refs['clipped-tilelayer'].leafletElement;
     const container_position = leafletElement._container.closest('.m-map').getBoundingClientRect();
@@ -92,11 +92,11 @@ import LayerToolsContainer from './layer_tools_container';
       })}
     </span>;
 
-    return <div className="m-map-area" onMouseMove={this.updateLoopLayer.bind(this)}>
+    return <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
       <div className="m-map">
         <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
           {layers}
-          {this.props.layersStore.loop_layer && <TileLayer key={this.props.layersStore.loop_layer.id} url={this.props.layersStore.loop_layer.url} attribution={this.props.layersStore.loop_layer.attribution} opacity={this.props.layersStore.loop_layer.opacity} zIndex={1000+1} className="clipped-tilelayer" ref='clipped-tilelayer' />}
+          {this.props.layersStore.loupe_layer && <TileLayer key={this.props.layersStore.loupe_layer.id} url={this.props.layersStore.loupe_layer.url} attribution={this.props.layersStore.loupe_layer.attribution} opacity={this.props.layersStore.loupe_layer.opacity} zIndex={1000+1} className="clipped-tilelayer" ref='clipped-tilelayer' />}
 
           {markers}
         </Map>

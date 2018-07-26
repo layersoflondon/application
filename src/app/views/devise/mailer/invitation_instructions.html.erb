@@ -1,0 +1,51 @@
+<% content_for :title, "You're invited to join Layers of London" %>
+
+<% content_for :email_reason, "You're receiving this email because a group owner on the Layers of London site thought you'd like to contribute to the project." %>
+
+<!-- start copy -->
+<tr>
+    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+        <p style="margin: 0;">Hello there. You've been invited to create an account on <%= link_to "Layers of London", root_url %> by the owner of a team on the site. To get started, just click the button below and choose a password.
+        </p>
+
+
+    </td>
+</tr>
+<!-- end copy -->
+
+<!-- start button -->
+<tr>
+    <td align="left" bgcolor="#ffffff">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="center" bgcolor="#ffffff" style="padding: 12px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="center" bgcolor="#549a77" style="border-radius: 6px;">
+                                <a href="<%= accept_invitation_url(@resource, :invitation_token => @token) %>" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Accept the invitation and set your password</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<!-- end button -->
+
+<!-- start copy -->
+<tr>
+    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+        <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
+        <p style="margin: 0;"><a href="<%= accept_invitation_url(@resource, :invitation_token => @token) %>" target="_blank"><%= accept_invitation_url(@resource, :invitation_token => @token) %></a></p>
+    </td>
+</tr>
+<!-- end copy -->
+
+<!-- start copy -->
+<tr>
+    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
+        <p style="margin: 0;">If you'd rather not create an account, no worries: you can safely ignore this email and we won't email you again.</p>
+    </td>
+</tr>
+<!-- end copy -->

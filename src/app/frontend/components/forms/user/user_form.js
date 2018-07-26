@@ -17,7 +17,10 @@ import TeachersForm from "./teachers_form";
   }
 
   componentWillMount() {
-    this.setState({active: this.props.match.params.tab});
+    this.setState({
+      active: this.props.match.params.tab,
+      id: this.props.match.params.id
+    });
   }
 
   setActiveTab(active) {
@@ -47,13 +50,12 @@ import TeachersForm from "./teachers_form";
     if( this.props.mapViewStore.overlay === 'user_form' ) className+=" is-showing";
     const content = {
       account: <iframe width="100%" height="650" src="/users/edit" frameBorder="0"></iframe>,
-      teams: <TeamForm/>,
+      teams: <TeamForm id={this.state.id}/>,
       records: <RecordsCollections/>,
       teachers: <TeachersForm/>,
-        sign_out: <h2>Signing you out of your account</h2>
+      sign_out: <h2>Signing you out of your account</h2>
 
     };
-    //TODO - we need to use meta tags to define the routes which we load into the iframe
 
     return (
       <div className={className}>
@@ -66,7 +68,7 @@ import TeachersForm from "./teachers_form";
                       <span key="account">Account details</span>
                       <span key="teams">Teams</span>
                       <span key="records">Records & Collections</span>
-                      <span key="teachers">For teachers</span>
+                      {/*<span key="teachers">For teachers</span>*/}
                       <span key="sign_out">Sign out</span>
                   </Tabs>
               </div>

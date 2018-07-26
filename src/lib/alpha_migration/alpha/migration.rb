@@ -28,6 +28,9 @@ module Alpha
           unless existing_user.present?
             fields = user.attributes.select {|k, v| k.in?(user_fields)}
             u = ::User.new(fields)
+            u.metadata[:migrated_from_alpha] = true
+            u.created_at = user.created_at
+            u.updated_at = user.updated_at
             u.save(validate: false)
           end
         rescue => e
@@ -35,10 +38,6 @@ module Alpha
         end
 
       end
-    end
-
-    def migrate_groups
-      # todo - don't appear to *be* any groups in use
     end
 
     def migrate_pins
@@ -59,24 +58,27 @@ module Alpha
     def migrate_pin(pin)
       record_fields = Alpha::Pin.columns.collect(&:name) & ::Record.columns.collect(&:name)
       data = pin.attributes.select {|k,v| k.in?(record_fields)}
-      record = Record.find_by(id: pin.id)
-      unless record.present?
-        begin
-          r = Record.new(data.except("location"))
-          r.location = {address: Geocoder.address([r.lat, r.lng])}
-          r.state = "published"
-          r.credit = pin.content_entry.attribution
-          r.save!
-        rescue => e
-          @logger.warn("Pin #{pin.id} (#{pin.title}): #{e}")
-        end
+      begin
+        r = ::Record.find_or_initialize_by(id: pin.id)
+        r.update_attributes(data.except("location"))
+        r.location = {address: Geocoder.address([r.lat, r.lng])}
+        r.state = "published"
+        r.credit = pin.content_entry.attribution
+        r.user = ::User.where(id: pin.user.id).first
+        r.save!
+      rescue => e
+        @logger.warn("Pin #{pin.id} (#{pin.title}): #{e}")
       end
     end
 
     def migrate_pin_url(pin)
       if pin.link_url.present?
         record = Record.find_by(id: pin.id)
-        unless record.attachments.where(attachable_type: "Attachments::Url").any?
+        if record.attachments.url.any?
+          # there's already a URL; let's just touch it
+          record.attachments.url.first.touch
+        else
+          # we need to add a url
           record.attachments.create(attachment_type: 'url', attachable_attributes: {
             title: record.title,
             url: pin.link_url
@@ -95,7 +97,7 @@ module Alpha
           Record.transaction do
             attachment_type = case content_type.name
                                 when 'text'
-                                  'document'
+                                  content_entry.attached_file.present? ? "document" : "text"
                                 when 'audio'
                                   'audio_file'
                                 else
@@ -104,15 +106,17 @@ module Alpha
 
             # create new attachment of the correct type
             attachment = record.attachments.build(attachment_type: attachment_type, credit: content_entry.attribution, attachable_attributes: {
-              title: record.title,
-              caption: content_entry.content
+              title: record.title
             })
             # attachment.attachable.primary = true if attachment_type == "image"
             if content_entry.attached_file.present?
               # we need to move the file across
               attachment.attachable.file.attach(io: StringIO.new(content_entry.attached_file.file.read), filename: content_entry.file_name)
+              attachment.attachable.caption = content_entry.content
             elsif content_entry.video_url.present?
               attachment.attachable.youtube_id = YoutubeID.from(content_entry.video_url)
+            elsif content_entry.content.present?
+              attachment.attachable.content = content_entry.content
             end
 
             record.save!
@@ -126,16 +130,41 @@ module Alpha
       end
     end
 
+    def migrate_groups
+      Alpha::UserGroup.all.each do |group|
+        t = Team.find_or_initialize_by(id: group.id)
+        t.assign_attributes(
+           name: group.name,
+           description: group.description
+        )
+        t.save
+        contributors = ::User.where(id: group.users.reject {|u| u == group.primary_user})
+        leader = ::User.where(id: group.primary_user_id).first || contributors.first
+        t.leaders << leader unless t.leaders.include?(leader)
+        t.contributors << (contributors - t.contributors)
+        t.save
+      end
+    end
+
 
     def migrate_collections
       Alpha::Collection.all.each do |collection|
-        ::Collection.create(
+        c = ::Collection.find_or_initialize_by(id: collection.id)
+        c.update_attributes(
                       title: collection.name,
                       description: collection.description,
                       created_at: collection.created_at,
                       updated_at: collection.updated_at
+
         )
-      #   todo migrate pins
+        if collection.user.present?
+          owner = ::User.find(collection.user.id)
+        elsif collection.user_group.present?
+          owner = Team.find(collection.user_group.id)
+        end
+        c.update_attributes(owner: owner)
+        c.records << Record.where(id: collection.pin_ids)
+        c.save
       end
     end
 

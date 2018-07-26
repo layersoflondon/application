@@ -3,8 +3,18 @@
     <head>
         <%= csrf_meta_tags %>
         <%= stylesheet_link_tag 'iframe' %>
+        <%= javascript_include_tag 'iframe' %>
     </head>
-    <body>
+    <body class="iframe-view">
+        <%= render partial: "shared/flash" %>
         <%= yield %>
+        <script type="text/javascript" charset="utf-8">
+            $(function() {
+              // make sure we're in an iframe
+              if (window.self === window.top) {
+                window.location = '<%= content_for?(:equivalent_url_in_iframe) ? yield(:equivalent_url_in_iframe) : '/map/account/account' %>'
+              }
+            })
+        </script>
     </body>
 </html>

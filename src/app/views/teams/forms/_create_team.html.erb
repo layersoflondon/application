@@ -1,0 +1,24 @@
+<%= form_with(model: team || Team.new, html: { method: :post, class: 'form--chunky form--over-white' }, local: true) do |form| %>
+  <% if form.object.errors.any? %>
+    <div>
+      <h2>Couldn't save your new team.</h2>
+
+      <ul>
+        <% form.object.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, :required => true%>
+  </div>
+
+  <p class="helper-text">Team members can create and contribute to team collections, and they can allow their records to be editable by the whole team.</p>
+
+  <%= form.submit "Create team" %>
+
+<% end %>
+

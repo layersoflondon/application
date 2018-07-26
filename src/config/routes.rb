@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get 'events/show'
   root to: "pages#index"
 
-  get '/user/teams', to: 'user#teams'
   get '/user/record_collections'
 
   devise_for :users,
@@ -20,7 +19,6 @@ Rails.application.routes.draw do
              }
 
 
-  get '/user/:id/teams', to: 'user_teams#index'
 
   resources :records, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]
@@ -33,18 +31,26 @@ Rails.application.routes.draw do
     resources :records, controller: 'collection_records', only: %i[index create destroy]
   end
 
-  post '/teams/join', to: 'teams#request_to_join_team'
-  resources :teams, only: %i[index create show update destroy], defaults: {format: :json} do
-    resources :users, controller: 'team_users', only: %i[index create show update destroy]
+
+  resources :teams do
+    collection do
+      post 'request_to_join', to: 'teams#request_to_join', as: :request_to_join
+    end
+    member do
+
+      get 'accept_request', to: 'teams#accept_request', as: :accept_request_to_join
+      get 'deny_request', to: 'teams#deny_request', as: :deny_request_to_join
+
+      post 'invite', to: 'teams#invite_users', as: :invite_users_to
+      get 'accept_invitation', to: 'teams#accept_invitation', as: :accept_invitation_to_join
+
+      post 'leave', to: 'teams#leave', as: :leave
+
+      post 'remove', to: 'teams#remove', as: :remove_from
+    end
   end
 
-  get '/teams/:id/accept-request', to: 'teams#accept_request'
-  get '/teams/:id/deny-request', to: 'teams#deny_request'
 
-  post '/teams/:id/invite-user', to: 'teams#invite_user'
-  get '/teams/:id/accept-invitation', to: 'teams#accept_invitation'
-
-  post '/teams/:id/leave', to: 'teams#leave'
 
   resource :map, controller: 'maps' do
     match '/state', via: :get, to: 'maps#state', as: :map_state, format: :json
@@ -56,8 +62,6 @@ Rails.application.routes.draw do
   resources :layers, only: [:index, :show], defaults: {format: :json} do
     get 'search', on: :collection
   end
-
-  get  "/assets/:encoded_key/*filename" => "active_storage/assets#show", as: :asset
 
   resources :taxonomies, only: [:index], defaults: {format: :json}
 

@@ -7,6 +7,7 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+import "babel-polyfill";
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -23,30 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const userPresent = window.__USER_PRESENT;
 
     const browserHistory = createBrowserHistory();
-    const routingStore = new RouterStore();
-    const history = syncHistoryWithStore(browserHistory, routingStore);
-
-    // // initialise the application with static data
-    // const stores = initStore({data: {tray: {root: true, cards: []}, collections: [], layers: [], map: {zoom: 10}}});
-    //
-    // stores.routing = routingStore;
-    // ReactDOM.render(
-    //   <Provider {...stores} >
-    //     <Router history={history}>
-    //       <Main />
-    //     </Router>
-    //   </Provider>,
-    //   document.getElementById("map-root")
-    // );
+    const routerStore = new RouterStore();
+    const history = syncHistoryWithStore(browserHistory, routerStore);
 
     // fetch the initial app state then initialize the stores and components
     axios.get('/map/state.json').then((response) => {
         const stores = initStore(response.data);
-        stores.routing = routingStore;
+        stores.router = routerStore;
+        stores.currentUser = window.__USER;
 
         ReactDOM.render(
-          <Provider {...stores} userPresent={userPresent} >
-            <Router history={history}>
+          <Provider {...stores} userPresent={userPresent}>
+            <Router history={history} >
               <Main />
             </Router>
           </Provider>,
@@ -60,25 +49,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen to message from child window
     eventer(messageEvent, (event) => {
-        // fixme: restore this functionality using the new router pattern
-        if (false && event.data.scope === 'clickable-iframe-element') {
-            stores.mapViewStore.overlay = null;
-            // TODO: Open requested modal
-            const {push} = routingStore;
-
-            setTimeout(() => {
-                switch(event.data.type) {
-                    case 'record':
-                        push(`/map/records/${event.data.id}`);
-                        stores.trayViewStore.record_id = event.data.id;
-                        break;
-                    case 'collection':
-                        push(`/map/collections/${event.data.id}`);
-                        stores.trayViewStore.collection_id = event.data.id;
-                    default:
-                        console.log(`Handle ${event.data.type}`);
+        if (event.data.scope === 'clickable-iframe-element') {
+            let path = "/map";
+            if (event.data.type && event.data.id) {
+                switch (event.data.type) {
+                  case 'record':
+                      path += '/records';
+                      break;
+                  case 'collection':
+                      path += '/collections';
+                      break;
+                  case 'team':
+                      path += '/teams';
+                      break;
                 }
-            }, 500);
+
+                if (event.data.id) {
+                    path += `/${event.data.id}`;
+                }
+
+                if (event.data.action) {
+                    path += `/${event.data.action}`;
+                }
+
+                history.push(path);
+            }
         }
     },false);
 });

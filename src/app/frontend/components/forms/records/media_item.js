@@ -7,7 +7,7 @@ import {observer} from "mobx-react";
   constructor(props){
     super(props);
 
-    this.state = {url: this.props.url, type: this.props.type, title: this.props.title, caption: this.props.caption, credit: this.props.credit};
+    this.state = {url: this.props.object.attachable.url, type: this.props.object.media_type, title: this.props.title, caption: this.props.caption, credit: this.props.credit};
   }
 
   setCurrentMediaItem(event) {
@@ -20,11 +20,11 @@ import {observer} from "mobx-react";
     let type = '';
     let classes = 'image';
 
-    if( this.props.type === 'image' ) {
-      style['backgroundImage'] = `url("${this.state.url}")`
+    if( this.state.type === 'image' ) {
+      style['backgroundImage'] = `url("${this.state.url}")`;
     }
 
-    type += `type-${this.props.type}`;
+    type += `type-${this.props.object.media_type}`;
 
     return (
       <li className={type} onClick={this.setCurrentMediaItem.bind(this)}>

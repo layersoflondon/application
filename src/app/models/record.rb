@@ -18,6 +18,7 @@ class Record < ApplicationRecord
 
   accepts_nested_attributes_for :attachments
 
+  enum view_type: %i[gallery expanded]
   enum state: %i[draft published pending_review flagged deleted]
   serialize :location, Hash
 
@@ -73,6 +74,14 @@ class Record < ApplicationRecord
     event :mark_as_deleted do
       transitions from: %i[draft published pending_review flagged], to: :deleted
     end
+  end
+
+  def everyone_collections
+    collections.where(write_state: 'everyone')
+  end
+
+  def user_collections
+    collections.where(write_state: ['creator', 'team'])
   end
 
   def get_primary_image(fallback_to_first: true)
