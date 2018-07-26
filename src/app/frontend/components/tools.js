@@ -50,6 +50,7 @@ import Img from 'react-image';
   render() {
     const logo = require('../assets/images/logo.svg');
     return <div className="m-sidebar">
+        
       <div className="m-logo">
         <a href="/" title="Return to homepage">
           <Img src={logo} alt="Logo" loader={<span className="is-loading" /> }/>

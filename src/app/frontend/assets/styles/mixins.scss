@@ -1,5 +1,29 @@
 /* Mixins */
 
+@mixin centered-image-holder {
+  position: relative;
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: all .2s;
+  }
+
+  &[class*="--portrait"] img {
+    width: 100%;
+    height: auto;
+  }
+
+}
+
+
 @mixin polygon-background($color, $position, $flip:false) {
   position: relative;
   z-index: 0;
@@ -106,8 +130,21 @@ $element-border-radius-small: 3px;
   background: #e6e5e5;
 }
 
-
 @mixin loading-spinner {
+/*
+  @keyframes spinner-load {
+    0% {
+      opacity: 0;
+      transform: scale(0.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  animation: spinner-load 0.5s ease-out 0.5s;*/
+
   &:before {
     content: "";
     position: absolute;
@@ -117,29 +154,28 @@ $element-border-radius-small: 3px;
     height: 100%;
     z-index: 10;
   }
+
   &:after {
-    font: normal normal normal 45px/1 FontAwesome;
-    content: "\f110";
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg)
-      }
-
-      to {
-        transform: rotate(1turn)
-      }
+    @keyframes spinner {
+      to {transform: rotate(360deg);}
     }
-    -webkit-animation: spin 2s infinite;
-    -o-animation: spin 2s infinite;
-    animation: spin 2s infinite;
-
+    content: '';
+    box-sizing: border-box;
     position: absolute;
-    top: calc(50% - 45px);
-    left: calc(50% - 45px);
-    z-index: 11;
-    color: #fff;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #343434;
+    border-top-color: #e9e9e9;
+    animation: spinner .6s linear infinite;
   }
+
 }
+
 @mixin record-card {
 
   .wrapper {
@@ -154,6 +190,7 @@ $element-border-radius-small: 3px;
   .image {
     width: 100%;
     height: 100%;
+    @include centered-image-holder;
     position: absolute;
     span.is-loading {
       @include loading-spinner;
@@ -212,6 +249,11 @@ $element-border-radius-small: 3px;
     background: transparentize($black, 0.1);
   }
 
+  .text-content p p {
+    margin:0;
+    padding:0;
+  }
+
   .collection-indicator {
     display: block;
     float: left;
@@ -262,22 +304,21 @@ $element-border-radius-small: 3px;
   font-size: 36px;
   margin-left: -30px;
   color: $black;
-  display:inline-block;
+  display: inline-block;
 }
-
 
 // Overlays
 
 @mixin subsection {
-  background:white;
-  color:$black;
-  padding:20px;
+  background: white;
+  color: $black;
+  padding: 20px;
   @include clearfix;
 
   .subsection-title {
-    font-size:28px;
+    font-size: 28px;
     @include font-display;
-    margin-top:0;
+    margin-top: 0;
   }
 
   .subsection-header {
@@ -289,15 +330,14 @@ $element-border-radius-small: 3px;
 // Buttons
 
 @mixin big-square-button {
-
-/*  border: 0;
-  padding: 11px 25px;
-  border-radius: 100px;
-  border: 4px solid $orange;
-  color: $orange;
-  background: transparent;
-  font-weight: 600;
-  font-size: 32px;*/
+  /*  border: 0;
+    padding: 11px 25px;
+    border-radius: 100px;
+    border: 4px solid $orange;
+    color: $orange;
+    background: transparent;
+    font-weight: 600;
+    font-size: 32px;*/
 
   //background: #efdf5b6b;
 
