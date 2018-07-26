@@ -111,3 +111,32 @@
   -o-transition: opacity 300ms ease-in;
   transition: opacity 300ms ease-in;
 }
+
+.m-record-collection-button {
+  margin: 0 5px 5px 0;
+
+  &:after {
+    font-family: FontAwesome;
+    content: "\f00d";
+    margin-left: 5px;
+  }
+}
+
+// dont show chosen options on record collection form
+.m-add-record .m-accordion .css-10nd86i .css-1rtrksz:after {
+  content: "Choose a collection...";
+  color: #b4b4b4;
+}
+
+.m-add-record .m-accordion .css-10nd86i .css-1rtrksz .css-xwjg1b {
+  display: none;
+}
+
+// dont show 'clear' button on record collections form
+.m-add-record .m-accordion .css-10nd86i .css-1wy0on6 {
+  .css-1sjym57,
+  .css-d8oujb,
+  .css-1ep9fjw {
+    display: none;
+  }
+}

@@ -6,11 +6,13 @@ class CollectionsController < ApplicationController
   decorates_assigned :collection, :collections
 
   def index
-    @collections = if user_signed_in?
-                     current_user.collections
+    @collections = if user_signed_in? && !params[:everyone].present?
+                     CollectionsIndex.filter(terms: {contributor_ids: [current_user.id]}).to_a # collections this user has contributed to
+                   elsif user_signed_in? && params[:everyone]
+                     CollectionsIndex.filter(term: {write_state: "everyone"}) # collections created by this user, or teams they're a member of
                    else
                      # Collection.includes(:owner, records: [:user, record_taxonomy_terms: [:taxonomy_term]]).public_read
-                     CollectionsIndex.published
+                     CollectionsIndex.published.limit(params[:per_page])
                    end
   end
 

@@ -127,8 +127,19 @@ import Search from "../../../sources/search";
       this.props.trayViewStore.showCollectionOfCards(response.data, `Searched for ${this.state.q}`);
 
       if( response.data.length > 0 ) {
-        const lat = response.data[0].lat;
-        const lng = response.data[0].lng;
+        // get first response object with a lat & lng (if it's a collection, get the first one with records)
+        const results_with_coords = response.data.filter((obj) => {
+          return (obj.hasOwnProperty('records') && obj.records.length>0) || obj.hasOwnProperty('lat');
+        });
+
+        let first_result = results_with_coords[0];
+
+        if( first_result.hasOwnProperty('records') ) {
+          first_result = first_result.records[0];
+        }
+
+        const lat = first_result.lat;
+        const lng = first_result.lng;
 
         this.props.mapViewStore.panTo(lat, lng);
       }
