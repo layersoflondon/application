@@ -131,6 +131,20 @@ $element-border-radius-small: 3px;
 }
 
 @mixin loading-spinner {
+/*
+  @keyframes spinner-load {
+    0% {
+      opacity: 0;
+      transform: scale(0.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  animation: spinner-load 0.5s ease-out 0.5s;*/
+
   &:before {
     content: "";
     position: absolute;
@@ -140,27 +154,26 @@ $element-border-radius-small: 3px;
     height: 100%;
     z-index: 10;
   }
-  &:after {
-    font: normal normal normal 45px/1 FontAwesome;
-    content: "\f110";
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg)
-      }
 
-      to {
-        transform: rotate(1turn)
-      }
+  &:after {
+    @keyframes spinner {
+      to {transform: rotate(360deg);}
     }
-    -webkit-animation: spin 2s infinite;
-    -o-animation: spin 2s infinite;
-    animation: spin 2s infinite;
+    content: '';
+    box-sizing: border-box;
     position: absolute;
-    top: calc(50% - 45px);
-    left: calc(50% - 45px);
-    z-index: 11;
-    color: #fff;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #343434;
+    border-top-color: #e9e9e9;
+    animation: spinner .6s linear infinite;
   }
+
 }
 
 @mixin record-card {
