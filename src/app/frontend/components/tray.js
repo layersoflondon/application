@@ -62,6 +62,7 @@ import {inject} from "mobx-react/index";
     }
 
     return <div className={trayClassName}>
+
       <div className="open-close" onClick={() => this.props.trayViewStore.toggleTrayVisibility()}>
         <span>Close</span>
       </div>
@@ -76,6 +77,7 @@ import {inject} from "mobx-react/index";
 
         </div>
       </div>
+
     </div>;
   }
 }

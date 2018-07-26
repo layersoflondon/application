@@ -29,9 +29,13 @@ import RecordViewComponentState from "./record_view_component_state";
 
   render_state_expanded(header_class) {
     return <div className={header_class}>
-      <RecordViewMeta {...this.props} />
-      <RecordViewTitle {...this.props} />
-      <RecordViewSidebar {...this.props} />
+      <div className='title-area'>
+        <div className="text-content">
+          <RecordViewMeta {...this.props} />
+          <RecordViewTitle {...this.props} />
+        </div>
+        <RecordViewSidebar {...this.props} />
+      </div>
     </div>
   }
 
@@ -50,9 +54,13 @@ import RecordViewComponentState from "./record_view_component_state";
         </div>
       </div>
 
-      <RecordViewMeta {...this.props} />
-      <RecordViewTitle {...this.props} />
-      <RecordViewSidebar {...this.props} />
+      <div className='title-area'>
+        <div className="text-content">
+          <RecordViewMeta {...this.props} />
+          <RecordViewTitle {...this.props} />
+        </div>
+        <RecordViewSidebar {...this.props} />
+      </div>
 
     </div>
   }

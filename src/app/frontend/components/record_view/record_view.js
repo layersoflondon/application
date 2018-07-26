@@ -38,6 +38,7 @@ import RecordViewContent from './record_view_content';
     return <div className="m-overlay is-showing">
       <div className="s-overlay--record is-showing">
         <div className="m-record">
+
           <div className="next">
             {/*<button className="next" onClick={() => this.props.trayViewStore.moveToNextCard()}>Next</button>*/}
           </div>

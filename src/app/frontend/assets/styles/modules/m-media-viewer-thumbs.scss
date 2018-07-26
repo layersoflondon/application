@@ -6,32 +6,12 @@
 }
 
 .m-media-viewer-thumbs .thumb {
-  //float: left;
-  position: relative;
-  overflow: hidden;
+  @include centered-image-holder;
   box-shadow: 0 0 20px 9px #00000063;
   margin: 10px 10px 0 0;
   height:120px;
   width:120px;
-
   flex: 0 0 auto;
-}
-
-.m-media-viewer-thumbs img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  height: 100%;
-  width: auto;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  transition: all .2s;
-}
-
-.m-media-viewer-thumbs .thumb--portrait img {
-  width: 100%;
-  height: auto;
 }
 
 .m-media-viewer-thumbs a:hover img {
