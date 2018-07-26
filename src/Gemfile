@@ -120,3 +120,5 @@ gem 'sprockets-es6'
 
 # OJ for fast json parsing
 gem 'oj'
+
+gem 'rollbar'
