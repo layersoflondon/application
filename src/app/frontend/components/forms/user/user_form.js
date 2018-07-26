@@ -56,7 +56,6 @@ import TeachersForm from "./teachers_form";
       sign_out: <h2>Signing you out of your account</h2>
 
     };
-    //TODO - we need to use meta tags to define the routes which we load into the iframe
 
     return (
       <div className={className}>
