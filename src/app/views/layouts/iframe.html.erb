@@ -11,9 +11,9 @@
         <script type="text/javascript" charset="utf-8">
             $(function() {
               // make sure we're in an iframe
-              //if (window.self === window.top) {
-              //  window.location = '<%= content_for?(:equivalent_url_in_iframe) ? yield(:equivalent_url_in_iframe) : '/map/account/account' %>'
-              //}
+              if (window.self === window.top) {
+                window.location = '<%= content_for?(:equivalent_url_in_iframe) ? yield(:equivalent_url_in_iframe) : '/map/account/account' %>'
+              }
             })
         </script>
     </body>

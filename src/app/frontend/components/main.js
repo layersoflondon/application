@@ -42,6 +42,7 @@ import RecordForm from './forms/records/record_form';
       {/* Various Overlays ... */}
       <Route exact path='/map/account' component={UserForm} />
       <Route exact path='/map/account/:tab' component={UserForm} />
+      <Route exact path='/map/account/:tab/:id' component={UserForm} />
       <Route path='/map/layers' component={LayersOverlay} />
       <Route exact path='/map/search' component={SearchView} />
       <Route path='/map/search?results=true&q=:query' component={Tray} />
