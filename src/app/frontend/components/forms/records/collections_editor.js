@@ -107,23 +107,33 @@ import {observer, inject} from "mobx-react";
             <input type="radio" name='showing_collections' value={`everyone_collections`} checked={this.state.showing === 'everyone_collections'} onChange={this.handleShowCollectionsOnChange.bind(this)} />
           </label>
 
-          <Select options={collection_options} hideSelectedOptions={true} isMulti={true} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={false} ref={this.selectRef}/>
+          <Select placeholder='' options={collection_options} hideSelectedOptions={true} isMulti={true} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef}/>
 
           <hr/>
 
-          User collections:
-          {this.state.enabled_user_collections.map((c, i) => (
-            <button value={c.value} name='user_collections' onClick={this.removeFromCollections.bind(this)} key={`user_collections_${i}`}>
+          {this.state.enabled_user_collections.length>0 && (
+            <div>
+              <h3>Your collections</h3>
+
+              {this.state.enabled_user_collections.map((c, i) => (
+              <button className='m-record-collection-button' value={c.value} name='user_collections' onClick={this.removeFromCollections.bind(this)} key={`user_collections_${i}`}>
               {c.label}
-            </button>
-          ))}
-          <br/>
-          Everyone collections:
-          {this.state.enabled_everyone_collections.map((c, i) => (
-            <button value={c.value} name='everyone_collections' onClick={this.removeFromCollections.bind(this)} key={`everyone_collections_${i}`}>
-              {c.label}
-            </button>
-          ))}
+              </button>
+              ))}
+            </div>
+          )}
+
+          {this.state.enabled_everyone_collections.length>0 && (
+            <div>
+              <h3>Public (& other user's collections)</h3>
+
+              {this.state.enabled_everyone_collections.map((c, i) => (
+                <button className='m-record-collection-button' value={c.value} name='everyone_collections' onClick={this.removeFromCollections.bind(this)} key={`everyone_collections_${i}`}>
+                  {c.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
       </div>
