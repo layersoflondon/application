@@ -23,6 +23,7 @@ class RecordsController < ApplicationController
 
   def show
     @record = RecordsIndex.filter(ids: {values: [params[:id]]}).first
+    raise ActionController::RoutingError, "Record not found" unless @record.present?
     raise Pundit::NotAuthorizedError unless RecordPolicy.new(current_user, @record).show?
     # TODO create a RecordViewJob which increments async.
     # @record.increment!(:view_count) unless cookies[:viewed_records].present? && cookies[:viewed_records].include?(@record.id)
