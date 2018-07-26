@@ -22,9 +22,15 @@ class RecordsIndex < Chewy::Index
       field :id, type: 'integer'
       field :name, type: 'text'
     end
-    field :collections, type: 'object' do
-      field :read_state, type: 'keyword'
-    end
+    field :collection_ids, type: 'object'
+
+    field :user_collections, value: -> {
+      collections.where(write_state: ['team', 'creator']).map{|c| {value: c.id, label: c.title}}
+    }
+    field :everyone_collections, value: -> {
+      collections.where(write_state: 'everyone').map{|c| {value: c.id, label: c.title}}
+    }
+
     field :attachments, type: 'object' do
       field :id, type: 'integer'
       field :title, type: 'text', analyzer: :english
