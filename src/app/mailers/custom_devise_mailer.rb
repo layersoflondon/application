@@ -1,6 +1,7 @@
 class CustomDeviseMailer < Devise::Mailer
   layout 'mailer'
   before_action :add_inline_attachments!
+  default from: Rails.application.config.x.mailer_from_address
 
   private
 
