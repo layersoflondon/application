@@ -19,7 +19,7 @@ import {NavLink} from 'react-router-dom';
           </Map>
         </div>
 
-        <div className="text">{this.props.trayViewStore.record.location.address} | {this.props.trayViewStore.record.lat}, {this.props.trayViewStore.record.lng}</div>
+        <div className="text">{this.props.trayViewStore.record.lat}, {this.props.trayViewStore.record.lng}</div>
       </div>
 
       <div className="social">
