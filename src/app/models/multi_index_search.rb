@@ -5,16 +5,20 @@ class MultiIndexSearch
   ]
 
   def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 100)
-    es_query = Chewy::Search::Request.new(*indexes)
-    es_query = boost_collections(es_query)
+    Rails.logger.info("called filter_by_geobounds")
 
+    if search_params[:q]
+      es_query = self.query(search_params, indexes: indexes, limit: limit)
+    else
+      es_query = Chewy::Search::Request.new(*indexes)
+    end
 
     if search_params[:geobounding].present?
       es_query = add_geobounding_filter(search_params[:geobounding], es_query)
     end
 
     es_query = filter_by_state(es_query)
-    es_query = es_query.limit(limit)
+    es_query.limit(limit)
   end
 
   def self.query(search_params, indexes: INDEXES, limit: 100)
@@ -57,7 +61,6 @@ class MultiIndexSearch
             ]
           }
         }
-
     )
 
     es_query = boost_collections(es_query)
