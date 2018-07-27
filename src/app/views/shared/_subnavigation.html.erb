@@ -1,4 +1,4 @@
 <div class="m-subnavigation">
     <h2>In this section</h2>
-  <%= subnavigation_for(page, current_class: 'is-current') %>
+  <%= subnavigation_for(page.root.resolve, current_class: 'is-current', current: page) %>
 </div>
