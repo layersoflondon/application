@@ -25,7 +25,6 @@ import RecordModel from './../../../models/record';
     }else if( this.props.match.params.id && this.props.match.params.id !== 'new'  ) {
       Record.show(null, this.props.match.params.id).then((response) => {
         this.props.recordFormStore.record = RecordModel.fromJS(response.data);
-        console.log("Got record", this.props.recordFormStore.record);
       });
     }
 
@@ -82,7 +81,6 @@ import RecordModel from './../../../models/record';
   }
 
   render() {
-    console.log(this.props.recordFormStore.record.id)
     if( this.props.match.params.id && parseInt(this.props.match.params.id, 10) !== this.props.recordFormStore.record.id ) {
       // fixme: show a spinner here whilst we load the record we're editing
       return <div className="spinner" />

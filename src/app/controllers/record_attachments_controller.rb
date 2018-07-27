@@ -15,6 +15,7 @@ class RecordAttachmentsController < ApplicationController
     @attachment.credit = attachment_params[:attachable_attributes][:credit]
 
     if @attachment.save
+      Rails.logger.info("\n\nCreated attachmebnt: #{@attachment} \n\n#{@attachment.attachable}\n\n #{@attachment.attachable.try(:data)}\n\n")
     else
       render json: @attachment.errors.full_messages, status: :unprocessable_entity
     end
