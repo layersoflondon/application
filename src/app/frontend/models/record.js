@@ -197,6 +197,7 @@ export default class RecordModel {
       credit: this.credit,
       view_type: this.view_type,
       attachments: this.attachments,
+      user: this.user
     }
   }
 

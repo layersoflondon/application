@@ -82,10 +82,26 @@ import RecordModel from './../../../models/record';
     if( this.props.match.params.id && parseInt(this.props.match.params.id, 10) !== this.props.recordFormStore.record.id ) {
       // fixme: show a spinner here whilst we load the record we're editing
       return <div className="spinner" />
+    }else if( !this.props.recordFormStore.record.user_can_edit_record ) {
+      return <div className='m-overlay'>
+        <div className="close">
+          <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
+        </div>
+
+        <div className="m-add-record">
+          <h1>Add record</h1>
+
+          <p>
+            You don't have permission to edit this record.
+          </p>
+        </div>
+      </div>
     }
 
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'record_form' ) className+=" is-showing";
+
+    let form_title = this.props.recordFormStore.record.id ? "Edit record" : "Add record";
 
     return (
       <div className={className}>
@@ -95,7 +111,7 @@ import RecordModel from './../../../models/record';
           </div>
 
           <div className="m-add-record">
-            <h1>Add record</h1>
+            <h1>{form_title}</h1>
 
             <form action="" className="form--chunky form--over-white">
               <Dates   {...this.props} />
