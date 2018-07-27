@@ -28,6 +28,16 @@ import RecordModel from './../../../models/record';
         console.log("Got record", this.props.recordFormStore.record);
       });
     }
+
+    if( this.props.trayViewStore.cards.size === 0 ) {
+      setTimeout(() => {
+        if( this.props.match.params.id ) {
+          this.props.trayViewStore.fetchRecord(this.props.match.params.id, true);
+        }else {
+          this.props.trayViewStore.restoreRootState();
+        }
+      }, 10);
+    }
   }
 
   componentWillUnmount() {
@@ -59,16 +69,20 @@ import RecordModel from './../../../models/record';
 
     if(this.props.match.params.collection_id) {
       this.props.router.push(`/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}`);
-    }else {
+    }else if(this.props.match.params.id) {
       this.props.trayViewStore.locked = false;
       this.props.router.push(`/map/records/${this.props.match.params.id}`);
+    }else {
+      this.props.trayViewStore.locked = false;
+      this.props.router.push(`/map`);
     }
   }
 
   render() {
-    if( parseInt(this.props.match.params.id, 10) !== this.props.recordFormStore.record.id ) {
+    console.log(this.props.match);
+    if( this.props.match.params.id && parseInt(this.props.match.params.id, 10) !== this.props.recordFormStore.record.id ) {
       // fixme: show a spinner here whilst we load the record we're editing
-      return <div />
+      return <div className="spinner" />
     }
 
     let className = "m-overlay";

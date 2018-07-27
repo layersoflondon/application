@@ -22,7 +22,7 @@ import {inject} from "mobx-react/index";
   }
 
   componentWillReceiveProps() {
-    if (this.props.router.history.location.pathname === "/map" && !this.props.trayViewStore.root ) {
+    if(this.props.router.history.location.pathname === "/map" && !this.props.trayViewStore.root ) {
       this.props.trayViewStore.restoreRootState();
     }
   }

@@ -10,7 +10,6 @@ import Img from 'react-image';
   }
 
   render() {
-    console.log(this.props.media);
     /*
   <div className="media-item media-item--image">
           <Link to={`/map/records/${this.props.match.params.id}/media/1/image`}>

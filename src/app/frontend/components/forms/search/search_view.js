@@ -10,7 +10,7 @@ import Search from "../../../sources/search";
   constructor(props) {
     super(props);
 
-    this.state = {q: "", geobounding: false, start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}};
+    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}};
   }
 
   componentWillMount() {
@@ -44,6 +44,22 @@ import Search from "../../../sources/search";
     return this.state.terms[name].indexOf(value)>-1 ? true : '';
   }
 
+  getBounds() {
+    let map = this.props.trayViewStore.map_ref;
+    let center = map.leafletElement.getBounds().getCenter();
+    let radius = map.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+
+    let north_west = map.leafletElement.getBounds().getNorthWest();
+    let south_east = map.leafletElement.getBounds().getSouthEast();
+
+    return {
+      // center: {lat: center.lat, lng: center.lng},
+      top_left: {lat: north_west.lat, lng: north_west.lng},
+      bottom_right: {lat: south_east.lat, lng: south_east.lng},
+      // radius: radius
+    };
+  }
+
   handleOnChange(event) {
     const {target: {name, value}} = event;
     this.setState({[name]: value});
@@ -51,23 +67,9 @@ import Search from "../../../sources/search";
 
   toggleSearchBounds(event) {
     if(event.target.checked) {
-      let map = this.props.trayViewStore.map_ref;
-      let center = map.leafletElement.getBounds().getCenter();
-      let radius = map.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
-
-      let north_west = map.leafletElement.getBounds().getNorthWest();
-      let south_east = map.leafletElement.getBounds().getSouthEast();
-
-      let bounds = {
-        // center: {lat: center.lat, lng: center.lng},
-        top_left: {lat: north_west.lat, lng: north_west.lng},
-        bottom_right: {lat: south_east.lat, lng: south_east.lng},
-        // radius: radius
-      };
-
-      this.setState({geobounding: bounds});
+      this.setState({geobounding: this.getBounds()});
     }else {
-      this.setState({geobounding: null});
+      this.setState({geobounding: 'london'});
     }
   }
 
@@ -95,8 +97,8 @@ import Search from "../../../sources/search";
       search_params.date_range.lte = `${this.state.end_year}-01-01`;
     }
 
-    if( this.state.geobounding ) {
-      search_params.geobounding = this.state.geobounding;
+    if( this.state.geobounding !== 'london' ) {
+      search_params.geobounding = this.getBounds()
     }
 
     function serializeQuery(params, prefix) {
@@ -218,7 +220,7 @@ import Search from "../../../sources/search";
               <div className="form-group form-group--toggle-switch">
                 <label>
                   <span>Search all of London</span>
-                  <input type="checkbox" onChange={this.toggleSearchBounds.bind(this)} checked={this.state.geobounding !== false} />
+                  <input type="checkbox" onChange={this.toggleSearchBounds.bind(this)} checked={this.state.geobounding !== 'london'} />
                   <span className="toggle"></span>
                   <span>Search visible area</span>
                 </label>
