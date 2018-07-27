@@ -12,7 +12,7 @@
 
 .m-page-header {
   clear: both;
-  height: 680px;
+  min-height: 680px;
   background: #ccc;
   position: relative;
   z-index:2;
@@ -34,11 +34,9 @@
 }
 
 .m-page-header .text-content {
-  //width: 50%;
   height: 100%;
   position: relative;
-  padding: 200px 80px 140px;
-  //background: rgba(0, 0, 0, 0.6);
+  padding: 200px 80px 0;
   color:white;
 }
 
@@ -81,7 +79,6 @@
   line-height: 1.2;
   margin-top: 80px;
   font-family: 'Zilla Slab', serif;
-  font-weight: 400;
   margin-bottom: 0;
   padding: 20px 30px;
   font-size: 54px;
@@ -94,6 +91,7 @@
   text-align:right;
   min-height: 440px;
   font-weight:800;
+  padding-bottom:130px;
 }
 
 .m-page-header a {
