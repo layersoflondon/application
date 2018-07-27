@@ -1,9 +1,7 @@
 <div id="m-page-header" class="m-page-header <%= local_assigns.has_key?(:class) ? local_assigns[:class] : "" %>">
     <div class="image" id="m-page-header-image" style="background-image: url('<%= page.hero_image %>');"></div>
     <div class="text-content">
-        <!--<span class="surtitle"><%= page.root.title %></span>-->
         <h1 class="viewable"><%= page.title %></h1>
-        <!--<a href="#">Start exploring</a>-->
-        <%= render 'shared/subnavigation' if page.children.any? %>
+        <%= render 'shared/subnavigation' %>
     </div>
 </div>

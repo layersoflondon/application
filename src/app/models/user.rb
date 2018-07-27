@@ -15,6 +15,10 @@ class User < ApplicationRecord
   serialize :record_likes, Array
   serialize :metadata, Hash
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :terms_and_conditions_of_use, acceptance: {accept: true, message: "need to be accepted"}
+
   # TODO: - users should change the state of their records before being deleted.
   # before_destroy do
   #  records.each {|r| r.make_orphan! }
@@ -97,7 +101,7 @@ class User < ApplicationRecord
     Collection.includes(:records).where(owner_id: team_user.collect(&:id), owner_type: 'Team')
   end
 
-  def collections
+  def user_collections
     my_collections = Collection.where(owner_id: id, owner_type: 'User')
     collections_granted = self.team_collections_granted
     Collection.includes(:owner, :records).where(id: (my_collections.ids + collections_granted.ids).uniq)

@@ -37,7 +37,7 @@ import Record from "../sources/record";
 
     return <div className={className}>
 
-      <div className="m-beta-message"><strong>This is a beta release.</strong> You might find some bugs while we finish things off. <a href="https://beta.layersoflondon.org/about/beta-launch">Read more.</a></div>
+      <div className="m-beta-message"><strong>This is a beta release.</strong> You might find some bugs while we finish things off. <a href="/about/beta-launch">Read more.</a></div>
 
        {/*permanantly visible components */}
       <Route path='*' component={Tools} />
@@ -51,6 +51,7 @@ import Record from "../sources/record";
       <Route path='/map/layers' component={LayersOverlay} />
       <Route exact path='/map/search' component={SearchView} />
       <Route path='/map/search?results=true&q=:query' component={Tray} />
+      <Route path='/map/search?results=true&user_id=:user_id' component={Tray} />
 
       {/* show the collections form */}
       <Route exact path='/map/collections/new' component={CollectionForm} />

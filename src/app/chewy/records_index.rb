@@ -18,7 +18,7 @@ class RecordsIndex < Chewy::Index
     field :updated_at, type: 'date'
     field :location, type: 'object'
     field :credit, type: 'text'
-    field :user, type: 'object' do
+    field :user, type: 'nested' do
       field :id, type: 'integer'
       field :name, type: 'text'
     end
@@ -59,6 +59,25 @@ class RecordsIndex < Chewy::Index
 
     field :view_type, type: 'keyword'
 
+  end
+
+  def self.user_records(search_params, limit: 100)
+    es_query = Chewy::Search::Request.new(RecordsIndex).query(
+      nested: {
+        path: "user",
+        query: {
+          bool: {
+            must: [
+              {
+                match: {"user.id" => search_params[:user_id]}
+              }
+            ]
+          }
+        }
+      }
+    )
+
+    es_query.limit(limit)
   end
 
   def self.published

@@ -42,7 +42,7 @@ export default class CollectionStore {
     collections.map((c) => {
       let collection_model = CollectionModel.fromJS(c, tray_view_store);
 
-      if( collection_model.write_state === 'everyone' ) {
+      if( collection_model.write_state === 'everyone' && (collection_model.hasOwnProperty('owner') && collection_model.owner.id !== window.__USER.id)) {
         collection_store[`${collection_model.write_state}_collections`].set(collection_model.id, collection_model);
       }else {
         collection_store.user_collections.set(collection_model.id, collection_model);

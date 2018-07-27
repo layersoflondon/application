@@ -1,6 +1,9 @@
 
 class Post
   include Rooftop::Post
+  include SidebarCtas
+
+  self.write_advanced_fields = true
 
   self.write_advanced_fields = true
 
@@ -8,7 +11,7 @@ class Post
   EVENT_CATEGORY_ID = 4
 
   def self.all
-    published(super)
+    sorted_by_date(published(super))
   end
 
 
@@ -22,7 +25,7 @@ class Post
   
 
   def self.sorted_by_date(collection)
-    collection.sort{|a,b| b.sort_date.to_i <=> a.sort_date.to_i}
+    collection.sort{|a,b| b.publication_date.to_i <=> a.publication_date.to_i}
   end
 
   def self.published(collection)

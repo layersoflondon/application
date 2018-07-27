@@ -13,6 +13,10 @@ if attachment # Avoid nil attachment
     json.url attachment.url
   end
 
+  json.attachable_class attachment.attachable.class
+  json.attachable_data_class attachment.attachable.try(:data).class
+  json.attachable attachment.attachable.data
+
   if attachment.has_image?
     json.is_primary attachment.is_primary?
   end

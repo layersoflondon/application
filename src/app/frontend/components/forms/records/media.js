@@ -48,16 +48,20 @@ import {observer} from "mobx-react";
         const attachments = this.props.recordFormStore.record.attachments.slice();
         const new_attachment = {file: file, url: file.preview, attachment_type: attachment_type(file.type), type: attachment_type(file.type), title: f.target.fileName, caption: '', credit: ''};
 
-        console.log("Dropped attachment", new_attachment);
         if( !attachment_type(file.type)) {
           this.setState({errors: ['Unsupported file type']});
         }
 
         const media_item = Attachment.fromJS(new_attachment, this.props.recordFormStore.record.id);
+
         media_item.persist().then((response) => {
           let data = response.data;
+          // we need to add some attributes from the response to our media item
+          // object so that it can be rendered in the media item component
           media_item.record_id = this.props.recordFormStore.record.id;
           media_item.id = data.id;
+          media_item.attachable = data.attachable;
+          media_item.attachable_type = data.attachable_type;
           attachments.push(media_item);
           this.props.recordFormStore.record.attachments = attachments;
         }).catch((error) => {

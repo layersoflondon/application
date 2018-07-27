@@ -6,6 +6,7 @@
   text-align: center;
   //display:none;
   z-index: 9999;
+  padding-left: 125px;
 }
 
 .showing-place-picker .m-place-picker {
@@ -22,4 +23,13 @@
   background:rgba(0,0,0,0.8);
   display:inline-block;
   color:white;
+  margin-right: 125px;
+}
+
+.m-place-picker .close {
+  display: inline-block;
+  margin: auto -15px -5px auto;
+  width: 1em;
+  height: 1em;
+  background: url('../assets/images/icon-close.svg') center no-repeat;
 }
