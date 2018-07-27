@@ -1,0 +1,18 @@
+/* Beta message */
+
+.m-beta-message {
+  position:absolute;
+  bottom:-40px;
+  height:40px;
+  background:$yellow;
+  text-align: right;
+  color:#000;
+  width:100%;
+  font-size:14px;
+  padding: 10px;
+}
+
+.m-beta-message a {
+  color:$green;
+  font-weight:bold;
+}
