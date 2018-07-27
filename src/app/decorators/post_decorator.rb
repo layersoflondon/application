@@ -9,7 +9,7 @@ class PostDecorator < Draper::Decorator
     if has_field?(:excerpt, String) && fields.excerpt.present?
       fields.excerpt
     else
-      content.truncate(100)
+      h.strip_tags(content.truncate(300))
     end
   end
 end
