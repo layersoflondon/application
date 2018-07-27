@@ -10,11 +10,14 @@ class Attachments::Video < ApplicationRecord
 
   # Utility method used when we index
   def data
+    poster = "https://img.youtube.com/vi/#{youtube_id}/0.jpg"
     {
       content_type: "url/video",
       youtube_id: youtube_id,
-      thumb: ActionController::Base.helpers.asset_url("/audio-image-thumb.jpeg"),
-      poster: ActionController::Base.helpers.asset_url("/audio-image.jpeg")
+      card: poster,
+      large: poster,
+      thumb: poster,
+      poster: poster
     }
   end
 end

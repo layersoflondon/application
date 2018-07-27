@@ -12,7 +12,9 @@ module Attachments
       super.merge(
              {
                thumb: ActionController::Base.helpers.asset_path("/audio-image-thumb.jpeg"),
-               poster: ActionController::Base.helpers.asset_path("/audio-image.jpeg")
+               poster: ActionController::Base.helpers.asset_path("/audio-image.jpeg"),
+               card: ActionController::Base.helpers.asset_path("/audio-image.jpeg"),
+               large: ActionController::Base.helpers.asset_path("/audio-image.jpeg")
              }
       )
     end
