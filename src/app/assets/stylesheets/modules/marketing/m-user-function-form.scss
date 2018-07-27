@@ -1,0 +1,79 @@
+/* User function form */
+
+.main--user-function-form {
+  //margin-top: -200px;
+  padding-top:200px;
+}
+
+.main--user-function-form .background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: asset-url('background-photos.jpg');
+  background-position: center;
+  filter: brightness(30%);
+}
+
+.m-user-function-form {
+  width: 600px;
+  padding: 50px 60px;
+  color: $black;
+  background: white;
+  margin: 0 auto;
+  position: relative;
+  @include clearfix;
+}
+
+.m-user-function-form h1 {
+  @include font-display;
+  line-height: 1.2;
+  font-family: 'Zilla Slab', serif;
+  margin-top: 0;
+  margin-bottom: 50px;
+  font-size: 54px;
+}
+
+.m-user-function-form label {
+  font-size: 14px;
+  margin-bottom: 10px;
+  background: #549a77;
+  display: inline-block;
+  padding: 3px 6px 2px;
+  color: white;
+  font-weight: 560;
+}
+
+.m-user-function-form input[type="text"],
+.m-user-function-form input[type="email"],
+.m-user-function-form input[type="password"] {
+  border: none;
+  background: white;
+  padding: 20px 0;
+  border-radius: 0;
+  border-bottom: 2px solid #e4e4e4;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.m-user-function-form a {
+  color: $lilac;
+}
+
+.m-user-function-form .field {
+  margin-bottom: 40px;
+}
+
+.m-user-function-form .field--single-checkbox label {
+  background: none;
+  padding: 0;
+  color: $green;
+  padding-left: 10px;
+}
+
+.m-user-function-form em {
+  font-style:normal;
+  opacity:0.6;
+  font-size: 14px;
+}
