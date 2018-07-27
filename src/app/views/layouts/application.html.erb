@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Layers of London<%= content_for?(:title) ? "- #{yield(:title)}" : "" %></title>
-      <%= stylesheet_link_tag 'marketing' %>
+    <title>Layers of London <%= content_for?(:title) ? "- #{yield(:title)}" : "" %></title>
+    <%= stylesheet_link_tag 'marketing' %>
 
-      <%= javascript_include_tag 'marketing' %>
+    <%= javascript_include_tag 'marketing' %>
 
-      <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:400,600,700|Muli:400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:400,600,700|Muli:400,600,700" rel="stylesheet">
 
 </head>
 <body class="<%= content_for? (:body_class) ? yield(:body_class) : '' %>">
-  <div class="m-site-wrapper">
-    <%= render "shared/header" %>
-    <%= content_for?(:template) ? yield(:template) : yield %>
-    <%= render "shared/footer" %>
-  </div>
+    <div class="m-site-wrapper">
+    <%= render 'shared/beta_message' %>
+        <%= render "shared/header" %>
+        <%= content_for?(:template) ? yield(:template) : yield %>
+        <%= render "shared/footer" %>
+    </div>
 </body>
 </html>

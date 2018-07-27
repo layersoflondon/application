@@ -1,17 +1,16 @@
 <%= content_for :body_class do %>m-site-wrapper<% end %>
 
 <% content_for :template do %>
-    <div id="m-page-header" class="m-page-header m-page-header--small">
-        <div class="image" id="m-page-header-image" style="background-image: url('<%# TODO static image in here %>');"></div>
 
+    <main class="main--user-function-form">
+
+        <div class="background"></div>
+
+        <div class="m-user-function-form">
             <h1><%= yield(:title) %></h1>
-    </div>
-
-    <div class="m-content">
-        <div class="m-article">
             <%= yield %>
         </div>
-    </div>
+    </main>
 
 <% end %>
 

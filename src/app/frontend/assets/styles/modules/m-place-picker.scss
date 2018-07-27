@@ -6,6 +6,7 @@
   text-align: center;
   //display:none;
   z-index: 9999;
+  padding-left: 125px;
 }
 
 .showing-place-picker .m-place-picker {
@@ -22,6 +23,7 @@
   background:rgba(0,0,0,0.8);
   display:inline-block;
   color:white;
+  margin-right: 125px;
 }
 
 .m-place-picker .close {

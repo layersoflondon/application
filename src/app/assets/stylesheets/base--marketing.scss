@@ -185,12 +185,19 @@ textarea {
 }
 
 input[type="submit"] {
-  border: none;
-  padding: 10px;
-  border-radius: $default-border-radius;
-  background: $main-accent;
+  width: 170px;
+  float: right;
+  //margin-bottom: 80px;
+  background: $green;
+  color: #ffffff;
+  padding: 17px 25px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: -1px;
+  display: inline-block;
   @include transition(all .2s);
-  //color: white;
+  border:0;
   &:hover {
     background: darken($main-accent, 10%);
   }

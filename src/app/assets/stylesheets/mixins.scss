@@ -175,6 +175,11 @@ $element-border-radius-small: 3px;
     background: transparentize($black, 0.1);
   }
 
+  .text-content p p {
+    margin:0;
+    padding:0;
+  }
+
 }
 
 @mixin link-animation {
