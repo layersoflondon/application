@@ -10,8 +10,8 @@
   bottom: 20px;
   left: 20px;
   z-index: 50;
-  width: 50%;
-  max-width: 320px;
+  width: 70%;
+  max-width: 450px;
 }
 
 .m-layer-tools.is-closed .panel .open {
@@ -20,7 +20,7 @@
 
 .m-layer-tools .panel .open {
   //display: none;
-  outline:none;
+  outline: none;
 }
 
 .m-layer-tools .panel {
@@ -38,7 +38,7 @@
   background: $black;
   color: white;
   padding: 10px;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .m-layer-tools .panel h1 {
@@ -84,21 +84,35 @@
   margin-right: 5px;
 }
 
+.m-layer-tools .layer > span {
+  display: inline-block;
+  vertical-align: top;
+}
+
 .m-layer-tools .dragger {
   display: inline-block;
 }
 
 .m-layer-tools .name {
   display: inline-block;
-  min-width: 200px;
-  min-width: 120px;
+  width: calc(100% - 176px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.m-layer-tools .loupe {
+  margin: 0 10px;
+  color:$yellow;
 }
 
 .m-layer-tools .slider {
   width: 100px;
   display: inline-block;
   position: relative;
-  top: -5px;
+  top: 2px;
+  float: right;
+  margin-right: 12px;
 }
 
 .m-layer-tools .slider:before {

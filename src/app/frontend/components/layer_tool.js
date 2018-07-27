@@ -36,7 +36,7 @@ const handle = (props) => {
     return <div className="layer">
       <span className="name">{this.props.layer.title}</span>
 
-      {this.toggleLoupeTool() && <span onClick={this.handleLoupeToolClick.bind(this)}>{this.toggleLoupeTool().label}</span>}
+      {this.toggleLoupeTool() && <span className="loupe" onClick={this.handleLoupeToolClick.bind(this)}>{this.toggleLoupeTool().label}</span>}
       <span className="slider">
         <Slider min={0} max={1} step={0.1} handle={handle} defaultValue={this.props.layer.opacity} onChange={(value) => this.props.layer.opacity = value} />
       </span>
