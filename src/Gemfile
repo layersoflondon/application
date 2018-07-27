@@ -122,3 +122,7 @@ gem 'sprockets-es6'
 gem 'oj'
 
 gem 'rollbar'
+
+gem 'simple_errors', git: "https://github.com/errorstudio/simple_errors"
+
+gem 'roboto'
