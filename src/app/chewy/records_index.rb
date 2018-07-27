@@ -18,7 +18,7 @@ class RecordsIndex < Chewy::Index
     field :updated_at, type: 'date'
     field :location, type: 'object'
     field :credit, type: 'text'
-    field :user, type: 'object' do
+    field :user, type: 'nested' do
       field :id, type: 'integer'
       field :name, type: 'text'
     end

@@ -4,6 +4,25 @@ class MultiIndexSearch
     CollectionsIndex
   ]
 
+  def self.user_records(search_params, limit: 100)
+    es_query = Chewy::Search::Request.new(RecordsIndex).query(
+      nested: {
+        path: "user",
+        query: {
+          bool: {
+            must: [
+              {
+                match: {"user.id" => search_params[:user_id]}
+              }
+            ]
+          }
+        }
+      }
+    )
+
+    es_query.limit(limit)
+  end
+
   def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 100)
     Rails.logger.info("called filter_by_geobounds")
 
