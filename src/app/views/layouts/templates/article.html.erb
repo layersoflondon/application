@@ -7,7 +7,7 @@
     <main class="main--content main--article">
         <div class="background"><div class="motion-background" id="motion-background"></div></div>
         <div id="m-sidebar" class="m-sidebar">
-            Sidebar stuff
+            <%= render partial: "pages/sidebar_cta", collection: post.sidebar_ctas %>
         </div>
 
         <%= yield %>
