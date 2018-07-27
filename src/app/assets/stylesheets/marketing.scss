@@ -30,6 +30,7 @@
 @import "modules/marketing/m-big-search";
 @import "modules/marketing/m-home-logo";
 @import "modules/marketing/m-article-list";
+@import "modules/marketing/m-user-function-form";
 
 /*a {
   color:$blue;
@@ -38,10 +39,6 @@
 a:hover {
   color:darken($blue, 20%);
 }*/
-
-input[type="submit"] {
-  background:$blue;
-}
 
 a.button {
   background:$blue;
