@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/errorstudio/simple_errors
+  revision: baa2a504583158f1c7ef5a44c95e2d86b417162c
+  specs:
+    simple_errors (0.0.3)
+      rails (>= 4.2, < 6.0.0)
+
+GIT
   remote: https://github.com/rooftopcms/rooftop-rails
   revision: f1d28eb9e60dbb3d45c5a889486ea762dcec1bce
   specs:
@@ -345,6 +352,8 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    roboto (1.0.1)
+      rails (>= 4.2)
     rollbar (2.16.3)
       multi_json
     rubocop (0.58.1)
@@ -445,6 +454,7 @@ DEPENDENCIES
   pundit
   rails (~> 5.2.0.rc1)
   redis-rails
+  roboto
   rollbar
   rooftop!
   rooftop-rails!
@@ -452,6 +462,7 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   selenium-webdriver
+  simple_errors!
   sprockets-es6
   tzinfo-data
   uglifier (>= 1.3.0)

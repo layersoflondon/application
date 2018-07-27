@@ -1,0 +1,23 @@
+<%= content_for :body_class do %>m-site-wrapper<% end %>
+<% content_for :template do %>
+    <div id="m-page-header" class="m-page-header ">
+        <div class="image" id="m-page-header-image" style="background-image: url('<%= image_path('map-2.png') %>');"></div>
+        <div class="text-content">
+            <h1 class="viewable"><%= yield(:title) %></h1>
+        </div>
+    </div>
+    <main class="main--content">
+        <div class="background"><div class="motion-background" id="motion-background"></div></div>
+        <div id="m-sidebar" class="m-sidebar">
+        </div>
+        <div class="m-content">
+            <div class="m-article">
+
+                <%= yield %>
+            </div>
+        </div>
+    </main>
+
+<% end %>
+
+<%= render template: "layouts/application" %>

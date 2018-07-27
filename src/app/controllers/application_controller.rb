@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include SimpleErrors::Rescue
   include Pundit
   if Rails.env.test?
     protect_from_forgery with: :null_session
@@ -8,6 +9,16 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   before_action :get_navigation_menu
+
+  rescue_with_not_found Rooftop::RecordNotFoundError, ActionController::RoutingError, ActiveRecord::RecordNotFound
+  rescue_from Pundit::NotAuthorizedError do
+    response.content_type = Mime[:html] unless request.format.json?
+    render 'errors/403', layout: 'error', status: 403
+  end
+  rescue_from Rooftop::Rails::UnknownObjectForExpiry do; end
+  before_rescue do
+    get_navigation_menu
+  end
 
   private
 

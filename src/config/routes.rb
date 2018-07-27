@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
 
+  # Robot gem renders env-specific robots.txt files
+  mount_roboto
+
   # Alpha redirects
   get '/map/pins/:id', to: redirect('/map/records/%{id}')
   get '/the-map', to: redirect('/map')
