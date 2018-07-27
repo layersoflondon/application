@@ -10,7 +10,7 @@
     <%= render partial: "shared/rollbar" if Rails.env.production? %>
     <script type="text/javascript" charset="utf-8">
         <%# Redirect the old site structure, which uses hash anchors %>
-        if (window.location.toString().match(/#(collections|pins)\/\d+/)) {
+        if (window.location.toString().match(/#\/?(collections|pins)\/\d+/)) {
           window.location = window.location.toString().split('#').join("/")
         }
     </script>
