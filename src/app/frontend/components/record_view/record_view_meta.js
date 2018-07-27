@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {observer} from "mobx-react";
 import RecordViewComponentState from './record_view_component_state';
-import RecordViewGalleryMediaItem from "./record_view_media_list_item";
+import {NavLink} from 'react-router-dom';
 
 @observer class RecordViewMeta extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ import RecordViewGalleryMediaItem from "./record_view_media_list_item";
       <div className="dates">
         <span className="date start-date">{this.props.trayViewStore.record.date_from}</span>
       </div>
-      <div className="creator">By {this.props.trayViewStore.record.user.name}</div>
+      <div className="creator">By <NavLink to={`/map/search?results=true&user_id=${this.props.trayViewStore.record.user.id}`}>{this.props.trayViewStore.record.user.name}</NavLink></div>
     </div>
   }
 }
