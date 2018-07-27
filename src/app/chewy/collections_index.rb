@@ -91,4 +91,27 @@ class CollectionsIndex < Chewy::Index
   def self.published
     filter(terms: {state: ['published']})
   end
+
+  def self.everyone_collections(exclude_user_id: nil)
+    query = {bool: {
+      must: [
+        {term: {write_state: "everyone"}}
+      ]
+    }}
+
+    if exclude_user_id
+      exclude_user_query = {nested: {
+        path: "owner", query: {
+          bool: {
+            must_not: [
+              {match: {"owner.id" => exclude_user_id}}
+            ]
+          }
+        }
+      }}
+      query[:bool][:must] << exclude_user_query
+    end
+
+    filter(query)
+  end
 end

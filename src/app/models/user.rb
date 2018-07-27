@@ -97,7 +97,7 @@ class User < ApplicationRecord
     Collection.includes(:records).where(owner_id: team_user.collect(&:id), owner_type: 'Team')
   end
 
-  def collections
+  def user_collections
     my_collections = Collection.where(owner_id: id, owner_type: 'User')
     collections_granted = self.team_collections_granted
     Collection.includes(:owner, :records).where(id: (my_collections.ids + collections_granted.ids).uniq)

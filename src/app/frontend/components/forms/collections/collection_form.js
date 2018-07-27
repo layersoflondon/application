@@ -26,7 +26,7 @@ import RecordModel from "../../../models/record";
       });
     }
 
-    if( this.props.trayViewStore.cards.size === 0 ) {
+    if( this.props.trayViewStore.cards.size === 0 && !this.props.trayViewStore.locked ) {
       setTimeout(() => {
         this.props.trayViewStore.restoreRootState();
       }, 10);
@@ -52,8 +52,8 @@ import RecordModel from "../../../models/record";
       const collection = CollectionModel.fromJS(response.data);
       this.props.collectionStore.addCollection(collection);
       this.props.router.goBack();
+
     }).catch((response) => {
-      console.log("Error creating collection", response);
       this.props.router.goBack();
     });
   }

@@ -30,7 +30,8 @@ class MapsController < ApplicationController
               terms: {
                 contributor_ids: [current_user.id]
               }
-            }, {
+            },
+            {
               nested: {
                 path: "owner",
                 query: {
