@@ -2,7 +2,7 @@
 
 .m-article {
   max-width: 740px;
-  margin-bottom: 60px;
+  //margin-bottom: 60px;
 }
 
 .m-content .m-article {
@@ -52,7 +52,7 @@
     margin: 1.2em 0 0 0;
   }
 
-  .intro {
+  > p:first-child {
     font-size: 36px;
     line-height: 1.5;
     @include font-display;
@@ -260,8 +260,8 @@
 
   img.alignnone,
   .wp-caption.alignnone {
-    margin-left:0;
-    margin-right:0;
+    margin-left:auto;
+    margin-right:auto;
   }
 
   .aligncenter {
