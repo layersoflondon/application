@@ -4,6 +4,8 @@ class PostDecorator < Draper::Decorator
   include DecoratorConcerns::BasicContent
   include DecoratorConcerns::Images
 
+  decorates_association :sidebar_ctas, with: SidebarCtaDecorator
+
 
   def excerpt
     if has_field?(:excerpt, String) && fields.excerpt.present?
