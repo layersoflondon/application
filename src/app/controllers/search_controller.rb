@@ -9,6 +9,8 @@ class SearchController < ApplicationController
     elsif params[:geobounding].present?
       Rails.logger.info("\n\ngeo query\n\n")
       @results = MultiIndexSearch.filter_by_geobounds(params)
+    elsif params[:user_id].present?
+      @results = RecordsIndex.user_records(params)
     else
       render json: '', status: :bad_request
     end
