@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_26_204036) do
+ActiveRecord::Schema.define(version: 2018_07_27_193413) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(version: 2018_07_26_204036) do
     t.index ["owner_type", "owner_id"], name: "index_collections_on_owner_type_and_owner_id"
   end
 
-  create_table "featured_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "featured_items", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "item_id"
     t.string "item_type"
     t.datetime "created_at", null: false
@@ -281,6 +281,8 @@ ActiveRecord::Schema.define(version: 2018_07_26_204036) do
     t.string "first_name"
     t.string "last_name"
     t.text "metadata"
+    t.boolean "terms_and_conditions_of_use"
+    t.boolean "agrees_to_marketing"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -15,6 +15,10 @@ class User < ApplicationRecord
   serialize :record_likes, Array
   serialize :metadata, Hash
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :terms_and_conditions_of_use, acceptance: {accept: true, message: "need to be accepted"}
+
   # TODO: - users should change the state of their records before being deleted.
   # before_destroy do
   #  records.each {|r| r.make_orphan! }
