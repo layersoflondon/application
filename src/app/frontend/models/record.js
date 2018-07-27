@@ -42,10 +42,6 @@ export default class RecordModel {
   user_can_edit = false;
   user_can_like = true;
 
-  constructor() {
-    this.user_can_edit = true;
-  }
-
   persist() {
     if( this.id ) {
       return Record.update(null, this.id, {record: this.toJS()});
@@ -204,7 +200,8 @@ export default class RecordModel {
       credit: this.credit,
       view_type: this.view_type,
       attachments: this.attachments,
-      user: this.user
+      user: this.user,
+      user_can_edit: this.user_can_edit
     }
   }
 

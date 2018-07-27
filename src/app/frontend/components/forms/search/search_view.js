@@ -80,10 +80,19 @@ import Search from "../../../sources/search";
   }
 
   handleSearchOnClick(event) {
-    const search_params = {
-      q: this.state.q,
-      terms: this.state.terms
-    };
+    const search_params = {};
+
+    if( this.state.q ) {
+      search_params.q = this.state.q;
+    }
+
+    if( this.state.user_id ) {
+      search_params.user_id = this.state.user_id;
+    }
+
+    if( this.state.terms ) {
+      search_params.terms = this.state.terms;
+    }
 
     if( this.state.start_year ) {
       if(!search_params.date_range) search_params.date_range = {};
@@ -120,11 +129,12 @@ import Search from "../../../sources/search";
     }
 
     this.props.trayViewStore.loading = true;
+
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
       const {push} = {...this.props.router};
       const params = serializeQuery(search_params);
-      push(`?results=true&q=${this.state.q}`);
+      // push(`?results=true&q=${this.state.q}`);
       this.setState({showing_results: true});
       this.props.trayViewStore.showCollectionOfCards(response.data, `Searched for ${this.state.q}`);
 
@@ -159,6 +169,7 @@ import Search from "../../../sources/search";
     const query_match = location.search.match(/q=([^$,&]+)/);
     const start_year_match = location.search.match(/date_range\[gte\]=([^-]+)/);
     const end_year_match = location.search.match(/date_range\[lte\]=([^-]+)/);
+    const user_match = location.search.match(/user_id=([^$,&]+)/);
 
     let state = {showing_results: false};
 
@@ -168,6 +179,10 @@ import Search from "../../../sources/search";
 
     if(query_match && query_match.length>1) {
       state.q = query_match[1];
+    }
+
+    if(user_match && user_match.length>1) {
+      state.user_id = user_match[1];
     }
 
     if(start_year_match && start_year_match.length>1) {

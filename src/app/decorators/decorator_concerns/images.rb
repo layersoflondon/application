@@ -5,6 +5,8 @@ module DecoratorConcerns
     def hero_image
       if has_hero_image?
         fields.hero_image[:sizes][:large]
+      else
+        h.image_url('map-2.png')
       end
     end
 

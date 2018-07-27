@@ -51,6 +51,7 @@ import Record from "../sources/record";
       <Route path='/map/layers' component={LayersOverlay} />
       <Route exact path='/map/search' component={SearchView} />
       <Route path='/map/search?results=true&q=:query' component={Tray} />
+      <Route path='/map/search?results=true&user_id=:user_id' component={Tray} />
 
       {/* show the collections form */}
       <Route exact path='/map/collections/new' component={CollectionForm} />

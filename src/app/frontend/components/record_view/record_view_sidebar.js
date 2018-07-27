@@ -23,29 +23,23 @@ import {NavLink} from 'react-router-dom';
       </div>
 
       <div className="social">
-        <div className="add-to-collection">
-          <button><span>Add</span></button>
-          Add to collection
-        </div>
-        {
-          this.props.trayViewStore.record.user_can_edit_record && 
-          <div className="edit-record">
-            <NavLink to={`${this.props.router.history.location.pathname}/edit`}>Edit</NavLink>
-          </div>
-        }
+        {/*<div className="add-to-collection">*/}
+          {/*<button><span>Add</span></button>*/}
+          {/*Add to collection*/}
+        {/*</div>*/}
 
-        <div className="social-status">
-          <button className="like" onClick={() => this.props.trayViewStore.record.incrementLikeCount()}>
-            <span>Like</span>
-          </button>
-          {this.props.trayViewStore.record.view_count} views <br/>
-          {this.props.trayViewStore.record.like_count} likes
-        </div>
+        {/*<div className="social-status">*/}
+          {/*<button className="like" onClick={() => this.props.trayViewStore.record.incrementLikeCount()}>*/}
+            {/*<span>Like</span>*/}
+          {/*</button>*/}
+          {/*{this.props.trayViewStore.record.view_count} views <br/>*/}
+          {/*{this.props.trayViewStore.record.like_count} likes*/}
+        {/*</div>*/}
 
-        <div className="share-record">
-          <button className="share"><span>Share</span></button>
-          Share this record
-        </div>
+        {/*<div className="share-record">*/}
+          {/*<button className="share"><span>Share</span></button>*/}
+          {/*Share this record*/}
+        {/*</div>*/}
       </div>
     </div>
   }

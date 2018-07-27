@@ -13,6 +13,8 @@ if attachment # Avoid nil attachment
     json.url attachment.url
   end
 
+  json.attachable attachment.attachable.data
+
   if attachment.has_image?
     json.is_primary attachment.is_primary?
   end

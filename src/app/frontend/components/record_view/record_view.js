@@ -8,6 +8,7 @@ import RecordViewComponentState from "./record_view_component_state";
 
 import RecordViewHeader from './record_view_header';
 import RecordViewContent from './record_view_content';
+import RecordViewFooter from './record_view_footer';
 
 @observer class RecordView extends Component {
   constructor(props) {
@@ -76,7 +77,11 @@ import RecordViewContent from './record_view_content';
               <div className="footer-actions">
                 <button className="contact-owner">Contact owner</button>
                 <button className="flag">Report this record</button>
-                <NavLink to={`${link_path}/records/${this.props.match.params.id}/edit`} className="edit">Edit</NavLink>
+
+                {
+                  this.props.trayViewStore.record.user_can_edit_record &&
+                  <NavLink to={`${link_path}/records/${this.props.match.params.id}/edit`} className="edit">Edit</NavLink>
+                }
               </div>
             </div>
 
@@ -109,6 +114,7 @@ import RecordViewContent from './record_view_content';
             <div className="wrap">
               <RecordViewHeader  {...this.props} gallery={header_gallery_component} />
               <RecordViewContent {...this.props} gallery={content_gallery_component} />
+              <RecordViewFooter  {...this.props} />
 
               {this.props.children}
             </div>
