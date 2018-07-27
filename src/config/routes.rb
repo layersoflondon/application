@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
 
+  # Alpha redirects
+  get '/map/pins/:id', to: redirect('/map/records/%{id}')
+  get '/the-map', to: redirect('/map')
+
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get 'posts/show'
