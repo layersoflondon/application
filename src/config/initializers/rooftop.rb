@@ -9,7 +9,8 @@ if defined?(Rooftop)
     }
     
     config.post_type_mapping = {
-      menu: Rooftop::Menus::Menu
+      menu: Rooftop::Menus::Menu,
+      attachment: Rooftop::MediaItem
     }
 
     # if Rails.env.development?

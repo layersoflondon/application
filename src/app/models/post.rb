@@ -2,6 +2,8 @@
 class Post
   include Rooftop::Post
 
+  self.write_advanced_fields = true
+
   BLOG_CATEGORY_ID = 6
   EVENT_CATEGORY_ID = 4
 
