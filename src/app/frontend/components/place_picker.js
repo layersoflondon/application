@@ -14,10 +14,6 @@ import {observer, inject} from "mobx-react";
 
     if( this.props.trayViewStore.tray_is_visible ) {
       this.props.trayViewStore.toggleTrayVisibility();
-
-      setTimeout(() => {
-        this.props.mapViewStore.map_ref.leafletElement.invalidateSize();
-      }, 250);
     }
   }
 

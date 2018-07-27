@@ -36,6 +36,9 @@ export default class RecordModel {
 
   @observable view_type = null;
 
+  user_collections = [];
+  everyone_collections = [];
+
   persist() {
     if( this.id ) {
       return Record.update(null, this.id, {record: this.toJS()});
