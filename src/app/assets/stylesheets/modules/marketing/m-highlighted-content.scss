@@ -44,3 +44,47 @@
   font-weight: 600;
   font-size: 26px;
 }
+
+.m-highlighted-content .m-record-card {
+  
+}
+
+.m-highlighted-content .m-record-card:nth-child(10n+1) {
+  background: $navy url('../assets/images/placeholder/wide-01.svg') center/cover;
+}
+
+.m-highlighted-content .m-record-card:nth-child(10n+2) {
+  background: $red url('../assets/images/placeholder/wide-02.svg') center/cover;
+}
+
+.m-highlighted-content .m-record-card:nth-child(10n+3) {
+  background: $lilac url('../assets/images/placeholder/wide-03.svg') center/cover;
+}
+
+.m-highlighted-content .m-record-card:nth-child(10n+4) {
+  background: $green url('../assets/images/placeholder/wide-04.svg') center/cover;
+}
+
+.m-highlighted-content .m-record-card:nth-child(10n+5) {
+  background: $black url('../assets/images/placeholder/wide-05.svg') center/cover;
+}
+
+.m-highlighted-content .m-record-card:nth-child(10n+6) {
+  background: $navy url('../assets/images/placeholder/wide-06.svg') center/cover;
+}
+
+.m-highlighted-content .m-record-card:nth-child(10n+7) {
+  background: $yellow url('../assets/images/placeholder/wide-07.svg') center/cover;
+}
+
+.m-highlighted-content .m-record-card:nth-child(10n+8) {
+  background: $orange url('../assets/images/placeholder/wide-08.svg') center/cover;
+}
+
+.m-highlighted-content .m-record-card:nth-child(10n+9) {
+  background: $red url('../assets/images/placeholder/wide-09.svg') center/cover;
+}
+
+.m-highlighted-content .m-record-card:nth-child(10n+10) {
+  background: $navy url('../assets/images/placeholder/wide-10.svg') center/cover;
+}
