@@ -7,7 +7,9 @@ import {observer} from "mobx-react";
   constructor(props){
     super(props);
 
-    this.state = {url: this.props.object.attachable.url, type: this.props.object.media_type, title: this.props.title, caption: this.props.caption, credit: this.props.credit};
+    console.log("Attachable", this.props.object);
+
+    this.state = {url: this.props.object.url, type: this.props.object.media_type, title: this.props.title, caption: this.props.caption, credit: this.props.credit};
   }
 
   setCurrentMediaItem(event) {
