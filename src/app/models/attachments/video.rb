@@ -14,11 +14,8 @@ class Attachments::Video < ApplicationRecord
     {
       content_type: "url/video",
       youtube_id: youtube_id,
-      image: {
-        card: poster,
-        large: poster,
-        thumb: poster
-      },
+      card: poster,
+      large: poster,
       thumb: poster,
       poster: poster
     }
