@@ -76,6 +76,9 @@ import RecordModel from './../../../models/record';
       this.props.trayViewStore.locked = false;
       this.props.router.push(`/map`);
     }
+
+    this.props.mapViewStore.add_record_mode = false;
+    this.props.trayViewStore.tray_is_visible = true;
   }
 
   render() {

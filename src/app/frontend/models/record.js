@@ -45,7 +45,7 @@ export default class RecordModel {
   constructor() {
     this.user_can_edit = true;
   }
-  
+
   persist() {
     if( this.id ) {
       return Record.update(null, this.id, {record: this.toJS()});
