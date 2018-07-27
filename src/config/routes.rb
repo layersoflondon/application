@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # Alpha redirects
   get '/map/pins/:id', to: redirect('/map/records/%{id}')
   get '/the-map', to: redirect('/map')
+  get '/search', to: redirect('/map/search')
 
 
   devise_for :admin_users, ActiveAdmin::Devise.config
