@@ -36,6 +36,9 @@ import Record from "../sources/record";
     }
 
     return <div className={className}>
+
+      <div className="m-beta-message"><strong>This is a beta release.</strong> You might find some bugs while we finish things off. <a href="https://beta.layersoflondon.org/about/beta-launch">Read more.</a></div>
+
        {/*permanantly visible components */}
       <Route path='*' component={Tools} />
       <Route path='*' component={MapView} />

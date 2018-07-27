@@ -7,21 +7,12 @@
         <div class="m-article-list">
             <% posts.each do |post| %>
                 <% if post.blog? %>
-                <%= render 'pages/post', post: post %>
+                    <%= render 'pages/post_leader', post: post %>
                 <% elsif post.event? %>
+                    <%= render 'pages/event_leader', post: post %>
                 <% end %>
 
             <% end %>
-        </div>
-
-        <div class="m-layermaker-banner">
-            <div class="title-wrapper">
-                <h2 class="subtitle">Volunteer for Layers of London</h2>
-                <h3 class="title">Become a layer maker</h3>
-            </div>
-            <p>Praesent vel lectus non est semper condimentum. Sed dictum, tortor nec sagittis ultrices, risus nulla
-                pretium arcu.</p>
-            <a class="button">Let's do it</a>
         </div>
 
     </main>

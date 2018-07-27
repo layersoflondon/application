@@ -18,7 +18,7 @@
       <h2>Your collections</h2>
       <h3>Created by you</h3>
       <ul class="created-by-you">
-        <% current_user.collections.each do |collection | %>
+        <% current_user.user_collections.each do |collection | %>
           <li>
             <a href="#" class="clickable" data-type="collection" data-id="<%= collection.id %>">
               <%= collection.title %>

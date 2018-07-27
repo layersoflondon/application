@@ -19,9 +19,9 @@ GIT
 
 GIT
   remote: https://github.com/rooftopcms/rooftop-ruby
-  revision: 865a6e656a24aa6f1dc786d7d4b6bd9f4afccc62
+  revision: f80bc42b0070c71bbce07a8adfaac95ab88ae4d2
   specs:
-    rooftop (1.1.6)
+    rooftop (1.1.7)
       activesupport (>= 4, < 6)
       faraday-http-cache (~> 1.2)
       her (~> 1.0)

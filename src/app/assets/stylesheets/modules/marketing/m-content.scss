@@ -4,6 +4,7 @@
   width: 70%;
   margin:0 auto 0;
   padding: 60px;
+  @include clearfix;
 }
 
 .m-sidebar + .m-content {
@@ -16,4 +17,13 @@
 .m-content .title {
   margin-top:0;
   margin-bottom:50px;
+}
+
+.main--article .m-content {
+  width: 70%;
+  margin: -100px auto 0;
+  padding: 60px;
+  background:white;
+  position: relative;
+
 }

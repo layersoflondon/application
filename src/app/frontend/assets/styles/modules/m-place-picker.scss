@@ -23,3 +23,11 @@
   display:inline-block;
   color:white;
 }
+
+.m-place-picker .close {
+  display: inline-block;
+  margin: auto -15px -5px auto;
+  width: 1em;
+  height: 1em;
+  background: url('../assets/images/icon-close.svg') center no-repeat;
+}

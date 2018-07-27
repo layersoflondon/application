@@ -44,7 +44,7 @@ export default class TrayViewStore {
     observe(this, 'tray_is_visible', (change) => {
       setTimeout(() => {
         this.map_ref.leafletElement.invalidateSize();
-      }, 250);
+      }, 500);
     });
 
     // mutating the visible_record_id will fetch that record and update the RecordView component with the relevant state
@@ -130,6 +130,16 @@ export default class TrayViewStore {
     });
   }
 
+  reloadTrayData() {
+    this.loading = true;
+
+    Search.perform({q: "test"}).then((response) => {
+      this.showCollectionOfCards(response.data);
+    }).then(() => {
+      this.loading = false;
+    });
+  }
+
   moveToNextCard() {
     // const current_card = this.card_store.cards.find((c) => c.id === this.visible_record_id);
     // const current_index = this.card_store.cards.indexOf(current_card);
@@ -198,12 +208,18 @@ export default class TrayViewStore {
    * fixme: we might want to look at expiring this previous set and fetching updated data...
    */
   restoreRootState() {
-    if(this.previous_cards && this.previous_cards.size) {
-      // this.cards = this.previous_cards;
-      this.reloadTrayDataForBounds(this.boundsFromMapRef);
-    }else {
-      this.reloadTrayDataForBounds(this.boundsFromMapRef);
-    }
+    this.reloadTrayDataForBounds(this.boundsFromMapRef);
+
+    // if(this.previous_cards && this.previous_cards.size) {
+    //   // this.cards = this.previous_cards;
+    //   this.reloadTrayDataForBounds(this.boundsFromMapRef);
+    // }else {
+    //   this.reloadTrayDataForBounds(this.boundsFromMapRef);
+    // }
+  }
+
+  fetchTrayData() {
+    this.reloadTrayDataForBounds(this.boundsFromMapRef);
   }
 
   /**
