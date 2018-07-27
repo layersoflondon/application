@@ -1,3 +1,4 @@
+
 class Post
   include Rooftop::Post
 
