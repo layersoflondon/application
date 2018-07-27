@@ -7,7 +7,7 @@ import {inject} from "mobx-react/index";
 import Record from "../../../sources/record";
 import RecordModel from "../../../models/record";
 
-@inject('router', 'mapViewStore', 'collectionStore', 'layersStore')
+@inject('router', 'mapViewStore', 'collectionStore', 'layersStore', 'trayViewStore')
 @withRouter
 @observer export default class CollectionForm extends Component {
   constructor(props) {
@@ -24,6 +24,12 @@ import RecordModel from "../../../models/record";
       }).catch((response) => {
         console.log("Error creating collection", response.data);
       });
+    }
+
+    if( this.props.trayViewStore.cards.size === 0 ) {
+      setTimeout(() => {
+        this.props.trayViewStore.restoreRootState();
+      }, 10);
     }
   }
 
@@ -45,11 +51,10 @@ import RecordModel from "../../../models/record";
     Collection.create(null, {collection: this.state}).then((response) => {
       const collection = CollectionModel.fromJS(response.data);
       this.props.collectionStore.addCollection(collection);
-
-      const {push} = {...this.props.router};
-      push(`/map`);
+      this.props.router.goBack();
     }).catch((response) => {
       console.log("Error creating collection", response);
+      this.props.router.goBack();
     });
   }
 
@@ -99,14 +104,14 @@ import RecordModel from "../../../models/record";
                 <label>
                   <input type="radio" name="write_state" checked={this.state.write_state=="creator"} value="creator" onChange={this.handleOnChange.bind(this)} /><span>Just you</span>
                 </label>
-                <label>
-                  <input type="radio" name="write_state" checked={this.state.write_state=="team"} value="team" onChange={this.handleOnChange.bind(this)} /><span>Members of</span>
-                    <select className="in-context-input" placeholder="Team" name="team_id" onChange={this.handleOnChange.bind(this)} disabled={this.state.write_state!="team"}>
-                      <option value="1" checked={this.state.team_id == "1"} onChange={this.handleOnChange.bind(this)}>Team One</option>
-                      <option value="2" checked={this.state.team_id == "2"} onChange={this.handleOnChange.bind(this)}>Team Two</option>
-                      <option value="3" checked={this.state.team_id == "3"} onChange={this.handleOnChange.bind(this)}>Team Three</option>
-                    </select>
-                </label>
+                {/*<label>*/}
+                  {/*<input type="radio" name="write_state" checked={this.state.write_state=="team"} value="team" onChange={this.handleOnChange.bind(this)} /><span>Members of</span>*/}
+                    {/*<select className="in-context-input" placeholder="Team" name="team_id" onChange={this.handleOnChange.bind(this)} disabled={this.state.write_state!="team"}>*/}
+                      {/*<option value="1" checked={this.state.team_id == "1"} onChange={this.handleOnChange.bind(this)}>Team One</option>*/}
+                      {/*<option value="2" checked={this.state.team_id == "2"} onChange={this.handleOnChange.bind(this)}>Team Two</option>*/}
+                      {/*<option value="3" checked={this.state.team_id == "3"} onChange={this.handleOnChange.bind(this)}>Team Three</option>*/}
+                    {/*</select>*/}
+                {/*</label>*/}
                 <label>
                   <input type="radio" name="write_state" checked={this.state.write_state=="everyone"} value="everyone" onChange={this.handleOnChange.bind(this)} /><span>Anyone</span>
                 </label>
