@@ -212,6 +212,7 @@
 
   .wp-caption {
     background: $red;
+    clear:both;
   }
 
   .wp-caption img {
@@ -255,6 +256,12 @@
     @include mq(smartphone) {
       margin-right: -15px;
     }
+  }
+
+  img.alignnone,
+  .wp-caption.alignnone {
+    margin-left:0;
+    margin-right:0;
   }
 
   .aligncenter {

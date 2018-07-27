@@ -33,6 +33,10 @@
   float: right;
 }
 
+.m-navigation .user-actions a {
+  color:$yellow;
+}
+
 .m-navigation .is-current a {
   color:$yellow;
   cursor:default;

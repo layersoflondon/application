@@ -1,0 +1,12 @@
+<div class="article-leader article-leader--event">
+
+    <div class="text-content">
+        <div class="tag">Event</div>
+        <%= link_to post_path(post.slug) do %>
+        <h2 class="title"><%= post.title %></h2>
+        <% end %>
+
+        <p><%= post.excerpt.html_safe %></p>
+    </div>
+
+</div>

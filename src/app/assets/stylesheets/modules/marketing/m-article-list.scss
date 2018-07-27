@@ -1,0 +1,77 @@
+/* Article list */
+
+.m-article-list {
+  width: 65%;
+  margin: 0 auto 0;
+  z-index: 100;
+  position: relative;
+}
+
+.m-article-list .article-leader {
+  background: white;
+  margin-bottom: 40px;
+  @include top-and-tail;
+  margin-left: -40px;
+  padding: 50px 60px;
+}
+
+.m-article-list .article-leader:nth-child(even) {
+  margin-left: 0;
+  margin-right: -40px;
+}
+
+.m-article-list .tag {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: white;
+  background: #b5b5b5;
+  width: 90px;
+  height: 30px;
+  text-align: center;
+  padding-top: 5px;
+  float: left;
+  margin-top: -50px;
+}
+
+.m-article-list h2 {
+  font-size: 36px;
+  line-height: 1.5;
+  font-family: 'Zilla Slab', serif;
+  font-weight: 400;
+  color: $green;
+  margin-top: 0;
+  @include link-arrow;
+  margin-top: 0;
+  transition: all .2s;
+}
+
+.m-article-list a:hover h2 {
+  color: $red;
+}
+
+.m-article-list h2:before {
+  float: right;
+  margin: -20px -90px 0 0;
+  font-size: 30px;
+  background: $green;
+  width: 80px;
+  height: 80px;
+  color: white;
+  text-align: center;
+  transition: all .2s;
+  padding-top: 24px;
+}
+
+.m-article-list a:hover h2:before {
+  background: $red;
+}
+
+.m-article-list .text-content {
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.m-article-list p {
+  padding-right:10%;
+}

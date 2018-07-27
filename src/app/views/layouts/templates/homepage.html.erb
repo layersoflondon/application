@@ -9,7 +9,7 @@
       </div>
       <div class="text-content">
         <!--<span class="surtitle">Layers of London</span>-->
-        <h1 class="viewable">Recording the rich layers of heritage across London</h1>
+        <h1 class="viewable"><%= strip_tags(page.content) %></h1>
           <%= link_to "Start exploring", map_path %>
       </div>
     </div>
@@ -18,41 +18,20 @@
         <%= render partial: "shared/feature_record_card", collection: featured_items %>
     </div>
     <%= render 'pages/big_search' %>
-    <div class="m-home-cta-block">
-      <div class="image"></div>
-      <div class="text-content viewable">
-        <h3>Tell your story</h3>
-        <div class="description">
-          <p>Tortor libero sagittis mi, pellentesque dignissim tellus nisl ut tortor. Nulla eu enim risus.
-            Aenean porta ligula.
-          </p>
-        </div>
-        <a class="button" href="#">Get started</a>
-      </div>
-    </div>
-    <div class="m-home-cta-block m-home-cta-block--flipped">
-      <div class="image"></div>
-      <div class="text-content viewable">
-        <h3>Fancy being a Layers of London map maker?</h3>
-        <div class="description">
-          <p>We’ve a lot of hard work to do to get our historic maps look more accurate. You can help out by
-            fixing some old maps.
-          </p>
-        </div>
-        <a class="button" href="#">Let's do it</a>
-      </div>
-    </div>
-    <div class="m-home-cta-block m-home-cta-block--gray">
-      <div class="image"></div>
-      <div class="text-content viewable">
-        <span class="surtitle">Featurette </span>
-        <h3>A History of Feminism in London</h3>
-        <div class="description">
-          <p>Donec egestas dolor non felis semper feugiat. Morbi pretium eget.</p>
-        </div>
-        <a class="button" href="#">Let's do it</a>
-      </div>
-    </div>
+    <% page.homepage_ctas.each_with_index do |cta,i| %>
+        <%
+            class_name = case
+                when (i+1)%2 == 0
+                  "m-home-cta-block--flipped"
+                when (i+1)%3 == 0
+                  "m-home-cta-block--gray"
+                else
+                    ""
+        %>
+
+<% end %> %>
+        <%= render partial: "pages/homepage_cta", locals: {class: class_name, homepage_cta: cta} %>
+    <% end %>
 
 <% end %>
 
