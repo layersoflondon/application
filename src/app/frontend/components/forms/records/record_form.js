@@ -82,7 +82,7 @@ import RecordModel from './../../../models/record';
     if( this.props.match.params.id && parseInt(this.props.match.params.id, 10) !== this.props.recordFormStore.record.id ) {
       // fixme: show a spinner here whilst we load the record we're editing
       return <div className="spinner" />
-    }else if( !this.props.recordFormStore.record.user_can_edit_record ) {
+    }else if( this.props.recordFormStore.record.id && !this.props.recordFormStore.record.user_can_edit_record ) {
       return <div className='m-overlay'>
         <div className="close">
           <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>

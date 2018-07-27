@@ -39,6 +39,13 @@ export default class RecordModel {
   user_collections = [];
   everyone_collections = [];
 
+  user_can_edit = false;
+  user_can_like = true;
+
+  constructor() {
+    this.user_can_edit = true;
+  }
+  
   persist() {
     if( this.id ) {
       return Record.update(null, this.id, {record: this.toJS()});
