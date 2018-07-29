@@ -1,3 +1,5 @@
+ActiveAdmin::BaseController.send(:skip_before_action, :authenticate_user!)
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
