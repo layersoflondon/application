@@ -15,7 +15,7 @@ set :prelaunch_domain, ->{"#{fetch(:primary_domain)}.#{fetch(:base_domain)}"}
 #domains which this site will answer to (i.e. not redirect)
 set :site_domains, [fetch(:primary_domain)]
 #redirects domains to the primary domain as a 301
-set :domain_redirects, %w(alpha.layersoflondon.org www.layersoflondon.org)
+set :domain_redirects, %w(alpha.layersoflondon.org www.layersoflondon.org layersoflondon.org)
 
 #rewrites in nginx format - useful for specifying hard-coded urls for redirection after launch
 
