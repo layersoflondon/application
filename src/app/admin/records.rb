@@ -11,7 +11,18 @@ ActiveAdmin.register Record do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-  remove_filter :primary_image
+#
+#
+  controller do
+    def scoped_collection
+      super.includes(:user).references(:user)
+    end
+
+  end
+
+  filter :title
+  filter :user
+
 
   index do
     column :id
