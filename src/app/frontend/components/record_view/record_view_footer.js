@@ -27,7 +27,7 @@ import {NavLink} from 'react-router-dom';
         <div className="footer-actions">
           {/*<button className="contact-owner">Contact owner</button>*/}
           {/*<button className="flag">Report this record</button>*/}
-          <a href={`mailto:lol@sas.ac.uk?subject=${subject}`}>Report this record</a>
+          <a href={`mailto:layersoflondon@lon.ac.uk?subject=${subject}`}>Report this record</a>
 
           {
             this.props.trayViewStore.record.user_can_edit_record &&
