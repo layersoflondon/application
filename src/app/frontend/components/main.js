@@ -41,8 +41,9 @@ import Record from "../sources/record";
 
        {/*permanantly visible components */}
       <Route path='*' component={Tools} />
-      <Route path='*' component={MapView} />
       <Route path='*' component={Tray} />
+      <Route path='/map' component={MapView} />
+      <Route exact path='/map?:lat/:lng' component={MapView} />
 
       {/* Various Overlays ... */}
       <Route exact path='/map/account' component={UserForm} />

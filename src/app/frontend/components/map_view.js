@@ -7,6 +7,8 @@ import {observer, inject} from "mobx-react";
 
 import LayerToolsContainer from './layer_tools_container';
 
+import queryString from 'query-string'
+
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapView extends Component {
   constructor(props) {
@@ -31,7 +33,6 @@ import LayerToolsContainer from './layer_tools_container';
   }
 
   handleOnZoomEnd() {
-
     if(!this.props.trayViewStore.locked) {
       this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
     }
