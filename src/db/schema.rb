@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(version: 2018_07_27_193413) do
     t.index ["owner_type", "owner_id"], name: "index_collections_on_owner_type_and_owner_id"
   end
 
-  create_table "featured_items", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "featured_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "item_id"
     t.string "item_type"
     t.datetime "created_at", null: false
