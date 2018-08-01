@@ -34,4 +34,9 @@
   url: https://maps.tilehosting.com/c/1df1ac08-8dde-4875-bda5-dbb044c43268/styles/hybrid/{z}/{x}/{y}.jpg?key=23hrAY6lilqs9xizcz03
   date: 2018-01-01
   image: satellite.png
-
+-
+  title: RAF Aerial Collection (1945-1949)
+  description: RAF Aerial Collection (1945-1949)
+  url: https://maps.tilehosting.com/c/1df1ac08-8dde-4875-bda5-dbb044c43268/data/RAF-2018-07-30/{z}/{x}/{y}?key=23hrAY6lilqs9xizcz03
+  date: 1945-01-01
+  image: raf.png
