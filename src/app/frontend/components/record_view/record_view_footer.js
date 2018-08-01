@@ -8,6 +8,11 @@ import {NavLink} from 'react-router-dom';
     super(props);
   }
 
+  showOnMap() {
+    this.props.mapViewStore.panTo(this.props.trayViewStore.record.lat, this.props.trayViewStore.record.lng);
+    this.props.trayViewStore.record_id = null;
+  }
+
   render() {
     const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
 
@@ -27,6 +32,9 @@ import {NavLink} from 'react-router-dom';
         <div className="footer-actions">
           {/*<button className="contact-owner">Contact owner</button>*/}
           {/*<button className="flag">Report this record</button>*/}
+
+          <button onClick={this.showOnMap.bind(this)}>See on map</button>
+
           <a href={`mailto:layersoflondon@lon.ac.uk?subject=${subject}`}>Report this record</a>
 
           {
