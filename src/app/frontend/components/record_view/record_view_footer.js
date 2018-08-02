@@ -14,7 +14,17 @@ import {NavLink} from 'react-router-dom';
     if( card ) {
       card.highlighted = true;
     }
+
     this.props.trayViewStore.record_id = null;
+
+    const matches = this.props.router.location.pathname.match(/^(\/map\/collections\/\d+)\/records/);
+
+    console.log(matches);
+    if( matches && matches.length>1 ) {
+      this.props.router.push(matches[1]);
+    }else {
+      this.props.router.push('/map');
+    }
   }
 
   render() {
