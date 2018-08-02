@@ -15,12 +15,8 @@ json.set! :data do
   end
 
   json.set! :map do
-    json.zoom 10
-    if records.first
-      json.center records.sample.pin.values
-    else
-      json.center [51.55, -0.08]
-    end
+    json.zoom Rails.configuration.x.map_zoom
+    json.center Rails.configuration.x.map_centre.values
   end
 end
 

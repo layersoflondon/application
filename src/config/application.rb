@@ -19,6 +19,11 @@ module LayersApp
     config.autoload_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
     config.eager_load_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
 
+    config.x.map_centre = {
+      lat: 51.5074, lng: 0.1278
+    }
+    config.x.map_zoom = 10
+
     config.x.image_variants = {
       marker: {
         thumbnail: "200x200",
