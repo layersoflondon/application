@@ -16,6 +16,8 @@
     </script>
     <%= stylesheet_pack_tag 'styles', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
+
+    <%= render partial: "shared/gtm" unless Rails.env.development? %>
 </head>
 
 <body>
