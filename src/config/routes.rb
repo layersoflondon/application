@@ -28,7 +28,6 @@ Rails.application.routes.draw do
              }
 
 
-
   resources :records, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]
     member do
@@ -60,7 +59,6 @@ Rails.application.routes.draw do
   end
 
 
-
   resource :map, controller: 'maps' do
     match '/state', via: :get, to: 'maps#state', as: :map_state, format: :json
     match "/*resource/:action_name/:id(.:extension)", via: [:get], to: "maps#show", as: :resource_action
@@ -83,5 +81,5 @@ Rails.application.routes.draw do
 
   # IMPORTANT: this is a greedy catchall route - it needs to be the last route in the file.
   #         # IMPORTANT: this is a greedy catchall route - it needs to be the last route in the file.
-  match "/*nested_path(.:extension)", via: [:get], to: "pages#show", as: :page, constraints: ->(request) { request.path.exclude?('rails/active_storage') && (request.format == :html || request.format == '*/*') }
+  match "/*nested_path(.:extension)", via: [:get], to: "pages#show", as: :page, constraints: ->(request) {request.path.exclude?('rails/active_storage') && (request.format == :html || request.format == '*/*')}
 end

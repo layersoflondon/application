@@ -2,7 +2,7 @@
 
 .main--user-function-form {
   //margin-top: -200px;
-  padding-top:200px;
+  padding-top: 200px;
 }
 
 .main--user-function-form .background {
@@ -73,7 +73,17 @@
 }
 
 .m-user-function-form em {
-  font-style:normal;
-  opacity:0.6;
+  font-style: normal;
+  opacity: 0.6;
   font-size: 14px;
+}
+
+.m-user-function-form .introduction {
+  margin-top: -30px;
+  margin-bottom: 50px;
+  @include top-and-tail;
+}
+
+.m-user-function-form input[type="submit"] {
+  width: auto;
 }

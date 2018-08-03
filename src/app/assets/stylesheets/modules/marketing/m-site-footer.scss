@@ -2,8 +2,8 @@
 
 .m-site-footer {
   padding: 80px;
-  clear:both;
-  font-size:14px;
+  clear: both;
+  font-size: 14px;
 }
 
 .m-site-footer .copyright {
@@ -11,13 +11,16 @@
   opacity: 0.3;
 }
 
+.m-site-footer .footer-navigation {
+  clear: both;
+}
+
 .m-site-footer .user-actions {
-  float: left;
   @include unlist;
 }
 
 .m-site-footer .user-actions a {
-  color:$yellow;
+  color: $yellow;
 }
 
 .m-site-footer .user-actions li {
@@ -26,38 +29,41 @@
 }
 
 .m-site-footer .partners {
-  clear:both;
+  clear: both;
   margin-bottom: 50px;
+  float: left;
+  width: 75%;
 }
 
 .m-site-footer .partners h3 {
-  display:none;
+  display: none;
 }
 
 .m-site-footer .partners .image {
-  width:100px;
-  height:100px;
-  background:#ccc;
+  width: 100px;
+  height: 100px;
+  background: #ccc;
 }
 
 .m-site-footer .partners ul {
   @include unlist;
-  text-align:left;
+  text-align: left;
 }
 
 .m-site-footer .partners li {
   display: inline-block;
-  margin-right: 70px;
+  //margin-right: 70px;
   filter: invert(100%);
+  width: 33%;
+  padding-right: 70px;
 }
 
 .m-site-footer .partners li img {
-  width: 360px;
+  //width: 360px;
   max-width: 100%;
   opacity: 0.3;
-  transition:all .2s;
+  transition: all .2s;
 }
-
 
 .m-site-footer .partners li:first-child img {
   width: 300px;
@@ -65,4 +71,25 @@
 
 .m-site-footer .partners li a:hover img {
   opacity: 1;
+}
+
+.m-site-footer .credentials {
+  margin-bottom: 50px;
+  float: left;
+  width: 25%;
+}
+
+.m-site-footer .credentials ul {
+  @include unlist;
+  text-align: left;
+}
+
+.m-site-footer .credentials ul li {
+  padding-left: 70px;
+}
+
+.m-site-footer .credentials li img {
+  max-width: 100%;
+  opacity: 0.3;
+  transition: all .2s;
 }
