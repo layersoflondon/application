@@ -1,16 +1,25 @@
 <div class="m-site-footer">
-  <div class="partners">
-    <h3>Partners & Supporters</h3>
-    <ul>
-      <li><a href="https://sas.ac.uk/"><%= image_tag('logo-sas.png', alt: "School of Advanced Study") %></a></li>
-      <li><a href="https://www.hlf.org.uk/"><%= image_tag('logo-lottery.png', alt: "The Heritage Lottery Fund") %></a></li>
-      <li><a href="https://www.hlf.org.uk/"><%= image_tag('logo-ihr.png', alt: "Institute of Historical Research") %></a></li>
-    </ul>
-  </div>
-  <div class="footer-navigation">
+    <div class="partners">
+        <h3>Partners & Supporters</h3>
+        <ul>
+            <li><a href="https://sas.ac.uk/"><%= image_tag('logo-sas.png', alt: "School of Advanced Study") %></a></li>
+            <li>
+                <a href="https://www.hlf.org.uk/"><%= image_tag('logo-lottery.png', alt: "The Heritage Lottery Fund") %></a>
+            </li>
+            <li>
+                <a href="https://www.hlf.org.uk/"><%= image_tag('logo-ihr.png', alt: "Institute of Historical Research") %></a>
+            </li>
+        </ul>
+    </div>
+    <div class="credentials">
+        <ul>
+            <li><a href="https://creativecommons.org/"><%= image_tag('logo-cc.svg', alt: "Creative Commons") %></a></li>
+        </ul>
+    </div>
+    <div class="footer-navigation">
 
-    <%= menu_for(@footer_navigation_menu, class: 'user-actions', current_class: 'is-current') %>
-  </div>
+        <%= menu_for(@footer_navigation_menu, class: 'user-actions', current_class: 'is-current') %>
+    </div>
 
-  <div class="copyright"><%= Date.today.year %> &copy; Layers of London</div>
+    <div class="copyright"><%= Date.today.year %> &copy; Layers of London</div>
 </div>
