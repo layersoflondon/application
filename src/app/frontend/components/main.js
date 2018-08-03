@@ -9,6 +9,7 @@ import Tray from './tray';
 import MapView from './map_view';
 import SearchView from './forms/search/search_view';
 import RecordView from './record_view_wrapper';
+import RecordViewReport from './record_view/record_view_report';
 import MediaView from './media_view';
 import MediaItem from './media_item';
 import CollectionView from './collection_view';
@@ -69,6 +70,13 @@ import ErrorBoundary from "./error_boundary";
 
       {/* view a record */}
       <Route exact path='/map/records/:id' component={RecordView} />
+      <Route exact path='/map/records/:id/report' render={({match, location}) => (
+        <ErrorBoundary>
+          <RecordView>
+            <RecordViewReport />
+          </RecordView>
+        </ErrorBoundary>
+      )} />
 
       {/*<Route exact={true} path='/map/' render={() => (*/}
         {/*<Redirect to='/map' />*/}
