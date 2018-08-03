@@ -2,11 +2,11 @@
 
 .m-place-picker {
   position: absolute;
-  width: 100%;
-  text-align: center;
-  //display:none;
   z-index: 9999;
-  padding-left: 125px;
+  max-width:90%;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .showing-place-picker .m-place-picker {
@@ -23,7 +23,6 @@
   background:rgba(0,0,0,0.8);
   display:inline-block;
   color:white;
-  margin-right: 125px;
 }
 
 .m-place-picker .close {

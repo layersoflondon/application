@@ -6,27 +6,30 @@
 
 .m-navigation li {
   display: inline;
-  margin-right:20px;
+  margin-right: 20px;
+}
+
+.m-navigation li:last-child {
+  margin-right: 0;
 }
 
 .m-navigation li.is-current {
   display: inline;
-  margin-right:20px;
-  background: rgba(0,0,0,0.5);
+  margin-right: 20px;
+  background: rgba(0, 0, 0, 0.5);
   padding: 4px 6px;
-  color:$yellow;
+  color: $yellow;
 }
 
 .m-navigation a {
-  color:white;
-  //text-transform:uppercase;
-  font-size:20px;
+  color: white;
+  font-size: 20px;
   @include font-display;
   font-weight: 600;
 }
 
 .m-navigation a:hover {
-  color:$yellow;
+  color: $yellow;
 }
 
 .m-navigation .user-actions {
@@ -34,10 +37,10 @@
 }
 
 .m-navigation .user-actions a {
-  color:$yellow;
+  color: $yellow;
 }
 
 .m-navigation .is-current a {
-  color:$yellow;
-  cursor:default;
+  color: $yellow;
+  cursor: default;
 }
