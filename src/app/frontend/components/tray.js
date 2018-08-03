@@ -1,11 +1,10 @@
 import React,{Component} from 'react';
-import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import {NavLink, withRouter} from 'react-router-dom';
-import Parser from 'html-react-parser';
 
 import Card from './card';
 import {inject} from "mobx-react/index";
+import ErrorBoundary from "./error_boundary";
 
 @inject('router', 'trayViewStore', 'mapViewStore')
 @observer export default class Tray extends Component {
@@ -30,7 +29,7 @@ import {inject} from "mobx-react/index";
   render() {
     const cards = this.props.trayViewStore.cards.values().map( (c) => {
       const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;
-      return <Card key={key} card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
+      return <ErrorBoundary key={key}><Card card={c} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} /></ErrorBoundary>
     });
 
     let trayClassName = "m-tray-area";

@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
-
 import MarkerContainer from './marker_container';
-
 import {observer, inject} from "mobx-react";
-
 import LayerToolsContainer from './layer_tools_container';
-
-import queryString from 'query-string'
+import ErrorBoundary from './error_boundary';
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapView extends Component {
@@ -78,10 +74,10 @@ import queryString from 'query-string'
         if( c.is_collection ) {
           c.data.records.map((r)=> {
             key = `collection_${c.id}_record_${r.id}`;
-            markers.push( <MarkerContainer key={key} position={r.position} record={r} cardComponent={c} trayViewStore={this.props.trayViewStore} /> )
+            markers.push( <ErrorBoundary key={key}><MarkerContainer position={r.position} record={r} cardComponent={c} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
           })
         }else {
-          markers.push( <MarkerContainer key={c.id} position={c.data.position} record={c.data} cardComponent={c} trayViewStore={this.props.trayViewStore} /> )
+          markers.push( <ErrorBoundary key={c.id}><MarkerContainer position={c.data.position} record={c.data} cardComponent={c} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
         }
       });
     }
@@ -94,17 +90,19 @@ import queryString from 'query-string'
       })}
     </span>;
 
-    return <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
-      <div className="m-map">
-        <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
-          {layers}
-          {this.props.layersStore.loupe_layer && <TileLayer key={this.props.layersStore.loupe_layer.id} url={this.props.layersStore.loupe_layer.url} attribution={this.props.layersStore.loupe_layer.attribution} opacity={this.props.layersStore.loupe_layer.opacity} zIndex={1000+1} className="clipped-tilelayer" ref='clipped-tilelayer' />}
+    return <ErrorBoundary>
+      <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
+        <div className="m-map">
+          <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
+            {layers}
+            {this.props.layersStore.loupe_layer && <TileLayer key={this.props.layersStore.loupe_layer.id} url={this.props.layersStore.loupe_layer.url} attribution={this.props.layersStore.loupe_layer.attribution} opacity={this.props.layersStore.loupe_layer.opacity} zIndex={1000+1} className="clipped-tilelayer" ref='clipped-tilelayer' />}
 
-          {markers}
-        </Map>
+            {markers}
+          </Map>
+        </div>
+
+        <LayerToolsContainer {...this.props} />
       </div>
-
-      <LayerToolsContainer {...this.props} />
-    </div>;
+    </ErrorBoundary>;
   }
 }
