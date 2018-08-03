@@ -267,6 +267,8 @@ import Search from "../../../sources/search";
                   <h2>Choose an era:</h2>
 
                   <ul className="eras">
+                    <li><a href="#" onClick={() => this.setState({start_year: '', end_year: 55})}>Pre-Roman<span>Pre-55AD</span></a></li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 55, end_year: 410})}>Roman<span>55-410</span></a></li>
                     <li><a href="#" onClick={() => this.setState({start_year: 410, end_year: 1216})}>Early Medieval <span>410-1216</span></a></li>
                     <li><a href="#" onClick={() => this.setState({start_year: 1216, end_year: 1398})}>High Medieval <span>1216-1398</span></a></li>
                     <li><a href="#" onClick={() => this.setState({start_year: 1398, end_year: 1485})}>Late Medieval <span>1398-1485</span></a></li>
