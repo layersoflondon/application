@@ -61,7 +61,6 @@ import ErrorBoundary from "./error_boundary";
     }
 
     return <div className={trayClassName}>
-
       <div className="open-close" onClick={() => this.props.trayViewStore.toggleTrayVisibility()}>
         <span>Close</span>
       </div>

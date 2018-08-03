@@ -6,7 +6,8 @@
         window.__USER = <%= raw({
             id: current_user.id,
             email: current_user.email,
-            name: current_user.name
+            name: current_user.name,
+            username: current_user.email
         }.to_json) %>
     <% end %>
 </script>
