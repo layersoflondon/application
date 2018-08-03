@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import PropTypes from 'prop-types';
 import {inject, observer} from "mobx-react";
 import { Route } from 'react-router';
 import {Redirect, withRouter} from 'react-router-dom';
@@ -19,8 +18,7 @@ import LayersOverlay from './layers_overlay';
 import CollectionForm from './forms/collections/collection_form';
 import UserForm from './forms/user/user_form';
 import RecordForm from './forms/records/record_form';
-import CardModel from "../models/card";
-import Record from "../sources/record";
+import ErrorBoundary from "./error_boundary";
 
 @inject('router', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore')
 @withRouter
@@ -41,9 +39,11 @@ import Record from "../sources/record";
 
        {/*permanantly visible components */}
       <Route path='*' component={Tools} />
-      <Route path='*' component={Tray} />
-      <Route path='/map' component={MapView} />
-      <Route exact path='/map?:lat/:lng' component={MapView} />
+      {/*<Route path='*' component={Tray} />*/}
+      <Route path='*' render={() => (<ErrorBoundary><Tray/></ErrorBoundary>)} />
+
+      <Route path='/map' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
+      <Route exact path='/map?:lat/:lng' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
 
       {/* Various Overlays ... */}
       <Route exact path='/map/account' component={UserForm} />
