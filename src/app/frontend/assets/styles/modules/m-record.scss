@@ -393,18 +393,14 @@
 }
 
 .m-record-hero .image {
-  width: 100%;
-  height: 100%;
   filter: grayscale(100%);
   position: relative;
   background-position: center;
   background-size: cover;
+  height: 650px;
+  @include centered-image-holder;
   span.is-loading {
     @include loading-spinner;
-  }
-  img {
-    width: 100%;
-    height: 100%;
   }
 }
 
