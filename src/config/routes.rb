@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]
     member do
       patch 'like'
+      post 'report'
     end
   end
 

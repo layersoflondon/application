@@ -18,6 +18,8 @@ class Record < ApplicationRecord
 
   accepts_nested_attributes_for :attachments
 
+  has_many :record_reports
+
   enum view_type: %i[gallery expanded]
   enum state: %i[draft published pending_review flagged deleted]
   serialize :location, Hash

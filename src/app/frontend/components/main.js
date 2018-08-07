@@ -73,7 +73,9 @@ import ErrorBoundary from "./error_boundary";
       <Route exact path='/map/records/:id/report' render={({match, location}) => (
         <ErrorBoundary>
           <RecordView>
-            <RecordViewReport />
+            <ErrorBoundary>
+              <RecordViewReport />
+            </ErrorBoundary>
           </RecordView>
         </ErrorBoundary>
       )} />

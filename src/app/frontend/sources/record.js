@@ -12,7 +12,7 @@ export default class Record extends LoLHTTPBase {
     return axios.patch(`${this.resource_path}/like.json`)
   }
 
-  static report(resource_id, params) {
-    return axios.post(`${this.resource_path}`, params);
+  static report(id, params) {
+    return axios.post(`${this.resource_path}/report`, params);
   }
 }
