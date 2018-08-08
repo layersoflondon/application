@@ -164,8 +164,12 @@ export default class RecordModel {
     return media.length > 0;
   }
 
-  @computed get media() {
+  @computed get media() { // excludes youtube videos
     return this.attachments.filter((a) => a.is_media);
+  }
+
+  @computed get videos() {
+    return this.attachments.filter((a) => a.is_video);
   }
 
   @computed get links() {
@@ -178,6 +182,10 @@ export default class RecordModel {
 
   @computed get text() {
     return this.attachments.filter((a) => a.is_text);
+  }
+
+  @computed get documents_and_images() {
+    return this.attachments.filter((a) => a.is_document_or_image);
   }
 
   get_attachment(id) {
