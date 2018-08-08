@@ -13,6 +13,12 @@ import {observer} from "mobx-react";
     super(props);
 
     this.state = {is_visible: false, items: this.props.recordFormStore.record.attachments, errors: []};
+
+    // if we're editing/creating a record that doesn't have a video associated, stub out a video object that we can edit
+    if(this.props.recordFormStore.record.videos.length === 0) {
+      const video_item = Attachment.fromJS({attachable_type: 'Attachments::Video', attachable: {title: '', caption: '', youtube_id: ''}}, this.props.recordFormStore.record.id);
+      this.props.recordFormStore.record.attachments.push(video_item);
+    }
   }
 
   onDrop(acceptedFiles, rejectedFiles, event) {
@@ -100,7 +106,7 @@ import {observer} from "mobx-react";
 
             <div className="add-tools">
 
-              {(video_items.length > 0 && video_items) || <VideoMediaItem {...this.props} object={new Attachment()} /> }
+              {video_items.length > 0 && video_items}
             </div>
 
             <div className="thumbs">

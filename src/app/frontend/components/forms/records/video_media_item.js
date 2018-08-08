@@ -7,7 +7,7 @@ import {observer} from "mobx-react";
   constructor(props){
     super(props);
 
-    const video_url = this.props.attachable.youtube_id ? `https://www.youtube.com/watch?v=${this.props.attachable.youtube_id}` : '';
+    const video_url = (this.props.attachable && this.props.attachable.youtube_id) ? `https://www.youtube.com/watch?v=${this.props.attachable.youtube_id}` : '';
     this.state = {url: video_url, type: this.props.object.media_type};
   }
 
@@ -20,7 +20,6 @@ import {observer} from "mobx-react";
     const {name, value} = event.target;
 
     this.setState({[name]: value});
-    console.log(`Setting ${name} = ${value} on`, this.props.recordFormStore.current_attachment_item);
     this.props.recordFormStore.current_attachment_item[name] = value;
   }
 
@@ -32,7 +31,7 @@ import {observer} from "mobx-react";
     return (
       <div className="form-group add-url">
         <label>Youtube URL</label>
-        <input type="text" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name='url' value={this.state.url} onChange={this.handleUrlOnChange.bind(this)} onFocus={this.setCurrentMediaItem.bind(this)} onBlur={this.saveUrl.bind(this)} />
+        <input type="text" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name='url' value={this.state.url} onChange={this.handleUrlOnChange.bind(this)} onFocus={this.setCurrentMediaItem.bind(this)} />
         {/*<button>+</button>*/}
       </div>
     )

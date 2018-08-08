@@ -35,5 +35,3 @@ export default class CardModel {
     return new CardModel(object, store);
   }
 }
-
-window.CardModel = CardModel;
