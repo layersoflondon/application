@@ -78,10 +78,10 @@ export default class Attachment {
         type = 'audio';
         break;
       default:
-        if( this.attachable_type ) {
+        try {
           type = this.attachable_type.split("::")[1].toLowerCase();
-        }else {
-          type = '';
+        }catch(error) {
+          type = this.attachable_type;
         }
         break;
     }

@@ -25,7 +25,6 @@ import {observer} from "mobx-react";
   }
 
   saveUrl(event) {
-    console.log("Saving...");
     this.props.recordFormStore.current_attachment_item.persist();
   }
 

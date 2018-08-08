@@ -47,7 +47,7 @@ import {observer} from "mobx-react";
 
         // const fileData = reader.result; // the base64 encoded string
         const attachments = this.props.recordFormStore.record.attachments.slice();
-        const new_attachment = {file: file, url: file.preview, attachment_type: attachment_type(file.type), type: attachment_type(file.type), title: f.target.fileName, caption: '', credit: ''};
+        const new_attachment = {file: file, url: file.preview, attachable_type: `Attachments::${attachment_type(file.type).toUpperCase()}`, type: attachment_type(file.type), title: f.target.fileName, caption: '', credit: ''};
 
         if( !attachment_type(file.type)) {
           this.setState({errors: ['Unsupported file type']});
@@ -63,6 +63,7 @@ import {observer} from "mobx-react";
           media_item.id = data.id;
           media_item.attachable = data.attachable;
           media_item.attachable_type = data.attachable_type;
+
           attachments.push(media_item);
           this.props.recordFormStore.record.attachments = attachments;
         }).catch((error) => {

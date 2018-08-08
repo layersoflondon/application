@@ -13,6 +13,8 @@ export default class MediaItemStore {
   @observable is_primary = false;
 
   persist() {
+    alert("persist()ing");
+
     const data = new FormData();
     data.append('attachable_attributes[title]', this.title);
     data.append('attachable_attributes[caption]', this.caption);
