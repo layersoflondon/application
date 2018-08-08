@@ -7,12 +7,14 @@ export default class MediaItemStore {
 
   @observable record_id = null;
   @observable file = null;
-  @observable title = null;
-  @observable caption = null;
-  @observable credit = null;
+  @observable title = '';
+  @observable caption = '';
+  @observable credit = '';
   @observable is_primary = false;
 
   persist() {
+    alert("persist()ing");
+
     const data = new FormData();
     data.append('attachable_attributes[title]', this.title);
     data.append('attachable_attributes[caption]', this.caption);
@@ -36,6 +38,7 @@ export default class MediaItemStore {
   }
 
   static fromJS(object, record_id) {
+    console.log("From JS");
     const store = new MediaItemStore();
 
     Object.assign(store, object);

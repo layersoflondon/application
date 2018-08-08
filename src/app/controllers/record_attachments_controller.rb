@@ -11,6 +11,9 @@ class RecordAttachmentsController < ApplicationController
   def create
     Rails.logger.info(params)
     authorize(@record)
+
+    # byebug
+
     @attachment = @record.attachments.build(attachment_params)
     @attachment.credit = attachment_params[:attachable_attributes][:credit]
 
