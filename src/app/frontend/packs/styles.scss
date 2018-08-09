@@ -22,10 +22,14 @@
 
 .m-map-popover .m-record-card {
   width: 200px;
+}
 
-  .wrapper {
-    height: 100%;
-  }
+.m-map-popover .m-record-card .wrapper {
+  height: 100%;
+}
+
+.m-map-popover .m-record-card h1 {
+  font-size: 14px;
 }
 
 .m-overlay {
@@ -37,9 +41,11 @@
   display: block;
   background: url('../assets/images/icon-close.svg') center no-repeat;
 }
+
 .m-map-area {
   z-index: 1;
 }
+
 .m-map-popover {
   display: block !important;
   position: relative !important;
@@ -47,6 +53,7 @@
   left: auto !important;
   width: 100% !important;
 }
+
 .m-layer-tools {
   z-index: 1099;
 }
@@ -106,12 +113,10 @@
   display: block !important;
 }
 
-
 .media-item-enter {
   opacity: 0;
   z-index: 1;
 }
-
 
 .media-item.media-item-enter-active {
   opacity: 1;

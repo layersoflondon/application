@@ -1,10 +1,15 @@
 // Account page
 
-.m-account-page {
+.m-account-page-wrapper {
   @include clearfix;
   @include overlay-wrap-white;
   max-width: 900px;
   margin-top:0;
+}
+
+.m-account-page {
+  color: #222;
+  background: white;
 }
 
 .m-account-page a {
