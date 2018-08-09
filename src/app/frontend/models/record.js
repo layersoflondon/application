@@ -2,7 +2,6 @@ import {observable, computed} from 'mobx';
 import CollectionModel from './collection';
 import Record from "../sources/record";
 import Attachment from './attachment';
-import Parser from "html-react-parser";
 import L from "leaflet";
 
 export default class RecordModel {
@@ -170,6 +169,10 @@ export default class RecordModel {
 
   @computed get videos() {
     return this.attachments.filter((a) => a.is_video);
+  }
+
+  @computed get media_and_videos() {
+    return this.attachments.filter((a) => a.is_video || a.is_media);
   }
 
   @computed get links() {

@@ -22,7 +22,7 @@ import Parser from 'html-react-parser';
     return (
       <div>
         <div className="form-group">
-          <label>Credits and Attribution</label>
+          <label>Credits and attribution</label>
           <textarea rows="4" placeholder="Describe where you got this information, if it comes from elsewhere" name="credit" value={credit} onChange={this.handleOnChange} className={`${this.appendErrorClassNameToField('credit')}`}>
           </textarea>
         </div>

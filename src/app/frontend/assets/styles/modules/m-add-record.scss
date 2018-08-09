@@ -17,19 +17,20 @@
   float: left;
 }
 
-.m-add-record .place {
-  font-size:12px;
-  color:#aaa;
+.m-add-record .location {
+  font-size: 12px;
+  color: #aaa;
 }
 
 .m-add-record .form-group--date {
   width: 300px;
   float: right;
+  margin-bottom: 0;
 }
 
 .m-add-record .form-group--date input {
   width: calc(33.333333% - 10px);
-  margin-right:10px;
+  margin-right: 10px;
   display: inline-block;
   padding-left: 2px;
 }
@@ -38,6 +39,10 @@
   width: calc(100% - 300px);
   display: inline-block;
   padding-right: 30px;
+}
+
+.m-add-record .form-group--description {
+  margin-top: 40px;
 }
 
 .m-add-record button.delete {
@@ -49,20 +54,36 @@
 }
 
 .m-add-record .form-group--date .helper-text {
-  font-size:14px;
+  font-size: 14px;
   padding-top: 6px;
   margin-bottom: 10px;
   display: block;
 }
 
 .m-add-record .end-date-link {
-  font-size:14px;
+  font-size: 14px;
 }
 
 .m-add-record .end-date {
-  display:none;
+  display: none;
 }
 
-.m-add-record input.has-errors {
-  background-color: lighten($red, 30%);
+.m-add-record .ql-editor {
+  min-height: 200px;
+}
+
+
+.ql-container.ql-container {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.ql-editor.ql-editor {
+  padding: 20px;
+}
+
+.ql-editor.ql-editor:focus {
+  border: 2px solid #549a76;
+  margin: -1px;
+  padding: 19px;
 }

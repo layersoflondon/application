@@ -2,11 +2,26 @@
 
 .m-overlay-subnavigation {
   max-width: 900px;
-  margin: 100px auto 10px;
+  margin: 100px auto 0;
+}
+
+.m-overlay-subnavigation h1 {
+  @include font-display;
+  @include polygon-background(yellow, top, true);
+  padding: 20px 30px;
+  font-size: 36px;
+  color: $black;
+  margin-left: 20px;
+  margin-top: -30px;
+  margin-bottom: -9px;
+  float: left;
 }
 
 .m-overlay-subnavigation ul {
   @include unlist;
+  clear:both;
+  position:relative;
+  vertical-align:bottom;
 }
 
 .m-overlay-subnavigation li {
@@ -14,12 +29,25 @@
 }
 
 .m-overlay-subnavigation li a {
-  padding: 10px 16px;
+  padding: 16px 26px;
+  padding-top:16px;
   font-weight: bold;
+  @include font-display;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.m-overlay-subnavigation li a {
+  background:transparentize($red, 0.6);
+  margin: 0px 3px 0px 0px;
+  display: inline-block;
+  vertical-align:bottom;
 }
 
 .m-overlay-subnavigation li.is-current a {
   background: white;
   display: inline-block;
   color: #333;
+  margin-top:0;
+  padding-top:18px;
 }
