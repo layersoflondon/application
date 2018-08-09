@@ -63,6 +63,8 @@
 
 .m-add-media-and-documents .thumbs {
   li[class^=type-] {
+    position: relative;
+
     a span:after {
       font-family: FontAwesome;
       font-size: 5em;
@@ -89,6 +91,14 @@
         content: "\f279";
       }
     }
+  }
+
+  li[class^='loading type-']:after {
+    content: "\f279";
+    border: 1px solid red;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 
