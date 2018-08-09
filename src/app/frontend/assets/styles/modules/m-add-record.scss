@@ -25,6 +25,7 @@
 .m-add-record .form-group--date {
   width: 300px;
   float: right;
+  margin-bottom:0;
 }
 
 .m-add-record .form-group--date input {
@@ -38,6 +39,10 @@
   width: calc(100% - 300px);
   display: inline-block;
   padding-right: 30px;
+}
+
+.m-add-record .form-group--description {
+  margin-top:40px;
 }
 
 .m-add-record button.delete {
@@ -61,8 +66,4 @@
 
 .m-add-record .end-date {
   display:none;
-}
-
-.m-add-record input.has-errors {
-  background-color: lighten($red, 30%);
 }

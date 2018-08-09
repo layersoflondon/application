@@ -50,7 +50,7 @@ import ReactQuill from 'react-quill';
 
         <PlaceDetails {...this.props} />
 
-        <div className="form-group">
+        <div className="form-group form-group--description">
           <label>Description</label>
           <ReactQuill theme="snow" modules={modules} formats={formats} value={this.state.description} onChange={this.handleDescriptionChange.bind(this)} className={`${this.appendErrorClassNameToField('description')}`} />
           {/*<textarea rows="10" placeholder="" name="description" value={description} onChange={this.handleOnChange} className={`${this.appendErrorClassNameToField('description')}`}>*/}
