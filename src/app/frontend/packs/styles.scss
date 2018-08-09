@@ -122,16 +122,6 @@
   transition: opacity 300ms ease-in;
 }
 
-.m-record-collection-button {
-  margin: 0 5px 5px 0;
-
-  &:after {
-    font-family: FontAwesome;
-    content: "\f00d";
-    margin-left: 5px;
-  }
-}
-
 // dont show chosen options on record collection form
 .m-add-record .m-accordion .css-10nd86i .css-1rtrksz:after {
   content: "Choose a collection...";

@@ -99,46 +99,74 @@ import {observer, inject} from "mobx-react";
     const collection_options = this.props.collectionStore[this.state.showing].values().map((c) => ({value: c.id, label: c.title}));
 
     return (
-      <div className="section">
+      <div className="section section--add-to-collection">
         <h2 className="title" data-name="collection" onClick={this.togglePaneVisibility}>Add to a collection</h2>
 
         <div className="pane" style={pane_styles}>
 
-          <label htmlFor="">Your Collections
-            <input type="radio" name='showing_collections' value={`user_collections`}     checked={this.state.showing === 'user_collections'} onChange={this.handleShowCollectionsOnChange.bind(this)} />
-          </label>
+          <div className="m-add-to-collection">
 
-          <label htmlFor="">Public Collections
-            <input type="radio" name='showing_collections' value={`everyone_collections`} checked={this.state.showing === 'everyone_collections'} onChange={this.handleShowCollectionsOnChange.bind(this)} />
-          </label>
+            <div class="form">
 
-          <Select placeholder='' options={collection_options} hideSelectedOptions={true} isMulti={true} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef}/>
+            {/*
+              <label htmlFor="">Your Collections
+                <input type="radio" name='showing_collections' value={`user_collections`} checked={this.state.showing === 'user_collections'} onChange={this.handleShowCollectionsOnChange.bind(this)} />
+              </label>
 
-          <hr/>
+              <label htmlFor="">Public Collections
+                <input type="radio" name='showing_collections' value={`everyone_collections`} checked={this.state.showing === 'everyone_collections'} onChange={this.handleShowCollectionsOnChange.bind(this)} />
+              </label>
+            */}
 
-          {this.state.enabled_user_collections.length>0 && (
-            <div>
-              <h3>Your collections</h3>
+              <div className="form-group form-group--toggle-switch">
+                <label>
+                  <span>Your collections</span>
+                  <input type="checkbox" />
+                  <span className="toggle"></span>
+                  <span>Public collections</span>
+                </label>
+              </div>
 
-              {this.state.enabled_user_collections.map((c, i) => (
-              <button className='m-record-collection-button' value={c.value} name='user_collections' onClick={this.removeFromCollections.bind(this)} key={`user_collections_${i}`}>
-              {c.label}
-              </button>
-              ))}
+              <Select placeholder='' options={collection_options} hideSelectedOptions={true} isMulti={true} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef}/>
+
             </div>
-          )}
 
-          {this.state.enabled_everyone_collections.length>0 && (
-            <div>
-              <h3>Public (& other user's collections)</h3>
+              {(this.state.enabled_user_collections.length>0 || this.state.enabled_everyone_collections.length>0) && (
 
-              {this.state.enabled_everyone_collections.map((c, i) => (
-                <button className='m-record-collection-button' value={c.value} name='everyone_collections' onClick={this.removeFromCollections.bind(this)} key={`everyone_collections_${i}`}>
-                  {c.label}
-                </button>
-              ))}
-            </div>
-          )}
+                <div className="m-record-belongs-to-collections">
+                    <h3>This record belongs to:</h3>
+
+                    {this.state.enabled_user_collections.length>0 && (
+                        <div className="belongs-to">
+                          <h4>Your collections</h4>
+
+                            {this.state.enabled_user_collections.map((c, i) => (
+                                <button className='m-record-collection-button' value={c.value} name='user_collections'
+                                        onClick={this.removeFromCollections.bind(this)} key={`user_collections_${i}`}>
+                                    {c.label}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
+                    {this.state.enabled_everyone_collections.length>0 && (
+                        <div className="belongs-to">
+                          <h4>Public (& other user's collections)</h4>
+
+                            {this.state.enabled_everyone_collections.map((c, i) => (
+                                <button className='m-record-collection-button' value={c.value} name='everyone_collections' onClick={this.removeFromCollections.bind(this)} key={`everyone_collections_${i}`}>
+                                    {c.label}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
+                </div>
+
+              )}
+
+          </div>
+
         </div>
 
       </div>

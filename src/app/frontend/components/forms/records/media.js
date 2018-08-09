@@ -131,7 +131,9 @@ import {observer} from "mobx-react";
           <div className="m-add-media-and-documents">
 
             <div className="add-tools">
-
+              <div class="form-group add-file">
+                <a href="#"><span class="image"></span><em>Upload</em></a>
+              </div>
               {video_items.length > 0 && video_items}
             </div>
 

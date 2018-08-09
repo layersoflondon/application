@@ -153,13 +153,13 @@ textarea {
 input[type="text"].has-errors,
 input[type="tel"].has-errors {
   outline:none;
-  border-bottom: 2px solid $green;
+  border-bottom: 2px solid $red;
 }
 
 input[type="text"]:focus,
 input[type="tel"]:focus {
   outline:none;
-  border-bottom: 2px solid $orange;
+  border-bottom: 2px solid $green;
 }
 
 textarea {
@@ -195,6 +195,7 @@ input[type="submit"] {
 
 .form--over-white a {
   color: #e68800;
+
 }
 
 .form--chunky .form-group {
@@ -287,7 +288,6 @@ input[type="submit"] {
 
 
 .form--chunky .form-group--toggle-switch {
-
 
   input[type='checkbox'] {
     height: 0;
