@@ -33,10 +33,10 @@ import {observer, inject} from "mobx-react";
   }
 
   handleShowCollectionsOnChange(event) {
-    let {value} = event.target;
-
-    this.selectRef.current.select.setValue(this.state[`enabled_${value}`]);
-    this.setState({showing: value});
+    let collection_set = (event.target.checked) ? "everyone_collections" : "user_collections";
+    console.log(collection_set);
+    this.selectRef.current.select.setValue(this.state[`enabled_${collection_set}`]);
+    this.setState({showing: collection_set});
   }
 
   handleSelectOnChange(options, event) {
@@ -97,6 +97,7 @@ import {observer, inject} from "mobx-react";
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='collection' ? 'block' : 'none'};
     const pane_classname = (this.props.recordFormStore.visible_pane==='collection') ? 'is-open' : '';
+    const toggled_classname = (this.state.showing === "user_collections") ? "" : "is-toggled";
     const collection_options = this.props.collectionStore[this.state.showing].values().map((c) => ({value: c.id, label: c.title}));
 
     return (
@@ -119,10 +120,10 @@ import {observer, inject} from "mobx-react";
               </label>
             */}
 
-              <div className="form-group form-group--toggle-switch">
+              <div className={`form-group form-group--toggle-switch ${toggled_classname}`}>
                 <label>
                   <span>Your collections</span>
-                  <input type="checkbox" />
+                  <input type="checkbox" name='showing_collections' checked={this.state.showing === 'everyone_collections'} onChange={this.handleShowCollectionsOnChange.bind(this)}/>
                   <span className="toggle"></span>
                   <span>Public collections</span>
                 </label>
