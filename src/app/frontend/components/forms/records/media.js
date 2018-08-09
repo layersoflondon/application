@@ -101,6 +101,7 @@ import {observer} from "mobx-react";
 
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
+    const pane_classname = (this.props.recordFormStore.visible_pane==='media') ? 'is-open' : '';
 
     const media_items = this.props.recordFormStore.record.documents_and_images.map((item,i) => {
       const media_item = Attachment.fromJS(item, this.props.recordFormStore.record.id);
@@ -124,15 +125,15 @@ import {observer} from "mobx-react";
     });
 
     return (
-      <div className="section">
+      <div className={`section ${pane_classname}`}>
         <h2 className="title" data-name="media" onClick={this.togglePaneVisibility}>Add media &amp; documents</h2>
 
         <div className="pane" style={pane_styles}>
           <div className="m-add-media-and-documents">
 
             <div className="add-tools">
-              <div class="form-group add-file">
-                <a href="#"><span class="image"></span><em>Upload</em></a>
+              <div className="form-group add-file">
+                <a href="#"><span className="image"></span><em>Upload</em></a>
               </div>
               {video_items.length > 0 && video_items}
             </div>
