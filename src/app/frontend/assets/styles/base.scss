@@ -150,8 +150,30 @@ textarea {
   border-bottom: 2px solid $form-border-color;
 }
 
+input[type="text"].has-errors,
+input[type="tel"].has-errors {
+  outline:none;
+  border-bottom: 2px solid $green;
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus {
+  outline:none;
+  border-bottom: 2px solid $orange;
+}
+
 textarea {
   border: 2px solid $form-border-color;
+}
+
+textarea:focus {
+  outline:none;
+  border: 2px solid $green;
+}
+
+textarea.has-errors {
+  outline:none;
+  border-bottom: 2px solid $red;
 }
 
 input[type="submit"] {
@@ -160,7 +182,6 @@ input[type="submit"] {
   border-radius: $default-border-radius;
   background: $main-accent;
   @include transition(all .2s);
-  //color: white;
   &:hover {
     background: darken($main-accent, 10%);
   }
