@@ -38,6 +38,7 @@
   position: relative;
   padding: 200px 80px 0;
   color:white;
+  @include clearfix;
 }
 
 .m-page-header--small .text-content {
