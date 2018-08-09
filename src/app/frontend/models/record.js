@@ -172,6 +172,10 @@ export default class RecordModel {
     return this.attachments.filter((a) => a.is_video);
   }
 
+  @computed get media_and_videos() {
+    return this.attachments.filter((a) => a.is_video || a.is_media);
+  }
+
   @computed get links() {
     return this.attachments.filter((a) => a.is_link);
   }
