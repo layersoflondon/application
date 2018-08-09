@@ -24,10 +24,10 @@ import Parser from 'html-react-parser';
           </div>
           }
         <h2>{this.props.layer.title}</h2>
-        {Parser(this.props.layer.description)}
+        <div className="description">{Parser(this.props.layer.description)}</div>
 
         <button>
-          <span>Select</span>
+          <span>Select this layer</span>
         </button>
       </a>
     </div>

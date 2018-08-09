@@ -1,0 +1,38 @@
+/* Features list */
+
+.m-features-list {
+  position: relative;
+  z-index: 2;
+}
+
+
+.m-features-list .feature {
+  @include cta-block;
+  height:400px;
+  background:black;
+  float:left;
+  width:calc(50% - 15px);
+  margin-right:15px;
+}
+
+.m-features-list .feature + .feature {
+  margin-top: 15px;
+}
+
+.m-features-list .feature .text-content {
+  padding:20px;
+  width:60%;
+}
+
+.m-features-list .hero-feature {
+  height:800px;
+  width:100%;
+  margin-right:0;
+  float:none;
+}
+
+
+.m-features-list .hero-feature .text-content {
+  padding:20px;
+  width:40%;
+}

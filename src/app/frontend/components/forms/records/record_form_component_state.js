@@ -18,6 +18,14 @@ export default class RecordFormComponentState {
       createDraftRecord(event) {
         this.props.recordFormStore.record.persist().then((response) => {
           this.props.recordFormStore.record.id = response.data.id;
+
+          // fixme - find a better way to do this. the stubbed out video
+          // attachment needs to know the record id we've just been given...
+          this.props.recordFormStore.record.videos.map((v, i) => {
+            if( !v.record_id ) {
+              v.record_id = response.data.id;
+            }
+          });
         }).catch((error) => {
             this.props.recordFormStore.record.errors = error.response.data;
         });
@@ -28,8 +36,6 @@ export default class RecordFormComponentState {
         this.setState({
           [name]: value
         });
-
-        console.log(event);
 
         this.props.recordFormStore.record[name] = value;
       }

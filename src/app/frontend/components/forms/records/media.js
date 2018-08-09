@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
 import MediaItem from './media_item';
+import VideoMediaItem from './video_media_item';
 import MediaItemEditor from './media_item_editor';
 import Attachment from '../../../models/attachment';
 
@@ -12,6 +13,12 @@ import {observer} from "mobx-react";
     super(props);
 
     this.state = {is_visible: false, items: this.props.recordFormStore.record.attachments, errors: []};
+
+    // if we're editing/creating a record that doesn't have a video associated, stub out a video object that we can edit
+    if(this.props.recordFormStore.record.videos.length === 0) {
+      const video_item = Attachment.fromJS({attachable_type: 'Attachments::Video', attachable: {title: '', caption: '', youtube_id: ''}}, this.props.recordFormStore.record.id);
+      this.props.recordFormStore.record.attachments.push(video_item);
+    }
   }
 
   onDrop(acceptedFiles, rejectedFiles, event) {
@@ -46,7 +53,7 @@ import {observer} from "mobx-react";
 
         // const fileData = reader.result; // the base64 encoded string
         const attachments = this.props.recordFormStore.record.attachments.slice();
-        const new_attachment = {file: file, url: file.preview, attachment_type: attachment_type(file.type), type: attachment_type(file.type), title: f.target.fileName, caption: '', credit: ''};
+        const new_attachment = {file: file, url: file.preview, attachable_type: `Attachments::${attachment_type(file.type).toUpperCase()}`, type: attachment_type(file.type), title: f.target.fileName, caption: '', credit: ''};
 
         if( !attachment_type(file.type)) {
           this.setState({errors: ['Unsupported file type']});
@@ -62,6 +69,7 @@ import {observer} from "mobx-react";
           media_item.id = data.id;
           media_item.attachable = data.attachable;
           media_item.attachable_type = data.attachable_type;
+
           attachments.push(media_item);
           this.props.recordFormStore.record.attachments = attachments;
         }).catch((error) => {
@@ -77,9 +85,16 @@ import {observer} from "mobx-react";
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
 
-    const media_items = this.props.recordFormStore.record.attachments.map((item,i) => {
-      let media_item = Attachment.fromJS(item, this.props.recordFormStore.record.id);
-      return <MediaItem {...item} {...this.props} object={media_item} key={i} index={i} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
+    const media_items = this.props.recordFormStore.record.documents_and_images.map((item,i) => {
+      const media_item = Attachment.fromJS(item, this.props.recordFormStore.record.id);
+      const index = this.props.recordFormStore.record.attachments.indexOf(item);
+      return <MediaItem {...item} {...this.props} object={media_item} key={`media_item_${index}`} index={index} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
+    });
+
+    const video_items = this.props.recordFormStore.record.videos.map((item, i) => {
+      const video_item = Attachment.fromJS(item, this.props.recordFormStore.record.id);
+      const index = this.props.recordFormStore.record.attachments.indexOf(item);
+      return <VideoMediaItem {...item} {...this.props} object={video_item} key={`video_media_item_${index}`} index={index} />
     });
 
     return (
@@ -88,6 +103,11 @@ import {observer} from "mobx-react";
 
         <div className="pane" style={pane_styles}>
           <div className="m-add-media-and-documents">
+
+            <div className="add-tools">
+
+              {video_items.length > 0 && video_items}
+            </div>
 
             <div className="thumbs">
               <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a" onDrop={this.onDrop.bind(this)}>

@@ -1,35 +1,36 @@
-<%= content_for :body_class do %>t-homepage<% end %>
+<%= content_for :body_class do %>t-homepage
+<% end %>
 <% content_for :template do %>
 
     <div class="m-hero m-hero--large m-hero--home">
-      <div class="image"></div>
-      <div class="m-home-logo">
-        <h1>Layers of London</h1>
-        <%= image_tag(("logotype.svg"), :class => "viewable") %>
-      </div>
-      <div class="text-content">
-        <!--<span class="surtitle">Layers of London</span>-->
-        <h1 class="viewable"><%= strip_tags(page.content) %></h1>
-          <%= link_to "Start exploring", map_path %>
-      </div>
+        <div class="image"></div>
+        <div class="m-home-logo">
+            <h1>Layers of London</h1>
+            <%= image_tag(("logotype.svg"), :class => "viewable") %>
+        </div>
+        <div class="text-content">
+            <!--<span class="surtitle">Layers of London</span>-->
+            <h1 class="viewable"><%= strip_tags(page.content) %></h1>
+            <%= link_to "Explore the map", map_path %>
+        </div>
     </div>
     <div class="m-highlighted-content">
-      <h2>Highlights</h2>
+        <h2>Highlights</h2>
         <%= render partial: "shared/feature_record_card", collection: featured_items %>
     </div>
     <%= render 'pages/big_search' %>
-    <% page.homepage_ctas.each_with_index do |cta,i| %>
+    <% page.homepage_ctas.each_with_index do |cta, i| %>
         <%
             class_name = case
-                when (i+1)%2 == 0
-                  "m-home-cta-block--flipped"
-                when (i+1)%3 == 0
-                  "m-home-cta-block--gray"
-                else
-                    ""
+                           when (i+1)%2 == 0
+                             "m-home-cta-block--flipped"
+                           when (i+1)%3 == 0
+                             "m-home-cta-block--gray"
+                           else
+                             ""
         %>
 
-<% end %> %>
+        <% end %>
         <%= render partial: "pages/homepage_cta", locals: {class: class_name, homepage_cta: cta} %>
     <% end %>
 
