@@ -34,7 +34,6 @@ import {observer, inject} from "mobx-react";
 
   handleShowCollectionsOnChange(event) {
     let collection_set = (event.target.checked) ? "everyone_collections" : "user_collections";
-    console.log(collection_set);
     this.selectRef.current.select.setValue(this.state[`enabled_${collection_set}`]);
     this.setState({showing: collection_set});
   }
