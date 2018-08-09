@@ -59,7 +59,7 @@ export default class RecordModel {
 
     let date = new Date();
     date.setDate(this.date_from_object.date);
-    date.setMonth(this.date_from_object.month);
+    date.setMonth(this.date_from_object.month-1);
     date.setFullYear(this.date_from_object.year);
 
     return date.toDateString();
@@ -78,7 +78,7 @@ export default class RecordModel {
 
     let date = new Date();
     date.setDate(this.date_to_object.date);
-    date.setMonth(this.date_to_object.month);
+    date.setMonth(this.date_to_object.month-1);
     date.setFullYear(this.date_to_object.year);
 
     return date.toDateString();

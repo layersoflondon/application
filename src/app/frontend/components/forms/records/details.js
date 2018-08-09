@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import RecordFormComponentState from './record_form_component_state';
 import PlaceDetails from './place_details';
 import {observer} from 'mobx-react';
@@ -42,7 +42,7 @@ import ReactQuill from 'react-quill';
     ];
 
     return (
-      <div>
+      <Fragment>
         <div className="form-group form-group--title">
           <label>Title</label>
           <input type="text" name="title" value={this.props.recordFormStore.record.title} onChange={this.handleOnChange} onBlur={this.createDraftRecord} className={`${this.appendErrorClassNameToField('title')}`} />
@@ -56,7 +56,7 @@ import ReactQuill from 'react-quill';
           {/*<textarea rows="10" placeholder="" name="description" value={description} onChange={this.handleOnChange} className={`${this.appendErrorClassNameToField('description')}`}>*/}
           {/*</textarea>*/}
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
