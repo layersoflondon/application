@@ -27,7 +27,7 @@ import Img from 'react-image';
   render() {
     const in_gallery_view = this.props.trayViewStore.record.view_type === 'gallery';
 
-    const media_list = this.props.trayViewStore.record.media.map((media) => {
+    const media_list = this.props.trayViewStore.record.media_and_videos.map((media) => {
       const classes = media.attachable.content_type.split('/').join(' ');
       return <div key={media.id} className={`thumb ${classes}`}>
         <NavLink to={`/map/records/${this.props.match.params.id}/media/${media.id}`}>
