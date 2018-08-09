@@ -1,0 +1,64 @@
+/* Page header small */
+
+.m-page-header-small {
+  clear: both;
+  height: 280px;
+  background: #ccc;
+  position: relative;
+  z-index:2;
+}
+
+
+/* Hero */
+
+
+.m-page-header-small .text-content {
+  height: 100%;
+  position: relative;
+  padding: 200px 80px 0;
+  color:white;
+}
+
+.m-page-header-small .image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  border-bottom: 15px solid $black;
+}
+
+
+.m-page-header-small h1 {
+  @include font-display;
+}
+
+/*
+.m-page-header a {
+  background: #efdf5b6b;
+  color: #ffffff;
+  padding: 17px 25px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: -1px;
+  display: inline-block;
+  transition: all .2s;
+}
+
+.m-page-header a:hover {
+  background: #efdf5b;
+  color: $black;
+}
+
+.m-page-header a:before {
+  content: "\f0da";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 1em;
+  margin-right: 10px;
+  z-index: 1;
+}*/
