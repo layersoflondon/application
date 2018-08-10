@@ -65,14 +65,15 @@ import RecordModel from './../../../models/record';
 
   handleClickedDelete(event) {
     event.preventDefault();
-
-    Record.destroy(null, this.props.recordFormStore.record.id).then((response) => {
-      this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
-      this.props.router.push('/map');
-      this.props.recordFormStore.record_id = null;
-    }).catch((error) => {
-      console.log("error destroying record");
-    });
+    if (window.confirm("Really delete this record?")) {
+      Record.destroy(null, this.props.recordFormStore.record.id).then((response) => {
+        this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
+        this.props.router.push('/map');
+        this.props.recordFormStore.record_id = null;
+      }).catch((error) => {
+        console.log("error destroying record");
+      });
+    }
   }
 
   handleCloseOnClick(event) {
