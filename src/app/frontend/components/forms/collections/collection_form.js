@@ -14,7 +14,7 @@ import Select from 'react-select'
     super(props);
 
     // todo: set owner type either in the controller, or when the write state is changed
-    this.state = {title: "", description: "", read_state: false, write_state: "creator", write_state_team_id: null, owner_type: "User", teams: null};
+    this.state = {title: "", description: "", read_state: 'public_read', write_state: "creator", write_state_team_id: null, owner_type: "User", teams: null};
   }
 
   componentWillMount() {

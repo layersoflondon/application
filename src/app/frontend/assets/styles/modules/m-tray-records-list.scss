@@ -13,7 +13,8 @@
   height: 280px;
 }
 
-.m-tray-records-list .m-record-card:nth-child(3n+1) {
+.m-tray-records-list .m-record-card:nth-child(7n+1),
+.m-tray-records-list .m-record-card:nth-child(7n+4) {
   width: calc(66.666666% - 20px);
 }
 

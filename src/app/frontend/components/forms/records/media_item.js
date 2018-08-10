@@ -17,17 +17,21 @@ import {observer} from "mobx-react";
 
   render() {
     const style = {};
-    let type = '';
+    let container_classes = '';
     let classes = 'image';
 
     if( this.state.type === 'image' ) {
       style['backgroundImage'] = `url("${this.state.url}")`;
     }
 
-    type += `type-${this.props.object.media_type}`;
+    container_classes += `type-${this.props.object.media_type}`;
+
+    if( this.props.recordFormStore.current_attachment_item_index === this.props.index ) {
+      container_classes = `${container_classes} is-selected`;
+    }
 
     return (
-      <li className={type} onClick={this.setCurrentMediaItem.bind(this)}>
+      <li className={container_classes} onClick={this.setCurrentMediaItem.bind(this)}>
         <a href="#">
           <span className={classes} style={style} />
         </a>

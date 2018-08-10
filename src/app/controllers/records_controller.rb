@@ -12,17 +12,23 @@ class RecordsController < ApplicationController
   def create
     @record = current_user.records.build(record_params)
     authorize(@record)
+
+    Rails.logger.info("\n\nGOT RESULT: #{@result.inspect}\n\n\n")
+
     @result = save_record_and_return_from_es(@record)
 
-    if @result.present?
-      return @result
-    else
+    unless @result.present?
       render json: @record.errors, status: :unprocessable_entity
     end
   end
 
   def show
-    @record = RecordsIndex.filter(ids: {values: [params[:id]]}).first
+    if user_signed_in?
+      @record = RecordsIndex.in_state(['published','draft','flagged']).filter(ids: {values: [params[:id]]}).first
+    else
+      @record = RecordsIndex.published.filter(ids: {values: [params[:id]]}).first
+    end
+
     raise ActiveRecord::RecordNotFound, "Record not found" unless @record.present?
     raise Pundit::NotAuthorizedError unless RecordPolicy.new(current_user, @record).show?
     # TODO create a RecordViewJob which increments async.
@@ -49,9 +55,13 @@ class RecordsController < ApplicationController
 
   def destroy
     authorize(@record)
-    @record.state = 'deleted'
-    return render json: '', status: :no_content if @record.save
-    render json: @record.errors, status: :unauthorized
+
+    if @record.may_mark_as_deleted?
+      @record.mark_as_deleted!
+      render json: '', status: :ok
+    else
+      render json: @record.errors, status: :unprocessable_entity
+    end
   end
 
   def like

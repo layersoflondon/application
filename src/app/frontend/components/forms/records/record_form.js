@@ -48,6 +48,10 @@ import RecordModel from './../../../models/record';
     // when successfully updating a Record, we should propagate the updated data throughout the stores that are
     // rendering it. since the tray and map render their data from the trayViewStore.cards observable, we can just
     // overwrite the data there (see addOrUpdateRecord)
+    const {state} = event.target.dataset;
+    this.props.recordFormStore.record.state = state;
+    console.log(state);
+
     this.props.recordFormStore.record.persist().then((response) => {
       let card = this.props.trayViewStore.addOrUpdateRecord(response.data);
 
@@ -61,6 +65,23 @@ import RecordModel from './../../../models/record';
     }).catch((error) => {
       this.props.recordFormStore.record.errors = error.response.data;
     })
+  }
+
+  handleStateChange(event) {
+    event.preventDefault();
+    const {state} = event.target.dataset;
+
+    if (window.confirm("Really delete this record?")) {
+      Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
+        if( state === 'deleted' ) {
+          this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
+          this.props.recordFormStore.record_id = null;
+          this.props.router.push('/map');
+        }
+
+        this.props.recordFormStore.record.state = state;
+      });
+    }
   }
 
   handleCloseOnClick(event) {
@@ -127,7 +148,75 @@ import RecordModel from './../../../models/record';
                 {/*<Team {...this.props} />*/}
               </div>
 
-              <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save" />
+              <div className="form-actions">
+
+                {/*
+
+                If NEW:
+
+                <div class="secondary-actions">
+                  <button className="cancel">Cancel</button>
+                </div>
+
+                <div class="primary-actions">
+                  <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save for later" />
+                  <button className="publish">Publish</button>
+                </div>
+
+                If DRAFT:
+
+                <div class="secondary-actions">
+                  <button className="delete">Delete</button>
+                </div>
+
+                <div class="primary-actions">
+                  <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save for later" />
+                  <button className="publish">Publish</button>
+                </div>
+
+                If PUBLISHED:
+
+                <div class="secondary-actions">
+                  <button className="delete">Delete</button>
+                  <button className="unpublish">Unpublish</button>
+                </div>
+
+                <div class="primary-actions">
+                  <button className="publish">Publish</button>
+                </div>
+
+                */
+                }
+
+                <div className="secondary-actions">
+                  {!this.props.recordFormStore.record.id && (
+                    <button type="submit" className="delete" onClick={()=>this.props.router.push('/map')}>
+                      Cancel
+                    </button>
+                  )}
+
+                  {(this.props.recordFormStore.record.id && this.props.recordFormStore.record.state === 'published') && (
+                    <React.Fragment>
+                      <button type="submit" className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
+                        Delete
+                      </button>
+
+                      <button type="submit" className="draft" data-state="draft" onClick={this.handleStateChange.bind(this)}>
+                        Unpublish
+                      </button>
+                    </React.Fragment>
+                  )}
+                </div>
+
+                <div className="primary-actions">
+                  {this.props.recordFormStore.record.state === 'draft' && (
+                    <input type="submit" data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save for later" />
+                  )}
+
+                  <input type="submit" data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
+                </div>
+
+              </div>
 
             </form>
           </div>

@@ -4,7 +4,7 @@
   @include clearfix;
   @include overlay-wrap-white;
   max-width: 900px;
-  margin-top:0;
+  margin-top: 0;
 }
 
 .m-account-page {
@@ -13,7 +13,7 @@
 }
 
 .m-account-page a {
-  color:$green;
+  color: $green;
 }
 
 .m-account-page .section {
@@ -36,8 +36,8 @@
 }
 
 .m-account-page.m-account-page--records-collections .section {
-  width: 50%;
-  float: left;
+  //width: 50%;
+  //float: left;
   border-top: 0;
   margin-top: 0;
   padding-right: 20px;
@@ -52,11 +52,11 @@
 }
 
 .m-account-page .draft-indicator {
-  text-transform:uppercase;
-  opacity:0.5;
-  float:right;
+  text-transform: uppercase;
+  opacity: 0.5;
+  float: right;
   margin: 4px 4px 0px 4px;
-  font-size:12px;
+  font-size: 12px;
 }
 
 .m-account-page.m-account-page--records-collections .section:last-child {
@@ -82,7 +82,7 @@
 .m-account-page .ownership-indicator {
   text-transform: uppercase;
   margin-left: 30px;
-  float:right;
+  float: right;
 }
 
 .m-account-page input[type="submit"] {
@@ -96,8 +96,9 @@
 // Records & collections
 
 .m-account-page.m-account-page--records-collections .section {
-  width: 50%;
-  float: left;
+  width: 49%;
+  display: inline-block;
+  vertical-align: top;
   border-top: 0;
   margin-top: 0;
   padding-right: 20px;
@@ -118,45 +119,54 @@
 // Details
 
 .m-account-page--details .form-group--description {
-  width: calc(100% - 200px);
+  width: calc(100% - 250px);
   padding-right: 20px;
   float: left;
 }
 
 .m-account-page--details .form-group--profile-pic {
-  width: 200px;
+  width: 250px;
   float: left;
-  height: 300px;
+  height: 100px;
 }
 
 .m-account-page--details .form-group--profile-pic .image {
-  width: 200px;
-  height: 200px;
-  background: url('/profile-pic.png') center/cover;
+  width: 250px;
+  height: 250px;
+  background: #e4e4e4 url('/profile-pic.png') center/cover;
+}
+
+.m-account-page--details .form-group--profile-pic input {
+  background: #eee;
+}
+
+.m-account-page--details .form-group--current-password i {
+  float: right;
+  font-style: normal;
+  font-size: 14px;
 }
 
 .m-account-page--details .form-group--single-checkbox {
-
-  clear:both;
-  width:66.666666%;
+  clear: both;
+  width: 66.666666%;
 }
 
 .m-account-page--details .form-group--single-checkbox .helper-text {
-  text-transform:uppercase;
+  text-transform: uppercase;
   font-size: 14px;
   margin: 0 0 10px 0;
 }
 
 .m-account-page--details .form-group--single-checkbox label {
-  padding-left:20px;
-  text-transform:none;
-  font-size:16px;
+  padding-left: 20px;
+  text-transform: none;
+  font-size: 16px;
 }
 
 .m-account-page--details .form-group--single-checkbox input {
-  float:left;
-  margin-left:-20px;
-  width:auto;
+  float: left;
+  margin-left: -20px;
+  width: auto;
 }
 
 // Team
