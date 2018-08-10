@@ -16,7 +16,7 @@ class TeamForm extends React.Component {
             source = '/teams'
         }
         return (
-            <iframe width="100%" height="600" src={source} frameBorder="0"></iframe>
+            <iframe width="100%" height="600" src={source} frameBorder="0" data-resizable="true"></iframe>
         );
     }
 }
