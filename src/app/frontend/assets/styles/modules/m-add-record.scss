@@ -46,11 +46,18 @@
 }
 
 .m-add-record button.delete {
-  display: none;
+  @include big-square-button;
+  background:#eee;
+  color:#777;
 }
 
-.m-add-record.is-edit-mode button.delete {
-  display: inline-block;
+.m-add-record button.delete:hover {
+  color:#777;
+  background:darken(#eee,10%);
+}
+
+.m-add-record button.delete:before {
+  content: "\f00d";
 }
 
 .m-add-record .form-group--date .helper-text {

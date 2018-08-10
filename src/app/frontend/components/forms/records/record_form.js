@@ -127,7 +127,10 @@ import RecordModel from './../../../models/record';
                 {/*<Team {...this.props} />*/}
               </div>
 
-              <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save" />
+              <div className="form-actions">
+                {/*<button className="delete">Delete</button> TODO: Show this when editing an existing record, and hook it up */}
+                <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save" />
+              </div>
 
             </form>
           </div>

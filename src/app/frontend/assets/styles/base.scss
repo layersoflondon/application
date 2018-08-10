@@ -142,6 +142,7 @@ $form-border-color: #e4e4e4;
 
 input[type="text"],
 input[type="tel"],
+input[type="password"],
 textarea {
   border: none;
   background: white;
@@ -151,13 +152,15 @@ textarea {
 }
 
 input[type="text"].has-errors,
-input[type="tel"].has-errors {
+input[type="tel"].has-errors,
+input[type="password"].has-errors {
   outline:none;
   border-bottom: 2px solid $red;
 }
 
 input[type="text"]:focus,
-input[type="tel"]:focus {
+input[type="tel"]:focus,
+input[type="password"]:focus {
   outline:none;
   border-bottom: 2px solid $green;
 }
@@ -189,6 +192,7 @@ input[type="submit"] {
 
 .form--over-white input[type="text"],
 .form--over-white input[type="tel"],
+.form--over-white input[type="password"],
 .form--over-white textarea {
   //background: #f5f2f7;
 }
