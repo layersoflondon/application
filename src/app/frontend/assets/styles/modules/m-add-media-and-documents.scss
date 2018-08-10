@@ -120,12 +120,16 @@
   position: relative;
   //box-shadow: 0 0 25px #650b1d59;
   color:#e8ca4c;
-
-
 }
 
 .m-add-media-and-documents .thumbs .add {
   position: relative;
+}
+
+.m-add-media-and-documents .thumbs .add.add-files {
+  width: 100%;
+  border: 4px dashed #e8ca4c;
+  height: 6em;
 }
 
 .m-add-media-and-documents .thumbs .add .image {

@@ -15,11 +15,22 @@ import {observer} from "mobx-react";
 
     this.state = {is_visible: false, items: this.props.recordFormStore.record.attachments, errors: [], loading: []};
 
+    this.fileInputRef = React.createRef();
+
     // if we're editing/creating a record that doesn't have a video associated, stub out a video object that we can edit
     if(this.props.recordFormStore.record.videos.length === 0) {
       const video_item = Attachment.fromJS({attachable_type: 'Attachments::Video', attachable: {title: '', caption: '', youtube_id: ''}}, this.props.recordFormStore.record.id);
       this.props.recordFormStore.record.attachments.push(video_item);
     }
+  }
+
+  showFileInput(event) {
+    event.preventDefault();
+    this.fileInputRef.current.click();
+  }
+
+  onFileInputChange(event) {
+    this.onDrop(Array.from(event.target.files), []);
   }
 
   onDrop(acceptedFiles, rejectedFiles, event) {
@@ -54,7 +65,6 @@ import {observer} from "mobx-react";
 
         const loading = this.state.loading.slice();
 
-        console.log("Loaded: ", file);
         const loaded_file = {url: file.preview, type: attachment_type(file.type)};
         loading.push(loaded_file);
 
@@ -73,8 +83,6 @@ import {observer} from "mobx-react";
 
         media_item.persist().then((response) => {
           let data = response.data;
-
-          console.log("Persisted", response);
 
           // we need to add some attributes from the response to our media item
           // object so that it can be rendered in the media item component
@@ -133,22 +141,35 @@ import {observer} from "mobx-react";
 
             <div className="add-tools">
               <div className="form-group add-file">
-                <a href="#"><span className="image"></span><em>Upload</em></a>
+                <a href="#" onClick={this.showFileInput.bind(this)}><span className="image"></span><em>Upload</em></a>
+                <input type="file" ref={this.fileInputRef} onChange={this.onFileInputChange.bind(this)} style={{display: 'none'}} />
               </div>
               {video_items.length > 0 && video_items}
             </div>
 
             <div className="thumbs">
-              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '1px solid #c2c2c2'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a" onDrop={this.onDrop.bind(this)}>
+              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '4px dashed #e86652'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a" onDrop={this.onDrop.bind(this)}>
                 <ul>
                   {media_items}
 
                   {loading_items}
 
-                  <li className="add">
-                    <a href="#"><span className="image"></span><em>Drag &amp; drop</em></a>
-                  </li>
+                  {(this.state.loading.length > 0 || this.props.recordFormStore.record.documents_and_images.length > 0) && (
+                    <ul>
+                      <li className="add">
+                        <a href="#"><span className="image"></span><em>Drag &amp; drop</em></a>
+                      </li>
+                    </ul>
+                  )}
                 </ul>
+
+                {(this.state.loading.length === 0 && this.props.recordFormStore.record.documents_and_images.length === 0) && (
+                  <div className="add add-files">
+                    <a href="#">
+                      <em>Your images will appear here, or you can drag and drop them.</em>
+                    </a>
+                  </div>
+                )}
               </Dropzone>
             </div>
 
