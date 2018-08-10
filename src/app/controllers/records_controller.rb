@@ -22,7 +22,7 @@ class RecordsController < ApplicationController
   end
 
   def show
-    @record = RecordsIndex.filter(ids: {values: [params[:id]]}).first
+    @record = RecordsIndex.published.filter(ids: {values: [params[:id]]}).first
     raise ActiveRecord::RecordNotFound, "Record not found" unless @record.present?
     raise Pundit::NotAuthorizedError unless RecordPolicy.new(current_user, @record).show?
     # TODO create a RecordViewJob which increments async.
@@ -49,9 +49,13 @@ class RecordsController < ApplicationController
 
   def destroy
     authorize(@record)
-    @record.state = 'deleted'
-    return render json: '', status: :no_content if @record.save
-    render json: @record.errors, status: :unauthorized
+
+    if @record.may_mark_as_deleted?
+      @record.mark_as_deleted!
+      render json: '', status: :ok
+    else
+      render json: @record.errors, status: :unprocessable_entity
+    end
   end
 
   def like

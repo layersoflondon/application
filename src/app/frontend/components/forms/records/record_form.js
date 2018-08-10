@@ -63,6 +63,18 @@ import RecordModel from './../../../models/record';
     })
   }
 
+  handleClickedDelete(event) {
+    event.preventDefault();
+
+    Record.destroy(null, this.props.recordFormStore.record.id).then((response) => {
+      this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
+      this.props.router.push('/map');
+      this.props.recordFormStore.record_id = null;
+    }).catch((error) => {
+      console.log("error destroying record");
+    });
+  }
+
   handleCloseOnClick(event) {
     event.preventDefault();
 
@@ -167,7 +179,13 @@ import RecordModel from './../../../models/record';
                 */
                 }
 
-                <div class="primary-actions">
+                <div className="primary-actions">
+                  {this.props.recordFormStore.record.id && (
+                    <button type="submit" className="btn-danger delete" onClick={this.handleClickedDelete.bind(this)}>
+                      Delete
+                    </button>
+                  )}
+
                   <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save" />
                 </div>
 
