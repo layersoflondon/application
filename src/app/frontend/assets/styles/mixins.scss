@@ -354,6 +354,10 @@ $element-border-radius-small: 3px;
   &:hover {
     background: darken($green,10%);
   }
+
+  &:focus {
+    outline:0;
+  }
 }
 
 @mixin lozenge-button {
