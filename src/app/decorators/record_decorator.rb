@@ -11,6 +11,6 @@ class RecordDecorator < Draper::Decorator
   #   end
 
   def description
-    h.sanitize(object.description).html_safe
+    h.simple_format(h.sanitize(object.description)).html_safe
   end
 end
