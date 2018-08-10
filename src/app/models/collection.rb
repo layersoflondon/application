@@ -17,9 +17,9 @@ class Collection < ApplicationRecord
     everyone: 2
   }
 
-  validates :title, :description, presence: true
+  validates :title, presence: true
   validates :title, length: { in: 3..255 }
-  validates :description, length: { minimum: 3 }
+  # validates :description, length: { minimum: 3 }
   validate :write_state_team, if: -> {write_state === 'team'}
 
   scope :collections_for_user, ->(user) {
