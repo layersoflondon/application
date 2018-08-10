@@ -33,9 +33,10 @@ import Record from '../../sources/record';
     path.splice(-1, 1);
 
     Record.report(null, {report: this.state.form}).then((response) => {
+      this.setState({form: {issue: Object.keys(this.issues)[0], message: '', email: this.state.email}, errors: []});
       this.props.router.push(path.join("/"));
-      this.setState({form: {issue: Object.keys(this.issues)[0], message: '', email: email}, errors: []});
     }).catch((error) => {
+      console.log("Got errors: ", error);
       this.setState({errors: error.response.data});
     });
   }
