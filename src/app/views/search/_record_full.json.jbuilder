@@ -15,7 +15,7 @@ json.attachments record.attachments
 json.user_can_edit RecordPolicy.new(current_user,record).edit?
 json.user_can_like RecordPolicy.new(current_user,record).like?
 if record.image
-  json.image record.image.select {|k,v| k.in?(['thumb','primary', 'large'])}
+  json.image record.image.select {|k,v| k.in?(['card', 'thumb','primary', 'large'])}
 else
   json.image nil
 end

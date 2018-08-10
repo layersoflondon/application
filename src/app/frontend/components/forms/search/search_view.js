@@ -219,6 +219,7 @@ import Search from "../../../sources/search";
 
     const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} isCheckedMethod={this.isChecked.bind(this)} />);
 
+    const toggle_classname = (this.state.geobounding !== 'london') ? 'is-toggled' : "";
     return (
       <div className={className}>
         <div className="s-overlay--search is-showing">
@@ -232,7 +233,7 @@ import Search from "../../../sources/search";
 
             {/* <form> container */}
             <div className="form--chunky">
-              <div className="form-group form-group--toggle-switch">
+              <div className={`form-group form-group--toggle-switch ${toggle_classname}`}>
                 <label>
                   <span>Search all of London</span>
                   <input type="checkbox" onChange={this.toggleSearchBounds.bind(this)} checked={this.state.geobounding !== 'london'} />

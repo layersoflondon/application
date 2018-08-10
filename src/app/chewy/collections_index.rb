@@ -47,6 +47,7 @@ class CollectionsIndex < Chewy::Index
       field :id, type: 'integer'
       field :title, type: 'text', analyzer: :english
       field :description, type: 'text', analyzer: :english
+      field :excerpt, type: 'text', analyzer: :english
       field :like_count, type: 'integer'
       field :view_count, type: 'integer'
       field :state, type: 'keyword'

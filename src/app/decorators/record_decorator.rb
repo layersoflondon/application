@@ -11,10 +11,6 @@ class RecordDecorator < Draper::Decorator
   #   end
 
   def description
-    h.simple_format(h.sanitize(object.description, tags: ['br']))
-  end
-
-  def excerpt
-    h.simple_format(h.sanitize(object.description.truncate(80), tags: ['br']))
+    h.sanitize(object.description).html_safe
   end
 end
