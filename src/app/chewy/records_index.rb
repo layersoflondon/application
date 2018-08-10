@@ -83,4 +83,8 @@ class RecordsIndex < Chewy::Index
   def self.published
     filter(terms: {state: ['published']})
   end
+
+  def self.in_state(states)
+    filter(terms: {state: states})
+  end
 end

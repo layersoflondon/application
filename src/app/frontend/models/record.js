@@ -6,7 +6,6 @@ import L from "leaflet";
 
 export default class RecordModel {
   id = null;
-  state;
   lat = 0;
   lng = 0;
   user = {};
@@ -17,6 +16,7 @@ export default class RecordModel {
   @observable credit = '';
   @observable location = null;
   @observable latlng = null;
+  @observable state = null;
 
   @observable like_count = 0;
   @observable view_count = 0;
@@ -121,6 +121,16 @@ export default class RecordModel {
     return this.user_can_like;
   }
 
+  @computed get saveButtonLabel() {
+    let label = "Publish";
+
+    if( this.id && this.state === 'published' ) {
+      label = "Save";
+    }
+
+    return label;
+  }
+
   incrementLikeCount() {
     Record.like(this.id).then((response) => {
       this.like_count = response.data.like_count;
@@ -212,7 +222,8 @@ export default class RecordModel {
       view_type: this.view_type,
       attachments: this.attachments,
       user: this.user,
-      user_can_edit: this.user_can_edit
+      user_can_edit: this.user_can_edit,
+      state: this.state
     }
   }
 

@@ -48,6 +48,10 @@ import RecordModel from './../../../models/record';
     // when successfully updating a Record, we should propagate the updated data throughout the stores that are
     // rendering it. since the tray and map render their data from the trayViewStore.cards observable, we can just
     // overwrite the data there (see addOrUpdateRecord)
+    const {state} = event.target.dataset;
+    this.props.recordFormStore.record.state = state;
+    console.log(state);
+
     this.props.recordFormStore.record.persist().then((response) => {
       let card = this.props.trayViewStore.addOrUpdateRecord(response.data);
 
@@ -63,15 +67,19 @@ import RecordModel from './../../../models/record';
     })
   }
 
-  handleClickedDelete(event) {
+  handleStateChange(event) {
     event.preventDefault();
+    const {state} = event.target.dataset;
+
     if (window.confirm("Really delete this record?")) {
-      Record.destroy(null, this.props.recordFormStore.record.id).then((response) => {
-        this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
-        this.props.router.push('/map');
-        this.props.recordFormStore.record_id = null;
-      }).catch((error) => {
-        console.log("error destroying record");
+      Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
+        if( state === 'deleted' ) {
+          this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
+          this.props.recordFormStore.record_id = null;
+          this.props.router.push('/map');
+        }
+
+        this.props.recordFormStore.record.state = state;
       });
     }
   }
@@ -180,14 +188,32 @@ import RecordModel from './../../../models/record';
                 */
                 }
 
-                <div className="primary-actions">
-                  {this.props.recordFormStore.record.id && (
-                    <button type="submit" className="btn-danger delete" onClick={this.handleClickedDelete.bind(this)}>
-                      Delete
+                <div className="secondary-actions">
+                  {!this.props.recordFormStore.record.id && (
+                    <button type="submit" className="delete" onClick={()=>this.props.router.push('/map')}>
+                      Cancel
                     </button>
                   )}
 
-                  <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save" />
+                  {(this.props.recordFormStore.record.id && this.props.recordFormStore.record.state === 'published') && (
+                    <React.Fragment>
+                      <button type="submit" className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
+                        Delete
+                      </button>
+
+                      <button type="submit" className="draft" data-state="draft" onClick={this.handleStateChange.bind(this)}>
+                        Unpublish
+                      </button>
+                    </React.Fragment>
+                  )}
+                </div>
+
+                <div className="primary-actions">
+                  {this.props.recordFormStore.record.state === 'draft' && (
+                    <input type="submit" data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save for later" />
+                  )}
+
+                  <input type="submit" data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
                 </div>
 
               </div>
