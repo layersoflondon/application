@@ -166,7 +166,7 @@ import RecordModel from './../../../models/record';
 
                 */
                 }
-                
+
                 <div class="primary-actions">
                   <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save" />
                 </div>

@@ -25,7 +25,7 @@
 .m-add-record .form-group--date {
   width: 300px;
   float: right;
-  margin-bottom: 0;
+  margin-bottom: -14px;
 }
 
 .m-add-record .form-group--date input {
@@ -42,7 +42,7 @@
 }
 
 .m-add-record .form-group--description {
-  margin-top: 40px;
+  clear:both;
 }
 
 .m-add-record .form-actions {
