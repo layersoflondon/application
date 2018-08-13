@@ -141,7 +141,7 @@ import {observer} from "mobx-react";
 
             <div className="add-tools">
               <div className="form-group add-file">
-                <a href="#" onClick={this.showFileInput.bind(this)}><span className="image"></span><em>Upload</em></a>
+                <a href="#" onClick={this.showFileInput.bind(this)}><span className="image"></span><em>Upload a file</em></a>
                 <input type="file" ref={this.fileInputRef} onChange={this.onFileInputChange.bind(this)} style={{display: 'none'}} />
               </div>
               {video_items.length > 0 && video_items}
@@ -166,7 +166,7 @@ import {observer} from "mobx-react";
                 {(this.state.loading.length === 0 && this.props.recordFormStore.record.documents_and_images.length === 0) && (
                   <div className="add add-files">
                     <a href="#">
-                      <em>Your images will appear here, or you can drag and drop them.</em>
+                      <em>Your files will appear here, or you can drag and drop them.</em>
                     </a>
                   </div>
                 )}
