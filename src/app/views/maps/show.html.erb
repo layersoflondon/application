@@ -9,6 +9,10 @@
             name: current_user.name,
             username: current_user.email
         }.to_json) %>
+    <% else %>
+          window.__USER = <%= raw({
+            id: nil
+        }.to_json) %>
     <% end %>
 </script>
 
