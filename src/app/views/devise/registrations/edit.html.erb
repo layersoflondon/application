@@ -36,6 +36,14 @@
       <%= f.password_field :current_password, autocomplete: "off" , style: 'background: #f5f2f7' %>
     </div>
 
+    <div class="form-group form-group--current-password">
+        <%= f.label :password, "New password" %> <i>If you want to change your password, enter a new one here.</i>
+        <%= f.password_field :password, autocomplete: "off" , style: 'background: #f5f2f7' %>
+
+        <%= f.label :password_confirmation, "New password again" %> <i>Confirm your new password</i>
+        <%= f.password_field :password_confirmation, autocomplete: "off" , style: 'background: #f5f2f7' %>
+    </div>
+
     <div class="form-group actions">
       <button type="submit">Save changes</button>
     </div>
