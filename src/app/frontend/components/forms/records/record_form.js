@@ -70,8 +70,22 @@ import RecordModel from './../../../models/record';
   handleStateChange(event) {
     event.preventDefault();
     const {state} = event.target.dataset;
+    let message = "";
+    switch(state) {
+      case "deleted":
+        message = "Really delete this record?";
+        break;
+      case "draft":
+        message = "Make this record draft?";
+        break;
+      case "published":
+        message = "Publish this record?";
+        break;
 
-    if (window.confirm("Really delete this record?")) {
+    }
+
+
+    if (window.confirm(message)) {
       Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
         if( state === 'deleted' ) {
           this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
