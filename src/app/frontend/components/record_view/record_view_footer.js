@@ -9,7 +9,7 @@ import {NavLink} from 'react-router-dom';
   }
 
   showOnMap() {
-    this.props.mapViewStore.panTo(this.props.trayViewStore.record.lat, this.props.trayViewStore.record.lng);
+    this.props.mapViewStore.panTo(this.props.trayViewStore.record.lat, this.props.trayViewStore.record.lng, 18);
     const card = this.props.trayViewStore.cards.get(`record_${this.props.trayViewStore.record_id}`);
     if( card ) {
       card.highlighted = true;
