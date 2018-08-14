@@ -13,8 +13,6 @@ class RecordsController < ApplicationController
     @record = current_user.records.build(record_params)
     authorize(@record)
 
-    Rails.logger.info("\n\nGOT RESULT: #{@result.inspect}\n\n\n")
-
     @result = save_record_and_return_from_es(@record)
 
     unless @result.present?
@@ -36,8 +34,6 @@ class RecordsController < ApplicationController
   end
 
   def update
-    Rails.logger.info("\n\n\n\n#{record_params}\n\n\n\n")
-
     update_record_params = record_params.to_h
     check_transition(update_record_params[:state])
     @record.assign_attributes(update_record_params)

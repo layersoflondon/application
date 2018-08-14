@@ -21,7 +21,6 @@ class FoundPlaces extends Component {
 @observer class Details extends Component {
   constructor(props) {
     super(props);
-
     // this.state = {in_edit_mode: false}
   }
 

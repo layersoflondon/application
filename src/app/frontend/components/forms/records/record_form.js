@@ -49,8 +49,8 @@ import RecordModel from './../../../models/record';
     // rendering it. since the tray and map render their data from the trayViewStore.cards observable, we can just
     // overwrite the data there (see addOrUpdateRecord)
     const {state} = event.target.dataset;
+
     this.props.recordFormStore.record.state = state;
-    console.log(state);
 
     this.props.recordFormStore.record.persist().then((response) => {
       let card = this.props.trayViewStore.addOrUpdateRecord(response.data);
@@ -58,10 +58,11 @@ import RecordModel from './../../../models/record';
       card = this.props.trayViewStore.cards.get(card.id);
       this.props.trayViewStore.record = card.data;
       this.props.trayViewStore.tray_is_visible = true;
-      this.props.recordFormStore.record = new RecordModel();
 
       const {push} = {...this.props.router};
       push(`/map/records/${card.data.id}`);
+
+      this.props.recordFormStore.record = new RecordModel();
     }).catch((error) => {
       this.props.recordFormStore.record.errors = error.response.data;
     })
