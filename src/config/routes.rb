@@ -72,8 +72,8 @@ Rails.application.routes.draw do
 
   resources :taxonomies, only: [:index], defaults: {format: :json}
 
-  resources :guides, only: [:show], path: "guides"
-  resources :faqs, :faq_entries, only: [:show], path: "faqs"
+  resources :guides, only: [:show], path: "help-centre/guides"
+  resources :faqs, :faq_entries, only: [:show], path: "help-centre/faqs"
   resources :posts, only: [:show], path: "news-events"
 
   match 'search', via: [:get, :post], to: 'search#index', defaults: {format: :json}
