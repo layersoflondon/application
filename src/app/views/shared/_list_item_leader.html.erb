@@ -1,12 +1,13 @@
 <% classes = local_assigns.has_key?(:classes) ? local_assigns[:classes] : "" %>
 <% tag = local_assigns.has_key?(:tag) ? local_assigns[:tag] : "" %>
-<% item_type = list_item_leader.class.to_s.demodulize.underscore.to_sym %>
+<% item_type = list_item_leader.object.class.to_s.demodulize.underscore.to_sym %>
 <div class="article-leader <%= classes %>">
 
     <div class="text-content">
         <% if tag.present? %>
             <div class="tag"><%= tag %></div>
         <% end %>
+        <%= console if list_item_leader.id == 570 %>
         <%= link_to Rooftop::Rails::RouteResolver.new(item_type, list_item_leader.slug).resolve do %>
             <h2 class="title"><%= list_item_leader.title %></h2>
         <% end %>
