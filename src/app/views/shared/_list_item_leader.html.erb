@@ -7,7 +7,6 @@
         <% if tag.present? %>
             <div class="tag"><%= tag %></div>
         <% end %>
-        <%= console if list_item_leader.id == 570 %>
         <%= link_to Rooftop::Rails::RouteResolver.new(item_type, list_item_leader.slug).resolve do %>
             <h2 class="title"><%= list_item_leader.title %></h2>
         <% end %>
