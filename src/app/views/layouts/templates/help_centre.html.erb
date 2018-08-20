@@ -1,45 +1,47 @@
-<%= content_for :body_class do %>t-help-centre<% end %>
+<%= content_for :body_class do %>t-help-centre
+<% end %>
 <% content_for :template do %>
-      <%= render 'shared/page_header', class: "m-page-header--nano" %>
+    <%= render 'shared/page_header', class: "m-page-header--nano" %>
 
-      <div class="m-help-header">
+    <div class="m-help-header">
 
         <div class="video">
-          <div>
-            <h2 class="title">Introducing Layers of London</h2>
-            <div class="video-wrapper">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/1iMUDfXjXc8?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <div>
+                <h2 class="title">Introducing Layers of London</h2>
+                <div class="video-wrapper">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/1iMUDfXjXc8?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
             </div>
-          </div>
         </div>
+        <% if top_faqs.any? %>
+            <div class="top-faq">
+                <h2 class="title">Top frequently asked questions</h2>
+                <ul>
+                    <% top_faqs.each do |faq| %>
+                        <li><%= link_to faq.title, faq_path(faq.slug) %></li>
+                    <% end %>
+                </ul>
+                <a href="/help-centre/faqs">See all FAQs</a>
+            </div>
+        <% end %>
 
-        <div class="top-faq">
-          <h2 class="title">Top frequently asked questions</h2>
-          <ul>
-            <% faqs.each do |faq| %>
-              <li>
-                <%= link_to faq_path(faq.slug) do %><%= faq.title %><% end %></li>
-            <% end %>
-          </ul>
-          <a href="/help-centre/faqs">See all FAQs</a>
-        </div>
+    </div>
 
-      </div>
 
-      <div class="m-guides">
+    <div class="m-guides">
 
         <h2 class="title">Guides</h2>
         <% guides.each do |guide| %>
-        <div class="guide">
-          <%= link_to guide_path(guide.slug) do %>
-            <div class="image"></div>
-            <h3><%= guide.title %></h3>
-            <p class="description"><%= guide.content %></p>
-          <% end %>
-        </div>
+            <div class="guide">
+                <%= link_to guide_path(guide.slug) do %>
+                    <div class="image"></div>
+                    <h3><%= guide.title %></h3>
+                    <p class="description"><%= guide.content %></p>
+                <% end %>
+            </div>
         <% end %>
 
-      </div>
+    </div>
 <% end %>
 
 <%= render template: "layouts/application" %>
