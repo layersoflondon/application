@@ -7,9 +7,9 @@
         <div class="m-article-list">
             <% posts.each do |post| %>
                 <% if post.blog? %>
-                    <%= render 'pages/post_leader', post: post %>
+                    <%= render 'shared/list_item_leader', list_item_leader: post, tag: 'Article', classes: 'article-leader--post'%>
                 <% elsif post.event? %>
-                    <%= render 'pages/event_leader', post: post %>
+                    <%= render 'shared/list_item_leader', list_item_leader: post, tag: 'Event', classes: 'article-leader--event'%>
                 <% end %>
 
             <% end %>
