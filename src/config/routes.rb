@@ -57,7 +57,7 @@ Rails.application.routes.draw do
       post 'remove', to: 'teams#remove', as: :remove_from
     end
   end
-
+  
 
   resource :map, controller: 'maps' do
     match '/state', via: :get, to: 'maps#state', as: :map_state, format: :json
@@ -72,6 +72,7 @@ Rails.application.routes.draw do
 
   resources :taxonomies, only: [:index], defaults: {format: :json}
 
+  resources :guides, only: [:show], path: "guides"
   resources :faqs, only: [:show], path: "faqs"
   resources :posts, only: [:show], path: "news-events"
 
