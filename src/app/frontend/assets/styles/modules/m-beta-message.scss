@@ -10,6 +10,11 @@
   width:100%;
   font-size:14px;
   padding: 10px;
+  @include mq(smartphone) {
+    font-size: 12px;
+    height:50px;
+    bottom:-50px;
+  }
 }
 
 .m-beta-message a {

@@ -108,7 +108,7 @@ import Select from 'react-select'
                 <span className="label">Who can see?</span>
                 <label>
                   <input type="checkbox" name="read_state" value={this.state.read_state} onChange={this.handleOnReadStateChange.bind(this)} />
-                  <span>Keep this collection private <br /> Only you will see this collection (NB: the records within will still be visible)</span>
+                  <span>Keep this collection private <br /> <span className="nb">This will create a <strong>collection</strong> that only you can see.<br /> The records within will still be publicly viewable.</span></span>
                 </label>
 
               </div>

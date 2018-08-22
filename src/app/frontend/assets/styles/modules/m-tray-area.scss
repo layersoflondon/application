@@ -3,14 +3,28 @@
 .m-tray-area {
   width: calc(55% - 20px);
   height: 100%;
+  //height:calc(100vh - 40px); // While beta message is up
   position: absolute;
   top: 0;
   left: 60px;
   background: #f4f7f6;
   z-index: 10;
   @include top-and-tail;
-  transition:all .2s;
+  transition: all .2s;
+  @include mq(tablet) {
+    top:60px;
+    width: 100%;
+    left:0;
+    transition: none;
+    height:calc(100vh - 60px);
+    height:calc(100vh - 100px); // While beta message is up
+  }
+  @include mq(smartphone) {
+    height:calc(100vh - 110px); // While beta message is up
+  }
 }
+
+
 
 .m-tray-area.is-loading {
   @include loading-spinner;
@@ -18,7 +32,11 @@
 }
 
 .tray-is-closed .m-tray-area {
-  transform:translate3d(calc(-100% + 20px), 0, 0);
+  transform: translate3d(calc(-100% + 20px), 0, 0);
+  @include mq(tablet) {
+    transform: translate3d(-100%, 0, 0);
+    visibility:none;
+  }
 }
 
 .m-tray-area .window {
@@ -26,8 +44,15 @@
   overflow: scroll;
   height: 100%;
   box-shadow: 0 0 80px rgba(0, 0, 0, 0.1);
-  background:$black;
-  color:white;
+  background: $black;
+  color: white;
+  @include mq(tablet) {
+    padding-top:0;
+  }
+  @include mq(smartphone) {
+    padding:15px;
+    padding-top:0;
+  }
 }
 
 .m-tray-area .open-close {
@@ -42,11 +67,14 @@
   width: 40px;
   cursor: pointer;
   @include transition(color, .2s);
-  background:$black;
+  background: $black;
+  @include mq(tablet) {
+    display:none;
+  }
 }
 
 .m-tray-area .open-close:hover {
-  color:#bbb;
+  color: #bbb;
 }
 
 .m-tray-area .open-close:before {
@@ -55,7 +83,7 @@
   margin-top: 27px;
   margin-left: 11px;
   display: block;
-  color:white;
+  color: white;
   opacity: 0.6;
 }
 

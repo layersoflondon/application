@@ -2,7 +2,7 @@
 
 .m-layers-picker {
   @include overlay-wrap-transparent;
-  max-width: 1000px;
+  max-width: 1080px;
 }
 
 .m-layers-picker h1 {
@@ -24,7 +24,15 @@
 
 .m-layers-picker .layers {
   clear: both;
-  padding: 23px 0px 0px 30px;
+  margin-right: -38px;
+  padding: 23px 0px 0px 0;
+  @media screen and (max-width: 650px) {
+    margin-right: 0;
+  }
+}
+
+.m-layers-picker .layers h2 {
+  margin-top: 0;
 }
 
 .m-layers-picker .layers--specific {
@@ -53,6 +61,13 @@
   margin-bottom: 30px;
   padding-right: 30px;
   vertical-align: top;
+  @include mq(small-tablet) {
+    width: 50%;
+  }
+  @media screen and (max-width: 650px) {
+    width: 100%;
+    padding-right: 0;
+  }
 }
 
 .m-layers-picker .layer .image {
@@ -125,13 +140,12 @@
   margin-top: 6px;
   margin-left: -2px;
   outline: 0;
-  transition:all .2s;
+  transition: all .2s;
 }
 
 .m-layers-picker .layer button:hover {
   background: #549a7624;
 }
-
 
 .m-layers-picker .layer.is-selected button {
   border: 2px solid #00000042;
@@ -152,7 +166,7 @@
 
 .m-layers-picker .layer .description {
   font-size: 14px;
-  margin:10px 0;
+  margin: 10px 0;
 }
 
 .m-layers-picker .layer > a {

@@ -1,0 +1,29 @@
+/* Smartphone menu wrapper */
+
+.m-smartphone-menu-wrapper {
+  @include mq(tablet) {
+    display: none;
+    background: #000000d4;
+    background: transparentize($black, 0.1);
+    //padding: 10px 4px 10px 20px;
+    padding: 40px 0;
+    margin:0 -4px 0 -20px;
+
+  }
+}
+
+.menu-is-open .m-smartphone-menu-wrapper {
+  display: block;
+}
+
+.m-smartphone-menu-wrapper .m-tools,
+.m-smartphone-menu-wrapper .m-actions {
+  @include mq(tablet) {
+    width: 230px;
+    margin: 0 auto;
+  }
+}
+
+.m-sidebar .m-smartphone-menu-wrapper .m-tool-button a:after {
+  opacity:1;
+}

@@ -17,6 +17,10 @@
 .m-search-overlay .form-group--primary-field input {
   font-size: 30px;
   padding: 20px 4px;
+  @include mq(small-smartphone) {
+    font-size: 22px;
+    padding: 14px 4px;
+  }
 }
 
 .m-search-overlay input[type="text"] {
@@ -41,6 +45,9 @@
   background: white;
   padding: 20px;
   clear: both;
+  @include mq(small-smartphone) {
+    padding: 10px;
+  }
 }
 
 .m-search-overlay .form-group--toggle-switch {
@@ -57,6 +64,12 @@
 .m-search-overlay .form-group--toggle-switch label {
   background: transparent;
   padding: 0;
+}
+
+.m-search-overlay .form-group--toggle-switch label span {
+  @include mq(small-smartphone) {
+    font-size:11.8px;
+  }
 }
 
 .m-search-overlay .form-group--checklist {
@@ -91,6 +104,9 @@
   position: relative;
   margin-bottom: 50px;
   padding-bottom: 0;
+  @include mq(small-smartphone) {
+
+  }
 }
 
 .m-search-overlay .date-range .subsection-header h1 {
@@ -105,6 +121,10 @@
   background: 0;
   color: $green;
   @include link-arrow;
+  @include mq(small-smartphone) {
+    top: 10px;
+    right: 10px;
+  }
 }
 
 .m-search-overlay .date-range > button {
@@ -116,10 +136,17 @@
   margin-bottom: 20px;
   float: left;
   position: relative;
+  @include mq(small-smartphone) {
+    width: calc(50% - 20px);
+    margin-bottom:0;
+  }
 }
 
 .m-search-overlay .date-range .date-box + .date-box {
   margin-left: 100px;
+  @include mq(small-smartphone) {
+    margin-left: 40px;
+  }
 }
 
 .m-search-overlay .date-range .date-box + .date-box:before {
@@ -132,6 +159,9 @@
   top: 19px;
   left: 0;
   margin-left: -55px;
+  @include mq(small-smartphone) {
+    margin-left: -23px;
+  }
 }
 
 .m-search-overlay .date-range .picker-icon {
@@ -167,12 +197,19 @@
   background: $orange;
   margin: 0 -20px -20px -20px;
   padding: 20px;
+  @include mq(small-smartphone) {
+    margin:72px -10px -10px -10px;
+    padding:10px;
+  }
 }
 
 .m-search-overlay .date-range .era-picker h2 {
   @include font-display;
   color: $red;
   margin-top: 0;
+  @include mq(small-smartphone) {
+    margin-bottom:10px;
+  }
 }
 
 .m-search-overlay .date-range .era-picker p {
@@ -185,6 +222,10 @@
   @include unlist;
   font-size: 12px;
   padding: 20px;
+  @include mq(small-smartphone) {
+    padding: 6px;
+    padding-left: 13px;
+  }
 }
 
 .m-search-overlay .date-range .eras li {
@@ -196,6 +237,15 @@
   margin-bottom: 40px;
   margin-left: -4px;
   width: 20%;
+  @include mq(small-smartphone) {
+    width: 100%;
+    border-top:0;
+    border-left: 2px solid $red;
+    padding-left: 8px;
+    margin-bottom:0;
+    padding-top:0;
+    padding-bottom:10px;
+  }
 }
 
 .m-search-overlay .date-range .eras li:before {
@@ -209,6 +259,12 @@
   top: -12px;
   left: 50%;
   margin-left: -10px;
+  @include mq(small-smartphone) {
+    top: 50%;
+    left: -11px;
+    margin-left:0;
+    margin-top: -15px;
+  }
 }
 
 .m-search-overlay .date-range .eras li a {
@@ -222,6 +278,9 @@
   margin: 0 10px;
   position: relative;
   transition: all .2s;
+  @include mq(small-smartphone) {
+    margin-right:0;
+  }
 }
 
 .m-search-overlay .date-range .eras li a:hover {
@@ -239,6 +298,14 @@
   left: 50%;
   margin-left: -10px;
   transition: all .2s;
+  @include mq(small-smartphone) {
+    border-right: 20px solid white;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    top:50%;
+    left:-20px;
+    margin-top:-10px;
+  }
 }
 
 .m-search-overlay .date-range .eras li a:hover:before {
@@ -251,6 +318,10 @@
   display: block;
   opacity: 0.7;
   font-weight: 500;
+  @include mq(small-smartphone) {
+    display:inline-block;
+    margin-left:10px;
+  }
 }
 
 // Filters

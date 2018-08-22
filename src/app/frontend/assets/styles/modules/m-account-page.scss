@@ -3,13 +3,24 @@
 .m-account-page-wrapper {
   @include clearfix;
   @include overlay-wrap-white;
-  max-width: 900px;
+  //max-width: 900px;
   margin-top: 0;
+  @include mq(tablet) {
+    margin-top: 0;
+  }
+}
+
+.m-account-page-wrapper iframe {
+  width: 100%;
+  max-width: 100%;
 }
 
 .m-account-page {
   color: #222;
   background: white;
+}
+
+.m-account-page {
 }
 
 .m-account-page a {
@@ -36,8 +47,6 @@
 }
 
 .m-account-page.m-account-page--records-collections .section {
-  //width: 50%;
-  //float: left;
   border-top: 0;
   margin-top: 0;
   padding-right: 20px;
@@ -122,12 +131,19 @@
   width: calc(100% - 250px);
   padding-right: 20px;
   float: left;
+  @include mqacc(smartphone) {
+    width:auto;
+    float:none;
+  }
 }
 
 .m-account-page--details .form-group--profile-pic {
   width: 250px;
   float: left;
   height: 100px;
+  @include mqacc(smartphone) {
+    height:auto;
+  }
 }
 
 .m-account-page--details .form-group--profile-pic .image {
@@ -149,6 +165,9 @@
 .m-account-page--details .form-group--single-checkbox {
   clear: both;
   width: 66.666666%;
+  @include mqacc(smartphone) {
+    width:auto;
+  }
 }
 
 .m-account-page--details .form-group--single-checkbox .helper-text {
