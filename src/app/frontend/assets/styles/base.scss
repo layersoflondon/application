@@ -142,6 +142,7 @@ $form-border-color: #e4e4e4;
 
 input[type="text"],
 input[type="tel"],
+input[type="password"],
 textarea {
   border: none;
   background: white;
@@ -150,8 +151,32 @@ textarea {
   border-bottom: 2px solid $form-border-color;
 }
 
+input[type="text"].has-errors,
+input[type="tel"].has-errors,
+input[type="password"].has-errors {
+  outline:none;
+  border-bottom: 2px solid $red;
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus {
+  outline:none;
+  border-bottom: 2px solid $green;
+}
+
 textarea {
   border: 2px solid $form-border-color;
+}
+
+textarea:focus {
+  outline:none;
+  border: 2px solid $green;
+}
+
+textarea.has-errors {
+  outline:none;
+  border-bottom: 2px solid $red;
 }
 
 input[type="submit"] {
@@ -160,7 +185,6 @@ input[type="submit"] {
   border-radius: $default-border-radius;
   background: $main-accent;
   @include transition(all .2s);
-  //color: white;
   &:hover {
     background: darken($main-accent, 10%);
   }
@@ -168,12 +192,14 @@ input[type="submit"] {
 
 .form--over-white input[type="text"],
 .form--over-white input[type="tel"],
+.form--over-white input[type="password"],
 .form--over-white textarea {
   //background: #f5f2f7;
 }
 
 .form--over-white a {
-  color: $orange;
+  color: #e68800;
+
 }
 
 .form--chunky .form-group {
@@ -266,7 +292,6 @@ input[type="submit"] {
 
 
 .form--chunky .form-group--toggle-switch {
-
 
   input[type='checkbox'] {
     height: 0;

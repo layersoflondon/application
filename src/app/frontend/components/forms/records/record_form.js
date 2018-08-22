@@ -127,7 +127,51 @@ import RecordModel from './../../../models/record';
                 {/*<Team {...this.props} />*/}
               </div>
 
-              <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save" />
+              <div className="form-actions">
+
+                {/*
+
+                If NEW:
+
+                <div class="secondary-actions">
+                  <button className="cancel">Cancel</button>
+                </div>
+
+                <div class="primary-actions">
+                  <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save for later" />
+                  <button className="publish">Publish</button>
+                </div>
+
+                If DRAFT:
+
+                <div class="secondary-actions">
+                  <button className="delete">Delete</button>
+                </div>
+
+                <div class="primary-actions">
+                  <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save for later" />
+                  <button className="publish">Publish</button>
+                </div>
+
+                If PUBLISHED:
+
+                <div class="secondary-actions">
+                  <button className="delete">Delete</button>
+                  <button className="unpublish">Unpublish</button>
+                </div>
+
+                <div class="primary-actions">
+                  <button className="publish">Publish</button>
+                </div>
+
+                */
+                }
+
+                <div class="primary-actions">
+                  <input type="submit" onClick={this.handleClickedOnSave.bind(this)} value="Save" />
+                </div>
+
+              </div>
 
             </form>
           </div>

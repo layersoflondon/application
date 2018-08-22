@@ -13,3 +13,4 @@
 //= require jquery
 //= require rails-ujs
 //= require post_message_handler
+//= require iframe_resizing

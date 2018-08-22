@@ -60,6 +60,23 @@
     margin-bottom: 50px;
   }
 
+  p:empty {
+    display: none;
+  }
+
+  p:empty:first-child + p {
+    margin-top:0;
+  }
+
+  > .wp-caption:first-child + p {
+    margin-top:0;
+  }
+
+  p:empty:first-child + .wp-caption + p {
+    margin-top:0;
+  }
+
+
   ul,
   ol,
   blockquote {

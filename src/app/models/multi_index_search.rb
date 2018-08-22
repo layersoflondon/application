@@ -21,6 +21,34 @@ class MultiIndexSearch
     es_query.limit(limit)
   end
 
+  def self.filter_by_date_range(search_params, indexes: INDEXES, limit: 100)
+    if search_params[:q]
+      es_query = self.query(search_params, indexes: indexes, limit: limit)
+    else
+      es_query = Chewy::Search::Request.new(*indexes)
+    end
+
+    if search_params[:date_range].present?
+      es_query = es_query.query(
+        'bool': {
+          'should': [
+            {
+              'range': {
+                'date_from': {
+                  'gte': search_params[:date_range][:gte],
+                  'lte': search_params[:date_range][:lte],
+                  'format': 'yyyy-MM-dd'
+                }
+              }
+            }
+          ]
+        }
+      )
+    end
+
+    es_query
+  end
+
   def self.query(search_params, indexes: INDEXES, limit: 100)
     multi_match_fields = %w[title^10 description]
 

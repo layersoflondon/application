@@ -17,19 +17,20 @@
   float: left;
 }
 
-.m-add-record .place {
-  font-size:12px;
-  color:#aaa;
+.m-add-record .location {
+  font-size: 12px;
+  color: #aaa;
 }
 
 .m-add-record .form-group--date {
   width: 300px;
   float: right;
+  margin-bottom: -14px;
 }
 
 .m-add-record .form-group--date input {
   width: calc(33.333333% - 10px);
-  margin-right:10px;
+  margin-right: 10px;
   display: inline-block;
   padding-left: 2px;
 }
@@ -40,29 +41,90 @@
   padding-right: 30px;
 }
 
-.m-add-record button.delete {
-  display: none;
+.m-add-record .form-group--description {
+  clear:both;
 }
 
-.m-add-record.is-edit-mode button.delete {
-  display: inline-block;
+.m-add-record .form-actions {
+  @include clearfix;
+}
+
+.m-add-record .form-actions .primary-actions {
+  float: right;
+}
+
+.m-add-record .form-actions .secondary-actions {
+  float: left;
+}
+
+.m-add-record .form-actions button,
+.m-add-record .form-actions input[type="submit"] {
+  @include big-square-button;
+  float:none;
+}
+
+.m-add-record .form-actions button:before,
+.m-add-record .form-actions input[type="submit"]:before {
+  // Temporarily hide all icons
+  content:none !important;
+}
+
+.m-add-record .form-actions .primary-actions button,
+.m-add-record .form-actions .primary-actions input[type="submit"] {
+  margin-left:10px;
+}
+
+.m-add-record .form-actions .secondary-actions button,
+.m-add-record .form-actions .secondary-actions input[type="submit"] {
+  margin-right:10px;
+}
+
+.m-add-record button.delete,
+.m-add-record button.cancel,
+.m-add-record button.unpublish {
+  background: #eee;
+  color: #777;
+}
+
+.m-add-record button.delete:hover,
+.m-add-record button.cancel:hover,
+.m-add-record button.unpublish:hover {
+  color: #777;
+  background: darken(#eee, 10%);
+}
+
+.m-add-record button.delete:before,
+.m-add-record button.cancel:before,
+.m-add-record button.unpublish:before {
+  content: "\f00d";
 }
 
 .m-add-record .form-group--date .helper-text {
-  font-size:14px;
+  font-size: 14px;
   padding-top: 6px;
   margin-bottom: 10px;
   display: block;
 }
 
 .m-add-record .end-date-link {
-  font-size:14px;
+  font-size: 14px;
 }
 
-.m-add-record .end-date {
-  display:none;
+.m-add-record .ql-editor {
+  min-height: 200px;
 }
 
-.m-add-record input.has-errors {
-  background-color: lighten($red, 30%);
+.ql-container.ql-container {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.ql-editor.ql-editor {
+  padding: 20px;
+}
+
+.ql-editor.ql-editor:focus {
+  border: 2px solid #549a76;
+  margin: -1px;
+  padding: 19px;
 }

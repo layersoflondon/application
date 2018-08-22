@@ -105,7 +105,7 @@ $element-border-radius-small: 3px;
 
 @mixin overlay-wrap-white {
   @include overlay-wrap;
-  color: #333;
+  color: #222;
   background: white;
   padding: 40px;
 }
@@ -331,18 +331,8 @@ $element-border-radius-small: 3px;
 // Buttons
 
 @mixin big-square-button {
-  /*  border: 0;
-    padding: 11px 25px;
-    border-radius: 100px;
-    border: 4px solid $orange;
-    color: $orange;
-    background: transparent;
-    font-weight: 600;
-    font-size: 32px;*/
 
-  //background: #efdf5b6b;
-
-  background: transparentize($green, 0.5);
+  background: $green;
   color: #ffffff;
   padding: 17px 25px;
   border-radius: 100px;
@@ -362,8 +352,11 @@ $element-border-radius-small: 3px;
   }
 
   &:hover {
-    background: $green;
-    //color:$black;
+    background: darken($green,10%);
+  }
+
+  &:focus {
+    outline:0;
   }
 }
 

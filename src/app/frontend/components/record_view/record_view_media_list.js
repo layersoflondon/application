@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom';
   }
 
   render() {
-    let media = this.props.record.attachments.filter((a) => a.is_media);
+    let media = this.props.record.attachments.filter((a) => a.is_media_or_video);
     const media_items_total = media.length;
 
     media = media.slice(0, this.props.numberOfItems);

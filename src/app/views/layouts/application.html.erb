@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:400,600,700|Muli:400,600,700" rel="stylesheet">
 
     <%= render partial: "shared/gtm" unless Rails.env.development? %>
+
+    <%= render partial: "shared/favicon" %>
+
 </head>
 <body class="<%= content_for? (:body_class) ? yield(:body_class) : '' %>">
     <div class="m-site-wrapper">

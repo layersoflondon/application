@@ -1,0 +1,18 @@
+/* Record belongs to collections */
+
+.m-record-belongs-to-collections button {
+  margin: 0 5px 5px 0;
+  background: #e8ca4c;
+}
+
+.m-record-belongs-to-collections button:after {
+  font-family: FontAwesome;
+  content: "\f00d";
+  margin-left: 5px;
+}
+
+.m-record-belongs-to-collections h4 {
+  text-transform: uppercase;
+  font-size: 13px;
+  opacity: 0.6;
+}
