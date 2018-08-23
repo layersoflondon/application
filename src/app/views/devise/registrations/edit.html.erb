@@ -1,27 +1,28 @@
 <% content_for :equivalent_url_in_iframe, "/map/account/account" %>
 <div class="m-account-page m-account-page--details">
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, class: 'form--chunky form--over-white'}) do |f| %>
 
-        <%= devise_error_messages! %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form--chunky form--over-white' }) do |f| %>
 
-        <div class="form-group">
-            <%= f.label :email %>
-            <%= f.text_field :email, autofocus: true, autocomplete: "email" %>
-        </div>
+    <%= devise_error_messages! %>
 
-        <div class="form-group form-group--description">
-            <%= f.label :description %>
-            <%= f.text_area(:description, size: '0x7') %>
-        </div>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.text_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
 
-        <div class="form-group form-group--profile-pic">
-            <%= f.label :profile_pic %>
-            <div class="image">
-                <%= image_tag(url_for(@user.avatar), style: 'width:200px') if @user.avatar.attached? %>
-            </div>
-            <%= f.file_field :avatar %>
+    <div class="form-group form-group--description">
+      <%= f.label :description %>
+      <%= f.text_area(:description, size: '0x7') %>
+    </div>
 
-        </div>
+    <div class="form-group form-group--profile-pic">
+      <%= f.label :profile_pic %>
+      <div class="image" >
+        <%= image_tag(url_for(@user.avatar), style: 'width:200px') if @user.avatar.attached? %>
+      </div>
+    <%= f.file_field :avatar %>
+
+    </div>
 
         <div class="form-group form-group--single-checkbox">
             <span class="label">Contact preferences</span>
@@ -31,10 +32,18 @@
             </label>
         </div>
 
-        <div class="form-group form-group--current-password">
-            <%= f.label :current_password %> <i>We need your current password to confirm your changes.</i>
-            <%= f.password_field :current_password, autocomplete: "off", style: 'background: #f5f2f7' %>
-        </div>
+    <div class="form-group form-group--current-password">
+      <%= f.label :current_password %> <i>We need your current password to confirm your changes.</i>
+      <%= f.password_field :current_password, autocomplete: "off" , style: 'background: #f5f2f7' %>
+    </div>
+
+    <div class="form-group form-group--current-password">
+        <%= f.label :password, "New password" %> <i>If you want to change your password, enter a new one here.</i>
+        <%= f.password_field :password, autocomplete: "off" , style: 'background: #f5f2f7' %>
+
+        <%= f.label :password_confirmation, "New password again" %> <i>Confirm your new password</i>
+        <%= f.password_field :password_confirmation, autocomplete: "off" , style: 'background: #f5f2f7' %>
+    </div>
 
         <div class="form-actions">
             <div class="secondary-actions">
@@ -47,11 +56,6 @@
                 <button type="submit">Save changes</button>
             </div>
         </div>
-        <!--
-        <div class="form-group">
-          <button>Change my password</button>
-        </div>
-        -->
 
-    <% end %>
+  <% end %>
 </div>

@@ -1,18 +1,24 @@
+<%= content_for :body_class do %>t-article-page<% end %>
+
 <% content_for :template do %>
 
-  <div class="m-page-header <%= local_assigns.has_key?(:class) ? local_assigns[:class] : "" %>">
-    <div class="image" style="background-image: url('<%= guide.hero_image %>');"></div>
-    <div class="text-content">
-      <span class="surtitle"<%= guide.title %></span>
-      <h1 class="viewable"><%= guide.title %></h1>
-    </div>
-  </div>
+    <%= render 'shared/post_header', post: guide %>
 
-  <div class="m-content">
-    <div class="m-article">
-      <%= guide.content %>
-    </div>
-  </div>
+    <main class="main--content main--article">
+        <div class="background"><div class="motion-background" id="motion-background"></div></div>
+
+        <div class="m-content">
+
+            <div class="m-article">
+
+                <%= guide.content %>
+
+            </div>
+
+        </div>
+
+    </main>
 
 <% end %>
+
 <%= render template: "layouts/application" %>

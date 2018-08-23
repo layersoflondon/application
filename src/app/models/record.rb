@@ -66,7 +66,9 @@ class Record < ApplicationRecord
     end
 
     event :mark_as_published do
-      transitions from: %i[pending_review published], to: :published
+      # fixme: we dont currently go into 'mark as pending review' when the user is
+      # creating their own records, we allow them to go from fraft -> published
+      transitions from: %i[draft pending_review published], to: :published
     end
 
     event :mark_as_flagged do
