@@ -45,58 +45,10 @@
   clear:both;
 }
 
-.m-add-record .form-actions {
-  @include clearfix;
-}
-
-.m-add-record .form-actions .primary-actions {
-  float: right;
-}
-
-.m-add-record .form-actions .secondary-actions {
-  float: left;
-}
-
-.m-add-record .form-actions button,
-.m-add-record .form-actions input[type="submit"] {
-  @include big-square-button;
-  float:none;
-}
-
-.m-add-record .form-actions button:before,
-.m-add-record .form-actions input[type="submit"]:before {
-  // Temporarily hide all icons
-  content:none !important;
-}
-
-.m-add-record .form-actions .primary-actions button,
-.m-add-record .form-actions .primary-actions input[type="submit"] {
-  margin-left:10px;
-}
-
-.m-add-record .form-actions .secondary-actions button,
-.m-add-record .form-actions .secondary-actions input[type="submit"] {
-  margin-right:10px;
-}
-
 .m-add-record button.delete,
 .m-add-record button.cancel,
 .m-add-record button.unpublish {
-  background: #eee;
-  color: #777;
-}
-
-.m-add-record button.delete:hover,
-.m-add-record button.cancel:hover,
-.m-add-record button.unpublish:hover {
-  color: #777;
-  background: darken(#eee, 10%);
-}
-
-.m-add-record button.delete:before,
-.m-add-record button.cancel:before,
-.m-add-record button.unpublish:before {
-  content: "\f00d";
+  @include gray-button;
 }
 
 .m-add-record .form-group--date .helper-text {
