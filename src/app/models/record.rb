@@ -16,7 +16,7 @@ class Record < ApplicationRecord
   has_many :taxonomy_terms, through: :record_taxonomy_terms
   belongs_to :credit_image, class_name: 'Attachments::Image', dependent: :destroy, optional: true
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 
   has_many :record_reports
 

@@ -1,5 +1,6 @@
 <%= f.fields_for :attachable do |af| %>
     <%= render "admin/shared/attachments/#{af.object.class.to_s.demodulize.underscore}", f: af %>
-
+    <%# TODO why can't we destroy stuff?  %>
+    <%# af.input :_destroy, as: :boolean, label: "Remove attachment" %>
 <% end %>
 

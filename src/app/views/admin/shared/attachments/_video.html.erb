@@ -1,0 +1,7 @@
+<li>
+    <label>Youtube Video</label>
+    <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="399" height="300" type="text/html" src="https://www.youtube.com/embed/<%= f.object.youtube_id %>"></iframe>
+</li>
+<%= f.input :title %>
+<%= f.input :youtube_id, as: :string %>
+<%= f.input :credit, as: :string %>

@@ -1,0 +1,3 @@
+<li><label>Geodata download</label><%= link_to f.object.title, ApplicationController.helpers.activestorage_url_for(f.object.file) %></li>
+<%= f.input :title %>
+<%= f.input :credit, as: :string %>

@@ -1,0 +1,6 @@
+<li><label>Document download</label><%= link_to f.object.title, ApplicationController.helpers.activestorage_url_for(f.object.file) %></li>
+<%= f.input :title %>
+<%= f.input :caption, as: :string %>
+<%= f.input :credit, as: :string %>
+
+
