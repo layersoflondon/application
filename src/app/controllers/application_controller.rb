@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
   before_action :store_current_location, unless: :should_skip_storing_location?
   after_action :verify_authorized, unless: :should_skip_verify_authorized?
-  before_action :authenticate_user!
+  before_action :authenticate_user!, unless: :devise_controller?
 
   before_action :get_navigation_menu
 

@@ -1,0 +1,71 @@
+<%= semantic_form_for [:admin, @record], builder: ActiveAdmin::FormBuilder do |f| %>
+    <div class="tabs">
+        <ul class="nav nav-tabs" role="tablist">
+            <li><a href="#the-basics">The basics</a></li>
+            <li><a href="#details">Details</a></li>
+            <li><a href="#location">Location</a></li>
+            <li><a href="#attachments">Attachments</a></li>
+        </ul>
+
+        <div class="tab-content">
+
+            <div id="the-basics">
+                <%= f.inputs name: "The Basics" do %>
+                    <%= f.input :title  %>
+                    <%= f.input :state, as: :select%>
+                    <%= f.input :date_from  %>
+                    <%= f.input :date_to %>
+                    <% if f.object.persisted? %>
+                        <li>
+                            <label>View on map</label>
+                            <%= link_to resource_map_url(resource: 'records', id: f.object.id), resource_map_url(resource: 'records', id: f.object.id), target: "_blank" %>
+                        </li>
+                        <li>
+                            <label>Author</label>
+                            <%= link_to f.object.user.name, edit_admin_user_path(f.object.user) %>
+                        </li>
+                        <li><label>&nbsp;</label><%= link_to "View #{f.object.user.first_name}'s records on map", resources_map_path(resource: 'search', show_results: true, user_id: f.object.user.id) %></li>
+                    <% end %>
+
+                <% end %>
+            </div>
+
+            <div id="details">
+                <%= f.inputs name: "Details" do %>
+                    <%= f.input :description, as: :quill_editor, input_html: {data: {options: {modules: {toolbar: [['bold', 'italic', 'underline'], ['link']]}, placeholder: 'Enter description in here', theme: 'snow'}}} %>
+                    <%= f.input :credit %>
+                    <%= f.input :view_type %>
+                <% end %>
+            </div>
+
+            <div id="location">
+                <%= f.inputs name: "Location" do %>
+                    <%= f.input :lat %>
+                    <%= f.input :lng %>
+                <% end %>
+            </div>
+
+            <div id="attachments">
+                <%= f.inputs "Attachments" do %>
+                    <%= f.fields_for :attachments do |af| %>
+                        <%= render partial: "admin/shared/attachment", locals: {f: af} %>
+                        <hr>
+                    <% end %>
+
+                <% end %>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+    
+
+    <%= f.actions %>
+   
+<% end  %>

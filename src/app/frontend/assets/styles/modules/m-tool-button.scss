@@ -68,6 +68,10 @@
   background: url('../assets/images/icon-add.svg') center no-repeat;
 }
 
+.m-tool-button--admin a:before {
+  content: '\f013';
+}
+
 .m-tool-button--your-content a:before {
   content: "\f2c0";
 }
