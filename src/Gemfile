@@ -129,3 +129,5 @@ gem 'roboto'
 
 gem 'activeadmin_quill_editor'
 
+gem 'activeadmin-searchable_select'
+

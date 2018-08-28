@@ -1,0 +1,20 @@
+<%= semantic_form_for [:admin, @user] do |f| %>
+    <%= f.semantic_errors %>
+    <%= f.inputs "Basic Details" do %>
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+    <% end %>
+
+    <%= f.inputs "Login Details and Site Access" do %>
+        <%= f.input :email %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+    <% end %>
+
+    <%= f.inputs "Team membership" do %>
+        <%= link_to "Manage team membership", admin_teams_path %>
+    <% end %>
+
+    <%= f.actions %>
+
+<% end %>

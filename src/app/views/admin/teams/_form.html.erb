@@ -1,0 +1,18 @@
+<%= semantic_form_for [:admin, @team], builder: ActiveAdmin::FormBuilder do |f| %>
+    <%= f.semantic_errors %>
+    <%= f.inputs "Basic Details" do %>
+        <%= f.input :name %>
+        <%= f.input :description %>
+    <% end %>
+
+    <%= f.inputs "Users in this team" do %>
+        <% users = User.all.collect {|u| ["#{u.name} (#{u.email})", u.id]} %>
+        <%= f.input :leaders, as: :searchable_select, collection: users %>
+        <%= f.input :contributors, as: :searchable_select, collection: users %>
+    <% end %>
+
+   
+
+    <%= f.actions %>
+
+<% end %>
