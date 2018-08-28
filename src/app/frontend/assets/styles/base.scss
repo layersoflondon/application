@@ -228,6 +228,9 @@ input[type="submit"] {
 .form--chunky textarea {
   padding: 20px;
   width: 100%;
+  @include mq(smartphone) {
+    padding:10px;
+  }
 }
 
 .form--chunky input[type="submit"],

@@ -5,8 +5,12 @@
 
 .m-accordion .section {
   margin: 0 -50px;
-  padding: 10px 40px;
+  padding: 10px 50px;
   transition: all .2s;
+  @include mq(small-smartphone) {
+    margin: 0 -15px;
+    padding:10px 15px;
+  }
 }
 
 .m-accordion .section + .section {
@@ -15,8 +19,11 @@
 
 .m-accordion .section.is-open {
   background: $yellow;
-  padding: 10px 40px;
+  padding: 10px 50px;
   border: 0;
+  @include mq(small-smartphone) {
+    padding: 10px 15px;
+  }
 }
 
 .m-accordion .section.is-open + .section {
@@ -47,6 +54,9 @@
 .m-accordion .title {
   color: $green;
   cursor: pointer;
+  @include mq(smartphone) {
+    font-size:18px;
+  }
 }
 
 /*.m-accordion .title:hover {

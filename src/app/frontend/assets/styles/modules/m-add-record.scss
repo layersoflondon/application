@@ -4,6 +4,12 @@
   @include overlay-wrap-white;
   max-width: 900px;
   margin-top: 130px;
+  @include mq(tablet) {
+    margin-top: 130px;
+  }
+  @include mq(small-smartphone) {
+    margin-top: 132px;
+  }
 }
 
 .m-add-record h1 {
@@ -15,6 +21,10 @@
   margin-left: -20px;
   margin-top: -120px;
   float: left;
+  @include mq(small-smartphone) {
+    font-size: 26px;
+    margin-top: -80px;
+  }
 }
 
 .m-add-record .location {
@@ -26,6 +36,13 @@
   width: 300px;
   float: right;
   margin-bottom: -14px;
+  @include mq(smartphone) {
+    width: auto;
+    max-width: 400px;
+    float: none;
+    margin-bottom: 20px;
+    clear: both;
+  }
 }
 
 .m-add-record .form-group--date input {
@@ -39,10 +56,14 @@
   width: calc(100% - 300px);
   display: inline-block;
   padding-right: 30px;
+  @include mq(smartphone) {
+    width: 100%;
+    padding-right: 0;
+  }
 }
 
 .m-add-record .form-group--description {
-  clear:both;
+  clear: both;
 }
 
 .m-add-record button.delete,
@@ -73,6 +94,9 @@
 
 .ql-editor.ql-editor {
   padding: 20px;
+  @include mq(smartphone) {
+    padding: 10px;
+  }
 }
 
 .ql-editor.ql-editor:focus {

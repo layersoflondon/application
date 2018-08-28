@@ -81,7 +81,18 @@ main {
   padding-bottom: 100px;
 }
 
-.main--content .background {
+.main--faq,
+.main--guide {
+  padding-top: 1px;
+}
+
+.main--faq-list {
+  padding-top: 50px;
+}
+
+.main--content .background,
+.main--help-centre .background,
+.main--faq-list .background {
   position: absolute;
   top: 0;
   right: 0;
@@ -90,7 +101,9 @@ main {
   overflow: hidden;
 }
 
-.main--content #motion-background {
+.main--content #motion-background,
+.main--faq-list #motion-background,
+.main--help-centre #motion-background {
   position: absolute;
   top: 0;
   right: 0;

@@ -2,19 +2,22 @@
 
 <% content_for :template do %>
 
-    <%= render 'shared/post_header', post: guide %>
+    <%= render 'shared/help_center_header', post: guide %>
 
-    <main class="main--content main--article">
+    <main class="main--content main--guide">
+
         <div class="background"><div class="motion-background" id="motion-background"></div></div>
 
+
+        <div class="m-joined-title">
+            <div class="tag">User guide</div>
+            <h2><%= guide.title %></h2>
+        </div>
+
         <div class="m-content">
-
             <div class="m-article">
-
                 <%= guide.content %>
-
             </div>
-
         </div>
 
     </main>

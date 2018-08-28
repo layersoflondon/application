@@ -8,11 +8,13 @@
   clear: both;
   margin-bottom: 20px;
   @include clearfix;
+  @include mq(smartphone) {
+    margin-bottom:0;
+  }
 }
 
 .m-add-media-and-documents .add-tools .form-group {
   background: #e7ca4c;
-  //overflow: hidden;
   padding: 9px 10px;
 }
 
@@ -24,10 +26,15 @@
   margin-right:20px;
   padding: 10px;
   position:relative;
+  @include mq(smartphone) {
+    float: none;
+    width: auto;
+    margin-right:0;
+    overflow:hidden;
+  }
 }
 
 .m-add-media-and-documents .add-tools .add-file:after {
-  //content: "or";
   position: absolute;
   top: 35%;
   right: -52px;
@@ -40,6 +47,10 @@
   position: relative;
   text-align: center;
   color:#333;
+  display: block;
+  @include mq(smartphone) {
+    text-align:left;
+  }
 }
 
 .m-add-media-and-documents .add-tools .add-file .image {
@@ -51,6 +62,10 @@
   display: block;
   margin: 0 auto;
   color:white;
+  @include mq(smartphone) {
+    float:left;
+    margin-right:30px;
+  }
 }
 
 .m-add-media-and-documents .add-tools .add-file .image:before {
@@ -68,11 +83,20 @@
   font-size: 14px;
   text-transform:uppercase;
   font-style:normal;
+  @include mq(smartphone) {
+    font-size: 16px;
+    line-height: 4.3;
+  }
 }
 
 .m-add-media-and-documents .add-tools .add-url {
   width: 70%;
   float:right;
+  @include clearfix;
+  @include mq(smartphone) {
+    width:auto;
+    float:none;
+  }
 }
 
 .m-add-media-and-documents .add-tools .add-url button {
@@ -82,12 +106,22 @@
   width:60px;
   height:60px;
   font-size: 40px;
+  @include mq(smartphone) {
+    width:42px;
+    height:42px;
+    line-height: 0;
+    padding-top: 0;
+    padding-bottom: 5px;
+  }
 }
 
 .m-add-media-and-documents .add-tools .add-url input[type="text"] {
   float: left;
   padding-right: 20px;
   width: calc(100% - 60px);
+  @include mq(smartphone) {
+    width: calc(100% - 42px);
+  }
 }
 
 // Thumbs
@@ -155,12 +189,16 @@
 .m-add-media-and-documents .thumbs .add em {
   position: absolute;
   width: calc(100% - 10px);
+  padding: 0 30px;
   text-align: center;
   font-style: normal;
   text-transform: uppercase;
   font-size: 13px;
   color:$red;
   top: 42%;
+  @include mq(smartphone) {
+    top:31%;
+  }
 }
 
 
@@ -183,10 +221,24 @@
   width:50%;
   float:left;
   padding-right:20px;
+  @include mq(smartphone) {
+    width:100%;
+    float:none;
+    padding-right:0;
+  }
 }
 
 .m-add-media-and-documents .meta .form-group:nth-child(2) {
   float:right;
+  @include mq(smartphone) {
+    float:none;
+  }
+}
+
+.m-add-media-and-documents .meta .form-group:last-child {
+  @include mq(smartphone) {
+    margin-bottom:0;
+  }
 }
 
 .m-add-media-and-documents .meta input,

@@ -30,7 +30,7 @@
   display:inline-block;
   color:white;
   @include mq(tablet) {
-    padding-left:50px;
+    padding-right:50px;
   }
   @include mq(smartphone) {
     font-size: 16px;

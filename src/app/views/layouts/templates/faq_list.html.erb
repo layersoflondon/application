@@ -1,8 +1,14 @@
 <% content_for :template do %>
 
-    <%= render 'shared/page_header' %>
+    <%= render 'shared/help_center_header', post: page %>
 
-    <main class="main--articles">
+    <main class="main--faq-list">
+
+        <div class="background"><div class="motion-background" id="motion-background"></div></div>
+
+        <div class="m-page-subtitle">
+            <h2 class="title">Frequently asked questions</h2>
+        </div>
 
         <div class="m-article-list">
             <%= render partial: "shared/list_item_leader", collection: faqs, locals: {classes: "article-leader--post", tag: "user guide"} %>
