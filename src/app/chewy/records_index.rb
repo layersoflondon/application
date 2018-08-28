@@ -8,6 +8,7 @@ class RecordsIndex < Chewy::Index
     field :id, type: 'integer'
     field :title, type: 'text', analyzer: :english
     field :description, type: 'text', analyzer: :english
+    field :excerpt, type: 'text', analyzer: :english
     field :like_count, type: 'integer'
     field :view_count, type: 'integer'
     field :state, type: 'keyword'
@@ -58,7 +59,6 @@ class RecordsIndex < Chewy::Index
     end
 
     field :view_type, type: 'keyword'
-
   end
 
   def self.user_records(search_params, limit: 100)
@@ -82,5 +82,9 @@ class RecordsIndex < Chewy::Index
 
   def self.published
     filter(terms: {state: ['published']})
+  end
+
+  def self.in_state(states)
+    filter(terms: {state: states})
   end
 end

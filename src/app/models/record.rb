@@ -18,6 +18,8 @@ class Record < ApplicationRecord
 
   accepts_nested_attributes_for :attachments
 
+  has_many :record_reports
+
   enum view_type: %i[gallery expanded]
   enum state: %i[draft published pending_review flagged deleted]
   serialize :location, Hash
@@ -64,7 +66,9 @@ class Record < ApplicationRecord
     end
 
     event :mark_as_published do
-      transitions from: %i[pending_review published], to: :published
+      # fixme: we dont currently go into 'mark as pending review' when the user is
+      # creating their own records, we allow them to go from fraft -> published
+      transitions from: %i[draft pending_review published], to: :published
     end
 
     event :mark_as_flagged do
@@ -97,5 +101,29 @@ class Record < ApplicationRecord
     else
       image
     end
+  end
+
+  def excerpt(max_length = 80)
+    parts = Nokogiri::HTML.fragment(description).children.collect(&:text)
+    next_string = []
+
+    count = 0
+
+    loop do
+      break unless parts[count] || next_string.join.length>max_length
+
+      next_string_length = next_string.join.length + parts[count].length
+      if next_string_length > max_length
+        next_part = parts[count][0..(next_string_length-max_length)]
+        next_string << "#{next_part}..."
+        break
+      else
+        next_string << parts[count]
+      end
+
+      count+=1
+    end
+
+    next_string.map{|p| "<p>#{p}</p>"}.join.html_safe
   end
 end

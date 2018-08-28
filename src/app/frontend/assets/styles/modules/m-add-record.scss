@@ -4,6 +4,12 @@
   @include overlay-wrap-white;
   max-width: 900px;
   margin-top: 130px;
+  @include mq(tablet) {
+    margin-top: 130px;
+  }
+  @include mq(small-smartphone) {
+    margin-top: 132px;
+  }
 }
 
 .m-add-record h1 {
@@ -15,21 +21,33 @@
   margin-left: -20px;
   margin-top: -120px;
   float: left;
+  @include mq(small-smartphone) {
+    font-size: 26px;
+    margin-top: -80px;
+  }
 }
 
-.m-add-record .place {
-  font-size:12px;
-  color:#aaa;
+.m-add-record .location {
+  font-size: 12px;
+  color: #aaa;
 }
 
 .m-add-record .form-group--date {
   width: 300px;
   float: right;
+  margin-bottom: -14px;
+  @include mq(smartphone) {
+    width: auto;
+    max-width: 400px;
+    float: none;
+    margin-bottom: 20px;
+    clear: both;
+  }
 }
 
 .m-add-record .form-group--date input {
   width: calc(33.333333% - 10px);
-  margin-right:10px;
+  margin-right: 10px;
   display: inline-block;
   padding-left: 2px;
 }
@@ -38,31 +56,51 @@
   width: calc(100% - 300px);
   display: inline-block;
   padding-right: 30px;
+  @include mq(smartphone) {
+    width: 100%;
+    padding-right: 0;
+  }
 }
 
-.m-add-record button.delete {
-  display: none;
+.m-add-record .form-group--description {
+  clear: both;
 }
 
-.m-add-record.is-edit-mode button.delete {
-  display: inline-block;
+.m-add-record button.delete,
+.m-add-record button.cancel,
+.m-add-record button.unpublish {
+  @include gray-button;
 }
 
 .m-add-record .form-group--date .helper-text {
-  font-size:14px;
+  font-size: 14px;
   padding-top: 6px;
   margin-bottom: 10px;
   display: block;
 }
 
 .m-add-record .end-date-link {
-  font-size:14px;
+  font-size: 14px;
 }
 
-.m-add-record .end-date {
-  display:none;
+.m-add-record .ql-editor {
+  min-height: 200px;
 }
 
-.m-add-record input.has-errors {
-  background-color: lighten($red, 30%);
+.ql-container.ql-container {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.ql-editor.ql-editor {
+  padding: 20px;
+  @include mq(smartphone) {
+    padding: 10px;
+  }
+}
+
+.ql-editor.ql-editor:focus {
+  border: 2px solid #549a76;
+  margin: -1px;
+  padding: 19px;
 }

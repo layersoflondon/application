@@ -1,5 +1,6 @@
 <% content_for :equivalent_url_in_iframe, "/map/account/account" %>
-<div class="m-account-page m-account-page--details" style="padding:0px">
+<div class="m-account-page m-account-page--details">
+
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form--chunky form--over-white' }) do |f| %>
 
     <%= devise_error_messages! %>
@@ -11,43 +12,50 @@
 
     <div class="form-group form-group--description">
       <%= f.label :description %>
-      <%= f.text_area(:description, size: '0x10') %>
+      <%= f.text_area(:description, size: '0x7') %>
     </div>
 
     <div class="form-group form-group--profile-pic">
       <%= f.label :profile_pic %>
       <div class="image" >
         <%= image_tag(url_for(@user.avatar), style: 'width:200px') if @user.avatar.attached? %>
-        <%= f.file_field :avatar %>
       </div>
+    <%= f.file_field :avatar %>
+
     </div>
 
-    <div class="form-group form-group--single-checkbox">
-      <p class="helper-text">Allow users to contact you</p>
-      <label>
-        <%= f.check_box :contact_me %>
-        <span>If this box is checked other users will be able to send you a message via email - from links on your records and collections. Your email address will not be shared. </span>
-      </label>
-    </div>
+        <div class="form-group form-group--single-checkbox">
+            <span class="label">Contact preferences</span>
+            <label>
+                <%= f.check_box :contact_me %>
+                <span>Allow users to contact me <span class="nb">If this box is checked other users will be able to send you a message - from links on your records and collections. Mesages will be sent through the site to your email address – your email address will <strong>NOT</strong> be shared.</span></span>
+            </label>
+        </div>
 
-    <div class="form-group">
-      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
+    <div class="form-group form-group--current-password">
+      <%= f.label :current_password %> <i>We need your current password to confirm your changes.</i>
       <%= f.password_field :current_password, autocomplete: "off" , style: 'background: #f5f2f7' %>
     </div>
 
-    <div class="form-group actions">
-      <button type="submit">Save changes</button>
+    <div class="form-group form-group--current-password">
+        <%= f.label :password, "New password" %> <i>If you want to change your password, enter a new one here.</i>
+        <%= f.password_field :password, autocomplete: "off" , style: 'background: #f5f2f7' %>
+
+        <%= f.label :password_confirmation, "New password again" %> <i>Confirm your new password</i>
+        <%= f.password_field :password_confirmation, autocomplete: "off" , style: 'background: #f5f2f7' %>
     </div>
 
-    <div class="form-group">
-      <button>Change my password</button>
-    </div>
+        <div class="form-actions">
+            <div class="secondary-actions">
+                <button class="delete"}>Delete account</button>
+                <%#= button_to  registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete do %>
+                <!--        Delete account-->
+                <%# end %>
+            </div>
+            <div class="primary-actions">
+                <button type="submit">Save changes</button>
+            </div>
+        </div>
 
-    <div class="form-group">
-      <button>Delete account</button>
-      <%#= button_to  registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete do %>
-<!--        Delete account-->
-      <%# end %>
-    </div>
   <% end %>
 </div>

@@ -1,41 +1,62 @@
 // Accordion
 
 .m-accordion {
-
 }
 
 .m-accordion .section {
-  border-bottom:2px dashed #ddd;
-  margin:0 -40px;
-  padding: 10px 40px;
-  transition:all .2s;
+  margin: 0 -50px;
+  padding: 10px 50px;
+  transition: all .2s;
+  @include mq(small-smartphone) {
+    margin: 0 -15px;
+    padding:10px 15px;
+  }
+}
+
+.m-accordion .section + .section {
+  border-top: 2px dashed #ddd;
 }
 
 .m-accordion .section.is-open {
-  background:$yellow;
-  padding: 10px 40px;
+  background: $yellow;
+  padding: 10px 50px;
+  border: 0;
+  @include mq(small-smartphone) {
+    padding: 10px 15px;
+  }
+}
+
+.m-accordion .section.is-open + .section {
+  border: 0;
+}
+
+.m-accordion .section.is-open:last-child {
+  margin-bottom: 40px;
 }
 
 .m-accordion .section:last-child {
-  border-bottom:0;
+  border-bottom: 0;
 }
 
 .m-accordion .pane {
-  display:none;
-  margin-bottom:30px;
+  display: none;
+  margin-bottom: 30px;
 }
 
 .m-accordion .pane > *:first-child {
-  margin-top:0;
+  margin-top: 0;
 }
 
 .m-accordion .pane.is-showing {
-  display:block;
+  display: block;
 }
 
 .m-accordion .title {
-  color:$green;
-  cursor:pointer;
+  color: $green;
+  cursor: pointer;
+  @include mq(smartphone) {
+    font-size:18px;
+  }
 }
 
 /*.m-accordion .title:hover {
@@ -43,6 +64,6 @@
 }*/
 
 .m-accordion .title:after {
-  content:"+";
-  float:right;
+  content: "+";
+  float: right;
 }

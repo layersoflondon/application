@@ -1,0 +1,119 @@
+<%= content_for :body_class do %>t-content-page<% end %>
+
+<% content_for :template do %>
+
+
+    <div id="m-page-header-small" class="m-page-header-small <%= local_assigns.has_key?(:class) ? local_assigns[:class] : "" %>">
+        <div class="image" id="m-page-header-image" style="background-image: url('<%= page.hero_image %>');"></div>
+        <div class="text-content">
+            <h1 class="viewable"><%= page.title %></h1>
+            <!--<%= render 'shared/subnavigation' %>-->
+        </div>
+    </div>
+
+    <main class="main--content">
+        <!--<div class="background"><div class="motion-background" id="motion-background"></div></div>-->
+<!--        <div id="m-sidebar" class="m-sidebar">
+            <%= render partial: "pages/sidebar_cta", collection: page.sidebar_ctas %>
+        </div>-->
+<!--        <div class="m-content">
+            <div class="m-article">
+
+                <%= yield %>
+            </div>
+        </div>-->
+        <div class="m-features-list">
+            <div class="feature hero-feature"><!--m-home-cta-block m-home-cta-block--gray-->
+                <div class="image" style="background-image: url(//lol-content.rooftop.io/sites/398/2018/06/15161210/15-large-1600x1067.jpg)"></div>
+                <div class="text-content viewable">
+                    <h3>My Layers of London experience</h3>
+                    <div class="description">
+                        <p>"Helping with Layers of London proved to be such an exciting experience. I’ve spent the last 20 years of my life sitting behind a desk being told what to do…" - Isabella tells us about her experience with the project.
+                        </p>
+                    </div>
+                    <a class="button" href="/news-events/my-layers-of-london-experience-by-isavella-voulgareli">Read now</a>
+                </div>
+            </div>
+            <div class="feature"><!--m-home-cta-block m-home-cta-block--gray-->
+                <div class="image" style="background-image: url(//lol-content.rooftop.io/sites/398/2018/06/15161210/15-large-1600x1067.jpg)"></div>
+                <div class="text-content viewable">
+                    <h3>My Layers of London experience</h3>
+                    <div class="description">
+                        <p>"Helping with Layers of London proved to be such an exciting experience. I’ve spent the last 20 years of my life sitting behind a desk being told what to do…" - Isabella tells us about her experience with the project.
+                        </p>
+                    </div>
+                    <a class="button" href="/news-events/my-layers-of-london-experience-by-isavella-voulgareli">Read now</a>
+                </div>
+            </div>
+            <div class="feature"><!--m-home-cta-block m-home-cta-block--gray-->
+                <div class="image" style="background-image: url(//lol-content.rooftop.io/sites/398/2018/06/15161210/15-large-1600x1067.jpg)"></div>
+                <div class="text-content viewable">
+                    <h3>My Layers of London experience</h3>
+                    <div class="description">
+                        <p>"Helping with Layers of London proved to be such an exciting experience. I’ve spent the last 20 years of my life sitting behind a desk being told what to do…" - Isabella tells us about her experience with the project.
+                        </p>
+                    </div>
+                    <a class="button" href="/news-events/my-layers-of-london-experience-by-isavella-voulgareli">Read now</a>
+                </div>
+            </div>
+            <div class="feature"><!--m-home-cta-block m-home-cta-block--gray-->
+                <div class="image" style="background-image: url(//lol-content.rooftop.io/sites/398/2018/06/15161210/15-large-1600x1067.jpg)"></div>
+                <div class="text-content viewable">
+                    <h3>My Layers of London experience</h3>
+                    <div class="description">
+                        <p>"Helping with Layers of London proved to be such an exciting experience. I’ve spent the last 20 years of my life sitting behind a desk being told what to do…" - Isabella tells us about her experience with the project.
+                        </p>
+                    </div>
+                    <a class="button" href="/news-events/my-layers-of-london-experience-by-isavella-voulgareli">Read now</a>
+                </div>
+            </div>
+            <div class="feature"><!--m-home-cta-block m-home-cta-block--gray-->
+                <div class="image" style="background-image: url(//lol-content.rooftop.io/sites/398/2018/06/15161210/15-large-1600x1067.jpg)"></div>
+                <div class="text-content viewable">
+                    <h3>My Layers of London experience</h3>
+                    <div class="description">
+                        <p>"Helping with Layers of London proved to be such an exciting experience. I’ve spent the last 20 years of my life sitting behind a desk being told what to do…" - Isabella tells us about her experience with the project.
+                        </p>
+                    </div>
+                    <a class="button" href="/news-events/my-layers-of-london-experience-by-isavella-voulgareli">Read now</a>
+                </div>
+            </div>
+            <div class="feature"><!--m-home-cta-block m-home-cta-block--gray-->
+                <div class="image" style="background-image: url(//lol-content.rooftop.io/sites/398/2018/06/15161210/15-large-1600x1067.jpg)"></div>
+                <div class="text-content viewable">
+                    <h3>My Layers of London experience</h3>
+                    <div class="description">
+                        <p>"Helping with Layers of London proved to be such an exciting experience. I’ve spent the last 20 years of my life sitting behind a desk being told what to do…" - Isabella tells us about her experience with the project.
+                        </p>
+                    </div>
+                    <a class="button" href="/news-events/my-layers-of-london-experience-by-isavella-voulgareli">Read now</a>
+                </div>
+            </div>
+            <div class="feature"><!--m-home-cta-block m-home-cta-block--gray-->
+                <div class="image" style="background-image: url(//lol-content.rooftop.io/sites/398/2018/06/15161210/15-large-1600x1067.jpg)"></div>
+                <div class="text-content viewable">
+                    <h3>My Layers of London experience</h3>
+                    <div class="description">
+                        <p>"Helping with Layers of London proved to be such an exciting experience. I’ve spent the last 20 years of my life sitting behind a desk being told what to do…" - Isabella tells us about her experience with the project.
+                        </p>
+                    </div>
+                    <a class="button" href="/news-events/my-layers-of-london-experience-by-isavella-voulgareli">Read now</a>
+                </div>
+            </div>
+            <div class="feature"><!--m-home-cta-block m-home-cta-block--gray-->
+                <div class="image" style="background-image: url(//lol-content.rooftop.io/sites/398/2018/06/15161210/15-large-1600x1067.jpg)"></div>
+                <div class="text-content viewable">
+                    <h3>My Layers of London experience</h3>
+                    <div class="description">
+                        <p>"Helping with Layers of London proved to be such an exciting experience. I’ve spent the last 20 years of my life sitting behind a desk being told what to do…" - Isabella tells us about her experience with the project.
+                        </p>
+                    </div>
+                    <a class="button" href="/news-events/my-layers-of-london-experience-by-isavella-voulgareli">Read now</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<% end %>
+
+<%= render template: "layouts/application" %>

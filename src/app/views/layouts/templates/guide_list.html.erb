@@ -1,0 +1,15 @@
+<% content_for :template do %>
+
+    <%= render 'shared/page_header' %>
+
+    <main class="main--articles">
+
+        <div class="m-article-list">
+            <%= render partial: "shared/list_item_leader", collection: guides, locals: {classes: "article-leader--post", tag: "user guide"} %>
+        </div>
+
+    </main>
+
+<% end %>
+
+<%= render template: "layouts/application" %>

@@ -7,9 +7,9 @@ class VisualHelpers {
         this.setupRandomImages();
         this.setupRandomTitles();
         this.parallax();
+        this.equalHeights();
 
     }
-
 
     setupVisibleTriggers() {
 
@@ -46,7 +46,6 @@ class VisualHelpers {
         });
 
     }
-
 
     setupScrolling() {
 
@@ -114,6 +113,20 @@ class VisualHelpers {
             }
         });
 
+    }
+
+    equalHeights() {
+
+        var heights = [];
+
+        setTimeout(() => {
+            $('.m-guides .guide a').each(function (index) {
+                heights.push($(this).outerHeight())
+            });
+
+            var largest = Math.max.apply(Math, heights);
+            $('.m-guides .guide a').css('min-height', largest + 'px');
+        }, 50);
     }
 
 

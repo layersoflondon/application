@@ -1,12 +1,27 @@
 // Overlay subnavigation
 
 .m-overlay-subnavigation {
-  max-width: 900px;
-  margin: 100px auto 10px;
+  margin: 100px auto 0;
+  max-width: 920px;
+  width:calc(100% - 80px);
+  @include mq(small-smartphone) {
+    width:calc(100% - 30px);
+  }
+}
+
+.m-overlay-subnavigation h1 {
+  @include overlay-title;
+  margin-left: 20px;
+  margin-top: -30px;
+  margin-bottom: -9px;
+  float: left;
 }
 
 .m-overlay-subnavigation ul {
   @include unlist;
+  clear:both;
+  position:relative;
+  vertical-align:bottom;
 }
 
 .m-overlay-subnavigation li {
@@ -14,12 +29,30 @@
 }
 
 .m-overlay-subnavigation li a {
-  padding: 10px 16px;
-  font-weight: bold;
+  padding: 16px 23px;
+  @include font-display;
+  font-weight: 600;
+  font-size: 18px;
+  background:transparentize($red, 0.6);
+  margin: 0px 3px 0px 0px;
+  display: inline-block;
+  vertical-align:bottom;
+  @include mq(smartphone) {
+    font-size:16px;
+    margin-bottom:6px;
+    margin-right:6px;
+    border-radius:100px;
+    padding: 8px 16px;
+  }
 }
 
 .m-overlay-subnavigation li.is-current a {
   background: white;
   display: inline-block;
   color: #333;
+  margin-top:0;
+  padding-top:18px;
+  @include mq(smartphone) {
+    padding-top:8px;
+  }
 }

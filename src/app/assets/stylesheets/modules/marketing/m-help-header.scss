@@ -2,16 +2,21 @@
 
 .m-help-header {
   padding: 70px 80px 70px;
+  position: relative;
+  z-index: 2;
   @include clearfix;
+  clear: both;
 }
 
 .m-help-header .title {
-  font-weight: 200;
-  text-transform: uppercase;
-  font-size: 14px;
-  margin-bottom: 30px;
-  margin-top:0;
-  color: $lilac;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-top: 0;
+  background: #ff0041;
+  display: inline-block;
+  padding: 4px 9px;
 }
 
 .m-help-header .video {
@@ -19,16 +24,13 @@
   width: 50%;
   padding-right: 50px;
   position: relative;
-  background: #131313;
-  border: 2px solid red;
 }
 
 .m-help-header .video > div {
-  background: #a690c526;
+  background: $black;
   padding: 20px;
   margin-top: -20px;
 }
-
 
 .m-help-header iframe {
   max-width: 100%;
@@ -49,10 +51,17 @@
 }
 
 .m-help-header .top-faq li a {
-  padding: 10px 15px;
-  background: #a690c526;
+  padding: 10px 15px 10px 34px;
+  background: $black;
   display: inline-block;
   @include link-arrow;
+
+}
+
+.m-help-header .top-faq li a:before {
+  float: left;
+  margin-top: 6px;
+  margin-left: -19px;
 }
 
 .m-help-header .top-faq ul {
@@ -61,26 +70,24 @@
 }
 
 .m-help-header .top-faq > a {
-  //background:$lilac;
-  border: 3px solid $lilac;
+  //border: 3px solid $red;
   padding: 5px 15px;
   border-radius: 100px;
-  color: $lilac;
+  color: $red;
   font-weight: 600;
-  @include link-arrow;
-  transition:all .2s;
+  background:$yellow;
+  color:$black;
+  //@include link-arrow;
+  transition: all .2s;
+}
+
+.m-help-header .top-faq > a:before {
+  float: left;
+  margin-top: 5px;
+  margin-left: -19px;
 }
 
 .m-help-header .top-faq > a:hover {
-  background: $lilac;
+  background: $red;
   color: $black;
 }
-
-/*
-@include polygon-background(yellow, top, true);
-display:inline-block;
-padding:20px;
-margin-bottom: 70px;
-font-weight: 200;
-text-transform: uppercase;
-color: #131313;*/

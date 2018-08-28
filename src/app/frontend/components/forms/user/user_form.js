@@ -49,7 +49,7 @@ import TeachersForm from "./teachers_form";
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'user_form' ) className+=" is-showing";
     const content = {
-      account: <iframe width="100%" height="650" src="/users/edit" frameBorder="0"></iframe>,
+      account: <iframe width="100%" height="650" src="/users/edit" frameBorder="0" data-resizable="true"></iframe>,
       teams: <TeamForm id={this.state.id}/>,
       records: <RecordsCollections/>,
       teachers: <TeachersForm/>,
@@ -59,22 +59,21 @@ import TeachersForm from "./teachers_form";
 
     return (
       <div className={className}>
-          <div className="s-overlay--your-account--details is-showing">
-              <div className="close">
-                  <Link to="/map" className="close">Close</Link>
-              </div>
-              <div className="m-overlay-subnavigation">
-                  <Tabs active={this.state.active} onChange={this.setActiveTab.bind(this)}>
-                      <span key="account">Account details</span>
-                      <span key="teams">Teams</span>
-                      <span key="records">Records & Collections</span>
-                      {/*<span key="teachers">For teachers</span>*/}
-                      <span key="sign_out">Sign out</span>
-                  </Tabs>
-              </div>
-              <div className="m-account-page m-account-page--details">
-                  {content[this.state.active]}
-              </div>
+          <div className="close">
+              <Link to="/map" className="close">Close</Link>
+          </div>
+          <div className="m-overlay-subnavigation">
+              <h1>Your Profile</h1>
+              <Tabs active={this.state.active} onChange={this.setActiveTab.bind(this)}>
+                  <span key="account">Account details</span>
+                  <span key="teams">Teams</span>
+                  <span key="records">Records & Collections</span>
+                  {/*<span key="teachers">For teachers</span>*/}
+                  <span key="sign_out">Sign out</span>
+              </Tabs>
+          </div>
+          <div className="m-account-page-wrapper">
+              {content[this.state.active]}
           </div>
       </div>
     );

@@ -8,6 +8,9 @@
   position: relative;
   display: block;
   @include transition(all .2s);
+  @include mq(tablet) {
+    padding-bottom: 25px;
+  }
 }
 
 .m-tool-button a:after {
@@ -22,6 +25,11 @@
   width: 170px;
   opacity: 0;
   transition: opacity .2s;
+  @include mq(tablet) {
+    font-size: 24px;
+    width: 280px;
+    padding-top:7px;
+  }
 }
 
 .m-tool-button a:focus {

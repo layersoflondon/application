@@ -1,18 +1,28 @@
+<%= content_for :body_class do %>t-article-page<% end %>
+
 <% content_for :template do %>
 
-  <div class="m-page-header <%= local_assigns.has_key?(:class) ? local_assigns[:class] : "" %>">
-    <div class="image" style="background-image: url('<%= faq.hero_image %>');"></div>
-    <div class="text-content">
-      <span class="surtitle"<%= faq.title %></span>
-      <h1 class="viewable"><%= faq.title %></h1>
-    </div>
-  </div>
+    <%= render 'shared/help_center_header', post: faq %>
 
-  <div class="m-content">
-    <div class="m-article">
-      <%= faq.content %>
-    </div>
-  </div>
+    <main class="main--content main--faq">
+
+        <div class="background"><div class="motion-background" id="motion-background"></div></div>
+
+        <div class="m-joined-title">
+            <div class="tag">FAQ</div>
+            <h2><%= faq.title %></h2>
+        </div>
+
+        <div class="m-content">
+
+            <div class="m-article">
+
+                <%= faq.content %>
+
+            </div>
+
+        </div>
+
+    </main>
 
 <% end %>
-<%= render template: "layouts/application" %>

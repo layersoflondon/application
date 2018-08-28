@@ -14,7 +14,7 @@ import Select from 'react-select'
     super(props);
 
     // todo: set owner type either in the controller, or when the write state is changed
-    this.state = {title: "", description: "", read_state: false, write_state: "creator", write_state_team_id: null, owner_type: "User", teams: null};
+    this.state = {title: "", description: "", read_state: 'public_read', write_state: "creator", write_state_team_id: null, owner_type: "User", teams: null};
   }
 
   componentWillMount() {
@@ -108,7 +108,7 @@ import Select from 'react-select'
                 <span className="label">Who can see?</span>
                 <label>
                   <input type="checkbox" name="read_state" value={this.state.read_state} onChange={this.handleOnReadStateChange.bind(this)} />
-                  <span>Keep this collection private <br /> Only you will see this collection (NB: the records within will still be visible)</span>
+                  <span>Keep this collection private <br /> <span className="nb">This will create a <strong>collection</strong> that only you can see.<br /> The records within will still be publicly viewable.</span></span>
                 </label>
 
               </div>

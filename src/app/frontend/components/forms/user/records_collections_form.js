@@ -11,7 +11,7 @@ class RecordsCollections extends React.Component {
     render() {
         let srcValue = `/user/record_collections`;
         return (
-            <iframe width="100%" height="600" src={srcValue} frameBorder="0"></iframe>
+            <iframe width="100%" height="600" src={srcValue} frameBorder="0" data-resizable="true"></iframe>
         );
     }
 }

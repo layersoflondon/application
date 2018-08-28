@@ -1,7 +1,6 @@
 /* Subnavigation */
 
 .m-subnavigation {
-  margin-bottom: 60px;
   position: relative;
   z-index:3;
   background:transparentize($black, 0.1);
@@ -13,6 +12,11 @@
   width: calc(40% - 40px);
   margin-top: 190px;
   min-height: 300px;
+  padding-bottom: 76px;
+}
+
+.m-page-header--nano .m-subnavigation {
+  display:none;
 }
 
 .m-subnavigation h2 {

@@ -3,20 +3,23 @@
 .m-add-collection {
   @include overlay-wrap-white;
   margin-top: 170px;
-  padding: 40px 50px;
-  position:relative;
+  position: relative;
+  @include mq(tablet) {
+    margin-top: 150px;
+  }
+  @include mq(small-smartphone) {
+    margin-top: 132px;
+  }
 }
 
 .m-add-collection h1 {
-  @include font-display;
-  @include polygon-background(yellow, top, true);
-  padding: 20px 30px;
-  font-size: 36px;
-  padding: 20px;
-  color: $black;
-  margin-left: -20px;
+  @include overlay-title;
   margin-top: -120px;
   float: left;
+  @include mq(small-smartphone) {
+    font-size: 26px;
+    margin-top: -80px;
+  }
 }
 
 .m-add-collection form {
@@ -27,4 +30,8 @@
   width: 50%;
   float: left;
   padding-right: 30px;
+  @include mq(smartphone) {
+    width:auto;
+    float:none;
+  }
 }
