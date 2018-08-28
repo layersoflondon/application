@@ -1,4 +1,3 @@
-
 @import "normalize";
 @import "colors";
 @import "mixins";
@@ -19,16 +18,13 @@
 @import "modules/m-overlay";
 @import "modules/m-map-popover";
 @import "modules/m-record";
-//@import "modules/m-social-status";
 @import "modules/m-tray-title-area";
 @import "modules/m-search-overlay";
 @import "modules/m-date-range-overlay";
 @import "modules/m-layers-picker";
 @import "modules/m-add-collection";
 @import "modules/m-accordion";
-//@import "modules/m-add-images";
 @import "modules/m-add-record";
-//@import "modules/m-add-files";
 @import "modules/m-place-picker";
 @import "modules/m-map-place-popover";
 @import "modules/m-layer-tools";
@@ -51,8 +47,12 @@
 @import "modules/m-flash-messages";
 @import "modules/m-badge";
 @import "modules/m-beta-message";
+@import "modules/m-record-report";
 @import "modules/m-add-to-collection";
 @import "modules/m-record-belongs-to-collections";
+@import "modules/m-map-tray-switcher";
+@import "modules/m-hamburger";
+@import "modules/m-smartphone-menu-wrapper";
 
 
 /*

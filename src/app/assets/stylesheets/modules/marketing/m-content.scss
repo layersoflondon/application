@@ -5,13 +5,13 @@
   margin:0 auto 0;
   padding: 60px;
   @include clearfix;
+  position: relative;
+  z-index:2;
+  background:white;
 }
 
 .m-sidebar + .m-content {
   margin:-60px auto 0;
-  position: relative;
-  z-index:2;
-  background:white;
 }
 
 .m-content .title {
@@ -20,10 +20,9 @@
 }
 
 .main--article .m-content {
-  width: 70%;
   margin: -100px auto 0;
-  padding: 60px;
-  background:white;
-  position: relative;
+}
 
+.main--faq .m-content {
+  margin: 0 auto 0;
 }

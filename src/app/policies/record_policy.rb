@@ -31,6 +31,10 @@ class RecordPolicy < ApplicationPolicy
     user.present? && !user.record_likes.include?(record.id)
   end
 
+  def report?
+    true
+  end
+
   class Scope < Scope
     def resolve
       scope

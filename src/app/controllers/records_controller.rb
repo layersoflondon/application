@@ -1,7 +1,7 @@
 class RecordsController < ApplicationController
-  before_action :set_record, only: %i[update destroy like]
-  skip_before_action :authenticate_user!, only: %i[show index]
-  skip_after_action :verify_authorized, only: [:index, :show] #show is in here because we authorize in the method
+  before_action :set_record, only: [:update, :destroy, :like, :report]
+  skip_before_action :authenticate_user!, only: [:show, :index, :report]
+  skip_after_action :verify_authorized, only: [:index, :show, :report] #show is in here because we authorize in the method
 
   decorates_assigned :record, :records, with: RecordDecorator
 
@@ -70,6 +70,32 @@ class RecordsController < ApplicationController
     render json: {like_count: @record.reload.like_count}, status: 200
   end
 
+  def report
+    authorize(@record)
+
+    user = current_user || User.find_by(email: record_report_params[:email])
+
+    new_report_params = record_report_params.dup
+
+    if user
+      new_report_params[:user_id] = user.id
+    else
+      new_report_params[:email] = record_report_params[:email]
+    end
+
+    report = @record.record_reports.build(new_report_params)
+
+    unless user || record_report_params[:email].present?
+      report.errors.add(:email, "must be present")
+    end
+
+    if report.save
+      render json: '', status: :ok and return
+    else
+      render json: report.errors.full_messages, status: :unprocessable_entity and return
+    end
+  end
+
   private
 
   def set_record
@@ -97,6 +123,10 @@ class RecordsController < ApplicationController
         ]
       )
     end
+  end
+
+  def record_report_params
+    params.require(:report).permit(:issue, :message, :email)
   end
 
   def check_transition(state)

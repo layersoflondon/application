@@ -1,0 +1,36 @@
+/* Joined title */
+
+.m-joined-title {
+  width: 70%;
+  margin: 40px auto 0;
+  padding: 60px;
+  position: relative;
+  z-index: 2;
+  background: white;
+  color:$black;
+  background:$yellow;
+}
+
+.m-joined-title h2 {
+  font-size: 36px;
+  line-height: 1.5;
+  @include font-display;
+  margin:0;
+}
+
+.m-joined-title .tag {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: white;
+  background: transparentize($black, 0.4);
+  min-width: 90px;
+  height: 30px;
+  text-align: center;
+  padding: 5px 10px 0;
+  float: left;
+  margin-top: -60px;
+
+
+
+}

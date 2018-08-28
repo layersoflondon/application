@@ -5,7 +5,7 @@
 }
 
 .m-add-to-collection .form {
-  width: 384px;
+  max-width: 384px;
   padding: 10px;
   clear: both;
   background: #e7ca4c;
@@ -26,6 +26,12 @@
   font-size:18px;
   color:#333;
   margin-bottom:0;
+  @include mq(smartphone) {
+    font-size: 13px;
+  }
+  @include mq(small-smartphone) {
+    font-size:11px;
+  }
 }
 
 .m-add-to-collection .form-group--toggle-switch .toggle {

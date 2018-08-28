@@ -98,16 +98,26 @@ $element-border-radius: 6px;
 $element-border-radius-small: 3px;
 
 @mixin overlay-wrap {
-  max-width: 840px;
+  max-width: 920px;
+  width:calc(100% - 80px);
   margin: 70px auto;
   @include clearfix;
+  @include mq(tablet) {
+    margin: 50px auto;
+  }
+  @include mq(small-smartphone) {
+    width:calc(100% - 30px);
+  }
 }
 
 @mixin overlay-wrap-white {
   @include overlay-wrap;
   color: #222;
   background: white;
-  padding: 40px;
+  padding: 40px 50px;
+  @include mq(small-smartphone) {
+    padding: 15px;
+  }
 }
 
 @mixin overlay-wrap-gray {
@@ -306,6 +316,9 @@ $element-border-radius-small: 3px;
   margin-left: -30px;
   color: $black;
   display: inline-block;
+  @include mq(small-smartphone) {
+    font-size:26px;
+  }
 }
 
 // Overlays
@@ -315,6 +328,9 @@ $element-border-radius-small: 3px;
   color: $black;
   padding: 20px;
   @include clearfix;
+  @include mq(small-smartphone) {
+    padding:10px;
+  }
 
   .subsection-title {
     font-size: 28px;
@@ -660,7 +676,7 @@ $gutter-width: 10px;
       @content;
     }
   } @else if $point==small-tablet {
-    @media (max-width: 950px) {
+    @media (max-width: 900px) {
       @content;
     }
   } @else if $point==smartphone {
@@ -669,6 +685,30 @@ $gutter-width: 10px;
     }
   } @else if $point==small-smartphone {
     @media (max-width: 480px) {
+      @content;
+    }
+  }
+}
+
+@mixin mqacc($point) {
+  @if $point==wide {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  } @else if $point==tablet {
+    @media (max-width: 819px) {
+      @content;
+    }
+  } @else if $point==small-tablet {
+    @media (max-width: 719px) {
+      @content;
+    }
+  } @else if $point==smartphone {
+    @media (max-width: 587px) {
+      @content;
+    }
+  } @else if $point==small-smartphone {
+    @media (max-width: 419px) {
       @content;
     }
   }

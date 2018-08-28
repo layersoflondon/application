@@ -60,16 +60,18 @@ import {observer} from "mobx-react";
 
     return (
       <div className="meta">
-        <div className="caption">
+
           <div className="form-group">
             <label>Title</label>
             <input placeholder="Title" type="text" onChange={this.handleOnChange.bind(this)} name="title" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.title) ? this.props.recordFormStore.current_attachment_item.title : ''} onBlur={this.handleOnBlur.bind(this)} />
           </div>
+
           <div className="form-group">
             <label>Caption</label>
             <textarea rows="5" placeholder="Caption" onChange={this.handleOnChange.bind(this)} name="caption" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.caption) ? this.props.recordFormStore.current_attachment_item.caption : ''} onBlur={this.handleOnBlur.bind(this)}  >
             </textarea>
           </div>
+
           <div className="form-group">
             <label>Credit</label>
             <input placeholder="Credit" type="text" onChange={this.handleOnChange.bind(this)} name="credit" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.credit) ? this.props.recordFormStore.current_attachment_item.credit : ''} onKeyUp={this.handleKeyUp.bind(this)} />
@@ -81,7 +83,7 @@ import {observer} from "mobx-react";
               <button onClick={this.handleOnSetAsPrimaryImage.bind(this)} disabled={button_disabled}>{button_label}</button>
            </div>
           }
-        </div>
+
       </div>
     )
   }

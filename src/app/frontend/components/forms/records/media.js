@@ -148,7 +148,7 @@ import {observer} from "mobx-react";
             </div>
 
             <div className="thumbs">
-              <Dropzone disableClick={true} onClick={()=>console.log("clicked")} activeStyle={{border: '4px dashed #e86652'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a" onDrop={this.onDrop.bind(this)}>
+              <Dropzone className="dropzone" disableClick={true} onClick={()=>console.log("clicked")} activeClassName={"is-active"} activeStyle={{border: '0'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a" onDrop={this.onDrop.bind(this)}>
                 <ul>
                   {media_items}
 

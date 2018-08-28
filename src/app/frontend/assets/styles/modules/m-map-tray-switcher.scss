@@ -1,0 +1,59 @@
+/* Map/tray switcher */
+
+.m-map-tray-switcher {
+  position:fixed;
+  bottom:20px;
+  bottom: 42px; // Just while beta message is showing
+  right:20px;
+  z-index: 100;
+  display:none;
+  @include mq(tablet) {
+    display:block;
+  }
+}
+
+.m-map-tray-switcher button  {
+  width:50px;
+  height:50px;
+  border-radius:100px;
+  background:$yellow;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.m-map-tray-switcher button:focus  {
+  display:none;
+}
+
+.m-map-tray-switcher button span {
+  display:none;
+}
+
+.m-map-tray-switcher button.to-map:before {
+  content: "\f041";
+  font: normal normal normal 32px/1 FontAwesome;
+}
+
+.m-map-tray-switcher button.to-tray:before {
+  content: "\f00d";
+  font: normal normal normal 32px/1 FontAwesome;
+}
+
+// Map view
+
+.tray-is-closed .m-map-tray-switcher button.to-map {
+  display:none;
+}
+
+.tray-is-closed .m-map-tray-switcher button.to-tray {
+  display:block;
+}
+
+// Tray view
+
+.m-map-tray-switcher button.to-map {
+  display:block;
+}
+
+.m-map-tray-switcher button.to-tray {
+  display:none;
+}

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component, Fragment} from 'react';
 import {observer, inject} from "mobx-react";
 import PropTypes from 'prop-types';
 import { NavLink, Link, withRouter } from 'react-router-dom';
@@ -22,6 +22,14 @@ import Img from 'react-image';
       this.props.trayViewStore.toggleTrayVisibility();
     }
   }
+
+    handleHamburgerOnClick(event) {
+        event.preventDefault();
+        var hamburger = document.getElementsByClassName('hamburger')[0];
+        hamburger.classList.toggle("is-active");
+        var mapwrap = document.getElementsByClassName('m-map-wrapper')[0];
+        mapwrap.classList.toggle("menu-is-open");
+    }
 
   accountLink() {
       if (this.props.userPresent) {
@@ -49,35 +57,53 @@ import Img from 'react-image';
 
   render() {
     const logo = require('../assets/images/logo.svg');
-    return <div className="m-sidebar">
-        
-      <div className="m-logo">
-        <a href="/" title="Return to homepage">
-          <Img src={logo} alt="Logo" loader={<span className="is-loading" /> }/>
-        </a>
-      </div>
-      <div className="m-tools">
-        <div className="m-tool-button m-tool-button--search">
-          <Link to='/map/search' data-label="Search"><span>Search</span></Link>
-        </div>
-        <div className="m-tool-button m-tool-button--layers">
-          <Link to='/map/layers' data-label="Layers"><span>Layers</span></Link>
-        </div>
-        <div className="m-tool-button m-tool-button--add-collection">
-          {this.createCollectionLink()}
-        </div>
-        <div className="m-tool-button m-tool-button--add">
-            {this.addRecordLink()}
-        </div>
-      </div>
+      return <Fragment>
+          <div className="m-sidebar">
 
-        <div className="m-actions">
-          <div className="m-tool-button m-tool-button--your-account">
-              {this.accountLink()}
+              <div className="m-logo">
+                  <a href="/" title="Return to homepage">
+                      <Img src={logo} alt="Logo" loader={<span className="is-loading" /> }/>
+                  </a>
+              </div>
+
+              <div className="m-hamburger">
+                  <button className="hamburger" type="button" onClick={this.handleHamburgerOnClick}>
+                        <span className="hamburger-box">
+                            <span className="hamburger-inner"></span>
+                        </span>
+                  </button>
+              </div>
+
+              <div className="m-smartphone-menu-wrapper">
+                  <div className="m-tools">
+                      <div className="m-tool-button m-tool-button--search">
+                          <Link to='/map/search' data-label="Search"><span>Search</span></Link>
+                      </div>
+                      <div className="m-tool-button m-tool-button--layers">
+                          <Link to='/map/layers' data-label="Layers"><span>Layers</span></Link>
+                      </div>
+                      <div className="m-tool-button m-tool-button--add-collection">
+                          {this.createCollectionLink()}
+                      </div>
+                      <div className="m-tool-button m-tool-button--add">
+                          {this.addRecordLink()}
+                      </div>
+                  </div>
+
+                  <div className="m-actions">
+                      <div className="m-tool-button m-tool-button--your-account">
+                          {this.accountLink()}
+                      </div>
+                  </div>
+              </div>
+
           </div>
-        </div>
 
-    </div>;
+          <div className="m-map-tray-switcher">
+              <button className="to-tray" onClick={() => this.props.trayViewStore.toggleTrayVisibility()}><span>Switch to tray</span></button>
+              <button className="to-map" onClick={() => this.props.trayViewStore.toggleTrayVisibility()}><span>Switch to map</span></button>
+          </div>
+      </Fragment>;
   }
 }
 

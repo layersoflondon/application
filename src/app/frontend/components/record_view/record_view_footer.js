@@ -49,7 +49,7 @@ import {NavLink} from 'react-router-dom';
 
           <button onClick={this.showOnMap.bind(this)}>See on map</button>
 
-          <a href={`mailto:layersoflondon@lon.ac.uk?subject=${subject}`}>Report this record</a>
+          <NavLink to={`${this.props.router.location.pathname}/report`}>Report this record</NavLink>
 
           {
             this.props.trayViewStore.record.user_can_edit_record &&
