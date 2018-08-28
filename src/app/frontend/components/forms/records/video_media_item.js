@@ -30,7 +30,7 @@ import {observer} from "mobx-react";
   render() {
     return (
       <div className="form-group add-url">
-        <label>Add Youtube video with URL</label>
+        <label>Add YouTube video with URL</label>
         <input type="text" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name='url' value={this.state.url} onChange={this.handleUrlOnChange.bind(this)} onFocus={this.setCurrentMediaItem.bind(this)} />
         <button>+</button>
       </div>
