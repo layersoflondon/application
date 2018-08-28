@@ -1,0 +1,29 @@
+<%= semantic_form_for [:admin, @collection], builder: ActiveAdmin::FormBuilder do |f| %>
+    <%= f.semantic_errors %>
+    <%= f.inputs "Basic Details" do %>
+        <%= f.input :title %>
+        <%= f.input :description %>
+        <% if f.object.persisted? %>
+            <li>
+                <label>View on map</label>
+                <%= link_to resource_map_url(resource: 'collections', id: f.object.id), resource_map_url(resource: 'collections', id: f.object.id), target: "_blank" %>
+            </li>
+            <li>
+                <label>Owner</label>
+                <% if f.object.owner.is_a?(User) %>
+                    <%= link_to f.object.owner.name, edit_admin_user_path(f.object.owner) %>
+                <% elsif f.object.owner.is_a?(Team) %>
+                    <%= link_to f.object.owner.name, edit_admin_team_path(f.object.owner) %>
+                <% end %>
+            </li>
+        <% end %>
+
+    <% end %>
+
+    <%= f.inputs "Records in this collection" do %>
+        <%= f.input :records, as: :searchable_select %>
+    <% end %>
+
+    <%= f.actions %>
+
+<% end %>

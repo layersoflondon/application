@@ -12,7 +12,14 @@
     <% end %>
 
     <%= f.inputs "Team membership" do %>
-        <%= link_to "Manage team membership", admin_teams_path %>
+        <li>
+            <label>Teams</label>
+            <ul>
+                <% @user.teams.each do |team| %>
+                    <%= link_to team.name, edit_admin_team_path(team) %>
+                <% end %>
+            </ul>
+        </li>
     <% end %>
 
     <%= f.actions %>
