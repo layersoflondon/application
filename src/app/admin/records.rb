@@ -13,6 +13,9 @@ ActiveAdmin.register Record do
 # end
 #
 #
+
+  permit_params Record.column_names.collect(&:to_sym)
+  
   controller do
     def scoped_collection
       super.includes(:user).references(:user)
@@ -25,8 +28,12 @@ ActiveAdmin.register Record do
 
 
   index do
+    selectable_column
     column :id
     column :title
+    column :state do |r|
+      r.state.titleize
+    end
     column :owner do |r|
       r.user.name
     end
@@ -35,6 +42,15 @@ ActiveAdmin.register Record do
     end
     actions
   end
+
+  batch_action 'Set status to draft', confirm: 'Set selected records to draft?' do |ids|
+    batch_action_collection.find(ids).each do |record|
+      record.mark_as_draft!
+    end
+    redirect_to collection_path, alert: "The records have been set to draft"
+  end
+  
+
 
 
 end
