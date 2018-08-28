@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import Img from 'react-image';
 
-@inject('userPresent', 'mapViewStore', 'trayViewStore')
+@inject('userPresent', 'adminUserPresent', 'mapViewStore', 'trayViewStore')
 @withRouter
 @observer export default class Tools extends Component {
   constructor(props) {
@@ -87,6 +87,12 @@ import Img from 'react-image';
                       </div>
                       <div className="m-tool-button m-tool-button--add">
                           {this.addRecordLink()}
+                      </div>
+                      <div className="m-tool-button m-tool-button--admin">
+                        {
+                          this.props.adminUserPresent &&
+                          <a data-label="Admin" href="/admin"><span>Admin</span></a>
+                        }
                       </div>
                   </div>
 

@@ -2,6 +2,11 @@ ActiveAdmin.register_page "Dashboard" do
 
   menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
 
+  action_item :add_featured_item do
+    link_to 'Add homepage highlight', "#"
+  end
+
+
   content title: proc{ I18n.t("active_admin.dashboard") } do
 
     # Here is an example of a simple dashboard with columns and panels.
@@ -24,7 +29,7 @@ ActiveAdmin.register_page "Dashboard" do
 
       column do
         panel "Info" do
-          para "Welcome to ActiveAdmin."
+          para "This is the Layers of London admin interface."
         end
       end
     end

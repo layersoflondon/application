@@ -131,3 +131,9 @@ gem 'activeadmin_quill_editor'
 
 gem 'activeadmin-searchable_select'
 
+gem 'acts_as_list'
+
+gem 'activeadmin-orderable'
+
+gem 'activeadmin_polymorphic'
+
