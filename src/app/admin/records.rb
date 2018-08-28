@@ -14,7 +14,7 @@ ActiveAdmin.register Record do
 #
 #
 
-  permit_params Record.column_names.collect(&:to_sym)
+  permit_params [Record.column_names.collect(&:to_sym), attachments_attributes: [:id,attachable_attributes: [:id, :title, :primary, :credit, :_destroy]]]
   
   controller do
     def scoped_collection
@@ -23,8 +23,12 @@ ActiveAdmin.register Record do
 
   end
 
+  scope :published
+  scope :draft
+  scope :flagged
+
   filter :title
-  filter :user
+  filter :user_email_cont, label: "User Email", placeholder: "person@example.com"
 
 
   index do
@@ -49,6 +53,8 @@ ActiveAdmin.register Record do
     end
     redirect_to collection_path, alert: "The records have been set to draft"
   end
+
+  form partial: "form"
   
 
 

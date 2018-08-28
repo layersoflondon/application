@@ -1,0 +1,6 @@
+<li><label>Image</label><%= image_tag ApplicationController.helpers.activestorage_url_for(f.object.file.variant(Rails.configuration.x.image_variants[:thumb])) %></li>
+<%= f.input :title %>
+<%= f.input :credit, as: :string %>
+<%= f.input :primary, label: "Set as primary image" %>
+<%= f.input :_destroy, as: :boolean, label: "Delete this image", html: {data: {confirm: "Are you sure you want to remove this image?"}} %>
+

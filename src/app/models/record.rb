@@ -126,4 +126,8 @@ class Record < ApplicationRecord
 
     next_string.map{|p| "<p>#{p}</p>"}.join.html_safe
   end
+
+  def user_name
+    user.name
+  end
 end
