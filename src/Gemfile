@@ -135,5 +135,3 @@ gem 'acts_as_list'
 
 gem 'activeadmin-orderable'
 
-gem 'activeadmin_polymorphic'
-
