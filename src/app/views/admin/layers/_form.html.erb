@@ -1,0 +1,30 @@
+<%= semantic_form_for [:admin, @layer], builder: ActiveAdmin::FormBuilder do |f| %>
+    <%= f.semantic_errors %>
+    <%= f.inputs "Basic Details" do %>
+        <%= f.input :title %>
+        <%= f.input :description, as: :quill_editor, input_html: {data: {options: {modules: {toolbar: [['bold', 'italic', 'underline'], ['link']]}, placeholder: 'Enter description in here', theme: 'snow'}}} %>
+    <% end %>
+
+    <%= f.inputs "Date and location" do %>
+        <%= f.input :lat %>
+        <%= f.input :lng %>
+        <%= f.input :date_from %>
+        <%= f.input :date_to %>
+    <% end %>
+
+    <%= f.inputs "Layer Data (read-only for now)" do %>
+        <li>
+            <label>Layer type</label>
+            <strong><%= f.object.layer_type.humanize %></strong>
+        </li>
+        <li>
+            <label>Layer data</label>
+            <p><pre><%= f.object.layer_data %></pre></p>
+
+        </li>
+        
+    <% end %>
+
+    <%= f.actions %>
+
+<% end %>
