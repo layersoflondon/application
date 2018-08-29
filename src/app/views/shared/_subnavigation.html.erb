@@ -1,4 +1,7 @@
+<% root = page.root.resolve %>
+<% if root.children.any? %>
 <div class="m-subnavigation">
     <h2>In this section</h2>
-  <%= subnavigation_for(page.root.resolve, current_class: 'is-current', current: page) %>
+  <%= subnavigation_for(root, current_class: 'is-current', current: page) %>
 </div>
+<% end %>
