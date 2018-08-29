@@ -104,27 +104,8 @@ class Record < ApplicationRecord
   end
 
   def excerpt(max_length = 80)
-    parts = Nokogiri::HTML.fragment(description).children.collect(&:text)
-    next_string = []
-
-    count = 0
-
-    loop do
-      break unless parts[count] || next_string.join.length>max_length
-
-      next_string_length = next_string.join.length + parts[count].length
-      if next_string_length > max_length
-        next_part = parts[count][0..(next_string_length-max_length)]
-        next_string << "#{next_part}..."
-        break
-      else
-        next_string << parts[count]
-      end
-
-      count+=1
-    end
-
-    next_string.map{|p| "<p>#{p}</p>"}.join.html_safe
+    ActionController::Base.helpers.strip_tags(description).truncate(max_length).html_safe
+   
   end
 
   def user_name

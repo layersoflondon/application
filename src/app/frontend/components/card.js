@@ -26,7 +26,7 @@ import VisibilitySensor from 'react-visibility-sensor';
   }
 
   render() {
-    let container_classes = "m-record-card";
+    let container_classes = `m-record-card ${this.props.card.data.placeholder_class}`;
 
     if( this.props.card.is_collection ) container_classes += " m-record-card--collection";
 

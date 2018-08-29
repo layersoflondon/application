@@ -49,6 +49,16 @@ export default class RecordModel {
     }
   }
 
+  // If there's no image, we need to assign this image a placeholder. We want it to be deterministic so we can render the same class (and get the same placeholder image) in multiple places. So let's use the charcodes of all the chars in the title, mod 10, to get us a number between 0 and 9
+  @computed get placeholder_class() {
+    const number = this.title.split('').map((c) => {return c.charCodeAt() }).reduce((a,b) => a + b, 0) % 10;
+    if (this.has_hero_image) {
+      return "";
+    } else {
+      return `placeholder-${number}`;
+    }
+  }
+
   @computed get position() {
     return [this.lat, this.lng];
   }
