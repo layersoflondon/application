@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import Img from 'react-image';
 
-@inject('userPresent', 'adminUserPresent', 'mapViewStore', 'trayViewStore')
+@inject('userPresent', 'adminUserPresent', 'mapViewStore', 'trayViewStore', 'currentUser')
 @withRouter
 @observer export default class Tools extends Component {
   constructor(props) {
@@ -38,6 +38,8 @@ import Img from 'react-image';
           return <a data-label="Sign in" href="/users/sign_in?return_to=/map/account/account"><span>Sign in</span></a>
       }
   }
+
+
 
   createCollectionLink() {
       if (this.props.userPresent) {
@@ -97,9 +99,15 @@ import Img from 'react-image';
                   </div>
 
                   <div className="m-actions">
-                      <div className="m-tool-button m-tool-button--your-account">
-                          {this.accountLink()}
-                      </div>
+                    <div className="m-tool-button m-tool-button--your-records">
+                      {
+                        this.props.userPresent &&
+                        <Link to={`/map/search?results=true&user_id=${this.props.currentUser.id}`} data-label="Your records"><span>Your records</span></Link>
+                      }
+                    </div>
+                    <div className="m-tool-button m-tool-button--your-account">
+                        {this.accountLink()}
+                    </div>
                   </div>
               </div>
 
