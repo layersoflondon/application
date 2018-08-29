@@ -63,3 +63,12 @@
   margin-right:10px;
   z-index: 1;
 }
+
+.m-subnavigation .is-current a {
+  color:white;
+  cursor:default;
+}
+
+.m-subnavigation .is-current a:hover {
+  color:white;
+}

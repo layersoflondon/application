@@ -32,7 +32,7 @@
     font-size: 36px;
     line-height: 1.5;
     @include font-display;
-    color:$lilac;
+    color: $lilac;
     margin-bottom: 50px;
     @include mq(smartphone) {
       font-size: 24px;
@@ -46,17 +46,17 @@
   }
 
   p:empty:first-child + p {
-    margin-top:0;
+    margin-top: 0;
   }
 
   > .wp-caption:first-child + p {
-    margin-top:0;
+    margin-top: 0;
   }
 
-  p:empty:first-child + .wp-caption + p {
-    margin-top:0;
+  p:empty:first-child + .wp-caption.alignleft + p,
+  p:empty:first-child + .wp-caption.alignright + p {
+    margin-top: 0;
   }
-
 
   ul,
   ol,
@@ -162,10 +162,9 @@
     position: relative;
     padding: 50px;
     margin: 1em 0;
-    margin-top:50px;
+    margin-top: 50px;
     margin-left: -100px;
     margin-bottom: 70px;
-
     line-height: 1.7;
   }
 
@@ -178,7 +177,6 @@
     border-top: 58px solid $green;
     border-left: 30px solid transparent;
     border-right: 30px solid transparent;
-
   }
 
   blockquote p {
@@ -208,7 +206,8 @@
 
   .wp-caption {
     background: $red;
-    clear:both;
+    clear: both;
+    max-width: 100%;
   }
 
   .wp-caption img {
@@ -256,8 +255,8 @@
 
   img.alignnone,
   .wp-caption.alignnone {
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .aligncenter {
@@ -340,8 +339,8 @@
   > p:first-child {
     font-size: inherit;
     line-height: inherit;
-    font:inherit;
-    color:#222;
+    font: inherit;
+    color: #222;
     margin-bottom: 0;
   }
 }

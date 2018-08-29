@@ -62,7 +62,7 @@ import Img from 'react-image';
 
               <div className="m-logo">
                   <a href="/" title="Return to homepage">
-                      <Img src={logo} alt="Logo" loader={<span className="is-loading" /> }/>
+                      <img src={logo} alt="Logo" />
                   </a>
               </div>
 

@@ -8,6 +8,9 @@
   position: relative;
   z-index:2;
   background:white;
+  @include mq(tablet) {
+    padding: 40px;
+  }
   @include mq(smartphone) {
     width:100%;
     padding:15px;
@@ -29,6 +32,9 @@
 
 .main--article .m-content {
   margin: -100px auto 0;
+  @include mq(smartphone) {
+    margin: -55px auto 0;
+  }
 }
 
 .main--faq .m-content {

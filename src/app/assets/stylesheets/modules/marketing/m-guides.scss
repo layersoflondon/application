@@ -39,6 +39,7 @@
     width:100%;
     margin-right:0;
     margin-bottom: 15px;
+    min-height:0 !important;
   }
 }
 
@@ -67,6 +68,9 @@
   position: absolute;
   top: 29px;
   right: 30px;
+  @include mq(smartphone) {
+    top:16px;
+  }
 }
 
 .m-guides .guide .description {

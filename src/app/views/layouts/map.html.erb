@@ -4,6 +4,8 @@
     <title>Layers of London <%= content_for?(:title) ? "- #{yield(:title)}" : "" %></title>
     <%= csrf_meta_tags %>
 
+    <meta name="viewport" content="width=device-width">
+
     <%= stylesheet_link_tag 'map' %>
     <!--<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>-->
     <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:400,600,700|Muli:400,600,700" rel="stylesheet">
