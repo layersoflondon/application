@@ -140,7 +140,6 @@ import RecordModel from './../../../models/record';
     if( this.props.mapViewStore.overlay === 'record_form' ) className+=" is-showing";
 
     let form_title = this.props.recordFormStore.record.id ? "Edit record" : "Add record";
-
     return (
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
@@ -207,6 +206,11 @@ import RecordModel from './../../../models/record';
                   {!this.props.recordFormStore.record.id && (
                     <button type="submit" className="delete" onClick={()=>this.props.router.push('/map')}>
                       Cancel
+                    </button>
+                  )}
+                  {(this.props.recordFormStore.record.id && this.props.recordFormStore.record.state == "draft") && (
+                    <button type="submit" className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
+                      Delete
                     </button>
                   )}
 

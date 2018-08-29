@@ -18,6 +18,7 @@ export default class RecordFormComponentState {
       createDraftRecord(event) {
         this.props.recordFormStore.record.persist().then((response) => {
           this.props.recordFormStore.record.id = response.data.id;
+          this.props.recordFormStore.record.state = response.data.state;
 
           // fixme - find a better way to do this. the stubbed out video
           // attachment needs to know the record id we've just been given...
