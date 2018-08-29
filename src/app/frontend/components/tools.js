@@ -108,6 +108,9 @@ import Img from 'react-image';
                     <div className="m-tool-button m-tool-button--your-account">
                         {this.accountLink()}
                     </div>
+                    <div className="m-tool-button m-tool-button--help">
+                      <a href="/help-centre" data-label="Help"><span>Help</span></a>
+                    </div>
                   </div>
               </div>
 
