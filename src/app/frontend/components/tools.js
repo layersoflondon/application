@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import Img from 'react-image';
 
-@inject('userPresent', 'adminUserPresent', 'mapViewStore', 'trayViewStore')
+@inject('userPresent', 'adminUserPresent', 'mapViewStore', 'trayViewStore', 'currentUser')
 @withRouter
 @observer export default class Tools extends Component {
   constructor(props) {
@@ -39,6 +39,8 @@ import Img from 'react-image';
       }
   }
 
+
+
   createCollectionLink() {
       if (this.props.userPresent) {
           return <Link to='/map/collections/new' data-label="Create collection"><span>Create collection</span></Link>
@@ -62,7 +64,7 @@ import Img from 'react-image';
 
               <div className="m-logo">
                   <a href="/" title="Return to homepage">
-                      <Img src={logo} alt="Logo" loader={<span className="is-loading" /> }/>
+                      <img src={logo} alt="Logo" />
                   </a>
               </div>
 
@@ -97,9 +99,18 @@ import Img from 'react-image';
                   </div>
 
                   <div className="m-actions">
-                      <div className="m-tool-button m-tool-button--your-account">
-                          {this.accountLink()}
-                      </div>
+                    <div className="m-tool-button m-tool-button--your-records">
+                      {
+                        this.props.userPresent &&
+                        <Link to={`/map/search?results=true&user_id=${this.props.currentUser.id}`} data-label="Your records"><span>Your records</span></Link>
+                      }
+                    </div>
+                    <div className="m-tool-button m-tool-button--your-account">
+                        {this.accountLink()}
+                    </div>
+                    <div className="m-tool-button m-tool-button--help">
+                      <a href="/help-centre" data-label="Help"><span>Help</span></a>
+                    </div>
                   </div>
               </div>
 

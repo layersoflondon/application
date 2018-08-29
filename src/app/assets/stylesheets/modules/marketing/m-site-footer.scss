@@ -4,11 +4,19 @@
   padding: 80px;
   clear: both;
   font-size: 14px;
+  @include mq(tablet) {
+    padding:40px;
+  }
 }
 
 .m-site-footer .copyright {
   float: right;
   opacity: 0.3;
+  color:white;
+  @include mq(small-smartphone) {
+    float:none;
+    clear:left;
+  }
 }
 
 .m-site-footer .footer-navigation {
@@ -17,6 +25,7 @@
 
 .m-site-footer .user-actions {
   @include unlist;
+  float: left;
 }
 
 .m-site-footer .user-actions a {
@@ -33,6 +42,11 @@
   margin-bottom: 50px;
   float: left;
   width: 75%;
+  @include mq(small-tablet) {
+    width:auto;
+    float:none;
+    display:inline;
+  }
 }
 
 .m-site-footer .partners h3 {
@@ -48,14 +62,28 @@
 .m-site-footer .partners ul {
   @include unlist;
   text-align: left;
+  @include mq(small-tablet) {
+    display:inline;
+  }
 }
 
 .m-site-footer .partners li {
   display: inline-block;
-  //margin-right: 70px;
   filter: invert(100%);
   width: 33%;
   padding-right: 70px;
+  @include mq(small-tablet) {
+    width:50%;
+    margin-right: -2px;
+    margin-bottom:30px;
+  }
+  @include mq(smartphone) {
+    padding-right: 30px;
+  }
+  @include mq(small-smartphone) {
+    width:100%;
+    margin-bottom:50px;
+  }
 }
 
 .m-site-footer .partners li img {
@@ -77,15 +105,38 @@
   margin-bottom: 50px;
   float: left;
   width: 25%;
+  @include mq(small-tablet) {
+    float:none;
+    width:auto;
+    display:inline;
+  }
 }
 
 .m-site-footer .credentials ul {
   @include unlist;
   text-align: left;
+  @include mq(tablet) {
+    display:inline;
+  }
 }
 
 .m-site-footer .credentials ul li {
   padding-left: 70px;
+  @include mq(small-tablet) {
+    width:50%;
+    margin-right: -2px;
+    margin-bottom:30px;
+    padding-left:0;
+    display:inline-block;
+    padding-right: 180px;
+  }
+  @include mq(smartphone) {
+    padding-right: 80px;
+  }
+  @include mq(small-smartphone) {
+    width:100%;
+    margin-bottom:50px;
+  }
 }
 
 .m-site-footer .credentials li img {

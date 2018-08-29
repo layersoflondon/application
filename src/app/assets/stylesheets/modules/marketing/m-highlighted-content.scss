@@ -9,15 +9,48 @@
   z-index: 1;
   background: $black;
   position:absolute;
+  @include mq(small-tablet) {
+    position:relative;
+    width:100%;
+    transform:none !important;
+    border:0;
+    top:auto;
+    right:auto;
+    @include clearfix;
+  }
 }
 
 .m-highlighted-content .m-record-card {
   @include record-card;
   margin-bottom:15px;
+  @include mq(small-tablet) {
+    width:calc(50% - 7px);
+    float:left;
+    margin-left:7px;
+  }
+  @media screen and (max-width:640px) {
+    width:100%;
+    margin-left:0;
+  }
+}
+
+.m-highlighted-content .m-record-card:nth-child(even) {
+  @include mq(small-tablet) {
+    width:calc(50% - 8px);
+    margin-left:0;
+    margin-right:8px
+  }
+  @media screen and (max-width:640px) {
+    width:100%;
+    margin-right:0;
+  }
 }
 
 .m-highlighted-content .m-record-card:last-child {
   margin-bottom:0;
+  @include mq(tablet) {
+    margin-bottom:15px;
+  }
 }
 
 .m-highlighted-content .m-record-card .image {
@@ -38,53 +71,59 @@
   text-transform: uppercase;
   font-size: 16px;
   font-weight: 600;
+  @include mq(smartphone) {
+    top: -28px;
+  }
 }
 
 .m-highlighted-content .m-record-card h1 {
   font-weight: 600;
   font-size: 26px;
+  @include mq(smartphone) {
+    font-weight: 400;
+  }
 }
 
 .m-highlighted-content .m-record-card {
-  
+
 }
 
-.m-highlighted-content .m-record-card:nth-child(10n+1) {
+.m-highlighted-content .m-record-card.placeholder-0 {
   background: $navy url('../assets/images/placeholder/wide-01.svg') center/cover;
 }
 
-.m-highlighted-content .m-record-card:nth-child(10n+2) {
+.m-highlighted-content .m-record-card.placeholder-1 {
   background: $red url('../assets/images/placeholder/wide-02.svg') center/cover;
 }
 
-.m-highlighted-content .m-record-card:nth-child(10n+3) {
+.m-highlighted-content .m-record-card.placeholder-2 {
   background: $lilac url('../assets/images/placeholder/wide-03.svg') center/cover;
 }
 
-.m-highlighted-content .m-record-card:nth-child(10n+4) {
+.m-highlighted-content .m-record-card.placeholder-3 {
   background: $green url('../assets/images/placeholder/wide-04.svg') center/cover;
 }
 
-.m-highlighted-content .m-record-card:nth-child(10n+5) {
+.m-highlighted-content .m-record-card.placeholder-4 {
   background: $black url('../assets/images/placeholder/wide-05.svg') center/cover;
 }
 
-.m-highlighted-content .m-record-card:nth-child(10n+6) {
+.m-highlighted-content .m-record-card.placeholder-5 {
   background: $navy url('../assets/images/placeholder/wide-06.svg') center/cover;
 }
 
-.m-highlighted-content .m-record-card:nth-child(10n+7) {
+.m-highlighted-content .m-record-card.placeholder-6 {
   background: $yellow url('../assets/images/placeholder/wide-07.svg') center/cover;
 }
 
-.m-highlighted-content .m-record-card:nth-child(10n+8) {
+.m-highlighted-content .m-record-card.placeholder-7 {
   background: $orange url('../assets/images/placeholder/wide-08.svg') center/cover;
 }
 
-.m-highlighted-content .m-record-card:nth-child(10n+9) {
+.m-highlighted-content .m-record-card.placeholder-8 {
   background: $red url('../assets/images/placeholder/wide-09.svg') center/cover;
 }
 
-.m-highlighted-content .m-record-card:nth-child(10n+10) {
+.m-highlighted-content .m-record-card.placeholder-9 {
   background: $navy url('../assets/images/placeholder/wide-10.svg') center/cover;
 }

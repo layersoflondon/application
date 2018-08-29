@@ -14,8 +14,13 @@
   @include mq(smartphone) {
     margin-left: -4px;
   }
+
 }
 
 .m-logo img {
   max-width:100%;
+  @include mq(tablet) {
+    width: 27px;
+  }
+
 }

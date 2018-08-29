@@ -6,6 +6,12 @@
   color:$green;
   position: relative;
   margin-bottom:15px;
+  @include mq(tablet) {
+    padding:40px 40px;
+  }
+  @include mq(smartphone) {
+    padding:20px;
+  }
 }
 
 .m-big-search h1 {
@@ -21,18 +27,37 @@
   background: transparent;
   padding: 18px;
   border: 3px solid #6fa572;
+  @include mq(smartphone) {
+    font-size: 22px;
+  }
+  @include mq(small-smartphone) {
+    font-size:20px;
+  }
 }
 
 .m-big-search input[type="text"] {
   width: 36%;
+  @include mq(small-tablet) {
+    width: calc(100% - 200px);
+  }
+  @include mq(smartphone) {
+    width: calc(100% - 85px);
+  }
 }
 
 .m-big-search input[type="submit"] {
   border:0;
+  padding: 21px 18px;
   background:white;
   color: $green;
   border-radius: 100px;
   margin-left: 18px;
+  float: none;
+  width: auto;
+  font-weight: 600;
+  @include mq(smartphone) {
+    float:right;
+  }
 }
 
 .m-big-search input[type="submit"]:hover {
@@ -59,4 +84,10 @@
   margin-bottom: 0;
   font-size: 18px;
   margin-top: 32px;
+  @include mq(small-tablet) {
+    margin-top: 22px;
+  }
+  @include mq(smartphone) {
+    font-size: 14px;
+  }
 }

@@ -1,0 +1,213 @@
+/* Mobile navigation */
+
+.m-navigation-mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  overflow: auto;
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+  opacity: 0;
+  text-align: center;
+  visibility: hidden;
+  z-index: -100;
+  background: rgba(0, 0, 0, 0.8);
+  font-size: 44px;
+  @include font-display;
+
+  @include mq(tablet) {
+    font-size: 40px;
+  }
+  @include mq(small-tablet) {
+  }
+  @include mq(smartphone) {
+    font-size: 32px;
+  }
+  @include mq(small-smartphone) {
+    font-size: 30px;
+  }
+}
+
+.m-navigation-mobile.is-visible {
+  display: table;
+}
+
+.m-navigation-mobile.is-hidden {
+  display: none;
+}
+
+body.has-mobile-menu-open {
+  overflow: hidden;
+}
+
+.m-navigation-mobile .wrap {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+
+// Site navigation
+
+.m-navigation-mobile .site-navigation {
+  @include unlist;
+  margin-bottom: 30px;
+}
+
+.m-navigation-mobile .site-navigation a {
+  display: inline-block;
+}
+
+.m-navigation-mobile .site-navigation a:hover {
+  color: $red;
+}
+
+.m-navigation-mobile .site-navigation li.is-current a {
+  text-decoration: underline;
+  cursor:default;
+}
+
+.m-navigation-mobile .site-navigation li.is-current a:hover {
+  text-decoration: underline;
+  color:$yellow;
+}
+
+.agent-platform-ios .m-navigation-mobile .site-navigation a {
+  @include mq(tablet) {
+  }
+  @include mq(smartphone) {
+  }
+  @include mq(small-smartphone) {
+  }
+}
+
+.m-navigation-mobile .site-navigation li a span {
+  margin-left: 9px;
+  background: transparent !important;
+}
+
+.m-navigation-mobile .site-navigation li {
+  text-align: center;
+  display: block;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.m-navigation-mobile .site-navigation li.is-current a span {
+  padding: 3px 4px 4px;
+}
+
+.m-navigation-mobile .site-navigation > li > ul {
+  display: none;
+  padding: 0;
+  margin: 0;
+  margin-top: -7px;
+  margin-bottom: 7px;
+  padding: 0 20px;
+}
+
+.m-navigation-mobile .site-navigation > li > ul > li {
+  display: inline;
+  margin: 0 6px;
+}
+
+.m-navigation-mobile .site-navigation > li > ul > li > a {
+  padding: 6px 0 0;
+  color: $yellow;
+  font-size: 15px;
+}
+
+.m-navigation-mobile .site-navigation > li > ul > li > ul {
+  padding: 0;
+}
+
+.m-navigation-mobile .site-navigation > li > ul > li > ul > li > a {
+}
+
+/* .m-navigation-mobile .site-navigation .main-nav-search-link span {
+  display:none;
+}
+
+.m-navigation-mobile .site-navigation .main-nav-search-link img {
+  width: 36px;
+  @include mq(smartphone) {
+    width: 25px;
+  }
+} */
+
+// Some of this stuff relates to second level nav items - needs refactoring (or removing)
+.sub-menu-action {
+  text-align: center;
+  background: purple;
+  color: $yellow;
+  padding: 8px 5px;
+  height: 22px;
+  width: 22px;
+  border-radius: 24px;
+  line-height: 0.3;
+  position: absolute;
+  left: 100%;
+  margin-left: 7px;
+  top: 8px;
+  display: inline;
+  font-size: 20px;
+}
+
+.sub-menu-action-close {
+  display: none;
+}
+
+.is-showing-children .sub-menu-action-close {
+  display: inline;
+}
+
+.is-showing-children .sub-menu-action-open {
+  display: none;
+}
+
+// Actions
+
+.m-navigation-mobile .actions {
+  text-align: center;
+  z-index: 100;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+.m-navigation-mobile .actions li {
+  display: block;
+  padding: 0 20px;
+  @include mq(smartphone) {
+    padding: 0 5px;
+    margin-bottom: 10px;
+    height: 30px;
+  }
+}
+
+.m-navigation-mobile .actions a {
+  color: white;
+  @include mq(small-smartphone) {
+    padding: 5px 0;
+  }
+}
+
+.m-navigation-mobile .actions a:hover {
+  color: $red;
+}
+
+.agent-platform-ios .m-navigation-mobile .actions li {
+  @include transform(scale(1.7));
+  margin-bottom: 30px;
+  @include mq(smartphone) {
+    @include transform(scale(1.2));
+    padding: 0 10px;
+    margin-bottom: 0;
+  }
+}
+
+.m-navigation-mobile .actions li a span {
+  display: none;
+}

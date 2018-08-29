@@ -79,6 +79,9 @@ main {
   @include clearfix;
   position: relative;
   padding-bottom: 100px;
+  @include mq(smartphone) {
+    padding-bottom:50px;
+  }
 }
 
 .main--faq,
@@ -92,7 +95,8 @@ main {
 
 .main--content .background,
 .main--help-centre .background,
-.main--faq-list .background {
+.main--faq-list .background,
+.main--articles .background {
   position: absolute;
   top: 0;
   right: 0;
@@ -103,7 +107,8 @@ main {
 
 .main--content #motion-background,
 .main--faq-list #motion-background,
-.main--help-centre #motion-background {
+.main--help-centre #motion-background,
+.main--articles #motion-background {
   position: absolute;
   top: 0;
   right: 0;
@@ -115,7 +120,11 @@ main {
 }
 
 .main--articles {
-  margin-top: -170px;
+  margin-top: -70px;
+  @include mq(smartphone) {
+    margin-top: 0;
+    padding-top: 30px;
+  }
 }
 
 /* Buttons */

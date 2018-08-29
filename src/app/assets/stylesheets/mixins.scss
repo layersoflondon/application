@@ -30,6 +30,13 @@
     bottom:0;
     left:0;
     background: transparentize($green,0.1);
+    @include mq(tablet) {
+      width:70%;
+      padding: 35px 40px 40px 40px;
+    }
+    @include mq(smartphone) {
+      padding:20px;
+    }
   }
 
   &[class*='--flipped'] .text-content {
@@ -37,6 +44,12 @@
     left:auto;
     padding: 35px 80px 40px 40px;
     background: transparentize($red,0.1);
+    @include mq(tablet) {
+      padding: 35px 40px 40px 40px;
+    }
+    @include mq(smartphone) {
+      padding:20px;
+    }
   }
 
   h3 {
@@ -46,6 +59,12 @@
     line-height: 1.3;
     font-size: 40px;
     display:inline-block;
+    @include mq(tablet) {
+      font-size:34px;
+    }
+    @include mq(smartphone) {
+      font-size: 26px;
+    }
   }
 
   &[class*='--flipped'] h3 {
@@ -56,6 +75,9 @@
     font-size: 16px;
     color:white;
     margin: 20px 0 28px;
+    @include mq(smartphone) {
+      font-size: 13px;
+    }
   }
 
   a.button {
@@ -67,6 +89,10 @@
     font-weight: bold;
     display: inline-block;
     transition:all .2s;
+    @include mq(smartphone) {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
   }
 
   &[class*='--flipped'] a.button {
@@ -689,7 +715,7 @@ $gutter-width: 10px;
       @content;
     }
   } @else if $point==small-tablet {
-    @media (max-width: 950px) {
+    @media (max-width: 900px) {
       @content;
     }
   } @else if $point==smartphone {

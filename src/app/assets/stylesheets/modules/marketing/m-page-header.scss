@@ -12,10 +12,20 @@
 
 .m-page-header {
   clear: both;
-  min-height: 680px;
+  //min-height: 680px;
   background: #ccc;
   position: relative;
   z-index: 2;
+  padding:0 80px;
+  @include mq(tablet) {
+    //min-height:640px;
+    padding:0 40px;
+  }
+  @include mq(smartphone) {
+    //min-height: auto;
+    padding-bottom: 20px;
+    padding:0px;
+  }
 }
 
 .m-page-header--small {
@@ -25,6 +35,10 @@
 .m-page-header--nano {
   height: 305px;
   min-height: 305px;
+  @include mq(smartphone) {
+    height: 185px;
+    min-height: 185px;
+  }
 }
 
 .m-page-header .surtitle {
@@ -37,9 +51,15 @@
 .m-page-header .text-content {
   height: 100%;
   position: relative;
-  padding: 200px 80px 0;
+  padding: 200px 0 0 0;
   color: white;
   @include clearfix;
+  @include mq(tablet) {
+    padding: 140px 0 0 0;
+  }
+  @include mq(smartphone) {
+    padding:20px;
+  }
 }
 
 .m-page-header--small .text-content {
@@ -51,6 +71,9 @@
   width: 100%;
   //background: rgba(0, 0, 0, 0.31);
   text-align:center;
+  @include mq(smartphone) {
+    padding: 80px 20px 0 20px;
+  }
 }
 
 .m-page-header .image {
@@ -94,6 +117,22 @@
   min-height: 440px;
   font-weight: 800;
   padding-bottom: 130px;
+  margin-bottom: -50px;
+  @include mq(tablet) {
+    font-size: 40px;
+    width: calc(45% - 40px);
+    min-height: 320px;
+  }
+  @include mq(smartphone) {
+    width:auto;
+    min-height:0;
+    font-size: 24px;
+    margin-left:-20px;
+    float:left;
+    padding-bottom: 80px;
+    margin-bottom: -40px;
+    max-width:80%;
+  }
 }
 
 .m-page-header--nano h1 {
@@ -104,6 +143,25 @@
   padding-bottom: 23px;
   background:$red;
   color:white;
+  position:relative;
+  @include mq(smartphone) {
+    float:none;
+  }
+}
+
+.m-page-header--help-centre a {
+  position:absolute;
+  @include link-arrow;
+  background:darken($red, 10%);
+  font-size:16px;
+  bottom: -15px;
+  right: -15px;
+  background: #cc0034;
+  padding: 10px 15px;
+  @include mq(smartphone) {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
 }
 
 .m-page-header--help-centre a:hover h1 {

@@ -132,14 +132,6 @@ $element-border-radius-small: 3px;
   color: white;
 }
 
-.m-map-area .m-record-card .wrapper {
-  background: white;
-}
-
-.m-map-area .m-record-card .wrapper:hover {
-  background: #e6e5e5;
-}
-
 @mixin loading-spinner {
 /*
   @keyframes spinner-load {
@@ -244,10 +236,11 @@ $element-border-radius-small: 3px;
     font-weight: 600;
     line-height: 1.3;
     margin: 0;
-    padding: 7px 12px;
+    padding: 8px 10px;
     position: absolute;
     max-width: 90%;
-    @include transform(translate3d(0, -100%, 0));
+    bottom:100%;
+    //@include transform(translate3d(0, -100%, 0));
   }
 
   .text-content p {

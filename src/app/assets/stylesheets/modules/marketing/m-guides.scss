@@ -4,6 +4,12 @@
   padding: 0 80px 50px 80px;
   @include clearfix;
   position: relative;
+  @include mq(tablet) {
+    padding: 0 40px 50px 40px;
+  }
+  @include mq(smartphone) {
+    padding:0 15px 50px 15px;
+  }
 }
 
 .m-guides > div {
@@ -19,6 +25,9 @@
   background: #ff0041;
   display: table;
   padding: 4px 9px;
+  @include mq(smartphone) {
+    margin-bottom: 20px;
+  }
 }
 
 .m-guides .guide a {
@@ -31,6 +40,17 @@
   width: calc(33.333333% - 25px);
   margin-right: 22px;
   margin-bottom: 30px;
+  @include mq(tablet) {
+    width: calc(50% - 25px);
+    padding:20px;
+  }
+  @include mq(smartphone) {
+    width:100%;
+    margin-right:0;
+    margin-bottom: 15px;
+    min-height:0 !important;
+    padding: 15px;
+  }
 }
 
 .m-guides .guide h3 {
@@ -40,6 +60,11 @@
   margin: 0;
   color: $red;
   margin-bottom: 15px;
+  padding-right:18px;
+  @include mq(smartphone) {
+    font-size:24px;
+    margin-bottom: 12px;
+  }
 }
 
 .m-guides .guide h3:after {
@@ -54,10 +79,18 @@
   position: absolute;
   top: 29px;
   right: 30px;
+  @include mq(smartphone) {
+    top:16px;
+    right: 18px;
+  }
 }
 
 .m-guides .guide .description {
   margin: 0;
   color: $black;
+  @include mq(smartphone) {
+    font-size: 14.1px;
+    line-height: 1.6;
+  }
 }
 

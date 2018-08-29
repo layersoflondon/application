@@ -8,10 +8,21 @@
   position: relative;
   z-index:2;
   background:white;
+  @include mq(tablet) {
+    padding: 40px;
+  }
+  @include mq(smartphone) {
+    width:100%;
+    padding:15px;
+    max-width:550px;
+  }
 }
 
 .m-sidebar + .m-content {
   margin:-60px auto 0;
+  @include mq(smartphone) {
+    margin:-55px auto 0;
+  }
 }
 
 .m-content .title {
@@ -20,7 +31,10 @@
 }
 
 .main--article .m-content {
-  margin: -100px auto 0;
+  margin: -60px auto 0;
+  @include mq(smartphone) {
+    margin: -55px auto 0;
+  }
 }
 
 .main--faq .m-content {

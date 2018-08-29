@@ -5,8 +5,16 @@
   float: left;
   width:50%;
   position:relative;
-  //margin-left: 140px;
   margin-top: 260px;
+  @include mq(small-tablet) {
+    width:100%;
+    margin-top: 200px;
+    margin-bottom: 100px;
+  }
+  @include mq(small-smartphone) {
+    margin-top: 130px;
+    margin-bottom: 70px;
+  }
 }
 
 .m-home-logo a {
@@ -27,6 +35,12 @@
   margin:0 auto;
   display:block;
   margin-top: -12px;
+  @include mq(tablet) {
+    width: 380px;
+  }
+  @include mq(small-smartphone) {
+    width: 230px;
+  }
 }
 
 .has-viewable-action {
