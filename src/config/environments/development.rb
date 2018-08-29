@@ -27,7 +27,7 @@ Rails.application.configure do
   # Sending emails
   config.action_mailer.smtp_settings = {
       address: 'mail',
-      port: 1025
+      port: 2525
   }
   config.action_mailer.default_url_options = {
       host: 'localhost',

@@ -1,7 +1,41 @@
-<p>Hello <%= @resource.email %>!</p>
+<% content_for :title, "Your admin account has been locked" %>
 
-<p>Your account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
+<% content_for :email_reason, "You're receiving this email because your admin account has been locked." %>
 
-<p>Click the link below to unlock your account:</p>
+<!-- start copy -->
+<tr>
+    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+        <p style="margin: 0;">Hello there. Your admin account has been locked because you (or someone else) entered the wrong password 5 times. You can either wait an hour, or click the link below to unlock your account.
+        </p>
+    </td>
+</tr>
+<!-- end copy -->
 
-<p><%= link_to 'Unlock my account', unlock_url(@resource, unlock_token: @token) %></p>
+<!-- start button -->
+<tr>
+    <td align="left" bgcolor="#ffffff">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="center" bgcolor="#ffffff" style="padding: 12px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="center" bgcolor="#549a77" style="border-radius: 6px;">
+                                <a href="<%= unlock_url(@resource, unlock_token: @token) %>" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Unlock your admin account now</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<!-- end button -->
+
+<!-- start copy -->
+<tr>
+    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+        <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
+        <p style="margin: 0;"><a href="<%= unlock_url(@resource, unlock_token: @token) %>" target="_blank"><%= unlock_url(@resource, unlock_token: @token) %></a></p>
+    </td>
+</tr>
+<!-- end copy -->
