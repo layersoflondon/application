@@ -14,8 +14,4 @@ json.contributor_ids collection.contributor_ids
 json.records do
   json.array! collection.records.collect {|r| OpenStruct.new(r)}, partial: 'search/record', as: :record
 end
-if collection.image.is_a?(Hash)
-  json.image collection.image
-else
-  json.image placeholder_image
-end
+json.image collection.image

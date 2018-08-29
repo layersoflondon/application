@@ -17,7 +17,7 @@ json.user_can_like RecordPolicy.new(current_user,record).like?
 if record.image
   json.image record.image.select {|k,v| k.in?(['card', 'thumb','primary', 'large'])}
 else
-  json.image placeholder_image.select {|k, v| k.in?(['card', 'thumb','primary', 'large'])}
+  json.image nil
 end
 json.taxonomy_terms record.taxonomy_terms
 json.view_type record.view_type
