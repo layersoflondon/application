@@ -8,8 +8,10 @@
   height: 100%;
   transition:all .2s;
   background:$black;
+  @media screen and (min-width:1681px) {
+    width: calc(100% - 964px);
+  }
   @include mq(tablet) {
-    //display:none;
     width:100%;
   }
 }
@@ -17,7 +19,6 @@
 .tray-is-closed .m-map-area {
   width: calc(100% - 80px);
   @include mq(tablet) {
-    //display:block;
     width:100%;
   }
 }

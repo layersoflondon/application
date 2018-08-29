@@ -11,6 +11,7 @@
   z-index: 10;
   @include top-and-tail;
   transition: all .2s;
+  max-width:904px;
   @include mq(tablet) {
     top:60px;
     width: 100%;

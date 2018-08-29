@@ -1,54 +1,60 @@
 /* Subnavigation */
 
 .m-subnavigation {
-  position: relative;
-  z-index:3;
-  background:transparentize($black, 0.1);
-  display:block;
+  position: absolute;
+  bottom: -50px;
+  right: 0;
+  z-index: 3;
+  background: transparentize($black, 0.1);
+  display: block;
   padding: 30px;
-  margin:0 auto;
-  width: 80%;
-  float:right;
   width: calc(40% - 40px);
-  margin-top: 190px;
   min-height: 300px;
-  padding-bottom: 76px;
+  padding-bottom: 128px;
+  @include mq(tablet) {
+    width: calc(45% - 40px);
+  }
   @include mq(smartphone) {
-    width: calc(50% - 40px);
-    width:auto;
-    padding:20px 20px 30px 20px;
-    min-height:0;
-    margin-right:-20px;
+    width: auto;
+    padding: 20px 20px 45px 20px;
+    min-height: 0;
+    margin-right: -20px;
     margin-top: 20px;
-    clear:both;
+    clear: both;
+    float: right;
+    bottom:auto;
+    right:auto;
+    position: relative;
   }
 }
 
 .m-page-header--nano .m-subnavigation {
-  display:none;
+  display: none;
 }
 
 .m-subnavigation h2 {
   text-transform: uppercase;
-  font-size:14px;
-  margin-top:0;
+  font-size: 14px;
+  margin-top: 0;
 }
 
 .m-subnavigation ul {
   @include unlist;
 }
 
-.m-subnavigation li {
-//display:inline;
-}
-
 .m-subnavigation a {
-  background:none;
-  padding:0;
-  border-radius:0;
-  float:none;
-  text-transform:none;
-  margin-bottom:10px;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  float: none;
+  text-transform: none;
+  margin-bottom: 2px;
+  padding-left: 14px;
+  display: block;
+  position: relative;
+  @include mq(small-tablet) {
+    font-size: 14px;
+  }
 }
 
 .m-subnavigation a:hover {
@@ -60,15 +66,18 @@
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: 1em;
-  margin-right:10px;
+  margin-right: 7px;
   z-index: 1;
+  float: left;
+  margin-top: 0.2em;
+  margin-left: -12px;
 }
 
 .m-subnavigation .is-current a {
-  color:white;
-  cursor:default;
+  color: white;
+  cursor: default;
 }
 
 .m-subnavigation .is-current a:hover {
-  color:white;
+  color: white;
 }

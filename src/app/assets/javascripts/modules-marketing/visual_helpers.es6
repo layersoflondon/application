@@ -121,15 +121,19 @@ class VisualHelpers {
 
         setTimeout(() => {
             $('.m-guides .guide a').each(function (index) {
-                heights.push($(this).outerHeight())
+                heights.push($(this).outerHeight());
             });
 
             var largest = Math.max.apply(Math, heights);
             $('.m-guides .guide a').css('min-height', largest + 'px');
+
         }, 50);
     }
 
 
 }
 
-new VisualHelpers();
+$(function() {
+    new VisualHelpers();
+})
+
