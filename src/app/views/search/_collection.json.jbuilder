@@ -12,6 +12,6 @@ json.updated_at DateTime.parse(collection.updated_at).strftime("%d/%m/%Y")
 json.owner collection.owner
 json.contributor_ids collection.contributor_ids
 json.records do
-  json.array! collection.records.collect {|r| OpenStruct.new(r)}, partial: 'search/record', as: :record
+  json.array! collection.records.collect {|r| OpenStruct.new(r)}.select {|r| RecordPolicy.new(current_user, r).show?}, partial: 'search/record', as: :record
 end
 json.image collection.image
