@@ -58,7 +58,7 @@ import Parser from 'html-react-parser';
       <Popup>
 
         <div className="m-map-popover" onClick={this.handleOnClick.bind(this)}>
-          <div className="m-record-card">
+          <div className={`m-record-card ${this.props.record.placeholder_class}`}>
             <div className="wrapper">
                 {this.props.record.image &&
                 <div className="image">
