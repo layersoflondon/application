@@ -1,0 +1,6 @@
+<li><label>Image</label><%= image_tag ApplicationController.helpers.activestorage_url_for(f.object.file.variant(Rails.configuration.x.image_variants[:thumb])) %></li>
+<%= f.input :title %>
+<%= f.input :credit, as: :string %>
+<%= f.input :caption, as: :string %>
+<%= f.input :primary, label: "Set as primary image" %>
+

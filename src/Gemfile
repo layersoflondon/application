@@ -126,3 +126,12 @@ gem 'rollbar'
 gem 'simple_errors', git: "https://github.com/errorstudio/simple_errors"
 
 gem 'roboto'
+
+gem 'activeadmin_quill_editor'
+
+gem 'activeadmin-searchable_select'
+
+gem 'acts_as_list'
+
+gem 'activeadmin-orderable'
+

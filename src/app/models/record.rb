@@ -16,7 +16,7 @@ class Record < ApplicationRecord
   has_many :taxonomy_terms, through: :record_taxonomy_terms
   belongs_to :credit_image, class_name: 'Attachments::Image', dependent: :destroy, optional: true
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 
   has_many :record_reports
 
@@ -68,7 +68,7 @@ class Record < ApplicationRecord
     event :mark_as_published do
       # fixme: we dont currently go into 'mark as pending review' when the user is
       # creating their own records, we allow them to go from fraft -> published
-      transitions from: %i[draft pending_review published], to: :published
+      transitions from: %i[draft pending_review published flagged], to: :published
     end
 
     event :mark_as_flagged do
@@ -125,5 +125,9 @@ class Record < ApplicationRecord
     end
 
     next_string.map{|p| "<p>#{p}</p>"}.join.html_safe
+  end
+
+  def user_name
+    user.name
   end
 end
