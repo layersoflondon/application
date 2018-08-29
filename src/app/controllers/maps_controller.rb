@@ -53,9 +53,8 @@ class MapsController < ApplicationController
       @collections = CollectionsIndex.filter(terms: {state: ["published"]}).limit(5).order(created_at: :desc).to_a
     end
 
-    @layers = LayersIndex.filter(terms: {layer_type: ["tileserver"]})
 
-    @layers = LayersIndex.filter(terms: {layer_type: ["tileserver"]})
+    @layers = LayersIndex.filter(terms: {layer_type: ["tileserver"]}).order(:date_from)
 
     # return unless params[:resource].present?
     #
