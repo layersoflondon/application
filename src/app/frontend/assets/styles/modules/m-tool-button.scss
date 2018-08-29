@@ -80,6 +80,14 @@
   content: "\f2c0";
 }
 
+.m-tool-button--your-records a:before {
+  content: "\f07c";
+}
+
+.m-tool-button--help a:before {
+  content: "\f059";
+}
+
 .m-tool-button a:hover {
   opacity: 0.5;
 }
