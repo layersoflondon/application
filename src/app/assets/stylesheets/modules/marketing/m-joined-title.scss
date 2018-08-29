@@ -7,14 +7,17 @@
   position: relative;
   z-index: 2;
   background: white;
-  color:$black;
-  background:$yellow;
+  color: $black;
+  background: $yellow;
+  @include mq(tablet) {
+    padding: 50px 40px 40px 40px;
+  }
   @include mq(smartphone) {
-    max-width:550px;
-    padding:15px;
-    width:auto;
+    max-width: 550px;
+    padding: 15px;
+    width: auto;
     padding-top: 30px;
-    margin-top:20px;
+    margin-top: 20px;
   }
 }
 
@@ -22,7 +25,10 @@
   font-size: 36px;
   line-height: 1.5;
   @include font-display;
-  margin:0;
+  margin: 0;
+  @include mq(tablet) {
+    font-size: 28px;
+  }
   @include mq(smartphone) {
     font-size: 24px;
     line-height: 1.4;
@@ -41,12 +47,15 @@
   padding: 5px 10px 0;
   float: left;
   margin-top: -60px;
+  @include mq(tablet) {
+    margin-top: -50px;
+  }
 
-@include mq(smartphone) {
-  font-size: 12px;
-  height: 25px;
-  padding: 3px 10px 0;
-  margin-top: -30px;
-}
+  @include mq(smartphone) {
+    font-size: 12px;
+    height: 25px;
+    padding: 3px 10px 0;
+    margin-top: -30px;
+  }
 
 }

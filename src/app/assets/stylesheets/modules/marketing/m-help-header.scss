@@ -79,6 +79,9 @@
   font-size: 22px;
   font-family: 'Zilla Slab', serif;
   font-weight: 400;
+  @include mq(tablet) {
+    font-size: 18px;
+  }
   @include mq(smartphone) {
     font-size:16px;
   }
