@@ -240,14 +240,6 @@ $element-border-radius-small: 3px;
   color: white;
 }
 
-.m-map-area .m-record-card .wrapper {
-  background: white;
-}
-
-.m-map-area .m-record-card .wrapper:hover {
-  background: #e6e5e5;
-}
-
 @mixin record-card {
 
   .wrapper {
