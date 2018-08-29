@@ -1,20 +1,30 @@
-
 <div class="m-site-header">
-  <div class="m-logo">
-    <a href="/">
-      <h1>Layers of London</h1>
-      <%= image_tag("logo.svg") %>
-    </a>
-  </div>
-  <div class="m-navigation">
-    <ul class="user-actions">
-        <% if user_signed_in? %>
-            <li><%= link_to "Sign out", destroy_user_session_path %></li>
-        <% else %>
-            <li><%= link_to "Log in", new_user_session_path %></li>
-            <li><%= link_to "Create an account", new_user_registration_path %></li>
-        <% end %>
-    </ul>
-    <%= menu_for(@main_navigation_menu, class: 'main-navigation', current_class: 'is-current') %>
-  </div>
+
+    <div class="m-logo">
+        <a href="/">
+            <h1>Layers of London</h1>
+            <%= image_tag("logo.svg") %>
+        </a>
+    </div>
+
+    <div class="m-hamburger">
+        <button class="hamburger" type="button">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </button>
+    </div>
+
+    <div class="m-navigation">
+        <ul class="user-actions">
+            <% if user_signed_in? %>
+                <li><%= link_to "Sign out", destroy_user_session_path %></li>
+            <% else %>
+                <li><%= link_to "Log in", new_user_session_path %></li>
+                <li><%= link_to "Create an account", new_user_registration_path %></li>
+            <% end %>
+        </ul>
+        <%= menu_for(@main_navigation_menu, class: 'main-navigation', current_class: 'is-current') %>
+    </div>
+
 </div>

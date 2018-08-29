@@ -17,6 +17,7 @@
   }
   @include mq(smartphone) {
     font-size: 14.1px;
+    line-height: 1.7;
   }
 
   * {
@@ -33,6 +34,11 @@
     @include font-display;
     color:$lilac;
     margin-bottom: 50px;
+    @include mq(smartphone) {
+      font-size: 24px;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
   }
 
   p:empty {

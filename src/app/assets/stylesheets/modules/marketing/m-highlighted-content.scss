@@ -9,15 +9,48 @@
   z-index: 1;
   background: $black;
   position:absolute;
+  @include mq(small-tablet) {
+    position:relative;
+    width:100%;
+    transform:none !important;
+    border:0;
+    top:auto;
+    right:auto;
+    @include clearfix;
+  }
 }
 
 .m-highlighted-content .m-record-card {
   @include record-card;
   margin-bottom:15px;
+  @include mq(small-tablet) {
+    width:calc(50% - 7px);
+    float:left;
+    margin-left:7px;
+  }
+  @media screen and (max-width:640px) {
+    width:100%;
+    margin-left:0;
+  }
+}
+
+.m-highlighted-content .m-record-card:nth-child(even) {
+  @include mq(small-tablet) {
+    width:calc(50% - 8px);
+    margin-left:0;
+    margin-right:8px
+  }
+  @media screen and (max-width:640px) {
+    width:100%;
+    margin-right:0;
+  }
 }
 
 .m-highlighted-content .m-record-card:last-child {
   margin-bottom:0;
+  @include mq(tablet) {
+    margin-bottom:15px;
+  }
 }
 
 .m-highlighted-content .m-record-card .image {
@@ -38,11 +71,17 @@
   text-transform: uppercase;
   font-size: 16px;
   font-weight: 600;
+  @include mq(smartphone) {
+    top: -28px;
+  }
 }
 
 .m-highlighted-content .m-record-card h1 {
   font-weight: 600;
   font-size: 26px;
+  @include mq(smartphone) {
+    font-weight: 400;
+  }
 }
 
 .m-highlighted-content .m-record-card {

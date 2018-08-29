@@ -8,10 +8,18 @@
   position: relative;
   z-index:2;
   background:white;
+  @include mq(smartphone) {
+    width:100%;
+    padding:15px;
+    max-width:550px;
+  }
 }
 
 .m-sidebar + .m-content {
   margin:-60px auto 0;
+  @include mq(smartphone) {
+    margin:-50px auto 0;
+  }
 }
 
 .m-content .title {

@@ -4,6 +4,9 @@
   padding: 0 80px 50px 80px;
   @include clearfix;
   position: relative;
+  @include mq(smartphone) {
+    padding:0 15px 50px 15px;
+  }
 }
 
 .m-guides > div {
@@ -31,6 +34,12 @@
   width: calc(33.333333% - 25px);
   margin-right: 22px;
   margin-bottom: 30px;
+  @include mq(smartphone) {
+    padding: 15px 20px;
+    width:100%;
+    margin-right:0;
+    margin-bottom: 15px;
+  }
 }
 
 .m-guides .guide h3 {
@@ -40,6 +49,10 @@
   margin: 0;
   color: $red;
   margin-bottom: 15px;
+  padding-right:18px;
+  @include mq(smartphone) {
+    font-size:26px;
+  }
 }
 
 .m-guides .guide h3:after {

@@ -1,5 +1,11 @@
 /* Navigation */
 
+.m-navigation {
+  @include mq(smartphone) {
+    display:none;
+  }
+}
+
 .m-navigation ul {
   @include unlist;
 }
@@ -26,6 +32,12 @@
   font-size: 20px;
   @include font-display;
   font-weight: 600;
+  @include mq(tablet) {
+    font-size: 18px;
+  }
+  @include mq(small-tablet) {
+    font-size: 16px;
+  }
 }
 
 .m-navigation a:hover {

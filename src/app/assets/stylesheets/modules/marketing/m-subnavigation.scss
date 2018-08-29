@@ -13,6 +13,15 @@
   margin-top: 190px;
   min-height: 300px;
   padding-bottom: 76px;
+  @include mq(smartphone) {
+    width: calc(50% - 40px);
+    width:auto;
+    padding:20px 20px 30px 20px;
+    min-height:0;
+    margin-right:-20px;
+    margin-top: 20px;
+    clear:both;
+  }
 }
 
 .m-page-header--nano .m-subnavigation {
@@ -43,7 +52,7 @@
 }
 
 .m-subnavigation a:hover {
-  background: $red;
+  color: $red;
 }
 
 .m-subnavigation a:before {

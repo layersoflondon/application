@@ -6,6 +6,9 @@
   z-index: 2;
   @include clearfix;
   clear: both;
+  @include mq(smartphone) {
+    padding: 70px 15px;
+  }
 }
 
 .m-help-header .title {
@@ -24,22 +27,45 @@
   width: 50%;
   padding-right: 50px;
   position: relative;
+  @include mq(smartphone) {
+    width: auto;
+    float: none;
+    padding-right: 0;
+  }
 }
 
 .m-help-header .video > div {
   background: $black;
   padding: 20px;
   margin-top: -20px;
+  margin-bottom:50px;
 }
 
-.m-help-header iframe {
+.m-help-header .video-wrapper {
+  width: 100%;
+  padding-bottom: 50%;
+  position: relative;
+}
+
+.m-help-header .video iframe {
   max-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100% !important;
 }
 
 .m-help-header .top-faq {
   float: left;
   width: 50%;
   padding-left: 10px;
+  @include mq(smartphone) {
+    float: none;
+    width: auto;
+    padding-left: 0;
+  }
 }
 
 .m-help-header .top-faq li {
@@ -48,6 +74,9 @@
   font-size: 22px;
   font-family: 'Zilla Slab', serif;
   font-weight: 400;
+  @include mq(smartphone) {
+    font-size:18px;
+  }
 }
 
 .m-help-header .top-faq li a {
@@ -55,7 +84,6 @@
   background: $black;
   display: inline-block;
   @include link-arrow;
-
 }
 
 .m-help-header .top-faq li a:before {
@@ -75,8 +103,8 @@
   border-radius: 100px;
   color: $red;
   font-weight: 600;
-  background:$yellow;
-  color:$black;
+  background: $yellow;
+  color: $black;
   //@include link-arrow;
   transition: all .2s;
 }

@@ -16,6 +16,10 @@
   background: #ccc;
   position: relative;
   z-index: 2;
+  @include mq(smartphone) {
+    min-height: auto;
+    padding-bottom: 20px;
+  }
 }
 
 .m-page-header--small {
@@ -25,6 +29,10 @@
 .m-page-header--nano {
   height: 305px;
   min-height: 305px;
+  @include mq(smartphone) {
+    height: 265px;
+    min-height: 265px;
+  }
 }
 
 .m-page-header .surtitle {
@@ -40,6 +48,12 @@
   padding: 200px 80px 0;
   color: white;
   @include clearfix;
+  @include mq(tablet) {
+    padding: 140px 40px 0;
+  }
+  @include mq(smartphone) {
+    padding:20px;
+  }
 }
 
 .m-page-header--small .text-content {
@@ -51,6 +65,9 @@
   width: 100%;
   //background: rgba(0, 0, 0, 0.31);
   text-align:center;
+  @include mq(smartphone) {
+    padding: 100px 20px 0 20px;
+  }
 }
 
 .m-page-header .image {
@@ -94,6 +111,23 @@
   min-height: 440px;
   font-weight: 800;
   padding-bottom: 130px;
+  @include mq(tablet) {
+    font-size: 40px;
+    width: calc(45% - 40px);
+  }
+  @include mq(small-tablet) {
+    width: calc(50% - 40px);
+  }
+  @include mq(smartphone) {
+    width:auto;
+    min-height:0;
+    font-size: 24px;
+    margin-left:-20px;
+    float:left;
+    padding-bottom: 80px;
+    margin-bottom: -40px;
+    max-width:80%;
+  }
 }
 
 .m-page-header--nano h1 {
@@ -104,6 +138,9 @@
   padding-bottom: 23px;
   background:$red;
   color:white;
+  @include mq(smartphone) {
+    float:none;
+  }
 }
 
 .m-page-header--help-centre a:hover h1 {

@@ -79,6 +79,9 @@ main {
   @include clearfix;
   position: relative;
   padding-bottom: 100px;
+  @include mq(smartphone) {
+    padding-bottom:50px;
+  }
 }
 
 .main--faq,
