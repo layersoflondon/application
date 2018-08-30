@@ -7192,7 +7192,7 @@ react-input-autosize@^2.2.1:
 
 "react-leaflet-search@https://github.com/layersoflondon/react-leaflet-search.git":
   version "0.4.3"
-  resolved "https://github.com/layersoflondon/react-leaflet-search.git#58be0a401504dad3d7dab1201ed86c2163cc2ea9"
+  resolved "https://github.com/layersoflondon/react-leaflet-search.git#a6d25bef1f1d25cdd3fc67e3ca2906fac8680cf9"
 
 react-leaflet@^1.8.2:
   version "1.9.1"

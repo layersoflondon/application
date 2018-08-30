@@ -24,7 +24,7 @@ import L from "leaflet";
 
     return (
 
-        <ReactLeafletSearch map={this.map} position="topleft" inputPlaceholder="Search for a place on the map" showMarker={true} showPopup={false} markerIcon={icon} zoom={15} />
+        <ReactLeafletSearch map={this.map} position="topright" inputPlaceholder="Search for a place on the map" showMarker={true} showPopup={false} markerIcon={icon} zoom={15} closeResultsOnClick={true} openSearchOnLoad={true} />
 
     )
   }
