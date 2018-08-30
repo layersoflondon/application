@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom';
 import {ReactLeafletSearch} from 'react-leaflet-search';
 import {Leaflet} from 'react-leaflet';
 import L from "leaflet";
-@inject('router')
+@inject('router', 'mapBounds')
 @withRouter export default class MapSearchContainer extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +24,30 @@ import L from "leaflet";
 
     return (
 
-        <ReactLeafletSearch map={this.map} position="topright" inputPlaceholder="Search for a place on the map" showMarker={true} showPopup={false} markerIcon={icon} zoom={15} closeResultsOnClick={true} openSearchOnLoad={true} />
+        <ReactLeafletSearch
+          map={this.map}
+          position="topright"
+          inputPlaceholder="Search for a place on the map"
+          showMarker={true}
+          showPopup={false}
+          markerIcon={icon}
+          zoom={15}
+          closeResultsOnClick={true}
+          openSearchOnLoad={true}
+          providerOptions={{region: 'gb'}}
+          searchBounds={[
+            [
+              this.props.mapBounds.south_west.lat,
+              this.props.mapBounds.south_west.lng,
+            ],
+            [
+              this.props.mapBounds.north_east.lat,
+              this.props.mapBounds.north_east.lng,
+            ],
+          ]
+          }
+
+        />
 
     )
   }
