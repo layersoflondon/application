@@ -23,6 +23,16 @@ module LayersApp
       lat: 51.5074, lng: 0.1278
     }
     config.x.map_zoom = 10
+    config.x.map_bounds = {
+      top_right: {
+        lat: 51.72617,
+        lng: -0.55343
+      },
+      bottom_left: {
+        lat: 51.24988,
+        lng: 0.33233
+      }
+    }
 
     config.x.image_variants = {
       marker: {

@@ -7190,6 +7190,9 @@ react-input-autosize@^2.2.1:
   dependencies:
     prop-types "^15.5.8"
 
+"react-leaflet-search@file:../../react-leaflet-search":
+  version "0.4.3"
+
 react-leaflet@^1.8.2:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-1.9.1.tgz#0a282d8d26f66ea2d719ebb8f4a5fa156b33b8c8"
