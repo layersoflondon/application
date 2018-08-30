@@ -229,7 +229,7 @@ import RecordModel from './../../../models/record';
 
                 <div className="primary-actions">
                   {this.props.recordFormStore.record.state === 'draft' && (
-                    <input type="submit" data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save for later" />
+                    <input type="submit" data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save as draft" />
                   )}
 
                   <input type="submit" data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
