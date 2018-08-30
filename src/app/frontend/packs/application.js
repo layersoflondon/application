@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if( typeof window.__STATE === "undefined" ) return;
     const userPresent = window.__USER_PRESENT;
     const adminUserPresent = window.__ADMIN_USER_PRESENT;
+    const mapBounds = window.__MAP_BOUNDS;
 
     const browserHistory = createBrowserHistory();
     const routerStore = new RouterStore();
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stores.currentUser = window.__USER;
 
         ReactDOM.render(
-          <Provider {...stores} userPresent={userPresent} adminUserPresent={adminUserPresent}>
+          <Provider {...stores} userPresent={userPresent} adminUserPresent={adminUserPresent} mapBounds={mapBounds}>
             <Router history={history} >
               <Main />
             </Router>

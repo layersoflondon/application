@@ -24,12 +24,12 @@ module LayersApp
     }
     config.x.map_zoom = 10
     config.x.map_bounds = {
-      top_right: {
-        lat: 51.72617,
+      south_west: {
+        lat: 51.24988,
         lng: -0.55343
       },
-      bottom_left: {
-        lat: 51.24988,
+      north_east: {
+        lat: 51.72617,
         lng: 0.33233
       }
     }
