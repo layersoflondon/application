@@ -144,7 +144,7 @@ import Search from "../../../sources/search";
         subtitle: !!this.state.q ? header_subtitle : "",
         tray_view_type: "Found"
       });
-      this.props.trayViewStore.showCollectionOfCards(response.data, `Searched for ${this.state.q}`);
+      this.props.trayViewStore.showCollectionOfCards(response.data);
 
       if( response.data.length > 0 ) {
         // get first response object with a lat & lng (if it's a collection, get the first one with records)
