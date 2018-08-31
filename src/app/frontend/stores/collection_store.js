@@ -12,6 +12,7 @@ import CollectionModel from '../models/collection';
  *
  */
 export default class CollectionStore {
+
   @observable everyone_collections = observable.map();
   @observable user_collections = observable.map();
 

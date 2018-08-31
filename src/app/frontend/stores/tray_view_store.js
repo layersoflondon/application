@@ -95,7 +95,6 @@ export default class TrayViewStore {
     observe(this, 'collection_id', (change) => {
       if( change.newValue ) {
         this.loading_collection = true;
-        window.Collection = Collection;
         Collection.show(null, this.collection_id).then((response) => {
           this.root = false;
           this.setHeaderContent({
