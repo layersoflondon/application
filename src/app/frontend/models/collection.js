@@ -8,6 +8,7 @@ export default class CollectionModel {
   @observable description;
   @observable read_state;
   @observable write_state;
+  @observable write_state_team_id;
   @observable owner = {};
   @observable is_collection = true;
   @observable records = [];
@@ -56,6 +57,7 @@ export default class CollectionModel {
       description: this.description,
       read_state: this.read_state,
       write_state: this.write_state,
+      write_state_team_id: this.write_state_team_id,
       owner: this.owner,
       contributor_ids: this.contributor_ids
     }
@@ -72,6 +74,7 @@ export default class CollectionModel {
     collection.description = attributes.description;
     collection.read_state = attributes.read_state;
     collection.write_state = attributes.write_state;
+    collection.write_state_team_id = attributes.write_state_team_id;
     collection.owner = attributes.owner;
     collection.contributor_ids = attributes.contributor_ids;
     collection.user_can_edit = attributes.user_can_edit;

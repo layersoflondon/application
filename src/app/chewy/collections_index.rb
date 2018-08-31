@@ -10,6 +10,7 @@ class CollectionsIndex < Chewy::Index
     field :description, type: :text, analyzer: :english
     field :read_state, type: :keyword
     field :write_state, type: :keyword
+    field :write_state_team_id, type: :integer
     field :state, type: :keyword, value: -> {
       public_read? ? "published" : nil
     }

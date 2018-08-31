@@ -149,7 +149,7 @@ import RecordModel from "../../../models/record";
                   {this.state.teams.length>0 && (
                     <label>
                       <input type="radio" name="write_state" checked={this.state.write_state=="team"} value="team" onChange={this.handleOnChange.bind(this)} /><span>Members of</span>
-                      <Select placeholder='' options={this.state.teams} hideSelectedOptions={true} isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef}/>
+                      <Select placeholder='' options={this.state.teams} hideSelectedOptions={true} isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef} value={this.state.teams.find((t) => t.value === this.props.collectionFormStore.collection.write_state_team_id)}/>
                     </label>
                   )}
 
@@ -159,7 +159,7 @@ import RecordModel from "../../../models/record";
                 </div>
 
                 <input value="Save" type="submit" />
-              </form>;
+              </form>
 
 
 
