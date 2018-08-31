@@ -1,6 +1,7 @@
 import {observable, observe, computed} from 'mobx';
 import Record from '../sources/record';
 import Collection from '../sources/collection';
+import User from '../sources/user';
 
 import CardModel from '../models/card';
 import axios from 'axios';
@@ -29,10 +30,24 @@ export default class TrayViewStore {
 
   @observable loading_record = false;
   @observable loading_collection = false;
+  @observable loading_team = false;
+  @observable loading_user = false;
   @observable record_id = null;
   @observable collection_id = null;
+  @observable user_id = null;
+  @observable team_id = null;
+  @observable searching = false;
 
   map_ref = null;
+  header_content = {
+    title: "",
+    profile_image_url: "",
+    introduction: "",
+    creator_link_url: "",
+    creator_link_text: "",
+    close_action: null,
+    tray_view_type: null
+  };
 
   constructor() {
     observe(this, 'cards', (change) => {
@@ -98,6 +113,32 @@ export default class TrayViewStore {
       }else {
         this.collection_id = null;
         this.loading_collection = false;
+        this.locked = false;
+      }
+    });
+
+    observe(this, 'user_id', (change) => {
+      if( change.newValue ) {
+        this.loading_collection = true;
+        User.show(null,this.user_id).then((response) => {
+          this.root = false;
+          this.header_content = Object.assign(this.header_content, {
+            title: response.data.name,
+            profile_image_url: response.data.avatar_url,
+            introduction: response.data.description,
+            tray_view_type: "User"
+          });
+          this.showCollectionOfCards(response.data.records);
+        
+          this.locked = true;
+        }).catch((error) => {
+          this.user_id = null;
+        }).then(() => {
+          this.loading_user = false;
+        });
+      }else {
+        this.user_id = null;
+        this.loading_user = false;
         this.locked = false;
       }
     });
@@ -172,6 +213,18 @@ export default class TrayViewStore {
 
   @computed get recordsCount() {
     return this.cards.size - this.collectionsCount;
+  }
+
+  @computed get trayViewType() {
+    // 5 states for the tray view:
+    // - root
+    // - collection: collection name, number of records, owner, description
+    // - team: team name, number of records, team description, link to request joining
+    // - creator: creator name, profile image url, number of records, description of person
+    // - search: search query as title, or date range if no search query
+
+
+
   }
 
   @computed get boundsFromMapRef() {
