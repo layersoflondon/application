@@ -166,6 +166,14 @@ export default class TrayViewStore {
     // }
   }
 
+  @computed get collectionsCount() {
+    return this.cards.values().map((c) => { return c.is_collection ? 1 : 0}).reduce((a,b) => {return a + b}, 0)
+  }
+
+  @computed get recordsCount() {
+    return this.cards.size - this.collectionsCount;
+  }
+
   @computed get boundsFromMapRef() {
     let center = this.map_ref.leafletElement.getBounds().getCenter();
     let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
