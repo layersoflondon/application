@@ -7,7 +7,7 @@
   @include clearfix;
   background: #000;
   padding:10px;
-  @include mq(small-smartphone) {
+  @include mq(smartphone) {
     right:-15px;
     padding: 5px 0 5px 5px;
   }
@@ -22,6 +22,10 @@
   @include mq(tablet) {
     height: 86px;
     width: 86px;
+  }
+  @include mq(smartphone) {
+    height: 70px;
+    width: 70px;
   }
   @include mq(small-smartphone) {
     height: 56px;
@@ -46,6 +50,9 @@
   font-weight:600;
   @include mq(tablet) {
     padding-top:0;
+  }
+  @include mq(smartphone) {
+    line-height: 1.15;
   }
   @include mq(small-smartphone) {
     font-size: 22px;

@@ -41,6 +41,9 @@
 .m-overlay .close a {
   display: block;
   background: url('../assets/images/icon-close.svg') center no-repeat;
+  @include mq(smartphone) {
+    background-color: rgba(0,0,0,0.7);
+  }
 }
 
 .m-map-area {

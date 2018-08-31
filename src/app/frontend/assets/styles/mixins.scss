@@ -105,7 +105,7 @@ $element-border-radius-small: 3px;
   @include mq(tablet) {
     margin: 50px auto;
   }
-  @include mq(small-smartphone) {
+  @include mq(smartphone) {
     width:calc(100% - 30px);
   }
 }

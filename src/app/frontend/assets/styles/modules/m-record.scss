@@ -12,6 +12,9 @@
   @include mq(smartphone) {
     margin:15px;
   }
+  @include mq(small-smartphone) {
+
+  }
 }
 
 // Next & previous
@@ -310,6 +313,11 @@
     margin-top: -41px;
     z-index:0;
   }
+  @include mq(smartphone) {
+    margin-right: -20px;
+    width: 150px;
+    margin-top: 10px;
+  }
   @include mq(small-smartphone) {
     width:90px;
     margin-left:15px;
@@ -333,8 +341,8 @@
 
 .m-record .place {
   margin-bottom: 20px;
-  @include mq(small-smartphone) {
-    margin-top: 57px;
+  @include mq(smartphone) {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -460,7 +468,7 @@
 // Hero
 
 .m-record-hero {
-  background: #eee;
+  background: #111;
   height: 580px;
 }
 
@@ -471,6 +479,9 @@
     height: 510px;
   }
   @include mq(smartphone) {
+    height:420px;
+  }
+  @include mq(small-smartphone) {
     height:350px;
   }
 }
@@ -489,6 +500,9 @@
     height: 510px;
   }
   @include mq(smartphone) {
+    height:420px;
+  }
+  @include mq(small-smartphone) {
     height:350px;
   }
 }

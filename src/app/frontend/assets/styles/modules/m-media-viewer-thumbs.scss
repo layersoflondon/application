@@ -52,12 +52,14 @@
   color: white;
   width:42px;
   height:42px;
+  @include mq(smartphone) {
+    z-index: 1;
+  }
   @include mq(small-smartphone) {
     top: 20px;
     padding: 3px 4px 0 0;
     width: 26px;
     height: 35px;
-    z-index: 1;
   }
 }
 
@@ -66,7 +68,7 @@
   @include mq(tablet) {
     left:-42px;
   }
-  @include mq(small-smartphone) {
+  @include mq(smartphone) {
     left: -15px;
   }
 }
@@ -81,8 +83,10 @@
   @include mq(tablet) {
     right:-42px;
   }
-  @include mq(small-smartphone) {
+  @include mq(smartphone) {
     right:-15px;
+  }
+  @include mq(small-smartphone) {
     padding: 3px 0 0 3px;
   }
 }
