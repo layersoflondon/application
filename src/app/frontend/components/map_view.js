@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import MarkerContainer from './marker_container';
 import {observer, inject} from "mobx-react";
 import LayerToolsContainer from './layer_tools_container';
 import ErrorBoundary from './error_boundary';
+import MapSearchContainer from './map_search_container';
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapView extends Component {
@@ -94,6 +95,9 @@ import ErrorBoundary from './error_boundary';
       <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
         <div className="m-map">
           <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
+            <ErrorBoundary>
+              <MapSearchContainer {...this.props} />
+            </ErrorBoundary>
             {layers}
             {this.props.layersStore.loupe_layer && <TileLayer key={this.props.layersStore.loupe_layer.id} url={this.props.layersStore.loupe_layer.url} attribution={this.props.layersStore.loupe_layer.attribution} opacity={this.props.layersStore.loupe_layer.opacity} zIndex={1000+1} className="clipped-tilelayer" ref='clipped-tilelayer' />}
 
