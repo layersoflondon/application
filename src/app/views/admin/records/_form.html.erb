@@ -24,7 +24,7 @@
                             <label>Author</label>
                             <%= link_to f.object.user.name, edit_admin_user_path(f.object.user) %>
                         </li>
-                        <li><label>&nbsp;</label><%= link_to "View #{f.object.user.first_name}'s records on map", resources_map_path(resource: 'search', show_results: true, user_id: f.object.user.id) %></li>
+                        <li><label>&nbsp;</label><%= link_to "View #{f.object.user.first_name}'s records on map", resource_map_path(resource: 'users', id: f.object.user.id) %></li>
                     <% end %>
 
                 <% end %>

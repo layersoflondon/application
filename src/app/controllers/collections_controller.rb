@@ -6,9 +6,9 @@ class CollectionsController < ApplicationController
   decorates_assigned :collection, :collections
 
   def index
-    @collections = if user_signed_in? && !params[:everyone].present?
+    @collections = if user_signed_in? && !params[:everyone].present? && !params[:all].present?
                      CollectionsIndex.filter(terms: {contributor_ids: [current_user.id]}).to_a # collections this user has contributed to
-                   elsif user_signed_in? && params[:everyone]
+                   elsif user_signed_in? && params[:everyone] && !params[:all].present?
                      # CollectionsIndex.filter(term: {write_state: "everyone"})
                      CollectionsIndex.everyone_collections(exclude_user_id: current_user.id)
                    else

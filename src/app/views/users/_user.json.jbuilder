@@ -1,6 +1,6 @@
 json.id user.id
 json.name user.name
-json.description simple_format(strip_tags(user.description))
+json.description strip_tags(user.description)
 json.avatar_url user.avatar_url
 if defined?(records)
   json.records do
