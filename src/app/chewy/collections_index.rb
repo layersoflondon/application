@@ -1,5 +1,9 @@
 class CollectionsIndex < Chewy::Index
 
+  def self.policy_class
+    "Collection"
+  end
+
   define_type Collection.includes(:records).references(:records) do
     field :id, type: :integer
     field :title, type: :text, analyzer: :english
@@ -17,6 +21,8 @@ class CollectionsIndex < Chewy::Index
       field :id, type: :text
       field :type, type: :keyword, value: -> {self.class.to_s}
     end
+    field :owner_type, type: :keyword
+    field :owner_id, type: :integer
     field :created_at, type: 'date'
     field :updated_at, type: 'date'
     field :date_from, type: 'date', value: -> {

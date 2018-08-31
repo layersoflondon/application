@@ -15,3 +15,4 @@ json.records do
   json.array! collection.records.collect {|r| OpenStruct.new(r)}.select {|r| RecordPolicy.new(current_user, r).show?}, partial: 'search/record', as: :record
 end
 json.image collection.image
+json.user_can_edit CollectionPolicy.new(current_user,collection).edit?

@@ -1,19 +1,34 @@
-import {computed, observable} from 'mobx';
+import {computed, observable, observe} from 'mobx';
 import RecordModel from './record';
+import Collection from "../sources/collection";
 
 export default class CollectionModel {
-  id;
-  title;
-  description;
-  read_state;
-  write_state;
-  owner = {};
-  is_collection = true;
+  @observable id;
+  @observable title;
+  @observable description;
+  @observable read_state;
+  @observable write_state;
+  @observable owner = {};
+  @observable is_collection = true;
   @observable records = [];
   @observable image = null;
+  @observable user_can_edit;
 
   @computed get position() {
     return [0, 0];
+  }
+
+  @computed get is_editable() {
+
+    return (!!this.id && this.user_can_edit) || !this.id
+  }
+
+  persist() {
+    if( this.id ) {
+      return Collection.update(null, this.id, {collection: this.toJS()});
+    }else {
+      return Collection.create(null, {collection: this.toJS()});
+    }
   }
 
   // If there's no image, we need to assign this image a placeholder. We want it to be deterministic so we can render the same class (and get the same placeholder image) in multiple places. So let's use the charcodes of all the chars in the title, mod 10, to get us a number between 0 and 9
@@ -30,6 +45,22 @@ export default class CollectionModel {
     return !!(this.image)
   }
 
+  @computed get is_persisted() {
+    return !!this.id
+  }
+
+  toJS() {
+    return {
+      id: this.id,
+      title: this.title,
+      description: this.description,
+      read_state: this.read_state,
+      write_state: this.write_state,
+      owner: this.owner,
+      contributor_ids: this.contributor_ids
+    }
+  }
+
 
   static fromJS(attributes, store = null, from_record = false, build_records = true) {
     const collection = new CollectionModel();
@@ -43,6 +74,7 @@ export default class CollectionModel {
     collection.write_state = attributes.write_state;
     collection.owner = attributes.owner;
     collection.contributor_ids = attributes.contributor_ids;
+    collection.user_can_edit = attributes.user_can_edit;
 
     if( !from_record && attributes.hasOwnProperty('records') && build_records ) {
       // iterate over this collection's records and either fetch the existing record from the store, or build a new one
@@ -65,6 +97,6 @@ export default class CollectionModel {
 
     return collection;
   }
-}
 
-window.CollectionModel = CollectionModel;
+
+}

@@ -22,7 +22,7 @@ import UserForm from './forms/user/user_form';
 import RecordForm from './forms/records/record_form';
 import ErrorBoundary from "./error_boundary";
 
-@inject('router', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore')
+@inject('router', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore', 'collectionFormStore')
 @withRouter
 @observer export default class Main extends Component {
   constructor(props) {
