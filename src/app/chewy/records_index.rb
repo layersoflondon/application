@@ -22,6 +22,9 @@ class RecordsIndex < Chewy::Index
     field :user, type: 'nested' do
       field :id, type: 'integer'
       field :name, type: 'text'
+      field :description, type: 'text'
+      field :avatar_url, type: 'keyword'
+      field :contact_me, type: 'boolean'
     end
 
     field :collection_ids
@@ -61,7 +64,7 @@ class RecordsIndex < Chewy::Index
     field :view_type, type: 'keyword'
   end
 
-  def self.user_records(search_params, limit: 100)
+  def self.user_records(search_params, limit: 100, record_states: ['published'])
     es_query = Chewy::Search::Request.new(RecordsIndex).query(
       nested: {
         path: "user",
@@ -76,8 +79,7 @@ class RecordsIndex < Chewy::Index
         }
       }
     )
-
-    es_query.limit(limit)
+    es_query.filter(terms: {state: record_states}).limit(limit)
   end
 
   def self.published

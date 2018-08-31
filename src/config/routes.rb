@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+
+  get 'user_records/show'
   # Robot gem renders env-specific robots.txt files
   mount_roboto
 
@@ -12,11 +14,8 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  get 'posts/show'
-  get 'events/show'
+  
   root to: "pages#index"
-
-  get '/user/record_collections'
 
   devise_for :users,
              controllers: {
@@ -27,6 +26,8 @@ Rails.application.routes.draw do
                registrations: 'users/registrations'
              }
 
+
+  get 'users/:id/records', to: 'user_records#show', as: :user_records, defaults: {format: :json}
 
   resources :records, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]
