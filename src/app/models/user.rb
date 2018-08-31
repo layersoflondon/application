@@ -115,4 +115,13 @@ class User < ApplicationRecord
     team.team_users.find_by(user_id: id).try(:state)
   end
 
+  def avatar_url
+    if avatar.attached?
+      options = {
+        thumbnail: "250x250"
+      }
+      ApplicationController.helpers.activestorage_url_for(avatar.variant(options))
+    end
+  end
+
 end

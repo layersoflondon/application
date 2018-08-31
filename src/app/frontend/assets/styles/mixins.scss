@@ -105,7 +105,7 @@ $element-border-radius-small: 3px;
   @include mq(tablet) {
     margin: 50px auto;
   }
-  @include mq(small-smartphone) {
+  @include mq(smartphone) {
     width:calc(100% - 30px);
   }
 }
@@ -187,6 +187,9 @@ $element-border-radius-small: 3px;
     @include link-animation;
     height: 280px;
     color: white;
+    @include mq(small-smartphone) {
+      height: 230px;
+    }
   }
 
   .image {

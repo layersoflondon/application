@@ -14,13 +14,22 @@
   max-width: 450px;
 }
 
-.m-layer-tools.is-closed .panel .open {
+.m-layer-tools.is-closed .panel button.open {
   display: block;
 }
 
-.m-layer-tools .panel .open {
-  //display: none;
+.m-layer-tools.is-closed .panel button.open:after {
+  content: "\f0d8";
+}
+
+.m-layer-tools .panel button.open {
   outline: none;
+}
+
+.m-layer-tools .panel button.open:after {
+  content: "\f0d7";
+  font: normal normal normal 14px/1 FontAwesome;
+  margin-left:8px;
 }
 
 .m-layer-tools .panel {

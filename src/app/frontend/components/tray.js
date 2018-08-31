@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
 import {observer} from "mobx-react";
-import {NavLink, withRouter} from 'react-router-dom';
 
 import Card from './card';
 import {inject} from "mobx-react/index";
 import ErrorBoundary from "./error_boundary";
+import TrayHeader from "./tray_header";
 
 @inject('router', 'trayViewStore', 'mapViewStore')
 @observer export default class Tray extends Component {
@@ -41,25 +41,7 @@ import ErrorBoundary from "./error_boundary";
       trayClassName = "m-tray-area is-loading";
     }
 
-    let trayCollectionDetails;
-
-    if(!this.props.trayViewStore.root) {
-      trayCollectionDetails = <div>
-        <div className="m-tray-title-area">
-          <div className="close">
-            <NavLink to="/map" className="close">Close</NavLink>
-          </div>
-
-          <h1>{this.props.trayViewStore.title}</h1>
-          <div className="meta">Showing {this.props.trayViewStore.cards.size} records</div>
-        </div>
-
-        <div className="m-tray-introduction">
-          {this.props.trayViewStore.description}
-        </div>
-      </div>
-    }
-
+    
     return <div className={trayClassName}>
       <div className="open-close" onClick={() => this.props.trayViewStore.toggleTrayVisibility()}>
         <span>Close</span>
@@ -67,7 +49,9 @@ import ErrorBoundary from "./error_boundary";
 
       <div className="window">
         <div className="s-tray-area--default is-showing">
-          {trayCollectionDetails}
+          <ErrorBoundary>
+            <TrayHeader showTrayHeader={!this.props.trayViewStore.root} {...this.props}/>
+          </ErrorBoundary>
 
           <div className="m-tray-records-list">
             {cards}

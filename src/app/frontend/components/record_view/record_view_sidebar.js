@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import Img from 'react-image';
 import {observer} from "mobx-react";
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import RecordViewComponentState from './record_view_component_state';
@@ -12,11 +13,7 @@ import {NavLink} from 'react-router-dom';
   render() {
     return <div className="sidebar">
       <div className="place">
-        <div className="map">
-          <Map center={this.props.trayViewStore.record.position} zoom={14}>
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
-            <Marker position={this.props.trayViewStore.record.position} icon={this.props.trayViewStore.record.icon()} />
-          </Map>
+        <div className="map" style={{backgroundImage: `url(https://maps.tilehosting.com/styles/basic/static/${this.props.trayViewStore.record.lng},${this.props.trayViewStore.record.lat},14/400x300.png?key=23hrAY6lilqs9xizcz03)`}}>
         </div>
 
         <div className="text">{this.props.trayViewStore.record.lat}, {this.props.trayViewStore.record.lng}</div>

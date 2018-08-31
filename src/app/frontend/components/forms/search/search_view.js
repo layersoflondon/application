@@ -130,13 +130,21 @@ import Search from "../../../sources/search";
 
     this.props.trayViewStore.loading = true;
 
+    const header_subtitle = (!!this.state.start_year || !!this.state.end_year) ? `${!!this.state.start_year ? this.state.start_year : "up"} to ${!!this.state.end_year ? this.state.end_year : "now"}` : "";
+    const header_title = !!this.state.q ? `Your search for "${this.state.q}"` : `Results ${header_subtitle}`;
+
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
       const {push} = {...this.props.router};
       const params = serializeQuery(search_params);
       // push(`?results=true&q=${this.state.q}`);
       this.setState({showing_results: true});
-      this.props.trayViewStore.showCollectionOfCards(response.data, `Searched for ${this.state.q}`);
+      this.props.trayViewStore.setHeaderContent({
+        title: header_title,
+        subtitle: !!this.state.q ? header_subtitle : "",
+        tray_view_type: "Found"
+      });
+      this.props.trayViewStore.showCollectionOfCards(response.data);
 
       if( response.data.length > 0 ) {
         // get first response object with a lat & lng (if it's a collection, get the first one with records)

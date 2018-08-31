@@ -56,7 +56,8 @@ import {observer} from "mobx-react";
 
   render() {
     const button_disabled = false; //this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary;
-    const button_label    = (this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary) ? "Primary Image" : "Set as primary image";
+    const button_label    = (this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary) ? "This is the primary image" : "Set as primary image";
+    const button_class    = (this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary) ? "is-primary" : "is-not-primary";
 
     return (
       <div className="meta">
@@ -80,7 +81,7 @@ import {observer} from "mobx-react";
           {this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.media_type === 'image' &&
            <div className="form-group">
              {this.props.recordFormStore.current_attachment_item.is_primary }
-              <button onClick={this.handleOnSetAsPrimaryImage.bind(this)} disabled={button_disabled}>{button_label}</button>
+              <button onClick={this.handleOnSetAsPrimaryImage.bind(this)} className={button_class} disabled={button_disabled}>{button_label}</button>
            </div>
           }
 

@@ -102,7 +102,7 @@ import Img from 'react-image';
                     <div className="m-tool-button m-tool-button--your-records">
                       {
                         this.props.userPresent &&
-                        <Link to={`/map/search?results=true&user_id=${this.props.currentUser.id}`} data-label="Your records"><span>Your records</span></Link>
+                        <Link to={`/map/users/${this.props.currentUser.id}`} data-label="Your records"><span>Your records</span></Link>
                       }
                     </div>
                     <div className="m-tool-button m-tool-button--your-account">

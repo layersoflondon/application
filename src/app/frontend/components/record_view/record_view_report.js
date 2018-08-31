@@ -42,10 +42,9 @@ import Record from '../../sources/record';
 
   render() {
     const choices = Object.keys(this.issues).map((key, i) => {
-      return <label key={i}>
+      return<label key={i}>
         <input type='radio' name='issue' value={key} checked={this.state.form.issue === key} onChange={this.handleChange.bind(this)} />
-        {this.issues[key]}
-        <br/>
+        <span>{this.issues[key]}</span>
       </label>
     });
 
@@ -57,7 +56,7 @@ import Record from '../../sources/record';
           <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
         </div>
 
-        <div className="m-record-report">
+        <div className="m-record-report form--chunky">
           <h1>Report this record</h1>
 
           {this.state.errors.length > 0 && (
@@ -65,12 +64,16 @@ import Record from '../../sources/record';
           )}
 
           <div>
-            {choices}
 
-            <label>
-              Provide a brief message to support your report
+            <div className="form-group form-group--checkboxes-rows">
+              <span class="label">Reason for reporting</span>
+            {choices}
+            </div>
+
+            <div className="form-group">
+              <label>Provide a brief message to support your report</label>
               <textarea name="message" onChange={this.handleChange.bind(this)}></textarea>
-            </label>
+            </div>
 
             {!this.props.currentUser && (
               <p>
@@ -81,7 +84,6 @@ import Record from '../../sources/record';
               </p>
             )}
 
-            <br/>
             <button onClick={this.sendReport.bind(this)}>Send</button>
           </div>
         </div>

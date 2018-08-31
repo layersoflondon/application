@@ -233,6 +233,10 @@ input[type="submit"] {
   }
 }
 
+.form--chunky input[type="radio"] {
+  padding:0;
+}
+
 .form--chunky input[type="submit"],
 .form--chunky .actions button {
   @include big-square-button;

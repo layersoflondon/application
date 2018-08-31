@@ -20,7 +20,7 @@
 
 .m-sidebar:hover {
   width: 200px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 1);
   border-right:0;
   @include mq(tablet) {
     width:100%;

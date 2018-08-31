@@ -1,11 +1,33 @@
 // Record report
 
 .m-record-report {
-  border: 2px solid red;
   position: absolute;
   z-index: 9999;
   top: 25%;
   left: 25%;
   width: 50%;
-  height: 50%;
+  background:white;
+  padding:40px;
+  color:#222;
+  @include mq(tablet) {
+    left: 20%;
+    width: 60%;
+  }
+  @include mq(smartphone) {
+    padding: 15px;
+    width:calc(100% - 30px);
+    left:15px;
+    background: white;
+    margin-left: 15px;
+    position:static;
+    margin-top:70px;
+  }
+}
+
+.m-record-report h1 {
+  margin-top:0;
+}
+
+.m-record-report button {
+  @include big-square-button;
 }

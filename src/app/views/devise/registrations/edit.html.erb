@@ -17,8 +17,7 @@
 
     <div class="form-group form-group--profile-pic">
       <%= f.label :profile_pic %>
-      <div class="image" >
-        <%= image_tag(url_for(@user.avatar), style: 'width:200px') if @user.avatar.attached? %>
+      <div class="image" style="<%= @user.avatar.attached? ? "background-image: url('#{url_for(@user.avatar_url)}')" : "" %>" >
       </div>
     <%= f.file_field :avatar %>
 

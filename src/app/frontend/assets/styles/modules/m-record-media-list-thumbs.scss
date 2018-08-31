@@ -7,6 +7,10 @@
   @include clearfix;
   background: #000;
   padding:10px;
+  @include mq(smartphone) {
+    right:-15px;
+    padding: 5px 0 5px 5px;
+  }
 }
 
 .m-record-media-list-thumbs > div {
@@ -15,10 +19,25 @@
   box-shadow: 0 0 20px 9px #00000063;
   height: 106px;
   width: 106px;
+  @include mq(tablet) {
+    height: 86px;
+    width: 86px;
+  }
+  @include mq(smartphone) {
+    height: 70px;
+    width: 70px;
+  }
+  @include mq(small-smartphone) {
+    height: 56px;
+    width: 56px;
+  }
 }
 
 .m-record-media-list-thumbs > div + div {
   margin-top:10px;
+  @include mq(smartphone) {
+    margin-top:5px;
+  }
 }
 
 .m-record-media-list-thumbs > div.extra-count {
@@ -29,6 +48,16 @@
   color:white;
   @include font-display;
   font-weight:600;
+  @include mq(tablet) {
+    padding-top:0;
+  }
+  @include mq(smartphone) {
+    line-height: 1.15;
+  }
+  @include mq(small-smartphone) {
+    font-size: 22px;
+    line-height: 1.06;
+  }
 }
 
 .m-record-media-list-thumbs > div.extra-count a {
@@ -39,6 +68,9 @@
   font-size:50px;
   position: relative;
   top: 4px;
+  @include mq(small-smartphone) {
+    font-size:40px;
+  }
 }
 
 .m-record-media-list-thumbs > div img {
