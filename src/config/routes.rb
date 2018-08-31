@@ -27,7 +27,11 @@ Rails.application.routes.draw do
              }
 
 
-  get 'users/:id/records', to: 'user_records#show', as: :user_records, defaults: {format: :json}
+  resources :users, only: [:show], defaults: {format: :json} do
+    member do
+      get 'records', to: "records#for_user", as: :user_records
+    end
+  end
 
   resources :records, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]

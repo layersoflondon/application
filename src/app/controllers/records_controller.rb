@@ -1,7 +1,7 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:update, :destroy, :like, :report]
-  skip_before_action :authenticate_user!, only: [:show, :index, :report]
-  skip_after_action :verify_authorized, only: [:index, :show, :report] #show is in here because we authorize in the method
+  skip_before_action :authenticate_user!, only: [:show, :index, :report, :for_user]
+  skip_after_action :verify_authorized, only: [:index, :show, :report, :for_user] #show is in here because we authorize in the method
 
   decorates_assigned :record, :records, with: RecordDecorator
 
@@ -31,6 +31,14 @@ class RecordsController < ApplicationController
     raise Pundit::NotAuthorizedError unless RecordPolicy.new(current_user, @record).show?
     # TODO create a RecordViewJob which increments async.
     # @record.increment!(:view_count) unless cookies[:viewed_records].present? && cookies[:viewed_records].include?(@record.id)
+  end
+
+  def for_user
+    raise Pundit::NotAuthorizedError unless UserRecordPolicy.new(current_user, Record).show?
+    @records = RecordsIndex.user_records(
+      user_id: params[:id],
+      record_states: (current_user.try(:id) == params[:id].to_i) ? ['published', 'draft'] : ['published']
+    )
   end
 
   def update
