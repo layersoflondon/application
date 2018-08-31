@@ -130,6 +130,9 @@ import Search from "../../../sources/search";
 
     this.props.trayViewStore.loading = true;
 
+    const header_title = !!this.state.q ? `Your search for "${this.state.q}"` : `${this.state.start_year} - ${this.state.end_year}`;
+    const header_subtitle = (!!this.state.q && (!!this.state.start_year || !!this.state.end_year)) ? `${this.state.start_year} - ${this.state.end_year}` : "";
+
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
       const {push} = {...this.props.router};
@@ -137,7 +140,8 @@ import Search from "../../../sources/search";
       // push(`?results=true&q=${this.state.q}`);
       this.setState({showing_results: true});
       this.props.trayViewStore.setHeaderContent({
-        title: !!this.state.q ? `Your search for "${this.state.q}"` : `${this.state.start_year} - ${this.state.end_year}`,
+        title: header_title,
+        subtitle: header_subtitle,
         tray_view_type: "Found"
       });
       this.props.trayViewStore.showCollectionOfCards(response.data, `Searched for ${this.state.q}`);

@@ -64,6 +64,11 @@ import {inject} from "mobx-react/index";
           <h1>{this.content.title}</h1>
         }
 
+        {
+          this.content.subtitle &&
+          <h2>{this.content.subtitle}</h2>
+        }
+
         {meta}
 
         {

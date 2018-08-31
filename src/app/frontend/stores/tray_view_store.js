@@ -318,6 +318,7 @@ export default class TrayViewStore {
   setHeaderContent(content) {
     this.header_content = Object.assign({
       title: "",
+      subtitle: "",
       profile_image_url: "",
       introduction: "",
       creator_link_url: "",
