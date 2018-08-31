@@ -82,7 +82,7 @@ import {inject} from "mobx-react/index";
         this.content.introduction &&
         <div className={`m-tray-introduction ${introClassName}`}>
           <p dangerouslySetInnerHTML={{__html: this.content.introduction}}></p>
-          <a onClick={this.toggleIntro.bind(this)}>{this.state.introShowing ? "Hide" : "Read more"}</a>
+          <a className="read-more" onClick={this.toggleIntro.bind(this)}>{this.state.introShowing ? "Hide" : "Read more"}</a>
 
         </div>
       }
