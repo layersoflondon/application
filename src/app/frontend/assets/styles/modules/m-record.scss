@@ -102,6 +102,9 @@
   @include mq(smartphone) {
     padding:20px;
   }
+  @include mq(small-smartphone) {
+    width: calc(100% - 90px);
+  }
 }
 
 .m-record .title h1 {
@@ -307,6 +310,11 @@
     margin-top: -41px;
     z-index:0;
   }
+  @include mq(small-smartphone) {
+    width:90px;
+    margin-left:15px;
+    margin-right: -15px;
+  }
 }
 
 .m-record .header--expanded .sidebar {
@@ -325,6 +333,9 @@
 
 .m-record .place {
   margin-bottom: 20px;
+  @include mq(small-smartphone) {
+    margin-top: 57px;
+  }
 }
 
 .m-record .header--expanded.header--no-hero .place {
@@ -345,6 +356,10 @@
   padding: 10px 14px;
   font-size: 12px;
   font-weight: 600;
+  @include mq(small-smartphone) {
+    font-size: 10px;
+    padding: 5px;
+  }
 }
 
 // Article
@@ -368,6 +383,8 @@
   }
   @include mq(smartphone) {
     padding:15px;
+    width:100%;
+    margin-bottom:50px;
   }
 }
 

@@ -52,10 +52,12 @@ import MediaElement from './media_element';
                 )}
 
                 {this.state.media_item.caption && (
-                  <div className="caption">
-                    <p>
-                      <span dangerouslySetInnerHTML={{__html: this.state.media_item.caption}}></span>
-                    </p>
+                  <div className="caption *is-expanded">
+                    <div class="pane">
+                      <p>
+                        <span dangerouslySetInnerHTML={{__html: this.state.media_item.caption}}></span>
+                      </p>
+                    </div>
 
                     {this.state.media_item.caption.length > 50 && (
                       <button className="show-all">Read more</button>

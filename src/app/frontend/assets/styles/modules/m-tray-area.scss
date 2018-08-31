@@ -44,6 +44,7 @@
 .m-tray-area .window {
   padding: 20px;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
   height: 100%;
   box-shadow: 0 0 80px rgba(0, 0, 0, 0.1);
   background: $black;

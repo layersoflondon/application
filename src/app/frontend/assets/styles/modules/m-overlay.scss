@@ -8,7 +8,8 @@
   //background: rgba(49, 14, 77, 0.9215686274509803);
   //background: transparentize($darker-base, 0.1);
   z-index: 1000;
-  overflow: scroll;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s linear 0.2s, opacity 0.2s linear;
@@ -33,6 +34,11 @@
   position: fixed;
   top: 10px;
   right: 10px;
+  z-index:1;
+  @include mq(smartphone) {
+    top: -2px;
+    right: -2px;
+  }
 }
 
 .m-overlay .close a {

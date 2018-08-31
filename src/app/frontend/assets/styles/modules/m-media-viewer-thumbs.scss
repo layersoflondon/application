@@ -12,6 +12,10 @@
   height:120px;
   width:120px;
   flex: 0 0 auto;
+  @include mq(small-smartphone) {
+    height:56px;
+    width:56px;
+  }
 }
 
 .m-media-viewer-thumbs a:hover img {
@@ -48,13 +52,22 @@
   color: white;
   width:42px;
   height:42px;
-
+  @include mq(small-smartphone) {
+    top: 20px;
+    padding: 3px 4px 0 0;
+    width: 26px;
+    height: 35px;
+    z-index: 1;
+  }
 }
 
 .m-media-viewer-thumbs .controls .scroll-left {
   left: -60px;
   @include mq(tablet) {
     left:-42px;
+  }
+  @include mq(small-smartphone) {
+    left: -15px;
   }
 }
 
@@ -67,6 +80,10 @@
   right: -60px;
   @include mq(tablet) {
     right:-42px;
+  }
+  @include mq(small-smartphone) {
+    right:-15px;
+    padding: 3px 0 0 3px;
   }
 }
 
@@ -87,6 +104,9 @@
   -webkit-overflow-scrolling: touch;
   &::-webkit-scrollbar {
     display: none;
+  }
+  @include mq(small-smartphone) {
+    height:66px;
   }
 }
 

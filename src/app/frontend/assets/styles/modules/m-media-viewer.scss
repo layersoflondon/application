@@ -13,6 +13,12 @@
   color: white;
   position: relative;
   height: 100%;
+  @include mq(tablet) {
+    margin:0 auto;
+  }
+  @include mq(small-smartphone) {
+    //padding-top: 0;
+  }
 }
 
 .m-media-viewer--expanded .wrap {
@@ -21,6 +27,9 @@
 
 .m-media-viewer .wrap > div:first-child {
   height: calc(100% - 170px);
+  @include mq(small-smartphone) {
+    height: calc(100% - 80px);
+  }
 }
 
 .m-media-viewer--expanded .wrap > div:first-child {
@@ -100,36 +109,68 @@
 
 .m-media-viewer .main-media-item .attribution {
   position: absolute;
-  bottom: 20px;
+  bottom: 2px;
   right: 20px;
   max-width: 200px;
+  width: auto;
   color: #9c9c9c;
-  font-size: 11px;
   text-align: right;
   background-color: #000;
+  display:inline-block;
   padding: 3px 6px;
+  font-size: 12px;
+  @include mq(smartphone) {
+    right:0;
+    bottom: 4px;
+  }
 }
 
 .m-media-viewer .main-media-item .attribution > * {
   margin: 0;
+  display:inline-block;
 }
 
 .m-media-viewer .main-media-item .caption {
   position: absolute;
-  bottom: 20px;
+  bottom: 33px;
   left: 20px;
+  width:65%;
+  padding-right:20px;
   max-width: 600px;
-  max-height: 100px;
+  height:95px;
+  @include mq(smartphone) {
+    left:0;
+    width:100%;
+    padding-right:0;
+  }
+}
+
+.m-media-viewer .main-media-item .caption.is-expanded {
+  height:auto;
+}
+
+.m-media-viewer .main-media-item .caption .pane {
+  height:95px;
+  overflow:hidden;
+  @include top-and-tail
+}
+
+.m-media-viewer .main-media-item .caption.is-expanded .pane {
+  height:auto;
 }
 
 .m-media-viewer .main-media-item .caption .show-all {
-  bottom: -16px;
+  bottom: -30px;
   position: absolute;
   right: 24px;
   font-size: 12px;
   padding: 3px 8px;
   background: #000;
   color: $yellow;
+  @include mq(smartphone) {
+    right: auto;
+    left: 0;
+  }
 }
 
 .m-media-viewer .main-media-item .caption .show-all:after {
