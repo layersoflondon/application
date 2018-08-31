@@ -136,6 +136,10 @@ import Search from "../../../sources/search";
       const params = serializeQuery(search_params);
       // push(`?results=true&q=${this.state.q}`);
       this.setState({showing_results: true});
+      this.props.trayViewStore.setHeaderContent({
+        title: !!this.state.q ? `Your search for "${this.state.q}"` : `${this.state.start_year} - ${this.state.end_year}`,
+        tray_view_type: "Found"
+      });
       this.props.trayViewStore.showCollectionOfCards(response.data, `Searched for ${this.state.q}`);
 
       if( response.data.length > 0 ) {
