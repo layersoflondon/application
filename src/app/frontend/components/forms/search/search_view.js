@@ -130,8 +130,8 @@ import Search from "../../../sources/search";
 
     this.props.trayViewStore.loading = true;
 
-    const header_title = !!this.state.q ? `Your search for "${this.state.q}"` : `${this.state.start_year} - ${this.state.end_year}`;
-    const header_subtitle = (!!this.state.q && (!!this.state.start_year || !!this.state.end_year)) ? `${this.state.start_year} - ${this.state.end_year}` : "";
+    const header_subtitle = (!!this.state.start_year || !!this.state.end_year) ? `${!!this.state.start_year ? this.state.start_year : "up"} to ${!!this.state.end_year ? this.state.end_year : "now"}` : "";
+    const header_title = !!this.state.q ? `Your search for "${this.state.q}"` : `Results ${header_subtitle}`;
 
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
@@ -141,7 +141,7 @@ import Search from "../../../sources/search";
       this.setState({showing_results: true});
       this.props.trayViewStore.setHeaderContent({
         title: header_title,
-        subtitle: header_subtitle,
+        subtitle: !!this.state.q ? header_subtitle : "",
         tray_view_type: "Found"
       });
       this.props.trayViewStore.showCollectionOfCards(response.data, `Searched for ${this.state.q}`);
