@@ -39,17 +39,13 @@ export default class TrayViewStore {
   @observable searching = false;
 
   map_ref = null;
-  header_content = {
-    title: "",
-    profile_image_url: "",
-    introduction: "",
-    creator_link_url: "",
-    creator_link_text: "",
-    close_action: null,
-    tray_view_type: null
-  };
+
+
 
   constructor() {
+
+    this.setHeaderContent({});
+
     observe(this, 'cards', (change) => {
       if(this.root) {
         // this.previous_cards = change.oldValue;
@@ -102,6 +98,11 @@ export default class TrayViewStore {
         window.Collection = Collection;
         Collection.show(null, this.collection_id).then((response) => {
           this.root = false;
+          this.setHeaderContent({
+            title: response.data.title,
+            introduction: response.data.description,
+            tray_view_type: "Collection"
+          });
           this.showCollectionOfCards(response.data.records, response.data.title, response.data.description);
           //  Lock this view so dragging the map doesn't change the cards
           this.locked = true;
@@ -122,7 +123,7 @@ export default class TrayViewStore {
         this.loading_collection = true;
         User.show(null,this.user_id).then((response) => {
           this.root = false;
-          this.header_content = Object.assign(this.header_content, {
+          this.setHeaderContent({
             title: response.data.name,
             profile_image_url: response.data.avatar_url,
             introduction: response.data.description,
@@ -290,9 +291,8 @@ export default class TrayViewStore {
    * @param title
    * @param description
    */
-  showCollectionOfCards(card_data, title = null, description = null) {
-    // this.title = title;
-    // this.description = description;
+  showCollectionOfCards(card_data) {
+
 
     let cards = observable.map();
     card_data.map((data) => {
@@ -313,6 +313,18 @@ export default class TrayViewStore {
       const card = CardModel.fromJS(data, this);
       this.cards.set(card.id, card);
     });
+  }
+
+  setHeaderContent(content) {
+    this.header_content = Object.assign({
+      title: "",
+      profile_image_url: "",
+      introduction: "",
+      creator_link_url: "",
+      creator_link_text: "",
+      close_action: null,
+      tray_view_type: null
+    }, content)
   }
 
   /**
