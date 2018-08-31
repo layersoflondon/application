@@ -13,7 +13,7 @@ import {NavLink} from 'react-router-dom';
   render() {
     return <div className="sidebar">
       <div className="place">
-        <div className="map" style={{backgroundImage: `url(https://maps.tilehosting.com/styles/basic/static/${this.props.trayViewStore.record.lng},${this.props.trayViewStore.record.lat},15/400x300.png?key=23hrAY6lilqs9xizcz03&markers=${this.props.trayViewStore.record.lng},${this.props.trayViewStore.record.lat})`}}>
+        <div className="map" style={{backgroundImage: `url(https://maps.tilehosting.com/styles/basic/static/${this.props.trayViewStore.record.lng},${this.props.trayViewStore.record.lat},14/400x300.png?key=23hrAY6lilqs9xizcz03)`}}>
         </div>
 
         <div className="text">{this.props.trayViewStore.record.lat}, {this.props.trayViewStore.record.lng}</div>
