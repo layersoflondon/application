@@ -8,7 +8,7 @@ class CollectionPolicy < ApplicationPolicy
   end
 
   def update?
-    create?
+    is_user_owner_of_collection? || is_user_team_leader_of_collection?
   end
 
   def destroy?
