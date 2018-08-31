@@ -6,6 +6,12 @@
   margin-top: 0;
   color: white;
   position: relative;
+  @include mq(tablet) {
+    margin-top:70px;
+  }
+  @include mq(smartphone) {
+    margin:15px;
+  }
 }
 
 // Next & previous
@@ -86,6 +92,16 @@
   margin-left: 300px;
   width: 50%;
   z-index: 1;
+  @include mq(tablet) {
+    width: 60%;
+    float:left;
+    clear:left;
+    margin-left:0;
+    padding:27px 30px 30px 30px;
+  }
+  @include mq(smartphone) {
+    padding:20px;
+  }
 }
 
 .m-record .title h1 {
@@ -95,6 +111,12 @@
   margin-bottom: 0;
   position: relative;
   font-size: 44px;
+  @include mq(tablet) {
+    font-size: 36px;
+  }
+  @include mq(smartphone) {
+    font-size: 22px;
+  }
 }
 
 .m-record .header--expanded .title-area {
@@ -135,6 +157,13 @@
   margin-left: 300px;
   display: inline-block;
   position: relative;
+  @include mq(tablet) {
+    margin-left:0;
+    float:left;
+  }
+  @include mq(smartphone) {
+    font-size:12px;
+  }
 }
 
 .m-record .header--expanded .meta {
@@ -152,10 +181,24 @@
   font-weight: 200;
   font-feature-settings: lnum;
   font-variant-numeric: lining-nums;
+  @include mq(tablet) {
+    font-size: 22px;
+    padding: 10px 30px 0;
+  }
+  @include mq(smartphone) {
+    font-size:18px;
+    padding:10px 15px 0;
+  }
 }
 
 .m-record .meta .creator {
   padding: 0px 40px 20px;
+  @include mq(tablet) {
+    padding: 0px 30px 20px;
+  }
+  @include mq(smartphone) {
+    padding: 0px 15px 15px;
+  }
 }
 
 .m-record .meta .creator a {
@@ -258,6 +301,12 @@
   margin-top: -110px;
   position: relative;
   z-index: 1;
+  @include mq(tablet) {
+    float: right;
+    width: 230px;
+    margin-top: -41px;
+    z-index:0;
+  }
 }
 
 .m-record .header--expanded .sidebar {
@@ -309,6 +358,17 @@
   float: right;
   position: relative;
   margin-bottom: 100px;
+  @include mq(tablet) {
+    margin-left:0;
+    float:none;
+    width:80%;
+    padding:30px;
+    clear:left;
+    z-index: -1;
+  }
+  @include mq(smartphone) {
+    padding:15px;
+  }
 }
 
 /*.record-view-full .m-record .m-article {
@@ -390,6 +450,12 @@
 .header--gallery .m-record-hero {
   height: 650px;
   margin-bottom: -100px;
+  @include mq(tablet) {
+    height: 510px;
+  }
+  @include mq(smartphone) {
+    height:350px;
+  }
 }
 
 .m-record-hero .image {
@@ -401,6 +467,12 @@
   @include centered-image-holder;
   span.is-loading {
     @include loading-spinner;
+  }
+  @include mq(tablet) {
+    height: 510px;
+  }
+  @include mq(smartphone) {
+    height:350px;
   }
 }
 
@@ -426,6 +498,9 @@
   padding-top: 40px;
   margin-top: 40px;
   clear: both;
+  @include mq(tablet) {
+    padding-top:20px;
+  }
 }
 
 .m-record .attribution {
@@ -458,4 +533,7 @@
   color: $yellow;
   display: inline-block;
   margin-left: 20px;
+  @include mq(tablet) {
+    font-size:14px;
+  }
 }

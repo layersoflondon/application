@@ -48,10 +48,14 @@
   color: white;
   width:42px;
   height:42px;
+
 }
 
 .m-media-viewer-thumbs .controls .scroll-left {
-  left: -60px
+  left: -60px;
+  @include mq(tablet) {
+    left:-42px;
+  }
 }
 
 .m-media-viewer-thumbs .controls .scroll-left:before {
@@ -60,7 +64,10 @@
 }
 
 .m-media-viewer-thumbs .controls .scroll-right {
-  right: -60px
+  right: -60px;
+  @include mq(tablet) {
+    right:-42px;
+  }
 }
 
 .m-media-viewer-thumbs .controls .scroll-right:before {

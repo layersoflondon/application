@@ -15,6 +15,10 @@
   box-shadow: 0 0 20px 9px #00000063;
   height: 106px;
   width: 106px;
+  @include mq(tablet) {
+    height: 86px;
+    width: 86px;
+  }
 }
 
 .m-record-media-list-thumbs > div + div {
@@ -29,6 +33,9 @@
   color:white;
   @include font-display;
   font-weight:600;
+  @include mq(tablet) {
+    padding-top:0;
+  }
 }
 
 .m-record-media-list-thumbs > div.extra-count a {
