@@ -9,12 +9,28 @@
   margin-top: 0;
   margin-bottom: 7px;
   @include font-display;
+  max-width: calc(100% - 47px);
 
   background: $yellow;
   display: inline-block;
   float:left;
   color: $black;
   padding: 3px 10px;
+}
+
+.m-tray-title-area h2 {
+  margin-top: 0;
+  margin-bottom: 7px;
+  @include font-display;
+  font-weight:600;
+  max-width: calc(100% - 47px);
+  font-size:18px;
+  background: $yellow;
+  display: inline-block;
+  float:left;
+  color: $black;
+  padding: 2px 10px;
+  clear: left;
 }
 
 .m-tray-title-area .close {
@@ -42,6 +58,7 @@
   float: left;
   clear:both;
   @include caps-subtitle;
+  font-size:14px;
 }
 
 .m-tray-title-area .creator-link {
