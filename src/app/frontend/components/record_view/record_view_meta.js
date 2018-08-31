@@ -13,7 +13,7 @@ import {NavLink} from 'react-router-dom';
       <div className="dates">
         <span className="date start-date">{this.props.trayViewStore.record.date_from}</span>
       </div>
-      <div className="creator">By <NavLink to={`/map/search?results=true&user_id=${this.props.trayViewStore.record.user.id}`}>{this.props.trayViewStore.record.user.name}</NavLink></div>
+      <div className="creator">By <NavLink to={`/map/users/${this.props.trayViewStore.record.user.id}`}>{this.props.trayViewStore.record.user.name}</NavLink></div>
     </div>
   }
 }

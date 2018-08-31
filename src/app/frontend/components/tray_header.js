@@ -2,10 +2,8 @@ import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import {Link, withRouter} from 'react-router-dom';
-import Img from 'react-image';
 import pluralize from 'pluralize'
 
-import Card from './card';
 import {inject} from "mobx-react/index";
 
 @inject('router', 'trayViewStore', 'mapViewStore')
@@ -17,6 +15,14 @@ import {inject} from "mobx-react/index";
     this.state = {
       introShowing: false
     }
+  }
+
+  componentWillUpdate() {
+    this.content = this.props.trayViewStore.header_content;
+  }
+
+  componentWillMount() {
+    this.content = this.props.trayViewStore.header_content;
   }
 
   closeTray() {
@@ -31,12 +37,6 @@ import {inject} from "mobx-react/index";
     this.setState({introShowing: !this.state.introShowing});
   }
 
-
-
-
-
-
-
   render() {
     const closeButton = <div className="close">
       <a className="close" onClick={this.closeTray.bind(this)}>Close</a>
@@ -45,6 +45,7 @@ import {inject} from "mobx-react/index";
     const introClassName = (this.state.introShowing) ? "is-showing" : "";
 
     const meta = <div className="meta">
+      {this.content.tray_view_type}&nbsp;
       {!!this.props.trayViewStore.recordsCount && pluralize('record', this.props.trayViewStore.recordsCount, true)}
       {!!this.props.trayViewStore.collectionsCount && ` and ${pluralize('collection',this.props.trayViewStore.collectionsCount,true)}`}
     </div>;
@@ -53,33 +54,30 @@ import {inject} from "mobx-react/index";
       <div className="m-tray-title-area">
         {closeButton}
         {
-          this.props.profile_image_url &&
+          this.content.profile_image_url &&
           <div className="profile-pic">
-            <div className="image">
-              <Img src={this.props.profile_image_url} loader={<span className="is-loading"></span>} />
-            </div>
+            <div className="image random-image" style={{backgroundImage: `url(${this.content.profile_image_url})`}}></div>
           </div>
         }
         {
-          this.props.title &&
-          <h1>{this.props.title}</h1>
+          this.content.title &&
+          <h1>{this.content.title}</h1>
         }
 
         {meta}
 
         {
-          (this.props.creator_link_text && this.props.creator_link_url) &&
+          (this.content.creator_link_text && this.content.creator_link_url) &&
             <div className="creator-link">
-              <Link to={this.props.creator_link_url}>{this.props.creator_link_text}</Link>
+              <Link to={this.content.creator_link_url}>{this.content.creator_link_text}</Link>
             </div>
         }
       </div>
       {
-        this.props.introduction &&
+        this.content.introduction &&
         <div className={`m-tray-introduction ${introClassName}`}>
-          <p>
-            {this.props.introduction} <a onClick={this.toggleIntro.bind(this)}>{this.state.introShowing ? "Hide" : "Read more"}</a>
-          </p>
+          <p dangerouslySetInnerHTML={{__html: this.content.introduction}}></p>
+          <a onClick={this.toggleIntro.bind(this)}>{this.state.introShowing ? "Hide" : "Read more"}</a>
 
         </div>
       }
@@ -93,16 +91,15 @@ import {inject} from "mobx-react/index";
 TrayHeader.propTypes = {
   trayViewStore: PropTypes.object.isRequired,
   showTrayHeader: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
-  profile_image_url: PropTypes.string,
-  introduction: PropTypes.string,
-  creator_link_url: PropTypes.string,
-  creator_link_text: PropTypes.string,
-  closeAction: PropTypes.func,
+  // title: PropTypes.string.isRequired,
+  // profile_image_url: PropTypes.string,
+  // introduction: PropTypes.string,
+  // creator_link_url: PropTypes.string,
+  // creator_link_text: PropTypes.string,
+  // closeAction: PropTypes.func,
   // mapViewStore: PropTypes.object.isRequired
 };
 
 TrayHeader.defaultProps = {
-  title: "",
   showTrayHeader: true
 };

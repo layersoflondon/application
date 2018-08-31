@@ -56,7 +56,7 @@ import TrayHeader from "./tray_header";
       <div className="window">
         <div className="s-tray-area--default is-showing">
           <ErrorBoundary>
-            <TrayHeader showTrayHeader={!this.props.trayViewStore.root} {...this.props} creator_link_text={"Funge"} creator_link_url={"/map/records/123"} title={"Wazard"} meta={"flarge"} introduction="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid commodi eligendi eveniet incidunt non omnis qui quisquam repellendus rerum veritatis! Dignissimos excepturi, facilis iste minima molestias quia rem repudiandae sed." profile_image_url="/example/16.jpg"/>
+            <TrayHeader showTrayHeader={!this.props.trayViewStore.root} {...this.props}/>
           </ErrorBoundary>
 
           <div className="m-tray-records-list">

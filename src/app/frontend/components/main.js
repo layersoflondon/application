@@ -13,6 +13,7 @@ import RecordViewReport from './record_view/record_view_report';
 import MediaView from './media_view';
 import MediaItem from './media_item';
 import CollectionView from './collection_view';
+import UserView from './user_view';
 import PlacePicker from './place_picker';
 import LayersOverlay from './layers_overlay';
 
@@ -98,6 +99,9 @@ import ErrorBoundary from "./error_boundary";
 
       {/* view a collection */}
       <Route exact path='/map/collections/:id' component={CollectionView} />
+
+      {/*View records for a user*/}
+      <Route exact path='/map/users/:id' component={UserView} />
 
       {/* view a record within a collection */}
       <Route exact path='/map/collections/:collection_id/records/:id' component={RecordView} />
