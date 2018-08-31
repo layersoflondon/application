@@ -103,7 +103,7 @@ export default class TrayViewStore {
             introduction: response.data.description,
             tray_view_type: "Collection"
           });
-          this.showCollectionOfCards(response.data.records, response.data.title, response.data.description);
+          this.showCollectionOfCards(response.data.records);
           //  Lock this view so dragging the map doesn't change the cards
           this.locked = true;
         }).catch((error) => {
