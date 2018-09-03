@@ -131,7 +131,7 @@ import Search from "../../../sources/search";
     this.props.trayViewStore.loading = true;
 
     const header_subtitle = (!!this.state.start_year || !!this.state.end_year) ? `${!!this.state.start_year ? this.state.start_year : "up"} to ${!!this.state.end_year ? this.state.end_year : "now"}` : "";
-    const header_title = !!this.state.q ? `Your search for "${this.state.q}"` : `Results ${header_subtitle}`;
+    const header_title = !!this.state.q ? `Your search for “${this.state.q}”` : `Results ${header_subtitle}`;
 
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
