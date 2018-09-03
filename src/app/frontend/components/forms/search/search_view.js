@@ -146,6 +146,7 @@ import Search from "../../../sources/search";
       });
       this.props.trayViewStore.showCollectionOfCards(response.data);
 
+
       if( response.data.length > 0 ) {
         // get first response object with a lat & lng (if it's a collection, get the first one with records)
         const results_with_coords = response.data.filter((obj) => {
@@ -166,6 +167,7 @@ import Search from "../../../sources/search";
 
       this.props.trayViewStore.locked = true;
       this.props.trayViewStore.root = false;
+      this.props.router.history.push(`/map/search?show_results=true&q=${this.state.q}`)
     });
   }
 
