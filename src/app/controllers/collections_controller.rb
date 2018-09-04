@@ -32,7 +32,8 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    @collection = CollectionsIndex.filter(ids: {values: [params[:id]]}).first
+    # todo query ES to order by
+    @collection = CollectionsIndex.filter(ids: {values: [params[:id]]}).first.tap {|c| c.records.sort! {|r1,r2| r1["title"] <=> r2["title"]}}
     raise Pundit::NotAuthorizedError, "Not allowed to show this Collection" unless CollectionPolicy.new(current_user, @collection).show?
   end
 

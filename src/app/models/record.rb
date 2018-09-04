@@ -42,8 +42,8 @@ class Record < ApplicationRecord
   }
 
   after_save do
-    if attachments.count == 1 && attachments.first.attachable.is_a?(Attachments::Image) && primary_image.nil?
-      attachments.first.attachable.set_as_only_primary!
+    if primary_image.nil? && attachments.image.any?
+      attachments.image.first.attachable.set_as_only_primary!
     end
   end
 

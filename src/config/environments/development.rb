@@ -70,4 +70,4 @@ Rails.application.configure do
 
 
 end
-Rails.application.routes.default_url_options[:host] = '192.168.1.66:3000'
+Rails.application.routes.default_url_options[:host] = 'localhost:3000'

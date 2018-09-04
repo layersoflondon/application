@@ -1,9 +1,11 @@
 class TeamsController < ApplicationController
   layout 'iframe'
 
-  before_action :get_team, except: [:index, :create, :request_to_join]
-  before_action :get_team_user, except: [:index, :create, :remove, :request_to_join]
+  before_action :get_team, except: [:index, :create, :request_to_join, :show]
+  before_action :get_team_user, except: [:index, :create, :remove, :request_to_join, :show]
   before_action :get_teams, only: [:index, :create]
+
+  skip_before_action :authenticate_user!, only: :show, if: -> {request.format.json?}
 
 
   def index
@@ -16,10 +18,17 @@ class TeamsController < ApplicationController
   end
 
   def show
-    authorize @team
     respond_to do |format|
-      format.json
-      format.html
+      format.json do
+        @team = TeamsIndex.query(ids: {values: [params[:id]]}).first
+        skip_authorization
+      end
+
+      format.html do
+        get_team
+        get_team_user
+        authorize @team
+      end
     end
   end
 
