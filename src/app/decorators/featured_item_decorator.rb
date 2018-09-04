@@ -1,4 +1,5 @@
 class FeaturedItemDecorator < Draper::Decorator
+  include DecoratorConcerns::PlaceholderClass
   delegate_all
 
   def has_image?
