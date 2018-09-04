@@ -11,7 +11,7 @@ import Layer from './layer';
   }
 
   handleClick(event) {
-    this.props.mapViewStore.overlay = null
+    this.router.history.goBack();
   }
 
   render() {
