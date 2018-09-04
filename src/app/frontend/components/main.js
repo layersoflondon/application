@@ -14,6 +14,7 @@ import MediaView from './media_view';
 import MediaItem from './media_item';
 import CollectionView from './collection_view';
 import UserView from './user_view';
+import TeamView from './team_view';
 import PlacePicker from './place_picker';
 import LayersOverlay from './layers_overlay';
 
@@ -98,6 +99,9 @@ import ErrorBoundary from "./error_boundary";
 
       {/* view a collection */}
       <Route exact path='/map/collections/:id' component={CollectionView} />
+
+      {/* view a team */}
+      <Route exact path='/map/teams/:id' component={TeamView} />
 
       {/*View records for a user*/}
       <Route exact path='/map/users/:id' component={UserView} />

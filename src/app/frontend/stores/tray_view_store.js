@@ -2,6 +2,7 @@ import {observable, observe, computed} from 'mobx';
 import Record from '../sources/record';
 import Collection from '../sources/collection';
 import User from '../sources/user';
+import Team from '../sources/team';
 
 import CardModel from '../models/card';
 import axios from 'axios';
@@ -139,6 +140,31 @@ export default class TrayViewStore {
       }else {
         this.user_id = null;
         this.loading_user = false;
+        this.locked = false;
+      }
+    });
+
+    observe(this, 'team_id', (change) => {
+      if( change.newValue ) {
+        this.loading_collection = true;
+        Team.show(null,this.team_id).then((response) => {
+          this.root = false;
+          this.setHeaderContent({
+            title: response.data.name,
+            introduction: response.data.description,
+            tray_view_type: "Team"
+          });
+          this.showCollectionOfCards(response.data.records);
+
+          this.locked = true;
+        }).catch((error) => {
+          this.team_id = null;
+        }).then(() => {
+          this.loading_team = false;
+        });
+      }else {
+        this.team_id = null;
+        this.loading_team = false;
         this.locked = false;
       }
     });
