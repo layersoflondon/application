@@ -142,7 +142,7 @@ import Search from "../../../sources/search";
       this.props.trayViewStore.setHeaderContent({
         title: header_title,
         subtitle: !!this.state.q ? header_subtitle : "",
-        tray_view_type: "Found"
+        tray_view_type: "Search"
       });
       this.props.trayViewStore.showCollectionOfCards(response.data);
 
