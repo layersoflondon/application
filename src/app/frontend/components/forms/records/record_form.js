@@ -176,7 +176,7 @@ import RecordModel from './../../../models/record';
       const fieldName = e[0];
       return e[1].map((message,i) => {
         const key = `${fieldName}-${i}`;
-        return <li key={key}>{`${fieldName} ${message}`}</li>;
+        return <li key={key}>{message}</li>;
       });
     });
 

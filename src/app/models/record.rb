@@ -31,12 +31,14 @@ class Record < ApplicationRecord
 
   validates :title, :state, presence: true
   with_options if: -> (r) { r.state == 'published' } do
-    validates :title, :description, :state, :lat, :lng, :date_from, presence: true
-    validates :description, presence: true
+    validates :title, presence: {message: "You need to add a title"}
+    validates :date_from, presence: {message: "You need to add a date"}
+    validates :state, presence: true
+    validates :description, presence: {message: "You need to include a description"}
     validates :lat, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }
     validates :lng, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
-    validates_format_of :date_from, with: /\d{4}-\d{2}-\d{2}/, message: "isn't in day / month / year format"
-    validates_format_of :date_to, with: /\d{4}-\d{2}-\d{2}/, message: "isn't in day / month / year format", if: -> {date_to.present?}
+    validates_format_of :date_from, with: /\d{4}-\d{2}-\d{2}/, message: "Date isn't in day / month / year format"
+    validates_format_of :date_to, with: /\d{4}-\d{2}-\d{2}/, message: "End date isn't in day / month / year format", if: -> {date_to.present?}
     validate :date_is_in_the_past
   end
 
@@ -88,7 +90,8 @@ class Record < ApplicationRecord
   end
 
   def date_is_in_the_past
-    errors.add(:date_from, 'date is not in the past') if date_from.present? && Date.today < date_from
+    errors.add(:date_from, 'Date is not in the past') if date_from.present? && Date.today < date_from
+    errors.add(:date_to, 'End date is before start date') if date_from.present? && date_to.present? && date_from > date_to
   end
 
   aasm column: :state, enum: true do
