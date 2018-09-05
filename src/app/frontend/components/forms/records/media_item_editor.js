@@ -58,34 +58,34 @@ import {observer} from "mobx-react";
     const button_disabled = false; //this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary;
     const button_label    = (this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary) ? "This is the primary image" : "Set as primary image";
     const button_class    = (this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.is_primary) ? "is-primary" : "is-not-primary";
-
     return (
-      <div className="meta">
+      (this.props.recordFormStore.current_attachment_item_index !== null) ? (<div className="meta">
 
-          <div className="form-group">
-            <label>Title</label>
-            <input placeholder="Title" type="text" onChange={this.handleOnChange.bind(this)} name="title" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.title) ? this.props.recordFormStore.current_attachment_item.title : ''} onBlur={this.handleOnBlur.bind(this)} />
-          </div>
+        <div className="form-group">
+          <label>Title</label>
+          <input placeholder="Title" type="text" onChange={this.handleOnChange.bind(this)} name="title" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.title) ? this.props.recordFormStore.current_attachment_item.title : ''} onBlur={this.handleOnBlur.bind(this)} />
+        </div>
 
-          <div className="form-group">
-            <label>Caption</label>
-            <textarea rows="5" placeholder="Caption" onChange={this.handleOnChange.bind(this)} name="caption" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.caption) ? this.props.recordFormStore.current_attachment_item.caption : ''} onBlur={this.handleOnBlur.bind(this)}  >
+        <div className="form-group">
+          <label>Caption</label>
+          <textarea rows="5" placeholder="Caption" onChange={this.handleOnChange.bind(this)} name="caption" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.caption) ? this.props.recordFormStore.current_attachment_item.caption : ''} onBlur={this.handleOnBlur.bind(this)}  >
             </textarea>
-          </div>
+        </div>
 
-          <div className="form-group">
-            <label>Credit</label>
-            <input placeholder="Credit" type="text" onChange={this.handleOnChange.bind(this)} name="credit" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.credit) ? this.props.recordFormStore.current_attachment_item.credit : ''} onKeyUp={this.handleKeyUp.bind(this)} />
-          </div>
+        <div className="form-group">
+          <label>Credit</label>
+          <input placeholder="Credit" type="text" onChange={this.handleOnChange.bind(this)} name="credit" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.credit) ? this.props.recordFormStore.current_attachment_item.credit : ''} onKeyUp={this.handleKeyUp.bind(this)} />
+        </div>
 
-          {this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.media_type === 'image' &&
-           <div className="form-group">
-             {this.props.recordFormStore.current_attachment_item.is_primary }
-              <button onClick={this.handleOnSetAsPrimaryImage.bind(this)} className={button_class} disabled={button_disabled}>{button_label}</button>
-           </div>
-          }
+        {this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.media_type === 'image' &&
+        <div className="form-group">
+          {this.props.recordFormStore.current_attachment_item.is_primary }
+          <button onClick={this.handleOnSetAsPrimaryImage.bind(this)} className={button_class} disabled={button_disabled}>{button_label}</button>
+        </div>
+        }
 
-      </div>
+      </div>) : null
+
     )
   }
 }

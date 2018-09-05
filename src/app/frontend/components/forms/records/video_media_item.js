@@ -24,15 +24,17 @@ import {observer} from "mobx-react";
   }
 
   saveUrl(event) {
+    event.preventDefault();
     this.props.recordFormStore.current_attachment_item.persist();
   }
 
   render() {
+    const selectedClassName = (this.props.recordFormStore.current_attachment_item_index == this.props.index) ? "is-selected" : "";
     return (
-      <div className="form-group add-url">
+      <div className={`form-group add-url ${selectedClassName}`}>
         <label>Add YouTube video with URL</label>
         <input type="text" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name='url' value={this.state.url} onChange={this.handleUrlOnChange.bind(this)} onFocus={this.setCurrentMediaItem.bind(this)} />
-        <button>+</button>
+        <button onClick={this.saveUrl.bind(this)}>+</button>
       </div>
     )
   }

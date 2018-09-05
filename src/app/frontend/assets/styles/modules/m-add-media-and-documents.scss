@@ -154,7 +154,8 @@
   background: #0000005c;
 }
 
-.m-add-media-and-documents .thumbs li.is-selected .image {
+.m-add-media-and-documents .thumbs li.is-selected .image,
+.m-add-media-and-documents .add-tools .add-url.is-selected {
   box-shadow: 0 0 0px 4px #ee1d46 inset;
 }
 
