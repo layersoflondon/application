@@ -3,6 +3,7 @@ class Collection < ApplicationRecord
   has_many :records, through: :collection_records
   update_index('records#record') { records }
   update_index('collections#collection') {self}
+  update_index('teams#team') { self.owner if owner.is_a?(Team) }
   belongs_to :owner, polymorphic: true
 
   # TODO: permissions for reading and writing should go in a Pundit policy (see https://github.com/varvet/pundit).
