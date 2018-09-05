@@ -144,7 +144,7 @@ import {observer} from "mobx-react";
                 <a href="#" onClick={this.showFileInput.bind(this)}><span className="image"></span><em>Upload a file</em></a>
                 <input type="file" ref={this.fileInputRef} onChange={this.onFileInputChange.bind(this)} style={{display: 'none'}} />
               </div>
-              {video_items.length > 0 && video_items}
+              {video_items}
             </div>
 
             <div className="thumbs">
