@@ -38,6 +38,10 @@ export default class Attachment {
     }
   }
 
+  destroy() {
+    return RecordAttachments.destroy(this.record_id, this.id)
+  }
+
   @computed get is_media() {
     return this.attachable_type === 'Attachments::Image' || this.attachable_type === 'Attachments::VideoFile' || this.attachable_type === 'Attachments::AudioFile';
   }

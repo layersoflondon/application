@@ -7,12 +7,25 @@ import {observer} from "mobx-react";
   constructor(props){
     super(props);
 
-    this.state = {url: this.props.object.attachable.url, type: this.props.object.media_type, title: this.props.title, caption: this.props.caption, credit: this.props.credit};
+    this.state = {url: this.props.object.attachable.url, type: this.props.object.media_type, title: this.props.title, caption: this.props.caption, credit: this.props.credit, deleted: false, deleting: false};
   }
 
   setCurrentMediaItem(event) {
     event.preventDefault();
     this.props.recordFormStore.current_attachment_item_index = this.props.index;
+  }
+
+  handleRemoveAttachment(event) {
+    event.preventDefault();
+    if (window.confirm("Delete this attachment? You'll need to upload again.")) {
+      this.setState({deleting: true});
+      this.props.object.destroy().then((result) => {
+        this.setState({deleting: false, deleted: true})
+      }).catch((error) => {
+        console.log("error destroying", error)
+      });
+    }
+
   }
 
   render() {
@@ -30,13 +43,17 @@ import {observer} from "mobx-react";
       container_classes = `${container_classes} is-selected`;
     }
 
+    const removeLinkClass = (this.state.deleting) ? "fa fa-circle-o-notch fa-spin" : "fa fa-times";
+
     return (
-      <li className={container_classes} onClick={this.setCurrentMediaItem.bind(this)}>
-        <a className="remove-attachment"><i className="fa fa-times"></i></a>
-        <a href="#">
+      this.state.deleted ? null : (<li className={container_classes}>
+        <a className="remove-attachment" title="Remove attachment" onClick={this.handleRemoveAttachment.bind(this)}>
+          <i className={removeLinkClass}></i>
+        </a>
+        <a onClick={this.setCurrentMediaItem.bind(this)}>
           <span className={classes} style={style} />
         </a>
-      </li>
+      </li>)
     )
   }
 }
