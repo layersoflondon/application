@@ -7,6 +7,7 @@ class Attachments::Video < ApplicationRecord
     if youtube_id.match(/^http/)
       self.youtube_id = YoutubeID.from(youtube_id)
     end
+    self.title = "A video on Youtube" unless self.title.present?
   end
 
   # Utility method used when we index
