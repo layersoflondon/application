@@ -12,7 +12,7 @@ class RecordsController < ApplicationController
   def create
     @record = current_user.records.build(record_params)
     authorize(@record)
-
+    @record.save # TODO horrible hack because we can't set the errors_on_publishing on create for some reason.
     @result = save_record_and_return_from_es(@record)
 
     unless @result.present?
