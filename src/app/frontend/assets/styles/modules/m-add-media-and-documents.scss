@@ -187,6 +187,24 @@
   height: 150px;
 }
 
+.m-add-media-and-documents .thumbs .dropzone a.remove-attachment {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  z-index: 100;
+  background: $red;
+  border-radius: 30px;
+  height: 30px;
+  width: 30px;
+  color: $white;
+
+  i {
+    margin-left: 7px;
+    font-size: 20px;
+    margin-top: 5px;
+  }
+}
+
 .m-add-media-and-documents .thumbs .dropzone.is-active .add.add-files {
   border: 4px dashed $red;
 }

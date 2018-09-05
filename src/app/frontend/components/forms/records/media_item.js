@@ -32,6 +32,7 @@ import {observer} from "mobx-react";
 
     return (
       <li className={container_classes} onClick={this.setCurrentMediaItem.bind(this)}>
+        <a className="remove-attachment"><i className="fa fa-times"></i></a>
         <a href="#">
           <span className={classes} style={style} />
         </a>
