@@ -33,13 +33,10 @@ import NotFound from "../../not_found";
       }).catch((error) => {
         this.setState({loadingError: true})
       });
-    }
-
-
-    // if (!this.props.recordFormStore.record.lat || !this.props.recordFormStore.record.lng) {
-    //   this.props.router.push('/map/choose-place');
-    // }
-    if (this.props.location.pathname.match(/\/new/)) {
+    } else if (this.props.location.pathname.match(/\/new/)) {
+      if (!this.props.recordFormStore.record.lat || !this.props.recordFormStore.record.lng) {
+        this.props.router.push('/map/choose-place');
+      }
       this.createDraftRecord();
     }
 
