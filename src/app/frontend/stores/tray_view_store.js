@@ -38,6 +38,7 @@ export default class TrayViewStore {
   @observable user_id = null;
   @observable team_id = null;
   @observable searching = false;
+  @observable loading_error = false;
 
   map_ref = null;
 
@@ -62,6 +63,7 @@ export default class TrayViewStore {
     // mutating the visible_record_id will fetch that record and update the RecordView component with the relevant state
     observe(this, 'record_id', (change) => {
       this.loading_record = true;
+      this.loading_error = false;
 
       if( change.newValue && change.newValue !== 'new' ) {
         // if(this.cards.get(`record_${change.newValue}`)) {
@@ -74,9 +76,11 @@ export default class TrayViewStore {
             this.cards.set(card.id, card);
             this.record = card.data;
             this.loading_record = true;
+            this.loading_error = false;
           }).catch((error) => {
-            console.log(`Error getting record ${this.record_id}`, error);
+            // console.log(`Error getting record ${this.record_id}`, error);
             this.record_id = null;
+            this.loading_error = true;
           }).then(() => {
             this.loading_record = false;
           });
@@ -94,6 +98,7 @@ export default class TrayViewStore {
     });
 
     observe(this, 'collection_id', (change) => {
+      this.loading_error = false;
       if( change.newValue ) {
         this.loading_collection = true;
         Collection.show(null, this.collection_id).then((response) => {
@@ -107,6 +112,7 @@ export default class TrayViewStore {
           //  Lock this view so dragging the map doesn't change the cards
           this.locked = true;
         }).catch((error) => {
+          this.loading_error = true;
           this.collection_id = null;
         }).then(() => {
           this.loading_collection = false;
