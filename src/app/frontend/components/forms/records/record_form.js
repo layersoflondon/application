@@ -33,6 +33,10 @@ import RecordModel from './../../../models/record';
       });
     }
 
+
+
+    this.createDraftRecord();
+
     if( this.props.trayViewStore.cards.size === 0 ) {
       setTimeout(() => {
         if( this.props.match.params.id ) {
@@ -44,8 +48,27 @@ import RecordModel from './../../../models/record';
     }
   }
 
+
   componentWillUnmount() {
       this.props.recordFormStore.record = new RecordModel()
+  }
+
+  createDraftRecord() {
+    if (!this.props.recordFormStore.record.id) {
+      this.props.recordFormStore.record.persist().then((response) => {
+        this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+
+        // fixme - find a better way to do this. the stubbed out video
+        // attachment needs to know the record id we've just been given...
+        this.props.recordFormStore.record.videos.map((v, i) => {
+          if( !v.record_id ) {
+            v.record_id = response.data.id;
+          }
+        });
+      }).catch((error) => {
+        this.props.recordFormStore.record.errors = error.response.data;
+      });
+    }
   }
 
   handleClickedOnSave(event) {
@@ -145,6 +168,18 @@ import RecordModel from './../../../models/record';
     if( this.props.mapViewStore.overlay === 'record_form' ) className+=" is-showing";
 
     let form_title = this.props.recordFormStore.record.id ? "Edit record" : "Add record";
+    // const publishingErrors = this.props.recordFormStore.record.errors_on_publishing.map((e) => {
+    //   console.log(e);
+    // });
+
+    const publishingErrors = Object.entries(this.props.recordFormStore.record.errors_on_publishing).map((e) => {
+      const fieldName = e[0];
+      return e[1].map((message,i) => {
+        const key = `${fieldName}-${i}`;
+        return <li key={key}>{`${fieldName} ${message}`}</li>;
+      });
+    });
+
     return (
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
@@ -208,11 +243,7 @@ import RecordModel from './../../../models/record';
                 }
 
                 <div className="secondary-actions">
-                  {!this.props.recordFormStore.record.id && (
-                    <button type="submit" className="delete" onClick={()=>this.props.router.push('/map')}>
-                      Cancel
-                    </button>
-                  )}
+
                   {(this.props.recordFormStore.record.id && this.props.recordFormStore.record.state == "draft") && (
                     <button type="submit" className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
                       Delete
@@ -237,10 +268,21 @@ import RecordModel from './../../../models/record';
                     <input type="submit" data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save as draft" />
                   )}
 
-                  <input type="submit" data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
+                  {
+                    this.props.recordFormStore.record.valid_for_publishing &&
+                    <input type="submit" data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
+                  }
                 </div>
 
               </div>
+              { !this.props.recordFormStore.record.valid_for_publishing &&
+                <div className="form-validation-errors">
+                  Before you can publish this record, you need to fix some problems:
+                  <ul>
+                    {publishingErrors}
+                  </ul>
+                </div>
+              }
 
             </form>
           </div>

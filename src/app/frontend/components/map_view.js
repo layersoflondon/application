@@ -45,7 +45,12 @@ import MapSearchContainer from './map_search_container';
       this.props.recordFormStore.record.lat = lat;
       this.props.recordFormStore.record.lng = lng;
 
-      this.props.router.push('/map/records/new');
+      // if (!!this.props.recordFormStore.record.id) {
+      //   this.props.router.push(`/map/records/edit/${this.props.recordFormStore.record.id}`)
+      // } else {
+        this.props.router.push('/map/records/new');
+      // }
+
     }
   }
 

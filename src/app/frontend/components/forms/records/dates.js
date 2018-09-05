@@ -21,14 +21,16 @@ import {observer} from 'mobx-react';
   }
 
   render() {
+    const dateFromLabelClassName = !!this.props.recordFormStore.record.errors_on_publishing['date_from'] ? "errors-on-publish" : "";
+    const dateToLabelClassName = !!this.props.recordFormStore.record.errors_on_publishing['date_to'] ? "errors-on-publish" : "";
     return (
       <div className="form-group form-group--date">
         <div className="start-date">
-          <label>When did this happen?</label>
+          <label className={dateFromLabelClassName}>When did this happen?</label>
             <div className="date-input-wrap">
-              <input placeholder="Day" type="text" name="date_from_day" data-date-field="date_from_object" data-date-attribute-name="date" value={this.props.recordFormStore.record.date_from_object.date} onChange={this.handleOnDateChange.bind(this)} />
-              <input placeholder="Month" type="text" name="date_from_month" data-date-field="date_from_object" data-date-attribute-name="month" value={this.props.recordFormStore.record.date_from_object.month} onChange={this.handleOnDateChange.bind(this)} />
-              <input placeholder="Year" type="text" name="date_from_year" data-date-field="date_from_object" data-date-attribute-name="year" value={this.props.recordFormStore.record.date_from_object.year} onChange={this.handleOnDateChange.bind(this)} />
+              <input placeholder="Day" type="text" name="date_from_day" data-date-field="date_from_object" data-date-attribute-name="date" value={this.props.recordFormStore.record.date_from_object.date} onChange={this.handleOnDateChange.bind(this)} onBlur={this.handleOnBlur} />
+              <input placeholder="Month" type="text" name="date_from_month" data-date-field="date_from_object" data-date-attribute-name="month" value={this.props.recordFormStore.record.date_from_object.month} onChange={this.handleOnDateChange.bind(this)} onBlur={this.handleOnBlur} />
+              <input placeholder="Year" type="text" name="date_from_year" data-date-field="date_from_object" data-date-attribute-name="year" value={this.props.recordFormStore.record.date_from_object.year} onChange={this.handleOnDateChange.bind(this)} onBlur={this.handleOnBlur} />
             </div>
           <span className="helper-text">An estimate is ok - an exact date is fantastic!</span>
         </div>
@@ -41,11 +43,11 @@ import {observer} from 'mobx-react';
 
         {this.state.date_to_visible && (
           <div className="end-date">
-            <label onClick={this.handleShowEndDateOnClick.bind(this)}>When did this end?</label>
+            <label onClick={this.handleShowEndDateOnClick.bind(this)} className={dateToLabelClassName}>When did this end?</label>
             <div>
-              <input placeholder="Day" type="text" name="date_to_day" data-date-field="date_to_object" data-date-attribute-name="date" value={this.props.recordFormStore.record.date_to_object.date} onChange={this.handleOnDateChange.bind(this)} />
-              <input placeholder="Month" type="text" name="date_to_month" data-date-field="date_to_object" data-date-attribute-name="month" value={this.props.recordFormStore.record.date_to_object.month} onChange={this.handleOnDateChange.bind(this)} />
-              <input placeholder="Year" type="text" name="date_to_year" data-date-field="date_to_object" data-date-attribute-name="year" value={this.props.recordFormStore.record.date_to_object.year} onChange={this.handleOnDateChange.bind(this)} />
+              <input placeholder="Day" type="text" name="date_to_day" data-date-field="date_to_object" data-date-attribute-name="date" value={this.props.recordFormStore.record.date_to_object.date} onChange={this.handleOnDateChange.bind(this)} onBlur={this.handleOnBlur} />
+              <input placeholder="Month" type="text" name="date_to_month" data-date-field="date_to_object" data-date-attribute-name="month" value={this.props.recordFormStore.record.date_to_object.month} onChange={this.handleOnDateChange.bind(this)} onBlur={this.handleOnBlur} />
+              <input placeholder="Year" type="text" name="date_to_year" data-date-field="date_to_object" data-date-attribute-name="year" value={this.props.recordFormStore.record.date_to_object.year} onChange={this.handleOnDateChange.bind(this)} onBlur={this.handleOnBlur} />
             </div>
           </div>
         )}

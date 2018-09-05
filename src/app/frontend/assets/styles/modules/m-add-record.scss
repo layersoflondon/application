@@ -104,3 +104,15 @@
   margin: -1px;
   padding: 19px;
 }
+
+.m-add-record label.errors-on-publish {
+  &:after {
+    content: "\f024";
+    //display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1em;
+    margin-left:10px;
+    z-index: 1;
+    color: $red;
+  }
+}
