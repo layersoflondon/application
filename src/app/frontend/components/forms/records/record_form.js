@@ -277,10 +277,11 @@ import RecordModel from './../../../models/record';
               </div>
               { !this.props.recordFormStore.record.valid_for_publishing &&
                 <div className="form-validation-errors">
-                  Before you can publish this record, you need to fix some problems:
+                  Before you can publish this record, you need to add some information:
                   <ul>
                     {publishingErrors}
                   </ul>
+                  Look out for the <i className="fa fa-flag"></i> flag icons.
                 </div>
               }
 

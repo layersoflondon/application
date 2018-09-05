@@ -20,7 +20,9 @@ import {observer} from "mobx-react";
     if (window.confirm("Delete this attachment? You'll need to upload again.")) {
       this.setState({deleting: true});
       this.props.object.destroy().then((result) => {
-        this.setState({deleting: false, deleted: true})
+        this.setState({deleting: false, deleted: true});
+        //remove the deleted attachment from the record we are holding in the recordFormStore.
+        this.props.recordFormStore.record.attachments.splice(this.props.recordFormStore.current_attachment_item_index,1)
       }).catch((error) => {
         console.log("error destroying", error)
       });
