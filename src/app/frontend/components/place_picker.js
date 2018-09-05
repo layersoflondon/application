@@ -25,11 +25,6 @@ import {observer, inject} from "mobx-react";
     }
   }
 
-  handleOnClick(event) {
-    //fixme: wire this component up to google maps
-    console.log("TODO Search and pan the map...", console.log(this.props));
-  }
-
   handleCancelOnClick(event) {
     event.preventDefault();
 
