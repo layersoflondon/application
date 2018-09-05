@@ -153,7 +153,7 @@ import NotFound from "../../not_found";
         </div>
 
         <div className="m-add-record">
-          <h1>Add record</h1>
+          <h1>Not allowed</h1>
 
           <p>
             You don't have permission to edit this record.
