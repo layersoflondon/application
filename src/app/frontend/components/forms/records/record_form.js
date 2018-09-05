@@ -37,15 +37,15 @@ import RecordModel from './../../../models/record';
 
     this.createDraftRecord();
 
-    if( this.props.trayViewStore.cards.size === 0 ) {
-      setTimeout(() => {
-        if( this.props.match.params.id ) {
-          this.props.trayViewStore.fetchRecord(this.props.match.params.id, true);
-        }else {
-          this.props.trayViewStore.restoreRootState();
-        }
-      }, 10);
-    }
+    // if( this.props.trayViewStore.cards.size === 0 ) {
+    //   setTimeout(() => {
+    //     if( this.props.match.params.id ) {
+    //       this.props.trayViewStore.fetchRecord(this.props.match.params.id, true);
+    //     }else {
+    //       this.props.trayViewStore.restoreRootState();
+    //     }
+    //   }, 10);
+    // }
   }
 
 
@@ -145,10 +145,7 @@ import RecordModel from './../../../models/record';
   }
 
   render() {
-    if( this.props.match.params.id && parseInt(this.props.match.params.id, 10) !== this.props.recordFormStore.record.id ) {
-      // fixme: show a spinner here whilst we load the record we're editing
-      return <div className="spinner" />
-    }else if( this.props.recordFormStore.record.id && !this.props.recordFormStore.record.user_can_edit_record ) {
+    if( this.props.recordFormStore.record.id && !this.props.recordFormStore.record.user_can_edit_record ) {
       return <div className='m-overlay'>
         <div className="close">
           <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
@@ -188,7 +185,7 @@ import RecordModel from './../../../models/record';
           </div>
 
           <div className="m-add-record">
-            <h1>{form_title}</h1>
+            <h1>Edit a record</h1>
 
             <form action="" className="form--chunky form--over-white">
               <Dates   {...this.props} />
