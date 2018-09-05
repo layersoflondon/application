@@ -9,6 +9,7 @@ import RecordViewComponentState from "./record_view_component_state";
 import RecordViewHeader from './record_view_header';
 import RecordViewContent from './record_view_content';
 import RecordViewFooter from './record_view_footer';
+import NotFound from '../not_found'
 
 @observer class RecordView extends Component {
   constructor(props) {
@@ -92,6 +93,10 @@ import RecordViewFooter from './record_view_footer';
   }
 
   render() {
+    if (this.props.trayViewStore.loading_error) {
+      return <NotFound {...this.props} />
+    }
+
     if( this.props.trayViewStore.record ) {
       let header_classes = "m-record";
       let header_gallery_component = null;

@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
+import {Redirect} from 'react-router';
 import Details from './details';
 import Credits from './credits'
 import Dates from './dates';
@@ -7,13 +8,14 @@ import Media from './media';
 import CollectionsEditor from './collections_editor';
 import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
+import NotFound from "../../not_found";
 
 @inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore', 'currentUser')
 @observer export default class RecordForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {errors: []};
+    this.state = {errors: [], loadingError: false};
   }
 
   componentWillMount() {
@@ -27,6 +29,9 @@ import RecordModel from './../../../models/record';
     }else if( this.props.match.params.id && this.props.match.params.id !== 'new'  ) {
       Record.show(null, this.props.match.params.id).then((response) => {
         this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+
+      }).catch((error) => {
+        this.setState({loadingError: true})
       });
     }
 
@@ -34,18 +39,10 @@ import RecordModel from './../../../models/record';
     // if (!this.props.recordFormStore.record.lat || !this.props.recordFormStore.record.lng) {
     //   this.props.router.push('/map/choose-place');
     // }
+    if (this.props.location.pathname.match(/\/new/)) {
+      this.createDraftRecord();
+    }
 
-    this.createDraftRecord();
-
-    // if( this.props.trayViewStore.cards.size === 0 ) {
-    //   setTimeout(() => {
-    //     if( this.props.match.params.id ) {
-    //       this.props.trayViewStore.fetchRecord(this.props.match.params.id, true);
-    //     }else {
-    //       this.props.trayViewStore.restoreRootState();
-    //     }
-    //   }, 10);
-    // }
   }
 
 
@@ -118,7 +115,7 @@ import RecordModel from './../../../models/record';
       Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
         if( state === 'deleted' ) {
           this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
-          this.props.recordFormStore.record_id = null;
+          this.props.recordFormStore.record = new RecordModel();
           this.props.router.push('/map');
         }
 
@@ -145,6 +142,10 @@ import RecordModel from './../../../models/record';
   }
 
   render() {
+    if (this.state.loadingError) {
+      return <NotFound/>
+    }
+
     if( this.props.recordFormStore.record.id && !this.props.recordFormStore.record.user_can_edit_record ) {
       return <div className='m-overlay'>
         <div className="close">
