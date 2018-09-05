@@ -18,9 +18,6 @@ import RecordModel from './../../../models/record';
 
   componentWillMount() {
 
-    if (!this.props.recordFormStore.record.lat || !this.props.recordFormStore.record.lng) {
-      this.props.router.push('/map/choose-place');
-    }
 
     if( this.props.trayViewStore.record ) {
       // duplicate the record object so that the one we're mutating isn't what may be visible in the tray (its observed
@@ -34,6 +31,9 @@ import RecordModel from './../../../models/record';
     }
 
 
+    // if (!this.props.recordFormStore.record.lat || !this.props.recordFormStore.record.lng) {
+    //   this.props.router.push('/map/choose-place');
+    // }
 
     this.createDraftRecord();
 
