@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
 import MediaItem from './media_item';
-import VideoMediaItem from './video_media_item';
+import YoutubeForm from './youtube_form';
 import MediaItemEditor from './media_item_editor';
 import Attachment from '../../../models/attachment';
 import Image from 'react-image';
@@ -17,11 +17,6 @@ import {observer} from "mobx-react";
 
     this.fileInputRef = React.createRef();
 
-    // if we're editing/creating a record that doesn't have a video associated, stub out a video object that we can edit
-    if(this.props.recordFormStore.record.videos.length === 0) {
-      const video_item = Attachment.fromJS({attachable_type: 'Attachments::Video', attachable: {title: '', caption: '', youtube_id: ''}}, this.props.recordFormStore.record.id);
-      this.props.recordFormStore.record.attachments.push(video_item);
-    }
   }
 
   showFileInput(event) {
@@ -111,16 +106,10 @@ import {observer} from "mobx-react";
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
     const pane_classname = (this.props.recordFormStore.visible_pane==='media') ? 'is-open' : '';
 
-    const media_items = this.props.recordFormStore.record.documents_and_images.map((item,i) => {
+    const media_items = this.props.recordFormStore.record.documents_images_and_video.map((item,i) => {
       const media_item = Attachment.fromJS(item, this.props.recordFormStore.record.id);
       const index = this.props.recordFormStore.record.attachments.indexOf(item);
       return <MediaItem {...item} {...this.props} object={media_item} key={`media_item_${index}`} index={index} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
-    });
-
-    const video_items = this.props.recordFormStore.record.videos.map((item, i) => {
-      const video_item = Attachment.fromJS(item, this.props.recordFormStore.record.id);
-      const index = this.props.recordFormStore.record.attachments.indexOf(item);
-      return <VideoMediaItem {...item} {...this.props} object={video_item} key={`video_media_item_${index}`} index={index} />
     });
 
     const loading_items = this.state.loading.map((item, i) => {
@@ -144,7 +133,7 @@ import {observer} from "mobx-react";
                 <a href="#" onClick={this.showFileInput.bind(this)}><span className="image"></span><em>Upload a file</em></a>
                 <input type="file" ref={this.fileInputRef} onChange={this.onFileInputChange.bind(this)} style={{display: 'none'}} />
               </div>
-              {video_items}
+              <YoutubeForm {...this.props} />
             </div>
 
             <div className="thumbs">
@@ -154,7 +143,7 @@ import {observer} from "mobx-react";
 
                   {loading_items}
 
-                  {(this.state.loading.length > 0 || this.props.recordFormStore.record.documents_and_images.length > 0) && (
+                  {(this.state.loading.length > 0 || this.props.recordFormStore.record.documents_images_and_video.length > 0) && (
                     <ul>
                       <li className="add">
                         <a href="#"><span className="image"></span><em>Drag &amp; drop</em></a>
@@ -163,7 +152,7 @@ import {observer} from "mobx-react";
                   )}
                 </ul>
 
-                {(this.state.loading.length === 0 && this.props.recordFormStore.record.documents_and_images.length === 0) && (
+                {(this.state.loading.length === 0 && this.props.recordFormStore.record.documents_images_and_video.length === 0) && (
                   <div className="add add-files">
                     <a href="#">
                       <em>Your files will appear here, or you can drag and drop them.</em>

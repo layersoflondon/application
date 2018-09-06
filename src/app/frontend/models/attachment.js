@@ -104,7 +104,7 @@ export default class Attachment {
     store.record_id = record_id;
 
     if(store.is_video) {
-      store.url = `https://www.youtube.com/watch?v=${object.attachable.youtube_id}`;
+      store.url = object.attachable.youtube_id;
     }
 
     return store;

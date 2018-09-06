@@ -213,6 +213,10 @@ export default class RecordModel {
     return this.attachments.filter((a) => a.is_document_or_image);
   }
 
+  @computed get documents_images_and_video() {
+    return this.attachments.filter((a) => (a.is_document_or_image || a.is_video));
+  }
+
   get_attachment(id) {
     return this.attachments.find((a) => parseInt(a.id, 10) === parseInt(id, 10));
   }
