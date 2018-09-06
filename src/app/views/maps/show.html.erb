@@ -4,7 +4,7 @@
     window.__USER_PRESENT = <%= user_signed_in? %>;
     window.__ADMIN_USER_PRESENT = <%= admin_user_signed_in? %>;
     window.__MAP_BOUNDS = <%= raw Rails.configuration.x.map_bounds.to_json %>;
-
+    window.__MAPBOX_STATIC_MAPS_KEY = '<%= Rails.application.secrets.mapbox_static_maps_key %>';
     <% if user_signed_in? %>
         window.__USER = <%= raw({
             id: current_user.id,
