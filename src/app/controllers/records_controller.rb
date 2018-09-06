@@ -142,7 +142,7 @@ class RecordsController < ApplicationController
         # check whether any part of the date is included
         if permitted.select {|k,v| k.match %r{^#{date_field}}}.values.any?(&:present?)
           # at least one part of the date is present; fill in the rest.
-          [:year, :month, :day].each_with_index do |part, i|
+          [:year, :month, :date].each_with_index do |part, i|
             field_name = "#{date_field}(#{i+1}i)"
             unless permitted[field_name].present?
               permitted[field_name] = "01"
