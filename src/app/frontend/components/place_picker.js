@@ -37,7 +37,7 @@ import {observer, inject} from "mobx-react";
     return (
       <div className="m-place-picker is-showing">
         <div className="wrap">
-          Click on the map to choose where to add your record <a href="" className='close' onClick={this.handleCancelOnClick.bind(this)}></a>
+          Choose the location of your record <a href="" className='close' onClick={this.handleCancelOnClick.bind(this)}></a>
           {/*Pick a place to add a record or*/}
           {/*<input placeholder="Search" type="text" />*/}
           {/*<button onClick={this.handleOnClick.bind(this)}>Search</button>*/}
