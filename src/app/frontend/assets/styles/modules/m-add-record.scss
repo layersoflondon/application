@@ -149,13 +149,14 @@
 }
 
 .m-add-record label.errors-on-publish {
+  position: relative;
   &:after {
-    content: "\f024";
-    //display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: 1em;
-    margin-left:10px;
+    content: "*";
+    font-size: 30px;
     z-index: 1;
     color: $red;
+    position: absolute;
+    right: -18px;
+    top: -4px;
   }
 }

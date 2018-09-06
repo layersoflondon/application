@@ -275,7 +275,6 @@ import NotFound from "../../not_found";
                   <ul>
                     {publishingErrors}
                   </ul>
-                  Look out for the <i className="fa fa-flag"></i> flag icons.
                 </div>
               }
 
