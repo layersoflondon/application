@@ -1,4 +1,4 @@
-import {observable, computed} from 'mobx';
+import {observable, computed, observe} from 'mobx';
 import CollectionModel from './collection';
 import Record from "../sources/record";
 import Attachment from './attachment';
@@ -228,8 +228,12 @@ export default class RecordModel {
       description: this.description,
       lat: this.lat,
       lng: this.lng,
-      date_from: this.date_from,
-      date_to: this.date_to,
+      "date_from(1i)": String(this.date_from_object.year),
+      "date_from(2i)": String(this.date_from_object.month),
+      "date_from(3i)": String(this.date_from_object.date),
+      "date_to(1i)": String(this.date_to_object.year),
+      "date_to(2i)": String(this.date_to_object.month),
+      "date_to(3i)": String(this.date_to_object.date),
       collection_ids: this.collection_ids,
       user_collections: this.user_collections,
       everyone_collections: this.everyone_collections,
