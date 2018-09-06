@@ -74,11 +74,29 @@
     float: none;
     width: 100%;
   }
+
 }
 
 .m-add-record .form-group--location > .m-mini-map {
   height: 150px;
   padding-bottom: 0;
+
+  &:hover {
+    background-color: #000;
+    opacity: 0.5;
+
+    position: relative;
+
+    &:after {
+      content: "Edit";
+      position: absolute;
+      top: 55px;
+      left: 50%;
+      margin-left: -1em;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
 }
 
 .m-add-record .form-group--credits {

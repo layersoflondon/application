@@ -22,15 +22,12 @@ import NotFound from "../../not_found";
   componentWillMount() {
 
 
-    if( this.props.trayViewStore.record ) {
-      // duplicate the record object so that the one we're mutating isn't what may be visible in the tray (its observed
-      // attributes will change in real-time, but aren't actually persisted which might be confusing...)
-      const record = RecordModel.fromJS(this.props.trayViewStore.record.toJS(), this.props.trayViewStore.record.store);
-      this.props.recordFormStore.record = record;
-    }else if( this.props.match.params.id && this.props.match.params.id !== 'new'  ) {
+
+
+
+    if( this.props.match.params.id && this.props.recordFormStore.record.id !== parseInt(this.props.match.params.id) ) {
       Record.show(null, this.props.match.params.id).then((response) => {
         this.props.recordFormStore.record = RecordModel.fromJS(response.data);
-
       }).catch((error) => {
         this.setState({loadingError: true})
       });
@@ -45,7 +42,7 @@ import NotFound from "../../not_found";
 
 
   componentWillUnmount() {
-      this.props.recordFormStore.record = new RecordModel()
+      // this.props.recordFormStore.record = new RecordModel()
   }
 
   createDraftRecord() {

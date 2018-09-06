@@ -30,7 +30,6 @@ import {observer} from "mobx-react";
 
     current_attachment_item.persist().then((response) => {
       this.props.recordFormStore.current_attachment_item.id = response.data.id;
-      console.log("persisted attachment", response, this.props.recordFormStore.current_attachment_item);
     }).catch((error) => {
       console.log("Error saving image", error);
     });
