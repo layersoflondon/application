@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import {Redirect} from 'react-router';
 import Details from './details';
 import Credits from './credits'
+import Location from './location'
 import Dates from './dates';
 import Media from './media';
 import CollectionsEditor from './collections_editor';
@@ -188,6 +189,7 @@ import NotFound from "../../not_found";
             <form action="" className="form--chunky form--over-white">
               <Dates   {...this.props} />
               <Details {...this.props} />
+              <Location {...this.props} />
               <Credits {...this.props} />
 
               <div className="m-accordion">

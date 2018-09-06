@@ -66,6 +66,31 @@
   clear: both;
 }
 
+.m-add-record .form-group--location {
+  width: 280px;
+  float: left;
+
+  @include mq(smartphone) {
+    float: none;
+    width: 100%;
+  }
+}
+
+.m-add-record .form-group--location > .m-mini-map {
+  height: 150px;
+  padding-bottom: 0;
+}
+
+.m-add-record .form-group--credits {
+  width: calc(100% - 300px);
+  float: right;
+
+  @include mq(smartphone) {
+    float: none;
+    width: 100%;
+  }
+}
+
 .m-add-record button.delete,
 .m-add-record button.cancel,
 .m-add-record button.unpublish {
