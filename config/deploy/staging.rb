@@ -34,7 +34,7 @@ set :nginx_custom_server_context, ""
 # set the deploy domain to the prelaunch domain
 set :deploy_domain, fetch(:prelaunch_domain)
 
-set :passenger_port, 8001
+set :passenger_port, 8002
 set :passenger_max_pool_size, 20
 set :passenger_min_instances, 5
 
@@ -46,4 +46,6 @@ set :ssl_key, "layersoflondon.org.key.gpg" #this should be a gpg-encrypted key
 set :ssl_dh, "dhparams.pem.gpg" #this should be a gpg-encrypted key
 
 
-
+set :basic_auth_required, true
+set :basic_auth_username, 'lol'
+set :basic_auth_password, 'lolstaging'
