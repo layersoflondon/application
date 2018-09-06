@@ -34,7 +34,7 @@ set :nginx_custom_server_context, ""
 # set the deploy domain to the prelaunch domain
 set :deploy_domain, fetch(:prelaunch_domain)
 
-set :passenger_port, 8002
+set :passenger_port, 8003
 set :passenger_max_pool_size, 20
 set :passenger_min_instances, 5
 
