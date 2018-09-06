@@ -4,6 +4,7 @@
 @import "base";
 
 @import "library/font-awesome";
+@import "library/react-leaflet-search";
 
 @import "modules/m-sidebar";
 @import "modules/m-map-wrapper";
@@ -53,7 +54,7 @@
 @import "modules/m-map-tray-switcher";
 @import "modules/m-hamburger";
 @import "modules/m-smartphone-menu-wrapper";
-@import "../../../node_modules/react-leaflet-search/lib/react-leaflet-search.css";
+@import "modules/m-mini-map";
 
 
 /*
