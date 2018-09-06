@@ -10,7 +10,7 @@ set :branch, 'development'
 set :base_domain, "prelaunch.error.agency"
 
 # the prelaunch domain
-set :prelaunch_domain, ->{"#{fetch(:primary_domain)}.#{fetch(:base_domain)}"}
+set :prelaunch_domain, ->{"staging.layersoflondon.org"}
 
 #domains which this site will answer to (i.e. not redirect)
 set :site_domains, ['staging.layersoflondon.org']
@@ -32,7 +32,7 @@ set :url_rewrites, {}
 set :nginx_custom_server_context, ""
 
 # set the deploy domain to the prelaunch domain
-set :deploy_domain, fetch(:primary_domain)
+set :deploy_domain, fetch(:prelaunch_domain)
 
 set :passenger_port, 8001
 set :passenger_max_pool_size, 20
