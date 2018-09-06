@@ -45,7 +45,7 @@ import {observer} from "mobx-react";
       container_classes = `${container_classes} is-selected`;
     }
 
-    const removeLinkClass = (this.state.deleting) ? "fa fa-circle-o-notch fa-spin" : "fa fa-times";
+    const removeLinkClass = (this.state.deleting) ? "fa fa-circle-o-notch fa-spin is-deleting" : "fa fa-times";
 
     return (
       this.state.deleted ? null : (<li className={container_classes}>
