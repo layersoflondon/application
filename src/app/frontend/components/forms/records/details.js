@@ -1,6 +1,7 @@
 import React,{Component,Fragment} from 'react';
 import RecordFormComponentState from './record_form_component_state';
 import PlaceDetails from './place_details';
+import {observe} from 'mobx';
 import {observer} from 'mobx-react';
 import ReactQuill from 'react-quill';
 
@@ -21,6 +22,20 @@ import ReactQuill from 'react-quill';
       this.setState({title: ""});
       this.props.recordFormStore.record.title = "";
     }
+  }
+
+  componentWillMount() {
+    // the component is mounted before the record is loaded from the api; a new record is created with the results of the GET request
+    // so we need to observe the record itself and update the description if necessary.
+    this.observerDisposer = observe(this.props.recordFormStore, 'record', (changes) => {
+      if (changes.newValue) {
+        this.setState({description: changes.newValue.description})
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    this.observerDisposer();
   }
 
 
