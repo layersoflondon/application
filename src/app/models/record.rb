@@ -52,6 +52,7 @@ class Record < ApplicationRecord
   }
 
   before_validation :clean_up_description
+  before_validation :clean_up_credit
 
   default_scope  { where.not(state: :deleted)}
   
@@ -97,6 +98,16 @@ class Record < ApplicationRecord
     # remove empty paras
     doc.css('p').select {|p| p.children.empty?}.each(&:remove)
     self.description = doc.to_html
+  end
+
+  def clean_up_credit
+    sanitized = ActionController::Base.helpers.sanitize(credit, tags: %w(p a), attributes: %w(href))
+    doc = Nokogiri::HTML.fragment(sanitized)
+    # remove paras with a break inside
+    doc.css("p>br:only-child").each {|br| br.parent.remove}
+    # remove empty paras
+    doc.css('p').select {|p| p.children.empty?}.each(&:remove)
+    self.credit = doc.to_html
   end
 
   def autogenerate_title

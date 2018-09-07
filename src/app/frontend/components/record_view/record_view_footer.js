@@ -37,10 +37,6 @@ import {NavLink} from 'react-router-dom';
         <div className="attribution">
           <ul>
             <li><h4>Created:</h4> {this.props.trayViewStore.record.created_at}</li>
-            {
-              this.props.trayViewStore.record.credit &&
-              <li><h4>Credit:</h4> {this.props.trayViewStore.record.credit}</li>
-            }
           </ul>
         </div>
         <div className="footer-actions">
