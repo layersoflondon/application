@@ -1,4 +1,5 @@
 class RecordDecorator < Draper::Decorator
+  include DecoratorConcerns::PlaceholderClass
   delegate_all
 
   # Define presentation-specific methods here. Helpers are accessed through
@@ -13,4 +14,5 @@ class RecordDecorator < Draper::Decorator
   def description
     h.simple_format(h.sanitize(object.description)).html_safe
   end
+
 end

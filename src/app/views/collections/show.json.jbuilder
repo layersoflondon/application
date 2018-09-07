@@ -1,1 +1,1 @@
-json.partial! 'search/collection', locals: { collection: @collection }
+json.partial! 'search/collection', locals: { collection: @collection}

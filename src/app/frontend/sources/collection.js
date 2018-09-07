@@ -23,21 +23,21 @@ export default class Collection extends LoLHTTPBase {
     this.setResourcePath(resource_id, id, 'INDEX');
     return axios.get(`${this.resource_path}`);
   }
-
-  static create(resource_id, params) {
-    this.setResourcePath(resource_id, null, 'CREATE');
-    return axios.post(`${this.path}`, params);
-  }
+  //
+  // static create(resource_id, params) {
+  //   this.setResourcePath(resource_id, null, 'CREATE');
+  //   return axios.post(`${this.path}`, params);
+  // }
 
   static show(resource_id, id) {
     this.setResourcePath(resource_id, id, 'SHOW');
     return axios.get(`${this.resource_path}`);
   }
-
-  static update(resource_id, id, params) {
-    this.setResourcePath(resource_id, id, 'UPDATE');
-    return axios.put(`${this.resource_path}`, params);
-  }
+  //
+  // static update(resource_id, id, params) {
+  //   this.setResourcePath(resource_id, id, 'UPDATE');
+  //   return axios.put(`${this.resource_path}`, params);
+  // }
 
   static destroy(resource_id, id) {
     this.setResourcePath(resource_id, id, 'DELETE');

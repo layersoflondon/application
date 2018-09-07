@@ -45,9 +45,10 @@ import {inject} from "mobx-react/index";
     const introClassName = (this.state.introShowing) ? "is-showing" : "";
 
     const meta = <div className="meta">
-      {this.content.tray_view_type}&nbsp;
-      {!!this.props.trayViewStore.recordsCount && pluralize('record', this.props.trayViewStore.recordsCount, true)}
-      {!!this.props.trayViewStore.collectionsCount && ` and ${pluralize('collection',this.props.trayViewStore.collectionsCount,true)}`}
+      {[
+        this.content.tray_view_type,
+        (!!this.props.trayViewStore.recordsCount && pluralize('record', this.props.trayViewStore.recordsCount, true)) || null,
+        (!!this.props.trayViewStore.collectionsCount && pluralize('collection',this.props.trayViewStore.collectionsCount,true)) || null].filter((e) => {return e}).join(", ")}
     </div>;
 
     const trayHeader = <React.Fragment>

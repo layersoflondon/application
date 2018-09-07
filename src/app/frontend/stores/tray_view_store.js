@@ -2,6 +2,7 @@ import {observable, observe, computed} from 'mobx';
 import Record from '../sources/record';
 import Collection from '../sources/collection';
 import User from '../sources/user';
+import Team from '../sources/team';
 
 import CardModel from '../models/card';
 import axios from 'axios';
@@ -37,6 +38,7 @@ export default class TrayViewStore {
   @observable user_id = null;
   @observable team_id = null;
   @observable searching = false;
+  @observable loading_error = false;
 
   map_ref = null;
 
@@ -61,6 +63,7 @@ export default class TrayViewStore {
     // mutating the visible_record_id will fetch that record and update the RecordView component with the relevant state
     observe(this, 'record_id', (change) => {
       this.loading_record = true;
+      this.loading_error = false;
 
       if( change.newValue && change.newValue !== 'new' ) {
         // if(this.cards.get(`record_${change.newValue}`)) {
@@ -73,9 +76,11 @@ export default class TrayViewStore {
             this.cards.set(card.id, card);
             this.record = card.data;
             this.loading_record = true;
+            this.loading_error = false;
           }).catch((error) => {
-            console.log(`Error getting record ${this.record_id}`, error);
+            // console.log(`Error getting record ${this.record_id}`, error);
             this.record_id = null;
+            this.loading_error = true;
           }).then(() => {
             this.loading_record = false;
           });
@@ -93,9 +98,9 @@ export default class TrayViewStore {
     });
 
     observe(this, 'collection_id', (change) => {
+      this.loading_error = false;
       if( change.newValue ) {
         this.loading_collection = true;
-        window.Collection = Collection;
         Collection.show(null, this.collection_id).then((response) => {
           this.root = false;
           this.setHeaderContent({
@@ -107,6 +112,7 @@ export default class TrayViewStore {
           //  Lock this view so dragging the map doesn't change the cards
           this.locked = true;
         }).catch((error) => {
+          this.loading_error = true;
           this.collection_id = null;
         }).then(() => {
           this.loading_collection = false;
@@ -140,6 +146,31 @@ export default class TrayViewStore {
       }else {
         this.user_id = null;
         this.loading_user = false;
+        this.locked = false;
+      }
+    });
+
+    observe(this, 'team_id', (change) => {
+      if( change.newValue ) {
+        this.loading_collection = true;
+        Team.show(null,this.team_id).then((response) => {
+          this.root = false;
+          this.setHeaderContent({
+            title: response.data.name,
+            introduction: response.data.description,
+            tray_view_type: "Team"
+          });
+          this.showCollectionOfCards(response.data.records);
+
+          this.locked = true;
+        }).catch((error) => {
+          this.team_id = null;
+        }).then(() => {
+          this.loading_team = false;
+        });
+      }else {
+        this.team_id = null;
+        this.loading_team = false;
         this.locked = false;
       }
     });

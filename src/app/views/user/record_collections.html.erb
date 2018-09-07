@@ -23,7 +23,7 @@
             <a href="#" class="clickable" data-type="collection" data-id="<%= collection.id %>">
               <%= collection.title %>
             </a>
-            <button class="edit">Edit</button>
+            <button class="edit clickable" data-type="collection" data-id="<%= collection.id %>" data-action="edit">Edit</button>
           </li>
         <% end %>
       </ul>

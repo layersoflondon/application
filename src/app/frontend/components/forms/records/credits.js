@@ -12,6 +12,7 @@ import Parser from 'html-react-parser';
   }
 
   render() {
+    const creditsLabelClassName = !!this.props.recordFormStore.record.errors_on_publishing['credit'] ? "errors-on-publish" : "";
     let credit = this.props.recordFormStore.record.credit || "";
     // if(description.length) {
     //   description = description.map((el) => el.props.children).join("\n").replace(/^\n/,'');
@@ -21,9 +22,9 @@ import Parser from 'html-react-parser';
 
     return (
       <div>
-        <div className="form-group">
-          <label>Credits and attribution</label>
-          <textarea rows="4" placeholder="Describe where you got this information, if it comes from elsewhere" name="credit" value={credit} onChange={this.handleOnChange} className={`${this.appendErrorClassNameToField('credit')}`}>
+        <div className="form-group form-group--credits">
+          <label className={creditsLabelClassName}>Credits and attribution</label>
+          <textarea rows="4" placeholder="Describe where you got this information, if it comes from elsewhere" name="credit" value={credit} onChange={this.handleOnChange} onBlur={this.handleOnBlur} className={`${this.appendErrorClassNameToField('credit')}`}>
           </textarea>
         </div>
       </div>

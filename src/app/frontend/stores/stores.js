@@ -3,6 +3,7 @@ import TrayViewStore from './tray_view_store';
 import CollectionStore from './collection_store';
 import LayersStore from './layers_store';
 import RecordFormStore from './record_form_store';
+import CollectionFormStore from './collection_form_store'
 
 /**
  * given a state object, instantiate our stores using the json rendered into the page
@@ -15,20 +16,24 @@ export default (state) => {
   // console.log("Got state: ", state, tray, collections, layers, map);
 
   const recordFormStore = RecordFormStore.fromJS({});
+  const collectionFormStore = new CollectionFormStore.fromJS({});
   const mapViewStore = MapViewStore.fromJS(map);
   const layersStore = LayersStore.fromJS(layers);
   const trayViewStore = TrayViewStore.fromJS(tray);
   const collectionStore = CollectionStore.fromJS(collections, trayViewStore);
 
   const stores = {
-    recordFormStore: recordFormStore,
+     recordFormStore: recordFormStore,
     trayViewStore: trayViewStore,
     mapViewStore: mapViewStore,
     layersStore: layersStore,
-    collectionStore: collectionStore
+    collectionStore: collectionStore,
+    collectionFormStore: collectionFormStore
   };
 
   window.stores = stores;
 
   return stores;
 }
+
+

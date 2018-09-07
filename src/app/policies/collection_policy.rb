@@ -7,8 +7,13 @@ class CollectionPolicy < ApplicationPolicy
     record.owner_type == 'User' || user_belongs_team?
   end
 
+
   def update?
-    create?
+    is_user_owner_of_collection? || is_user_team_leader_of_collection?
+  end
+
+  def edit?
+    update?
   end
 
   def destroy?

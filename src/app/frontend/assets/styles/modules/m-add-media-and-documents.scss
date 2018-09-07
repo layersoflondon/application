@@ -154,7 +154,8 @@
   background: #0000005c;
 }
 
-.m-add-media-and-documents .thumbs li.is-selected .image {
+.m-add-media-and-documents .thumbs li.is-selected .image,
+.m-add-media-and-documents .add-tools .add-url.is-selected {
   box-shadow: 0 0 0px 4px #ee1d46 inset;
 }
 
@@ -184,6 +185,29 @@
   border: 4px dashed #e8ca4c;
   transition: all .2s;
   height: 150px;
+}
+
+.m-add-media-and-documents .thumbs .dropzone a.remove-attachment {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  z-index: 100;
+  background: $red;
+  border-radius: 30px;
+  height: 30px;
+  width: 30px;
+  color: $white;
+
+  i {
+    margin-left: 7.5px;
+    font-size: 20px;
+    margin-top: 3px;
+
+    .is-deleting {
+      margin-left: 5.5px;
+      margin-top: 4.5px;
+    }
+  }
 }
 
 .m-add-media-and-documents .thumbs .dropzone.is-active .add.add-files {

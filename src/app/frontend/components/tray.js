@@ -41,13 +41,7 @@ import TrayHeader from "./tray_header";
       trayClassName = "m-tray-area is-loading";
     }
 
-    const closeAction = (trayHeader) => {
-      console.log("got tray header", trayHeader);
-    };
-    this.props.trayViewStore.recordsCount;
-
-
-
+    
     return <div className={trayClassName}>
       <div className="open-close" onClick={() => this.props.trayViewStore.toggleTrayVisibility()}>
         <span>Close</span>

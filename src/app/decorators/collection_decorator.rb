@@ -1,4 +1,5 @@
 class CollectionDecorator < Draper::Decorator
+  include DecoratorConcerns::PlaceholderClass
   delegate_all
   decorates_association :records
 

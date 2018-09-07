@@ -131,7 +131,7 @@ import Search from "../../../sources/search";
     this.props.trayViewStore.loading = true;
 
     const header_subtitle = (!!this.state.start_year || !!this.state.end_year) ? `${!!this.state.start_year ? this.state.start_year : "up"} to ${!!this.state.end_year ? this.state.end_year : "now"}` : "";
-    const header_title = !!this.state.q ? `Your search for "${this.state.q}"` : `Results ${header_subtitle}`;
+    const header_title = !!this.state.q ? `Your search for “${this.state.q}”` : `Results ${header_subtitle}`;
 
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
@@ -142,9 +142,10 @@ import Search from "../../../sources/search";
       this.props.trayViewStore.setHeaderContent({
         title: header_title,
         subtitle: !!this.state.q ? header_subtitle : "",
-        tray_view_type: "Found"
+        tray_view_type: "Search"
       });
       this.props.trayViewStore.showCollectionOfCards(response.data);
+
 
       if( response.data.length > 0 ) {
         // get first response object with a lat & lng (if it's a collection, get the first one with records)
@@ -166,6 +167,7 @@ import Search from "../../../sources/search";
 
       this.props.trayViewStore.locked = true;
       this.props.trayViewStore.root = false;
+      this.props.router.history.push(`/map/search?show_results=true&q=${this.state.q}`)
     });
   }
 

@@ -66,6 +66,49 @@
   clear: both;
 }
 
+.m-add-record .form-group--location {
+  width: 280px;
+  float: left;
+
+  @include mq(smartphone) {
+    float: none;
+    width: 100%;
+  }
+
+}
+
+.m-add-record .form-group--location > .m-mini-map {
+  height: 150px;
+  padding-bottom: 0;
+
+  &:hover {
+    background-color: #000;
+    opacity: 0.5;
+
+    position: relative;
+
+    &:after {
+      content: "Edit";
+      position: absolute;
+      top: 55px;
+      left: 50%;
+      margin-left: -1em;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+}
+
+.m-add-record .form-group--credits {
+  width: calc(100% - 300px);
+  float: right;
+
+  @include mq(smartphone) {
+    float: none;
+    width: 100%;
+  }
+}
+
 .m-add-record button.delete,
 .m-add-record button.cancel,
 .m-add-record button.unpublish {
@@ -103,4 +146,17 @@
   border: 2px solid #549a76;
   margin: -1px;
   padding: 19px;
+}
+
+.m-add-record label.errors-on-publish {
+  position: relative;
+  &:after {
+    content: "*";
+    font-size: 30px;
+    z-index: 1;
+    color: $red;
+    position: absolute;
+    right: -18px;
+    top: -4px;
+  }
 }

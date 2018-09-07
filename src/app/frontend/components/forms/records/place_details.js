@@ -37,7 +37,7 @@ class FoundPlaces extends Component {
 
         {this.props.recordFormStore.place_lookup_status === 200 && this.props.recordFormStore.record.location &&
           <span className="location">
-            Place: {this.props.recordFormStore.record.location.address} | {this.props.recordFormStore.record.lat.toFixed(3)}, {this.props.recordFormStore.record.lng.toFixed(3)}
+            Location: {this.props.recordFormStore.record.lat.toFixed(3)}, {this.props.recordFormStore.record.lng.toFixed(3)}
             {/*{edit}*/}
           </span>
         }

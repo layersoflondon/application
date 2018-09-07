@@ -4,11 +4,12 @@ json.set! :data do
     json.set! :cards, []
   end
 
-  json.set! :collections do
-    json.array! @collections do |collection|
-      json.partial! 'search/collection', {locals: {collection: collection}}
-    end
-  end
+  # json.set! :collections do
+  #   json.array! @collections do |collection|
+  #     json.partial! 'search/collection', {locals: {collection: collection}}
+  #   end
+  # end
+  json.set! :collections, []
 
   json.set! :layers, @layers.collect do |layer|
     json.partial! 'maps/partials/layer_state', layer: layer

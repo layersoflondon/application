@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   
   root to: "pages#index"
 
+  get '/user/record_collections'
   devise_for :users,
              controllers: {
                invitations: 'users/invitations',
