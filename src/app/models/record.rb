@@ -51,6 +51,8 @@ class Record < ApplicationRecord
     where(user: nil)
   }
 
+  before_validation :clean_up_description
+
   default_scope  { where.not(state: :deleted)}
   
   before_validation :autogenerate_title, on: :create
@@ -83,6 +85,18 @@ class Record < ApplicationRecord
     
     self.state = original_state
     self.checking_validity_for_publishing = false
+  end
+
+
+  def clean_up_description
+  #   the quill editor seems to leave loads of empty paragraph tags around the place. We'll just strip empty paras out before saving
+    sanitized = ActionController::Base.helpers.sanitize(description, tags: %w(p br h1 h2 b strong em u strikethrough s d ul ol), attributes: %w(href))
+    doc = Nokogiri::HTML.fragment(sanitized)
+    # remove paras with a break inside
+    doc.css("p>br:only-child").each {|br| br.parent.remove}
+    # remove empty paras
+    doc.css('p').select {|p| p.children.empty?}.each(&:remove)
+    self.description = doc.to_html
   end
 
   def autogenerate_title
