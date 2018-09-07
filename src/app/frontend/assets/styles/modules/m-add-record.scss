@@ -118,6 +118,28 @@
   }
 }
 
+.m-add-record .form-group--credits .helper-text {
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.m-add-record .form-group--credits .quill {
+  height: 120px;
+  border: 1px solid #ccc;
+
+  .ql-tooltip.ql-editing {
+    min-width: 200px;
+  }
+
+  .ql-container.ql-bubble:not(.ql-disabled) a::before,
+  .ql-container.ql-bubble:not(.ql-disabled) a::after{
+    display: none
+  }
+}
+
+
+
 .m-add-record button.delete,
 .m-add-record button.cancel,
 .m-add-record button.unpublish {
@@ -135,7 +157,7 @@
   font-size: 14px;
 }
 
-.m-add-record .ql-editor {
+.m-add-record .form-group--description .ql-editor {
   min-height: 200px;
 }
 
@@ -153,7 +175,7 @@
 
 .ql-editor.ql-editor:focus {
   border: 2px solid #549a76;
-  margin: -1px;
+  //margin: -1px;
   padding: 19px;
 }
 
