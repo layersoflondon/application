@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userPresent = window.__USER_PRESENT;
     const adminUserPresent = window.__ADMIN_USER_PRESENT;
     const mapBounds = window.__MAP_BOUNDS;
+    const mapboxStaticMapsKey = window.__MAPBOX_STATIC_MAPS_KEY;
 
     const browserHistory = createBrowserHistory();
     const routerStore = new RouterStore();
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stores.currentUser = window.__USER;
 
         ReactDOM.render(
-          <Provider {...stores} userPresent={userPresent} adminUserPresent={adminUserPresent} mapBounds={mapBounds}>
+          <Provider {...stores} userPresent={userPresent} adminUserPresent={adminUserPresent} mapBounds={mapBounds} mapboxStaticMapsKey={mapboxStaticMapsKey}>
             <Router history={history} >
               <Main />
             </Router>

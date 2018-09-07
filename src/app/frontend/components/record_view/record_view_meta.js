@@ -11,7 +11,7 @@ import {NavLink} from 'react-router-dom';
   render() {
     return <div className="meta">
       <div className="dates">
-        <span className="date start-date">{this.props.trayViewStore.record.date_from}</span>
+        <span className="date start-date">{this.props.trayViewStore.record.display_date_from}</span>
       </div>
       <div className="creator">By <NavLink to={`/map/users/${this.props.trayViewStore.record.user.id}`}>{this.props.trayViewStore.record.user.name}</NavLink></div>
     </div>

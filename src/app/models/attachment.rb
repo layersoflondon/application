@@ -2,12 +2,13 @@ class Attachment < ApplicationRecord
   belongs_to :record
   belongs_to :attachable, polymorphic: true, dependent: :destroy
   # update_index('attachments#attachment') { self }
-  update_index 'records#record' do
-    previous_changes['record_id'] || id
+  after_save do
+    record.touch
+  end
+  after_destroy do
+    record.touch
   end
   attr_writer :attachment_type
-  # TODO: not sure whether url and file methods should be included in attachable, for instance
-  # when deleting an url, gives the error: undefined method `file' for <Attachment ..
   delegate :title, :caption, :credit, to: :attachable
   accepts_nested_attributes_for :attachable
   validates_associated :attachable

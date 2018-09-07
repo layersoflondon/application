@@ -38,7 +38,6 @@ export default class MediaItemStore {
   }
 
   static fromJS(object, record_id) {
-    console.log("From JS");
     const store = new MediaItemStore();
 
     Object.assign(store, object);

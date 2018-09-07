@@ -1,14 +1,19 @@
 import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
-import PlaceDetails from './place_details';
-import {observer} from 'mobx-react';
-import Parser from 'html-react-parser';
+import {observer, inject} from 'mobx-react';
+import {withRouter} from 'react-router-dom';
 
+@inject('mapboxStaticMapsKey')
+@withRouter
 @observer class Credits extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {title: ''};
+  }
+
+  changeLocation(event) {
+    event.preventDefault();
+    this.props.router.push('/map/choose-place');
   }
 
   render() {
@@ -22,10 +27,10 @@ import Parser from 'html-react-parser';
 
     return (
       <div>
-        <div className="form-group form-group--credits">
-          <label className={creditsLabelClassName}>Credits and attribution</label>
-          <textarea rows="4" placeholder="Describe where you got this information, if it comes from elsewhere" name="credit" value={credit} onChange={this.handleOnChange} onBlur={this.handleOnBlur} className={`${this.appendErrorClassNameToField('credit')}`}>
-          </textarea>
+        <div className="form-group form-group--location">
+          <label className={creditsLabelClassName}>Location</label>
+          <div className="m-mini-map" style={{backgroundImage: `url(https://maps.tilehosting.com/styles/basic/static/${this.props.recordFormStore.record.lng},${this.props.recordFormStore.record.lat},16/280x150.png?key=${this.props.mapboxStaticMapsKey})`}} onClick={this.changeLocation.bind(this)}>
+          </div>
         </div>
       </div>
     );

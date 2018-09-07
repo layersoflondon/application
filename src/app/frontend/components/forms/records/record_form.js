@@ -1,46 +1,66 @@
 import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
+import {Redirect} from 'react-router';
 import Details from './details';
 import Credits from './credits'
+import Location from './location'
 import Dates from './dates';
 import Media from './media';
 import CollectionsEditor from './collections_editor';
 import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
+import NotFound from "../../not_found";
 
 @inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore', 'currentUser')
 @observer export default class RecordForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {errors: []};
+    this.state = {errors: [], loadingError: false};
   }
 
   componentWillMount() {
-    if( this.props.trayViewStore.record ) {
-      // duplicate the record object so that the one we're mutating isn't what may be visible in the tray (its observed
-      // attributes will change in real-time, but aren't actually persisted which might be confusing...)
-      const record = RecordModel.fromJS(this.props.trayViewStore.record.toJS(), this.props.trayViewStore.record.store);
-      this.props.recordFormStore.record = record;
-    }else if( this.props.match.params.id && this.props.match.params.id !== 'new'  ) {
+
+
+
+
+
+    if( this.props.match.params.id && this.props.recordFormStore.record.id !== parseInt(this.props.match.params.id) ) {
       Record.show(null, this.props.match.params.id).then((response) => {
         this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+      }).catch((error) => {
+        this.setState({loadingError: true})
       });
+    } else if (this.props.location.pathname.match(/\/new/)) {
+      if (!this.props.recordFormStore.record.lat || !this.props.recordFormStore.record.lng) {
+        this.props.router.push('/map/choose-place');
+      }
+      this.createDraftRecord();
     }
 
-    if( this.props.trayViewStore.cards.size === 0 ) {
-      setTimeout(() => {
-        if( this.props.match.params.id ) {
-          this.props.trayViewStore.fetchRecord(this.props.match.params.id, true);
-        }else {
-          this.props.trayViewStore.restoreRootState();
-        }
-      }, 10);
-    }
   }
 
+
   componentWillUnmount() {
-      this.props.recordFormStore.record = new RecordModel()
+      // this.props.recordFormStore.record = new RecordModel()
+  }
+
+  createDraftRecord() {
+    if (!this.props.recordFormStore.record.id) {
+      this.props.recordFormStore.record.persist().then((response) => {
+        this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+
+        // fixme - find a better way to do this. the stubbed out video
+        // attachment needs to know the record id we've just been given...
+        this.props.recordFormStore.record.videos.map((v, i) => {
+          if( !v.record_id ) {
+            v.record_id = response.data.id;
+          }
+        });
+      }).catch((error) => {
+        this.props.recordFormStore.record.errors = error.response.data;
+      });
+    }
   }
 
   handleClickedOnSave(event) {
@@ -90,7 +110,7 @@ import RecordModel from './../../../models/record';
       Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
         if( state === 'deleted' ) {
           this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
-          this.props.recordFormStore.record_id = null;
+          this.props.recordFormStore.record = new RecordModel();
           this.props.router.push('/map');
         }
 
@@ -101,6 +121,7 @@ import RecordModel from './../../../models/record';
 
   handleCloseOnClick(event) {
     event.preventDefault();
+    this.props.recordFormStore.record = new RecordModel();
 
     if(this.props.match.params.collection_id) {
       this.props.router.push(`/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}`);
@@ -112,22 +133,24 @@ import RecordModel from './../../../models/record';
       this.props.router.push(`/map`);
     }
 
+
     this.props.mapViewStore.add_record_mode = false;
     this.props.trayViewStore.tray_is_visible = true;
   }
 
   render() {
-    if( this.props.match.params.id && parseInt(this.props.match.params.id, 10) !== this.props.recordFormStore.record.id ) {
-      // fixme: show a spinner here whilst we load the record we're editing
-      return <div className="spinner" />
-    }else if( this.props.recordFormStore.record.id && !this.props.recordFormStore.record.user_can_edit_record ) {
+    if (this.state.loadingError) {
+      return <NotFound/>
+    }
+
+    if( this.props.recordFormStore.record.id && !this.props.recordFormStore.record.user_can_edit_record ) {
       return <div className='m-overlay'>
         <div className="close">
           <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
         </div>
 
         <div className="m-add-record">
-          <h1>Add record</h1>
+          <h1>Not allowed</h1>
 
           <p>
             You don't have permission to edit this record.
@@ -140,6 +163,18 @@ import RecordModel from './../../../models/record';
     if( this.props.mapViewStore.overlay === 'record_form' ) className+=" is-showing";
 
     let form_title = this.props.recordFormStore.record.id ? "Edit record" : "Add record";
+    // const publishingErrors = this.props.recordFormStore.record.errors_on_publishing.map((e) => {
+    //   console.log(e);
+    // });
+
+    const publishingErrors = Object.entries(this.props.recordFormStore.record.errors_on_publishing).map((e) => {
+      const fieldName = e[0];
+      return e[1].map((message,i) => {
+        const key = `${fieldName}-${i}`;
+        return <li key={key}>{message}</li>;
+      });
+    });
+
     return (
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
@@ -148,11 +183,12 @@ import RecordModel from './../../../models/record';
           </div>
 
           <div className="m-add-record">
-            <h1>{form_title}</h1>
+            <h1>Edit a record</h1>
 
             <form action="" className="form--chunky form--over-white">
               <Dates   {...this.props} />
               <Details {...this.props} />
+              <Location {...this.props} />
               <Credits {...this.props} />
 
               <div className="m-accordion">
@@ -203,11 +239,7 @@ import RecordModel from './../../../models/record';
                 }
 
                 <div className="secondary-actions">
-                  {!this.props.recordFormStore.record.id && (
-                    <button type="submit" className="delete" onClick={()=>this.props.router.push('/map')}>
-                      Cancel
-                    </button>
-                  )}
+
                   {(this.props.recordFormStore.record.id && this.props.recordFormStore.record.state == "draft") && (
                     <button type="submit" className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
                       Delete
@@ -232,10 +264,21 @@ import RecordModel from './../../../models/record';
                     <input type="submit" data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save as draft" />
                   )}
 
-                  <input type="submit" data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
+                  {
+                    this.props.recordFormStore.record.valid_for_publishing &&
+                    <input type="submit" data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
+                  }
                 </div>
 
               </div>
+              { !this.props.recordFormStore.record.valid_for_publishing &&
+                <div className="form-validation-errors">
+                  Before you can publish this record, you need to add some information:
+                  <ul>
+                    {publishingErrors}
+                  </ul>
+                </div>
+              }
 
             </form>
           </div>

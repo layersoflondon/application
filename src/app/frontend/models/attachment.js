@@ -38,6 +38,10 @@ export default class Attachment {
     }
   }
 
+  destroy() {
+    return RecordAttachments.destroy(this.record_id, this.id)
+  }
+
   @computed get is_media() {
     return this.attachable_type === 'Attachments::Image' || this.attachable_type === 'Attachments::VideoFile' || this.attachable_type === 'Attachments::AudioFile';
   }
@@ -100,7 +104,7 @@ export default class Attachment {
     store.record_id = record_id;
 
     if(store.is_video) {
-      store.url = `https://www.youtube.com/watch?v=${object.attachable.youtube_id}`;
+      store.url = object.attachable.youtube_id;
     }
 
     return store;

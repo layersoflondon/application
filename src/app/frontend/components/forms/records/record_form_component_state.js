@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import Record from '../../../sources/record';
+import RecordModel from "../../../models/record";
 
 export default class RecordFormComponentState {
   static bindComponent(component) {
@@ -9,28 +10,12 @@ export default class RecordFormComponentState {
 
         this.state = Object.assign({}, this.state);
 
-        this.createDraftRecord = this.createDraftRecord.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
+        this.handleOnBlur = this.handleOnBlur.bind(this);
         this.togglePaneVisibility = this.togglePaneVisibility.bind(this);
         this.appendErrorClassNameToField = this.appendErrorClassNameToField.bind(this);
       }
 
-      createDraftRecord(event) {
-        this.props.recordFormStore.record.persist().then((response) => {
-          this.props.recordFormStore.record.id = response.data.id;
-          this.props.recordFormStore.record.state = response.data.state;
-
-          // fixme - find a better way to do this. the stubbed out video
-          // attachment needs to know the record id we've just been given...
-          this.props.recordFormStore.record.videos.map((v, i) => {
-            if( !v.record_id ) {
-              v.record_id = response.data.id;
-            }
-          });
-        }).catch((error) => {
-            this.props.recordFormStore.record.errors = error.response.data;
-        });
-      }
 
       handleOnChange(event) {
         const { name, value } = event.target;
@@ -39,6 +24,25 @@ export default class RecordFormComponentState {
         });
 
         this.props.recordFormStore.record[name] = value;
+      }
+
+      handleOnBlur() {
+        if (!this.props.recordFormStore.record.id) {
+          //if no ID, we're creating a record
+          this.createDraftRecord();
+        } else {
+          //  We're updating a record
+          this.props.recordFormStore.record.persist().then((response) => {
+          //  reset errors
+            this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+            this.props.recordFormStore.record.errors = {};
+          }).catch((error) => {
+            this.props.recordFormStore.record.errors = error.response.data;
+            this.props.recordFormStore.record.errors_on_publishing = error.response.data;
+            this.props.recordFormStore.record.valid_for_publishing = false;
+          })
+        }
+
       }
 
       appendErrorClassNameToField(fieldName, classes="") {
