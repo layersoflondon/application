@@ -10,7 +10,12 @@ class RecordsController < ApplicationController
   end
 
   def create
-    @record = current_user.records.build(record_params)
+    begin
+      @record = current_user.records.build(record_params)
+    rescue ActiveRecord::MultiparameterAssignmentErrors
+      @record = current_user.records.build(record_params.reject {|k,v| k.to_s.match(/^date_/)})
+    end
+
     authorize(@record)
     @record.save # TODO horrible hack because we can't set the errors_on_publishing on create for some reason.
     @result = save_record_and_return_from_es(@record)
@@ -42,9 +47,12 @@ class RecordsController < ApplicationController
   end
 
   def update
-    update_record_params = record_params.to_h
-    check_transition(update_record_params[:state])
-    @record.assign_attributes(update_record_params)
+    check_transition(record_params[:state])
+    begin
+      @record.assign_attributes(record_params)
+    rescue ActiveRecord::MultiparameterAssignmentErrors
+      @record.assign_attributes(record_params.reject {|k,v| k.to_s.match(/^date_/)})
+    end
     authorize(@record)
 
     @result = save_record_and_return_from_es(@record)
