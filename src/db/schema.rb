@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 2018_09_06_195633) do
     t.integer "image_id"
   end
 
-  create_table "record_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "record_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "record_id"
     t.string "issue", null: false
     t.string "message", null: false

@@ -13,7 +13,6 @@
     margin:15px;
   }
   @include mq(small-smartphone) {
-
   }
 }
 
@@ -356,7 +355,6 @@
   width: 100%;
   padding-bottom: 100%;
   background: #ddd center/cover;
-  @include add-mini-map-marker;
 }
 
 .m-record .place .text {

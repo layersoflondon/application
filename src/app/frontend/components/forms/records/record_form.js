@@ -273,7 +273,7 @@ import NotFound from "../../not_found";
               </div>
               { !this.props.recordFormStore.record.valid_for_publishing &&
                 <div className="form-validation-errors">
-                  Before you can publish this record, you need to add some information:
+                  <p>Before you can publish this record, you need to add some information:</p>
                   <ul>
                     {publishingErrors}
                   </ul>
