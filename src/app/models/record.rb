@@ -40,7 +40,6 @@ class Record < ApplicationRecord
     validates :description, presence: {message: "You need to include a description"}
     validates :lat, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }
     validates :lng, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
-    validates :date_from, presence: {message: "Date needs to be included"}
     # validates_format_of :date_from, with: /\d{4}-\d{2}-\d{2}/, message: "Date isn't in day / month / year format"
     # validates_format_of :date_to, with: /\d{4}-\d{2}-\d{2}/, message: "End date isn't in day / month / year format", if: -> {date_to.present?}
     validate :date_is_in_the_past
