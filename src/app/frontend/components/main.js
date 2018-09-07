@@ -66,7 +66,7 @@ import NotFound from "./not_found";
         <Route path='/map/records/new' component={RecordForm} />
 
         {/* edit an existing record */}
-      <Route exact path='/map/records/:id/edit' render={({match}) => (<ErrorBoundary><RecordForm match={match}/></ErrorBoundary>)}/>
+        <Route exact path='/map/records/:id/edit' component={RecordForm} />
         <Route exact path='/map/collections/:collection_id/records/:id/edit' component={RecordForm} />
 
         {/* view a record */}
