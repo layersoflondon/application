@@ -64,7 +64,7 @@ import ErrorBoundary from '../../error_boundary';
                      onBlur={this.handleOnBlur}
               />
             </div>
-          <span className="helper-text">An estimate is ok - an exact date is fantastic!</span>
+          <span className="helper-text">You can just enter the year, or year and month. An estimate is ok - an exact date is fantastic!</span>
         </div>
 
         {!this.state.date_to_visible && (
