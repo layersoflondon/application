@@ -121,6 +121,7 @@ import NotFound from "../../not_found";
 
   handleCloseOnClick(event) {
     event.preventDefault();
+    this.props.recordFormStore.record = new RecordModel();
 
     if(this.props.match.params.collection_id) {
       this.props.router.push(`/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}`);
@@ -131,6 +132,7 @@ import NotFound from "../../not_found";
       this.props.trayViewStore.locked = false;
       this.props.router.push(`/map`);
     }
+
 
     this.props.mapViewStore.add_record_mode = false;
     this.props.trayViewStore.tray_is_visible = true;
