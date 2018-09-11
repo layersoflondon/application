@@ -1,8 +1,8 @@
 json.score collection._score
 json.id collection.id
 json.title collection.title
-json.description collection.description
-json.excerpt strip_tags(collection.description).truncate(80)
+json.description collection.description || ""
+json.excerpt strip_tags(collection.description).try(:truncate,80) || ""
 json.read_state collection.read_state
 json.write_state collection.write_state
 json.write_state_team_id collection.write_state_team_id
