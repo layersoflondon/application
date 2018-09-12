@@ -248,7 +248,7 @@ export default class RecordModel {
   @computed get date_from_formatting_string() {
     const yearFormat = "YYYY";
     const monthFormat = "MMMM";
-    const dayFormat = "dddd do";
+    const dayFormat = "dddd Do";
     
     let format = [];
 
@@ -292,14 +292,14 @@ export default class RecordModel {
   
   @computed get display_date_from() {
     const date_from = this.date_from_object;
-    const dateString = `${date_from.year}-${date_from.month}-${date_from.date}`;
+    const dateString = `${date_from.year.toString().padStart(4,'0')}-${date_from.month.toString().padStart(2,'0')}-${date_from.date.toString().padStart(2,'0')}`;
     const dateFormat = "YYYY-MM-DD";
     return moment(dateString, dateFormat).format(this.date_from_formatting_string);
   }
 
   @computed get display_date_to() {
     const date_to = this.date_to_object;
-    const dateString = `${date_to.year}-${date_to.month}-${date_to.date}`;
+    const dateString = `${date_to.year.toString().padStart(4,'0')}-${date_to.month.toString().padStart(2,'0')}-${date_to.date.toString().padStart(2,'0')}`;
     const dateFormat = "YYYY-MM-DD";
     return moment(dateString, dateFormat).format(this.date_to_formatting_string);
   }
