@@ -23,6 +23,7 @@ import UserForm from './forms/user/user_form';
 import RecordForm from './forms/records/record_form';
 import ErrorBoundary from "./error_boundary";
 import NotFound from "./not_found";
+import AddToCollection from "./record_view/add_to_collection";
 
 @inject('router', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore', 'collectionFormStore')
 @withRouter
@@ -60,6 +61,7 @@ import NotFound from "./not_found";
         <Route exact path='/map/collections/new' component={CollectionForm} />
         <Route exact path='/map/collections/:id/edit' component={CollectionForm} />
 
+
         {/* the route we go to when '+ Add record' is clicked to allow the user to choose a place */}
         <Route path='/map/choose-place' component={PlacePicker} />
         {/* once the user has chosen a place on the map, we show the form */}
@@ -68,6 +70,8 @@ import NotFound from "./not_found";
         {/* edit an existing record */}
         <Route exact path='/map/records/:id/edit' component={RecordForm} />
         <Route exact path='/map/collections/:collection_id/records/:id/edit' component={RecordForm} />
+        <Route exact path='/map/records/:id/add-to-collection' component={AddToCollection} />
+
 
         {/* view a record */}
         <Route exact path='/map/records/:id' component={RecordView} />
