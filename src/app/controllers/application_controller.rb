@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   after_action :verify_authorized, unless: :should_skip_verify_authorized?
   before_action :authenticate_user!, unless: :devise_controller?
 
-  before_action :get_navigation_menu
+  before_action :get_navigation_menu, if: -> {request.format.html?}
 
   rescue_with_not_found Rooftop::RecordNotFoundError, ActionController::RoutingError, ActiveRecord::RecordNotFound
   rescue_from Pundit::NotAuthorizedError do
