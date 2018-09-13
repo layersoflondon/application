@@ -7,4 +7,6 @@ export default class CollectionRecords extends LoLHTTPBase {
   static resourceIdPath(record_id){
     this.resource_path = this.path = `/collections/${record_id}/records`;
   }
+
+
 }

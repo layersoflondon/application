@@ -39,6 +39,8 @@ Rails.application.routes.draw do
     member do
       patch 'like'
       post 'report'
+      patch 'collections', to: 'records#add_to_collections'
+      delete 'collections', to: 'records#remove_from_collections'
     end
   end
 

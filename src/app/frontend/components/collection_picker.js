@@ -1,6 +1,8 @@
+import {observe} from 'mobx'
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import Record from "../sources/record";
 
 export default class CollectionPicker extends Component {
   constructor(props) {
@@ -15,16 +17,39 @@ export default class CollectionPicker extends Component {
       record: this.props.record,
       collections: this.props.collections
     };
+  }
 
+  componentWillUnmount() {
+    this.observerDisposer();
   }
 
   componentWillReceiveProps() {
-    console.log('component will receive props');
     this.setState({
       enabled_user_collections: this.props.user_collections,
       enabled_everyone_collections: this.props.everyone_collections,
       record: this.props.record,
       collections: this.props.collections
+    });
+    // observe the record's collection IDs
+    this.observerDisposer = observe(this.props.record, 'collection_ids', (change) => {
+      //  We need to persist the collections at this point - hit the RecordCollections endpoint
+      const added_ids = change.newValue.filter((id) => {return change.oldValue.indexOf(id) < 0});
+      const removed_ids = change.oldValue.filter((id) => {return change.newValue.indexOf(id) < 0});
+      console.log('old:', change.oldValue.toJS());
+      console.log('New:', change.newValue.toJS());
+      if (added_ids.length) {
+        console.log('added:', added_ids);
+        Record.add_to_collections(this.id, {collection_ids: added_ids}).then((result) => {
+          this.props.record.collection_ids = result.data;
+        }).catch((errors) => {
+          console.log(errors);
+        });
+      }
+
+      if (removed_ids.length) {
+        console.log('removed:',removed_ids);
+        Record.remove_from_collections(null, this.id, {collection_ids: removed_ids});
+      }
     });
   }
 
@@ -36,29 +61,32 @@ export default class CollectionPicker extends Component {
 
   handleSelectOnChange(options, event) {
     let {action} = event;
+    // don't need to run this code if the select options are just being switched between personal and everyone collections
+    if (action !== 'set-value') {
 
-    let updated_collections = this.state[`enabled_${this.state.showing}`].slice();
-    let collection_ids = this.state.record.collection_ids.slice();
+      let updated_collections = this.state[`enabled_${this.state.showing}`].slice();
+      let collection_ids = this.state.record.collection_ids.slice();
 
-    if( action === 'clear' ) {
-      updated_collections = [];
-    }else if( action === 'remove-value' ) {
-      const removed_collections = updated_collections.filter((c) => options.indexOf(c)<0);
-      const removed_collection_ids = removed_collections.map((c) => c.value);
+      if( action === 'clear' ) {
+        updated_collections = [];
+      }else if( action === 'remove-value' ) {
+        const removed_collections = updated_collections.filter((c) => options.indexOf(c)<0);
+        const removed_collection_ids = removed_collections.map((c) => c.value);
 
-      collection_ids = collection_ids.filter((i) => removed_collection_ids.indexOf(i)<0);
-      updated_collections = options;
-    }else if( action === 'select-option' ) {
-      options.map((option) => {
-        if(updated_collections.indexOf(option)<0) {
-          updated_collections.push(option);
-          collection_ids.push(option.value);
-        }
-      });
+        collection_ids = collection_ids.filter((i) => removed_collection_ids.indexOf(i)<0);
+        updated_collections = options;
+      }else if( action === 'select-option' ) {
+        options.map((option) => {
+          if(updated_collections.indexOf(option)<0) {
+            updated_collections.push(option);
+            collection_ids.push(option.value);
+          }
+        });
+      }
+
+      this.state.record.collection_ids = collection_ids;
+      this.setState({[`enabled_${this.state.showing}`] : updated_collections});
     }
-
-    this.state.record.collection_ids = collection_ids;
-    this.setState({[`enabled_${this.state.showing}`] : updated_collections});
   }
 
   removeFromCollections(event) {
