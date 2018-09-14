@@ -30,6 +30,7 @@ import NotFound from "../../not_found";
         this.props.recordFormStore.record = RecordModel.fromJS(response.data);
       }).catch((error) => {
         this.setState({loadingError: true})
+        console.log(error);
       });
     } else if (this.props.location.pathname.match(/\/new/)) {
       if (!this.props.recordFormStore.record.lat || !this.props.recordFormStore.record.lng) {

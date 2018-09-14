@@ -121,8 +121,7 @@ class RecordsController < ApplicationController
         raise Pundit::NotAuthorizedError unless CollectionRecordPolicy.new(current_user, cr).create?
         cr.save!
       end
-      # render json: Record.find(record_collection_params[:id]).collection_ids, status: :ok
-      head :ok
+      @result = save_record_and_return_from_es(Record.find(record_collection_params[:id]))
     rescue => e
       render json: {error: e}, status: :not_acceptable
     end
@@ -139,7 +138,7 @@ class RecordsController < ApplicationController
         raise Pundit::NotAuthorizedError unless CollectionRecordPolicy.new(current_user, cr).destroy?
         cr.destroy!
       end
-      head :ok
+      @result = save_record_and_return_from_es(Record.find(record_collection_params[:id]))
     rescue => e
       render json: {error: e}, status: :not_acceptable
     end

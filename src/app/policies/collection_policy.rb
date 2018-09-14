@@ -20,6 +20,10 @@ class CollectionPolicy < ApplicationPolicy
     is_user_owner_of_collection? || is_user_team_leader_of_collection?
   end
 
+  def add_to?
+    update? || user_belongs_team? || record.write_state == "everyone"
+  end
+
   private
 
   def is_user_owner_of_collection?

@@ -6,6 +6,8 @@ class CollectionsController < ApplicationController
   decorates_assigned :collection, :collections
 
   def index
+
+
     @collections = if user_signed_in? && !params[:everyone].present? && !params[:all].present?
                      CollectionsIndex.filter(terms: {contributor_ids: [current_user.id]}).to_a # collections this user has contributed to
                    elsif user_signed_in? && params[:everyone] && !params[:all].present?
@@ -15,6 +17,11 @@ class CollectionsController < ApplicationController
                      # Collection.includes(:owner, records: [:user, record_taxonomy_terms: [:taxonomy_term]]).public_read
                      CollectionsIndex.published.limit(params[:per_page])
                    end
+  end
+
+  def for_user
+    skip_authorization
+    @collections = CollectionsIndex.user_collections(params[:id]).select {|c| CollectionPolicy.new(current_user, c).show? }
   end
 
   def create
