@@ -22,20 +22,30 @@
   filter: brightness(0.8);
 }
 
-.m-media-viewer-thumbs .thumb--video:after {
+.m-media-viewer-thumbs .thumb.video:after {
   content: "\f04b";
   font: normal normal normal 20px/1 FontAwesome;
   border-radius: 100px;
   background: white;
-  width: 50px;
-  height: 50px;
   position: absolute;
-  bottom: 20px;
-  right: 20px;
   color: $green;
   text-align: center;
-  padding-top: 15px;
-  padding-left: 5px;
+  width:30px;
+  height:30px;
+  font-size:14px;
+  padding-top: 8px;
+  padding-left: 4px;
+  bottom:10px;
+  right:10px;
+  @include mq(smartphone) {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+    padding-top: 7px;
+    padding-left: 3px;
+    bottom: 5px;
+    right: 5px;
+  }
 }
 
 .m-media-viewer-thumbs .controls {
@@ -112,14 +122,4 @@
   @include mq(small-smartphone) {
     height:66px;
   }
-}
-
-.m-media-viewer .m-media-viewer-thumbs .thumb--video:after {
-  width:30px;
-  height:30px;
-  font-size:14px;
-  padding-top: 8px;
-  padding-left: 4px;
-  bottom:10px;
-  right:10px;
 }

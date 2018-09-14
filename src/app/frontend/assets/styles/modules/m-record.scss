@@ -389,7 +389,7 @@
     z-index: -1;
   }
   @include mq(smartphone) {
-    padding:15px;
+    padding:32px 15px 15px 15px;
     width:100%;
     z-index:0;
   }
@@ -403,6 +403,10 @@
   @include font-display;
   font-size: 20px;
   margin-top: 0;
+  @include mq(smartphone) {
+    font-size: 16px;
+    line-height: 1.4;
+  }
 }
 
 // Actions
