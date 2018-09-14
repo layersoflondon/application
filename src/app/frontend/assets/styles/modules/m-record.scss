@@ -316,6 +316,7 @@
     margin-right: -20px;
     width: 150px;
     margin-top: 10px;
+    z-index: 1;
   }
   @include mq(small-smartphone) {
     width:90px;
@@ -379,7 +380,6 @@
   margin-left: -40px;
   float: right;
   position: relative;
-  margin-bottom: 100px;
   @include mq(tablet) {
     margin-left:0;
     float:none;
@@ -391,7 +391,7 @@
   @include mq(smartphone) {
     padding:15px;
     width:100%;
-    margin-bottom:50px;
+    z-index:0;
   }
 }
 
@@ -526,10 +526,15 @@
 .m-record .footer {
   border-top: 2px solid #4b4b4b;
   padding-top: 40px;
-  margin-top: 40px;
+  margin-top: 100px;
   clear: both;
+  display: inline-block;
+  width: 100%;
   @include mq(tablet) {
     padding-top:20px;
+  }
+  @include mq(smartphone) {
+    margin-top: 40px;
   }
 }
 

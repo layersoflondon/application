@@ -1,3 +1,29 @@
+/* Record credits */
+
+.m-record-credits {
+    background: #dedede;
+    padding: 40px 44px;
+    color: #333;
+    width: calc(100% - 300px);
+    margin-left: -40px;
+    float: right;
+    position: relative;
+  @include top-and-tail;
+    @include mq(tablet) {
+      margin-left:0;
+      float:none;
+      width:80%;
+      padding:30px;
+      clear:left;
+      z-index: -1;
+    }
+    @include mq(smartphone) {
+      padding:15px;
+      width:100%;
+      z-index:0;
+    }
+}
+
 .m-record-credits div {
   font-size: 14px;
 }
@@ -7,5 +33,18 @@
 }
 
 .m-record-credits p {
-  margin: 0;
+  margin: 0 0 10px 0;
+}
+
+.m-record-credits a {
+  color:$green;
+  text-decoration:underline;
+}
+
+.m-record-credits > h3 {
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  opacity: 0.6;
+  font-size: 14px;
 }
