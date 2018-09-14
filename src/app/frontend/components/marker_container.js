@@ -30,22 +30,33 @@ import Parser from 'html-react-parser';
   render() {
     const default_icon = new L.Icon({
       iconUrl: require('../assets/images/record-marker.png'),
-      iconRetinaUrl: require('../assets/images/record-marker-x2.png'),
+      iconRetinaUrl: require('../assets/images/record-marker@2x.png'),
 
-      iconSize: [22, 30],
+      iconSize: [30, 40],
       shadowSize: [0, 0],
-      iconAnchor: [11, 20],
+      iconAnchor: [15, 20],
       popupAnchor: [0, -33]
     });
 
     const highlighted_icon = new L.Icon({
       iconUrl: require('../assets/images/record-marker-highlighted.png'),
-      iconRetinaUrl: require('../assets/images/record-marker-x2-highlighted.png'),
+      iconRetinaUrl: require('../assets/images/record-marker-highlighted@2x.png'),
 
-      iconSize: [22, 30],
+      iconSize: [30, 40],
       shadowSize: [0, 0],
-      iconAnchor: [11, 20],
+      iconAnchor: [15, 20],
       popupAnchor: [0, 0]
+    });
+
+    /*TODO: Use this icon for users records*/
+    const user_icon = new L.Icon({
+        iconUrl: require('../assets/images/record-marker-user.png'),
+        iconRetinaUrl: require('../assets/images/record-marker-user@2x.png'),
+
+        iconSize: [30, 40],
+        shadowSize: [0, 0],
+        iconAnchor: [15, 20],
+        popupAnchor: [0, 0]
     });
 
     let icon = default_icon;
