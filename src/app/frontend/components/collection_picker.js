@@ -33,22 +33,20 @@ export default class CollectionPicker extends Component {
     // observe the record's collection IDs
     this.observerDisposer = observe(this.props.record, 'collection_ids', (change) => {
       //  We need to persist the collections at this point - hit the RecordCollections endpoint
+      
       const added_ids = change.newValue.filter((id) => {return change.oldValue.indexOf(id) < 0});
       const removed_ids = change.oldValue.filter((id) => {return change.newValue.indexOf(id) < 0});
-      console.log('old:', change.oldValue.toJS());
-      console.log('New:', change.newValue.toJS());
       if (added_ids.length) {
-        console.log('added:', added_ids);
-        Record.add_to_collections(this.id, {collection_ids: added_ids}).then((result) => {
-          this.props.record.collection_ids = result.data;
-        }).catch((errors) => {
+        Record.add_to_collections(this.id, {collection_ids: added_ids}).catch((errors) => {
           console.log(errors);
         });
       }
 
       if (removed_ids.length) {
-        console.log('removed:',removed_ids);
-        Record.remove_from_collections(null, this.id, {collection_ids: removed_ids});
+        console.log('removing', removed_ids);
+        Record.remove_from_collections(this.id, {collection_ids: removed_ids}).catch((errors) => {
+          console.log(errors);
+        });
       }
     });
   }

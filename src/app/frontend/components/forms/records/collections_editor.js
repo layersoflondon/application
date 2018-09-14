@@ -44,10 +44,11 @@ import {observer} from "mobx-react";
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='collection' ? 'block' : 'none'};
     const pane_classname = (this.props.recordFormStore.visible_pane==='collection') ? 'is-open' : '';
+    const title = (this.props.recordFormStore.record.collection_ids.length) ? 'Manage collections' : 'Add to collections';
 
     return (
       <div className={`section section--add-to-collection ${pane_classname}`}>
-        <h2 className="title" data-name="collection" onClick={this.togglePaneVisibility}>Add to a collection</h2>
+        <h2 className="title" data-name="collection" onClick={this.togglePaneVisibility}>{title}</h2>
 
         <div className="pane" style={pane_styles}>
           <CollectionPicker collections={this.props.collectionStore} everyone_collections={this.state.record.everyone_collections} user_collections={this.state.record.user_collections} record={this.state.record}/>

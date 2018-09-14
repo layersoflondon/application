@@ -5,6 +5,7 @@ class CollectionRecord < ApplicationRecord
   belongs_to :contributing_user, class_name: "User"
 
   validates_presence_of :contributing_user_id
+  validates_uniqueness_of :collection, scope: :record
 
   after_save do
     record.touch
