@@ -114,19 +114,35 @@ class RecordsController < ApplicationController
 
   def add_to_collections
     skip_authorization
-    collection_ids = record_collection_params[:collection_ids] || []
-    collection_ids.each do |id|
-      cr = CollectionRecord.new(collection_id: id, record_id: record_collection_params[:id], contributing_user_id: current_user.id)
-      raise Pundit::NotAuthorizedError unless CollectionRecordPolicy.new(current_user, cr).create?
-      cr.save!
+    begin
+      collection_ids = record_collection_params[:collection_ids] || []
+      collection_ids.each do |id|
+        cr = CollectionRecord.new(collection_id: id, record_id: record_collection_params[:id], contributing_user_id: current_user.id)
+        raise Pundit::NotAuthorizedError unless CollectionRecordPolicy.new(current_user, cr).create?
+        cr.save!
+      end
+      # render json: Record.find(record_collection_params[:id]).collection_ids, status: :ok
+      head :ok
+    rescue => e
+      render json: {error: e}, status: :not_acceptable
     end
-    render json: Record.find(record_collection_params[:id]).collection_ids, status: :ok
+
   end
 
   def remove_from_collections
-    collection_ids = params[:collection_ids]
-    Rails.logger.debug("****** Remove #{collection_ids}")
-    head :ok
+    skip_authorization
+    begin
+      collection_ids = record_collection_params[:collection_ids] || []
+      collection_ids.each do |id|
+        cr = CollectionRecord.find_by(collection_id: id, record_id: record_collection_params[:id])
+        next unless cr.present?
+        raise Pundit::NotAuthorizedError unless CollectionRecordPolicy.new(current_user, cr).destroy?
+        cr.destroy!
+      end
+      head :ok
+    rescue => e
+      render json: {error: e}, status: :not_acceptable
+    end
   end
 
   private

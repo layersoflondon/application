@@ -21,6 +21,6 @@ export default class Record extends LoLHTTPBase {
   }
 
   static remove_from_collections(id, params) {
-    return axios.patch(`${this.resource_path}/collections`, params)
+    return axios({method: 'delete', url: `${this.resource_path}/collections`, data: params});
   }
 }
