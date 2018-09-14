@@ -61,32 +61,34 @@
 }
 
 .m-tool-button--add-collection a:before {
-  background: url('../assets/images/icon-collection.svg') center no-repeat;
+  background: url('../assets/images/icon-collections.svg') center no-repeat;
 }
 
 .m-tool-button--add a:before {
-  background: url('../assets/images/icon-add.svg') center no-repeat;
-}
-
-.m-tool-button--admin a:before {
-  content: '\f013';
-}
-
-.m-tool-button--your-content a:before {
-  content: "\f2c0";
+  background: url('../assets/images/icon-add-record.svg') center no-repeat;
 }
 
 .m-tool-button--your-account a:before {
-  content: "\f2c0";
+  background: url('../assets/images/icon-your-account.svg') center no-repeat;
+}
+
+.m-tool-button--admin a:before {
+  background: url('../assets/images/icon-admin.svg') center no-repeat;
 }
 
 .m-tool-button--your-records a:before {
-  content: "\f07c";
+  background: url('../assets/images/icon-your-records.svg') center no-repeat;
 }
 
 .m-tool-button--help a:before {
-  content: "\f059";
+  background: url('../assets/images/icon-help.svg') center no-repeat;
 }
+
+/*
+.m-tool-button--your-content a:before {
+  content: "\f2c0";
+}
+*/
 
 .m-tool-button a:hover {
   opacity: 0.5;
