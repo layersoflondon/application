@@ -15,6 +15,24 @@ class CollectionsIndex < Chewy::Index
     filter(terms: {state: ['published']})
   end
 
+  def self.user_collections(user_id)
+    query = {bool: {
+      must: [
+        {nested: {
+          path: "owner", query: {
+            bool: {
+              must: [
+                {match: {"owner.id" => user_id}}
+              ]
+            }
+          }
+        }}
+      ]
+    }}
+
+    filter(query)
+  end
+
   def self.everyone_collections(exclude_user_id: nil)
     query = {bool: {
       must: [

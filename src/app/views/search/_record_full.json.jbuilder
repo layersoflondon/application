@@ -9,8 +9,9 @@ json.created_at DateTime.parse(record.created_at).strftime("%d/%m/%Y")
 json.updated_at DateTime.parse(record.updated_at).strftime("%d/%m/%Y")
 json.user record.user
 json.collection_ids record.collection_ids
-json.user_collections record.user_collections
-json.everyone_collections record.everyone_collections
+json.collections do
+  json.array! record.collections.collect {|r| OpenStruct.new(r)}, partial: 'search/collection_summary', as: :collection
+end
 json.attachments record.attachments
 json.user_can_edit RecordPolicy.new(current_user,record).edit?
 json.user_can_like RecordPolicy.new(current_user,record).like?

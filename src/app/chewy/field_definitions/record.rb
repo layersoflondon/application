@@ -25,6 +25,21 @@ module FieldDefinitions
       end
 
       field :collection_ids
+      field :collections, type: :nested, value: -> {
+        collections.collect do |collection|
+          {
+            id: collection.id,
+            thumb: collection.primary_image.try(:attachable).try(:data).try(:[],:thumb),
+            contributing_user_id: collection_records.find_by(collection_id: collection.id).contributing_user_id,
+            read_state: collection.read_state,
+            write_state: collection.write_state,
+            write_state_team_id: collection.write_state_team_id,
+            owner_type: collection.owner_type,
+            owner_id: collection.owner_id
+          }
+        end
+
+      }
 
       field :user_collections do
         field :value, value: ->{id}

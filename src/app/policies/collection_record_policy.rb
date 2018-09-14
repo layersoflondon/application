@@ -19,11 +19,11 @@ class CollectionRecordPolicy < ApplicationPolicy
   end
 
   def collection_owned_by_user?
-    user.present? && record.collection.owner.is_a?(User) && record.collection.owner == user && record.collection.owner?
+    user.present? && record.collection.owner.is_a?(User) && record.collection.owner == user
   end
 
   def collection_owned_by_users_team?
-    user.present? && record.collection.owner.is_a?(Team) && record.collection.owner.users.include?(user) && record.collection.team?
+    user.present? && record.collection.owner.is_a?(Team) && user.teams.include?(record.collection.owner)
   end
 
   def collection_writable_by_everyone?

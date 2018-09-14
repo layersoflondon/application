@@ -1,10 +1,17 @@
 import {observe} from 'mobx'
+import {inject, observer} from "mobx-react";
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import Record from "../sources/record";
+import CollectionModel from "../models/collection";
+import Collection from "../sources/collection";
+import RecordModel from "../models/record";
 
-export default class CollectionPicker extends Component {
+// This component receives
+
+@inject('collectionStore', 'currentUser')
+@observer export default class CollectionPicker extends Component {
   constructor(props) {
     super(props);
 
@@ -12,11 +19,60 @@ export default class CollectionPicker extends Component {
 
     this.state = {
       showing: 'user_collections',
-      enabled_user_collections: this.props.user_collections,
-      enabled_everyone_collections: this.props.everyone_collections,
+      enabled_user_collections: this.props.record.user_collections,
+      enabled_everyone_collections: this.props.record.everyone_collections,
       record: this.props.record,
-      collections: this.props.collections
+      collections: []
     };
+  }
+
+  componentWillMount() {
+
+    // observe the record's collection IDs
+    this.observerDisposer = observe(this.props.record, 'collection_ids', (change) => {
+      //  We need to persist the collections at this point - hit the RecordCollections endpoint
+
+      const added_ids = change.newValue.filter((id) => {return change.oldValue.indexOf(id) < 0});
+      const removed_ids = change.oldValue.filter((id) => {return change.newValue.indexOf(id) < 0});
+      if (added_ids.length) {
+        Record.add_to_collections(this.id, {collection_ids: added_ids}).then((result) => {
+          this.state.record = new RecordModel.fromJS(result);
+          console.log("new collections: ",this.state.record.collection_ids.toJS() )
+        }).catch((errors) => {
+          console.log(errors);
+        });
+      }
+
+      if (removed_ids.length) {
+        console.log('removing', removed_ids);
+        Record.remove_from_collections(this.id, {collection_ids: removed_ids}).then((result) => {
+          this.state.record = new RecordModel.fromJS(result);
+          console.log("new collections: ",this.state.record.collection_ids.toJS() )
+        }).catch((errors) => {
+          console.log(errors);
+        });
+      }
+    });
+
+    // Get a list of all collections owned by this user, and by others (which are allowed to be added to)
+      //the API returns all collections except those owned by the user.
+    Collection.writable_by_everyone().then((response) => {
+      response.data.map((c) => {
+        let collection = CollectionModel.fromJS(c, this.props.trayViewStore, true, false);
+        this.props.collectionStore.everyone_collections.set(collection.id, collection);
+
+        return collection;
+      });
+    });
+
+    Collection.owned_by_user(this.props.currentUser.id).then((response) => {
+      response.data.map((c) => {
+        let collection = CollectionModel.fromJS(c, this.props.trayViewStore, true, false);
+        this.props.collectionStore.user_collections.set(collection.id, collection);
+
+        return collection;
+      });
+    });
   }
 
   componentWillUnmount() {
@@ -25,41 +81,24 @@ export default class CollectionPicker extends Component {
 
   componentWillReceiveProps() {
     this.setState({
-      enabled_user_collections: this.props.user_collections,
-      enabled_everyone_collections: this.props.everyone_collections,
-      record: this.props.record,
-      collections: this.props.collections
+      enabled_user_collections: this.props.record.user_collections,
+      enabled_everyone_collections: this.props.record.everyone_collections,
+      record: this.props.record
     });
-    // observe the record's collection IDs
-    this.observerDisposer = observe(this.props.record, 'collection_ids', (change) => {
-      //  We need to persist the collections at this point - hit the RecordCollections endpoint
-      
-      const added_ids = change.newValue.filter((id) => {return change.oldValue.indexOf(id) < 0});
-      const removed_ids = change.oldValue.filter((id) => {return change.newValue.indexOf(id) < 0});
-      if (added_ids.length) {
-        Record.add_to_collections(this.id, {collection_ids: added_ids}).catch((errors) => {
-          console.log(errors);
-        });
-      }
 
-      if (removed_ids.length) {
-        console.log('removing', removed_ids);
-        Record.remove_from_collections(this.id, {collection_ids: removed_ids}).catch((errors) => {
-          console.log(errors);
-        });
-      }
-    });
   }
 
   handleShowCollectionsOnChange(event) {
     let collection_set = (event.target.checked) ? "everyone_collections" : "user_collections";
-    this.selectRef.current.select.setValue(this.state[`enabled_${collection_set}`]);
+    // this.selectRef.current.select.setValue(this.props.collectionStore[collection_set].map(()));
     this.setState({showing: collection_set});
   }
 
   handleSelectOnChange(options, event) {
     let {action} = event;
     // don't need to run this code if the select options are just being switched between personal and everyone collections
+
+    console.log(action);
     if (action !== 'set-value') {
 
       let updated_collections = this.state[`enabled_${this.state.showing}`].slice();
@@ -74,12 +113,14 @@ export default class CollectionPicker extends Component {
         collection_ids = collection_ids.filter((i) => removed_collection_ids.indexOf(i)<0);
         updated_collections = options;
       }else if( action === 'select-option' ) {
+        console.log(options);
         options.map((option) => {
           if(updated_collections.indexOf(option)<0) {
             updated_collections.push(option);
             collection_ids.push(option.value);
           }
         });
+
       }
 
       this.state.record.collection_ids = collection_ids;
@@ -101,7 +142,7 @@ export default class CollectionPicker extends Component {
 
     index = this.state.record.collection_ids.indexOf( parseInt(value, 10 ) );
     if( index>-1 ) {
-      const collection_ids = this.props.record.collection_ids.slice();
+      const collection_ids = this.state.record.collection_ids.slice();
       collection_ids.splice(index, 1);
       this.state.record.collection_ids = collection_ids;
     }
@@ -120,7 +161,7 @@ export default class CollectionPicker extends Component {
     window.record = this.props.record;
 
     const toggled_classname = (this.state.showing === "user_collections") ? "" : "is-toggled";
-    const collection_options = this.state.collections[this.state.showing].values().map((c) => ({value: c.id, label: c.title}));
+    const collection_options = this.props.collectionStore[this.state.showing].values().map((c) => ({value: c.id, label: c.title}));
 
     return  <div className="m-add-to-collection">
 
@@ -149,9 +190,9 @@ export default class CollectionPicker extends Component {
               <h4>Your collections</h4>
 
               {this.state.enabled_user_collections.map((c, i) => (
-                <button className='m-record-collection-button' value={c.value} name='user_collections'
+                <button className='m-record-collection-button' value={c.id} name='user_collections'
                         onClick={this.removeFromCollections.bind(this)} key={`user_collections_${i}`}>
-                  {c.label}
+                  {c.title}
                 </button>
               ))}
             </div>
@@ -159,7 +200,7 @@ export default class CollectionPicker extends Component {
 
           {this.state.enabled_everyone_collections.length>0 && (
             <div className="belongs-to">
-              <h4>Public (& other user's collections)</h4>
+              <h4>Public (& other users') collections</h4>
 
               {this.state.enabled_everyone_collections.map((c, i) => (
                 <button className='m-record-collection-button' value={c.value} name='everyone_collections' onClick={this.removeFromCollections.bind(this)} key={`everyone_collections_${i}`}>
@@ -179,9 +220,6 @@ export default class CollectionPicker extends Component {
 }
 
 CollectionPicker.propTypes = {
-  record: PropTypes.object.isRequired,
-  user_collections: PropTypes.array.isRequired,
-  everyone_collections: PropTypes.array.isRequired,
-  collections: PropTypes.object.isRequired
+  record: PropTypes.object.isRequired
 };
 

@@ -9,11 +9,9 @@ class CollectionRecord < ApplicationRecord
 
   after_save do
     record.touch
-    collection.touch
   end
 
   after_destroy do
     record.touch
-    collection.touch
   end
 end

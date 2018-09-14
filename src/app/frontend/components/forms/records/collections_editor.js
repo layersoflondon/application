@@ -27,14 +27,10 @@ import {observer} from "mobx-react";
       }
     });
 
-    Collection.writable_by_everyone().then((response) => {
-      response.data.map((c) => {
-        let collection = CollectionModel.fromJS(c, this.props.trayViewStore, true, false);
-        this.props.collectionStore.everyone_collections.set(collection.id, collection);
+    // Get 2 lists of collections to populate the dropdowns
 
-        return collection;
-      });
-    });
+
+
   }
 
   componentWillUnmount() {
@@ -51,7 +47,7 @@ import {observer} from "mobx-react";
         <h2 className="title" data-name="collection" onClick={this.togglePaneVisibility}>{title}</h2>
 
         <div className="pane" style={pane_styles}>
-          <CollectionPicker collections={this.props.collectionStore} everyone_collections={this.state.record.everyone_collections} user_collections={this.state.record.user_collections} record={this.state.record}/>
+          <CollectionPicker record={this.state.record}/>
 
 
         </div>
