@@ -3,8 +3,19 @@
 
 .m-tray-introduction {
   margin-bottom: 25px;
+  max-width:600px;
+}
+
+.m-tray-introduction .wrap {
+  max-height: 110px;
+  overflow:hidden;
+  @include top-and-tail;
+}
+
+.m-tray-introduction.is-expanded .wrap {
+  max-height: none;
 }
 
 .m-tray-introduction .read-more {
-  display:none;
+  //display:none;
 }

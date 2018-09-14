@@ -42,7 +42,7 @@ import {inject} from "mobx-react/index";
       <a className="close" onClick={this.closeTray.bind(this)}>Close</a>
     </div>;
 
-    const introClassName = (this.state.introShowing) ? "is-showing" : "";
+    const introClassName = (this.state.introShowing) ? "is-expanded" : "";
 
     const meta = <div className="meta">
       {[
@@ -82,9 +82,10 @@ import {inject} from "mobx-react/index";
       {
         this.content.introduction &&
         <div className={`m-tray-introduction ${introClassName}`}>
-          <p dangerouslySetInnerHTML={{__html: this.content.introduction}}></p>
+          <div className="wrap">
+            <p dangerouslySetInnerHTML={{__html: this.content.introduction}}></p>
+          </div>
           <a className="read-more" onClick={this.toggleIntro.bind(this)}>{this.state.introShowing ? "Hide" : "Read more"}</a>
-
         </div>
       }
     </React.Fragment>;
