@@ -2,7 +2,7 @@
 
 .m-actions {
   position:absolute;
-  bottom:10px;
+  bottom: 65px;
   @include mq(tablet) {
     position:static;
   }

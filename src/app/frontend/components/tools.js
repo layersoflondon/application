@@ -58,7 +58,8 @@ import Img from 'react-image';
   }
 
   render() {
-    const logo = require('../assets/images/logo.svg');
+      const logo = require('../assets/images/logo.svg');
+      const errorLogo = require('../assets/images/errormadethis.svg');
       return <Fragment>
           <div className="m-sidebar">
 
@@ -111,6 +112,10 @@ import Img from 'react-image';
                     <div className="m-tool-button m-tool-button--help">
                       <a href="/help-centre" data-label="Help"><span>Help</span></a>
                     </div>
+                  </div>
+
+                  <div className="m-error-logo">
+                      <img src={errorLogo} alt="Error made this" />
                   </div>
               </div>
 

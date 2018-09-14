@@ -11,6 +11,9 @@
   @include mq(tablet) {
     padding-bottom: 25px;
   }
+  @include mq(smartphone) {
+    padding-bottom: 17px;
+  }
 }
 
 .m-tool-button a:after {
@@ -29,6 +32,9 @@
     font-size: 24px;
     width: 280px;
     padding-top:7px;
+  }
+  @include mq(smartphone) {
+    font-size: 22px;
   }
 }
 
