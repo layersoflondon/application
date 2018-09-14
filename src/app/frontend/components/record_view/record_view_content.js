@@ -30,10 +30,19 @@ import RecordViewText from './record_view_text';
         }
       </div>
 
+      <div className="m-record-collections-list">
+        <h3>Collections this record belongs to</h3>
+        <ul>
+          <li><a href="#">Duis augue ante efficitur et</a></li>
+          <li><a href="#">Nunc viverra auctor nunc in id elit</a></li>
+          <li><a href="#">Sed sed nulla accumsan, sagittis tellus ut, lacinia lacus fusce non leo</a></li>
+        </ul>
+      </div>
+
         {
             this.props.trayViewStore.record.credit &&
             <div className="m-record-credits">
-              <h3>Credits and sources</h3>
+              <h3>Sources and attribution</h3>
               <div dangerouslySetInnerHTML={{__html: this.props.trayViewStore.record.credit}}></div>
             </div>
         }

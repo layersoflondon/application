@@ -41,6 +41,10 @@
   text-decoration:underline;
 }
 
+.m-record-credits a:hover {
+  color:darken($green, 20%);
+}
+
 .m-record-credits > h3 {
   text-transform: uppercase;
   font-weight: 500;
