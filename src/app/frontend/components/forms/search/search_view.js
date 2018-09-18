@@ -239,7 +239,7 @@ import Search from "../../../sources/search";
           </div>
 
           <div className="m-search-overlay">
-            <h1>Search</h1>
+            <h1>Search records</h1>
 
             {/* <form> container */}
             <div className="form--chunky">
@@ -253,7 +253,7 @@ import Search from "../../../sources/search";
               </div>
 
               <div className="form-group form-group--primary-field">
-                <input placeholder="Enter a place or topic…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)} />
+                <input placeholder="Enter a topic or place…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)} />
               </div>
 
               <div className="date-range">

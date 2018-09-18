@@ -80,7 +80,7 @@ import Img from 'react-image';
               <div className="m-smartphone-menu-wrapper">
                   <div className="m-tools">
                       <div className="m-tool-button m-tool-button--search">
-                          <Link to='/map/search' data-label="Search"><span>Search</span></Link>
+                          <Link to='/map/search' data-label="Search records"><span>Search records</span></Link>
                       </div>
                       <div className="m-tool-button m-tool-button--layers">
                           <Link to='/map/layers' data-label="Layers"><span>Layers</span></Link>
