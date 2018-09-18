@@ -82,7 +82,7 @@ import RecordModel from "../models/record";
 
     // if a select option changes, we need to add the id to the records collection ids (which are observed in the RecordModel and persisted)
     if( action === 'select-option' ) {
-      let current_collections = this.state.record.collection_ids.slice();
+      let current_collections = this.state.record.collection_ids.map((c) => c).slice();
       if(current_collections.indexOf(option.value)<0) {
         current_collections.push(option.value);
         this.state.record.collection_ids = current_collections;
@@ -98,34 +98,13 @@ import RecordModel from "../models/record";
   removeFromCollections(event) {
     event.preventDefault();
     let {value, name} = event.target;
-    let current_collections = this.state.record.collection_ids.slice();
+    let current_collections = this.state.record.collection_ids.map((c) => c).slice();
     this.state.record.collection_ids = current_collections.filter((c) => {return c !== parseInt(value,10)});
     this.getSelectOptions();
 
-    // TODO add the entry back into the appropriate options
 
-    // let updated_collections = this.state[`enabled_${name}`].slice();
-    // const removed = updated_collections.find((c) => c.value === parseInt(value, 10) );
-    //
-    // let index = updated_collections.indexOf(removed);
-    // if( index>-1 ) {
-    //   updated_collections.splice(index, 1);
-    // }
-    //
-    // index = this.state.record.collection_ids.indexOf( parseInt(value, 10 ) );
-    // if( index>-1 ) {
-    //   const collection_ids = this.state.record.collection_ids.slice();
-    //   collection_ids.splice(index, 1);
-    //   this.state.record.collection_ids = collection_ids;
-    // }
-    //
-    // this.setState({[`enabled_${name}`]: updated_collections});
-    //
-    // if( this.state.showing === name ) {
-    //   setTimeout(() => {
-    //     this.selectRef.current.select.setValue(updated_collections);
-    //   }, 1);
-    // }
+    // TODO add the entry back into the appropriate options
+    
   }
 
   render() {
