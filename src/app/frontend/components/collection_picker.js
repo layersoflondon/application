@@ -54,7 +54,6 @@ import RecordModel from "../models/record";
   }
 
   componentWillUnmount() {
-    // this.observerDisposer();
   }
 
   componentWillReceiveProps(newProps) {
