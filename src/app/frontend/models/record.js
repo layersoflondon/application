@@ -29,7 +29,7 @@ export default class RecordModel {
   @observable attachments = [];
   @observable current_attachment_item_index = this.attachments.length>0 ? 0 : null; //which media item is active (being edited)
   @observable collections = [];
-  @observable collection_ids = [];
+  @observable collection_ids = null;
 
   @observable highlighted = false;
   @observable errors = {};
@@ -45,30 +45,37 @@ export default class RecordModel {
 
   constructor() {
     // observe the record's collection IDs
-    this.observerDisposer = observe(this, 'collection_ids', (change) => {
-      console.log("change on record.collection_ids:",change);
-      //  We need to persist the collections at this point - hit the RecordCollections endpoint
-      const added_ids = change.newValue.filter((id) => {return change.oldValue.indexOf(id) < 0});
-      const removed_ids = change.oldValue.filter((id) => {return change.newValue.indexOf(id) < 0});
-      if (added_ids.length) {
-        Record.add_to_collections(this.id, {collection_ids: added_ids}).then((result) => {
-          // this.state.record = new RecordModel.fromJS(result);
-          console.log("new collections: ",this.collection_ids.toJS() )
-        }).catch((errors) => {
-          console.log(errors);
-        });
-      }
+    // if (!!this.id) {
+      this.observerDisposer = observe(this, 'collection_ids', (change) => {
+        // we only want to fire this if the previous value wasn't null, because that's what it would be when first instantiating the record from JS.
+        if (change.oldValue !== null) {
+          console.log("change on record.collection_ids:","id:", this.id, change.oldValue.toJS(), change.newValue.toJS());
+          //  We need to persist the collections at this point - hit the RecordCollections endpoint
+          const added_ids = change.newValue.filter((id) => {return change.oldValue.indexOf(id) < 0});
+          const removed_ids = change.oldValue.filter((id) => {return change.newValue.indexOf(id) < 0});
+          if (added_ids.length) {
+            Record.add_to_collections(this.id, {collection_ids: added_ids}).then((result) => {
+              // this.state.record = new RecordModel.fromJS(result);
+              console.log("new collections: ",this.collection_ids.toJS() )
+            }).catch((errors) => {
+              console.log(errors);
+            });
+          }
 
-      if (removed_ids.length) {
-        console.log('removing', removed_ids);
-        Record.remove_from_collections(this.id, {collection_ids: removed_ids}).then((result) => {
-          // this.state.record = new RecordModel.fromJS(result);
-          console.log("new collections: ",this.collection_ids.toJS() )
-        }).catch((errors) => {
-          console.log(errors);
-        });
-      }
-    });
+          if (removed_ids.length) {
+            console.log('removing', removed_ids);
+            Record.remove_from_collections(this.id, {collection_ids: removed_ids}).then((result) => {
+              // this.state.record = new RecordModel.fromJS(result);
+              console.log("new collections: ",this.collection_ids.toJS() )
+            }).catch((errors) => {
+              console.log(errors);
+            });
+          }
+        }
+      });
+    // }
+
+
   }
 
   persist() {
@@ -82,12 +89,17 @@ export default class RecordModel {
   @computed get user_collections() {
     return this.collections.filter((collection) => {
       return collection.user_is_owner;
+    }).map((collection) => {
+      return collection.id
     })
   }
 
   @computed get everyone_collections()  {
+    console.log(this.collections.map((c) => c.toJS()));
     return this.collections.filter((collection) => {
       return !collection.user_is_owner;
+    }).map((collection) => {
+      return collection.id
     })
   }
 
@@ -389,7 +401,7 @@ export default class RecordModel {
     if( attributes.hasOwnProperty('collections') ) {
       record.collections = attributes.collections.map((c) => CollectionModel.fromJS(c, store, true));
     }
-
+    
     return record;
   }
 
