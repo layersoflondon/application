@@ -138,7 +138,6 @@ import NotFound from "../../not_found";
   }
 
   render() {
-    console.log('rendering record form');
     if (this.state.loadingError) {
       return <NotFound/>
     }
