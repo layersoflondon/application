@@ -3,6 +3,7 @@
     <%= f.inputs "Basic Details" do %>
         <%= f.input :title %>
         <%= f.input :description, as: :quill_editor, input_html: {data: {options: {modules: {toolbar: [['bold', 'italic', 'underline'], ['link']]}, placeholder: 'Enter description in here', theme: 'snow'}}} %>
+        <%= f.input :credit, as: :quill_editor, input_html: {data: {options: {modules: {toolbar: [['link']]}, placeholder: 'Enter credits here', theme: 'snow'}}} %>
     <% end %>
 
     <%= f.inputs "Date and location" do %>

@@ -4,6 +4,7 @@ export default class LayerModel {
   id = null;
   title = '';
   description = '';
+  credit = '';
   date = null;
   url = '';
   attribution = '';
@@ -18,6 +19,7 @@ export default class LayerModel {
     layer.id = object.id;
     layer.title = object.title;
     layer.description = object.description;
+    layer.credit = object.credit;
     layer.date = object.date;
     layer.opacity = object.opacity;
     layer.url = object.url;

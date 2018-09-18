@@ -11,6 +11,7 @@ class LayersIndex < Chewy::Index
     field :id, type: 'integer'
     field :title, type: 'text'
     field :description, type: 'text'
+    field :credit, type: 'text'
     field :pin, type: 'geo_point', value: ->{ {lat: lat, lon: lng} }
     field :date_from, type: 'date'
     field :date_to, type: 'date'
