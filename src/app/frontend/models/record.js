@@ -43,6 +43,34 @@ export default class RecordModel {
   user_can_edit = true;
   user_can_like = true;
 
+  constructor() {
+    // observe the record's collection IDs
+    this.observerDisposer = observe(this, 'collection_ids', (change) => {
+      console.log("change on record.collection_ids:",change);
+      //  We need to persist the collections at this point - hit the RecordCollections endpoint
+      const added_ids = change.newValue.filter((id) => {return change.oldValue.indexOf(id) < 0});
+      const removed_ids = change.oldValue.filter((id) => {return change.newValue.indexOf(id) < 0});
+      if (added_ids.length) {
+        Record.add_to_collections(this.id, {collection_ids: added_ids}).then((result) => {
+          // this.state.record = new RecordModel.fromJS(result);
+          console.log("new collections: ",this.collection_ids.toJS() )
+        }).catch((errors) => {
+          console.log(errors);
+        });
+      }
+
+      if (removed_ids.length) {
+        console.log('removing', removed_ids);
+        Record.remove_from_collections(this.id, {collection_ids: removed_ids}).then((result) => {
+          // this.state.record = new RecordModel.fromJS(result);
+          console.log("new collections: ",this.collection_ids.toJS() )
+        }).catch((errors) => {
+          console.log(errors);
+        });
+      }
+    });
+  }
+
   persist() {
     if( this.id ) {
       return Record.update(null, this.id, {record: this.toJS()});

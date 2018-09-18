@@ -55,41 +55,13 @@ import RecordModel from "../models/record";
   }
 
   componentWillReceiveProps() {
+    window.record = this.props.record;
 
     this.setState({
       enabled_user_collections: this.props.record.user_collections,
       enabled_everyone_collections: this.props.record.everyone_collections,
       record: this.props.record
     });
-
-    
-    // observe the record's collection IDs
-    // this.observerDisposer = observe(this.state.record, 'collection_ids', (change) => {
-    //   console.log("change on this.state.record.collection_ids:",change);
-    //   //  We need to persist the collections at this point - hit the RecordCollections endpoint
-    //   const added_ids = change.newValue.filter((id) => {return change.oldValue.indexOf(id) < 0});
-    //   const removed_ids = change.oldValue.filter((id) => {return change.newValue.indexOf(id) < 0});
-    //   if (added_ids.length) {
-    //     Record.add_to_collections(this.id, {collection_ids: added_ids}).then((result) => {
-    //       // this.state.record = new RecordModel.fromJS(result);
-    //       console.log("new collections: ",this.state.record.collection_ids.toJS() )
-    //     }).catch((errors) => {
-    //       console.log(errors);
-    //     });
-    //   }
-    //
-    //   if (removed_ids.length) {
-    //     console.log('removing', removed_ids);
-    //     Record.remove_from_collections(this.id, {collection_ids: removed_ids}).then((result) => {
-    //       // this.state.record = new RecordModel.fromJS(result);
-    //       console.log("new collections: ",this.state.record.collection_ids.toJS() )
-    //     }).catch((errors) => {
-    //       console.log(errors);
-    //     });
-    //   }
-    // });
-    
-
 
   }
 
@@ -106,9 +78,9 @@ import RecordModel from "../models/record";
     //
     let updated_collections = this.state[`enabled_${this.state.showing}`].slice();
     if( action === 'select-option' ) {
-      if(updated_collections.indexOf(option)<0) {
-        updated_collections.push(option);
-        this.props.record.collection_ids.push(option.value);
+      if(updated_collections.indexOf(option.value)<0) {
+        updated_collections.push(option.value);
+        this.state.record.collection_ids = updated_collections;
       }
     }
 
