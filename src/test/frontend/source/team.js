@@ -47,7 +47,6 @@ describe('Team', function() {
                 done();
             })
             .catch((response) => {
-                console.log(response);
                 done(response);});
     });
 

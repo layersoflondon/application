@@ -19,7 +19,6 @@ import {NavLink} from 'react-router-dom';
 
     const matches = this.props.router.location.pathname.match(/^(\/map\/collections\/\d+)\/records/);
 
-    console.log(matches);
     if( matches && matches.length>1 ) {
       this.props.router.push(matches[1]);
     }else {

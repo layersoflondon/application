@@ -19,11 +19,10 @@ import RecordModel from "../models/record";
 
     this.state = {
       showing: 'user_collections',
-      enabled_user_collections: this.props.record.user_collections,
-      enabled_everyone_collections: this.props.record.everyone_collections,
-      record: this.props.record,
       collections: []
     };
+
+    this.state = Object.assign(this.state, this.getCollectionsState(props));
    
   }
 
@@ -55,14 +54,18 @@ import RecordModel from "../models/record";
   }
 
   componentWillReceiveProps() {
-    window.record = this.props.record;
+    console.log('receiving props');
+    this.setState(this.getCollectionsState(this.props));
+    console.log("user collections are now:", this.state.enabled_user_collections.map((c) => {return c.toJS()}));
+    console.log("everyone collections are now:", this.state.enabled_everyone_collections.map((c) => {return c.toJS()}));
+  }
 
-    this.setState({
-      enabled_user_collections: this.props.record.user_collections,
-      enabled_everyone_collections: this.props.record.everyone_collections,
-      record: this.props.record
-    });
-
+  getCollectionsState(props) {
+    return {
+      enabled_user_collections: props.record.collections.filter((c) => {return props.record.user_collections.indexOf(c.id) < 0}),
+      enabled_everyone_collections: props.record.collections.filter((c) => {return props.record.everyone_collections.indexOf(c.id) < 0}),
+      record: props.record
+    }
   }
 
   handleShowCollectionsOnChange(event) {
@@ -73,57 +76,26 @@ import RecordModel from "../models/record";
 
   handleSelectOnChange(option, event) {
     let {action} = event;
-    // when the select option changes, we need to add it to the list of collection ids for the record and remove it from the select
 
-    //
-    let updated_collections = this.state[`enabled_${this.state.showing}`].slice();
+    // if a select option changes, we need to add the id to the records collection ids (which are observed in the RecordModel and persisted)
     if( action === 'select-option' ) {
-      if(updated_collections.indexOf(option.value)<0) {
-        updated_collections.push(option.value);
-        this.state.record.collection_ids = updated_collections;
-        this.selectRef.current.select.clearValue();
+      let current_collections = (this.state.record.collection_ids || []).slice();
+      if(current_collections.indexOf(option.value)<0) {
+        current_collections.push(option.value);
+        this.state.record.collection_ids = current_collections;
+        // this.selectRef.current.select.clearValue();
       }
+
+    //  TODO remove the selected option from the list
     }
 
-    this.setState({[`enabled_${this.state.showing}`] : updated_collections});
-
-    
-
-    // don't need to run this code if the select options are just being switched between personal and everyone collections
-
-    // console.log(action);
-    // if (action !== 'set-value') {
-    //
-    //   let updated_collections = this.state[`enabled_${this.state.showing}`].slice();
-    //   let collection_ids = this.state.record.collection_ids.slice();
-    //
-    //   if( action === 'clear' ) {
-    //     updated_collections = [];
-    //   }else if( action === 'remove-value' ) {
-    //     const removed_collections = updated_collections.filter((c) => options.indexOf(c)<0);
-    //     const removed_collection_ids = removed_collections.map((c) => c.value);
-    //
-    //     collection_ids = collection_ids.filter((i) => removed_collection_ids.indexOf(i)<0);
-    //     updated_collections = options;
-    //   }else if( action === 'select-option' ) {
-    //     console.log(options);
-    //     options.map((option) => {
-    //       if(updated_collections.indexOf(option)<0) {
-    //         updated_collections.push(option);
-    //         collection_ids.push(option.value);
-    //       }
-    //     });
-    //
-    //   }
-    //
-    //   this.state.record.collection_ids = collection_ids;
-    //   this.setState({[`enabled_${this.state.showing}`] : updated_collections});
-    // }
   }
 
   removeFromCollections(event) {
     event.preventDefault();
     let {value, name} = event.target;
+    let current_collections = (this.state.record.collection_ids || []).slice();
+    this.state.record.collection_ids = current_collections.filter((c) => {return c.id === value})
 
     // let updated_collections = this.state[`enabled_${name}`].slice();
     // const removed = updated_collections.find((c) => c.value === parseInt(value, 10) );
@@ -196,7 +168,7 @@ import RecordModel from "../models/record";
 
               {this.state.enabled_everyone_collections.map((c, i) => (
                 <button className='m-record-collection-button' value={c.value} name='everyone_collections' onClick={this.removeFromCollections.bind(this)} key={`everyone_collections_${i}`}>
-                  {c.label}
+                  {c.title}
                 </button>
               ))}
             </div>

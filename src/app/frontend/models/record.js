@@ -48,15 +48,16 @@ export default class RecordModel {
     // if (!!this.id) {
       this.observerDisposer = observe(this, 'collection_ids', (change) => {
         // we only want to fire this if the previous value wasn't null, because that's what it would be when first instantiating the record from JS.
-        if (change.oldValue !== null) {
+        if (change.oldValue !== null && change.newValue !== null) {
           console.log("change on record.collection_ids:","id:", this.id, change.oldValue.toJS(), change.newValue.toJS());
           //  We need to persist the collections at this point - hit the RecordCollections endpoint
           const added_ids = change.newValue.filter((id) => {return change.oldValue.indexOf(id) < 0});
           const removed_ids = change.oldValue.filter((id) => {return change.newValue.indexOf(id) < 0});
           if (added_ids.length) {
             Record.add_to_collections(this.id, {collection_ids: added_ids}).then((result) => {
-              // this.state.record = new RecordModel.fromJS(result);
-              console.log("new collections: ",this.collection_ids.toJS() )
+              this.collection_ids = null;
+              this.collection_ids = result.data.collection_ids;
+              this.collections = result.data.collections;
             }).catch((errors) => {
               console.log(errors);
             });
@@ -65,8 +66,9 @@ export default class RecordModel {
           if (removed_ids.length) {
             console.log('removing', removed_ids);
             Record.remove_from_collections(this.id, {collection_ids: removed_ids}).then((result) => {
-              // this.state.record = new RecordModel.fromJS(result);
-              console.log("new collections: ",this.collection_ids.toJS() )
+              this.collection_ids = null;
+              this.collection_ids = result.data;
+              this.collections = result.data.collections;
             }).catch((errors) => {
               console.log(errors);
             });
@@ -95,7 +97,6 @@ export default class RecordModel {
   }
 
   @computed get everyone_collections()  {
-    console.log(this.collections.map((c) => c.toJS()));
     return this.collections.filter((collection) => {
       return !collection.user_is_owner;
     }).map((collection) => {
@@ -154,10 +155,6 @@ export default class RecordModel {
     }else {
       this.date_to_object = {date: '', month: '', year: ''};
     }
-  }
-
-  setCurrentAttachmentItemAsPrimaryImage() {
-    console.log("Set something", this.current_attachment_item);
   }
 
   @computed get current_attachment_item() {
