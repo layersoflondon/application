@@ -171,7 +171,7 @@ ActiveRecord::Schema.define(version: 2018_09_18_154618) do
     t.index ["owner_type", "owner_id"], name: "index_collections_on_owner_type_and_owner_id"
   end
 
-  create_table "featured_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "featured_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "item_id"
     t.string "item_type"
     t.datetime "created_at", null: false
@@ -194,7 +194,7 @@ ActiveRecord::Schema.define(version: 2018_09_18_154618) do
     t.text "credit"
   end
 
-  create_table "record_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "record_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "record_id"
     t.string "issue", null: false
     t.string "message", null: false
