@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet';
 import MarkerContainer from './marker_container';
 import {observer, inject} from "mobx-react";
 import LayerToolsContainer from './layer_tools_container';
@@ -98,7 +98,9 @@ import MapSearchContainer from './map_search_container';
     return <ErrorBoundary>
       <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
         <div className="m-map">
-          <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
+          <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)} zoomControl={false} >
+            <ZoomControl position={`bottomright`} />
+
             <ErrorBoundary>
               <MapSearchContainer {...this.props} />
             </ErrorBoundary>
