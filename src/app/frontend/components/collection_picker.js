@@ -81,6 +81,7 @@ import RecordModel from "../models/record";
       if(updated_collections.indexOf(option.value)<0) {
         updated_collections.push(option.value);
         this.state.record.collection_ids = updated_collections;
+        this.selectRef.current.select.clearValue();
       }
     }
 
