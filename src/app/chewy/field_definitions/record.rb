@@ -29,6 +29,7 @@ module FieldDefinitions
         collections.collect do |collection|
           {
             id: collection.id,
+            title: collection.title,
             thumb: collection.primary_image.try(:attachable).try(:data).try(:[],:thumb),
             contributing_user_id: collection_records.find_by(collection_id: collection.id).contributing_user_id,
             read_state: collection.read_state,
