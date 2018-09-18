@@ -26,19 +26,21 @@ module FieldDefinitions
 
       field :collection_ids
       field :collections, type: :nested, value: -> {
-        collections.collect do |collection|
-          {
-            id: collection.id,
-            title: collection.title,
-            image: collection.primary_image.try(:attachable).try(:data).try(:select, ->(k,v) {k == :thumb}),
-            contributing_user_id: collection_records.find_by(collection_id: collection.id).contributing_user_id,
-            read_state: collection.read_state,
-            write_state: collection.write_state,
-            write_state_team_id: collection.write_state_team_id,
-            owner_type: collection.owner_type,
-            owner_id: collection.owner_id
-          }
-        end
+          collections.collect do |collection|
+            {
+              id: collection.id,
+              title: collection.title,
+              image: collection.primary_image.try(:attachable).try(:data).try(:slice, *[:thumb, :content_type, :suffix]),
+              contributing_user_id: collection_records.find_by(collection_id: collection.id).contributing_user_id,
+              read_state: collection.read_state,
+              write_state: collection.write_state,
+              write_state_team_id: collection.write_state_team_id,
+              owner_type: collection.owner_type,
+              owner_id: collection.owner_id
+            }
+          end
+
+
 
       }
 
