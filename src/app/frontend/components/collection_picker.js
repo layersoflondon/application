@@ -111,7 +111,7 @@ import RecordModel from "../models/record";
 
     const toggled_classname = (this.state.showing === "user_collections") ? "" : "is-toggled";
     const collection_options = this.state[`${this.state.showing}_options`];
-
+    console.log(this.state.record.everyone_collections.map((c) => c.user_can_remove_from));
     return  <div className="m-add-to-collection">
 
       <div className="form">
@@ -152,8 +152,8 @@ import RecordModel from "../models/record";
               <h4>Other public collections</h4>
 
               {this.state.record.everyone_collections.map((c, i) => (
-                
-                <button className='m-record-collection-button' value={c.id} name='everyone_collections' onClick={this.removeFromCollections.bind(this)} key={`everyone_collections_${i}`}>
+
+                <button className={`m-record-collection-button ${c.user_can_remove_from ? '' : 'm-record-collection-button--read-only'}`} value={c.id} name='everyone_collections' onClick={c.user_can_remove_from ? this.removeFromCollections.bind(this) : null} key={`everyone_collections_${i}`} title={c.user_can_remove_from ? '' : "You can't remove because you didn't add"}>
                   {c.title}
                 </button>
               ))}
