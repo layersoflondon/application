@@ -20,6 +20,7 @@ import NotFound from "../../not_found";
   }
 
   componentWillMount() {
+    console.log('component will mount on record form');
 
 
 
@@ -140,6 +141,7 @@ import NotFound from "../../not_found";
   }
 
   render() {
+    console.log('rendering record form');
     if (this.state.loadingError) {
       return <NotFound/>
     }
