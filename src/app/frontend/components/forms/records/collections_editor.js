@@ -9,33 +9,6 @@ import {observer} from "mobx-react";
 
 @observer class CollectionsEditor extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      record: this.props.recordFormStore.record
-    }
-  }
-
-  componentWillMount() {
-
-    // the component is mounted before the record is loaded from the api; a new record is created with the results of the GET request
-    // so we need to observe the record itself and update the description if necessary.
-    this.observerDisposer = observe(this.props.recordFormStore, 'record', (changes) => {
-      if (changes.newValue) {
-        this.setState({record: changes.newValue})
-      }
-    });
-
-    // Get 2 lists of collections to populate the dropdowns
-
-
-
-  }
-
-  componentWillUnmount() {
-    this.observerDisposer();
-  }
 
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='collection' ? 'block' : 'none'};
