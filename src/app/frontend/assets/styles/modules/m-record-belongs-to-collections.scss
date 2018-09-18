@@ -5,7 +5,7 @@
   background: #e8ca4c;
 }
 
-.m-record-belongs-to-collections button:after {
+.m-record-belongs-to-collections button:not(.m-record-collection-button--read-only):after {
   font-family: FontAwesome;
   content: "\f00d";
   margin-left: 5px;
