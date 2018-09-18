@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet';
 import MarkerContainer from './marker_container';
 import {observer, inject} from "mobx-react";
+import {observe} from 'mobx';
 import LayerToolsContainer from './layer_tools_container';
 import ErrorBoundary from './error_boundary';
 import MapSearchContainer from './map_search_container';
@@ -17,8 +18,20 @@ import pluralize from "pluralize";
       this.mapRef = element;
       this.props.mapViewStore.map_ref = this.mapRef;
       this.props.trayViewStore.map_ref = this.mapRef;
-    }
+    };
+
+    this.state = {headerShowing: false};
+
+    observe(this.props.trayViewStore, 'tray_is_visible', (change) => {
+      this.setState({headerShowing: (!change.newValue && !this.props.trayViewStore.root)});
+    });
+
+    observe(this.props.trayViewStore, 'root', (change) => {
+      this.setState({headerShowing: (!change.newValue && !this.props.trayViewStore.tray_is_visible)});
+    });
   }
+
+
 
   componentDidMount() {
     this.initial_bounds = this.props.mapViewStore.current_bounds;
@@ -68,6 +81,10 @@ import pluralize from "pluralize";
     this.refs['clipped-tilelayer'].leafletElement._container.style.clipPath = `circle(200px at ${x}px ${y}px)`
   }
 
+  removeHeaderContent() {
+    this.props.router.history.push('/map');
+  }
+
   render() {
     const position = this.props.mapViewStore.center.toJS();
     const map_zoom = this.props.mapViewStore.zoom;
@@ -106,10 +123,10 @@ import pluralize from "pluralize";
 
     return <ErrorBoundary>
       {
-        !this.props.trayViewStore.tray_is_visible && (
+        this.state.headerShowing && (
           <div className="m-map-view-title-area">
             { (headerContent.title) &&
-              <h1>{headerContent.title}<span className="close"><a  className="close" onClick={() => {this.props.router.history.push('/map')}}>Close</a></span></h1>
+              <h1>{headerContent.title}<span className="close"><a  className="close" onClick={this.removeHeaderContent.bind(this)}>Close</a></span></h1>
             }
 
             {
