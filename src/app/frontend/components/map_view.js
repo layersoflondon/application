@@ -5,6 +5,7 @@ import {observer, inject} from "mobx-react";
 import LayerToolsContainer from './layer_tools_container';
 import ErrorBoundary from './error_boundary';
 import MapSearchContainer from './map_search_container';
+import pluralize from "pluralize";
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapView extends Component {
@@ -95,13 +96,30 @@ import MapSearchContainer from './map_search_container';
       })}
     </span>;
 
-    return <ErrorBoundary>
+    const headerContent = this.props.trayViewStore.header_content;
+    const headerMeta = <div className="meta">
+      {[
+        headerContent.tray_view_type,
+        (!!this.props.trayViewStore.recordsCount && pluralize('record', this.props.trayViewStore.recordsCount, true)) || null,
+        (!!this.props.trayViewStore.collectionsCount && pluralize('collection',this.props.trayViewStore.collectionsCount,true)) || null].filter((e) => {return e}).join(", ")}
+    </div>;
 
-      <div class="m-map-view-title-area">
-        <h1>Your search for “church”<span class="close"><a class="close">Close</a></span></h1>
-        <h2>1900 to 1990</h2>
-        <div class="meta">Search, 38 records</div>
-      </div>
+    return <ErrorBoundary>
+      {
+        !this.props.trayViewStore.tray_is_visible && (
+          <div className="m-map-view-title-area">
+            { (headerContent.title) &&
+              <h1>{headerContent.title}<span className="close"><a  className="close" onClick={() => {this.props.router.history.push('/map')}}>Close</a></span></h1>
+            }
+
+            {
+              (headerContent.subtitle) &&
+                <h2>{headerContent.subtitle}</h2>
+            }
+            {headerMeta}
+          </div>
+        )
+      }
 
       <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
         <div className="m-map">
