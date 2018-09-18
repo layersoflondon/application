@@ -99,7 +99,6 @@ import MapSearchContainer from './map_search_container';
 
       <div class="m-map-view-title-area">
         <h1>Your search for “church”<span class="close"><a class="close">Close</a></span></h1>
-
         <h2>1900 to 1990</h2>
         <div class="meta">Search, 38 records</div>
       </div>
