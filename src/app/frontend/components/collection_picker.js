@@ -53,17 +53,24 @@ import RecordModel from "../models/record";
     // this.observerDisposer();
   }
 
-  componentWillReceiveProps() {
-    console.log('receiving props');
-    this.setState(this.getCollectionsState(this.props));
-    console.log("user collections are now:", this.state.enabled_user_collections.map((c) => {return c.toJS()}));
-    console.log("everyone collections are now:", this.state.enabled_everyone_collections.map((c) => {return c.toJS()}));
+  componentWillReceiveProps(newProps) {
+    this.setState(this.getCollectionsState(newProps));
   }
 
   getCollectionsState(props) {
+    let user_collections = props.record.collections.filter((c) => {return props.record.user_collections.indexOf(c.id) === 0});
+    let everyone_collections = props.record.collections.filter((c) => {return props.record.everyone_collections.indexOf(c.id) === 0});
+    let user_collections_ids = user_collections.map((c) => c.id);
+    let everyone_collections_ids = everyone_collections.map((c) => c.id);
+    let user_collections_options = this.props.collectionStore.user_collections.values().filter((c) => {return user_collections_ids.indexOf(c.id) < 0}).map((c) => ({value: c.id, label: c.title}));
+    let everyone_collections_options = this.props.collectionStore.everyone_collections.values().filter((c) => {return everyone_collections_ids.indexOf(c.id) < 0}).map((c) => ({value: c.id, label: c.title}));
     return {
-      enabled_user_collections: props.record.collections.filter((c) => {return props.record.user_collections.indexOf(c.id) < 0}),
-      enabled_everyone_collections: props.record.collections.filter((c) => {return props.record.everyone_collections.indexOf(c.id) < 0}),
+      enabled_user_collections: user_collections,
+      enabled_user_collections_ids: user_collections_ids,
+      enabled_everyone_collections: everyone_collections,
+      enabled_everyone_collections_ids: everyone_collections_ids,
+      user_collections_options: user_collections_options,
+      everyone_collections_options: everyone_collections_options,
       record: props.record
     }
   }
@@ -83,8 +90,8 @@ import RecordModel from "../models/record";
       if(current_collections.indexOf(option.value)<0) {
         current_collections.push(option.value);
         this.state.record.collection_ids = current_collections;
-        // this.selectRef.current.select.clearValue();
       }
+
 
     //  TODO remove the selected option from the list
     }
@@ -95,7 +102,9 @@ import RecordModel from "../models/record";
     event.preventDefault();
     let {value, name} = event.target;
     let current_collections = (this.state.record.collection_ids || []).slice();
-    this.state.record.collection_ids = current_collections.filter((c) => {return c.id === value})
+    this.state.record.collection_ids = current_collections.filter((c) => {return c !== parseInt(value,10)});
+
+    // TODO add the entry back into the appropriate options
 
     // let updated_collections = this.state[`enabled_${name}`].slice();
     // const removed = updated_collections.find((c) => c.value === parseInt(value, 10) );
@@ -125,7 +134,7 @@ import RecordModel from "../models/record";
 
 
     const toggled_classname = (this.state.showing === "user_collections") ? "" : "is-toggled";
-    const collection_options = this.props.collectionStore[this.state.showing].values().map((c) => ({value: c.id, label: c.title}));
+    const collection_options = this.state[`${this.state.showing}_options`];
 
     return  <div className="m-add-to-collection">
 
@@ -140,7 +149,7 @@ import RecordModel from "../models/record";
           </label>
         </div>
 
-        <Select placeholder='' options={collection_options} hideSelectedOptions={true} isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef}/>
+        <Select placeholder='' options={collection_options} value="" isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef}/>
 
       </div>
 
@@ -167,7 +176,7 @@ import RecordModel from "../models/record";
               <h4>Public (& other users') collections</h4>
 
               {this.state.enabled_everyone_collections.map((c, i) => (
-                <button className='m-record-collection-button' value={c.value} name='everyone_collections' onClick={this.removeFromCollections.bind(this)} key={`everyone_collections_${i}`}>
+                <button className='m-record-collection-button' value={c.id} name='everyone_collections' onClick={this.removeFromCollections.bind(this)} key={`everyone_collections_${i}`}>
                   {c.title}
                 </button>
               ))}
