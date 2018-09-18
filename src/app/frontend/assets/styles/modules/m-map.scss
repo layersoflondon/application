@@ -41,3 +41,9 @@
     right:0;
   }
 }
+
+// Move highlighted markers to the front
+
+.leaflet-container .leaflet-marker-pane img[src*="highlighted"] {
+  z-index:10000 !important;
+}
