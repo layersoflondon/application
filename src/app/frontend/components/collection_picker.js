@@ -111,7 +111,6 @@ import RecordModel from "../models/record";
 
     const toggled_classname = (this.state.showing === "user_collections") ? "" : "is-toggled";
     const collection_options = this.state[`${this.state.showing}_options`];
-    console.log(this.state.record.everyone_collections.map((c) => c.user_can_remove_from));
     return  <div className="m-add-to-collection">
 
       <div className="form">
