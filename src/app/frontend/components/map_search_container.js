@@ -27,7 +27,7 @@ import L from "leaflet";
         <ReactLeafletSearch
           map={this.map}
           position="topright"
-          inputPlaceholder="Search for a place on the map"
+          inputPlaceholder="Find a place"
           showMarker={true}
           showPopup={false}
           markerIcon={icon}

@@ -1,0 +1,134 @@
+/* Map view title area */
+
+.m-map-view-title-area {
+  position: absolute;
+  top: 15px;
+  left: 94px;
+  z-index: 2;
+  transition: all .2s;
+  @include mq(tablet) {
+    top: 75px;
+    left: 15px;
+  }
+  @include mq(smartphone) {
+    margin-right: 64px;
+  }
+}
+
+.m-map-view-title-area h1 {
+  margin-top: 0;
+  margin-bottom: 7px;
+  @include font-display;
+  background: $yellow;
+  display: inline-block;
+  float: left;
+  color: $black;
+  padding: 3px 10px;
+  position:relative;
+  @include mq(smartphone) {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  @include mq(small-smartphone) {
+    font-size: 16px;
+  }
+}
+
+.m-map-view-title-area h2 {
+  margin-top: 0;
+  margin-bottom: 7px;
+  @include font-display;
+  font-weight: 600;
+  max-width: calc(100% - 47px);
+  font-size: 18px;
+  background: $yellow;
+  display: inline-block;
+  float: left;
+  color: $black;
+  padding: 2px 10px;
+  clear: left;
+  @include mq(small-smartphone) {
+    font-size: 12px;
+  }
+}
+
+.m-map-view-title-area .close {
+  display: inline-block;
+  position:absolute;
+  top: 2px;
+  right: -26px;
+  @include mq(smartphone) {
+    top: 0px;
+    right: -23px;
+  }
+  @include mq(small-smartphone) {
+    top: -5px;
+    right: -9px;
+  }
+}
+
+.m-map-view-title-area .close a {
+  background: url('../assets/images/icon-close.svg') center no-repeat;
+  @include kellum;
+  text-indent: 50px;
+  padding: 0;
+  opacity: 0.7;
+  @include transition(all .2s);
+  background-color: #333;
+  border-radius: 100px;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  @include mq(smartphone) {
+    width: 37px;
+    height: 37px;
+    background-size: 16px;
+  }
+  @include mq(small-smartphone) {
+    width: 25px;
+    height: 25px;
+    background-size: 12px;
+  }
+}
+
+.m-map-view-title-area .close a:hover {
+  opacity: 1;
+}
+
+.m-map-view-title-area .meta {
+  float: left;
+  clear: both;
+  @include caps-subtitle;
+  font-size: 14px;
+  background: $black;
+  opacity: 1;
+  color: white;
+  padding: 5px 10px 4px;
+  @include mq(small-smartphone) {
+    font-size: 10px;
+    padding: 4px 9px 3px;
+  }
+}
+
+.m-map-view-title-area .creator-link {
+  float: right;
+}
+
+.m-map-view-title-area .request-to-join {
+  @include lozenge-button;
+  margin-left: 10px;
+  margin-top: -3px;
+}
+
+.m-map-view-title-area .profile-pic .image {
+  width: 70px;
+  height: 70px;
+  float: left;
+  margin-right: 10px;
+  border-radius: 100px;
+}
+
+.m-map-view-title-area--search-results .refine {
+  float: right;
+  margin-top: -10px;
+}

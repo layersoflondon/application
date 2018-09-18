@@ -24,6 +24,12 @@
   }
 }
 
+.m-smartphone-menu-wrapper .m-actions {
+  @include mq(tablet) {
+    margin-top: -3px;
+  }
+}
+
 .m-sidebar .m-smartphone-menu-wrapper .m-tool-button a:after {
   opacity:1;
 }
