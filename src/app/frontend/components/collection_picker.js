@@ -50,6 +50,8 @@ import RecordModel from "../models/record";
         return collection;
       });
     });
+
+    window.collectionstore = this.props.collectionStore;
   }
 
   componentWillUnmount() {
@@ -66,18 +68,16 @@ import RecordModel from "../models/record";
   }
 
   getEnabledCollections() {
-    const enabled_user_collections = this.props.collectionStore.user_collections.values().filter((c) => {return this.state.record.user_collections.indexOf(c.id) === 0});
-    const enabled_everyone_collections = this.props.collectionStore.everyone_collections.values().filter((c) => {return this.state.record.everyone_collections.indexOf(c.id) === 0});
     this.setState({
-      enabled_user_collections: enabled_user_collections,
-      enabled_everyone_collections: enabled_everyone_collections
+      enabled_user_collections: this.state.record.user_collections,
+      enabled_everyone_collections: this.state.record.everyone_collections
     });
   }
 
 
   getSelectOptions() {
-    const user_collections_options = this.props.collectionStore.user_collections.values().filter((c) => {return this.state.record.user_collections.indexOf(c.id) < 0});
-    const everyone_collections_options = this.props.collectionStore.everyone_collections.values().filter((c) => {return this.state.record.everyone_collections.indexOf(c.id) < 0});
+    const user_collections_options = this.props.collectionStore.user_collections.values().filter((c) => {return this.state.record.user_collections.map((c) => c.id).indexOf(c.id) < 0});
+    const everyone_collections_options = this.props.collectionStore.everyone_collections.values().filter((c) => {return this.state.record.everyone_collections.map((c) => c.id).indexOf(c.id) < 0});
     this.setState({
       user_collections_options: user_collections_options.map((c) => ({value: c.id, label: c.title})),
       everyone_collections_options: everyone_collections_options.map((c) => ({value: c.id, label: c.title}))
@@ -183,7 +183,7 @@ import RecordModel from "../models/record";
 
           {this.state.enabled_everyone_collections.length>0 && (
             <div className="belongs-to">
-              <h4>Public (& other users') collections</h4>
+              <h4>Other public collections</h4>
 
               {this.state.enabled_everyone_collections.map((c, i) => (
                 <button className='m-record-collection-button' value={c.id} name='everyone_collections' onClick={this.removeFromCollections.bind(this)} key={`everyone_collections_${i}`}>

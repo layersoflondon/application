@@ -96,7 +96,7 @@ export default class RecordModel {
     return this.collections.filter((collection) => {
       return collection.user_is_owner;
     }).map((collection) => {
-      return collection.id
+      return collection
     })
   }
 
@@ -104,7 +104,7 @@ export default class RecordModel {
     return this.collections.filter((collection) => {
       return !collection.user_is_owner;
     }).map((collection) => {
-      return collection.id
+      return collection
     })
   }
 
