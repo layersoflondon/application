@@ -13,7 +13,11 @@ export default class CollectionModel {
   @observable is_collection = true;
   @observable records = [];
   @observable image = null;
-  @observable user_can_edit;
+  @observable user_can_edit = false;
+  @observable user_can_remove_from = false;
+  @observable user_is_owner = false;
+
+
 
   @computed get position() {
     return [0, 0];
@@ -59,7 +63,10 @@ export default class CollectionModel {
       write_state: this.write_state,
       write_state_team_id: this.write_state_team_id,
       owner: this.owner,
-      contributor_ids: this.contributor_ids
+      contributor_ids: this.contributor_ids,
+      user_can_edit: this.user_can_edit,
+      user_is_owner: this.user_is_owner,
+      user_can_remove_from: this.user_can_remove_from
     }
   }
 
@@ -78,6 +85,8 @@ export default class CollectionModel {
     collection.owner = attributes.owner;
     collection.contributor_ids = attributes.contributor_ids;
     collection.user_can_edit = attributes.user_can_edit;
+    collection.user_can_remove_from = attributes.user_can_remove_from;
+    collection.user_is_owner = attributes.user_is_owner;
 
     if( !from_record && attributes.hasOwnProperty('records') && build_records ) {
       // iterate over this collection's records and either fetch the existing record from the store, or build a new one

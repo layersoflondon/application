@@ -30,7 +30,7 @@ module FieldDefinitions
           {
             id: collection.id,
             title: collection.title,
-            thumb: collection.primary_image.try(:attachable).try(:data).try(:[],:thumb),
+            image: collection.primary_image.try(:attachable).try(:data).try(:select, ->(k,v) {k == :thumb}),
             contributing_user_id: collection_records.find_by(collection_id: collection.id).contributing_user_id,
             read_state: collection.read_state,
             write_state: collection.write_state,
