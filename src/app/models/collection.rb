@@ -31,6 +31,10 @@ class Collection < ApplicationRecord
     end
   }
 
+  def contributing_users
+    collection_records.includes(:contributing_user).references(:contributing_user).collect(&:contributing_user).uniq
+  end
+
   def primary_image
     record_with_primary_image = records.where.not(primary_image_id: nil).try(:first)
     return record_with_primary_image.get_primary_image if record_with_primary_image
