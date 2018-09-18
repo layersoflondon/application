@@ -51,7 +51,6 @@ import RecordModel from "../models/record";
       });
     });
 
-    window.collectionstore = this.props.collectionStore;
   }
 
   componentWillUnmount() {
@@ -59,21 +58,9 @@ import RecordModel from "../models/record";
   }
 
   componentWillReceiveProps(newProps) {
-    // this.setState(this.getCollectionsState(newProps));
-    // this.setState({enabled_user_collections: this.props.collectionStore.collections.filter((c) => {return newProps.record.user_collections.indexOf(c.id) === 0})});
-    // window.state = this.state;
     this.setState({record: newProps.record});
-    this.getEnabledCollections();
     this.getSelectOptions();
   }
-
-  getEnabledCollections() {
-    this.setState({
-      enabled_user_collections: this.state.record.user_collections,
-      enabled_everyone_collections: this.state.record.everyone_collections
-    });
-  }
-
 
   getSelectOptions() {
     const user_collections_options = this.props.collectionStore.user_collections.values().filter((c) => {return this.state.record.user_collections.map((c) => c.id).indexOf(c.id) < 0});
@@ -95,11 +82,11 @@ import RecordModel from "../models/record";
 
     // if a select option changes, we need to add the id to the records collection ids (which are observed in the RecordModel and persisted)
     if( action === 'select-option' ) {
-      let current_collections = (this.state.record.collection_ids || []).slice();
+      let current_collections = this.state.record.collection_ids.slice();
       if(current_collections.indexOf(option.value)<0) {
         current_collections.push(option.value);
         this.state.record.collection_ids = current_collections;
-        console.log('select option changed - collection ids now', this.state.record.collection_ids.map((c) => c));
+        this.getSelectOptions();
       }
 
 
@@ -111,8 +98,9 @@ import RecordModel from "../models/record";
   removeFromCollections(event) {
     event.preventDefault();
     let {value, name} = event.target;
-    let current_collections = (this.state.record.collection_ids || []).slice();
+    let current_collections = this.state.record.collection_ids.slice();
     this.state.record.collection_ids = current_collections.filter((c) => {return c !== parseInt(value,10)});
+    this.getSelectOptions();
 
     // TODO add the entry back into the appropriate options
 
@@ -163,16 +151,16 @@ import RecordModel from "../models/record";
 
       </div>
 
-      {(this.state.enabled_user_collections.length>0 || this.state.enabled_everyone_collections.length>0) && (
+      {(this.state.record.user_collections.length>0 || this.state.record.everyone_collections.length>0) && (
 
         <div className="m-record-belongs-to-collections">
           <h3>This record belongs to:</h3>
 
-          {this.state.enabled_user_collections.length>0 && (
+          {this.state.record.user_collections.length>0 && (
             <div className="belongs-to">
               <h4>Your collections</h4>
 
-              {this.state.enabled_user_collections.map((c, i) => (
+              {this.state.record.user_collections.map((c, i) => (
                 <button className='m-record-collection-button' value={c.id} name='user_collections'
                         onClick={this.removeFromCollections.bind(this)} key={`user_collections_${i}`}>
                   {c.title}
@@ -181,11 +169,12 @@ import RecordModel from "../models/record";
             </div>
           )}
 
-          {this.state.enabled_everyone_collections.length>0 && (
+          {this.state.record.everyone_collections.length>0 && (
             <div className="belongs-to">
               <h4>Other public collections</h4>
 
-              {this.state.enabled_everyone_collections.map((c, i) => (
+              {this.state.record.everyone_collections.map((c, i) => (
+                
                 <button className='m-record-collection-button' value={c.id} name='everyone_collections' onClick={this.removeFromCollections.bind(this)} key={`everyone_collections_${i}`}>
                   {c.title}
                 </button>
