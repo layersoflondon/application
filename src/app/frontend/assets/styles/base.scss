@@ -82,6 +82,10 @@ body {
   min-width: 320px;
 }
 
+body.iframe-view {
+  min-width:260px;
+}
+
 a {
   color: $link-color;
   text-decoration: none;
@@ -304,10 +308,17 @@ input[type="submit"] {
 
 .form--chunky .form-actions .primary-actions {
   float: right;
+  @include mq(smartphone) {
+    clear:right;
+    text-align: right;
+  }
 }
 
 .form--chunky .form-actions .secondary-actions {
   float: left;
+  @include mq(smartphone) {
+    float:right;
+  }
 }
 
 .form--chunky .form-actions button,
@@ -326,11 +337,26 @@ input[type="submit"] {
 .form--chunky .form-actions .primary-actions button,
 .form--chunky .form-actions .primary-actions input[type="submit"] {
   margin-left:10px;
+  @include mq(smartphone) {
+    margin-bottom:10px;
+  }
+}
+
+.form--chunky .form-actions .primary-actions button:last-child,
+.form--chunky .form-actions .primary-actions input[type="submit"]:last-child {
+  @include mq(smartphone) {
+    margin-bottom:0;
+  }
 }
 
 .form--chunky .form-actions .secondary-actions button,
 .form--chunky .form-actions .secondary-actions input[type="submit"] {
   margin-right:10px;
+  @include mq(smartphone) {
+    margin-right:0;
+    margin-left:10px;
+    margin-bottom:10px;
+  }
 }
 
 @mixin gray-button {
