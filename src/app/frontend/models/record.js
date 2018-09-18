@@ -54,9 +54,14 @@ export default class RecordModel {
           const removed_ids = change.oldValue.filter((id) => {return change.newValue.indexOf(id) < 0});
           if (added_ids.length) {
             Record.add_to_collections(this.id, {collection_ids: added_ids}).then((result) => {
+              console.log("record was persisted");
               this.collection_ids = null;
+              console.log('collection ids set to null');
               this.collection_ids = result.data.collection_ids;
+              console.log('collection ids set to new value');
               this.collections = result.data.collections;
+              console.log('collections set to new value');
+              console.log("new collection ids returned and set");
             }).catch((errors) => {
               console.log(errors);
             });

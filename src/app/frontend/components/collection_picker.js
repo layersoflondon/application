@@ -8,7 +8,7 @@ import CollectionModel from "../models/collection";
 import Collection from "../sources/collection";
 import RecordModel from "../models/record";
 
-// This component receives
+// This component receives a record prop and mutates the collection IDs on it, which are observed in the RecordModel and persisted from there.
 
 @inject('collectionStore', 'currentUser')
 @observer export default class CollectionPicker extends Component {
@@ -19,10 +19,13 @@ import RecordModel from "../models/record";
 
     this.state = {
       showing: 'user_collections',
-      collections: []
+      collections: [],
+      record: this.props.record,
+      enabled_user_collections: [],
+      enabled_everyone_collections: []
     };
 
-    this.state = Object.assign(this.state, this.getCollectionsState(props));
+    // this.state = Object.assign(this.state, this.getCollectionsState(props));
    
   }
 
@@ -54,30 +57,36 @@ import RecordModel from "../models/record";
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState(this.getCollectionsState(newProps));
+    // this.setState(this.getCollectionsState(newProps));
+    // this.setState({enabled_user_collections: this.props.collectionStore.collections.filter((c) => {return newProps.record.user_collections.indexOf(c.id) === 0})});
+    // window.state = this.state;
+    this.setState({record: newProps.record});
+    this.getEnabledCollections();
+    this.getSelectOptions();
   }
 
-  getCollectionsState(props) {
-    let user_collections = props.record.collections.filter((c) => {return props.record.user_collections.indexOf(c.id) === 0});
-    let everyone_collections = props.record.collections.filter((c) => {return props.record.everyone_collections.indexOf(c.id) === 0});
-    let user_collections_ids = user_collections.map((c) => c.id);
-    let everyone_collections_ids = everyone_collections.map((c) => c.id);
-    let user_collections_options = this.props.collectionStore.user_collections.values().filter((c) => {return user_collections_ids.indexOf(c.id) < 0}).map((c) => ({value: c.id, label: c.title}));
-    let everyone_collections_options = this.props.collectionStore.everyone_collections.values().filter((c) => {return everyone_collections_ids.indexOf(c.id) < 0}).map((c) => ({value: c.id, label: c.title}));
-    return {
-      enabled_user_collections: user_collections,
-      enabled_user_collections_ids: user_collections_ids,
-      enabled_everyone_collections: everyone_collections,
-      enabled_everyone_collections_ids: everyone_collections_ids,
-      user_collections_options: user_collections_options,
-      everyone_collections_options: everyone_collections_options,
-      record: props.record
-    }
+  getEnabledCollections() {
+    const enabled_user_collections = this.props.collectionStore.user_collections.values().filter((c) => {return this.state.record.user_collections.indexOf(c.id) === 0});
+    const enabled_everyone_collections = this.props.collectionStore.everyone_collections.values().filter((c) => {return this.state.record.everyone_collections.indexOf(c.id) === 0});
+    this.setState({
+      enabled_user_collections: enabled_user_collections,
+      enabled_everyone_collections: enabled_everyone_collections
+    });
+  }
+
+
+  getSelectOptions() {
+    const user_collections_options = this.props.collectionStore.user_collections.values().filter((c) => {return this.state.record.user_collections.indexOf(c.id) < 0});
+    const everyone_collections_options = this.props.collectionStore.everyone_collections.values().filter((c) => {return this.state.record.everyone_collections.indexOf(c.id) < 0});
+    this.setState({
+      user_collections_options: user_collections_options.map((c) => ({value: c.id, label: c.title})),
+      everyone_collections_options: everyone_collections_options.map((c) => ({value: c.id, label: c.title}))
+    })
+    
   }
 
   handleShowCollectionsOnChange(event) {
     let collection_set = (event.target.checked) ? "everyone_collections" : "user_collections";
-    // this.selectRef.current.select.setValue(this.props.collectionStore[collection_set].map(()));
     this.setState({showing: collection_set});
   }
 
@@ -90,6 +99,7 @@ import RecordModel from "../models/record";
       if(current_collections.indexOf(option.value)<0) {
         current_collections.push(option.value);
         this.state.record.collection_ids = current_collections;
+        console.log('select option changed - collection ids now', this.state.record.collection_ids.map((c) => c));
       }
 
 
