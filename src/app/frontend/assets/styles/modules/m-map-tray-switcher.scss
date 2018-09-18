@@ -4,7 +4,7 @@
   position:fixed;
   bottom:20px;
   right:20px;
-  z-index: 100;
+  z-index: 99;
   display:none;
   @include mq(tablet) {
     display:block;

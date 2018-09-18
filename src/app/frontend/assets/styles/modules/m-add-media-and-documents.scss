@@ -107,11 +107,11 @@
   width: 60px;
   height: 60px;
   font-size: 40px;
+  padding-top: 0;
+  line-height: 0;
   @include mq(smartphone) {
     width: 42px;
     height: 42px;
-    line-height: 0;
-    padding-top: 0;
     padding-bottom: 5px;
   }
 }
@@ -143,6 +143,12 @@
   float: left;
   padding: 0 10px 10px 0;
   width: 20%;
+  @include mq(smartphone) {
+    width:25%;
+  }
+  @include mq(small-smartphone) {
+    width:50%;
+  }
 }
 
 .m-add-media-and-documents .thumbs li.loading .image span.is-loading {
@@ -192,21 +198,27 @@
   top: -10px;
   left: -10px;
   z-index: 100;
-  background: $red;
+  background: $green;
   border-radius: 30px;
   height: 30px;
   width: 30px;
   color: $white;
+  text-align:center;
+  cursor:pointer;
+  transition:all .2s;
 
   i {
-    margin-left: 7.5px;
-    font-size: 20px;
-    margin-top: 3px;
+    font-size: 15px;
+    margin-top: 8px;
 
     .is-deleting {
       margin-left: 5.5px;
       margin-top: 4.5px;
     }
+  }
+
+  &:hover {
+    background: darken($green, 10%);
   }
 }
 
@@ -237,6 +249,11 @@
   top: 42%;
   @include mq(smartphone) {
     top: 31%;
+    padding: 0 17%;
+  }
+  @include mq(small-smartphone) {
+    top: 34%;
+    padding: 0px 27%;
   }
 }
 
@@ -282,6 +299,10 @@
 .m-add-media-and-documents .meta input,
 .m-add-media-and-documents .meta textarea {
   padding: 10px;
+}
+
+.m-add-media-and-documents .meta textarea {
+  min-height:138px;
 }
 
 .m-add-media-and-documents .meta .form-group--single-checkbox label {
