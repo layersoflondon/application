@@ -20,9 +20,6 @@ import NotFound from "../../not_found";
   }
 
   componentWillMount() {
-    console.log('component will mount on record form');
-
-
 
 
 
@@ -30,7 +27,7 @@ import NotFound from "../../not_found";
       Record.show(null, this.props.match.params.id).then((response) => {
         this.props.recordFormStore.record = RecordModel.fromJS(response.data);
       }).catch((error) => {
-        this.setState({loadingError: true})
+        this.setState({loadingError: true});
         console.log(error);
       });
     } else if (this.props.location.pathname.match(/\/new/)) {

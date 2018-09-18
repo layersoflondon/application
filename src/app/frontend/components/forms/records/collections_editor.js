@@ -9,18 +9,29 @@ import {observer} from "mobx-react";
 
 @observer class CollectionsEditor extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      record: this.props.recordFormStore.record
+    }
+  }
+
+  componentWillReceiveProps() {
+    this.setState({record: this.props.recordFormStore.record})
+  }
+
 
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='collection' ? 'block' : 'none'};
     const pane_classname = (this.props.recordFormStore.visible_pane==='collection') ? 'is-open' : '';
-    const title = (this.props.recordFormStore.record.collection_ids.length) ? 'Manage collections' : 'Add to collections';
+    const title = (this.state.record.collection_ids.length) ? 'Manage collections' : 'Add to collections';
 
     return (
       <div className={`section section--add-to-collection ${pane_classname}`}>
         <h2 className="title" data-name="collection" onClick={this.togglePaneVisibility}>{title}</h2>
 
         <div className="pane" style={pane_styles}>
-          <CollectionPicker record={this.props.recordFormStore.record}/>
+          <CollectionPicker record={this.state.record}/>
 
 
         </div>
