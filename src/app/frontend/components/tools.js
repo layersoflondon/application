@@ -115,7 +115,7 @@ import Img from 'react-image';
                   </div>
 
                   <div className="m-error-logo">
-                      <img src={errorLogo} alt="Error made this" />
+                      <a href="https://error.agency"><img src={errorLogo} alt="Error made this" /></a>
                   </div>
               </div>
 
