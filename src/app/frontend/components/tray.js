@@ -27,8 +27,6 @@ import TrayHeader from "./tray_header";
     if(this.props.router.history.location.pathname === "/map" && !this.props.trayViewStore.root ) {
       this.props.trayViewStore.restoreRootState();
     }
-
-    this.tray_list.current.scrollTop = 0;
   }
 
   render() {
