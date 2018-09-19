@@ -36,7 +36,12 @@ import {Link }from 'react-router-dom';
         <h3>Collections this record belongs to</h3>
         <ul>
           {this.props.trayViewStore.record.collections.map((c,i) => (
-            <li key={`collection-${c.id}-${i}`}><Link to={`/map/collections/${c.id}`}>{c.title}</Link></li>
+            <li key={`collection-${c.id}-${i}`}>
+              <Link to={`/map/collections/${c.id}`}>
+                {c.title}
+                {c.read_state === 'private_read' ? " (private to you)" : ""}
+              </Link>
+            </li>
           ))}
         </ul>
       </div>
