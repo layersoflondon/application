@@ -1,5 +1,6 @@
 class Attachments::Text < ApplicationRecord
   include Attachments::SharedValidations
+  has_one :attachment, as: :attachable
 
   def data
     {
