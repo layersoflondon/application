@@ -19,7 +19,6 @@
 </head>
 <body class="<%= content_for? (:body_class) ? yield(:body_class) : '' %>">
     <div class="m-site-wrapper">
-    <%= render 'shared/beta_message' %>
         <%= render "shared/header" %>
         <%= content_for?(:template) ? yield(:template) : yield %>
         <%= render "shared/footer" %>
