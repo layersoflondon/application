@@ -78,10 +78,10 @@
 }
 
 .m-add-record .form-group--location > .m-mini-map {
-  cursor:pointer;
+  cursor: pointer;
   height: 150px;
   padding-bottom: 0;
-  transition:all .2s;
+  transition: all .2s;
 }
 
 .m-add-record .form-group--location > .m-mini-map:hover {
@@ -94,14 +94,14 @@
   content: "Edit";
   position: absolute;
   top: 0;
-  right:0;
-  background:white;
-  color:$black;
+  right: 0;
+  background: white;
+  color: $black;
   font-size: 14px;
   display: inline-block;
   padding: 3px 6px 2px;
-  opacity:0;
-  transition:all .2s;
+  opacity: 0;
+  transition: all .2s;
 }
 
 .m-add-record .form-group--location > .m-mini-map:hover:after {
@@ -125,7 +125,6 @@
 }
 
 .m-add-record .form-group--credits .quill {
-  height: 120px;
   border: 1px solid #ccc;
 
   .ql-tooltip.ql-editing {
@@ -133,11 +132,18 @@
   }
 
   .ql-container.ql-bubble:not(.ql-disabled) a::before,
-  .ql-container.ql-bubble:not(.ql-disabled) a::after{
+  .ql-container.ql-bubble:not(.ql-disabled) a::after {
     display: none
   }
 }
 
+.m-add-record .form-group--credits .ql-editor {
+  min-height: 120px;
+}
+
+.m-add-record .form-group--credits .ql-editor:focus {
+  min-height: 122px;
+}
 
 
 .m-add-record button.delete,
@@ -161,6 +167,11 @@
   min-height: 200px;
 }
 
+.m-add-record .form-group--description .ql-editor:focus {
+  min-height: 202px;
+}
+
+
 .ql-container.ql-container {
   font-family: inherit;
   font-size: inherit;
@@ -169,15 +180,19 @@
 .ql-editor.ql-editor {
   padding: 20px;
   @include mq(smartphone) {
-    padding: 10px;
+    padding: 10px !important;
   }
 }
 
 .ql-editor.ql-editor:focus {
   border: 2px solid #549a76;
-  //margin: -1px;
+  margin: -1px;
   padding: 19px;
+  @include mq(smartphone) {
+    padding: 9px !important;
+  }
 }
+
 
 .m-add-record label.errors-on-publish {
   position: relative;
@@ -195,15 +210,18 @@
   color: white;
   padding: 3px 9px 0;
   display: block;
-  height: 25px;
+  height: 24px;
   float: right;
 }
 
-
 .m-add-record .form-validation-errors {
   @include top-and-tail;
-  margin:40px -50px -40px -50px;
-  padding:40px;
-  background:#feeff1;
-  color:$red;
+  margin: 40px -50px -40px -50px;
+  padding: 40px;
+  background: #feeff1;
+  color: $red;
+  @include mq(small-smartphone) {
+    margin: 15px -15px -40px -15px;
+    padding: 15px;
+  }
 }

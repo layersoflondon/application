@@ -6,6 +6,7 @@ import Parser from 'html-react-parser';
 @observer export default class Layer extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props.layer.title, this.props.layer.credit)
   }
 
   handleOnClick(event) {
@@ -25,6 +26,7 @@ import Parser from 'html-react-parser';
           }
         <h2>{this.props.layer.title}</h2>
         <div className="description">{Parser(this.props.layer.description)}</div>
+        {this.props.layer.credit && (<span className="credit">{Parser(this.props.layer.credit)}</span>)}
 
         <button>
           <span>Select this layer</span>

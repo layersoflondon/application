@@ -15,4 +15,12 @@ export default class Record extends LoLHTTPBase {
   static report(id, params) {
     return axios.post(`${this.resource_path}/report`, params);
   }
+
+  static add_to_collections(id, params) {
+    return axios.patch(`${this.resource_path}/collections`, params)
+  }
+
+  static remove_from_collections(id, params) {
+    return axios({method: 'delete', url: `${this.resource_path}/collections`, data: params});
+  }
 }

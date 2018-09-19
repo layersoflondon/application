@@ -58,7 +58,8 @@ import Img from 'react-image';
   }
 
   render() {
-    const logo = require('../assets/images/logo.svg');
+      const logo = require('../assets/images/logo.svg');
+      const errorLogo = require('../assets/images/errormadethis.svg');
       return <Fragment>
           <div className="m-sidebar">
 
@@ -79,7 +80,7 @@ import Img from 'react-image';
               <div className="m-smartphone-menu-wrapper">
                   <div className="m-tools">
                       <div className="m-tool-button m-tool-button--search">
-                          <Link to='/map/search' data-label="Search"><span>Search</span></Link>
+                          <Link to='/map/search' data-label="Search records"><span>Search records</span></Link>
                       </div>
                       <div className="m-tool-button m-tool-button--layers">
                           <Link to='/map/layers' data-label="Layers"><span>Layers</span></Link>
@@ -111,6 +112,10 @@ import Img from 'react-image';
                     <div className="m-tool-button m-tool-button--help">
                       <a href="/help-centre" data-label="Help"><span>Help</span></a>
                     </div>
+                  </div>
+
+                  <div className="m-error-logo">
+                      <a href="https://error.agency"><img src={errorLogo} alt="Error made this" /></a>
                   </div>
               </div>
 

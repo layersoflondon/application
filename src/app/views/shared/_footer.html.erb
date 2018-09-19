@@ -2,13 +2,9 @@
     <div class="partners">
         <h3>Partners & Supporters</h3>
         <ul>
-            <li><a href="https://sas.ac.uk/"><%= image_tag('logo-sas.png', alt: "School of Advanced Study") %></a></li>
-            <li>
-                <a href="https://www.hlf.org.uk/"><%= image_tag('logo-lottery.png', alt: "The Heritage Lottery Fund") %></a>
-            </li>
-            <li>
-                <a href="https://www.hlf.org.uk/"><%= image_tag('logo-ihr.png', alt: "Institute of Historical Research") %></a>
-            </li>
+            <li><a href="https://sas.ac.uk/"><%= image_tag('logo-sas-2.png', alt: "School of Advanced Study") %></a></li>
+            <li><a href="https://www.hlf.org.uk/"><%= image_tag('logo-lottery.png', alt: "The Heritage Lottery Fund") %></a></li>
+            <li><a href="https://www.history.ac.uk/"><%= image_tag('logo-ihr.png', alt: "Institute of Historical Research") %></a></li>
         </ul>
     </div>
     <div class="credentials">
@@ -17,9 +13,7 @@
         </ul>
     </div>
     <div class="footer-navigation">
-
         <%= menu_for(@footer_navigation_menu, class: 'user-actions', current_class: 'is-current') %>
     </div>
-
     <div class="copyright"><%= Date.today.year %> &copy; Layers of London</div>
 </div>

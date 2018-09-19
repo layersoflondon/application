@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet';
 import MarkerContainer from './marker_container';
 import {observer, inject} from "mobx-react";
+import {observe} from 'mobx';
 import LayerToolsContainer from './layer_tools_container';
 import ErrorBoundary from './error_boundary';
 import MapSearchContainer from './map_search_container';
+import pluralize from "pluralize";
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapView extends Component {
@@ -16,8 +18,20 @@ import MapSearchContainer from './map_search_container';
       this.mapRef = element;
       this.props.mapViewStore.map_ref = this.mapRef;
       this.props.trayViewStore.map_ref = this.mapRef;
-    }
+    };
+
+    this.state = {headerShowing: false};
+
+    observe(this.props.trayViewStore, 'tray_is_visible', (change) => {
+      this.setState({headerShowing: (!change.newValue && !this.props.trayViewStore.root)});
+    });
+
+    observe(this.props.trayViewStore, 'root', (change) => {
+      this.setState({headerShowing: (!change.newValue && !this.props.trayViewStore.tray_is_visible)});
+    });
   }
+
+
 
   componentDidMount() {
     this.initial_bounds = this.props.mapViewStore.current_bounds;
@@ -67,6 +81,10 @@ import MapSearchContainer from './map_search_container';
     this.refs['clipped-tilelayer'].leafletElement._container.style.clipPath = `circle(200px at ${x}px ${y}px)`
   }
 
+  removeHeaderContent() {
+    this.props.router.history.push('/map');
+  }
+
   render() {
     const position = this.props.mapViewStore.center.toJS();
     const map_zoom = this.props.mapViewStore.zoom;
@@ -95,10 +113,36 @@ import MapSearchContainer from './map_search_container';
       })}
     </span>;
 
+    const headerContent = this.props.trayViewStore.header_content;
+    const headerMeta = <div className="meta">
+      {[
+        headerContent.tray_view_type,
+        (!!this.props.trayViewStore.recordsCount && pluralize('record', this.props.trayViewStore.recordsCount, true)) || null,
+        (!!this.props.trayViewStore.collectionsCount && pluralize('collection',this.props.trayViewStore.collectionsCount,true)) || null].filter((e) => {return e}).join(", ")}
+    </div>;
+
     return <ErrorBoundary>
+      {
+        this.state.headerShowing && (
+          <div className="m-map-view-title-area">
+            { (headerContent.title) &&
+              <h1>{headerContent.title}<span className="close"><a  className="close" onClick={this.removeHeaderContent.bind(this)}>Close</a></span></h1>
+            }
+
+            {
+              (headerContent.subtitle) &&
+                <h2>{headerContent.subtitle}</h2>
+            }
+            {headerMeta}
+          </div>
+        )
+      }
+
       <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
         <div className="m-map">
-          <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)}>
+          <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)} zoomControl={false} >
+            <ZoomControl position={`bottomright`} />
+
             <ErrorBoundary>
               <MapSearchContainer {...this.props} />
             </ErrorBoundary>

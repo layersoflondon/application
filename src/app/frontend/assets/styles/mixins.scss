@@ -4,15 +4,15 @@
   position:relative;
   &:before {
     content:"";
-    background: url('../assets/images/record-marker-x2.png') center/contain no-repeat;
+    background: url('../assets/images/record-marker@2x.png') center/contain no-repeat;
     display:block;
-    width:22px;
-    height:30px;
+    width: 30px;
+    height: 40px;
     position:absolute;
     left:50%;
     top:50%;
-    margin-left:-11px;
-    margin-top:-30px;
+    margin-left:-15px;
+    margin-top: -30px;
   }
 }
 

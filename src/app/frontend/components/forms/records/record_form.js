@@ -23,13 +23,12 @@ import NotFound from "../../not_found";
 
 
 
-
-
     if( this.props.match.params.id && this.props.recordFormStore.record.id !== parseInt(this.props.match.params.id) ) {
       Record.show(null, this.props.match.params.id).then((response) => {
         this.props.recordFormStore.record = RecordModel.fromJS(response.data);
       }).catch((error) => {
-        this.setState({loadingError: true})
+        this.setState({loadingError: true});
+        console.log(error);
       });
     } else if (this.props.location.pathname.match(/\/new/)) {
       if (!this.props.recordFormStore.record.lat || !this.props.recordFormStore.record.lng) {

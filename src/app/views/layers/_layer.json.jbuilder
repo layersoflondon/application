@@ -1,6 +1,7 @@
 json.id layer.id
 json.title layer.title
 json.description layer.description
+json.credit layer.credit
 json.lat layer.lat
 json.lng layer.lng
 json.date_from layer.date_from

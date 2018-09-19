@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :team_users, dependent: :destroy
   has_many :teams, through: :team_users
   has_many :collections, as: :owner
+  has_many :contributed_collection_records, class_name: 'CollectionRecord', foreign_key: :contributing_user_id
+  has_many :contributed_collections, through: :contributed_collection_records, class_name: "Collection", source: :collection
   has_one_attached :avatar
 
   serialize :record_likes, Array

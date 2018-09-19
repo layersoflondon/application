@@ -42,7 +42,6 @@ import TeachersForm from "./teachers_form";
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("Handle submit", event, this.state);
   }
 
   render() {

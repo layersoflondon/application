@@ -12,6 +12,7 @@
   z-index: 50;
   width: 70%;
   max-width: 450px;
+  min-width: 233px;
 }
 
 .m-layer-tools.is-closed .panel button.open {
@@ -104,7 +105,8 @@
 
 .m-layer-tools .name {
   display: inline-block;
-  width: calc(100% - 176px);
+  //width: calc(100% - 176px);
+  width: calc(100% - 112px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

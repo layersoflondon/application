@@ -3,9 +3,8 @@
 .m-map-tray-switcher {
   position:fixed;
   bottom:20px;
-  bottom: 42px; // Just while beta message is showing
   right:20px;
-  z-index: 100;
+  z-index: 99;
   display:none;
   @include mq(tablet) {
     display:block;
@@ -28,14 +27,12 @@
   display:none;
 }
 
-.m-map-tray-switcher button.to-map:before {
-  content: "\f041";
-  font: normal normal normal 32px/1 FontAwesome;
+.m-map-tray-switcher button.to-map {
+  background: $yellow url('../assets/images/mobile-icon-map.svg') center/33px no-repeat;
 }
 
-.m-map-tray-switcher button.to-tray:before {
-  content: "\f00d";
-  font: normal normal normal 32px/1 FontAwesome;
+.m-map-tray-switcher button.to-tray {
+  background: $yellow url('../assets/images/mobile-icon-close.svg') center/22px no-repeat;
 }
 
 // Map view

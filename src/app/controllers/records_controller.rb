@@ -112,6 +112,38 @@ class RecordsController < ApplicationController
     end
   end
 
+  def add_to_collections
+    skip_authorization
+    begin
+      collection_ids = record_collection_params[:collection_ids] || []
+      collection_ids.each do |id|
+        cr = CollectionRecord.new(collection_id: id, record_id: record_collection_params[:id], contributing_user_id: current_user.id)
+        raise Pundit::NotAuthorizedError unless CollectionRecordPolicy.new(current_user, cr).create?
+        cr.save!
+      end
+      @result = save_record_and_return_from_es(Record.find(record_collection_params[:id]))
+    rescue => e
+      render json: {error: e}, status: :not_acceptable
+    end
+
+  end
+
+  def remove_from_collections
+    skip_authorization
+    begin
+      collection_ids = record_collection_params[:collection_ids] || []
+      collection_ids.each do |id|
+        cr = CollectionRecord.find_by(collection_id: id, record_id: record_collection_params[:id])
+        next unless cr.present?
+        raise Pundit::NotAuthorizedError unless CollectionRecordPolicy.new(current_user, cr).destroy?
+        cr.destroy!
+      end
+      @result = save_record_and_return_from_es(Record.find(record_collection_params[:id]))
+    rescue => e
+      render json: {error: e}, status: :not_acceptable
+    end
+  end
+
   private
 
   def set_record
@@ -134,7 +166,6 @@ class RecordsController < ApplicationController
         :date_from,
         :date_to,
         :credit,
-        collection_ids: [],
         location: %i[
           address
         ]
@@ -169,6 +200,10 @@ class RecordsController < ApplicationController
 
   def record_report_params
     params.require(:report).permit(:issue, :message, :email)
+  end
+
+  def record_collection_params
+    params.permit(:id, collection_ids: [])
   end
 
   def check_transition(state)

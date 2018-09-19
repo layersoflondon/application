@@ -2,6 +2,8 @@ class MapsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show state]
   skip_after_action :verify_authorized, only: %i[index show state]
 
+  skip_before_action :get_navigation_menu
+
   before_action :set_state_variables
   decorates_assigned :records, with: RecordDecorator
   decorates_assigned :collections, with: CollectionDecorator

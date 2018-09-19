@@ -46,7 +46,7 @@ import ReactQuill from 'react-quill';
     return (
       <div>
         <div className="form-group form-group--credits">
-          <label className={creditsLabelClassName}>Credits and attribution</label>
+          <label className={creditsLabelClassName}>Sources and attribution</label>
           <span className="helper-text">Highlight your text to add a link.</span>
           <ReactQuill theme="bubble" modules={modules} formats={formats} value={this.state.credit} onChange={this.handleCreditChange.bind(this)} onBlur={this.handleOnBlur} className={`${this.appendErrorClassNameToField('credit')}`} />
         </div>

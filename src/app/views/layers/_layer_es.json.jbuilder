@@ -1,6 +1,7 @@
 json.id layer.id
 json.title layer.title
 json.description layer.description
+json.credit layer.credit
 json.pin layer.pin
 json.date_from layer.date_from
 json.date_to layer.date_to
