@@ -70,6 +70,10 @@
   background: url('../assets/images/icon-collections.svg') center no-repeat;
 }
 
+.m-tool-button--collections a:before {
+  background: url('../assets/images/icon-collections.svg') center no-repeat;
+}
+
 .m-tool-button--add a:before {
   background: url('../assets/images/icon-add-record.svg') center no-repeat;
 }

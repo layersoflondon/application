@@ -6,7 +6,7 @@ import Parser from 'html-react-parser';
 @observer export default class Layer extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.layer.title, this.props.layer.credit)
+    this.creditLinkRef = React.createRef();
   }
 
   handleOnClick(event) {
@@ -19,7 +19,7 @@ import Parser from 'html-react-parser';
   render() {
 
     return <div className={`layer ${(this.props.layer.is_active) ? "layer is-selected" : ""}`}>
-      <a href="" onClick={this.handleOnClick.bind(this)}>
+      <a>
           {this.props.layer.image &&
           <div className="image" style={{'backgroundImage': 'url(' + this.props.layer.image.card + ')'}}>
           </div>
@@ -31,7 +31,7 @@ import Parser from 'html-react-parser';
         </div>
 
 
-        <button>
+        <button onClick={this.handleOnClick.bind(this)}>
           <span>Select this layer</span>
         </button>
       </a>

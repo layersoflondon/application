@@ -9,6 +9,8 @@ import Img from 'react-image';
 @observer export default class Tools extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {show_menu: false};
   }
 
   handleOnClick(event) {
@@ -23,13 +25,9 @@ import Img from 'react-image';
     }
   }
 
-    handleHamburgerOnClick(event) {
-        event.preventDefault();
-        var hamburger = document.getElementsByClassName('hamburger')[0];
-        hamburger.classList.toggle("is-active");
-        var mapwrap = document.getElementsByClassName('m-map-wrapper')[0];
-        mapwrap.classList.toggle("menu-is-open");
-    }
+  handleHamburgerOnClick(event) {
+    this.setState({show_menu: !this.state.show_menu});
+  }
 
   accountLink() {
       if (this.props.userPresent) {
@@ -43,7 +41,7 @@ import Img from 'react-image';
 
   createCollectionLink() {
       if (this.props.userPresent) {
-          return <Link to='/map/collections/new' data-label="Create collection"><span>Create collection</span></Link>
+          return <Link to='/map/collections/new' data-label="Create collection" onClick={this.handleHamburgerOnClick.bind(this)}><span>Create collection</span></Link>
       } else {
           return <a data-label="Create collection" href="/users/sign_in?return_to=/map/collections/new"><span>Create collection</span></a>
       }
@@ -51,7 +49,7 @@ import Img from 'react-image';
 
   addRecordLink() {
       if (this.props.userPresent) {
-          return <Link to='/map/choose-place' data-label="Add record"><span>Add record</span></Link>
+          return <Link to='/map/choose-place' data-label="Add record" onClick={this.handleHamburgerOnClick.bind(this)}><span>Add record</span></Link>
       } else {
           return <a data-label="Add record" href="/users/sign_in?return_to=/map/choose-place"><span>Add record</span></a>
       }
@@ -60,8 +58,17 @@ import Img from 'react-image';
   render() {
       const logo = require('../assets/images/logo.svg');
       const errorLogo = require('../assets/images/errormadethis.svg');
+
+      let button_class  = 'hamburger';
+      let sidebar_class = 'm-sidebar';
+
+      if( this.state.show_menu ) {
+        button_class += ' is-active';
+        sidebar_class   += ' menu-is-open';
+      }
+
       return <Fragment>
-          <div className="m-sidebar">
+          <div className={sidebar_class}>
 
               <div className="m-logo">
                   <a href="/" title="Return to homepage">
@@ -70,7 +77,7 @@ import Img from 'react-image';
               </div>
 
               <div className="m-hamburger">
-                  <button className="hamburger" type="button" onClick={this.handleHamburgerOnClick}>
+                  <button className={button_class} type="button" onClick={this.handleHamburgerOnClick.bind(this)}>
                         <span className="hamburger-box">
                             <span className="hamburger-inner"></span>
                         </span>
@@ -80,11 +87,14 @@ import Img from 'react-image';
               <div className="m-smartphone-menu-wrapper">
                   <div className="m-tools">
                       <div className="m-tool-button m-tool-button--search">
-                          <Link to='/map/search' data-label="Search records"><span>Search records</span></Link>
+                          <Link to='/map/search' data-label="Search records" onClick={this.handleHamburgerOnClick.bind(this)}><span>Search records</span></Link>
                       </div>
                       <div className="m-tool-button m-tool-button--layers">
-                          <Link to='/map/layers' data-label="Layers"><span>Layers</span></Link>
+                          <Link to='/map/layers' data-label="Layers" onClick={this.handleHamburgerOnClick.bind(this)}><span>Layers</span></Link>
                       </div>
+                    <div className="m-tool-button m-tool-button--collections">
+                      <Link to='/map/search?results=true&collections=true' data-label="Collections" onClick={this.handleHamburgerOnClick.bind(this)}><span>Collections</span></Link>
+                    </div>
                       <div className="m-tool-button m-tool-button--add-collection">
                           {this.createCollectionLink()}
                       </div>
@@ -103,7 +113,7 @@ import Img from 'react-image';
                     <div className="m-tool-button m-tool-button--your-records">
                       {
                         this.props.userPresent &&
-                        <Link to={`/map/users/${this.props.currentUser.id}`} data-label="Your records"><span>Your records</span></Link>
+                        <Link to={`/map/users/${this.props.currentUser.id}`} data-label="Your records" onClick={this.handleHamburgerOnClick.bind(this)}><span>Your records</span></Link>
                       }
                     </div>
                     <div className="m-tool-button m-tool-button--your-account">
