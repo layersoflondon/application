@@ -11,8 +11,8 @@ class CollectionsIndex < Chewy::Index
     end
   end
 
-  def self.published
-    filter(terms: {state: ['published']})
+  def self.published(limit: 200)
+    filter(terms: {state: ['published']}).limit(limit).order(:sort_title)
   end
 
   def self.user_collections(user_id)

@@ -1,4 +1,5 @@
 class Collection < ApplicationRecord
+  include SortFields
   has_many :collection_records, dependent: :destroy
   has_many :records, through: :collection_records
   update_index('records#record') { records }

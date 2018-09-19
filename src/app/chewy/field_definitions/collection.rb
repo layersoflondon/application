@@ -5,6 +5,7 @@ module FieldDefinitions
     included do
       field :id, type: :integer
       field :title, type: :text, analyzer: :english
+      field :sort_title, type: :integer
       field :description, type: :text, analyzer: :english
       field :read_state, type: :keyword
       field :write_state, type: :keyword

@@ -13,6 +13,8 @@ class SearchController < ApplicationController
       @results = MultiIndexSearch.filter_by_date_range(params)
     elsif params[:user_id].present?
       @results = RecordsIndex.user_records(params)
+    elsif params[:collections].present? && params[:collections].in?(["true", true])
+      @results = CollectionsIndex.published
     else
       render json: '', status: :bad_request
     end
