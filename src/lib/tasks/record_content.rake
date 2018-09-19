@@ -8,6 +8,7 @@ namespace :record_content do
       puts "Cleaning up #{plain_text_records.size} record description"
 
       plain_text_records.each do |record|
+        puts record.title
         description = ActionController::Base.helpers.simple_format(ActionController::Base.helpers.strip_tags(record.description))
         record.update_attribute(:description, description)
       end
@@ -21,14 +22,17 @@ namespace :record_content do
       puts "Cleaning up #{text_attachments.size} attachments"
 
       text_attachments.each do |text_attachment|
+        record = Record.unscoped.find(text_attachment.attachment.record_id)
+        next if record.deleted?
+        puts record.title
         description = text_attachment.attachment.record.description
         content = ActionController::Base.helpers.simple_format(ActionController::Base.helpers.strip_tags(text_attachment.content))
 
         record_description = "#{description}#{content}"
         text_attachment.attachment.record.update_attribute(:description, record_description)
+        text_attachment.attachment.destroy
       end
 
-      text_attachments.destroy_all
     end
   end
 end
