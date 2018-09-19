@@ -26,7 +26,6 @@ import RecordModel from "../models/record";
     };
 
     // this.state = Object.assign(this.state, this.getCollectionsState(props));
-   
   }
 
   componentWillMount() {
@@ -37,8 +36,8 @@ import RecordModel from "../models/record";
       response.data.map((c) => {
         let collection = CollectionModel.fromJS(c, this.props.trayViewStore, true, false);
         this.props.collectionStore.everyone_collections.set(collection.id, collection);
+        this.getSelectOptions();
 
-        return collection;
       });
     });
 
@@ -46,11 +45,14 @@ import RecordModel from "../models/record";
       response.data.map((c) => {
         let collection = CollectionModel.fromJS(c, this.props.trayViewStore, true, false);
         this.props.collectionStore.user_collections.set(collection.id, collection);
-
-        return collection;
+        this.getSelectOptions();
       });
     });
 
+  }
+
+  componentDidMount() {
+    this.getSelectOptions();
   }
 
   componentWillUnmount() {
@@ -124,7 +126,7 @@ import RecordModel from "../models/record";
           </label>
         </div>
 
-        <Select placeholder='' options={collection_options} value="" isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef}/>
+        <Select placeholder='Choose a collection…' options={collection_options} value="" isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef}/>
 
       </div>
 
