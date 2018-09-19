@@ -68,7 +68,7 @@ import AddToCollection from "./record_view/add_to_collection";
         {/* edit an existing record */}
         <Route exact path='/map/records/:id/edit' component={RecordForm} />
         <Route exact path='/map/collections/:collection_id/records/:id/edit' component={RecordForm} />
-        <Route exact path='/map/records/:id/add-to-collection' component={AddToCollection} />
+
 
 
         {/* view a record */}
@@ -78,6 +78,16 @@ import AddToCollection from "./record_view/add_to_collection";
             <RecordView>
               <ErrorBoundary>
                 <RecordViewReport />
+              </ErrorBoundary>
+            </RecordView>
+          </ErrorBoundary>
+        )} />
+
+        <Route exact path='/map/records/:id/add-to-collection' render={({match, location}) => (
+          <ErrorBoundary>
+            <RecordView>
+              <ErrorBoundary>
+                <AddToCollection match={match}/>
               </ErrorBoundary>
             </RecordView>
           </ErrorBoundary>

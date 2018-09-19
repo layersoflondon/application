@@ -66,7 +66,7 @@ import Record from '../../sources/record';
           <div>
 
             <div className="form-group form-group--checkboxes-rows">
-              <span class="label">Reason for reporting</span>
+              <span className="label">Reason for reporting</span>
             {choices}
             </div>
 

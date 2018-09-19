@@ -11,6 +11,7 @@ import Record from './../../sources/record';
   constructor(props) {
     super(props);
 
+
   }
 
   componentWillMount() {
@@ -30,7 +31,7 @@ import Record from './../../sources/record';
 
   render() {
     return <Fragment>
-      <div className="m-overlay is-showing">
+      <div className="m-overlay is-showing" style={{zIndex: 12341234, top: 0, left: 0}}>
         <div className="close">
           {this.props.trayViewStore.record &&
           <Link to={`/map/records/${this.props.trayViewStore.record.id}`}>Close</Link>}
@@ -39,14 +40,17 @@ import Record from './../../sources/record';
         <div className="m-add-other-record-to-collection">
           <h1>Add to a collection</h1>
 
-          <div class="form form--chunky">
+          <div className="form form--chunky">
                 {this.props.trayViewStore.record &&
               <CollectionPicker record={this.props.trayViewStore.record}/>}
 
 
 
-            <div class="form-actions">
-              <div class="primary-actions"><input type="submit" value="Done"/></div>
+            <div className="form-actions">
+              <div className="primary-actions">
+                {this.props.trayViewStore.record &&
+                <Link to={`/map/records/${this.props.trayViewStore.record.id}`}>Done</Link>}
+              </div>
             </div>
           </div>
 
