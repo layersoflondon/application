@@ -41,8 +41,7 @@ export default class TrayViewStore {
   @observable loading_error = false;
 
   map_ref = null;
-
-
+  tray_list_ref = null;
 
   constructor() {
 
@@ -51,6 +50,10 @@ export default class TrayViewStore {
     observe(this, 'cards', (change) => {
       if(this.root) {
         // this.previous_cards = change.oldValue;
+      }
+
+      if( this.tray_list_ref ) {
+        this.tray_list_ref.current.scrollTop = 0;
       }
     });
 

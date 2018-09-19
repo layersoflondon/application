@@ -10,6 +10,9 @@ import TrayHeader from "./tray_header";
 @observer export default class Tray extends Component {
   constructor(props) {
     super(props);
+
+    this.tray_list = React.createRef();
+    this.props.trayViewStore.tray_list_ref = this.tray_list;
   }
 
   componentWillMount() {
@@ -24,6 +27,8 @@ import TrayHeader from "./tray_header";
     if(this.props.router.history.location.pathname === "/map" && !this.props.trayViewStore.root ) {
       this.props.trayViewStore.restoreRootState();
     }
+
+    this.tray_list.current.scrollTop = 0;
   }
 
   render() {
@@ -47,7 +52,7 @@ import TrayHeader from "./tray_header";
         <span>Close</span>
       </div>
 
-      <div className="window">
+      <div className="window" ref={this.tray_list}>
         <div className="s-tray-area--default is-showing">
           <ErrorBoundary>
             <TrayHeader showTrayHeader={!this.props.trayViewStore.root} {...this.props}/>
