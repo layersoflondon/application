@@ -123,7 +123,7 @@ import pluralize from "pluralize";
 
     return <ErrorBoundary>
       {
-        this.state.headerShowing && (
+        this.state.headerShowing && !this.props.mapViewStore.add_record_mode && (
           <div className="m-map-view-title-area">
             { (headerContent.title) &&
               <h1>{headerContent.title}<span className="close"><a  className="close" onClick={this.removeHeaderContent.bind(this)}>Close</a></span></h1>
