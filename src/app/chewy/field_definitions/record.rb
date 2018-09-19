@@ -4,6 +4,7 @@ module FieldDefinitions
     included do
       field :id, type: 'integer'
       field :title, type: 'text', analyzer: :english
+      field :sort_title, type: :integer
       field :description, type: 'text', analyzer: :english
       field :excerpt, type: 'text', analyzer: :english
       field :like_count, type: 'integer'

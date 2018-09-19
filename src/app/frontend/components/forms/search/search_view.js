@@ -10,7 +10,7 @@ import Search from "../../../sources/search";
   constructor(props) {
     super(props);
 
-    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}};
+    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}, collections: false};
   }
 
   componentWillMount() {
@@ -110,6 +110,10 @@ import Search from "../../../sources/search";
       search_params.geobounding = this.getBounds()
     }
 
+    if( this.state.collections) {
+      search_params.collections = true;
+    }
+
     function serializeQuery(params, prefix) {
       const query = Object.keys(params).map((key) => {
         const value  = params[key];
@@ -130,7 +134,16 @@ import Search from "../../../sources/search";
 
     this.props.trayViewStore.loading = true;
 
-    const header_subtitle = (!!this.state.start_year || !!this.state.end_year) ? `${!!this.state.start_year ? this.state.start_year : "up"} to ${!!this.state.end_year ? this.state.end_year : "now"}` : "";
+    let header_subtitle = "";
+
+    if (!!this.state.start_year || !!this.state.end_year) {
+      header_subtitle = `${!!this.state.start_year ? this.state.start_year : "up"} to ${!!this.state.end_year ? this.state.end_year : "now"}`
+    }
+
+    if (this.state.collections) {
+      header_subtitle = "for your collection search"
+    }
+    
     const header_title = !!this.state.q ? `Your search for “${this.state.q}”` : `Results ${header_subtitle}`;
 
     Search.perform(search_params).then((response) => {
@@ -167,7 +180,7 @@ import Search from "../../../sources/search";
 
       this.props.trayViewStore.locked = true;
       this.props.trayViewStore.root = false;
-      this.props.router.history.push(`/map/search?show_results=true&q=${this.state.q}`)
+      this.props.router.history.push(`/map/search?show_results=true&${params}`)
     });
   }
 
@@ -180,8 +193,9 @@ import Search from "../../../sources/search";
     const start_year_match = location.search.match(/date_range\[gte\]=([^-]+)/);
     const end_year_match = location.search.match(/date_range\[lte\]=([^-]+)/);
     const user_match = location.search.match(/user_id=([^$,&]+)/);
+    const collections_match = location.search.search(/collections=true/);
 
-    let state = {showing_results: false};
+    let state = {showing_results: false, collections: false};
 
     if(showing_results_match && showing_results_match>-1) {
       state.showing_results = true;
@@ -201,6 +215,10 @@ import Search from "../../../sources/search";
 
     if(end_year_match && end_year_match.length>1) {
       state.end_year = end_year_match[1];
+    }
+
+    if(collections_match && collections_match > -1) {
+      state.collections=true
     }
 
     /**

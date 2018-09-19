@@ -4,13 +4,23 @@ import {observer, inject} from "mobx-react";
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import RecordViewComponentState from './record_view_component_state';
 import {Link} from 'react-router-dom';
-@inject('mapboxStaticMapsKey')
+@inject('mapboxStaticMapsKey', 'userPresent')
 @observer class RecordViewSidebar extends Component {
   constructor(props) {
     super(props);
   }
 
+  addToCollectionLink() {
+    if (this.props.userPresent) {
+      return <Link to={`/map/records/${this.props.trayViewStore.record.id}/add-to-collection`}>Add to collection</Link>
+    } else {
+      return <a href={`/users/sign_in?return_to=/map/records/${this.props.trayViewStore.record.id}/add-to-collection`}><span>Add to collection</span></a>
+    }
+  }
+
   render() {
+
+
     return <div className="sidebar">
       <div className="place">
         <div className="m-mini-map" style={{backgroundImage: `url(https://maps.tilehosting.com/styles/basic/static/${this.props.trayViewStore.record.lng},${this.props.trayViewStore.record.lat},14/280x280.png?key=${this.props.mapboxStaticMapsKey})`}}>
@@ -21,9 +31,7 @@ import {Link} from 'react-router-dom';
 
       <div className="social">
         <div className="add-to-collection">
-          <Link to={`/map/records/${this.props.trayViewStore.record.id}/add-to-collection`}>
-          Add to collection
-          </Link>
+          { this.addToCollectionLink() }
         </div>
 
         {/*<div className="social-status">*/}

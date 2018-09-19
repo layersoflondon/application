@@ -31,8 +31,8 @@ import {observer} from "mobx-react";
         <h2 className="title" data-name="collection" onClick={this.togglePaneVisibility}>{title}</h2>
 
         <div className="pane" style={pane_styles}>
-          <CollectionPicker record={this.state.record}/>
 
+          <CollectionPicker record={this.state.record}/>
 
         </div>
 

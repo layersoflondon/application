@@ -123,7 +123,7 @@ import pluralize from "pluralize";
 
     return <ErrorBoundary>
       {
-        this.state.headerShowing && (
+        this.state.headerShowing && !this.props.mapViewStore.add_record_mode && (
           <div className="m-map-view-title-area">
             { (headerContent.title) &&
               <h1>{headerContent.title}<span className="close"><a  className="close" onClick={this.removeHeaderContent.bind(this)}>Close</a></span></h1>
@@ -139,7 +139,7 @@ import pluralize from "pluralize";
       }
 
       <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
-        <div className="m-map">
+        <div className={`m-map ${this.props.mapViewStore.add_record_mode ? 'is-adding' : ''}`}>
           <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)} zoomControl={false} >
             <ZoomControl position={`bottomright`} />
 
