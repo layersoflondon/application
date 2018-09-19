@@ -134,7 +134,7 @@ import RecordModel from "../../../models/record";
                 <div className="form-group form-group--checkboxes-rows">
                   <span className="label">Who can see?</span>
                   <label>
-                    <input type="checkbox" name="read_state" checked={this.state.read_state} onChange={this.handleOnReadStateChange.bind(this)} />
+                    <input type="checkbox" name="read_state" checked={this.state.read_state === "private_read"} onChange={this.handleOnReadStateChange.bind(this)} />
                     <span>Keep this collection private <br /> <span className="nb">This will create a <strong>collection</strong> that only you can see.<br /> The records within will still be publicly viewable.</span></span>
                   </label>
 
@@ -143,19 +143,22 @@ import RecordModel from "../../../models/record";
                 <div className="form-group form-group--checkboxes-rows">
                   <span className="label">Who can edit?</span>
                   <label>
-                    <input type="radio" name="write_state" checked={this.state.write_state=="creator"} value="creator" onChange={this.handleOnChange.bind(this)} /><span>Just you</span>
+                    <input type="radio" name="write_state" checked={this.state.write_state ==="creator"} value="creator" onChange={this.handleOnChange.bind(this)} /><span>Just you</span>
                   </label>
 
-                  {this.state.teams.length>0 && (
+                  {this.state.teams.length>0 && this.state.read_state === "public_read" && (
                     <label>
-                      <input type="radio" name="write_state" checked={this.state.write_state=="team"} value="team" onChange={this.handleOnChange.bind(this)} /><span>Members of</span>
-                      <Select placeholder='' options={this.state.teams} hideSelectedOptions={true} isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef} value={this.state.teams.find((t) => t.value === this.props.collectionFormStore.collection.write_state_team_id)}/>
+                      <input type="radio" name="write_state" checked={this.state.write_state ==="team"} value="team" onChange={this.handleOnChange.bind(this)} /><span>Members of</span>
+                      <Select placeholder='' options={this.state.teams} hideSelectedOptions={true} isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef} value={this.state.teams.find((t) => t.value === this.props.collectionFormStore.collection.write_state_team_id)} />
                     </label>
                   )}
 
+                  { this.state.read_state === "public_read" && (
                   <label>
-                    <input type="radio" name="write_state" checked={this.state.write_state=="everyone"} value="everyone" onChange={this.handleOnChange.bind(this)} /><span>Anyone</span>
+                    <input type="radio" name="write_state" checked={this.state.write_state ==="everyone"} value="everyone" onChange={this.handleOnChange.bind(this)} disabled={this.state.read_state === "private_read"} /><span>Anyone</span>
                   </label>
+                    
+                  )}
                 </div>
 
                 <input value="Save" type="submit" />
