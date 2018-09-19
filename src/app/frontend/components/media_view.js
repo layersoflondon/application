@@ -24,6 +24,14 @@ import Img from 'react-image';
     }
   }
 
+  scrollThumbs(event) {
+    let scroll_by = 150;
+    if( event.target.dataset.direction === "left" ) {
+      scroll_by = -150;
+    }
+    this.scrollingPaneRef.current.scrollLeft += scroll_by;
+  }
+
   render() {
     const in_gallery_view = this.props.trayViewStore.record.view_type === 'gallery';
 
@@ -50,8 +58,8 @@ import Img from 'react-image';
             {in_gallery_view && (
               <div className="m-media-viewer-thumbs">
                 <div className="controls">
-                  <button className="scroll-left"></button>
-                  <button className="scroll-right"></button>
+                  <button className="scroll-left" onClick={this.scrollThumbs.bind(this)} data-direction="left"></button>
+                  <button className="scroll-right" onClick={this.scrollThumbs.bind(this)} data-direction="right"></button>
                 </div>
                 <div className="pane" ref={this.scrollingPaneRef}>
                   {media_list}
