@@ -31,7 +31,7 @@
 -
   title: Modern satellite map
   description: A modern satellite map
-  url: https://maps.tilehosting.com/c/1df1ac08-8dde-4875-bda5-dbb044c43268/styles/hybrid/{z}/{x}/{y}.jpg?key=23hrAY6lilqs9xizcz03
+  url: http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}
   date: 2018-01-01
   image: satellite.png
 -
