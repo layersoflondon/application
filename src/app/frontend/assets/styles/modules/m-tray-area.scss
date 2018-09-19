@@ -54,6 +54,10 @@
   }
 }
 
+.tray-is-closed .m-tray-area .window {
+  overflow:hidden;
+}
+
 .m-tray-area .open-close {
   position: absolute;
   top: 50%;
