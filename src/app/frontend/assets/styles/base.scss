@@ -239,6 +239,14 @@ input[type="submit"] {
   }
 }
 
+
+.form--chunky input {
+  padding: 20px 10px;
+  @include mq(smartphone) {
+    padding:10px;
+  }
+}
+
 .form--chunky input[type="radio"] {
   padding:0;
 }
@@ -405,8 +413,8 @@ input[type="submit"] {
   }
 
   input:checked + .toggle:after {
-    left: calc(100% - 5px);
-    transform: translateX(-100%);
+    //left: calc(100% - 5px);
+    transform: translateX(25px);
   }
 
   label span {

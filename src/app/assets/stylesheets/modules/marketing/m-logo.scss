@@ -20,6 +20,7 @@
 .m-logo img {
   width: 40px;
   margin-top: -12px;
+  height:100%;
   @include mq(smartphone) {
     width:30px;
     margin-top:0;

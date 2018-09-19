@@ -85,13 +85,19 @@
   transition: all .2s;
 }
 
+@supports (-ms-ime-align: auto) {
+  .m-record-media-list-thumbs > div img {
+    transition:none;
+  }
+}
+
 .m-record-media-list-thumbs > div.portrait img {
   width: 100%;
   height: auto;
 }
 
 .m-record-media-list-thumbs a:hover img {
-  filter: brightness(0.8);
+  opacity:0.8;
 }
 
 .m-record-media-list-thumbs > div.media-item--video:after {

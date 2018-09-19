@@ -6,7 +6,7 @@ class Record < ApplicationRecord
 
 
   update_index('records#record') { self }
-  # update_index('collections#collection') { self.collections }
+  update_index('collections#collection') { self.collections }
   has_many :collection_records, dependent: :destroy
   has_many :collections, through: :collection_records
   has_many :attachments, dependent: :destroy
