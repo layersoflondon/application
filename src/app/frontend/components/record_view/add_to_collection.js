@@ -1,4 +1,5 @@
 import React,{Component, Fragment} from 'react';
+import {Link} from 'react-router-dom';
 import CollectionPicker from "../collection_picker";
 import {inject, observer} from 'mobx-react';
 import RecordModel from '../../models/record';
@@ -24,14 +25,16 @@ import Record from './../../sources/record';
 
   handleCloseOnClick(e) {
     e.preventDefault();
-    this.props.router.history.push(`/map/records/${this.trayViewStore.record.id}`);
+    this.props.router.push(`/map/records/${this.trayViewStore.record.id}`);
   }
 
   render() {
     return <Fragment>
       <div className="m-overlay is-showing">
         <div className="close">
-          <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
+          {/*<a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>*/}
+          {this.props.trayViewStore.record &&
+          <Link to={`/map/records/${this.props.trayViewStore.record.id}`}>Close</Link>}
         </div>
 
         <div className="m-record-collections">
