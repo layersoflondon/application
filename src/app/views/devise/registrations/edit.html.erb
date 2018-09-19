@@ -31,18 +31,20 @@
             </label>
         </div>
 
-    <div class="form-group form-group--current-password">
-      <%= f.label :current_password %> <i>We need your current password to confirm your changes.</i>
-      <%= f.password_field :current_password, autocomplete: "off" , style: 'background: #f5f2f7' %>
-    </div>
+        <div class="form-group form-group--current-password">
+          <%= f.label :current_password %> <i>We need your current password to confirm your changes.</i>
+          <%= f.password_field :current_password, autocomplete: "off" , style: 'background: #f5f2f7' %>
+        </div>
 
-    <div class="form-group form-group--current-password">
-        <%= f.label :password, "New password" %> <i>If you want to change your password, enter a new one here.</i>
-        <%= f.password_field :password, autocomplete: "off" , style: 'background: #f5f2f7' %>
+        <div class="form-group form-group--new-password">
+            <%= f.label :password, "New password" %> <i>If you want to change your password, enter a new one here.</i>
+            <%= f.password_field :password, autocomplete: "off" , style: 'background: #f5f2f7' %>
+        </div>
 
-        <%= f.label :password_confirmation, "New password again" %> <i>Confirm your new password</i>
-        <%= f.password_field :password_confirmation, autocomplete: "off" , style: 'background: #f5f2f7' %>
-    </div>
+        <div class="form-group form-group--new-password">
+            <%= f.label :password_confirmation, "New password again" %> <i>Confirm your new password</i>
+            <%= f.password_field :password_confirmation, autocomplete: "off" , style: 'background: #f5f2f7' %>
+        </div>
 
         <div class="form-actions">
             <div class="secondary-actions">
