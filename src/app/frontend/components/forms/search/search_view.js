@@ -134,7 +134,16 @@ import Search from "../../../sources/search";
 
     this.props.trayViewStore.loading = true;
 
-    const header_subtitle = (!!this.state.start_year || !!this.state.end_year) ? `${!!this.state.start_year ? this.state.start_year : "up"} to ${!!this.state.end_year ? this.state.end_year : "now"}` : "";
+    let header_subtitle = "";
+
+    if (!!this.state.start_year || !!this.state.end_year) {
+      header_subtitle = `${!!this.state.start_year ? this.state.start_year : "up"} to ${!!this.state.end_year ? this.state.end_year : "now"}`
+    }
+
+    if (this.state.collections) {
+      header_subtitle = "for your collection search"
+    }
+    
     const header_title = !!this.state.q ? `Your search for “${this.state.q}”` : `Results ${header_subtitle}`;
 
     Search.perform(search_params).then((response) => {
@@ -186,7 +195,7 @@ import Search from "../../../sources/search";
     const user_match = location.search.match(/user_id=([^$,&]+)/);
     const collections_match = location.search.search(/collections=true/);
 
-    let state = {showing_results: false};
+    let state = {showing_results: false, collections: false};
 
     if(showing_results_match && showing_results_match>-1) {
       state.showing_results = true;
