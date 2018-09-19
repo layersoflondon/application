@@ -32,7 +32,6 @@ import Record from './../../sources/record';
     return <Fragment>
       <div className="m-overlay is-showing">
         <div className="close">
-          {/*<a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>*/}
           {this.props.trayViewStore.record &&
           <Link to={`/map/records/${this.props.trayViewStore.record.id}`}>Close</Link>}
         </div>
