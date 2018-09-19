@@ -106,7 +106,7 @@ class RecordsController < ApplicationController
     end
 
     if report.save
-      render json: '', status: :ok and return
+      render json: {id: @record.id}, status: :ok and return
     else
       render json: report.errors.full_messages, status: :unprocessable_entity and return
     end

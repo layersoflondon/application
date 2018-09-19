@@ -4,6 +4,6 @@ class StagingEmailInterceptor
   end
 end
 
-unless Rails.env.production?
+unless Rails.env.production? || Rails.env.development?
   ActionMailer::Base.register_interceptor(StagingEmailInterceptor)
 end
