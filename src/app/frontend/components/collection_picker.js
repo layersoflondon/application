@@ -126,7 +126,7 @@ import RecordModel from "../models/record";
           </label>
         </div>
 
-        <Select placeholder='' options={collection_options} value="" isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef}/>
+        <Select placeholder='Choose a collection…' options={collection_options} value="" isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef}/>
 
       </div>
 

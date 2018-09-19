@@ -36,21 +36,20 @@ import Record from './../../sources/record';
           <Link to={`/map/records/${this.props.trayViewStore.record.id}`}>Close</Link>}
         </div>
 
-        <div className="m-record-collections">
+        <div className="m-add-other-record-to-collection">
           <h1>Add to a collection</h1>
 
-          <div>
-            <div className={`section section--add-to-collection`}>
-
-              <div className="pane" >
+          <div class="form form--chunky">
                 {this.props.trayViewStore.record &&
               <CollectionPicker record={this.props.trayViewStore.record}/>}
 
 
-              </div>
 
+            <div class="form-actions">
+              <div class="primary-actions"><input type="submit" value="Done"/></div>
             </div>
           </div>
+
         </div>
       </div>
     </Fragment>
