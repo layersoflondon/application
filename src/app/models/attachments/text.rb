@@ -3,7 +3,7 @@ class Attachments::Text < ApplicationRecord
 
   def data
     {
-       content: content
+       content: ActionController::Base.helpers.simple_format(ActionController::Base.helpers.strip_tags(content))
     }
   end
 
