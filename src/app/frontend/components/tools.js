@@ -92,6 +92,9 @@ import Img from 'react-image';
                       <div className="m-tool-button m-tool-button--layers">
                           <Link to='/map/layers' data-label="Layers" onClick={this.handleHamburgerOnClick.bind(this)}><span>Layers</span></Link>
                       </div>
+                    <div className="m-tool-button m-tool-button--collections">
+                      <Link to='/map/search?results=true&collections=true' data-label="Collections" onClick={this.handleHamburgerOnClick.bind(this)}><span>Collections</span></Link>
+                    </div>
                       <div className="m-tool-button m-tool-button--add-collection">
                           {this.createCollectionLink()}
                       </div>
