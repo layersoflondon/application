@@ -67,7 +67,10 @@
 }
 
 .m-tool-button--add-collection a:before {
-  background: url('../assets/images/icon-collections.svg') center no-repeat;
+  background: url('../assets/images/icon-create-collection.svg') center no-repeat;
+  width: 29px;
+  height: 25px;
+  margin-bottom: -3px;
 }
 
 .m-tool-button--collections a:before {

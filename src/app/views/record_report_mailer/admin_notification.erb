@@ -1,0 +1,46 @@
+<% content_for :title, "Record reported by user" %>
+
+<!-- start copy -->
+<tr>
+    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+        <p style="margin: 0;">Hello there. <%= @user.present? ? @user.name : "Someone" %> has reported a record on Layers of London because <strong><%= @reason %></strong>. You're getting this email because you are an administrator.</p>
+    </td>
+</tr>
+<!-- end copy -->
+
+<!-- start copy -->
+<tr>
+    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+        <p>The user's email is <%= @email %></p>
+        <p style="margin: 0;">Here's the message accompanying the report:</p>
+        <br>
+        <p style="margin: 0;"><em><%= strip_tags(@report.message) %></em></p>
+    </td>
+</tr>
+<!-- end copy -->
+
+<!-- start button -->
+<tr>
+    <td align="left" bgcolor="#ffffff">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="center" bgcolor="#ffffff" style="padding: 12px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="center" bgcolor="#549a77" style="border-radius: 6px;">
+                                <a href="<%= resource_map_url(resource: 'records', id: @record.id) %>" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">View the record on the map</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<!-- end button -->
+
+<tr>
+    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+        <p><strong>The author of the record has not been notified.</strong> You need to decide on next steps and get in touch. The email of the record owner is <%= @record.user.email %>.</p>
+    </td>
+</tr>
