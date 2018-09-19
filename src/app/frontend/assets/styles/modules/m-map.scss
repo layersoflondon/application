@@ -4,6 +4,17 @@
   height:100%;
 }
 
+.m-map.is-adding .leaflet-grab {
+  cursor:crosshair;
+}
+
+.leaflet-dragging .m-map.is-adding .leaflet-grab,
+.leaflet-dragging .m-map.is-adding .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .m-map.is-adding .leaflet-marker-draggable {
+  cursor:grabbing;
+}
+
+
 .m-map #map {
   width:100%;
   height:100%;

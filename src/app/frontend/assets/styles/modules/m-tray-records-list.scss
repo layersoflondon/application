@@ -75,6 +75,9 @@
   background: $black url('../assets/images/placeholder/wide-10.svg') center/cover;
 }
 
+.m-tray-records-list .m-record-card.m-record-card {
+  background-clip: content-box;
+}
 
 .m-tray-records-list .m-record-card .image {
   background: #4d4d4d;

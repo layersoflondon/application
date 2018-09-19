@@ -1,6 +1,7 @@
 class Record < ApplicationRecord
   include RecordsQuery
   include AASM
+  include SortFields
 
 
 

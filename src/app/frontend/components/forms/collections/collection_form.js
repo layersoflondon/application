@@ -134,7 +134,7 @@ import RecordModel from "../../../models/record";
                 <div className="form-group form-group--checkboxes-rows">
                   <span className="label">Who can see?</span>
                   <label>
-                    <input type="checkbox" name="read_state" value={this.state.read_state} onChange={this.handleOnReadStateChange.bind(this)} />
+                    <input type="checkbox" name="read_state" checked={this.state.read_state} onChange={this.handleOnReadStateChange.bind(this)} />
                     <span>Keep this collection private <br /> <span className="nb">This will create a <strong>collection</strong> that only you can see.<br /> The records within will still be publicly viewable.</span></span>
                   </label>
 

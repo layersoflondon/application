@@ -1,0 +1,31 @@
+/* Add other record to collection */
+
+.m-add-other-record-to-collection {
+  @include overlay-wrap-white;
+  margin-top: 170px;
+  position: relative;
+  @include mq(tablet) {
+    margin-top: 150px;
+  }
+  @include mq(small-smartphone) {
+    margin-top: 132px;
+  }
+}
+
+.m-add-other-record-to-collection h1 {
+  @include overlay-title;
+  margin-top: -120px;
+  float: left;
+  @include mq(small-smartphone) {
+    font-size: 26px;
+    margin-top: -80px;
+  }
+}
+
+.m-add-other-record-to-collection .form-actions a {
+  @include big-square-button;
+}
+
+.m-add-other-record-to-collection .form-actions a:before {
+  content:none;
+}
