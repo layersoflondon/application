@@ -151,7 +151,7 @@ $hamburger-hover-filter    : opacity(80%) !default;
   position:fixed;
   display:none;
 
-  @include mq(smartphone) {
+  @include mq(tablet) {
     display:block !important;
     top: 10px;
     right: 5px;

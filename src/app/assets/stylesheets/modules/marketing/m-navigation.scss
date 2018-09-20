@@ -1,7 +1,7 @@
 /* Navigation */
 
 .m-navigation {
-  @include mq(smartphone) {
+  @include mq(tablet) {
     display:none;
   }
 }

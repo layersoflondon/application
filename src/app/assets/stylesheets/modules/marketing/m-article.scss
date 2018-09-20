@@ -74,6 +74,7 @@
   h5,
   h6 {
     font-weight: 500;
+    line-height: 1.5;
   }
 
   h1 {
@@ -278,22 +279,38 @@
     color: white;
   }
 
-}
-
-/*
-.m-article {
-  img.alignleft,
-  .wp-caption.alignleft {
-    margin-left: -100px;
-    @include mq(small-tablet) {
-      margin-left: -60px;
-    }
+  #mc_embed_signup {
+    padding: 26px 40px 40px;
+    border: 4px solid #f9f8f8;
+    overflow: hidden;
     @include mq(smartphone) {
-      margin-left: -15px;
+      padding:15px;
     }
   }
+
+  #mc_embed_signup input {
+    width:70%;
+    @include mq(smartphone) {
+      width:auto;
+    }
+  }
+
+  #mc_embed_signup input[type="submit"] {
+    width:auto;
+  }
+
+  label {
+    font-size: 14px;
+    margin-bottom: 10px;
+    background: #549a77;
+    display: inline-block;
+    padding: 3px 6px 2px;
+    color: white;
+    font-weight: 560;
+    line-height: 1.4;
+  }
+
 }
-*/
 
 // Content no subnav
 
@@ -319,21 +336,11 @@
       margin-right: -15px;
     }
   }
+
+
+
 }
 
-/*
-
-.m-article .image {
-  background: url(/example/10.jpg) center/cover no-repeat;
-}
-
-.m-article .image--right {
-  background: url(/example/8.jpg) center/cover no-repeat;
-}
-
-.m-article .image--left {
-  background: url(/example/7.jpg) center/cover no-repeat;
-}*/
 
 .main--faq .m-article {
   > p:first-child {
