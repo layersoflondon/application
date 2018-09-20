@@ -327,7 +327,7 @@ export default class TrayViewStore {
       const card = CardModel.fromJS(data, this);
       cards.set(card.id, card);
     });
-    
+
     if( this.cards.keys().toString() !== cards.keys().toString() ) {
       this.tray_list_ref.current.scrollTop = 0;
     }
