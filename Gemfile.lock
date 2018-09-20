@@ -1,7 +1,8 @@
-PATH
-  remote: ../../../../dev/errorstudio_capistrano_recipes
+GIT
+  remote: https://github.com/errorstudio/errorstudio_capistrano_recipes
+  revision: 240692647362ca5e0ed2877ab8a24eb103e5f14a
   specs:
-    errorstudio_capistrano_recipes (0.1.10)
+    errorstudio_capistrano_recipes (0.1.11)
       capistrano (~> 3.11.0)
       capistrano-bundler
       capistrano-composer (>= 0.0.6)
@@ -30,7 +31,7 @@ GEM
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
     concurrent-ruby (1.0.5)
-    i18n (1.0.1)
+    i18n (1.1.0)
       concurrent-ruby (~> 1.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
