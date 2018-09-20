@@ -60,6 +60,9 @@
   @include mq(smartphone) {
     width:50px;
     @include kellum;
+    background-size: auto;
+    height: 56px;
+    margin-right: 19px;
   }
 }
 
