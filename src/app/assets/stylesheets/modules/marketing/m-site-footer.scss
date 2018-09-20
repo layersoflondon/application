@@ -69,9 +69,12 @@
 
 .m-site-footer .partners li {
   display: inline-block;
-  filter: invert(100%);
   width: 33%;
   padding-right: 70px;
+  @include mq(tablet) {
+    width: 32%;
+    padding-right: 30px;
+  }
   @include mq(small-tablet) {
     width:50%;
     margin-right: -2px;
@@ -143,4 +146,9 @@
   max-width: 100%;
   opacity: 0.3;
   transition: all .2s;
+}
+
+.m-site-footer .credentials li a:hover img {
+  opacity: 1;
+
 }
