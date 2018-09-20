@@ -194,6 +194,7 @@ $form-border-color: #e4e4e4;
 
 input[type="text"],
 input[type="tel"],
+input[type="email"],
 textarea {
   border: none;
   background: white;
@@ -542,9 +543,4 @@ input[type="submit"] {
   h3 {
     page-break-after: avoid;
   }
-}
-
-
-.m-content label {
-  color: #fff;
 }
