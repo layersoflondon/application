@@ -36,6 +36,17 @@
     visibility:none;
   }
 }
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  .tray-is-closed .m-tray-area {
+    transform: translateX(-100%) translateX(20px);
+    @include mq(tablet) {
+      transform: translate3d(-100%, 0, 0);
+      visibility:none;
+    }
+  }
+}
+
+
 
 .m-tray-area .window {
   padding: 20px;
