@@ -53,7 +53,7 @@ class VisualHelpers {
             window.targ = $('.m-highlighted-content');
 
             $(window).scroll(function () {
-                window.targ.css('transform', 'translate3d(0px,' + ((window.scrollY / 2) * -1) + 'px, 0px)');
+                window.targ.css('transform', 'translate3d(0px,' + ((window.pageYOffset / 2) * -1) + 'px, 0px)');
             });
 
         });

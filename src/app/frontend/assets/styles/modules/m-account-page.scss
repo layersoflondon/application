@@ -16,6 +16,7 @@
 }
 
 .m-account-page {
+  @include clearfix;
   color: #222;
   background: white;
 }

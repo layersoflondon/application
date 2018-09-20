@@ -209,7 +209,6 @@ textarea {
 input[type="submit"] {
   width: 170px;
   float: right;
-  //margin-bottom: 80px;
   background: $green;
   color: #ffffff;
   padding: 17px 25px;
@@ -221,7 +220,7 @@ input[type="submit"] {
   @include transition(all .2s);
   border:0;
   &:hover {
-    background: darken($main-accent, 10%);
+    background: darken($green, 10%);
   }
 }
 

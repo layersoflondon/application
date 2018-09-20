@@ -227,6 +227,12 @@ export default class RecordModel {
     return hero;
   }
 
+  @computed get hero_image_media_item() {
+    const image = this.hero_image;
+
+    return this.media.find((item) => item.attachable.large === image.large);
+  }
+
   @computed get has_media() {
     const media = this.media;
 

@@ -42,14 +42,16 @@ import RecordViewComponentState from "./record_view_component_state";
   render_state_expanded_with_hero(header_class) {
     // this.props.record.hero_image => {url: '....'}
 
+    console.log(this.props.trayViewStore.record.hero_image.primary);
     return <div className={header_class}>
 
       <div className="m-record-hero">
         <div className="image">
           {
             this.props.trayViewStore.record.hero_image.primary &&
-            <Img src={this.props.trayViewStore.record.hero_image.primary} loader={<span className='is-loading'></span>} />
-
+            <Link to={`${this.props.match.url}/media/${this.props.media.id}`}>
+              <Img src={this.props.trayViewStore.record.hero_image.primary} loader={<span className='is-loading'></span>} />
+            </Link>
           }
         </div>
       </div>
@@ -75,17 +77,28 @@ import RecordViewComponentState from "./record_view_component_state";
     </div>
   }
 
+  hero_image() {
+    const hero_image_media_item = this.props.trayViewStore.record.hero_image_media_item;
+
+    if( hero_image_media_item ) {
+      return <Link to={`${this.props.match.url}/media/${hero_image_media_item.id}`}>
+        <Img src={this.props.trayViewStore.record.hero_image.primary} loader={<span className='is-loading'></span>} />
+      </Link>
+    }else {
+      return <Img src={this.props.trayViewStore.record.hero_image.primary} loader={<span className='is-loading'></span>} />;
+    }
+  }
+
   render_state_gallery_with_hero(header_class) {
     // this.props.record.hero_image => {url: '....'}
 
-    return <div className={header_class}>
+    this.props.trayViewStore.record.hero_image_media_item;
 
+    return <div className={header_class}>
       <div className="m-record-hero">
         <div className="image">
           {
-            this.props.trayViewStore.record.hero_image.primary &&
-            <Img src={this.props.trayViewStore.record.hero_image.primary} loader={<span className='is-loading'></span>} />
-
+            this.props.trayViewStore.record.hero_image.primary && this.hero_image()
           }
         </div>
       </div>

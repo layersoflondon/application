@@ -44,11 +44,13 @@ import Img from 'react-image';
       </div>;
     });
 
+    const link = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}` : `/map/records/${this.props.match.params.id}`;
+
     return <div className="m-overlay is-showing" style={{zIndex: 12341234, top: 0, left: 0}}>
       <div className="s-overlay--media is-showing">
         <div className="m-media-viewer *m-media-viewer--basic">
           <div className="close">
-            <Link to={`/map/records/${this.props.match.params.id}`}>Close</Link>
+            <Link to={link}>Close</Link>
           </div>
 
           <div className="wrap">
