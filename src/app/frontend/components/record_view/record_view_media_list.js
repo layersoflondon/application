@@ -10,16 +10,19 @@ import {Link} from 'react-router-dom';
   }
 
   render() {
-    let media = this.props.record.attachments.filter((a) => a.is_media_or_video);
+    let hero_image = this.props.record.hero_image_media_item;
+    let media = this.props.record.attachments.filter((a) => { return a.is_media_or_video && (hero_image && a.id !== hero_image.id) });
+
+    console.log(media, hero_image);
+
     const media_items_total = media.length;
     const media_container_class = this.props.record.view_type === 'expanded' ? 'expanded' : 'thumbs';
 
     media = media.slice(0, this.props.numberOfItems);
 
     let media_components = <span />;
-    let images = media.filter((m) => m.attachable_type === 'Attachments::Image');
 
-    if( media_container_class === 'thumbs' && images.length > 1 ) {
+    if( media_container_class === 'thumbs' ) {
       media_components = media.map((media) => <RecordViewMediaListItem key={`media_${media.id}`} media={media} record={this.props.record} />);
     }
 
