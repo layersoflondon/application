@@ -31,3 +31,7 @@
 .m-record-report button {
   @include big-square-button;
 }
+
+.m-record-report a {
+  color:$green;
+}
