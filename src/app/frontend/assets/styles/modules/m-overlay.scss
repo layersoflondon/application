@@ -35,20 +35,32 @@
   top: 10px;
   right: 10px;
   z-index:1;
+  width: 98px;
+  height: 50px;
   @include mq(smartphone) {
     top: -2px;
     right: -2px;
+    width:50px;
+    background-color: rgba(0,0,0,0.7);
   }
 }
 
 .m-overlay .close a {
-  background: url('../assets/images/icon-close.svg') center no-repeat;
-  width: 50px;
+  background: url('../assets/images/icon-close.svg') right center/25px no-repeat;
+  width: 98px;
+  text-align:right;
   height: 50px;
-  @include kellum;
-  padding: 0;
+  padding: 14px 40px 0 0;
   opacity: 0.7;
+  display: inline-block;
+  margin-right: 13px;
+  font-size: 16px;
+  font-weight: 700;
   @include transition(all .2s);
+  @include mq(smartphone) {
+    width:50px;
+    @include kellum;
+  }
 }
 
 .m-overlay .close a:hover {
