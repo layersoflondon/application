@@ -3,7 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import Layer from './layer';
 
-@inject('mapViewStore', 'layersStore')
+@inject('mapViewStore', 'layersStore', 'router')
 @withRouter
 @observer export default class LayersOverlay extends Component {
   constructor(props) {
@@ -14,12 +14,17 @@ import Layer from './layer';
     this.router.history.goBack();
   }
 
+  handleModalBgClick(event) {
+    if( event.target.className === "m-overlay" ) {
+    }
+  }
+
   render() {
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'layers' ) className += " is-showing";
 
     return (
-      <div className={className}>
+      <div className={className} onClick={this.handleModalBgClick.bind(this)}>
         <div className="s-overlay--layers is-showing">
 
           <div className="close">

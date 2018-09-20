@@ -41,7 +41,8 @@
     "react-transition-group": "^2.4.0",
     "react-visibility-sensor": "^3.11.0",
     "reactjs": "^1.0.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "babel-preset-stage-1": "^6.24.1",
