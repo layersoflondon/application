@@ -35,4 +35,20 @@ namespace :record_content do
 
     end
   end
+
+  namespace :duplicate_collections do
+    desc "Remove duplicate collection associations"
+    task cleanup: :environment do
+      records = Record.includes(:collections).all
+      records.each do |record|
+        next unless record.collection_ids.group_by{|cid| cid}.values.any?{|ids| ids.length>1}
+
+        puts "Record has duplicate collections: #{record.title} #{record.collection_ids}"
+        record.collection_records.group_by{|cr| cr.collection_id}.each do |key, collection_records|
+          keep = collection_records.shift
+          collection_records.map(&:destroy)
+        end
+      end
+    end
+  end
 end
