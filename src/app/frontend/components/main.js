@@ -75,7 +75,7 @@ import AddToCollection from "./record_view/add_to_collection";
         <Route exact path='/map/records/:id' component={RecordView} />
         <Route exact path='/map/records/:id/report' render={({match, location}) => (
           <ErrorBoundary>
-            <RecordView>
+            <RecordView match={match}>
               <ErrorBoundary>
                 <RecordViewReport />
               </ErrorBoundary>
@@ -103,6 +103,19 @@ import AddToCollection from "./record_view/add_to_collection";
               <TransitionGroup>
                 <CSSTransition timeout={100} classNames={'media-item'} key={location.key} >
                   <Route exact={true} path='/map/records/:id/media/:media_item_id' component={MediaItem} />
+                </CSSTransition>
+              </TransitionGroup>
+            </MediaView>
+          </RecordView>
+        )} />
+
+        {/* fixme: dry this route up later*/}
+        <Route exact={true} path='/map/collections/:collection_id/records/:id/media/:media_item_id' render={( {match, location} ) => (
+          <RecordView>
+            <MediaView>
+              <TransitionGroup>
+                <CSSTransition timeout={100} classNames={'media-item'} key={location.key} >
+                  <Route exact={true} path='/map/collections/:collection_id/records/:id/media/:media_item_id' component={MediaItem} />
                 </CSSTransition>
               </TransitionGroup>
             </MediaView>
