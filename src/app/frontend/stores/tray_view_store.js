@@ -64,6 +64,8 @@ export default class TrayViewStore {
       this.loading_record = true;
       this.loading_error = false;
 
+      console.log("Record id changed to ", change.newValue);
+
       if( change.newValue && change.newValue !== 'new' ) {
         // if(this.cards.get(`record_${change.newValue}`)) {
         //   let card = this.cards.get(`record_${change.newValue}`);
