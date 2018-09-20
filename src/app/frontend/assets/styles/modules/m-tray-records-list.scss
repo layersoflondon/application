@@ -77,6 +77,13 @@
 
 .m-tray-records-list .m-record-card.m-record-card {
   background-clip: content-box;
+
+}
+
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  .m-tray-records-list .m-record-card.m-record-card {
+    background-size:735px 280px;
+  }
 }
 
 .m-tray-records-list .m-record-card .image {

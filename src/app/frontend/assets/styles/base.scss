@@ -75,6 +75,8 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+
+
 /* Buttons */
 
 body {
@@ -232,6 +234,14 @@ input[type="submit"] {
 .form--chunky textarea {
   padding: 20px;
   width: 100%;
+  @include mq(smartphone) {
+    padding:10px;
+  }
+}
+
+
+.form--chunky input {
+  padding: 20px 10px;
   @include mq(smartphone) {
     padding:10px;
   }
@@ -403,8 +413,8 @@ input[type="submit"] {
   }
 
   input:checked + .toggle:after {
-    left: calc(100% - 5px);
-    transform: translateX(-100%);
+    //left: calc(100% - 5px);
+    transform: translateX(25px);
   }
 
   label span {

@@ -21,7 +21,7 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   componentWillUnmount() {
-    this.props.trayViewStore.collection_id = false;
+    this.props.trayViewStore.collection_id = null;
   }
 
   render_state_loading_true() {

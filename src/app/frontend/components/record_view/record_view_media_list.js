@@ -12,11 +12,19 @@ import {Link} from 'react-router-dom';
   render() {
     let media = this.props.record.attachments.filter((a) => a.is_media_or_video);
     const media_items_total = media.length;
+    const media_container_class = this.props.record.view_type === 'expanded' ? 'expanded' : 'thumbs';
 
     media = media.slice(0, this.props.numberOfItems);
-    let media_components = media.map((media) => <RecordViewMediaListItem key={`media_${media.id}`} media={media} record={this.props.record} />);
+
+    let media_components = <span />;
+    let images = media.filter((m) => m.attachable_type === 'Attachments::Image');
+
+    if( media_container_class === 'thumbs' && images.length > 1 ) {
+      media_components = media.map((media) => <RecordViewMediaListItem key={`media_${media.id}`} media={media} record={this.props.record} />);
+    }
 
     let expandable_media_list = false;
+
     if( this.props.record.media.length > media.length ) {
       expandable_media_list =  <div className="extra-count">
         <Link to={`/map/records/${this.props.record.id}/media/${media[0].id}`}>
@@ -25,7 +33,6 @@ import {Link} from 'react-router-dom';
       </div>
     }
 
-    const media_container_class = this.props.record.view_type === 'expanded' ? 'expanded' : 'thumbs';
     return <div className={`m-record-media-list-${media_container_class}`}>
       {media_components}
       {expandable_media_list}

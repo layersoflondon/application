@@ -41,8 +41,7 @@ export default class TrayViewStore {
   @observable loading_error = false;
 
   map_ref = null;
-
-
+  tray_list_ref = null;
 
   constructor() {
 
@@ -323,13 +322,15 @@ export default class TrayViewStore {
    * @param description
    */
   showCollectionOfCards(card_data) {
-
-
     let cards = observable.map();
     card_data.map((data) => {
       const card = CardModel.fromJS(data, this);
       cards.set(card.id, card);
     });
+
+    if( this.cards.keys().toString() !== cards.keys().toString() ) {
+      this.tray_list_ref.current.scrollTop = 0;
+    }
 
     this.loading = false;
     this.cards = cards;

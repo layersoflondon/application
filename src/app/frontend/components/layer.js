@@ -25,8 +25,11 @@ import Parser from 'html-react-parser';
           </div>
           }
         <h2>{this.props.layer.title}</h2>
-        <div className="description">{Parser(this.props.layer.description)}</div>
-        {this.props.layer.credit && (<span className="credit">{Parser(this.props.layer.credit)}</span>)}
+        <div className="description">
+          {Parser(this.props.layer.description)}
+          {this.props.layer.credit && (<span className="credit">{Parser(this.props.layer.credit)}</span>)}
+        </div>
+
 
         <button onClick={this.handleOnClick.bind(this)}>
           <span>Select this layer</span>

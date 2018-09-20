@@ -261,6 +261,10 @@ input[type="submit"] {
   width: 100%;
 }
 
+.form--chunky input {
+  padding: 20px 10px;
+}
+
 .form--chunky input[type="submit"] {
   @include big-square-button;
   width: auto;
