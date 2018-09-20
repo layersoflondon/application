@@ -3,6 +3,8 @@ role :app, %w{deployment@lol-web01.hosts.errorstudio.com}
 role :web, %w{deployment@lol-web01.hosts.errorstudio.com}
 role :db, %w{deployment@lol-db01.hosts.errorstudio.com}
 
+set :db_server, "db01.lol"
+
 # Git branch
 set :branch, 'master'
 
