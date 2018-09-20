@@ -167,11 +167,23 @@ class MultiIndexSearch
   end
 
   def self.boost_collections(query)
-    query.indices_boost(
-      {
-        collections: 10,
-        records: 1
-      }
-    )
+    boost = case Rails.env
+            when 'production'
+              {
+                production_collections: 10,
+                production_records: 1
+              }
+            when 'staging'
+              {
+                staging_collections: 10,
+                staging_records: 1
+              }
+            else
+              {
+                collections: 10,
+                records: 1
+              }
+            end
+    query.indices_boost(boost)
   end
 end
