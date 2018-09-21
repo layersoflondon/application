@@ -8,7 +8,7 @@ const googleMapsClient = googleMaps.createClient({
 export default class GoogleMapsClient {
 
     static addressLookUp(latitude, longitude){
-        var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
+        let latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
 
         return googleMapsClient.reverseGeocode({latlng: latlng}).asPromise();
     }
