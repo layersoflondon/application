@@ -1,8 +1,9 @@
 import * as googleMaps from "@google/maps";
 //TODO key should be parameterised somewhere.
+const _Promise = Promise;
 const googleMapsClient = googleMaps.createClient({
     key: 'AIzaSyCydVQRqMrDm01QFe6mCAtySyZyxYx4aao',
-    Promise: Promise
+    Promise: _Promise
 });
 
 export default class GoogleMapsClient {
