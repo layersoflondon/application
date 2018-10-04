@@ -10,10 +10,18 @@ class RecordsController < ApplicationController
   end
 
   def create
+    new_record_params = record_params
+
+    # user is logged in through their teacher's account
+    if session[:teacher_classroom_user].present?
+      new_record_params[:added_by_student] = true
+      new_record_params[:student_details] = session[:teacher_classroom_user]
+    end
+
     begin
-      @record = current_user.records.build(record_params)
+      @record = current_user.records.build(new_record_params)
     rescue ActiveRecord::MultiparameterAssignmentErrors
-      @record = current_user.records.build(record_params.reject {|k,v| k.to_s.match(/^date_/)})
+      @record = current_user.records.build(new_record_params.reject {|k,v| k.to_s.match(/^date_/)})
     end
 
     authorize(@record)

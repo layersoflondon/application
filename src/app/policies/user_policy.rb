@@ -28,6 +28,10 @@ class UserPolicy < ApplicationPolicy
     user.present?
   end
 
+  def classroom_login?
+    true
+  end
+
   class Scope < Scope
     def resolve
       scope

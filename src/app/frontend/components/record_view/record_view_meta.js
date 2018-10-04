@@ -9,11 +9,16 @@ import {NavLink} from 'react-router-dom';
   }
 
   render() {
+    let author_prefix = '';
+    if( this.props.trayViewStore.record.added_by_student ) {
+      author_prefix = <span><strong>{this.props.trayViewStore.record.user.student_name}</strong>, a student of </span>
+    }
+
     return <div className="meta">
       <div className="dates">
         <span className="date start-date">{this.props.trayViewStore.record.display_date_from}</span>
       </div>
-      <div className="creator">By <NavLink to={`/map/users/${this.props.trayViewStore.record.user.id}`}>{this.props.trayViewStore.record.user.name}</NavLink></div>
+      <div className="creator">By {author_prefix}<NavLink to={`/map/users/${this.props.trayViewStore.record.user.id}`}>{this.props.trayViewStore.record.user.name}</NavLink></div>
     </div>
   }
 }

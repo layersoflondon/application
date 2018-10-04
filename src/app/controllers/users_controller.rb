@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:show, :classroom]
-  skip_after_action :verify_authorized, only: [:show, :classroom]
+  skip_before_action :authenticate_user!, only: [:show, :classroom, :classroom_login]
+  skip_after_action :verify_authorized, only: [:show, :classroom, :classroom_login]
   decorates_assigned :user, :teacher, with: UserDecorator
   decorates_assigned :records, with: RecordDecorator
   def show
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
     redirect_to root_path, notice: "Sorry, we couldn't log you in" unless @teacher
 
-    sign_in(:user, @teacher)
+    sign_in @teacher
     session[:teacher_classroom_user] = params[:name]
 
     redirect_to root_path
