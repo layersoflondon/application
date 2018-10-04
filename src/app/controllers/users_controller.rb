@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def classroom
-    @teacher = User.find_by(role: :teacher, teacher_token: params[:id])
+    @teacher = User.where('teacher_token_expires > ?', DateTime.now).find_by(role: :teacher, teacher_token: params[:id])
 
     redirect_to root_path unless @teacher
   end
@@ -43,5 +43,13 @@ class UsersController < ApplicationController
     current_user.generate_token_with_expiry_date!(expiry_date)
 
     render json: {teacher_token: current_user.teacher_token, teacher_token_expires: current_user.teacher_token_expires}
+  end
+
+  def invalidate_current_token
+    authorize(current_user)
+
+    current_user.update_attributes({teacher_token: nil, teacher_token_expires: nil})
+
+    render json: {teacher_token: nil, teacher_token_expires: nil}
   end
 end

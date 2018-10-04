@@ -22,6 +22,14 @@ class TeachersTokenForm extends React.Component {
       });
     }
 
+    invalidateToken() {
+        Teacher.invalidateCurrentToken(this.props.user.id, this.state.tokenOptions).then((response) => {
+            const state = this.state;
+            state.tokenData = response.data;
+            this.setState(state);
+        });
+    }
+
     setDatetime(date) {
       const options = this.state.tokenOptions;
       options.expiry = date;
@@ -30,7 +38,7 @@ class TeachersTokenForm extends React.Component {
 
     tokenInfo() {
       return <p>
-        {location.origin}/classroom/{this.state.tokenData.teacher_token}
+        {location.origin}/classroom/{this.state.tokenData.teacher_token} <button onClick={this.invalidateToken.bind(this)}>&times;</button>
       </p>
     }
 

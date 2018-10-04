@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
       patch 'switch_role', to: "users#switch_role", as: :switch_user_role
       post  'generate_token', to: "users#generate_token", as: :generate_token
+      patch 'invalidate_current_token', to: "users#invalidate_current_token", as: :invalidate_current_token
     end
   end
 

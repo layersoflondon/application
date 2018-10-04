@@ -32,6 +32,10 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
+  def invalidate_current_token?
+    user.present?
+  end
+
   class Scope < Scope
     def resolve
       scope

@@ -11,6 +11,10 @@ export default class Teacher extends User {
   static generateToken(id, params) {
     return axios.post(`${this.resource_path}/${id}/generate_token`, params);
   }
+
+  static invalidateCurrentToken(id) {
+    return axios.patch(`${this.resource_path}/${id}/invalidate_current_token`);
+  }
 }
 
 window.Teacher = Teacher;
