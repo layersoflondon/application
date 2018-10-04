@@ -6,9 +6,9 @@ import TeamForm from './team_form';
 import RecordsCollections from './records_collections_form';
 import TeachersForm from "./teachers_form";
 
-@inject('mapViewStore')
+@inject('mapViewStore', 'currentUser')
 @withRouter
-@observer export default class CollectionForm extends Component {
+@observer export default class UserForm extends Component {
   constructor(props) {
     super(props);
 
@@ -51,7 +51,7 @@ import TeachersForm from "./teachers_form";
       account: <iframe width="100%" height="650" src="/users/edit" frameBorder="0" data-resizable="true"></iframe>,
       teams: <TeamForm id={this.state.id}/>,
       records: <RecordsCollections/>,
-      teachers: <TeachersForm/>,
+      teachers: <TeachersForm user={this.props.currentUser} />,
       sign_out: <h2>Signing you out of your account</h2>
 
     };
@@ -67,7 +67,7 @@ import TeachersForm from "./teachers_form";
                   <span key="account">Account details</span>
                   <span key="teams">Teams</span>
                   <span key="records">Records & Collections</span>
-                  {/*<span key="teachers">For teachers</span>*/}
+                  <span key="teachers">For teachers</span>
                   <span key="sign_out">Sign out</span>
               </Tabs>
           </div>

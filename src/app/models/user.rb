@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :contributed_collections, through: :contributed_collection_records, class_name: "Collection", source: :collection
   has_one_attached :avatar
 
+  enum role: [:teacher]
+
   serialize :record_likes, Array
   serialize :metadata, Hash
 
@@ -126,4 +128,14 @@ class User < ApplicationRecord
     end
   end
 
+  def generate_token
+    token = nil
+
+    loop do
+      token = ('a'..'z').to_a.sample(rand(5..6)).join
+      break unless self.class.find_by(teacher_token: token)
+    end
+
+    token
+  end
 end

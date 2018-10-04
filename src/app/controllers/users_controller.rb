@@ -10,4 +10,18 @@ class UsersController < ApplicationController
       record_states: (current_user.try(:id) == @user.id.to_i) ? ['published', 'draft'] : ['published']
     )
   end
+
+  def switch_role
+    authorize(current_user)
+    role = current_user.role == 'teacher' ? nil : :teacher
+    current_user.update_attribute(:role, role)
+
+    return render json: {role: current_user.role}
+  end
+
+  def generate_token
+    authorize(current_user)
+
+    return render json: {teacher_token: current_user.generate_token, teacher_token_expires: DateTime.now+10.days}
+  end
 end

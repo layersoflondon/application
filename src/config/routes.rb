@@ -32,6 +32,9 @@ Rails.application.routes.draw do
     member do
       get 'records', to: "records#for_user", as: :records_for
       get 'collections', to: "collections#for_user", as: :collections_for
+
+      patch 'switch_role', to: "users#switch_role", as: :switch_user_role
+      post  'generate_token', to: "users#generate_token", as: :generate_token
     end
   end
 
