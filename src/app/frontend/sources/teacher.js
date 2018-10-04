@@ -8,8 +8,8 @@ export default class Teacher extends User {
     return axios.patch(`${this.resource_path}/${id}/switch_role`);
   }
 
-  static generateToken(id) {
-    return axios.post(`${this.resource_path}/${id}/generate_token`);
+  static generateToken(id, params) {
+    return axios.post(`${this.resource_path}/${id}/generate_token`, params);
   }
 }
 

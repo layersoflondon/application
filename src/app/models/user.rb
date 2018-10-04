@@ -128,6 +128,20 @@ class User < ApplicationRecord
     end
   end
 
+  def generate_token_with_expiry_date!(expiry_date)
+    token = generate_token
+
+    Rails.logger.info("\n\n\n")
+    Rails.logger.info(token)
+    Rails.logger.info(expiry_date)
+    Rails.logger.info(expiry_date.class)
+    sleep 2
+
+    update_attributes(teacher_token: token, teacher_token_expires: expiry_date)
+    token
+  end
+
+  private
   def generate_token
     token = nil
 

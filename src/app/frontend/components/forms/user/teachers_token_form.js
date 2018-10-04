@@ -30,8 +30,14 @@ class TeachersTokenForm extends React.Component {
 
     tokenInfo() {
       return <p>
-        {location.origin}/origin/{this.state.tokenData.teacher_token}
+        {location.origin}/classroom/{this.state.tokenData.teacher_token}
       </p>
+    }
+
+    resetTokenForm() {
+      const state = this.state;
+      state.tokenData = {};
+      this.setState(state);
     }
 
     render() {
@@ -41,7 +47,7 @@ class TeachersTokenForm extends React.Component {
                     this.state.tokenData.teacher_token &&
                     <div className="wrap">
                         {this.tokenInfo()}
-                        <button onClick={this.generateToken.bind(this)}>Re-generate token</button>
+                        <button onClick={this.resetTokenForm.bind(this)}>Create a new token</button>
                     </div>
                 }
 

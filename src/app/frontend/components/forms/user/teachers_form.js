@@ -16,7 +16,6 @@ class TeachersForm extends React.Component {
     }
 
     render() {
-        console.log(this.state.showTeacherForm);
         return (
             <div className="m-account-page">
                 <div className="wrap">

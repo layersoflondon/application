@@ -38,6 +38,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/classroom/:id', to: "users#classroom", as: :teacher_classroom
+  post '/classroom/:id', to: "users#classroom_login", as: :teacher_classroom_login
+
   resources :records, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]
     member do
@@ -51,7 +54,6 @@ Rails.application.routes.draw do
   resources :collections, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :records, controller: 'collection_records', only: %i[index create destroy]
   end
-
 
   resources :teams do
     collection do

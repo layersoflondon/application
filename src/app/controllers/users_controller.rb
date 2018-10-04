@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[show]
-  skip_after_action :verify_authorized, only: [:show]
-  decorates_assigned :user, with: UserDecorator
+  skip_before_action :authenticate_user!, only: [:show, :classroom]
+  skip_after_action :verify_authorized, only: [:show, :classroom]
+  decorates_assigned :user, :teacher, with: UserDecorator
   decorates_assigned :records, with: RecordDecorator
   def show
     @user = User.find(params[:id])
@@ -11,17 +11,37 @@ class UsersController < ApplicationController
     )
   end
 
+  def classroom
+    @teacher = User.find_by(role: :teacher, teacher_token: params[:id])
+
+    redirect_to root_path unless @teacher
+  end
+
+  def classroom_login
+    @teacher = User.find_by(role: :teacher, teacher_token: params[:id])
+
+    redirect_to root_path, notice: "Sorry, we couldn't log you in" unless @teacher
+
+    sign_in(:user, @teacher)
+    session[:teacher_classroom_user] = params[:name]
+
+    redirect_to root_path
+  end
+
   def switch_role
     authorize(current_user)
     role = current_user.role == 'teacher' ? nil : :teacher
     current_user.update_attribute(:role, role)
 
-    return render json: {role: current_user.role}
+    render json: {role: current_user.role}
   end
 
   def generate_token
     authorize(current_user)
 
-    return render json: {teacher_token: current_user.generate_token, teacher_token_expires: DateTime.now+10.days}
+    expiry_date = DateTime.parse(params[:expiry])
+    current_user.generate_token_with_expiry_date!(expiry_date)
+
+    render json: {teacher_token: current_user.teacher_token, teacher_token_expires: current_user.teacher_token_expires}
   end
 end
