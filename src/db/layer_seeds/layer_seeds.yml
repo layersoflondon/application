@@ -1,31 +1,31 @@
 -
   title: Morgan Map (1682)
   description: Survey of the City of London and the surrounding built-up area (including Westminster and part of Southwark), on a scale of 300 feet to the inch, completed in 1682 by William Morgan.
-  url: https://tiles.layersoflondon.org/morgan/{z}/{x}/{y}.png
+  url: https://maps.tilehosting.com/c/1df1ac08-8dde-4875-bda5-dbb044c43268/data/morgan-mbtiles/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03
   date: 1682-01-01
   image: morgan.png
 -
   title: Rocque Map (1746)
   description: More formally "A plan of the cities of London and Westminster, and borough of Southwark", surveyed by John Rocque and engraved by John Pine
-  url: https://tiles.layersoflondon.org/rocque/{z}/{x}/{y}.png
+  url: https://maps.tilehosting.com/c/1df1ac08-8dde-4875-bda5-dbb044c43268/data/rocque-mbtiles/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03
   date: 1746-01-01
   image: rocque.png
 -
   title: Tudor Map (1520)
   description: A map of London about 1520
-  url: https://tiles.layersoflondon.org/tudor/{z}/{x}/{y}.png
+  url: https://maps.tilehosting.com/c/1df1ac08-8dde-4875-bda5-dbb044c43268/data/tudor-mbtiles/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03
   date: 1520-01-01
   image: tudor.png
 -
   title: Ordnance Survey Five-foot to the mile (1893-1896)
   description: The most detailed mapping of London by Ordnance Survey, from just over a century ago, covering London in 729 sheets, based on a revision and survey of 1891-5.
-  url: https://nls-0.tileserver.com/uTGqlPPLkqTr/{z}/{x}/{y}.jpg
+  url: https://maps.tilehosting.com/c/1df1ac08-8dde-4875-bda5-dbb044c43268/data/oslondon1k1893/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03
   date: 1893-01-01
   image: os-1893.png
 -
   title: Ordnance Survey National Grid maps (1940s-1960s)
   description: The most detailed Ordnance Survey maps after the Second World War.
-  url: http://geo.nls.uk/mapdata3/os/ldn_tile/{z}/{x}/{y}.png
+  url: https://maps.tilehosting.com/c/1df1ac08-8dde-4875-bda5-dbb044c43268/data/oslondon1k1945/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03
   date: 1940-01-01
   image: os-1940.png
 -
@@ -40,3 +40,10 @@
   url: https://maps.tilehosting.com/c/1df1ac08-8dde-4875-bda5-dbb044c43268/data/RAF-2018-07-30/{z}/{x}/{y}?key=23hrAY6lilqs9xizcz03
   date: 1945-01-01
   image: raf.png
+-
+  title: Faithorne and Newcourt Map (1658)
+  description: A map of London before the Great Fire of 1666, showing the suburbs for the first time.
+  url: https://maps.tilehosting.com/c/1df1ac08-8dde-4875-bda5-dbb044c43268/data/Faithorne_newcourt_1658/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03
+  date: 1658-01-01
+  image: faithorne.jpg
+
