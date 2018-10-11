@@ -61,6 +61,8 @@ class RecordsController < ApplicationController
     rescue ActiveRecord::MultiparameterAssignmentErrors
       @record.assign_attributes(record_params.reject {|k,v| k.to_s.match(/^date_/)})
     end
+
+    @record.added_by_student = session[:teacher_classroom_user].present?
     authorize(@record)
 
     @result = save_record_and_return_from_es(@record)
@@ -242,6 +244,13 @@ class RecordsController < ApplicationController
       else
         nil
       end
+    end
+  end
+
+  def check_user_can_publish_records(record)
+    if session[:teacher_classroom_user] && current_user.teacher_token_expires < Time.now
+      record.errors.add(:user, "Your classroom session has finished")
+      nil
     end
   end
 end

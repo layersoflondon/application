@@ -35,3 +35,4 @@ else
 end
 json.taxonomy_terms record.taxonomy_terms
 json.view_type record.view_type
+json.user_can_publish session[:teacher_classroom_user].nil?

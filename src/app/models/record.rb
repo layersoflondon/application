@@ -61,7 +61,8 @@ class Record < ApplicationRecord
 
   attr_accessor :checking_validity_for_publishing
   before_validation :check_valid_for_publishing, unless: -> {checking_validity_for_publishing}
-  
+  attr_accessor :record_added_by_student
+
   after_save do
     if primary_image.nil? && attachments.image.any?
       attachments.image.first.attachable.set_as_only_primary!
@@ -71,7 +72,6 @@ class Record < ApplicationRecord
 
   # check whether the record is valid for publishing. If it's not, we record what needs to happen to make it so
   def check_valid_for_publishing
-    Rails.logger.debug("checking valid for publishing")
     # Set a bool attr on the record so we can skip validation callbacks and avoid a loop
     self.checking_validity_for_publishing = true
     original_state = self.state
@@ -83,7 +83,7 @@ class Record < ApplicationRecord
     }
     persisted? ? self.update_columns(error_attributes) : self.assign_attributes(error_attributes)
     errors.clear
-    
+
     self.state = original_state
     self.checking_validity_for_publishing = false
   end
@@ -142,7 +142,7 @@ class Record < ApplicationRecord
     event :mark_as_published do
       # fixme: we dont currently go into 'mark as pending review' when the user is
       # creating their own records, we allow them to go from fraft -> published
-      transitions from: %i[draft pending_review published flagged], to: :published
+      transitions from: %i[draft pending_review published flagged], to: :published, if: -> {added_by_student != true}
     end
 
     event :mark_as_flagged do

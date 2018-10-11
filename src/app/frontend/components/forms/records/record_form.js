@@ -174,7 +174,7 @@ import NotFound from "../../not_found";
       });
     });
 
-
+    console.log(this.props.recordFormStore.record);
 
     return (
       <div className={className}>
@@ -266,7 +266,7 @@ import NotFound from "../../not_found";
                   )}
 
                   {
-                    this.props.recordFormStore.record.valid_for_publishing &&
+                    this.props.recordFormStore.record.valid_for_publishing && this.props.recordFormStore.record.user_can_publish &&
                     <input type="submit" data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
                   }
                 </div>
