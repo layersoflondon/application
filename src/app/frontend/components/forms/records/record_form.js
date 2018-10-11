@@ -174,8 +174,6 @@ import NotFound from "../../not_found";
       });
     });
 
-    console.log(this.props.recordFormStore.record);
-
     return (
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
@@ -261,7 +259,7 @@ import NotFound from "../../not_found";
                 </div>
 
                 <div className="primary-actions">
-                  {this.props.recordFormStore.record.state === 'draft' && (
+                  {/(draft|pending_review)/.test(this.props.recordFormStore.record.state) && (
                     <input type="submit" data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save as draft" />
                   )}
 

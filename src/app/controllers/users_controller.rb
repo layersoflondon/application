@@ -6,9 +6,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @records = RecordsIndex.user_records(
-      user_id: @user.id,
-      record_states: (current_user.try(:id) == @user.id.to_i) ? ['published', 'draft'] : ['published']
+      {user_id: @user.id},
+      record_states: (current_user.try(:id) == @user.id.to_i) ? ['published', 'draft', 'pending_review'] : ['published']
     )
+
+    @records = @records.query(match: {student_details: session['teacher_classroom_user']}) if session['teacher_classroom_user'].present?
   end
 
   def classroom

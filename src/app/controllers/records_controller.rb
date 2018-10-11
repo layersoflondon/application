@@ -35,7 +35,7 @@ class RecordsController < ApplicationController
 
   def show
     if user_signed_in?
-      @record = RecordsIndex.in_state(['published','draft','flagged']).filter(ids: {values: [params[:id]]}).first
+      @record = RecordsIndex.in_state(['published','draft','flagged','pending_review']).filter(ids: {values: [params[:id]]}).first
     else
       @record = RecordsIndex.published.filter(ids: {values: [params[:id]]}).first
     end
@@ -62,7 +62,8 @@ class RecordsController < ApplicationController
       @record.assign_attributes(record_params.reject {|k,v| k.to_s.match(/^date_/)})
     end
 
-    @record.added_by_student = session[:teacher_classroom_user].present?
+    @record.added_by_student = session[:teacher_classroom_user].present? # persisted attribute
+    @record.record_added_by_current_student_user = session[:teacher_classroom_user].present? # attribute to determine what state to save the record in, depending on current user session
     authorize(@record)
 
     @result = save_record_and_return_from_es(@record)

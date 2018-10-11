@@ -13,6 +13,7 @@ class Users::SessionsController < Devise::SessionsController
   def destroy
     super do
       session[:teacher_classroom_user] = nil
+      session[:teacher_classroom_user_records] = nil
     end
   end
 
