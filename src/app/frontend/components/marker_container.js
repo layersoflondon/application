@@ -45,7 +45,7 @@ import Parser from 'html-react-parser';
       iconSize: [30, 40],
       shadowSize: [0, 0],
       iconAnchor: [15, 20],
-      popupAnchor: [0, 0]
+      popupAnchor: [0, -33]
     });
 
     /*TODO: Use this icon for users records*/
