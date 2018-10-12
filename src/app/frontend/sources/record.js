@@ -24,3 +24,5 @@ export default class Record extends LoLHTTPBase {
     return axios({method: 'delete', url: `${this.resource_path}/collections`, data: params});
   }
 }
+
+window.Record = Record;

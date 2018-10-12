@@ -57,12 +57,13 @@ class RecordsController < ApplicationController
 
     @result = save_record_and_return_from_es(@record)
 
-    if @result.present?
-      return @result
-    else
+    if @record.state == 'deleted' && @result == true
+      return render json: '', status: :ok
+    end
+
+    unless @result.present?
       render json: @record.errors, status: :unprocessable_entity
     end
-                                          
   end
 
   def destroy
@@ -216,14 +217,15 @@ class RecordsController < ApplicationController
       @record.mark_as_flagged
     when 'draft'
       @record.mark_as_draft
-    when 'delete'
-    @record.mark_as_deleted
+    when 'deleted'
+      @record.mark_as_deleted
     end
   end
 
   def save_record_and_return_from_es(record)
     Chewy.strategy(:urgent) do
       if record.save
+        return true if record.state === 'deleted'
         # Get the record from ES; it should be pretty quick but we have to check it's there
         filter = RecordsIndex.filter(ids: {values: [record.id]})
         loop do

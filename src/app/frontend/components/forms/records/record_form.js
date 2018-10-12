@@ -106,7 +106,8 @@ import NotFound from "../../not_found";
 
 
     if (window.confirm(message)) {
-      Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
+      let r = Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
+        console.log("Record.update...", response, state);
         if( state === 'deleted' ) {
           this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
           this.props.recordFormStore.record = new RecordModel();
@@ -115,6 +116,8 @@ import NotFound from "../../not_found";
 
         this.props.recordFormStore.record.state = state;
       });
+
+      console.log(r);
     }
   }
 
