@@ -108,17 +108,19 @@ import NotFound from "../../not_found";
 
     if (window.confirm(message)) {
       let r = Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
-        console.log("Record.update...", response, state);
         if( state === 'deleted' ) {
           this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
           this.props.recordFormStore.record = new RecordModel();
-          this.props.router.push('/map');
+
+          if (this.props.router.history.previousLocalStates > 1) {
+            this.props.router.go(-2);
+          }else {
+            this.props.router.push('/map');
+          }
         }
 
         this.props.recordFormStore.record.state = state;
       });
-
-      console.log(r);
     }
   }
 
@@ -126,6 +128,7 @@ import NotFound from "../../not_found";
     event.preventDefault();
     this.props.recordFormStore.record = new RecordModel();
 
+    debugger;
     if(this.props.match.params.collection_id) {
       this.props.router.push(`/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}`);
     }else if(this.props.match.params.id) {
@@ -133,7 +136,12 @@ import NotFound from "../../not_found";
       this.props.router.push(`/map/records/${this.props.match.params.id}`);
     }else {
       this.props.trayViewStore.locked = false;
-      this.props.router.push(`/map`);
+
+      if( this.props.router.history.previousLocalStates > 1 ) {
+        this.props.router.goBack();
+      }else {
+        this.props.router.push(`/map`);
+      }
     }
 
 
