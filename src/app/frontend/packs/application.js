@@ -30,6 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const browserHistory = createBrowserHistory();
     const routerStore = new RouterStore();
     const history = syncHistoryWithStore(browserHistory, routerStore);
+    history.previousLocalStates = 0;
+
+    history.subscribe((location, action) => {
+        if( action === "PUSH" ) {
+            history.previousLocalStates += 1;
+        }
+    });
 
     // fetch the initial app state then initialize the stores and components
     axios.get('/map/state.json').then((response) => {
