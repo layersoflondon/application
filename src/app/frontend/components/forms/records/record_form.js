@@ -6,6 +6,7 @@ import Credits from './credits'
 import Location from './location'
 import Dates from './dates';
 import Media from './media';
+import Links from './links';
 import CollectionsEditor from './collections_editor';
 import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
@@ -197,7 +198,7 @@ import NotFound from "../../not_found";
 
               <div className="m-accordion">
                 <Media {...this.props} />
-                {/*<Links {...this.props} />*/}
+                <Links {...this.props} />
                 <CollectionsEditor {...this.props} />
                 {/*<Team {...this.props} />*/}
               </div>

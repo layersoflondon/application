@@ -1,9 +1,13 @@
 // Add links
 
 .m-add-links .form-group {
-  width:50%;
+  width:45%;
   float:left;
   padding-right:20px;
+}
+
+.m-add-links .form-group:last-child {
+  width: 10%;
 }
 
 .m-add-links .form-group + .form-group {
