@@ -2,21 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {inject, observer} from "mobx-react";
 import { Marker, Popup } from 'react-leaflet'
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import Img from 'react-image';
 
 import {Leaflet} from 'react-leaflet';
-import L from 'leaflet';
-
-class DataIcon extends L.Icon {
-  _setIconStyles(img, name) {
-    L.Icon.prototype._setIconStyles.call(this, img, name);
-
-    if (this.options.trackingMarker) {
-      img.dataset.trackingMarker = this.options.trackingMarker;
-    }
-  }
-}
+import LeafletDataIcon from './leaflet_data_icon';
 
 @inject('router')
 @withRouter
@@ -40,7 +30,7 @@ class DataIcon extends L.Icon {
   render() {
     const trackingMarker = `${this.props.record.id} ${this.props.record.title}`;
 
-    const default_icon = new DataIcon({
+    const default_icon = new LeafletDataIcon({
       iconUrl: require('../assets/images/record-marker.png'),
       iconRetinaUrl: require('../assets/images/record-marker@2x.png'),
 
@@ -51,7 +41,7 @@ class DataIcon extends L.Icon {
       trackingMarker: trackingMarker
     });
 
-    const highlighted_icon = new DataIcon({
+    const highlighted_icon = new LeafletDataIcon({
       iconUrl: require('../assets/images/record-marker-highlighted.png'),
       iconRetinaUrl: require('../assets/images/record-marker-highlighted@2x.png'),
 
@@ -63,7 +53,7 @@ class DataIcon extends L.Icon {
     });
 
     /*TODO: Use this icon for users records*/
-    const user_icon = new DataIcon({
+    const user_icon = new LeafletDataIcon({
       iconUrl: require('../assets/images/record-marker-user.png'),
       iconRetinaUrl: require('../assets/images/record-marker-user@2x.png'),
 
