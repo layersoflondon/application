@@ -10,10 +10,8 @@ class LinkRow extends Component {
     let attachable_url_valid = false;
 
     try {
-      console.log("Checking url", this.props.link.attachable.url);
       const url = new URL(this.props.link.attachable.url);
       attachable_url_valid = typeof(url) === "object" && this.props.link.attachable.url !== "http:";
-      console.log(url, this.props.link.attachable.url, this.props.link.attachable.url !== "http:");
     }catch(e) {
     }
 
@@ -31,7 +29,6 @@ class LinkRow extends Component {
 
     try {
       const url = new URL(this.state.url);
-      console.log("Valid");
 
       state.attachable_url_valid = url && state.url !== "http:";
     }catch(e) {
@@ -65,6 +62,15 @@ class LinkRow extends Component {
     this.props.recordFormStore.current_attachment_item_index = this.props.index;
   }
 
+  deleteLink(event) {
+    const attachments = this.props.recordFormStore.record.attachments.slice();
+
+    this.props.link.destroy().then((response) => {
+      const updated_attachments = attachments.filter((a) => a.id !== this.props.link.id);
+      this.props.recordFormStore.record.attachments = updated_attachments;
+    });
+  }
+
   render() {
     const url_class = this.state.attachable_url_valid ? '' : "has-errors";
 
@@ -77,7 +83,7 @@ class LinkRow extends Component {
           <input placeholder="URL (http://www.bbc.co.uk for example)" type="text" name="url" className={url_class} onChange={this.handleOnChange.bind(this)} value={this.state.url} onBlur={this.handleOnBlur.bind(this)} />
         </div>
         <div className="form-group">
-          <button className="delete">&times;</button>
+          <button className="delete" onClick={this.deleteLink.bind(this)}>&times; {this.props.link.id}  </button>
         </div>
       </div>
     );
@@ -102,9 +108,9 @@ class LinkRow extends Component {
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='links' ? 'block' : 'none'};
 
-    const links = this.props.recordFormStore.record.links.map((link, i) => {
-      const index = this.props.recordFormStore.record.attachments.indexOf(link);
-      return <LinkRow key={i} link={link} index={index} recordFormStore={this.props.recordFormStore} />
+    let links = this.props.recordFormStore.record.links.map((link, i) => {
+      let index = this.props.recordFormStore.record.links.indexOf(link);
+      return <LinkRow key={`${i}-${link.id}`} link={link} index={index} recordFormStore={this.props.recordFormStore} />
     });
 
     return (
