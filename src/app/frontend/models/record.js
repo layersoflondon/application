@@ -252,6 +252,7 @@ export default class RecordModel {
   }
 
   @computed get links() {
+    const links = this.attachments.filter((a) => a.is_link);
     return this.attachments.filter((a) => a.is_link);
   }
 

@@ -2,93 +2,7 @@ import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
 import {observer} from "mobx-react";
 import Attachment from "../../../models/attachment";
-
-class LinkRow extends Component {
-  constructor(props) {
-    super(props);
-
-    let attachable_url_valid = false;
-
-    try {
-      const url = new URL(this.props.link.attachable.url);
-      attachable_url_valid = typeof(url) === "object" && this.props.link.attachable.url !== "http:";
-    }catch(e) {
-    }
-
-    this.state = {url: this.props.link.attachable.url, attachable_url_valid: attachable_url_valid, title: this.props.link.title};
-  }
-
-  handleOnChange(event) {
-    const {name, value} = event.target;
-    const state = this.state;
-
-    this.props.recordFormStore.current_attachment_item[name] = value;
-    state[name] = value;
-
-    state.attachable_url_valid = false;
-
-    try {
-      const url = new URL(this.state.url);
-
-      state.attachable_url_valid = url && state.url !== "http:";
-    }catch(e) {
-    }
-
-    this.setState(state);
-  }
-
-  handleOnBlur(event) {
-    event.preventDefault();
-
-    if( !this.props.recordFormStore.current_attachment_item ) {
-      return;
-    }
-
-    const current_attachment_item = this.props.recordFormStore.current_attachment_item;
-
-    const {name,value} = event.target;
-
-    if( this.state.attachable_url_valid ) {
-      current_attachment_item.persist().then((response) => {
-        this.props.recordFormStore.current_attachment_item.id = response.data.id;
-      }).catch((error) => {
-        console.log("Error saving attachment", error);
-      });
-    }
-  }
-
-  setCurrentMediaItem(event) {
-    event.preventDefault();
-    this.props.recordFormStore.current_attachment_item_index = this.props.index;
-  }
-
-  deleteLink(event) {
-    const attachments = this.props.recordFormStore.record.attachments.slice();
-
-    this.props.link.destroy().then((response) => {
-      const updated_attachments = attachments.filter((a) => a.id !== this.props.link.id);
-      this.props.recordFormStore.record.attachments = updated_attachments;
-    });
-  }
-
-  render() {
-    const url_class = this.state.attachable_url_valid ? '' : "has-errors";
-
-    return (
-      <div className="link" onClick={this.setCurrentMediaItem.bind(this)}>
-        <div className="form-group">
-          <input placeholder="Title or description" type="text" name="title" onChange={this.handleOnChange.bind(this)} value={this.state.title} onBlur={this.handleOnBlur.bind(this)} />
-        </div>
-        <div className="form-group">
-          <input placeholder="URL (http://www.bbc.co.uk for example)" type="text" name="url" className={url_class} onChange={this.handleOnChange.bind(this)} value={this.state.url} onBlur={this.handleOnBlur.bind(this)} />
-        </div>
-        <div className="form-group">
-          <button className="delete" onClick={this.deleteLink.bind(this)}>&times; {this.props.link.id}  </button>
-        </div>
-      </div>
-    );
-  }
-}
+import LinkRow from "./link_row";
 
 @observer class Links extends Component {
   constructor(props) {
@@ -109,8 +23,10 @@ class LinkRow extends Component {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='links' ? 'block' : 'none'};
 
     let links = this.props.recordFormStore.record.links.map((link, i) => {
-      let index = this.props.recordFormStore.record.links.indexOf(link);
-      return <LinkRow key={`${i}-${link.id}`} link={link} index={index} recordFormStore={this.props.recordFormStore} />
+      let index = this.props.recordFormStore.record.attachments.indexOf(link);
+      const key = link.id ? `${i}-${link.id}` : Math.random();
+
+      return <LinkRow key={key} link={link} index={index} recordFormStore={this.props.recordFormStore} />
     });
 
     return (
@@ -120,7 +36,7 @@ class LinkRow extends Component {
         <div className="pane" style={pane_styles}>
           <div className="m-add-links">
             {links}
-            <button onClick={this.addLinkFormFieldRow.bind(this)}>Add another link</button>
+            <button onClick={this.addLinkFormFieldRow.bind(this)}>Add a related link</button>
           </div>
         </div>
 
