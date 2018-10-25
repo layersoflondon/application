@@ -14,6 +14,9 @@ export default class LinkRow extends Component {
     }
 
     this.state = {link: this.props.link, attachable_url_valid: attachable_url_valid};
+
+    console.log(`link_${this.props.index}`);
+    window[`link_${this.props.index}`] = this.state;
     // this.state = {url: this.props.link.attachable.url, attachable_url_valid: attachable_url_valid, title: this.props.link.title};
   }
 
@@ -51,7 +54,7 @@ export default class LinkRow extends Component {
 
     if( this.state.attachable_url_valid ) {
       console.log("Persisting...", this.state.link, this.props.recordFormStore.current_attachment_item);
-      this.props.recordFormStore.current_attachment_item.persist().then((response) => {
+      this.state.link.persist().then((response) => {
         console.log("\n\nGot attachment: ", response.data);
         console.log("\n\n");
 

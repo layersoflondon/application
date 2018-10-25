@@ -25,7 +25,7 @@ export default class Attachment {
     }else if( this.media_type === 'video' ) {
       data.append('attachable_attributes[youtube_id]', this.url);
     }else if( this.media_type === 'url' ) {
-      data.append('attachable_attributes[url]', this.url);
+      data.append('attachable_attributes[url]', this.attachable.url);
     }
 
     if( !this.id && this.media_type !== 'video' && this.media_type !== 'url' ) {
