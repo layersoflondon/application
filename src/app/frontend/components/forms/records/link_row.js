@@ -15,8 +15,8 @@ export default class LinkRow extends Component {
 
     this.state = {link: this.props.link, attachable_url_valid: attachable_url_valid};
 
-    console.log(`link_${this.props.index}`);
-    window[`link_${this.props.index}`] = this.state;
+    // console.log(`link_${this.props.index}`);
+    // window[`link_${this.props.index}`] = this.state;
     // this.state = {url: this.props.link.attachable.url, attachable_url_valid: attachable_url_valid, title: this.props.link.title};
   }
 
@@ -53,21 +53,24 @@ export default class LinkRow extends Component {
     }
 
     if( this.state.attachable_url_valid ) {
-      console.log("Persisting...", this.state.link, this.props.recordFormStore.current_attachment_item);
+      // console.log("Persisting...", this.state.link, this.props.recordFormStore.current_attachment_item);
       this.state.link.persist().then((response) => {
-        console.log("\n\nGot attachment: ", response.data);
-        console.log("\n\n");
+        // console.log("\n\nGot attachment: ", response.data);
+        // console.log("\n\n");
 
         this.state = {link: response.data, attachable_url_valid: true};
       }).catch((error) => {
-        console.log("Error saving attachment", error);
+        //error.response.data;
+        const state = this.state;
+        state.attachable_url_valid = false;
+        this.setState(state);
       });
     }
   }
 
   setCurrentMediaItem(event) {
     event.preventDefault();
-    console.log("Setting current to index ", this.props.index);
+    // console.log("Setting current to index ", this.props.index);
     this.props.recordFormStore.current_attachment_item_index = this.props.index;
   }
 

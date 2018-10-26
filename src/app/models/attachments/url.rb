@@ -30,7 +30,5 @@ class Attachments::Url < ApplicationRecord
     rescue URI::InvalidURIError
       errors.add(:url, "The link URL isn't in an accepted format")
     end
-    
   end
-  
 end
