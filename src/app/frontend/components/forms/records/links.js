@@ -13,7 +13,7 @@ import LinkRow from "./link_row";
     event.preventDefault();
 
     const attachments = this.props.recordFormStore.record.attachments.slice();
-    const new_attachment = {url: '', attachable_type: "Attachments::Url", title: ''};
+    const new_attachment = {url: '', attachable_type: "Attachments::Url", attachable: {url: ''}, title: ''};
     const new_link = Attachment.fromJS(new_attachment, this.props.recordFormStore.record.id);
     attachments.push(new_link);
     this.props.recordFormStore.record.attachments = attachments;
