@@ -6,6 +6,11 @@
     <%= devise_error_messages! %>
 
     <div class="form-group">
+      <%= f.label :title %>
+      <%= f.select :title, User.titles.to_a.collect{|t| [t.last, t.first]}, {prompt: "Choose a title"} %>
+    </div>
+
+    <div class="form-group">
       <%= f.label :email %>
       <%= f.text_field :email, autofocus: true, autocomplete: "email" %>
     </div>

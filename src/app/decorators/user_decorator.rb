@@ -11,6 +11,14 @@ class UserDecorator < Draper::Decorator
   #   end
 
   def teacher_name
-    name
+    return name unless teacher?
+
+    prefix = user.title
+
+    if prefix
+      "#{User.titles[prefix]} #{last_name}"
+    else
+      name
+    end
   end
 end

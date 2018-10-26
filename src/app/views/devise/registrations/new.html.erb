@@ -15,6 +15,11 @@
     <% end %>
 
     <div class="field">
+        <%= f.label :title %><br/>
+        <%= f.select :title, User.titles.to_a.collect{|t| [t.last, t.first]}, {prompt: "Choose a title"} %>
+    </div>
+
+    <div class="field">
         <%= f.label :first_name %><br/>
         <%= f.text_field :first_name, autofocus: true %>
     </div>

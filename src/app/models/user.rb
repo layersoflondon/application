@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   enum role: [:teacher]
+  enum title: {mr: "Mr", mrs: "Mrs", ms: "Ms", mx: "Mx", miss: "Miss", dr: "Dr", prof: "Prof", rev: "Rev"}
 
   serialize :record_likes, Array
   serialize :metadata, Hash
