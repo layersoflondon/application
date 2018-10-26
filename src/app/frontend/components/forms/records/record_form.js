@@ -127,8 +127,7 @@ import NotFound from "../../not_found";
   handleCloseOnClick(event) {
     event.preventDefault();
     this.props.recordFormStore.record = new RecordModel();
-
-    debugger;
+    
     if(this.props.match.params.collection_id) {
       this.props.router.push(`/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}`);
     }else if(this.props.match.params.id) {

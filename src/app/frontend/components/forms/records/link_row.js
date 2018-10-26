@@ -13,7 +13,7 @@ export default class LinkRow extends Component {
     }catch(e) {
     }
 
-    this.state = {link: this.props.link, attachable_url_valid: attachable_url_valid};
+    this.state = {link: this.props.link, attachable_url_valid: attachable_url_valid, attachable_url_validation_message: ""};
 
     // console.log(`link_${this.props.index}`);
     // window[`link_${this.props.index}`] = this.state;
@@ -39,6 +39,9 @@ export default class LinkRow extends Component {
       const url = new URL(this.state.link.attachable.url);
 
       state.attachable_url_valid = url && state.link.attachable.url !== "http:";
+      if( state.attachable_url_valid ) {
+        state.attachable_url_validation_message = "";
+      }
     }catch(e) {
     }
 
@@ -61,8 +64,10 @@ export default class LinkRow extends Component {
         this.state = {link: response.data, attachable_url_valid: true};
       }).catch((error) => {
         //error.response.data;
+        window.error = error;
         const state = this.state;
         state.attachable_url_valid = false;
+        state.attachable_url_validation_message = error.response.data['attachable.url'][0];
         this.setState(state);
       });
     }
@@ -93,6 +98,9 @@ export default class LinkRow extends Component {
         </div>
         <div className="form-group">
           <input placeholder="URL (http://www.bbc.co.uk for example)" type="text" name="url" className={url_class} onChange={this.handleOnChange.bind(this)} value={this.state.link.attachable.url} onBlur={this.handleOnBlur.bind(this)} />
+          {!this.state.attachable_url_valid && this.state.attachable_url_validation_message.length>0 &&
+          <span className='validation-message'>{this.state.attachable_url_validation_message}</span>
+          }
         </div>
         <div className="form-group">
           <button className="delete" onClick={this.deleteLink.bind(this)} title="Remove this link"><i className="fa fa-trash"></i></button>

@@ -18,7 +18,7 @@ class RecordAttachmentsController < ApplicationController
     if @attachment.save
       render json: @attachment
     else
-      render json: @attachment.errors.full_messages, status: :unprocessable_entity
+      render json: @attachment.errors, status: :unprocessable_entity
     end
   end
 
