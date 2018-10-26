@@ -92,7 +92,7 @@ export default class LinkRow extends Component {
           <input placeholder="URL (http://www.bbc.co.uk for example)" type="text" name="url" className={url_class} onChange={this.handleOnChange.bind(this)} value={this.state.link.attachable.url} onBlur={this.handleOnBlur.bind(this)} />
         </div>
         <div className="form-group">
-          <button className="delete" onClick={this.deleteLink.bind(this)}>&times;</button>
+          <button className="delete" onClick={this.deleteLink.bind(this)} title="Remove this link"><i className="fa fa-trash"></i></button>
         </div>
       </div>
     );
