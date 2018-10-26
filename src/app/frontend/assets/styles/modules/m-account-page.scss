@@ -290,6 +290,19 @@
   display: inline-block;
 }
 
+.m-account-page .section-teacher-token {
+  .datepicker-wrapper {
+    margin: 10px 0;
+  }
+
+  .datepicker-wrapper > * {
+    display: inline-block;
+  }
+
+  .datepicker-wrapper button {
+    margin-left: 10px;
+  }
+}
 // Teams
 
 .m-account-page--teams {

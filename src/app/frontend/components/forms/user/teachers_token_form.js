@@ -10,8 +10,8 @@ class TeachersTokenForm extends React.Component {
     constructor(props) {
         super(props);
 
-        const token_data = {teacher_token: this.props.user.teacher_token, teacher_token_expires: this.props.user.teacher_token_expires};
-        this.state = {token: null, tokenData: token_data, tokenOptions: {expiry: moment().add(1, "hour")}};
+        const token_data = {teacher_token: this.props.user.token, token_expires: this.props.user.token_expires};
+        this.state = {token: null, tokenData: token_data, tokenOptions: {expiry: moment().add(1, "week")}};
     }
 
     generateToken() {
@@ -38,7 +38,7 @@ class TeachersTokenForm extends React.Component {
 
     tokenInfo() {
       return <p>
-        {location.origin}/classroom/{this.state.tokenData.teacher_token} <button onClick={this.invalidateToken.bind(this)}>&times;</button>
+        {location.origin}/classroom/{this.state.tokenData.teacher_token} <button onClick={this.invalidateToken.bind(this)}>&times; delete</button>
       </p>
     }
 
@@ -50,31 +50,36 @@ class TeachersTokenForm extends React.Component {
 
     render() {
         return (
-            <div className="m-account-page">
+            <div className="m-account-page section section-teacher-token">
                 {
                     this.state.tokenData.teacher_token &&
                     <div className="wrap">
                         {this.tokenInfo()}
-                        <button onClick={this.resetTokenForm.bind(this)}>Create a new token</button>
+                        <button onClick={this.resetTokenForm.bind(this)}>Remove & create a new token</button>
                     </div>
                 }
 
                 {
                     !this.state.tokenData.teacher_token &&
                     <div className="wrap">
-                        <label htmlFor="number">When should this token expire</label>
+                        <p>
+                            To allow your students to sign in, you need to set up their login token. This token is temporary and will allow those whom you share it with to create new records.
+                        </p>
+                        <label htmlFor="number">When should this token expire: </label>
 
-                        <DatePicker
-                            selected={this.state.tokenOptions.expiry}
-                            onChange={this.setDatetime.bind(this)}
-                            showTimeSelect
-                            timeFormat="HH:mm"
-                            timeIntervals={15}
-                            dateFormat="LLL"
-                            timeCaption="time"
-                        />
+                        <div className="datepicker-wrapper">
+                            <DatePicker
+                                selected={this.state.tokenOptions.expiry}
+                                onChange={this.setDatetime.bind(this)}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                timeIntervals={15}
+                                dateFormat="LLL"
+                                timeCaption="time"
+                            />
 
-                        <button onClick={this.generateToken.bind(this)}>Generate</button>
+                            <button onClick={this.generateToken.bind(this)}>Generate</button>
+                        </div>
                     </div>
                 }
             </div>

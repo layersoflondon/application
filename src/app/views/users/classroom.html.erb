@@ -6,8 +6,12 @@
         <h1>Classroom login</h1>
 
         <%= form_tag teacher_classroom_login_path(params[:id]) do |f| %>
+            <p>
+                Looks like you're in <%= teacher.teacher_name %>'s class.
+            </p>
+
             <div class="field">
-                <%= label_tag :name, "What's your name?" %><br />
+                <%= label_tag :name, "Enter your name" %><br />
                 <%= text_field_tag :name, nil, {autofocus: true} %>
             </div>
 

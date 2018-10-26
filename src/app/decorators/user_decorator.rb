@@ -10,4 +10,7 @@ class UserDecorator < Draper::Decorator
   #     end
   #   end
 
+  def teacher_name
+    name
+  end
 end

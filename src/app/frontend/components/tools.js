@@ -30,6 +30,10 @@ import Img from 'react-image';
   }
 
   accountLink() {
+      if (this.props.currentUser && this.props.currentUser.token ) {
+          return "";
+      }
+
       if (this.props.userPresent) {
           return <Link to="/map/account/account" data-label="Your profile"><span>Your profile</span></Link>
       } else {
