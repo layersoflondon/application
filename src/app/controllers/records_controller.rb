@@ -48,8 +48,10 @@ class RecordsController < ApplicationController
 
   def update
     check_transition(record_params[:state])
+
     begin
       @record.assign_attributes(record_params)
+      @record.fix_dates(record_params) if @record.date_from_changed? || @record.date_to_changed?
     rescue ActiveRecord::MultiparameterAssignmentErrors
       @record.assign_attributes(record_params.reject {|k,v| k.to_s.match(/^date_/)})
     end

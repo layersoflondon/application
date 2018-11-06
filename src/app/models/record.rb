@@ -188,4 +188,20 @@ class Record < ApplicationRecord
   def user_name
     user.name
   end
+
+  def fix_dates(params)
+    %w(date_from date_to).each do |attribute|
+      date = self.send(attribute)
+      break unless self.send("#{attribute}_changed?")
+      break if date.gregorian?
+
+      fixed_date_attributes = params.to_h.sort.inject({}){|h, k| h[k.first] = k.last.to_i if k.first.match(/^#{attribute}/); h}
+      begin
+        new_date = Date.new(*fixed_date_attributes.values)
+        self.send(:"#{attribute}=", new_date) if new_date != date
+      rescue ArgumentError
+        errors.add(attribute.to_sym, "is invalid")
+      end
+    end
+  end
 end
