@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import RecordFormComponentState from "./record_form_component_state";
+import Attachment from "../../../models/attachment";
 
 export default class LinkRow extends Component {
   constructor(props) {
@@ -35,6 +35,10 @@ export default class LinkRow extends Component {
 
     state.attachable_url_valid = false;
 
+    if( !this.state.link ) {
+      return false;
+    }
+
     try {
       const url = new URL(this.state.link.attachable.url);
 
@@ -55,16 +59,14 @@ export default class LinkRow extends Component {
       return;
     }
 
-    if( this.state.attachable_url_valid ) {
-      // console.log("Persisting...", this.state.link, this.props.recordFormStore.current_attachment_item);
+    if( this.state.attachable_url_valid && this.state.link ) {
       this.state.link.persist().then((response) => {
-        // console.log("\n\nGot attachment: ", response.data);
-        // console.log("\n\n");
-
-        this.state = {link: response.data, attachable_url_valid: true};
+        const link = Attachment.fromJS(response.data, this.state.link.record_id);
+        const state = this.state;
+        state.link = link;
+        this.setState(state);
       }).catch((error) => {
-        //error.response.data;
-        window.error = error;
+        console.log("couldn't persist link", error);
         const state = this.state;
         state.attachable_url_valid = false;
         state.attachable_url_validation_message = error.response.data['attachable.url'][0];
@@ -75,7 +77,6 @@ export default class LinkRow extends Component {
 
   setCurrentMediaItem(event) {
     event.preventDefault();
-    // console.log("Setting current to index ", this.props.index);
     this.props.recordFormStore.current_attachment_item_index = this.props.index;
   }
 

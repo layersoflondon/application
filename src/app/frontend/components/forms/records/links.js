@@ -3,6 +3,7 @@ import RecordFormComponentState from './record_form_component_state';
 import {observer} from "mobx-react";
 import Attachment from "../../../models/attachment";
 import LinkRow from "./link_row";
+import ErrorBoundary from "../../error_boundary";
 
 @observer class Links extends Component {
   constructor(props) {
@@ -26,7 +27,9 @@ import LinkRow from "./link_row";
       let index = this.props.recordFormStore.record.attachments.indexOf(link);
       const key = link.id ? `${i}-${link.id}` : Math.random();
 
-      return <LinkRow key={key} link={link} index={index} recordFormStore={this.props.recordFormStore} />
+      return <ErrorBoundary key={key}>
+        <LinkRow link={link} index={index} recordFormStore={this.props.recordFormStore} />
+      </ErrorBoundary>
     });
 
     return (

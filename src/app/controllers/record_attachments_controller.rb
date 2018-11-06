@@ -15,9 +15,7 @@ class RecordAttachmentsController < ApplicationController
     @attachment = @record.attachments.build(attachment_params)
     @attachment.credit = attachment_params[:attachable_attributes][:credit]
 
-    if @attachment.save
-      render json: @attachment
-    else
+    unless @attachment.save
       render json: @attachment.errors, status: :unprocessable_entity
     end
   end
@@ -29,9 +27,9 @@ class RecordAttachmentsController < ApplicationController
     authorize(@record)
 
     @attachment = @record.attachments.find(params[:id])
-    if @attachment.attachable.update_attributes(attachment_params[:attachable_attributes])
-      render json: @attachment
-    else
+    Rails.logger.info("\n\nUpdating attachment attributes #{@attachment.id}\n\n")
+
+    unless @attachment.attachable.update_attributes(attachment_params[:attachable_attributes]) && @attachment.attachable.reload
       render json: @attachment.errors.full_messages, status: :unprocessable_entity
     end
   end

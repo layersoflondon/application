@@ -2,6 +2,10 @@ class Attachments::Url < ApplicationRecord
   include Attachments::SharedValidations
   has_one :attachment, as: :attachable
 
+  after_save do
+    attachment.try(:record).try(:touch)
+  end
+
   # before_validation :add_http_to_url
 
   validate :url_must_be_valid
