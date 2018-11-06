@@ -30,7 +30,7 @@ import Img from 'react-image';
   }
 
   accountLink() {
-      if (this.props.currentUser && this.props.currentUser.token ) {
+      if (this.props.currentUser && this.props.currentUser.token && this.props.currentUser.role !== "teacher" ) {
           return "";
       }
 
