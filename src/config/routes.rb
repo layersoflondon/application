@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  get 'switch_user', to: 'switch_user#set_current_user'
   
   root to: "pages#index"
 
