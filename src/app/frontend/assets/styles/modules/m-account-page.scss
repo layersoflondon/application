@@ -345,3 +345,11 @@
   margin-top: 10px;
 }
 
+
+.m-account-page button.delete {
+  background: #fff;
+}
+
+.m-account-page button.generate-token[disabled] {
+  background: #fff;
+}

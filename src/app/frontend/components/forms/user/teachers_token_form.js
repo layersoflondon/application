@@ -15,19 +15,26 @@ class TeachersTokenForm extends React.Component {
     }
 
     generateToken() {
+      this.setState({generating: true});
+
       Teacher.generateToken(this.props.user.id, this.state.tokenOptions).then((response) => {
         const state = this.state;
+        state.generating = false;
         state.tokenData = response.data;
         this.setState(state);
       });
     }
 
     invalidateToken() {
-        Teacher.invalidateCurrentToken(this.props.user.id, this.state.tokenOptions).then((response) => {
-            const state = this.state;
-            state.tokenData = response.data;
-            this.setState(state);
-        });
+      const state = this.state;
+      state.tokenData = {};
+      this.setState(state);
+
+      Teacher.invalidateCurrentToken(this.props.user.id, this.state.tokenOptions).then((response) => {
+        const state = this.state;
+        state.tokenData = response.data;
+        this.setState(state);
+      });
     }
 
     setDatetime(date) {
@@ -38,7 +45,7 @@ class TeachersTokenForm extends React.Component {
 
     tokenInfo() {
       return <p>
-        {location.origin}/classroom/{this.state.tokenData.teacher_token} <button onClick={this.invalidateToken.bind(this)}>&times; delete</button>
+        {location.origin}/classroom/{this.state.tokenData.teacher_token} <button className="delete" onClick={this.invalidateToken.bind(this)}><i className="fa fa-trash"></i></button>
       </p>
     }
 
@@ -49,6 +56,8 @@ class TeachersTokenForm extends React.Component {
     }
 
     render() {
+        const disabled = this.state.generating;
+        const label = this.state.generating ? <i className="fa fa-spinner fa-spin"></i> : "Generate";
         return (
             <div className="m-account-page section section-teacher-token">
                 {
@@ -78,7 +87,7 @@ class TeachersTokenForm extends React.Component {
                                 timeCaption="time"
                             />
 
-                            <button onClick={this.generateToken.bind(this)}>Generate</button>
+                            <button className="generate-token" onClick={this.generateToken.bind(this)} disabled={disabled}>{label}</button>
                         </div>
                     </div>
                 }

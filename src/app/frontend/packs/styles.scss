@@ -145,9 +145,13 @@
   }
 }
 
-.react-datepicker__input-container {
+.react-datepicker-wrapper {
   width: 105%;
+}
+
+.react-datepicker__input-container {
   padding-right: 25px;
+  width: 105%;
 }
 
 .react-datepicker-wrapper input {
