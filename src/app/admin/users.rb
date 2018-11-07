@@ -9,7 +9,12 @@ ActiveAdmin.register User do
     end
     column :email
     column :current_sign_in_at
-    column :sign_in_count
+    column :records do |u|
+      u.records.count
+    end
+    column "Sign in as this user" do |u|
+      link_to "Sign in as #{u.name}", "/switch_user?scope_identifier=user_#{u.id}", data: {confirm: "You'll log into the map as #{u.name} - remember to log out when you're done."}
+    end
     actions
   end
 

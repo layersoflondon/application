@@ -16,7 +16,7 @@ class RecordAttachmentsController < ApplicationController
     @attachment.credit = attachment_params[:attachable_attributes][:credit]
 
     unless @attachment.save
-      render json: @attachment.errors.full_messages, status: :unprocessable_entity
+      render json: @attachment.errors, status: :unprocessable_entity
     end
   end
 
@@ -27,7 +27,9 @@ class RecordAttachmentsController < ApplicationController
     authorize(@record)
 
     @attachment = @record.attachments.find(params[:id])
-    unless @attachment.attachable.update_attributes(attachment_params[:attachable_attributes])
+    Rails.logger.info("\n\nUpdating attachment attributes #{@attachment.id}\n\n")
+
+    unless @attachment.attachable.update_attributes(attachment_params[:attachable_attributes]) && @attachment.attachable.reload
       render json: @attachment.errors.full_messages, status: :unprocessable_entity
     end
   end
@@ -39,7 +41,7 @@ class RecordAttachmentsController < ApplicationController
     # delete the association
     @record.attachments.delete(@attachment)
     # delete the record attachment
-    @attachment.delete
+    head :ok if @attachment.delete
   end
 
   private

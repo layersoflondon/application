@@ -10,10 +10,18 @@ class RecordsController < ApplicationController
   end
 
   def create
+    new_record_params = record_params
+
+    # user is logged in through their teacher's account
+    if session[:teacher_classroom_user].present?
+      new_record_params[:added_by_student] = true
+      new_record_params[:student_details] = session[:teacher_classroom_user]
+    end
+
     begin
-      @record = current_user.records.build(record_params)
+      @record = current_user.records.build(new_record_params)
     rescue ActiveRecord::MultiparameterAssignmentErrors
-      @record = current_user.records.build(record_params.reject {|k,v| k.to_s.match(/^date_/)})
+      @record = current_user.records.build(new_record_params.reject {|k,v| k.to_s.match(/^date_/)})
     end
 
     authorize(@record)
@@ -27,7 +35,7 @@ class RecordsController < ApplicationController
 
   def show
     if user_signed_in?
-      @record = RecordsIndex.in_state(['published','draft','flagged']).filter(ids: {values: [params[:id]]}).first
+      @record = RecordsIndex.in_state(['published','draft','flagged','pending_review']).filter(ids: {values: [params[:id]]}).first
     else
       @record = RecordsIndex.published.filter(ids: {values: [params[:id]]}).first
     end
@@ -48,21 +56,27 @@ class RecordsController < ApplicationController
 
   def update
     check_transition(record_params[:state])
+
     begin
       @record.assign_attributes(record_params)
+      @record.fix_dates(record_params) if @record.date_from_changed? || @record.date_to_changed?
     rescue ActiveRecord::MultiparameterAssignmentErrors
       @record.assign_attributes(record_params.reject {|k,v| k.to_s.match(/^date_/)})
     end
+
+    @record.added_by_student = session[:teacher_classroom_user].present? # persisted attribute
+    @record.record_added_by_current_student_user = session[:teacher_classroom_user].present? # attribute to determine what state to save the record in, depending on current user session
     authorize(@record)
 
     @result = save_record_and_return_from_es(@record)
 
-    if @result.present?
-      return @result
-    else
+    if @record.state == 'deleted' && @result == true
+      return render json: '', status: :ok
+    end
+
+    unless @result.present?
       render json: @record.errors, status: :unprocessable_entity
     end
-                                          
   end
 
   def destroy
@@ -216,14 +230,15 @@ class RecordsController < ApplicationController
       @record.mark_as_flagged
     when 'draft'
       @record.mark_as_draft
-    when 'delete'
-    @record.mark_as_deleted
+    when 'deleted'
+      @record.mark_as_deleted
     end
   end
 
   def save_record_and_return_from_es(record)
     Chewy.strategy(:urgent) do
       if record.save
+        return true if record.state === 'deleted'
         # Get the record from ES; it should be pretty quick but we have to check it's there
         filter = RecordsIndex.filter(ids: {values: [record.id]})
         loop do
@@ -234,6 +249,13 @@ class RecordsController < ApplicationController
       else
         nil
       end
+    end
+  end
+
+  def check_user_can_publish_records(record)
+    if session[:teacher_classroom_user] && current_user.teacher_token_expires < Time.now
+      record.errors.add(:user, "Your classroom session has finished")
+      nil
     end
   end
 end

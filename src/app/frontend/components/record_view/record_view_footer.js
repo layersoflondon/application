@@ -8,6 +8,9 @@ import {NavLink} from 'react-router-dom';
     super(props);
   }
 
+  /**
+   * hide the currently visible record and pan to its position on the map
+   */
   showOnMap() {
     this.props.mapViewStore.panTo(this.props.trayViewStore.record.lat, this.props.trayViewStore.record.lng, 18);
     const card = this.props.trayViewStore.cards.get(`record_${this.props.trayViewStore.record_id}`);

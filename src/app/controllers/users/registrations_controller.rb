@@ -17,9 +17,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    return head 400 if session[:teacher_classroom_user].present?
+    super
+  end
 
   # PUT /resource
   def update
@@ -67,7 +68,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :terms_and_conditions_of_use, :agrees_to_marketing])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :terms_and_conditions_of_use, :agrees_to_marketing, :title])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -86,7 +87,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def account_update_params
-    params.require(:user).permit(:description, :contact_me, :email, :password, :password_confirmation, :current_password, :avatar)
+    params.require(:user).permit(:description, :contact_me, :email, :password, :password_confirmation, :current_password, :avatar, :title)
   end
 
   def after_update_path_for(resource)

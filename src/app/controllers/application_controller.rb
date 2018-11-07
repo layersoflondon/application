@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
   before_action :store_current_location, unless: :should_skip_storing_location?
   after_action :verify_authorized, unless: :should_skip_verify_authorized?
-  before_action :authenticate_user!, unless: :devise_controller?
+  before_action :authenticate_user!, unless: :should_skip_authenticate_user?
 
   before_action :get_navigation_menu, if: -> {request.format.html?}
 
@@ -26,8 +26,12 @@ class ApplicationController < ActionController::Base
     @main_navigation_menu, @footer_navigation_menu = *Rooftop::Menus::Menu.where(post__in: [2,3]).to_a.sort_by(&:id)
   end
 
+  def should_skip_authenticate_user?
+    devise_controller? || (controller_name == 'switch_user' && action_name == 'set_current_user')
+  end
+
   def should_skip_verify_authorized?
-    devise_controller? || is_a?(ActiveAdmin::BaseController)
+    devise_controller? || is_a?(ActiveAdmin::BaseController) || (controller_name == 'switch_user' && action_name == 'set_current_user')
   end
 
   def should_skip_storing_location?

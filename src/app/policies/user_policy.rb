@@ -20,6 +20,22 @@ class UserPolicy < ApplicationPolicy
     user.present?
   end
 
+  def switch_role?
+    user.present?
+  end
+
+  def generate_token?
+    user.present?
+  end
+
+  def classroom_login?
+    true
+  end
+
+  def invalidate_current_token?
+    user.present?
+  end
+
   class Scope < Scope
     def resolve
       scope

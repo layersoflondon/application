@@ -1,16 +1,36 @@
 import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
-
-import Dropzone from 'react-dropzone';
 import {observer} from "mobx-react";
+import Attachment from "../../../models/attachment";
+import LinkRow from "./link_row";
+import ErrorBoundary from "../../error_boundary";
 
 @observer class Links extends Component {
   constructor(props) {
     super(props);
   }
 
+  addLinkFormFieldRow(event) {
+    event.preventDefault();
+
+    const attachments = this.props.recordFormStore.record.attachments.slice();
+    const new_attachment = {url: '', attachable_type: "Attachments::Url", attachable: {url: ''}, title: ''};
+    const new_link = Attachment.fromJS(new_attachment, this.props.recordFormStore.record.id);
+    attachments.push(new_link);
+    this.props.recordFormStore.record.attachments = attachments;
+  }
+
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='links' ? 'block' : 'none'};
+
+    let links = this.props.recordFormStore.record.links.map((link, i) => {
+      let index = this.props.recordFormStore.record.attachments.indexOf(link);
+      const key = link.id ? `${i}-${link.id}` : Math.random();
+
+      return <ErrorBoundary key={key}>
+        <LinkRow link={link} index={index} recordFormStore={this.props.recordFormStore} />
+      </ErrorBoundary>
+    });
 
     return (
       <div className="section">
@@ -18,15 +38,8 @@ import {observer} from "mobx-react";
 
         <div className="pane" style={pane_styles}>
           <div className="m-add-links">
-            <div className="link">
-              <div className="form-group">
-                <input placeholder="Title or description" type="text" />
-              </div>
-              <div className="form-group">
-                <input placeholder="URL (http://www.bbc.co.uk for example)" type="text" />
-              </div>
-            </div>
-            <button>Add another link</button>
+            {links}
+            <button onClick={this.addLinkFormFieldRow.bind(this)}>Add a related link</button>
           </div>
         </div>
 

@@ -5,10 +5,11 @@ import Tabs from '../../../components/tabs';
 import TeamForm from './team_form';
 import RecordsCollections from './records_collections_form';
 import TeachersForm from "./teachers_form";
+import NotFound from "../../not_found";
 
-@inject('mapViewStore')
+@inject('mapViewStore', 'currentUser')
 @withRouter
-@observer export default class CollectionForm extends Component {
+@observer export default class UserForm extends Component {
   constructor(props) {
     super(props);
 
@@ -45,13 +46,30 @@ import TeachersForm from "./teachers_form";
   }
 
   render() {
+    let tabs;
+
+    if ( this.props.currentUser.role === "student" ) {
+      tabs = <Tabs active={this.state.active} onChange={this.setActiveTab.bind(this)}>
+        <span key="records">Records & Collections</span>
+        <span key="sign_out">Sign out</span>
+      </Tabs>
+    }else {
+      tabs = <Tabs active={this.state.active} onChange={this.setActiveTab.bind(this)}>
+        <span key="account">Account details</span>
+        <span key="teams">Teams</span>
+        <span key="records">Records & Collections</span>
+        <span key="teachers">For teachers</span>
+        <span key="sign_out">Sign out</span>
+      </Tabs>
+    }
+
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'user_form' ) className+=" is-showing";
     const content = {
       account: <iframe width="100%" height="650" src="/users/edit" frameBorder="0" data-resizable="true"></iframe>,
       teams: <TeamForm id={this.state.id}/>,
       records: <RecordsCollections/>,
-      teachers: <TeachersForm/>,
+      teachers: <TeachersForm user={this.props.currentUser} />,
       sign_out: <h2>Signing you out of your account</h2>
 
     };
@@ -63,13 +81,7 @@ import TeachersForm from "./teachers_form";
           </div>
           <div className="m-overlay-subnavigation">
               <h1>Your Profile</h1>
-              <Tabs active={this.state.active} onChange={this.setActiveTab.bind(this)}>
-                  <span key="account">Account details</span>
-                  <span key="teams">Teams</span>
-                  <span key="records">Records & Collections</span>
-                  {/*<span key="teachers">For teachers</span>*/}
-                  <span key="sign_out">Sign out</span>
-              </Tabs>
+              {tabs}
           </div>
           <div className="m-account-page-wrapper">
               {content[this.state.active]}

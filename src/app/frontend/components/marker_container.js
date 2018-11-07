@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {inject, observer} from "mobx-react";
 import { Marker, Popup } from 'react-leaflet'
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import Img from 'react-image';
 
 import {Leaflet} from 'react-leaflet';
-import L from 'leaflet';
-import Parser from 'html-react-parser';
+import LeafletDataIcon from './leaflet_data_icon';
+
 @inject('router')
 @withRouter
 @observer export default class MarkerContainer extends Component {
@@ -28,35 +28,40 @@ import Parser from 'html-react-parser';
   }
 
   render() {
-    const default_icon = new L.Icon({
+    const trackingMarker = `${this.props.record.id} ${this.props.record.title}`;
+
+    const default_icon = new LeafletDataIcon({
       iconUrl: require('../assets/images/record-marker.png'),
       iconRetinaUrl: require('../assets/images/record-marker@2x.png'),
 
       iconSize: [30, 40],
       shadowSize: [0, 0],
       iconAnchor: [15, 20],
-      popupAnchor: [0, -33]
+      popupAnchor: [0, -33],
+      trackingMarker: trackingMarker
     });
 
-    const highlighted_icon = new L.Icon({
+    const highlighted_icon = new LeafletDataIcon({
       iconUrl: require('../assets/images/record-marker-highlighted.png'),
       iconRetinaUrl: require('../assets/images/record-marker-highlighted@2x.png'),
 
       iconSize: [30, 40],
       shadowSize: [0, 0],
       iconAnchor: [15, 20],
-      popupAnchor: [0, 0]
+      popupAnchor: [0, -33],
+      trackingMarker: trackingMarker
     });
 
     /*TODO: Use this icon for users records*/
-    const user_icon = new L.Icon({
-        iconUrl: require('../assets/images/record-marker-user.png'),
-        iconRetinaUrl: require('../assets/images/record-marker-user@2x.png'),
+    const user_icon = new LeafletDataIcon({
+      iconUrl: require('../assets/images/record-marker-user.png'),
+      iconRetinaUrl: require('../assets/images/record-marker-user@2x.png'),
 
-        iconSize: [30, 40],
-        shadowSize: [0, 0],
-        iconAnchor: [15, 20],
-        popupAnchor: [0, 0]
+      iconSize: [30, 40],
+      shadowSize: [0, 0],
+      iconAnchor: [15, 20],
+      popupAnchor: [0, -33],
+      trackingMarker: trackingMarker
     });
 
     let icon = default_icon;

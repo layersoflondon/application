@@ -35,5 +35,3 @@ export default (state) => {
 
   return stores;
 }
-
-

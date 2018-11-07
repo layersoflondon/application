@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  get 'switch_user', to: 'switch_user#set_current_user'
   
   root to: "pages#index"
 
@@ -32,8 +34,15 @@ Rails.application.routes.draw do
     member do
       get 'records', to: "records#for_user", as: :records_for
       get 'collections', to: "collections#for_user", as: :collections_for
+
+      patch 'switch_role', to: "users#switch_role", as: :switch_user_role
+      post  'generate_token', to: "users#generate_token", as: :generate_token
+      patch 'invalidate_current_token', to: "users#invalidate_current_token", as: :invalidate_current_token
     end
   end
+
+  get '/classroom/:id', to: "users#classroom", as: :teacher_classroom
+  post '/classroom/:id', to: "users#classroom_login", as: :teacher_classroom_login
 
   resources :records, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :attachments, controller: 'record_attachments', only: %i[index create show update destroy]
@@ -48,7 +57,6 @@ Rails.application.routes.draw do
   resources :collections, only: %i[index create show update destroy], defaults: {format: :json} do
     resources :records, controller: 'collection_records', only: %i[index create destroy]
   end
-
 
   resources :teams do
     collection do

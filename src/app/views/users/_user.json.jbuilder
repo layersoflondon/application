@@ -1,5 +1,9 @@
 json.id user.id
-json.name user.name
+if session[:teacher_classroom_user].present?
+  json.name "#{session[:teacher_classroom_user]} <span>a student of #{user.name}</span>"
+else
+  json.name user.name
+end
 json.description strip_tags(user.description)
 json.avatar_url user.avatar_url
 if defined?(records)

@@ -6,6 +6,7 @@ import Credits from './credits'
 import Location from './location'
 import Dates from './dates';
 import Media from './media';
+import Links from './links';
 import CollectionsEditor from './collections_editor';
 import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
@@ -106,11 +107,16 @@ import NotFound from "../../not_found";
 
 
     if (window.confirm(message)) {
-      Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
+      let r = Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
         if( state === 'deleted' ) {
           this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
           this.props.recordFormStore.record = new RecordModel();
-          this.props.router.push('/map');
+
+          if (this.props.router.history.previousLocalStates > 1) {
+            this.props.router.go(-2);
+          }else {
+            this.props.router.push('/map');
+          }
         }
 
         this.props.recordFormStore.record.state = state;
@@ -129,7 +135,12 @@ import NotFound from "../../not_found";
       this.props.router.push(`/map/records/${this.props.match.params.id}`);
     }else {
       this.props.trayViewStore.locked = false;
-      this.props.router.push(`/map`);
+
+      if( this.props.router.history.previousLocalStates > 1 ) {
+        this.props.router.goBack();
+      }else {
+        this.props.router.push(`/map`);
+      }
     }
 
 
@@ -174,8 +185,6 @@ import NotFound from "../../not_found";
       });
     });
 
-
-
     return (
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
@@ -194,7 +203,7 @@ import NotFound from "../../not_found";
 
               <div className="m-accordion">
                 <Media {...this.props} />
-                {/*<Links {...this.props} />*/}
+                <Links {...this.props} />
                 <CollectionsEditor {...this.props} />
                 {/*<Team {...this.props} />*/}
               </div>
@@ -261,12 +270,12 @@ import NotFound from "../../not_found";
                 </div>
 
                 <div className="primary-actions">
-                  {this.props.recordFormStore.record.state === 'draft' && (
+                  {/(draft|pending_review)/.test(this.props.recordFormStore.record.state) && (
                     <input type="submit" data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save as draft" />
                   )}
 
                   {
-                    this.props.recordFormStore.record.valid_for_publishing &&
+                    this.props.recordFormStore.record.valid_for_publishing && this.props.recordFormStore.record.user_can_publish &&
                     <input type="submit" data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
                   }
                 </div>
@@ -280,6 +289,14 @@ import NotFound from "../../not_found";
                   </ul>
                 </div>
               }
+
+              { (!this.props.recordFormStore.record.user_can_publish && this.props.recordFormStore.record.state == "published" && this.props.currentUser.token) && (
+                <div>
+                  <div className="form-publishing-note">
+                    <span>To make changes to this record you need to unpublish it first</span>
+                  </div>
+                </div>
+              )}
 
             </form>
           </div>
