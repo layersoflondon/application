@@ -30,12 +30,10 @@ import Img from 'react-image';
   }
 
   accountLink() {
-      if (this.props.currentUser && this.props.currentUser.token && this.props.currentUser.role !== "teacher" ) {
-          return "";
-      }
-
-      if (this.props.userPresent) {
-          return <Link to="/map/account/account" data-label="Your profile"><span>Your profile</span></Link>
+      if (this.props.userPresent && this.props.currentUser.role !== "student" ) {
+        return <Link to="/map/account/account" data-label="Your profile"><span>Your profile</span></Link>
+      }else if ( this.props.userPresent && this.props.currentUser.role === "student" ) {
+        return <Link to="/map/account/records" data-label="Your profile"><span>Your profile</span></Link>
       } else {
           return <a data-label="Sign in" href="/users/sign_in?return_to=/map/account/account"><span>Sign in</span></a>
       }

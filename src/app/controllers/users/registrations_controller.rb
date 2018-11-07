@@ -17,9 +17,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    return head 400 if session[:teacher_classroom_user].present?
+    super
+  end
 
   # PUT /resource
   def update

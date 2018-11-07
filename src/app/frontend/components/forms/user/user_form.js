@@ -5,6 +5,7 @@ import Tabs from '../../../components/tabs';
 import TeamForm from './team_form';
 import RecordsCollections from './records_collections_form';
 import TeachersForm from "./teachers_form";
+import NotFound from "../../not_found";
 
 @inject('mapViewStore', 'currentUser')
 @withRouter
@@ -45,6 +46,23 @@ import TeachersForm from "./teachers_form";
   }
 
   render() {
+    let tabs;
+
+    if ( this.props.currentUser.role === "student" ) {
+      tabs = <Tabs active={this.state.active} onChange={this.setActiveTab.bind(this)}>
+        <span key="records">Records & Collections</span>
+        <span key="sign_out">Sign out</span>
+      </Tabs>
+    }else {
+      tabs = <Tabs active={this.state.active} onChange={this.setActiveTab.bind(this)}>
+        <span key="account">Account details</span>
+        <span key="teams">Teams</span>
+        <span key="records">Records & Collections</span>
+        <span key="teachers">For teachers</span>
+        <span key="sign_out">Sign out</span>
+      </Tabs>
+    }
+
     let className = "m-overlay";
     if( this.props.mapViewStore.overlay === 'user_form' ) className+=" is-showing";
     const content = {
@@ -63,13 +81,7 @@ import TeachersForm from "./teachers_form";
           </div>
           <div className="m-overlay-subnavigation">
               <h1>Your Profile</h1>
-              <Tabs active={this.state.active} onChange={this.setActiveTab.bind(this)}>
-                  <span key="account">Account details</span>
-                  <span key="teams">Teams</span>
-                  <span key="records">Records & Collections</span>
-                  <span key="teachers">For teachers</span>
-                  <span key="sign_out">Sign out</span>
-              </Tabs>
+              {tabs}
           </div>
           <div className="m-account-page-wrapper">
               {content[this.state.active]}

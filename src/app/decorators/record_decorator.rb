@@ -12,5 +12,13 @@ class RecordDecorator < Draper::Decorator
   #   end
   #
   #
-
+  #
+  def state
+    case object.state
+      when 'pending_review'
+        'pending'
+      else
+        super
+    end
+  end
 end
