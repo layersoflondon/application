@@ -44,7 +44,6 @@ import TrayHeader from "./tray_header";
       trayClassName = "m-tray-area is-loading";
     }
 
-    
     return <div className={trayClassName}>
       <div className="open-close" onClick={() => this.props.trayViewStore.toggleTrayVisibility()}>
         <span>Close</span>

@@ -2,6 +2,7 @@
 @import "../assets/styles/library/mediaelement";
 @import "../../../node_modules/react-quill/dist/quill.snow";
 @import "../../../node_modules/react-quill/dist/quill.bubble";
+@import '../../../node_modules/react-datepicker/dist/react-datepicker.css';
 
 .leaflet-container {
   height: 100%;
@@ -142,4 +143,18 @@
   .css-1ep9fjw {
     display: none;
   }
+}
+
+.react-datepicker-wrapper {
+  width: 105%;
+}
+
+.react-datepicker__input-container {
+  padding-right: 25px;
+  width: 105%;
+}
+
+.react-datepicker-wrapper input {
+  font-size: 0.9em;
+  width: 100%;
 }

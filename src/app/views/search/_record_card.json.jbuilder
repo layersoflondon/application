@@ -3,3 +3,4 @@ if record.image.is_a?(Hash)
 else
   json.image nil
 end
+json.student_details record.student_details

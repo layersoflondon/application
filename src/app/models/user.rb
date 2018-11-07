@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_many :contributed_collections, through: :contributed_collection_records, class_name: "Collection", source: :collection
   has_one_attached :avatar
 
+  enum role: [:teacher]
+  enum title: {mr: "Mr", mrs: "Mrs", ms: "Ms", mx: "Mx", miss: "Miss", dr: "Dr", prof: "Prof", rev: "Rev"}
+
   serialize :record_likes, Array
   serialize :metadata, Hash
 
@@ -126,4 +129,21 @@ class User < ApplicationRecord
     end
   end
 
+  def generate_token_with_expiry_date!(expiry_date)
+    token = generate_token
+    update_attributes(teacher_token: token, teacher_token_expires: expiry_date)
+    token
+  end
+
+  private
+  def generate_token
+    token = nil
+
+    loop do
+      token = ('a'..'z').to_a.sample(rand(5..6)).join
+      break unless self.class.find_by(teacher_token: token)
+    end
+
+    token
+  end
 end

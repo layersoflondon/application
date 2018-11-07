@@ -7,7 +7,7 @@ class RecordsIndex < Chewy::Index
     include FieldDefinitions::Record
   end
 
-  def self.user_records(search_params, limit: 100, record_states: ['published'])
+  def self.user_records(search_params, limit: 200, record_states: ['published'])
     es_query = Chewy::Search::Request.new(RecordsIndex).query(
       nested: {
         path: "user",
@@ -22,6 +22,8 @@ class RecordsIndex < Chewy::Index
         }
       }
     )
+    q = Chewy::Search::Request.new(RecordsIndex).query({nested: {path: "user", query: {bool: {must: [{match: {"user.id" => 57 }}]}}}}) ; q.limit(200) ; q.size
+
     es_query.filter(terms: {state: record_states}).limit(limit)
   end
 

@@ -185,8 +185,6 @@ import NotFound from "../../not_found";
       });
     });
 
-
-
     return (
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
@@ -272,12 +270,12 @@ import NotFound from "../../not_found";
                 </div>
 
                 <div className="primary-actions">
-                  {this.props.recordFormStore.record.state === 'draft' && (
+                  {/(draft|pending_review)/.test(this.props.recordFormStore.record.state) && (
                     <input type="submit" data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save as draft" />
                   )}
 
                   {
-                    this.props.recordFormStore.record.valid_for_publishing &&
+                    this.props.recordFormStore.record.valid_for_publishing && this.props.recordFormStore.record.user_can_publish &&
                     <input type="submit" data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
                   }
                 </div>

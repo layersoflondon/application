@@ -10,10 +10,18 @@ class RecordsController < ApplicationController
   end
 
   def create
+    new_record_params = record_params
+
+    # user is logged in through their teacher's account
+    if session[:teacher_classroom_user].present?
+      new_record_params[:added_by_student] = true
+      new_record_params[:student_details] = session[:teacher_classroom_user]
+    end
+
     begin
-      @record = current_user.records.build(record_params)
+      @record = current_user.records.build(new_record_params)
     rescue ActiveRecord::MultiparameterAssignmentErrors
-      @record = current_user.records.build(record_params.reject {|k,v| k.to_s.match(/^date_/)})
+      @record = current_user.records.build(new_record_params.reject {|k,v| k.to_s.match(/^date_/)})
     end
 
     authorize(@record)
@@ -27,7 +35,7 @@ class RecordsController < ApplicationController
 
   def show
     if user_signed_in?
-      @record = RecordsIndex.in_state(['published','draft','flagged']).filter(ids: {values: [params[:id]]}).first
+      @record = RecordsIndex.in_state(['published','draft','flagged','pending_review']).filter(ids: {values: [params[:id]]}).first
     else
       @record = RecordsIndex.published.filter(ids: {values: [params[:id]]}).first
     end
@@ -55,6 +63,9 @@ class RecordsController < ApplicationController
     rescue ActiveRecord::MultiparameterAssignmentErrors
       @record.assign_attributes(record_params.reject {|k,v| k.to_s.match(/^date_/)})
     end
+
+    @record.added_by_student = session[:teacher_classroom_user].present? # persisted attribute
+    @record.record_added_by_current_student_user = session[:teacher_classroom_user].present? # attribute to determine what state to save the record in, depending on current user session
     authorize(@record)
 
     @result = save_record_and_return_from_es(@record)
@@ -238,6 +249,13 @@ class RecordsController < ApplicationController
       else
         nil
       end
+    end
+  end
+
+  def check_user_can_publish_records(record)
+    if session[:teacher_classroom_user] && current_user.teacher_token_expires < Time.now
+      record.errors.add(:user, "Your classroom session has finished")
+      nil
     end
   end
 end

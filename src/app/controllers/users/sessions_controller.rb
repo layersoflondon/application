@@ -10,6 +10,13 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
+  def destroy
+    super do
+      session[:teacher_classroom_user] = nil
+      session[:teacher_classroom_user_records] = nil
+    end
+  end
+
   private
   def after_sign_in_path_for(user)
     return_to = session[:return_to]
