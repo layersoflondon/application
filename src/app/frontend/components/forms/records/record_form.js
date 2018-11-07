@@ -290,6 +290,14 @@ import NotFound from "../../not_found";
                 </div>
               }
 
+              { (!this.props.recordFormStore.record.user_can_publish && this.props.recordFormStore.record.state == "published" && this.props.currentUser.token) && (
+                <div>
+                  <div className="form-publishing-note">
+                    <span>To make changes to this record you need to unpublish it first</span>
+                  </div>
+                </div>
+              )}
+
             </form>
           </div>
         </div>

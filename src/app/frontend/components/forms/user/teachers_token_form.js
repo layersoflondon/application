@@ -44,9 +44,14 @@ class TeachersTokenForm extends React.Component {
     }
 
     tokenInfo() {
-      return <p>
-        {location.origin}/classroom/{this.state.tokenData.teacher_token} <button className="delete" onClick={this.invalidateToken.bind(this)}><i className="fa fa-trash"></i></button>
-      </p>
+      return <div>
+        <p>
+          This is your classroom token. Share this with your students to allow them to log in. When they've added their records, you can publish them from your records list or account view.
+        </p>
+        <p>
+          {location.origin}/classroom/{this.state.tokenData.teacher_token} <button className="delete" onClick={this.invalidateToken.bind(this)}><i className="fa fa-trash"></i></button>
+        </p>
+      </div>
     }
 
     resetTokenForm() {

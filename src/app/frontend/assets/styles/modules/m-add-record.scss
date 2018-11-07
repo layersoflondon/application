@@ -225,3 +225,16 @@
     padding: 15px;
   }
 }
+
+.m-add-record .form-publishing-note {
+  @include top-and-tail;
+  margin: 40px -50px -40px -50px;
+  padding: 40px;
+  background: #E8FEDF;
+  color: $green;
+
+  @include mq(small-smartphone) {
+    margin: 15px -15px -40px -15px;
+    padding: 15px;
+  }
+}
