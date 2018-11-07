@@ -13,8 +13,8 @@
                 <%= f.inputs name: "The Basics" do %>
                     <%= f.input :title  %>
                     <%= f.input :state, as: :select%>
-                    <%= f.input :date_from  %>
-                    <%= f.input :date_to %>
+                    <%= f.input :date_from, as: :datepicker  %>
+                    <%= f.input :date_to, as: :datepicker %>
                     <% if f.object.persisted? %>
                         <li>
                             <label>View on map</label>
