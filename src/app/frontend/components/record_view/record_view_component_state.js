@@ -17,10 +17,11 @@ export default class RecordViewComponentState {
         this.props.trayViewStore.record_id = false;
         this.props.trayViewStore.record = false;
 
-        if(this.props.match.params.collection_id) {
+        if( this.props.router.history.previousLocalStates > 1 ) {
+          this.props.router.goBack();
+        }else if(this.props.match.params.collection_id) {
           this.props.router.push(`/map/collections/${this.props.match.params.collection_id}`);
         }else {
-          this.props.trayViewStore.locked = false;
           this.props.router.push(`/map`);
         }
       }
