@@ -7,6 +7,10 @@ class CollectionRecord < ApplicationRecord
   validates_presence_of :contributing_user_id
   validates_uniqueness_of :collection, scope: :record
 
+  after_initialize do
+    self.contributing_user = collection.owner unless self.contributing_user_id.present?
+  end
+
   after_save do
     record.touch
   end
