@@ -12,7 +12,6 @@ ActiveAdmin.register Collection do
 #   permitted
 # end
 #
-#
   permit_params [Collection.column_names.collect(&:to_sym), record_ids: []]
 
   controller do
@@ -26,6 +25,13 @@ ActiveAdmin.register Collection do
       end
     end
 
+    def create
+      @collection = Collection.new(permitted_params[:collection])
+      @collection.owner = current_user
+      @collection.collection_records.each {|cr| cr.contributing_user = current_user unless cr.contributing_user.present?}
+
+      super
+    end
   end
 
   filter :title
