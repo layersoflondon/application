@@ -38,7 +38,6 @@ import {inject} from "mobx-react/index";
   }
 
   render() {
-    console.log("this.content.tray_view_type", this.content.tray_view_type);
     const closeButton = <div className="close">
       <a className="close" onClick={this.closeTray.bind(this)}>Close</a>
     </div>;
