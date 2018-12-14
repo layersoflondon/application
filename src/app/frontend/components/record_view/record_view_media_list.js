@@ -10,10 +10,17 @@ import {Link} from 'react-router-dom';
   }
 
   render() {
-    let hero_image = this.props.record.hero_image_media_item;
     let media = this.props.record.attachments.filter((a) => a.is_media_or_video);
+    let thumbs;
+    if (this.props.record.has_hero_image) {
+      let hero_image = this.props.record.hero_image_media_item;
 
-    let thumbs = media.filter((a) => { return a.is_media_or_video && (hero_image && a.id !== hero_image.id) });
+
+      thumbs = media.filter((a) => { return a.is_media_or_video && (hero_image && a.id !== hero_image.id) });
+    } else {
+      thumbs = media.filter((a) => { return a.is_media_or_video });
+    }
+
     thumbs = thumbs.slice(0, this.props.numberOfItems);
 
     const media_items_total = media.length;
