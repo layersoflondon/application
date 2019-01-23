@@ -8,7 +8,13 @@ class CollectionRecord < ApplicationRecord
   validates_uniqueness_of :collection, scope: :record
 
   after_initialize do
-    self.contributing_user = collection.owner unless self.contributing_user_id.present?
+    unless contributing_user_id.present?
+      if collection.owner.is_a?(User)
+        self.contributing_user_id = collection.owner
+      elsif collection.owner.is_a?(Team)
+        self.contributing_user_id = collection.owner.leader_users.first
+      end
+    end
   end
 
   after_save do

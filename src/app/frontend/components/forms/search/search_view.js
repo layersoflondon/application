@@ -309,6 +309,7 @@ import Search from "../../../sources/search";
                     <li><a href="#" onClick={() => this.setState({start_year: 1901, end_year: 1914})}>Edwardian <span>1901-1914</span></a></li>
                     <li><a href="#" onClick={() => this.setState({start_year: 1914, end_year: 1918})}>World War I <span>1914-1918</span></a></li>
                     <li><a href="#" onClick={() => this.setState({start_year: 1918, end_year: 1939})}>Interwar <span>1918-1939</span></a></li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1939, end_year: 1945})}>World War II <span>1914-1918</span></a></li>
                     <li><a href="#" onClick={() => this.setState({start_year: 1945, end_year: 1999})}>Post World War II <span>1945-1999</span></a></li>
                     <li><a href="#" onClick={() => this.setState({start_year: 2000, end_year: ''})}>21st Century <span>2000-Now</span></a></li>
                   </ul>

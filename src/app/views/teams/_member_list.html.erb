@@ -5,15 +5,23 @@
         <% identifier = user.name.present? ? user.name : user.email %>
         <% team_user = @team.team_users.find_by(user_id: user.id) %>
         <li>
-            <a href="mailto:<%= user.email %>" class="clickable" data-type="user" data-id="<%= user.id %>">
+            <a href="mailto:<%= user.email %>" data-type="user" data-id="<%= user.id %>">
                 <%= identifier %>
             </a>
             <% if team_user.invited? %>
                 <span class="badge">Invited</span>
+                <% if policy(@team).invite_users? %>
+                    <%= link_to "Resend invitation", invite_users_to_team_path(@team, emails: team_user.user.email), method: :post, class: 'button' %>
+                <% end %>
             <% elsif team_user.access_requested? %>
                 <span class="badge">Awaiting approval</span>
+                <% if policy(@team).accept_request? %>
+                    <%= link_to "Approve application", accept_request_to_join_team_path(@team, key: team_user.key), class: "button", data: {confirm: "Are you sure you want to add #{identifier} to the team?"} %>
+                <% end %>
             <% elsif team_user.access_denied? %>
                 <span class="badge">Access denied</span>
+            <% elsif team_user.user.invitation_pending? %>
+                <span class="badge">Not signed up</span>
             <% end %>
             <% if @team.role_for_user(user) == 'leader' %>
                 <span class="ownership-indicator">Owner</span>

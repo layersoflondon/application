@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def should_skip_storing_location?
-    devise_controller? || is_a?(ActiveAdmin::BaseController) || is_a?(PagesController)
+    devise_controller? || is_a?(ActiveAdmin::BaseController) || is_a?(PagesController) || is_a?(Devise::InvitationsController)
   end
 
   def store_current_location

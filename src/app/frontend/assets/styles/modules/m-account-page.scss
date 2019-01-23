@@ -58,7 +58,8 @@
   margin-bottom: 10px;
 }
 
-.m-account-page li button {
+.m-account-page li button,
+.m-account-page li a.button {
   float: right;
   margin-left: 6px;
   font-size: 12px;
@@ -66,7 +67,14 @@
   transition:all .2s;
 }
 
-.m-account-page li button:hover {
+.m-account-page li a.button {
+  @include lozenge-button;
+  color: $black;
+  font-weight: normal;
+}
+
+.m-account-page li button:hover,
+.m-account-page li a.button:hover {
   background:$orange;
 }
 

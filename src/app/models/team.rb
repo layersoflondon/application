@@ -18,16 +18,17 @@ class Team < ApplicationRecord
   end
 
   def invite!(user, user_invited)
-    unless team_users.find_by(user_id: user_invited.id)
+    team_user = team_users.find_or_create_by(user_id: user_invited.id)
+    unless team_user.invited?
       key = Devise.friendly_token
-      team_users << TeamUser.new(
-        user: user_invited,
+      team_user.update_attributes(
         role: 'contributor',
         state: 'invited',
         key: key
       )
-      AccountMailer.team_invite_request(user, user_invited, self, key).deliver_now
     end
+
+    AccountMailer.team_invite_request(user, user_invited, self, key).deliver_now
   end
 
   def role_for_user(user)
