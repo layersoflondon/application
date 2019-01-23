@@ -5,63 +5,7 @@
 </div>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <% if resource.errors.any? %>
-        <h2>Your account couldn't be created</h2>
-        <ul>
-            <% resource.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-        </ul>
-    <% end %>
-
-    <div class="field">
-        <%= f.label :title %><br/>
-        <%= f.select :title, User.titles.to_a.collect{|t| [t.last, t.first]}, {prompt: "Choose a title"} %>
-    </div>
-
-    <div class="field">
-        <%= f.label :first_name %><br/>
-        <%= f.text_field :first_name, autofocus: true %>
-    </div>
-
-    <div class="field">
-        <%= f.label :last_name %><br/>
-        <%= f.text_field :last_name, autofocus: true %>
-    </div>
-
-    <div class="field">
-        <%= f.label :email %><br/>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    </div>
-
-    <div class="field">
-        <%= f.label :password %>
-        <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %><br/>
-        <%= f.password_field :password, autocomplete: "off" %>
-    </div>
-
-    <div class="field">
-        <%= f.label :password_confirmation %><br/>
-        <%= f.password_field :password_confirmation, autocomplete: "off" %>
-    </div>
-
-    <div class="field">
-        <p>By signing up, you accept our <%= link_to "contributor agreement", page_path('user-agreement'), target: "_blank" %>. Unless you choose to, we will not contact
-            you by email except for communications relating to your Layers of London account.</p>
-        <%= f.label :terms_and_conditions_of_use do %>
-            <%= f.check_box :terms_and_conditions_of_use %> I agree to the contributor agreement
-        <% end %>
-        <br>
-        <br>
-        <p>If you would like to be kept up to date with Layers of London and subscribe to our email newsletter, please
-            agree to this separately.</p>
-        <%= f.label :agrees_to_marketing do %>
-            <%= f.check_box :agrees_to_marketing %> I would like to be added to the Layers of London email list
-        <% end %>
-
-    </div>
+    <%= render "shared/user_signup_form", f: f, resource: resource %>
 
     <div class="actions">
         <%= f.submit "Create account" %>

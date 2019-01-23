@@ -135,6 +135,14 @@ class User < ApplicationRecord
     token
   end
 
+  def invitation_accepted?
+    invitation_token.nil? && invitation_accepted_at.present?
+  end
+
+  def invitation_pending?
+    invitation_token.present? && invitation_accepted_at.nil?
+  end
+
   private
   def generate_token
     token = nil
