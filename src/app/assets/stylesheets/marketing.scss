@@ -6,6 +6,8 @@
 
 @import "library/font-awesome";
 
+@import "leaflet/leaflet";
+
 @import "modules/marketing/m-site-wrapper";
 @import "modules/marketing/m-navigation";
 @import "modules/marketing/m-hero";
@@ -58,4 +60,14 @@ a.button {
   padding:100px;
   max-width:1000px;
   margin:0 auto;
+}
+
+.m-layer-maker-map {
+  border: 20px solid red;
+  width: 100%;
+  height: 400px;
+
+  .leaflet-container {
+    height: 100%;
+  }
 }

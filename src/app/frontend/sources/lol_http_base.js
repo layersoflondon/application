@@ -6,7 +6,10 @@ if (isMochaTest) {
     axios.defaults.proxy = { port: 3000 };
     axios.defaults.auth = {username: 'test@error.agency', password: '123456'};
 }else{
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector("[name=csrf-token]").content;
+    try {
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector("[name=csrf-token]").content;
+    }catch(e) {
+    }
 }
 
 export default class LoLHTTPBase {

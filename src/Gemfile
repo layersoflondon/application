@@ -138,3 +138,6 @@ gem 'activeadmin-orderable'
 gem 'rubyXL'
 
 gem 'switch_user'
+
+gem 'her'
+gem 'leaflet-rails'
