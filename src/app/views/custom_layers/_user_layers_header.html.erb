@@ -1,11 +1,11 @@
-<div class="m-layer-stats">
+<div class="m-layermaker-stats">
     <div class="user-stats">
         <span class="header">
             You have completed:
         </span>
 
         <span class="count">
-            1234
+            <%= current_user.layermaker_count %>
         </span>
 
         <span class="footer">
@@ -13,29 +13,13 @@
         </span>
     </div>
 
-    <div class="layers-leaderboard">
-        <div class="leaderboard-row">
-            <div>5</div>
-            <div>423</div>
-            <div>User Name</div>
-        </div>
-
-        <div class="leaderboard-row">
-            <div>4</div>
-            <div>323</div>
-            <div>User Name</div>
-        </div>
-
-        <div class="leaderboard-row">
-            <div>2</div>
-            <div>223</div>
-            <div>User Name</div>
-        </div>
-
-        <div class="leaderboard-row">
-            <div>1</div>
-            <div>123</div>
-            <div>User Name</div>
-        </div>
+    <div class="leaderboard">
+        <% @layermakers.each_with_index do |layermaker, i| %>
+            <div class="leaderboard-row <%= current_user == layermaker ? 'is-current-user' : '' %>">
+                <div class="rank"><%= i+1 %></div>
+                <div class="count"><%= layermaker.layermaker_count %></div>
+                <div class="name"><%= layermaker.name %></div>
+            </div>
+        <% end %>
     </div>
 </div>

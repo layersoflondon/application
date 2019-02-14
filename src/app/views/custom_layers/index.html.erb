@@ -2,25 +2,32 @@
 
     <div class="m-article">
 
-        <div class="m-layermaker-header">
-            <h1>
-                Be a Layers of London Layermaker
-            </h1>
+        <div class="m-layermaker">
+            <div class="header">
+                <h1>
+                    Be a Layers of London Layermaker
+                </h1>
 
-            <p>
-                We've a lot of hard work to do to get our historic maps look more accurate.
-                You can help out by fixing some old maps.
-            </p>
+                <p>
+                    We've a lot of hard work to do to get our historic maps look more accurate.
+                    You can help out by fixing some old maps.
+                </p>
+            </div>
 
             <%= render "#{user_signed_in? ? "user_layers" : "layers"}_header" %>
+
+            <div class="current-projects">
+                <h2>
+                    Current mapping projects
+                </h2>
+
+                <% @layers.each do |layer| %>
+                    <h3>
+                        <%= link_to layer.title, custom_layer_path(layer.id) %>
+                    </h3>
+                <% end %>
+            </div>
         </div>
-
-
-        <% @images.each do |image| %>
-            <h3>
-                <%= link_to image[:title], custom_layer_path(image[:id]) %>
-            </h3>
-        <% end %>
 
     </div>
 
