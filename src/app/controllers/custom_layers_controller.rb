@@ -3,7 +3,7 @@ class CustomLayersController < ApplicationController
   skip_after_action :verify_authorized
 
   def index
-    @layers = Layer.all
+    @layers = []
     @layermakers = User.layermakers
 
     if user_signed_in?
@@ -14,6 +14,6 @@ class CustomLayersController < ApplicationController
   end
 
   def show
-    @layer = Layer.find(params[:id])
+    @image = GeoreferencerImage.find(params[:id])
   end
 end

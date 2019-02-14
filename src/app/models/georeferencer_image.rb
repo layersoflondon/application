@@ -12,7 +12,22 @@ class GeoreferencerImage
     where(state: 'waiting')
   }
 
-  def pins
+  def self.all!
+    batch = GeoreferencerImage.all.fetch
+    images = [batch.to_a]
+    loop do
+      start = nil
 
+      if batch.metadata.present?
+        start = batch.metadata[:start]
+      else
+        break
+      end
+
+      batch = GeoreferencerImage.where(start: start).fetch
+      images.push batch
+    end
+
+    images.flatten
   end
 end

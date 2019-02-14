@@ -140,4 +140,5 @@ gem 'rubyXL'
 gem 'switch_user'
 
 gem 'her'
+gem 'faraday_middleware'
 gem 'leaflet-rails'
