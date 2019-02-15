@@ -30,4 +30,20 @@ class GeoreferencerImage
 
     images.flatten
   end
+
+  def cache_key
+
+  end
+
+  def fetch_details!
+    Rails.cache.fetch "georeferencer_image_#{id}" do
+      GeoreferencerImage.find(id)
+    end
+  end
+
+  def centroid
+    details = fetch_details!
+    (wlng, slat, elng, nlat) = details.bbox
+    {lat: (slat+nlat)/2, lng: (wlng+elng)/2}
+  end
 end

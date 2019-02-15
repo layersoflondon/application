@@ -14,6 +14,14 @@ class CustomLayersController < ApplicationController
   end
 
   def show
-    @image = GeoreferencerImage.find(params[:id])
+    @images = GeoreferencerImage.all
+    @markers = @images.collect do |image|
+      {popup: image.title, latlng: image.centroid.values}
+    end
+
+    @centre_marker = (@markers[@markers.length/2])||@markers.first
+    @centre = @centre_marker.try(:[], :latlng)
+
+    Rails.logger.info(@markers)
   end
 end
