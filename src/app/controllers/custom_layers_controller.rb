@@ -4,24 +4,25 @@ class CustomLayersController < ApplicationController
 
   def index
     @layers = []
-    @layermakers = User.layermakers
+    @contributors = Georeferencer::Contributor.all!
 
     if user_signed_in?
-      @images = GeoreferencerImage.all
+      @images = Georeferencer::Image.all
     else
-      @images = GeoreferencerImage.unreferenced
+      @images = Georeferencer::Image.unreferenced
     end
   end
 
   def show
-    @images = GeoreferencerImage.all
+    # @images = GeoreferencerImage.where(params....)
+    @images = Georeferencer::Image.all!.sample(10)
     @markers = @images.collect do |image|
       {popup: image.title, latlng: image.centroid.values}
     end
 
+    @progress = Georeferencer::Progress.find(params[:id])
+
     @centre_marker = (@markers[@markers.length/2])||@markers.first
     @centre = @centre_marker.try(:[], :latlng)
-
-    Rails.logger.info(@markers)
   end
 end

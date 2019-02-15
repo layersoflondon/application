@@ -1,5 +1,30 @@
 <div class="m-content">
-    <div class="m-layer-maker-map">
-        <%= map(center: {latlng:  @centre, zoom: 12}, markers: @markers) %>
+
+    <div class="m-article">
+
+        <div class="m-layermaker">
+            <div class="header">
+                <h1>
+                    Be a Layers of London Layermaker
+                </h1>
+
+                <p>
+                    We've a lot of hard work to do to get our historic maps look more accurate.
+                    You can help out by fixing some old maps.
+                </p>
+            </div>
+        </div>
     </div>
+
+    <div class="m-progress-bar">
+        <div class="progress-bar-container">
+            <span style="width: <%= @progress.pcent_reviewed %>%"></span>
+        </div>
+        <div class="legend">
+            Reviewed: <%= @progress.pcent_reviewed %> <br>
+            Edited: <%= @progress.pcent_adequate %>
+        </div>
+    </div>
+
+    <%= render partial: "custom_layers/#{params.has_key?(:unreferenced) ? 'unreferenced' : 'referenced'}" %>
 </div>

@@ -1,24 +1,24 @@
 <div class="m-layermaker-stats">
-    <div class="user-stats">
+    <!--div class="user-stats">
         <span class="header">
             You have completed:
         </span>
 
         <span class="count">
-            <%= current_user.layermaker_count %>
+
         </span>
 
         <span class="footer">
             images
         </span>
-    </div>
+    </div-->
 
     <div class="leaderboard">
-        <% @layermakers.each_with_index do |layermaker, i| %>
-            <div class="leaderboard-row <%= current_user == layermaker ? 'is-current-user' : '' %>">
-                <div class="rank"><%= i+1 %></div>
-                <div class="count"><%= layermaker.layermaker_count %></div>
-                <div class="name"><%= layermaker.name %></div>
+        <% @contributors.each do |contributor| %>
+            <div class="leaderboard-row <%= current_user == contributor ? 'is-current-user' : '' %>">
+                <div class="rank"><%= contributor.ranking %></div>
+                <div class="count"><%= contributor.score %></div>
+                <div class="name"><%= contributor.name %></div>
             </div>
         <% end %>
     </div>

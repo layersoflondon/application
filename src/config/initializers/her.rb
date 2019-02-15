@@ -25,6 +25,11 @@ end
 
 class FixQueryParams < Faraday::Middleware
   def call(env)
+    # byebug
+    # if env.url.path =~ /\/api\/v1\/progress\/:all/
+    #   env.url.path = '/api/v1/progress'
+    # end
+
     env.url.query = env.url.query.gsub(/%25/,'%')
     @app.call(env)
   end
