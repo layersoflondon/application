@@ -187,6 +187,7 @@ import NotFound from "../../not_found";
     });
 
     return (
+
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
           <div className="close">
@@ -206,7 +207,10 @@ import NotFound from "../../not_found";
                 <Media {...this.props} />
                 <Links {...this.props} />
                 <CollectionsEditor {...this.props} />
-                <TeamPicker {...this.props} />
+                {
+                  (this.props.recordFormStore.record.user.id === this.props.currentUser.id) &&
+                <TeamPicker {...this.props} />                                             
+                }
               </div>
 
               <div className="form-actions">
