@@ -12,7 +12,7 @@ import Select from 'react-select';
     this.state = {
       record: this.props.recordFormStore.record,
       allow_team_editing: false,
-
+      teams: []
     }
   }
 
@@ -22,6 +22,7 @@ import Select from 'react-select';
       teams = response.data.map((team) => ({value: team.id, label: team.name}));
       this.setState({teams: teams});
     });
+
   }
 
   componentWillReceiveProps() {
@@ -33,6 +34,10 @@ import Select from 'react-select';
 
   handleAllowTeamEditingOnChange(event) {
     this.setState({allow_team_editing: event.target.checked});
+    this.state.record.allow_team_editing = event.target.checked;
+    if (!event.target.checked) {
+      this.state.record.team_id = null;
+    }
   }
 
   handleSelectOnChange(option, event) {
@@ -67,7 +72,7 @@ import Select from 'react-select';
               </div>
               {
                 this.state.allow_team_editing &&
-                <Select placeholder='Choose a collection…' options={this.state.teams} value="" isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={false} ref={this.selectRef}/>
+                <Select placeholder='Choose a team…' options={this.state.teams} value={(this.state.record.team_id) ? this.state.teams.find((t) => t.value === this.state.record.team_id) : ""} isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef}/>
               }
 
             </div>
