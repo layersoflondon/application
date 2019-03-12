@@ -15,8 +15,8 @@
     <%= f.inputs "Date and location" do %>
         <%= f.input :lat %>
         <%= f.input :lng %>
-        <%= f.input :date_from %>
-        <%= f.input :date_to %>
+        <%= f.input :date_from, as: :date_picker %>
+        <%= f.input :date_to, as: :date_picker %>
     <% end %>
 
     <%= f.inputs "Tileserver details" do %>
