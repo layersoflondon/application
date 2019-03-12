@@ -13,8 +13,8 @@
                 <%= f.inputs name: "The Basics" do %>
                     <%= f.input :title  %>
                     <%= f.input :state, as: :select%>
-                    <%= f.input :date_from, as: :datepicker  %>
-                    <%= f.input :date_to, as: :datepicker %>
+                    <%= f.input :date_from, as: :date_picker  %>
+                    <%= f.input :date_to, as: :date_picker %>
                     <% if f.object.persisted? %>
                         <li>
                             <label>View on map</label>
@@ -25,6 +25,9 @@
                             <%= link_to f.object.user.name, edit_admin_user_path(f.object.user) %>
                         </li>
                         <li><label>&nbsp;</label><%= link_to "View #{f.object.user.first_name}'s records on map", resource_map_path(resource: 'users', id: f.object.user.id) %></li>
+                        <%= f.input :allow_team_editing %>
+                        <%= f.input :editing_team, as: :select, collection: f.object.user.teams, prompt: "Choose a team" %>
+
                     <% end %>
 
                 <% end %>
