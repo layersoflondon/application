@@ -4,23 +4,24 @@ ActiveAdmin.register Layer do
                 :credit,
                 :lat,
                 :lng,
-                :date_from,
-                :date_to,
                 :layer_type,
                 :tileserver_url,
+                :date_from,
+                :date_to,
                 image_attributes: [
-                  :file
+                  :file,
+                  :id
                 ]
 
   controller do
-    def update
-      update! do |f|
-        f.html {redirect_to edit_admin_layer_path(params[:id])}
-      end
-    end
+
 
     def new
       @layer = Layer.new(image: Attachments::Image.new)
+    end
+
+    def show
+      redirect_to edit_admin_layer_path(resource)
     end
 
   end

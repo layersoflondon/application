@@ -6,7 +6,7 @@ class Record < ApplicationRecord
 
 
   update_index('records#record') { self }
-  update_index('collections#collection') { self.collections }
+ 
   has_many :collection_records, dependent: :destroy
   has_many :collections, through: :collection_records
   has_many :attachments, dependent: :destroy
@@ -23,6 +23,16 @@ class Record < ApplicationRecord
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
   has_many :record_reports
+
+  belongs_to :editing_team, class_name: 'Team', foreign_key: :team_id, optional: true
+
+  validate :user_is_member_of_team
+
+  validates :editing_team, presence: {message: "You need to choose a team if you want them to edit"}, if: -> {allow_team_editing}
+
+  before_validation do
+    self.editing_team = nil if !self.allow_team_editing
+  end
 
   enum view_type: %i[gallery expanded]
   enum state: %i[draft published pending_review flagged deleted]
@@ -204,6 +214,14 @@ class Record < ApplicationRecord
       rescue ArgumentError
         errors.add(attribute.to_sym, "is invalid")
       end
+    end
+  end
+
+  private
+
+  def user_is_member_of_team
+    if editing_team.present? && !user.teams.include?(editing_team)
+      errors[:team] << "must be one you're a member of"
     end
   end
 end

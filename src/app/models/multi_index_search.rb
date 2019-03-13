@@ -180,8 +180,8 @@ class MultiIndexSearch
               }
             else
               {
-                collections: 10,
-                records: 1
+                development_collections: 10,
+                development_records: 1
               }
             end
     query.indices_boost(boost)

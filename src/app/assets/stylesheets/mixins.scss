@@ -659,7 +659,7 @@ $gutter-width: 10px;
     }
 
     // IE8, IE9, IE10
-    @media screen \0
+    @media screen\0
     {
       @media screen and (min-width: $min-vw) {
         @each $property in $properties {

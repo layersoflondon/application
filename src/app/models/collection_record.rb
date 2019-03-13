@@ -7,8 +7,20 @@ class CollectionRecord < ApplicationRecord
   validates_presence_of :contributing_user_id
   validates_uniqueness_of :collection, scope: :record
 
+  after_destroy if: -> {collection.present?} do
+    Chewy.strategy(:active_job) do
+      CollectionsIndex::Collection.update_index(collection)
+    end
+  end
+
+  after_create if: -> {collection.present?} do
+    Chewy.strategy(:active_job) do
+      CollectionsIndex::Collection.update_index(collection)
+    end
+  end
+
   after_initialize do
-    unless contributing_user_id.present?
+    unless contributing_user_id.present? || collection.nil?
       if collection.owner.is_a?(User)
         self.contributing_user_id = collection.owner
       elsif collection.owner.is_a?(Team)
