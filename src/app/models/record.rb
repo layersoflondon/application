@@ -28,7 +28,7 @@ class Record < ApplicationRecord
 
   validate :user_is_member_of_team
 
-  validates :editing_team, presence: {message: "needs to be chosen"}, if: -> {allow_team_editing}
+  validates :editing_team, presence: {message: "You need to choose a team if you want them to edit"}, if: -> {allow_team_editing}
 
   before_validation do
     self.editing_team = nil if !self.allow_team_editing
