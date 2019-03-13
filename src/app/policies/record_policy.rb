@@ -20,11 +20,11 @@ class RecordPolicy < ApplicationPolicy
   end
 
   def update?
-    create?
+    create? || (record.allow_team_editing && record.team_id.in?(user.team_ids))
   end
 
   def destroy?
-    create?
+    update?
   end
 
   def like?

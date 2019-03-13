@@ -1,10 +1,11 @@
 # Server configuration. For a simple site this is just one entry.
 role :app, %w{deployment@lol-web01.hosts.errorstudio.com}
 role :web, %w{deployment@lol-web01.hosts.errorstudio.com}
-role :db, %w{deployment@lol-web01.hosts.errorstudio.com}
+role :db, %w{deployment@lol-db01.hosts.errorstudio.com}
 
 # Git branch
 set :branch, 'development'
+set :db_server, "db01.lol"
 
 #the base domain for this site - is appended to the primary domain for a prelaunch url
 set :base_domain, "prelaunch.error.agency"

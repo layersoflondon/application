@@ -8,6 +8,7 @@ import Dates from './dates';
 import Media from './media';
 import Links from './links';
 import CollectionsEditor from './collections_editor';
+import TeamPicker from './team_picker';
 import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
 import NotFound from "../../not_found";
@@ -186,6 +187,7 @@ import NotFound from "../../not_found";
     });
 
     return (
+
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
           <div className="close">
@@ -205,7 +207,10 @@ import NotFound from "../../not_found";
                 <Media {...this.props} />
                 <Links {...this.props} />
                 <CollectionsEditor {...this.props} />
-                {/*<Team {...this.props} />*/}
+                {
+                  (this.props.recordFormStore.record.user.id === this.props.currentUser.id) &&
+                <TeamPicker {...this.props} />                                             
+                }
               </div>
 
               <div className="form-actions">

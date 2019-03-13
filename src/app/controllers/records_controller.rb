@@ -180,6 +180,8 @@ class RecordsController < ApplicationController
         :date_from,
         :date_to,
         :credit,
+        :allow_team_editing,
+        :team_id,
         location: %i[
           address
         ]

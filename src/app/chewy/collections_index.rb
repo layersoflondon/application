@@ -16,19 +16,60 @@ class CollectionsIndex < Chewy::Index
   end
 
   def self.user_collections(user_id)
-    query = {bool: {
-      must: [
-        {nested: {
-          path: "owner", query: {
+    query = {
+      bool: {
+        should: [
+          {
+            nested: {
+              path: "owner", query: {
+                bool: {
+                  must: [
+                    {
+                      match: {
+                        "owner.id" => user_id
+                      }
+                    },
+                    {
+                      match: {
+                        "owner.type" => "User"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
             bool: {
               must: [
-                {match: {"owner.id" => user_id}}
+                {
+                  nested: {
+                    path: "owner", query: {
+                      bool: {
+                        must: [
+                          {
+                            match: {
+                              "owner.type" => "Team"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                {
+                  term: {
+                    contributor_ids: user_id
+                  }
+                }
               ]
             }
           }
-        }}
-      ]
-    }}
+
+
+        ]
+      }
+    }
 
     filter(query)
   end

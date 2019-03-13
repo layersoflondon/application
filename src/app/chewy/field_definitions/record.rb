@@ -55,6 +55,9 @@ module FieldDefinitions
         field :label, value: ->{title}
       end
 
+      field :team_id
+      field :allow_team_editing
+
       field :attachments, type: 'object' do
         field :id, type: 'integer'
         field :title, type: 'text', analyzer: :english

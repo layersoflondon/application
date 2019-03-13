@@ -23,11 +23,9 @@ ActiveAdmin.register Record do
       super.includes(:user).references(:user)
     end
 
-    def update
-      update! do |f|
-        f.html {redirect_to edit_admin_record_path(params[:id])}
-      end
-    end
+   def show
+     redirect_to edit_admin_record_path(resource)
+   end
 
   end
 

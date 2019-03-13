@@ -1,12 +1,29 @@
 ActiveAdmin.register Layer do
-  permit_params Layer.column_names.collect(&:to_sym)
+  permit_params :title,
+                :description,
+                :credit,
+                :lat,
+                :lng,
+                :layer_type,
+                :tileserver_url,
+                :date_from,
+                :date_to,
+                image_attributes: [
+                  :file,
+                  :id
+                ]
 
   controller do
-    def update
-      update! do |f|
-        f.html {redirect_to edit_admin_layer_path(params[:id])}
-      end
+
+
+    def new
+      @layer = Layer.new(image: Attachments::Image.new)
     end
+
+    def show
+      redirect_to edit_admin_layer_path(resource)
+    end
+
   end
 
   index do

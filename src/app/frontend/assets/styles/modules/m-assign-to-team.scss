@@ -1,7 +1,39 @@
 // Assign to team
 
-.m-assign-to-team p {
-  width: 50%;
-  float: left;
-  margin-top:0;
+.m-assign-to-team {
+
+}
+
+.m-assign-to-team .form {
+  max-width: 384px;
+  padding: 10px;
+  clear: both;
+  background: #e7ca4c;
+}
+
+.m-assign-to-team .form-group--toggle-switch {
+  text-align: center;
+  margin: 10px 0 22px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.m-assign-to-team .form-group--toggle-switch label {
+  padding:0;
+  background:transparent;
+  font-size:18px;
+  color:#333;
+  margin-bottom:0;
+  @include mq(smartphone) {
+    font-size: 13px;
+  }
+  @include mq(small-smartphone) {
+    font-size:11px;
+  }
+}
+
+.m-assign-to-team .form-group--toggle-switch .toggle {
+  background: #a4870c;
 }
