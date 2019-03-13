@@ -11,7 +11,7 @@ import Select from 'react-select';
     this.selectRef = React.createRef();
     this.state = {
       record: this.props.recordFormStore.record,
-      allow_team_editing: false,
+      allow_team_editing: this.props.recordFormStore.record.allow_team_editing,
       teams: []
     }
   }
