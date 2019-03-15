@@ -26,9 +26,9 @@ GIT
 
 GIT
   remote: https://github.com/rooftopcms/rooftop-ruby
-  revision: 0c31090c806ea202e00d5dd35596c0896611f6e5
+  revision: c30745470d1d3e6a7600d083634dbdc52c4dcc43
   specs:
-    rooftop (1.2.0)
+    rooftop (1.2.1)
       activesupport (>= 4, < 6)
       faraday-http-cache (~> 1.2)
       her (~> 1.0)
@@ -219,6 +219,12 @@ GEM
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
     geocoder (1.5.1)
+    georeferencer (0.1.0)
+      activesupport
+      faraday_middleware
+      her
+      oj
+      require_all
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     has_scope (0.7.2)
@@ -474,6 +480,7 @@ DEPENDENCIES
   faker
   faraday_middleware
   geocoder
+  georeferencer
   her
   image_processing (~> 1.2)
   jbuilder (~> 2.5)
@@ -507,4 +514,4 @@ DEPENDENCIES
   youtube_id
 
 BUNDLED WITH
-   1.16.2
+   1.16.6
