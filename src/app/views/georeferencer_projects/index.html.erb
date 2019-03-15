@@ -21,14 +21,10 @@
                     Current mapping projects
                 </h2>
 
-                <div class="layermaker-project">
-                    <a href="/layermaker/RAF">RAF Project</a>
-                </div>
-
-                <% @layers.each do |layer| %>
+                <% @projects.each do |collection| %>
                     <div class="layermaker-project">
                         <h3>
-                            <%= link_to layer.title, georeferencer_project_path(layer.id) %>
+                            <%= link_to collection.name, georeferencer_project_path(collection.id) %>
                         </h3>
                     </div>
                 <% end %>

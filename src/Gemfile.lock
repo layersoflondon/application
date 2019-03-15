@@ -218,8 +218,10 @@ GEM
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
+    friendly_id (5.2.5)
+      activerecord (>= 4.0.0)
     geocoder (1.5.1)
-    georeferencer (0.1.1)
+    georeferencer (0.1.2)
       activesupport
       faraday_middleware
       her
@@ -479,6 +481,7 @@ DEPENDENCIES
   draper
   faker
   faraday_middleware
+  friendly_id
   geocoder
   georeferencer
   her

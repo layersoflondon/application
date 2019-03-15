@@ -145,3 +145,6 @@ gem 'faraday_middleware'
 gem 'leaflet-rails'
 
 gem 'georeferencer'
+# gem 'georeferencer', path: '../../../georeferencer'
+
+gem 'friendly_id'
