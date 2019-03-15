@@ -178,7 +178,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.4)
+    concurrent-ruby (1.1.5)
     crass (1.0.4)
     devise (4.6.1)
       bcrypt (~> 3.0)
@@ -219,7 +219,7 @@ GEM
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
     geocoder (1.5.1)
-    georeferencer (0.1.0)
+    georeferencer (0.1.1)
       activesupport
       faraday_middleware
       her
@@ -234,7 +234,7 @@ GEM
       activemodel (>= 4.2.1)
       faraday (>= 0.8, < 1.0)
       multi_json (~> 1.7)
-    i18n (1.5.3)
+    i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.7.1)
       mini_magick (~> 4.0)
@@ -301,7 +301,7 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
-    oj (3.7.9)
+    oj (3.7.10)
     orm_adapter (0.5.0)
     parallel (1.13.0)
     parser (2.6.0.0)

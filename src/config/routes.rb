@@ -72,7 +72,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :custom_layers, only: [:index, :show], path: 'layermaker'
+  resources :georeferencer_projects, only: [:index, :show], path: 'layermaker'
   
 
   resource :map, controller: 'maps' do

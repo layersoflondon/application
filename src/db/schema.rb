@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_08_132332) do
+ActiveRecord::Schema.define(version: 2019_03_15_140825) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -177,6 +177,16 @@ ActiveRecord::Schema.define(version: 2019_03_08_132332) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "sort_order"
+  end
+
+  create_table "georeferencer_collections", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "georeferencer_id"
+    t.integer "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["georeferencer_id"], name: "index_georeferencer_collections_on_georeferencer_id"
   end
 
   create_table "layers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
