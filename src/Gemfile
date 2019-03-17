@@ -144,7 +144,7 @@ gem 'her'
 gem 'faraday_middleware'
 gem 'leaflet-rails'
 
-gem 'georeferencer'
+gem 'georeferencer', git: "https://github.com/layersoflondon/georeferencer-ruby"
 # gem 'georeferencer', path: '../../../georeferencer'
 
 gem 'friendly_id'

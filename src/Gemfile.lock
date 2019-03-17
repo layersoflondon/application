@@ -6,6 +6,17 @@ GIT
       rails (>= 4.2, < 6.0.0)
 
 GIT
+  remote: https://github.com/layersoflondon/georeferencer-ruby
+  revision: 5a6f9fff75ed2b677a17392916bf1417d4c861f3
+  specs:
+    georeferencer (0.1.3)
+      activesupport
+      faraday_middleware
+      her
+      oj
+      require_all
+
+GIT
   remote: https://github.com/rooftopcms/rooftop-rails
   revision: cc059f1d1a975bf16449ee8e196c0565afdc885d
   specs:
@@ -221,12 +232,6 @@ GEM
     friendly_id (5.2.5)
       activerecord (>= 4.0.0)
     geocoder (1.5.1)
-    georeferencer (0.1.2)
-      activesupport
-      faraday_middleware
-      her
-      oj
-      require_all
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     has_scope (0.7.2)
@@ -483,7 +488,7 @@ DEPENDENCIES
   faraday_middleware
   friendly_id
   geocoder
-  georeferencer
+  georeferencer!
   her
   image_processing (~> 1.2)
   jbuilder (~> 2.5)
