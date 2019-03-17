@@ -24,7 +24,7 @@
                 <% @projects.each do |collection| %>
                     <div class="layermaker-project">
                         <h3>
-                            <%= link_to collection.name, georeferencer_project_path(collection.id) %>
+                            <%= link_to collection.name, georeferencer_project_path(collection.slug) %>
                         </h3>
                     </div>
                 <% end %>
