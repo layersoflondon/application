@@ -1,0 +1,10 @@
+div#georeferencer-map-root {
+  .leaflet-container {
+    height: 400px;
+
+    .tile-layers {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

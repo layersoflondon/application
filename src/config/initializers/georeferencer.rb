@@ -6,5 +6,4 @@ Georeferencer.configure do |config|
     # }
   # end
   config.subdomain = 'layersoflondon'
-  config.cache = Rails.cache
 end
