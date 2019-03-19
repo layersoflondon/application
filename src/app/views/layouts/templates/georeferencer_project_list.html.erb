@@ -1,0 +1,44 @@
+<%= content_for :body_class do %>m-site-wrapper<% end %>
+
+<% content_for :template do %>
+
+    <%= render 'shared/page_header', class: 'm-page-header--nano' %>
+
+    <main class="main--content">
+        <div class="background">
+            <div class="motion-background" id="motion-background"></div>
+        </div>
+        <div class="m-content">
+
+            <div class="m-article">
+                <%= yield %>
+
+
+            </div>
+
+            <div class="m-georeferencer-projects <%= user_signed_in? ? "m-georeferencer-project--signed-in" : "" %>">
+
+                <%= render 'georeferencer_projects/leader_board' if user_signed_in? %>
+
+                <div class="current-projects">
+                    <h2>
+                        Current mapping projects
+                    </h2>
+
+                    <% @projects.each do |collection| %>
+                        <div class="georeferencer-project">
+                            <h3>
+                                <%= link_to collection.name, georeferencer_project_path(collection.slug) %>
+                            </h3>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
+<% end %>
+
+<%= render template: "layouts/application" %>

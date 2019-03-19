@@ -11,6 +11,5 @@
 // about supported directives.
 //
 //= require jquery
-//= require leaflet
 //= require_tree ./vendor
 //= require_tree ./modules-marketing

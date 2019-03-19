@@ -140,10 +140,6 @@ gem 'rubyXL'
 
 gem 'switch_user'
 
-gem 'her'
-gem 'faraday_middleware'
-gem 'leaflet-rails'
-
 gem 'georeferencer', git: "https://github.com/layersoflondon/georeferencer-ruby"
 # gem 'georeferencer', path: '../../../georeferencer'
 
