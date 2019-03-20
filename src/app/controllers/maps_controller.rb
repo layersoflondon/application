@@ -56,7 +56,7 @@ class MapsController < ApplicationController
     end
 
 
-    @layers = LayersIndex.filter(terms: {layer_type: ["tileserver"]}).order(:date_from)
+    @layers = LayersIndex.filter(terms: {layer_type: ["tileserver"]}).order(:date_from).limit(999)
 
     # return unless params[:resource].present?
     #
