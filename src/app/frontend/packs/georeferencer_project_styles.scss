@@ -38,3 +38,12 @@
 .m-layer-tools {
   z-index: 1099;
 }
+
+.georeferencer-project-map {
+  width: 100%;
+  height: 400px;
+
+  .leaflet-container {
+    height: 100%;
+  }
+}
