@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Marker, Popup } from 'react-leaflet'
-import Img from 'react-image';
 
 import {Leaflet} from 'react-leaflet';
 import LeafletDataIcon from '../leaflet_data_icon';
@@ -38,11 +37,10 @@ export default class ProjectMapMarker extends Component {
         <div className="m-map-popover placeholder-0" onClick={this.handleOnClick.bind(this)}>
           <div className={`m-record-card`}>
             <div className="wrapper">
-              {this.props.image.image &&
-              <div className="image">
-                <Img src={this.props.image.image} loader={<span className="is-loading"></span>} />
+              <div className="georeferencer-cta">
+                This image needs adding to our layers!
+                <button>Add to the layer now</button>
               </div>
-              }
             </div>
           </div>
         </div>

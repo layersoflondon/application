@@ -9,5 +9,23 @@ class Georeferencer::ProjectDecorator < Draper::Decorator
   #       object.created_at.strftime("%a %m/%d/%y")
   #     end
   #   end
+  #
+
+  def mappable?
+    # has_centroids?
+    false
+  end
+
+  def single?
+    images.count == 1
+  end
+
+  def listable?
+    !mappable?
+  end
+
+  def description
+    h.simple_format(object.description)
+  end
 
 end

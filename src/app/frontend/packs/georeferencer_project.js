@@ -12,13 +12,22 @@ import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom' ;
 import GeoreferencerProjectMap from '../components/georeferencer_project_map/georeferencer_project_map';
+import GeoreferencerProjectList from '../components/georeferencer_project_map/georeferencer_project_list';
 import GeoreferencerProject from '../sources/georeferencer_project';
 
 document.addEventListener('DOMContentLoaded', () => {
     GeoreferencerProject.show(window.location.pathname).then((response) => {
-      ReactDOM.render(
-        <GeoreferencerProjectMap images={response.data.images} name={response.data.name} centroid={response.data.centroid}/>,
-        document.getElementById("georeferencer-map-root")
-      );
+      if (response.data.mappable) {
+        ReactDOM.render(
+          <GeoreferencerProjectMap images={response.data.images} name={response.data.name} centroid={response.data.centroid}/>,
+          document.getElementById("georeferencer-project-root")
+        );
+      } else {
+        ReactDOM.render(
+          <GeoreferencerProjectList images={response.data.images} name={response.data.name} centroid={response.data.centroid}/>,
+          document.getElementById("georeferencer-project-root")
+        );
+      }
+
     })
 });

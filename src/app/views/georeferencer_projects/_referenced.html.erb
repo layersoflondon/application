@@ -1,9 +1,0 @@
-<% markers = @images.collect do |image|
-  {popup: link_to(image_tag(image.url(100)),image[:links][:georeference]), latlng: image.centroid.values}
-end %>
-<% centre_marker = (markers[markers.length/2])||markers.first
-   centre = centre_marker.try(:[], :latlng) %>
-
-<div class="m-layer-maker-map">
-    <%= map(center: {latlng:  centre, zoom: 12}, markers: markers) %>
-</div>

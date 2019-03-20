@@ -15,9 +15,9 @@ class Georeferencer::Project < ApplicationRecord
       Rails.configuration.x.map_centre
     end
   end
-  
+
   def has_centroids?
     images.unreferenced.collect(&:centroid).all?
   end
-  
+
 end
