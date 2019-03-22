@@ -156,6 +156,16 @@
   }
 }
 
+.m-page-header--layermaker h1 {
+  @include mq(smartphone) {
+    max-width:100%;
+    padding-left:15px;
+    padding-right:15px;
+    padding-bottom: 14px;
+    padding-top: 14px;
+  }
+}
+
 .m-page-header--layermaker a {
   position: absolute;
   @include link-arrow;
@@ -180,4 +190,14 @@
   background:asset-url("logo.svg") center/contain no-repeat;
   margin-top: -32px;
   margin-bottom: -20px;
+  @include mq(tablet) {
+    width: 76px;
+    height: 88px;
+  }
+  @include mq(smartphone) {
+    margin-top: -13px;
+    margin-bottom: -20px;
+    width: 28px;
+    height: 55px;
+  }
 }

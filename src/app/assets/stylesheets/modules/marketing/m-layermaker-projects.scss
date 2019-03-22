@@ -2,7 +2,14 @@
 
 .m-layermaker-projects {
   padding: 0 80px 50px 80px;
+  @include clearfix;
   position: relative;
+  @include mq(tablet) {
+    padding: 0 40px 50px 40px;
+  }
+  @include mq(smartphone) {
+    padding:0 15px 50px 15px;
+  }
 }
 
 .m-layermaker-projects h2 {
@@ -25,6 +32,9 @@
 
 .m-layermaker-projects .current-projects {
   margin-right:-20px;
+  @include mq(smartphone) {
+    margin:0;
+  }
 }
 
 .m-layermaker-projects .layermaker-project {
@@ -34,6 +44,16 @@
   vertical-align: top;
   margin-bottom: 25px;
   padding-right:20px;
+
+  @include mq(tablet) {
+    width: 50%;
+  }
+  @include mq(smartphone) {
+    width:100%;
+    padding-right:0;
+    margin-bottom: 15px;
+  }
+
 }
 
 .m-layermaker-projects .layermaker-project .image {
@@ -47,6 +67,12 @@
   padding: 30px;
   background: white;
   @include top-and-tail;
+  @include mq(tablet) {
+    padding:20px;
+  }
+  @include mq(smartphone) {
+    padding:15px;
+  }
 }
 
 .m-layermaker-projects h3 {
@@ -79,26 +105,4 @@
   position: absolute;
   top: 0;
   right: 5px;
-  @include mq(smartphone) {
-    top: 16px;
-    right: 18px;
-  }
 }
-
-/*
-
-.grid {
-  @include grid;
-}
-
-.grid > div {
-  @include grid-item (1, 5);
-  margin-bottom: 20px
-}
-
-.grid > div:first-child {
-  @include grid-item (2, 5);
-  @include grid-item-offset (2, 5);
-}
-
-*/
