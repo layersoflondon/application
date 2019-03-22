@@ -1,0 +1,116 @@
+/* Layermaker projects */
+
+.m-layermaker-projects {
+  padding: 0 80px 50px 80px;
+  position: relative;
+}
+
+.m-layermaker-projects h2 {
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 40px;
+  margin-top: 0;
+  background: #ff0041;
+  display: table;
+  padding: 4px 9px;
+  @include mq(smartphone) {
+    margin-bottom: 20px;
+  }
+}
+
+.m-layermaker-projects a {
+  color: #222;
+}
+
+.m-layermaker-projects .layermaker-project {
+  display: inline-block;
+  width: 33.333333%;
+  margin-right: -4px;
+  vertical-align: top;
+  margin-bottom: 25px;
+  padding-right: 20px;
+}
+
+$gap: 20px;
+
+.m-layermaker-projects .layermaker-project:nth-child(3n+1) {
+  padding-right: $gap/3;
+}
+
+.m-layermaker-projects .layermaker-project:nth-child(3n+2) {
+  padding-right: ($gap/3)*2;
+  padding-left: ($gap/3)*2;
+}
+
+.m-layermaker-projects .layermaker-project:nth-child(3n+3) {
+  padding-left: $gap/3;
+}
+
+.m-layermaker-projects .layermaker-project .image {
+  width: 100%;
+  padding-bottom: 50%;
+  background-position: center;
+  background-size: cover;
+}
+
+.m-layermaker-projects .layermaker-project .text-content {
+  padding: 30px;
+  background: white;
+  @include top-and-tail;
+}
+
+.m-layermaker-projects h3 {
+  color: $red;
+  position: relative;
+  font-size: 1.6rem;
+  @include font-display;
+  margin: 0;
+  color: $red;
+  margin-bottom: 15px;
+  padding-right: 18px;
+  @include mq(smartphone) {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+}
+
+.m-layermaker-projects a:hover h3 {
+  color: $lilac;
+}
+
+.m-layermaker-projects .layermaker-project h3:after {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 0.6em;
+  margin-top: 10px;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  content: "\f0da";
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 5px;
+  @include mq(smartphone) {
+    top: 16px;
+    right: 18px;
+  }
+}
+
+/*
+
+.grid {
+  @include grid;
+}
+
+.grid > div {
+  @include grid-item (1, 5);
+  margin-bottom: 20px
+}
+
+.grid > div:first-child {
+  @include grid-item (2, 5);
+  @include grid-item-offset (2, 5);
+}
+
+*/
