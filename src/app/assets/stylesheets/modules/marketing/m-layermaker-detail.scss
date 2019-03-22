@@ -21,7 +21,7 @@
   @include mq(smartphone) {
     float: none;
     width: auto;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     padding-right: 0;
   }
 }
@@ -54,6 +54,7 @@
   }
   @include mq(smartphone) {
     font-size: 22px;
+    margin-bottom: 20px;
   }
 }
 
