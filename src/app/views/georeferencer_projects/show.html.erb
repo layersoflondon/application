@@ -2,33 +2,26 @@
 
 <% end %>
 
-<div class="m-content">
+<div class="header">
 
-    <div class="m-article">
-
-        <div class="m-layermaker">
-            <div class="header">
-                <h1>
-                    Be a Layers of London Layermaker
-                </h1>
-
-            </div>
-        </div>
-    </div>
+    <h1>RAF Photos: City of London</h1>
 
     <div class="m-progress-bar">
         <div class="progress-bar-container">
             <span style="width: <%= @progress.pcent_adequate %>%"></span>
         </div>
         <div class="legend">
-            Reviewed: <%= @progress.pcent_reviewed %> <br>
-            Edited: <%= @progress.pcent_adequate %>
+            <span>Reviewed: <%= @progress.pcent_reviewed %></span> <span>Edited: <%= @progress.pcent_adequate %></span>
+
         </div>
     </div>
 
-    <div class="description">
-        <%= project.description %>
-    </div>
-
-    <div id="georeferencer-project-root"></div>
 </div>
+
+<div class="description">
+    <%= project.description %>
+</div>
+
+<div id="georeferencer-project-root"></div>
+
+

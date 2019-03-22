@@ -1,0 +1,111 @@
+/* Layermaker detail */
+
+.m-layermaker-detail {
+  position: relative;
+  color: white;
+  padding: 30px 80px 20px 80px;
+}
+
+.m-layermaker-detail .header {
+  float: left;
+  padding-right: 15px;
+  width: 50%;
+  padding-bottom: 60px;
+}
+
+.m-layermaker-detail .description {
+  float: left;
+  padding-left: 15px;
+  width: 50%;
+  @include top-and-tail;
+  padding-bottom: 60px;
+}
+
+.m-layermaker-detail h1 {
+  color: white;
+  font-weight: 500;
+  font-size: 36px;
+  margin-bottom: 40px;
+  margin-top: 0;
+  background: #ff0041;
+  display: table;
+  padding: 4px 9px;
+}
+
+.m-progress-bar {
+  max-width: 300px;
+}
+
+.m-progress-bar .progress-bar-container {
+  background-color: rgba(255, 255, 255, 0.35);
+  width: 100%;
+  min-height: 20px;
+  border-radius: 4px;
+}
+
+.m-progress-bar .progress-bar-container span {
+  background-color: $yellow;
+  display: block;
+  min-height: 20px;
+}
+
+.m-progress-bar .legend {
+  padding-top: 6px;
+  font-size: 15px;
+}
+
+.m-layermaker-detail .georeferencer-project-list {
+  clear: both;
+  margin-right: -20px;
+}
+
+.m-layermaker-detail .georeferencer-project-list ul {
+  @include unlist;
+}
+
+.m-layermaker-detail .georeferencer-project-list li {
+  display: inline-block;
+  width: 33.333333%;
+  padding-right: 20px;
+}
+
+.m-layermaker-detail .georeferencer-project-list a {
+  margin-right: -4px;
+  background: white;
+  color: $red;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.m-layermaker-detail .georeferencer-project-list a:hover {
+  color: $lilac;
+}
+
+.m-layermaker-detail .georeferencer-project-list img {
+  float: left;
+  width: 100px;
+  height: 130px;
+  object-fit: cover;
+  object-position: center;
+  margin-right: 20px;
+}
+
+.m-layermaker-detail .georeferencer-project-list .text-content {
+  padding: 20px 45px 20px 20px;
+  position: relative;
+  font-weight: 600;
+}
+
+.m-layermaker-detail .georeferencer-project-list .text-content:after {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 1.2em;
+  margin-top: 10px;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  content: "\f0da";
+  float: right;
+  position: absolute;
+  top: 12px;
+  right: 23px;
+}

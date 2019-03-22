@@ -53,16 +53,3 @@
   }
 }
 
-.m-progress-bar {
-  .progress-bar-container {
-    background-color: $navy;
-    width: 100%;
-    min-height: 30px;
-
-    span {
-      background-color: $blue;
-      display: block;
-      min-height: 30px;
-    }
-  }
-}

@@ -23,28 +23,17 @@
   color: #222;
 }
 
+.m-layermaker-projects .current-projects {
+  margin-right:-20px;
+}
+
 .m-layermaker-projects .layermaker-project {
   display: inline-block;
   width: 33.333333%;
   margin-right: -4px;
   vertical-align: top;
   margin-bottom: 25px;
-  padding-right: 20px;
-}
-
-$gap: 20px;
-
-.m-layermaker-projects .layermaker-project:nth-child(3n+1) {
-  padding-right: $gap/3;
-}
-
-.m-layermaker-projects .layermaker-project:nth-child(3n+2) {
-  padding-right: ($gap/3)*2;
-  padding-left: ($gap/3)*2;
-}
-
-.m-layermaker-projects .layermaker-project:nth-child(3n+3) {
-  padding-left: $gap/3;
+  padding-right:20px;
 }
 
 .m-layermaker-projects .layermaker-project .image {
@@ -61,7 +50,6 @@ $gap: 20px;
 }
 
 .m-layermaker-projects h3 {
-  color: $red;
   position: relative;
   font-size: 1.6rem;
   @include font-display;

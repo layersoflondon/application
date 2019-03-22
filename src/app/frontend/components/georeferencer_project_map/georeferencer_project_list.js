@@ -24,8 +24,8 @@ export default class GeoreferencerProjectList extends Component {
         list_items.push(
           <li key={c.id}>
             <a href={c.url}>
-              {c.title} - {c.name}
               <Img src={c.image} loader={<span className="is-loading"></span>}/>
+              <div className="text-content">{c.title} - {c.name}</div>
             </a>
           </li>
         )
