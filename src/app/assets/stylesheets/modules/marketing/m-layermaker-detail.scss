@@ -151,3 +151,19 @@
   top: 12px;
   right: 23px;
 }
+
+.m-layermaker-detail .georeferencer-cta {
+  font:inherit;
+  font-size: 1.2em;
+  font-family: 'Muli', sans-serif;
+}
+
+.m-layermaker-detail .georeferencer-cta button {
+  margin-top: 10px;
+  transition:all .2s;
+}
+
+.m-layermaker-detail .georeferencer-cta button:hover {
+  background:$green;
+  color:white;
+}
