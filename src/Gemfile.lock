@@ -7,9 +7,9 @@ GIT
 
 GIT
   remote: https://github.com/layersoflondon/georeferencer-ruby
-  revision: ee9677901d96024f5c290743ac793321c3566c1e
+  revision: 064d629fd2ba2c65786294c2bf5ec0c7e26485c7
   specs:
-    georeferencer (0.1.6)
+    georeferencer (0.1.7)
       activesupport
       faraday_middleware
       her
