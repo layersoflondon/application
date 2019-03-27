@@ -3,7 +3,7 @@
 <% content_for :template do %>
 
     <div id="m-page-header" class="m-page-header m-page-header--nano m-page-header--layermaker">
-        <div class="image" id="m-page-header-image" style="background-image: url(&quot;http://localhost:3000/assets/map-2-37c89da05a86f45533fb0cf88e0487268493e47bf02b6472eb9f6e7fd11d3c64.png&quot;); transform: translate3d(0px, 0px, 0px);"></div>
+        <div class="image" id="m-page-header-image" style="background-image: url(<%= asset_path('map-2.png') %>); transform: translate3d(0px, 0px, 0px);"></div>
         <div class="text-content">
             <h1 class="viewable has-viewable-action is-viewable">Be a <span>Layers of London</span> Layermaker</h1>
 
@@ -30,15 +30,14 @@
 
             <div class="current-projects">
 
-                <% @projects.each do |collection| %>
+                <% projects.each do |project| %>
+                    <% next if project.complete? %>
                     <div class="layermaker-project">
-                        <%= link_to georeferencer_project_path(collection.slug) do %>
-                            <div class="image" style="background-image:url(http://lol-content.rooftop.io/sites/398/2018/06/15161414/old-map-2-1600x810.jpg)"></div>
+                        <%= link_to georeferencer_project_path(project.slug) do %>
+                            <div class="image" style="background-image:url(<%= project.image %>)"></div>
                             <div class="text-content">
-                                <h3><%= collection.name %></h3>
-                                <p>Fusce a scelerisque quam, a rhoncus sem. Vestibulum cursus, purus eget eleifend
-                                    sodales, lacus orci bibendum magna, ac vestibulum ligula ligula eu lorem. Lorem
-                                    ipsum dolor sit amet, consectetur adipiscing.</p>
+                                <h3><%= project.name %></h3>
+                                <p><%= project.description %></p>
                             </div>
                         <% end %>
                     </div>

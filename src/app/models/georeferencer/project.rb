@@ -4,7 +4,11 @@ class Georeferencer::Project < ApplicationRecord
   friendly_id :name
 
   def images
-    Georeferencer::Image.where(collection: georeferencer_id)
+    @images ||= Georeferencer::Image.where(collection: georeferencer_id)
+  end
+
+  def progress
+    @progress ||= Georeferencer::Progress.find(georeferencer_id)
   end
 
   def centroid
@@ -18,6 +22,18 @@ class Georeferencer::Project < ApplicationRecord
 
   def has_centroids?
     images.unreferenced.collect(&:centroid).all?
+  end
+
+  def complete?
+    progress.num_waiting == 0
+  end
+
+  def image
+    if complete?
+      images.where(limit: 1).first.url(650)
+    else
+      images.unreferenced.where(limit: 1).first.url(650)
+    end
   end
 
 end
