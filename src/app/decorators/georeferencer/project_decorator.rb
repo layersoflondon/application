@@ -13,7 +13,6 @@ class Georeferencer::ProjectDecorator < Draper::Decorator
 
   def mappable?
     has_centroids?
-    false
   end
 
   def single?
