@@ -1,0 +1,20 @@
+/* Layermaker header */
+
+.m-layermaker-header {
+  color: white;
+  font-size: 36px;
+  position:relative;
+  z-index: 2;
+  padding: 30px 80px 20px 80px;
+  @include clearfix;
+  position: relative;
+  @include mq(tablet) {
+    font-size: 28px;
+    padding: 30px 40px 20px 40px;
+  }
+  @include mq(smartphone) {
+    font-size: 22px;
+    padding:0 15px 10px 15px;
+  }
+}
+

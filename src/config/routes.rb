@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-
-
-
-  get 'user_records/show'
   # Robot gem renders env-specific robots.txt files
   mount_roboto
 
@@ -75,6 +71,8 @@ Rails.application.routes.draw do
       post 'remove', to: 'teams#remove', as: :remove_from
     end
   end
+
+  resources :georeferencer_projects, only: :show, path: 'layermaker'
   
 
   resource :map, controller: 'maps' do

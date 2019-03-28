@@ -30,11 +30,6 @@ services:
       - error-network
     ports:
       - '6379:6379'
-    healthcheck:
-      test: ['CMD', 'redis-cli', 'ping']
-      interval: 1s
-      timeout: 1s
-      retries: 300
     labels:
       - maintainer='jordi@error.agency'
 

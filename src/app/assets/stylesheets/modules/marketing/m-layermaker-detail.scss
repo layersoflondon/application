@@ -1,0 +1,169 @@
+/* Layermaker detail */
+
+.m-layermaker-detail {
+  color: white;
+  padding: 30px 80px 20px 80px;
+  @include clearfix;
+  position: relative;
+  @include mq(tablet) {
+    padding: 30px 40px 20px 40px;
+  }
+  @include mq(smartphone) {
+    padding: 0 15px 10px 15px;
+  }
+}
+
+.m-layermaker-detail .header {
+  float: left;
+  padding-right: 15px;
+  width: 50%;
+  padding-bottom: 60px;
+  @include mq(smartphone) {
+    float: none;
+    width: auto;
+    padding-bottom: 20px;
+    padding-right: 0;
+  }
+}
+
+.m-layermaker-detail .description {
+  float: left;
+  padding-left: 15px;
+  width: 50%;
+  @include top-and-tail;
+  padding-bottom: 60px;
+  @include mq(smartphone) {
+    float: none;
+    width: auto;
+    padding-left: 0;
+    padding-bottom: 30px;
+  }
+}
+
+.m-layermaker-detail h1 {
+  color: white;
+  font-weight: 500;
+  font-size: 36px;
+  margin-bottom: 40px;
+  margin-top: 0;
+  background: #ff0041;
+  display: table;
+  padding: 4px 9px;
+  @include mq(tablet) {
+    font-size: 28px;
+  }
+  @include mq(smartphone) {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+}
+
+.m-progress-bar {
+  max-width: 300px;
+}
+
+.m-progress-bar .progress-bar-container {
+  background-color: rgba(255, 255, 255, 0.35);
+  width: 100%;
+  min-height: 20px;
+  border-radius: 4px;
+}
+
+.m-progress-bar .progress-bar-container span {
+  background-color: $yellow;
+  display: block;
+  min-height: 20px;
+}
+
+.m-progress-bar .legend {
+  padding-top: 6px;
+  font-size: 15px;
+}
+
+.m-layermaker-detail .georeferencer-project-list {
+  clear: both;
+  margin-right: -20px;
+  @include mq(smartphone) {
+    margin-right: 0;
+  }
+}
+
+.m-layermaker-detail .georeferencer-project-list ul {
+  @include unlist;
+}
+
+.m-layermaker-detail .georeferencer-project-list li {
+  display: inline-block;
+  width: 33.333333%;
+  padding-right: 20px;
+  @include mq(tablet) {
+    width: 50%;
+  }
+  @include mq(smartphone) {
+    width: auto;
+    padding-right: 0;
+    display: block;
+  }
+}
+
+.m-layermaker-detail .georeferencer-project-list a {
+  margin-right: -4px;
+  background: white;
+  color: $red;
+  display: inline-block;
+  margin-bottom: 20px;
+  @include mq(smartphone) {
+    margin-right: 0;
+    display: block;
+    @include clearfix;
+  }
+}
+
+.m-layermaker-detail .georeferencer-project-list a:hover {
+  color: $lilac;
+}
+
+.m-layermaker-detail .georeferencer-project-list img {
+  float: left;
+  width: 100px;
+  height: 130px;
+  object-fit: cover;
+  object-position: center;
+  margin-right: 20px;
+}
+
+.m-layermaker-detail .georeferencer-project-list .text-content {
+  padding: 20px 45px 20px 120px;
+  position: relative;
+  font-weight: 600;
+}
+
+.m-layermaker-detail .georeferencer-project-list .text-content:after {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 1.2em;
+  margin-top: 10px;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  content: "\f0da";
+  float: right;
+  position: absolute;
+  top: 12px;
+  right: 23px;
+}
+
+.m-layermaker-detail .georeferencer-cta {
+  font:inherit;
+  font-size: 1.2em;
+  font-family: 'Muli', sans-serif;
+}
+
+.m-layermaker-detail .georeferencer-cta button {
+  margin-top: 10px;
+  transition:all .2s;
+}
+
+.m-layermaker-detail .georeferencer-cta button:hover {
+  background:$green;
+  color:white;
+}

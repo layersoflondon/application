@@ -620,7 +620,7 @@ $element-border-radius-small: 3px;
 
 // Grid
 
-$gutter-width: 10px;
+$gutter-width: 25px;
 
 @mixin grid($gutter: $gutter-width) {
   margin-left: -$gutter;

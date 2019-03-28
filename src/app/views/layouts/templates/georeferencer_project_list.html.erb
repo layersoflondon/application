@@ -1,0 +1,54 @@
+<%= content_for :body_class do %>m-site-wrapper<% end %>
+
+<% content_for :template do %>
+
+    <div id="m-page-header" class="m-page-header m-page-header--nano m-page-header--layermaker">
+        <div class="image" id="m-page-header-image" style="background-image: url(<%= asset_path('map-2.png') %>); transform: translate3d(0px, 0px, 0px);"></div>
+        <div class="text-content">
+            <h1 class="viewable has-viewable-action is-viewable">Be a <span>Layers of London</span> Layermaker</h1>
+
+        </div>
+    </div>
+
+    <main class="main--content">
+
+        <div class="background">
+            <div class="motion-background" id="motion-background"></div>
+        </div>
+
+        <div class="m-layermaker-header">
+
+            <%= yield %>
+
+        </div>
+
+        <div class="m-layermaker-projects <%= user_signed_in? ? "m-georeferencer-project--signed-in" : "" %>">
+
+            <%= render 'georeferencer_projects/leader_board' if user_signed_in? %>
+
+            <h2>Current mapping projects</h2>
+
+            <div class="current-projects">
+
+                <% projects.each do |project| %>
+                    <% next if project.complete? %>
+                    <div class="layermaker-project">
+                        <%= link_to georeferencer_project_path(project.slug) do %>
+                            <div class="image" style="background-image:url(<%= project.image %>)"></div>
+                            <div class="text-content">
+                                <h3><%= project.name %></h3>
+                                <p><%= project.description %></p>
+                            </div>
+                        <% end %>
+                    </div>
+                <% end %>
+
+            </div>
+
+        </div>
+
+    </main>
+
+<% end %>
+
+<%= render template: "layouts/application" %>

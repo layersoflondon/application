@@ -1,0 +1,108 @@
+/* Layermaker projects */
+
+.m-layermaker-projects {
+  padding: 0 80px 50px 80px;
+  @include clearfix;
+  position: relative;
+  @include mq(tablet) {
+    padding: 0 40px 50px 40px;
+  }
+  @include mq(smartphone) {
+    padding:0 15px 50px 15px;
+  }
+}
+
+.m-layermaker-projects h2 {
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 40px;
+  margin-top: 0;
+  background: #ff0041;
+  display: table;
+  padding: 4px 9px;
+  @include mq(smartphone) {
+    margin-bottom: 20px;
+  }
+}
+
+.m-layermaker-projects a {
+  color: #222;
+}
+
+.m-layermaker-projects .current-projects {
+  margin-right:-20px;
+  @include mq(smartphone) {
+    margin:0;
+  }
+}
+
+.m-layermaker-projects .layermaker-project {
+  display: inline-block;
+  width: 33.333333%;
+  margin-right: -4px;
+  vertical-align: top;
+  margin-bottom: 25px;
+  padding-right:20px;
+
+  @include mq(tablet) {
+    width: 50%;
+  }
+  @include mq(smartphone) {
+    width:100%;
+    padding-right:0;
+    margin-bottom: 15px;
+  }
+
+}
+
+.m-layermaker-projects .layermaker-project .image {
+  width: 100%;
+  padding-bottom: 50%;
+  background-position: center;
+  background-size: cover;
+}
+
+.m-layermaker-projects .layermaker-project .text-content {
+  padding: 30px;
+  background: white;
+  @include top-and-tail;
+  @include mq(tablet) {
+    padding:20px;
+  }
+  @include mq(smartphone) {
+    padding:15px;
+  }
+}
+
+.m-layermaker-projects h3 {
+  position: relative;
+  font-size: 1.6rem;
+  @include font-display;
+  margin: 0;
+  color: $red;
+  margin-bottom: 15px;
+  padding-right: 18px;
+  @include mq(smartphone) {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+}
+
+.m-layermaker-projects a:hover h3 {
+  color: $lilac;
+}
+
+.m-layermaker-projects .layermaker-project h3:after {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 0.6em;
+  margin-top: 10px;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  content: "\f0da";
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 5px;
+}

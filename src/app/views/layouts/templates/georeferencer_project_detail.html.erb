@@ -1,0 +1,41 @@
+<%= content_for :body_class do %>m-site-wrapper<% end %>
+
+<% content_for :head_content do %>
+    <%= javascript_pack_tag("georeferencer_project") %>
+<% end %>
+
+<% content_for :template do %>
+
+    <%#= render 'shared/page_header', class: 'm-page-header--nano' %>
+
+    <div id="m-page-header" class="m-page-header m-page-header--nano m-page-header--layermaker">
+        <div class="image" id="m-page-header-image" style="background-image: url(<%= asset_path('map-2.png') %>); transform: translate3d(0px, 0px, 0px);"></div>
+        <div class="text-content">
+            <h1 class="viewable has-viewable-action is-viewable">Be a <span>Layers of London</span> Layermaker <a href="/layermaker">Layermaker home</a></h1>
+
+        </div>
+    </div>
+
+
+    <main class="main--content">
+
+        <div class="background">
+            <div class="motion-background" id="motion-background"></div>
+        </div>
+
+        <div class="m-layermaker-header">
+
+
+        </div>
+
+        <div class="m-layermaker-detail">
+
+            <%= yield %>
+
+        </div>
+
+    </main>
+
+<% end %>
+
+<%= render template: "layouts/application" %>

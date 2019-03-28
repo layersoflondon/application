@@ -4,10 +4,6 @@
   background: #ccc;
 }
 
-.m-page-header a {
-  //float: right;
-}
-
 /* Hero */
 
 .m-page-header {
@@ -16,15 +12,12 @@
   background: #ccc;
   position: relative;
   z-index: 2;
-  padding:0 80px;
+  padding: 0 80px;
   @include mq(tablet) {
-    //min-height:640px;
-    padding:0 40px;
+    padding: 0 40px;
   }
   @include mq(smartphone) {
-    //min-height: auto;
-    padding-bottom: 20px;
-    padding:0px;
+    padding: 0px;
   }
 }
 
@@ -58,7 +51,7 @@
     padding: 140px 0 0 0;
   }
   @include mq(smartphone) {
-    padding:20px;
+    padding: 20px;
   }
 }
 
@@ -70,7 +63,7 @@
   padding: 140px 80px 140px;
   width: 100%;
   //background: rgba(0, 0, 0, 0.31);
-  text-align:center;
+  text-align: center;
   @include mq(smartphone) {
     padding: 80px 20px 0 20px;
   }
@@ -105,7 +98,6 @@
   line-height: 1.2;
   margin-top: 80px;
   font-family: 'Zilla Slab', serif;
-  margin-bottom: 0;
   padding: 20px 30px;
   font-size: 54px;
   display: inline-block;
@@ -124,14 +116,14 @@
     min-height: 320px;
   }
   @include mq(smartphone) {
-    width:auto;
-    min-height:0;
+    width: auto;
+    min-height: 0;
     font-size: 24px;
-    margin-left:-20px;
-    float:left;
+    margin-left: -20px;
+    float: left;
     padding-bottom: 80px;
     margin-bottom: -40px;
-    max-width:80%;
+    max-width: 80%;
   }
 }
 
@@ -139,21 +131,21 @@
   min-height: 0;
   font-weight: 800;
   margin-top: -4px;
-  width:auto;
+  width: auto;
   padding-bottom: 23px;
-  background:$red;
-  color:white;
-  position:relative;
+  background: $red;
+  color: white;
+  position: relative;
   @include mq(smartphone) {
-    float:none;
+    float: none;
   }
 }
 
 .m-page-header--help-centre a {
-  position:absolute;
+  position: absolute;
   @include link-arrow;
-  background:darken($red, 10%);
-  font-size:16px;
+  background: darken($red, 10%);
+  font-size: 16px;
   bottom: -15px;
   right: -15px;
   background: #cc0034;
@@ -164,32 +156,48 @@
   }
 }
 
-.m-page-header--help-centre a:hover h1 {
-  //background:darken($red, 10%);
+.m-page-header--layermaker h1 {
+  @include mq(smartphone) {
+    max-width:100%;
+    padding-left:15px;
+    padding-right:15px;
+    padding-bottom: 14px;
+    padding-top: 14px;
+  }
 }
 
-.m-page-header a {
-/*  background: #efdf5b6b;
-  color: #ffffff;
-  padding: 17px 25px;
-  border-radius: 100px;
-  text-transform: uppercase;
-  font-weight: bold;
-  margin-top: -1px;
-  display: inline-block;
-  transition: all .2s;*/
+.m-page-header--layermaker a {
+  position: absolute;
+  @include link-arrow;
+  background: darken($red, 10%);
+  font-size: 16px;
+  bottom: -15px;
+  right: -15px;
+  background: #cc0034;
+  padding: 10px 15px;
+  @include mq(smartphone) {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
 }
 
-.m-page-header a:hover {
-/*  background: #efdf5b;
-  color: $black;*/
-}
 
-.m-page-header a:before {
-/*  content: "\f0da";
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: 1em;
-  margin-right: 10px;
-  z-index: 1;*/
+.m-page-header--layermaker span {
+  @include kellum;
+  display:inline-block;
+  width: 85px;
+  height: 102px;
+  background:asset-url("logo.svg") center/contain no-repeat;
+  margin-top: -32px;
+  margin-bottom: -20px;
+  @include mq(tablet) {
+    width: 76px;
+    height: 88px;
+  }
+  @include mq(smartphone) {
+    margin-top: -13px;
+    margin-bottom: -20px;
+    width: 28px;
+    height: 55px;
+  }
 }

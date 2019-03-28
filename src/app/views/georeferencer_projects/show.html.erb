@@ -1,0 +1,27 @@
+<% if project.mappable? %>
+
+<% end %>
+
+<div class="header">
+
+    <h1>RAF Photos: City of London</h1>
+
+    <div class="m-progress-bar">
+        <div class="progress-bar-container">
+            <span style="width: <%= @progress.pcent_adequate %>%"></span>
+        </div>
+        <div class="legend">
+            <span>Reviewed: <%= @progress.pcent_reviewed %></span> <span>Edited: <%= @progress.pcent_adequate %></span>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="description">
+    <%= project.description %>
+</div>
+
+<div id="georeferencer-project-root"></div>
+
+

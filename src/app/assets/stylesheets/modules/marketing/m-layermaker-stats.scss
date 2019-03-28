@@ -1,0 +1,55 @@
+.m-layermaker-stats {
+
+}
+
+.m-layermaker-stats .user-stats {
+  &>span {
+    float: left;
+    width: 100%;
+    margin: 0;
+  }
+
+  .header {
+
+  }
+
+  .count {
+    font-size: 5em;
+    font-weight: bold;
+  }
+
+  .footer {
+
+  }
+}
+
+.m-layermaker-stats .user-stats, .m-layermaker-stats .leaderboard {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 50%;
+  margin-top: 0;
+}
+
+.m-layermaker-stats .leaderboard {
+  max-height: 200px;
+  overflow: scroll;
+
+  .leaderboard-row {
+    display: table-row;
+  }
+
+  .leaderboard-row > div {
+    display: table-cell;
+  }
+
+  .leaderboard-row .rank {
+    width: 10%;
+  }
+  .leaderboard-row .count {
+    width: 25%;
+  }
+  .leaderboard-row .name {
+    width: 65%;
+  }
+}
+
