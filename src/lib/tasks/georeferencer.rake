@@ -7,7 +7,7 @@ namespace :georeferencer do
   desc "Warm the cache of Georeferencer images"
   task warm_cache: :environment do
     Georeferencer::Project.all.each do |p|
-      Georeferencer::Image.unreferenced.where(collection: p.georeferencer_id).fetch.reload
+      Georeferencer::Image.unreferenced.where(collection: p.georeferencer_id).fetch.each(&:reload)
       Georeferencer::Project.find(p.georeferencer_id)
     end
   end
