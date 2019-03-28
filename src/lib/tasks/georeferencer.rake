@@ -8,7 +8,7 @@ namespace :georeferencer do
   task warm_cache: :environment do
     Georeferencer::Project.all.each do |p|
       Georeferencer::Image.unreferenced.where(collection: p.georeferencer_id).fetch
-      Georeferencer::Project.find(p.georeferencer_id)
+      Georeferencer::Progress.find(p.georeferencer_id)
     end
   end
 
