@@ -10,11 +10,16 @@ class GeoreferencerProjectsController < ApplicationController
     # @images = GeoreferencerImage.where(params....)
     @project = Georeferencer::Project.find(params[:id])
     raise ActionController::RoutingError, "No Georeferencer Project with slug #{params[:id]}" unless @project.present?
-    @progress = Georeferencer::Progress.find(@project.georeferencer_id)
+    @progress = Rails.cache.fetch(@project.progress_cache_key) do
+      @project.progress
+    end
     respond_to do |format|
       format.html
       format.json  do
-        @images = @project.images.unreferenced.fetch
+
+        @images = Rails.cache.fetch(@project.images_cache_key) do
+          @project.images
+        end
       end
     end
 

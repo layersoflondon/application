@@ -4,7 +4,7 @@ class Georeferencer::Project < ApplicationRecord
   friendly_id :name
 
   def images
-    @images ||= Georeferencer::Image.where(collection: georeferencer_id)
+    @images ||= Georeferencer::Image.where(collection: georeferencer_id).unreferenced.fetch
   end
 
   def progress
@@ -13,7 +13,7 @@ class Georeferencer::Project < ApplicationRecord
 
   def centroid
     if has_centroids?
-      centroids = images.unreferenced.collect(&:centroid).collect(&:values)
+      centroids = images.collect(&:centroid).collect(&:values)
       [(centroids.collect(&:first).inject(:+) / centroids.length), (centroids.collect(&:last).inject(:+) / centroids.length)]
     else
       Rails.configuration.x.map_centre
@@ -21,7 +21,7 @@ class Georeferencer::Project < ApplicationRecord
   end
 
   def has_centroids?
-    images.unreferenced.collect(&:centroid).all?
+    images.collect(&:centroid).all?
   end
 
   def complete?
@@ -29,11 +29,15 @@ class Georeferencer::Project < ApplicationRecord
   end
 
   def image
-    if complete?
-      images.where(limit: 1).first.url(650)
-    else
-      images.unreferenced.where(limit: 1).first.url(650)
-    end
+    images.first.try(:url,650) || []
+  end
+
+  def images_cache_key
+    "georeferencer/project/#{slug}/images"
+  end
+
+  def progress_cache_key
+    "#{cache_key}/progress"
   end
 
 end
