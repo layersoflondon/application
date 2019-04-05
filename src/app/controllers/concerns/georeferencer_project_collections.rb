@@ -10,6 +10,6 @@ module GeoreferencerProjectCollections
 
   def get_georeferencer_projects
     @contributors = Georeferencer::Contributor.all
-    @projects = Georeferencer::Project.all
+    @projects = Georeferencer::Project.where(show_on_website: true)
   end
 end
