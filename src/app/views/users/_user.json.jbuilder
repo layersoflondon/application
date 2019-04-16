@@ -1,6 +1,6 @@
 json.id user.id
 if session[:teacher_classroom_user].present?
-  json.name "#{session[:teacher_classroom_user]} <span>a student of #{user.name}</span>"
+  json.name "#{session[:teacher_classroom_user]} <span>(in a group organised by #{user.name}</span>)"
 else
   json.name user.name
 end
