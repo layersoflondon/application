@@ -49,6 +49,8 @@ module FieldDefinitions
         end
       }
 
+      field :record_count, type: 'integer', value: ->{ records.count}
+
       field :records, type: :nested do
         field :id, type: 'integer'
         field :title, type: 'text', analyzer: :english

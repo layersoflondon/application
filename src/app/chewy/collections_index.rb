@@ -12,7 +12,22 @@ class CollectionsIndex < Chewy::Index
   end
 
   def self.published(limit: 200)
-    filter(terms: {state: ['published']}).limit(limit).order(:sort_title)
+    filter(bool: {
+      must: [
+        {
+          terms: {
+            state: ['published']
+          }
+        },
+        {
+          range: {
+            record_count: {
+              gte: 1
+            }
+          }
+        }
+      ]
+    }).limit(limit).order(:sort_title)
   end
 
   def self.user_collections(user_id)
@@ -77,7 +92,11 @@ class CollectionsIndex < Chewy::Index
   def self.everyone_collections(exclude_user_id: nil)
     query = {bool: {
       must: [
-        {term: {write_state: "everyone"}}
+        {
+          term: {
+            write_state: "everyone"
+          }
+        }
       ]
     }}
 
