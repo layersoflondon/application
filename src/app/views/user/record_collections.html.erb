@@ -35,6 +35,9 @@
               <a href="#" class="clickable" data-type="collection" data-id="<%= collection.id %>">
                 <%= collection.title %>
               </a>
+                <% if CollectionPolicy.new(current_user,collection).edit? %>
+                    <button class="edit clickable" data-type="collection" data-id="<%= collection.id %>" data-action="edit">Edit</button>
+                <% end %>
             </li>
           <% end %>
         </ul>
