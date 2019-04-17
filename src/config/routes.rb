@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get '/the-map', to: redirect('/map')
   get '/search', to: redirect('/map/search')
 
+  #Redirect for trailing slash on map
+  get '/map/', to: redirect("/map"), constraints: ->(req) { req.original_fullpath == "/map/"}
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

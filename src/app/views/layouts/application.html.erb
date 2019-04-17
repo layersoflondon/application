@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 
-    <title>Layers of London <%= content_for?(:title) ? "- #{yield(:title)}" : "" %></title>
+    <title><%= content_for?(:title) ? "#{yield(:title)} | " : "" %>Layers of London | Recording the Layers of London's Rich Heritage</title>
 
+    <%= yield(:meta_tags) if content_for?(:meta_tags) %>
     <%= stylesheet_link_tag 'marketing' %>
 
     <%= javascript_include_tag 'marketing' %>
