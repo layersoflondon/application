@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import { Route, Switch } from 'react-router';
 import {Redirect, withRouter} from 'react-router-dom';
 import {TransitionGroup, CSSTransition} from 'react-transition-group';
+import Helmet from 'react-helmet';
 
 import Tools from './tools';
 import Tray from './tray';
@@ -39,6 +40,12 @@ import AddToCollection from "./record_view/add_to_collection";
     }
 
     return <div className={className}>
+      <Helmet>
+        <title>Explore layers and records | Layers of London | Recording the Layers of London's Rich Heritage</title>
+        <meta name='description' content="Explore layers and records on the Layers of London map, record your own history of London, and help us build more layers" />
+        <meta name='keywords' content="layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study" />
+      </Helmet>
+
 
       {/*permanantly visible components */}
      

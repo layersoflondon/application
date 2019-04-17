@@ -1,7 +1,8 @@
-import React,{Component} from 'react';
+import React,{Component, Fragment} from 'react';
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import {observer} from "mobx-react";
 import {NavLink} from 'react-router-dom';
+import {Helmet} from 'react-helmet';
 
 import RecordViewMediaList from './record_view_media_list';
 import RecordViewComponentState from "./record_view_component_state";
@@ -34,64 +35,6 @@ import NotFound from '../not_found'
     }
   }
 
-  render_state_loading_false_old() {
-    const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
-
-    return <div className="m-overlay is-showing">
-      <div className="s-overlay--record is-showing">
-        <div className="m-record">
-
-          <div className="next">
-            {/*<button className="next" onClick={() => this.props.trayViewStore.moveToNextCard()}>Next</button>*/}
-          </div>
-          <div className="previous">
-            {/*<button className="previous" onClick={() => this.props.trayViewStore.moveToPreviousCard()}>Previous</button>*/}
-          </div>
-          <div className="close">
-            <a href="#" className="close" onClick={this.handleCloseOnClick}>Close</a>
-          </div>
-
-          <div style={{position: 'absolute', top: '40px', left: '40px'}}>
-            <NavLink to={`/map/records/${this.props.match.params.id}/gallery`}>Gallery</NavLink> <br /> <NavLink to={`/map/records/${this.props.match.params.id}/full`}>Full</NavLink>
-            {this.props.match.params.view_type}
-          </div>
-
-          <div className="wrap">
-
-            {this.props.match.params.view_type && this[`render_${this.props.match.params.view_type}_header`]()}
-            {!this.props.match.params.view_type && this.render_full_header()}  {/* if we dont have a view type, render the full view by default */}
-
-            <div className="m-article">
-              {this.props.trayViewStore.record.description}
-            </div>
-
-            <div className="footer">
-              <div className="attribution">
-                <ul>
-                  <li><h4>Created:</h4> {this.props.trayViewStore.record.created_at}</li>
-                  {
-                    this.props.trayViewStore.record.credit &&
-                    <li><h4>Credit:</h4> {this.props.trayViewStore.record.credit}</li>
-                  }
-                </ul>
-              </div>
-              <div className="footer-actions">
-                <button className="contact-owner">Contact owner</button>
-                <button className="flag">Report this record</button>
-
-                {
-                  this.props.trayViewStore.record.user_can_edit_record &&
-                  <NavLink to={`${link_path}/records/${this.props.match.params.id}/edit`} className="edit">Edit</NavLink>
-                }
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  }
-
   render() {
     if (this.props.trayViewStore.loading_error) {
       return <NotFound {...this.props} />
@@ -108,25 +51,37 @@ import NotFound from '../not_found'
         content_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} />;
       }
 
-      return <div className="m-overlay is-showing">
-        <div className="s-overlay--record is-showing">
-          <div className={header_classes}>
+      return(
+        <Fragment>
+          <Helmet>
+            <title>{this.props.trayViewStore.record.title} | Layers of London | Recording the Layers of London's Rich Heritage</title>
+            <meta name='description' content={`Read about ${this.props.trayViewStore.record.title} and thousands of other fascinating records on Layers of London. Add your own records, and help us build more layers.`}/>
+            <meta name='keywords' content={`${this.props.trayViewStore.record.title}, layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`} />
+            <link rel='canonical' href={`${window.location.protocol}//${window.location.host}/map/records/${this.props.trayViewStore.record.id}`} />
+          </Helmet>
 
-            <div className="close">
-              <a href="#" className="close" onClick={this.handleCloseOnClick}>Close</a>
+          <div className="m-overlay is-showing">
+            <div className="s-overlay--record is-showing">
+              <div className={header_classes}>
+
+                <div className="close">
+                  <a href="#" className="close" onClick={this.handleCloseOnClick}>Close</a>
+                </div>
+
+                <div className="wrap">
+                  <RecordViewHeader  {...this.props} gallery={header_gallery_component} />
+                  <RecordViewContent {...this.props} gallery={content_gallery_component} />
+                  <RecordViewFooter  {...this.props} />
+
+                  {this.props.children}
+                </div>
+
+              </div>
             </div>
-
-            <div className="wrap">
-              <RecordViewHeader  {...this.props} gallery={header_gallery_component} />
-              <RecordViewContent {...this.props} gallery={content_gallery_component} />
-              <RecordViewFooter  {...this.props} />
-
-              {this.props.children}
-            </div>
-
           </div>
-        </div>
-      </div>;
+        </Fragment>
+
+        );
     }else {
       return <span></span>
     }
