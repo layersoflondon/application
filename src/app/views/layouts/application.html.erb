@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-    <title>Layers of London <%= content_for?(:title) ? "- #{yield(:title)}" : "" %></title>
+    <title><%= content_for?(:title) ? "#{yield(:title)} | " : "" %>Layers of London | Recording the Layers of London's Rich Heritage</title>
 
     <%= stylesheet_link_tag 'marketing' %>
 
