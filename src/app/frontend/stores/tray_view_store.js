@@ -127,7 +127,6 @@ export default class TrayViewStore {
       if( change.newValue ) {
         this.loading_collection = true;
         User.show(null,this.user_id).then((response) => {
-          console.log("User.show response: ", response.data);
           this.root = false;
           this.setHeaderContent({
             title: response.data.name,

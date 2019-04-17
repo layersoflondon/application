@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import SearchViewTaxonomy from "./_search_view_taxonomy";
 import Search from "../../../sources/search";
+import {recordEvent} from "../../../config/data_layer";
 
 @inject('router', 'mapViewStore', 'trayViewStore')
 @withRouter
@@ -19,6 +20,11 @@ import Search from "../../../sources/search";
 
   componentWillReceiveProps() {
     this.setInitialState(true);
+    if (this.state.showing_results) {
+      recordEvent('mapSearch', {
+        'mapSearch': this.state.q
+      });
+    }
   }
 
   toggleTerm(event) {

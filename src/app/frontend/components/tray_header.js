@@ -6,6 +6,7 @@ import pluralize from 'pluralize'
 
 import {inject} from "mobx-react/index";
 import Helmet from "react-helmet";
+import {recordPageView} from "../config/data_layer";
 
 @inject('router', 'trayViewStore', 'mapViewStore')
 @withRouter
@@ -57,17 +58,22 @@ import Helmet from "react-helmet";
     switch(this.content.tray_view_type) {
       case 'Collection':
         meta_description_intro = `View records in the collection '${this.props.trayViewStore.header_content.title}'`;
+        recordPageView(this.props.trayViewStore.header_content.title);
         break;
       case 'User':
         meta_description_intro = `View records by ${this.props.trayViewStore.header_content.title}`;
+        recordPageView(this.props.trayViewStore.header_content.title);
         break;
       case 'Team':
         meta_description_intro = `View records by the ${this.props.trayViewStore.header_content.title} team`;
+        recordPageView(this.props.trayViewStore.header_content.title);
         break;
       case 'Search':
         meta_description_intro = `View records which match ${this.props.trayViewStore.header_content.title}`;
         break;
     }
+
+
 
     const trayHeader = <React.Fragment>
       <Helmet>

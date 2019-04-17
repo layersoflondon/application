@@ -12,6 +12,8 @@ import RecordViewContent from './record_view_content';
 import RecordViewFooter from './record_view_footer';
 import NotFound from '../not_found'
 
+import {recordEvent, recordPageView} from "../../config/data_layer";
+
 @observer class RecordView extends Component {
   constructor(props) {
     super(props);
@@ -34,13 +36,16 @@ import NotFound from '../not_found'
     }else {
     }
   }
-
+  
   render() {
     if (this.props.trayViewStore.loading_error) {
       return <NotFound {...this.props} />
     }
 
     if( this.props.trayViewStore.record ) {
+      if (this.props.router.location.pathname.search(/\/media/) === -1) {
+        recordPageView(this.props.trayViewStore.record.title);
+      }
       let header_classes = "m-record";
       let header_gallery_component = null;
       let content_gallery_component = null;

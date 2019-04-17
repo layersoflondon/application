@@ -4,6 +4,7 @@ import { Route } from 'react-router';
 import {Switch, withRouter} from 'react-router-dom';
 import Img from 'react-image';
 import MediaElement from './media_element';
+import {recordPageView} from "../config/data_layer";
 
 @inject('router', 'trayViewStore')
 @withRouter
@@ -34,6 +35,7 @@ import MediaElement from './media_element';
   render() {
     const render_method = this.state.media_item.media_type;
     const in_gallery_view = this.props.trayViewStore.record.view_type === 'gallery';
+    recordPageView(`${this.props.trayViewStore.record.title} - media/${this.state.media_item.id}`);
 
     return <div className={`main-media-item ${this.state.media_item.media_type}`}>
       <Switch location={this.props.location}>
