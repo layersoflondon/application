@@ -27,7 +27,7 @@ class TeachersForm extends React.Component {
                             Your pupils can then add a and edit content using your account, which you can then moderate for
                             quality before submitting.
                         </p> &&
-                        <button onClick={this.showTeacherFunctions.bind(this)}>Enable teacher functions</button>
+                        <button onClick={this.showTeacherFunctions.bind(this)}>Enable organiser functions</button>
                     }
 
                     {this.state.showTeacherForm && <TeachersTokenForm user={this.props.user} />}
