@@ -19,11 +19,20 @@
     <%= stylesheet_pack_tag 'styles', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
 
+    <script type="text/javascript" charset="utf-8">
+      dataLayer = [];
+    </script>
+    <% if params[:new_signup] %>
+        <script type="text/javascript" charset="utf-8">
+            dataLayer.push({
+              event: 'createAccount',
+              user_id: <%= current_user.try(:id) %>
+            })
+        </script>
+    <% end %>
     <%= render partial: "shared/gtm" unless Rails.env.development? %>
 
     <%= render partial: "shared/favicon" %>
-
-    <%= render partial: "shared/user_feedback" %>
 
 </head>
 

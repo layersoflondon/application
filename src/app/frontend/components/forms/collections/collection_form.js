@@ -8,6 +8,7 @@ import Team from "../../../sources/team";
 import Select from 'react-select'
 import Record from "../../../sources/record";
 import RecordModel from "../../../models/record";
+import {recordEvent} from "../../../config/data_layer";
 
 @inject('router', 'mapViewStore', 'collectionStore', 'layersStore', 'trayViewStore', 'collectionFormStore')
 @withRouter
@@ -61,10 +62,13 @@ import RecordModel from "../../../models/record";
     this.props.collectionFormStore.collection.persist(this.state).then((response) => {
       const collection = CollectionModel.fromJS(response.data, this.props.trayViewStore);
       this.props.collectionStore.addCollection(collection);
-      this.props.router.goBack();
-      this.collectionFormStore.collection = null;
+      this.props.trayViewStore.collection_id = collection.id;
+      recordEvent('createCollection', {
+        'collection': collection.title
+      });
+      this.props.router.push(`/map/collections/${collection.id}`);
     }).catch((response) => {
-      this.props.router.goBack();
+      this.props.router.push(`/map`);
     });
   }
 

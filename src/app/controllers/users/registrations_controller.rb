@@ -95,7 +95,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(user)
-    map_path
+    map_path(new_signup: true)
   end
 
   private
