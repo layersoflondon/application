@@ -8,7 +8,7 @@ module GuideCollections
   end
 
   def get_guides
-    @georeferencer_projects = Rooftop::Guide.where(orderby: :menu_order, order: :asc)
+    @guides = Rooftop::Guide.where(orderby: :menu_order, order: :asc)
   end
 
 end
