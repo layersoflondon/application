@@ -418,6 +418,8 @@ GEM
     selenium-webdriver (3.141.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2, >= 1.2.2)
+    sitemap_generator (6.0.2)
+      builder (~> 3.0)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -507,6 +509,7 @@ DEPENDENCIES
   sassc-rails
   selenium-webdriver
   simple_errors!
+  sitemap_generator
   sprockets-es6
   switch_user
   tzinfo-data

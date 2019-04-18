@@ -47,5 +47,11 @@ set :ssl_cert, "layersoflondon.org.crt"
 set :ssl_key, "layersoflondon.org.key.gpg" #this should be a gpg-encrypted key
 set :ssl_dh, "dhparams.pem.gpg" #this should be a gpg-encrypted key
 
+set :cron_scripts,  {
+  d: [
+    File.join(File.expand_path(File.dirname(__FILE__)), "templates", "sitemap.sh.erb")
+  ]
+}
+
 
 
