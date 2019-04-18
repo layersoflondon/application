@@ -17,7 +17,7 @@ import {recordEvent} from "../config/data_layer";
     this.props.layer.is_active = !this.props.layer.is_active;
 
     recordEvent('layerSelected', {
-      'layerSelected': this.props.layersStore.active_layers.values().map((layer) => layer.title)
+      'layerSelected': this.props.layersStore.active_layers.values().map((layer) => layer.title).join(" | ")
     })
 
 
