@@ -1,6 +1,5 @@
 export const recordPageView = (title) => {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
+  dataLayerParams.push({
     'event': 'virtualPageview',
     'virtualPagePath': window.location.pathname,
     'virtualPageTitle': title
@@ -8,8 +7,7 @@ export const recordPageView = (title) => {
 };
 
 export const recordEvent = (event, data) => {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(Object.assign({
+  dataLayerParams.push(Object.assign({
     'event': event
   },data))
 };

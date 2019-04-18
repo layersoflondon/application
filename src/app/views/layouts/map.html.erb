@@ -16,24 +16,26 @@
           window.location = window.location.toString().split('#').join("/")
         }
     </script>
-    <%= stylesheet_pack_tag 'styles', media: 'all' %>
-    <%= javascript_pack_tag 'application' %>
 
     <script type="text/javascript" charset="utf-8">
-      dataLayer = [];
+      window.dataLayerParams = window.dataLayerParams || [];
     </script>
     <% if params[:new_signup] %>
         <script type="text/javascript" charset="utf-8">
-            dataLayer.push({
-              event: 'createAccount',
-              user_id: <%= current_user.try(:id) %>
-            })
+          dataLayerParams.push({
+            event: 'createAccount',
+            user_id: <%= current_user.try(:id) %>
+          })
         </script>
     <% end %>
-    <%= render partial: "shared/gtm" unless Rails.env.development? %>
+    <%= stylesheet_pack_tag 'styles', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+
+
 
     <%= render partial: "shared/favicon" %>
 
+    <%= render partial: "shared/gtm" %>
 </head>
 
 <body>
