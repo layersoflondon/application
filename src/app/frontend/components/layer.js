@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import Parser from 'html-react-parser';
+import {recordEvent} from "../config/data_layer";
 
 @observer export default class Layer extends Component {
   constructor(props) {
@@ -14,6 +15,12 @@ import Parser from 'html-react-parser';
 
     this.props.layersStore.toggleLayer(this.props.layer.id);
     this.props.layer.is_active = !this.props.layer.is_active;
+
+    recordEvent('layerSelected', {
+      'layerSelected': this.props.layersStore.active_layers.values().map((layer) => layer.title).join(" | ")
+    })
+
+
   }
 
   render() {

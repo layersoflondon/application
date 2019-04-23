@@ -5,6 +5,8 @@ import {Link, withRouter} from 'react-router-dom';
 import pluralize from 'pluralize'
 
 import {inject} from "mobx-react/index";
+import Helmet from "react-helmet";
+import {recordPageView} from "../config/data_layer";
 
 @inject('router', 'trayViewStore', 'mapViewStore')
 @withRouter
@@ -51,7 +53,34 @@ import {inject} from "mobx-react/index";
         (!!this.props.trayViewStore.collectionsCount && pluralize('collection',this.props.trayViewStore.collectionsCount,true)) || null].filter((e) => {return e}).join(", ")}
     </div>;
 
+    let meta_description_intro = "";
+
+    switch(this.content.tray_view_type) {
+      case 'Collection':
+        meta_description_intro = `View records in the collection '${this.props.trayViewStore.header_content.title}'`;
+        recordPageView(this.props.trayViewStore.header_content.title);
+        break;
+      case 'User':
+        meta_description_intro = `View records by ${this.props.trayViewStore.header_content.title}`;
+        recordPageView(this.props.trayViewStore.header_content.title);
+        break;
+      case 'Team':
+        meta_description_intro = `View records by the ${this.props.trayViewStore.header_content.title} team`;
+        recordPageView(this.props.trayViewStore.header_content.title);
+        break;
+      case 'Search':
+        meta_description_intro = `View records which match ${this.props.trayViewStore.header_content.title}`;
+        break;
+    }
+
+
+
     const trayHeader = <React.Fragment>
+      <Helmet>
+        <title>{this.props.trayViewStore.header_content.title} | Layers of London | Recording the Layers of London's Rich Heritage</title>
+        <meta name='description' content={`${meta_description_intro} and thousands of other fascinating records and collections on Layers of London. Add your own records, and help us build more layers.`} />
+        <meta name='keywords' content={`${this.props.trayViewStore.header_content.title}, layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`} />
+      </Helmet>
       <div className="m-tray-title-area">
         {closeButton}
         {

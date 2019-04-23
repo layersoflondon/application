@@ -84,7 +84,6 @@ import LeafletDataIcon from './leaflet_data_icon';
 
               <div className="text-content">
                 <h1>{this.props.record.title}</h1>
-                <p>Curabitur eget feugiat odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc feugiat porttitor sapien. Donec luctus.</p>
               </div>
             </div>
           </div>

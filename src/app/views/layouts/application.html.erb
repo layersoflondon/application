@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 
-    <title>Layers of London <%= content_for?(:title) ? "- #{yield(:title)}" : "" %></title>
+    <title><%= content_for?(:title) ? "#{yield(:title)} | " : "" %>Layers of London | Recording the Layers of London's Rich Heritage</title>
 
+    <%= yield(:meta_tags) if content_for?(:meta_tags) %>
     <%= stylesheet_link_tag 'marketing' %>
 
     <%= javascript_include_tag 'marketing' %>
@@ -14,6 +15,9 @@
 
     <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:400,600,700|Muli:400,600,700" rel="stylesheet">
 
+    <script type="text/javascript" charset="utf-8">
+      dataLayer = [];
+    </script>
     <%= render partial: "shared/gtm" unless Rails.env.development? %>
 
     <%= render partial: "shared/favicon" %>

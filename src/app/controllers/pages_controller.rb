@@ -52,7 +52,7 @@ class PagesController < ApplicationController
 
   def get_homepage_content
     # This is where you put homepage-specific stuff - usually other calls to Rooftop which you assign to instance variables.
-    @featured_items = FeaturedItemsIndex.order(sort_order: :asc).limit(5)
+    @featured_items = FeaturedItemsIndex.order(sort_order: :asc)
   end
 
 

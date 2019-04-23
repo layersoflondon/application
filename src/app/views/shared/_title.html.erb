@@ -1,0 +1,14 @@
+<% if local_assigns.has_key?(:entity) %>
+    <% content_for :title, CGI.unescape_html(entity.title).html_safe %>
+    <% content_for :meta_tags do %>
+        <% if entity.respond_to?(:content) %>
+            <meta name="description" content="<%= strip_tags(entity.content).truncate(180) %>">
+        <% else %>
+            <meta name="description" content="Read about <%= entity.title %> and explore thousands of records, layers and collections on Layers of London. Add your own records, and help us build more layers.">
+        <% end %>
+
+        <meta name="keywords" content="<%= entity.title %>, layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study
+    ">
+    <% end %>
+
+<% end %>

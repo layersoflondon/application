@@ -58,7 +58,7 @@ import NotFound from "../../not_found";
         <span key="account">Account details</span>
         <span key="teams">Teams</span>
         <span key="records">Records & Collections</span>
-        <span key="teachers">For teachers</span>
+        <span key="teachers">For organisers</span>
         <span key="sign_out">Sign out</span>
       </Tabs>
     }
