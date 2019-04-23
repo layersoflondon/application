@@ -4,21 +4,21 @@ class LayersController < ApplicationController
   skip_after_action :verify_authorized, only: %i[index show search]
 
   def index
-    @layers = LayersIndex.all.order(:date_from).limit(999)
+    @layer_groups = LayerGroupsIndex.all.limit(999)
   end
 
   def show
   end
 
   def search
-    @layers = Layer.where("title like :query", {query: "%#{params[:query]}%"})
-                  .or(Layer.where("description like :query", {query: "%#{params[:query]}%"}))
+    @layer_groups = LayerGroup.where("title like :query", {query: "%#{params[:query]}%"})
+                  .or(LayerGroup.where("description like :query", {query: "%#{params[:query]}%"}))
   end
 
   private
 
   def set_layer
-    @layer = Layer.find_by_id(params[:id])
-    render json: '', status: :not_found unless @layer
+    @layer_group = LayerGroup.find_by_id(params[:id])
+    render json: '', status: :not_found unless @layer_group
   end
 end

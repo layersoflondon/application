@@ -1,1 +1,1 @@
-json.partial! 'layers/layer_es', collection: @layers, as: :layer
+json.partial! 'layers/layer_group', collection: @layer_groups, as: :layer_group

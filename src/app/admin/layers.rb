@@ -1,4 +1,4 @@
-ActiveAdmin.register Layer do
+ActiveAdmin.register LayerGroup do
   permit_params :title,
                 :description,
                 :credit,
@@ -17,7 +17,7 @@ ActiveAdmin.register Layer do
 
 
     def new
-      @layer = Layer.new(image: Attachments::Image.new)
+      @layer = LayerGroup.new(image: Attachments::Image.new)
     end
 
     def show

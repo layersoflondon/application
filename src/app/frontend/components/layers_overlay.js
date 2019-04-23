@@ -49,7 +49,7 @@ import Layer from './layer';
 
               <div className="layers">
                 <h2>All Layers</h2>
-                {this.props.layersStore.layers.values().map((layer) => <Layer key={layer.id} layer={layer} {...this.props} />)}
+                {this.props.layersStore.layer_groups.values().map((layer_group) => <Layer key={layer_group.id} layer={layer_group} {...this.props} />)}
               </div>
 
             </div>

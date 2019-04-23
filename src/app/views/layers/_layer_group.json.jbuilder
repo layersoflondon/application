@@ -1,0 +1,8 @@
+json.id layer_group.id
+json.title layer_group.name
+json.description layer_group.description
+json.slug layer_group.slug
+
+json.layers do
+  json.array! layer_group.layers, partial: 'layers/layer', as: :layer
+end

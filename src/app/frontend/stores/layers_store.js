@@ -1,8 +1,8 @@
 import {observable, observe, computed} from 'mobx';
-import LayerModel from '../models/layer';
+import LayerGroupModel from '../models/layer_group';
 
 export default class LayersStore {
-  @observable layers = observable.map();
+  @observable layer_groups = observable.map();
   @observable active_layers = observable.map();
   @observable loupe_layer_id = null;
 
@@ -10,19 +10,19 @@ export default class LayersStore {
     if(this.active_layers.get(layer_id)) {
       this.active_layers.delete(layer_id);
     }else {
-      this.active_layers.set(layer_id, this.layers.get(layer_id));
+      this.active_layers.set(layer_id, this.layer_groups.get(layer_id));
     }
   }
 
-  setLayers(layers) {
-    this.layers = layers;
+  setLayers(layer_groups) {
+    this.layer_groups = layer_groups;
   }
 
   @computed get activeLayers() {
     return this.active_layers;
     //
     // // get active layer objects
-    // let layers = this.layers.filter((l) => this.active_layers.indexOf(l.id)>=0);
+    // let layers = this.layer_groups.filter((l) => this.active_layers.indexOf(l.id)>=0);
     //
     // const sortLayers = (a, b) => {
     //   if( this.active_layers.indexOf(a.id) > this.active_layers.indexOf(b.id) ) {
@@ -39,12 +39,12 @@ export default class LayersStore {
     // return layers;
   }
 
-  static fromJS(layers) {
+  static fromJS(layer_groups) {
     let layers_store = new LayersStore();
 
-    layers.map((layer_data) => {
-      let layer = LayerModel.fromJS(layer_data);
-      layers_store.layers.set(layer.id, layer);
+    layer_groups.map((layer_group) => {
+      let layer = LayerGroupModel.fromJS(layer_group);
+      layers_store.layer_groups.set(layer.id, layer);
     });
 
     return layers_store;
@@ -52,7 +52,7 @@ export default class LayersStore {
 
   @computed get loupe_layer() {
     if( this.loupe_layer_id ) {
-      return this.layers.get(this.loupe_layer_id);
+      return this.layer_groups.get(this.loupe_layer_id);
     }
 
     return false;
