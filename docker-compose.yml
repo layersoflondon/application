@@ -7,6 +7,8 @@ networks:
 volumes:
   esdata:
     driver: local
+  db_data:
+  gem_cache:
 
 services:
   mysql:
@@ -60,5 +62,27 @@ services:
       interval: 60s
       timeout: 1s
       retries: 10
-
+  web:
+    build:
+      context: ./src
+      dockerfile: ../docker/web/Dockerfile
+    ports:
+    - 3000:3000
+    volumes:
+    - ./src:/usr/src/app
+    - gem_cache:/gems
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: webpack
+  webpack:
+    build:
+      context: ./src
+      dockerfile: ../docker/web/Dockerfile
+    command: ./bin/webpack-dev-server
+    ports:
+    - 3035:3035
+    volumes:
+    - ./src:/usr/src/app
+    - gem_cache:/gems
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
 
