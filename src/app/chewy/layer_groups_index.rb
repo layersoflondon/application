@@ -12,6 +12,9 @@ class LayerGroupsIndex < Chewy::Index
     field :name, type: 'text'
     field :description, type: 'text'
     field :slug, type: 'text'
+    field :image, type: :object, value: -> {
+      image.try(:data)
+    }
     field :layers, type: :object do
       include FieldDefinitions::Layer
     end

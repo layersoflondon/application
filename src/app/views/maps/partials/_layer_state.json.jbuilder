@@ -5,6 +5,6 @@ json.slug layer.slug
 # json.credit layer.credit
 # json.date layer.date_from
 # json.url layer.layer_data["url"]
-# json.image layer.image
+json.image layer.image
 json.opacity 1
 json.enabled false

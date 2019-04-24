@@ -1,6 +1,7 @@
 json.id layer_group.id
 json.title layer_group.name
 json.description layer_group.description
+json.image layer_group.image
 json.slug layer_group.slug
 
 json.layers do
