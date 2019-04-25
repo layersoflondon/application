@@ -9,9 +9,14 @@ export default class LayerGroupModel {
   enabled = false;
 
   @observable is_active = false;
+  @observable is_open = false;
 
   @computed get activeLayers() {
     return this.layers.filter((layer) => layer.is_active);
+  }
+
+  toggleIsOpen(){
+    this.is_open = !this.is_open;
   }
 
   static fromJS(object) {

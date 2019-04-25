@@ -34,16 +34,25 @@ const handle = (props) => {
   }
 
   render() {
-    return <div className="layer">
-      <span className="name">{this.props.layerGroup.name}</span>
+    let classes = 'layer';
+    if(this.props.layerGroup.is_open) classes += ' is-open';
+    if(this.props.layerGroup.layers.length>0) classes += ' has-components';
 
-      <span className="slider">
-        <Slider min={0} max={1} step={0.1} handle={handle} defaultValue={this.props.layerGroup.opacity} onChange={(value) => this.props.layerGroup.opacity = value} />
-      </span>
+    return (
+      <div className={classes}>
+        <span className="name" onClick={()=>this.props.layerGroup.toggleIsOpen()}>{this.props.layerGroup.name}</span>
+        <div className="view-controls">
+          <span className="show-hide">
+          </span>
+          <span className="slider">
+            <Slider min={0} max={1} step={0.1} handle={handle} defaultValue={this.props.layerGroup.opacity} onChange={(value) => this.props.layerGroup.opacity = value} />
+          </span>
+        </div>
 
-      <div className="layers">
-        {this.props.layerGroup.layers.map((layer) => <LayerTool key={layer.id} layer={layer} />)}
+        <div className="layer-components">
+          {this.props.layerGroup.layers.map((layer) => <LayerTool key={layer.id} layer={layer} />)}
+        </div>
       </div>
-    </div>
+    );
   }
 }

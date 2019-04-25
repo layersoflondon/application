@@ -52,36 +52,16 @@ const getListStyle = isDraggingOver => ({
     }
 
     return <div className={classes}>
-
       <div className="panel">
         <button className="open" onClick={this.handleOnClick.bind(this)}>Layer tools</button>
 
         <div className="layers">
-          {this.props.layersStore.activeLayerGroups.values().map((layerGroup) => <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} />)}
-
-          {/*<DragDropContext onDragEnd={this.onDragEnd.bind(this)}>*/}
-          {/*  <Droppable droppableId="droppable">*/}
-          {/*    {(provided, snapshot) => (*/}
-          {/*      <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>*/}
-          {/*        {this.props.layersStore.activeLayers.values().map((l, index) => {*/}
-          {/*          return (*/}
-          {/*            <Draggable key={l.id} draggableId={l.id} index={index}>*/}
-          {/*              {(provided, snapshot) => (*/}
-          {/*                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(snapshot.isDragging, provided. draggableProps.style)}>*/}
-          {/*                  <LayerTool key={l.id} layer={l} {...this.props} index={index} />*/}
-          {/*                </div>*/}
-          {/*              )}*/}
-          {/*            </Draggable>*/}
-          {/*          )*/}
-          {/*        })}*/}
-          {/*      </div>*/}
-          {/*    )}*/}
-          {/*  </Droppable>*/}
-          {/*</DragDropContext>*/}
+          <div>
+            {this.props.layersStore.activeLayerGroups.values().map((layerGroup) => <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} />)}
+          </div>
 
           <Link to="/map/layers">Choose new layers</Link>
         </div>
-
       </div>
     </div>
   }
