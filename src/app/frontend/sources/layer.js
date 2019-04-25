@@ -7,4 +7,10 @@ export default class LayerGroup extends LoLHTTPBase {
     static search(queryString) {
         return axios.get(`${this.resource_path}?${queryString}`);
     }
+
+    static resourceIdPath(layer_id){
+        this.resource_path = this.path = `/layers/${layer_id}`;
+    }
 }
+
+window.LayerGroup = LayerGroup;

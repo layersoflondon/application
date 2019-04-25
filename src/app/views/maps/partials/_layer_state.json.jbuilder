@@ -8,3 +8,7 @@ json.slug layer.slug
 json.image layer.image
 json.opacity 1
 json.enabled false
+
+json.layers do
+  json.array! layer.layers, partial: 'layers/layer', as: :layer
+end
