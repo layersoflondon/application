@@ -1,5 +1,5 @@
 class LayersController < ApplicationController
-  before_action :set_layer, only: %i[show]
+  # before_action :set_layer, only: %i[show]
   skip_before_action :authenticate_user!, only: %i[index show]
   skip_after_action :verify_authorized, only: %i[index show search]
 
@@ -8,6 +8,8 @@ class LayersController < ApplicationController
   end
 
   def show
+    slug = "#{params[:id]}"
+    @layer_group = LayerGroupsIndex.query{match(slug: slug)}.first
   end
 
   def search

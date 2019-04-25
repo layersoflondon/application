@@ -1,18 +1,24 @@
-import {observable} from 'mobx';
+import {observable, computed} from 'mobx';
+import LayerModel from './layer';
 
 export default class LayerGroupModel {
   id = null;
   name = '';
   description = '';
   slug = '';
-  // credit = '';
-  // date = null;
-  // url = '';
-  // attribution = '';
   enabled = false;
 
-  // @observable opacity = 0;
+  @observable opacity = 1;
   @observable is_active = false;
+  @observable is_open = false;
+
+  @computed get activeLayers() {
+    return this.layers.filter((layer) => layer.is_active);
+  }
+
+  toggleIsOpen(){
+    this.is_open = !this.is_open;
+  }
 
   static fromJS(object) {
     let layer = new LayerGroupModel();
@@ -21,13 +27,10 @@ export default class LayerGroupModel {
     layer.name = object.name;
     layer.description = object.description;
     layer.slug = object.slug;
-    // layer.credit = object.credit;
-    // layer.date = object.date;
-    // layer.opacity = object.opacity;
-    // layer.url = object.url;
-    // layer.attribution = object.attribution;
     layer.enabled = object.enabled;
     layer.image = object.image;
+
+    layer.layers = object.layers.map((layer_data) => new LayerModel.fromJS(layer_data));
 
     return layer;
   }

@@ -20,6 +20,16 @@ const imgStyle = {
     }
   }
 
+  componentWillMount() {
+    if( this.props.match.params.id ) {
+      this.props.layersStore.fetchLayerGroup(this.props.match.params.id);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.layersStore.layer_group_id = null;
+  }
+
   render() {
     let className = "m-overlay";
     if (this.props.mapViewStore.overlay === 'layer-details') className += " is-showing";
@@ -70,15 +80,31 @@ const imgStyle = {
                 <a href="#" className="download-link">Download (.XLS format)</a>
               </div>
 
+
               <div className="footer">
                 <a href="#" className="use-this-layer">Use this layer</a>
               </div>
+
+
+              {
+                this.props.layersStore.layer_group &&
+                <div>
+                  <p>{this.props.layersStore.layer_group.name}</p>
+                  <p>{this.props.layersStore.layer_group.description}</p>
+                </div>
+              }
+
+              {
+                this.props.layersStore.layer_group && this.props.layersStore.layer_group.image &&
+                <div>
+                  <p>{this.props.layersStore.layer_group.image['large']}</p>
+                </div>
+              }
 
             </div>
           </div>
         </div>
       </Fragment>
-
     );
   }
 }

@@ -15,17 +15,13 @@ import {Link} from "react-router-dom";
     event.preventDefault();
 
     this.props.layersStore.toggleLayer(this.props.layer.id);
-    this.props.layer.is_active = !this.props.layer.is_active;
 
     recordEvent('layerSelected', {
-      'layerSelected': this.props.layersStore.active_layers.values().map((layer) => layer.title).join(" | ")
+      'layerSelected': this.props.layersStore.active_layer_groups.values().map((layer) => layer.title).join(" | ")
     })
-
-
   }
 
   render() {
-    console.log(this.props.layer)
     return <div className={`layer ${(this.props.layer.is_active) ? "layer is-selected" : ""}`}>
       <Link to={`/map/layers/${this.props.layer.slug}`}>
           {this.props.layer.image &&

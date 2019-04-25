@@ -11,7 +11,7 @@ json.set! :data do
   # end
   json.set! :collections, []
 
-  json.set! :layers, @layer_groups.collect do |layer_group|
+  json.set! :layer_groups, @layer_groups.collect do |layer_group|
     json.partial! 'maps/partials/layer_state', layer: layer_group
   end
 
