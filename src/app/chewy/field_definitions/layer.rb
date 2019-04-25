@@ -3,6 +3,7 @@ module FieldDefinitions
     extend ActiveSupport::Concern
 
     included do
+      field :id, type: 'integer'
       field :title, type: 'text'
       field :description, type: 'text'
       field :credit, type: 'text'

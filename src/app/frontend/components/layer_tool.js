@@ -8,9 +8,22 @@ const handle = (props) => {
 };
 
 @observer export default class LayerTool extends Component {
+  layerSymbolClassName(layer) {
+    let className="";
+    switch(layer.layer_type) {
+      case 'tileserver':
+        className="key-symbol--red";
+        break;
+      default:
+        className="";
+    }
+
+    return className;
+  }
+
   render() {
     return <div className="layer-component">
-      <span className="key-symbol key-symbol--outline key-symbol--red"></span>
+      <span className={`key-symbol key-symbol--outline ${this.layerSymbolClassName(this.props.layer)}`}></span>
       <span className="name">{this.props.layer.title}</span>
       <div className="view-controls">
         <span className="show-hide">

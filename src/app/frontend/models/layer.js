@@ -11,7 +11,7 @@ export default class LayerModel {
   layer_data = '';
   enabled = false;
 
-  @observable opacity = 0;
+  @observable opacity = 1;
   @observable is_active = true;
 
   static fromJS(object) {
