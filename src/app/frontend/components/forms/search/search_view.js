@@ -277,7 +277,7 @@ import {recordEvent} from "../../../config/data_layer";
               </div>
 
               <div className="form-group form-group--primary-field">
-                <input placeholder="Enter a topic or place…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)} />
+                <input placeholder="Enter a topic…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)} />
               </div>
 
               <div className="date-range">
