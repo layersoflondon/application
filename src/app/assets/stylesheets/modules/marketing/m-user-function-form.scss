@@ -99,6 +99,7 @@
   @include unlist;
 }
 
-.m-user-function-form #error_explanation h2:empty {
-  display:none;
+.m-user-function-form #error_explanation h2 {
+  font-size: 18px;
+  margin: 0 0 10px 0;
 }
