@@ -20,6 +20,7 @@ export default class LayersStore {
         LayerGroup.show(change.newValue).then((response) => {
           let layer_group = LayerGroupModel.fromJS(response.data, this);
           this.layer_group = layer_group;
+          this.layer_groups.set(layer_group.id, layer_group);
         });
       }else {
         this.loading = false;
@@ -52,23 +53,6 @@ export default class LayersStore {
 
   @computed get activeLayerGroups() {
     return this.active_layer_groups;
-    //
-    // // get active layer objects
-    // let layers = this.layer_groups.filter((l) => this.active_layers.indexOf(l.id)>=0);
-    //
-    // const sortLayers = (a, b) => {
-    //   if( this.active_layers.indexOf(a.id) > this.active_layers.indexOf(b.id) ) {
-    //     return 1
-    //   }else if( this.active_layers.indexOf(b.id) > this.active_layers.indexOf(a.id) ) {
-    //     return -1;
-    //   }else {
-    //     return 0;
-    //   }
-    // };
-    //
-    // // sort layer objects by the order of active_layer_ids
-    // layers.sort(sortLayers);
-    // return layers;
   }
 
   static fromJS(layer_groups) {

@@ -17,7 +17,7 @@ export default class LayerModel {
   @observable is_active = true;
 
   @computed get getOpacity() {
-    if( this.parent_opacity && this.parent_opacity < this.opacity ) {
+    if( typeof(this.parent_opacity)==="number" && this.parent_opacity < this.opacity ) {
       return this.parent_opacity;
     }else {
       return this.opacity;

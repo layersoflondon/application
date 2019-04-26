@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import Helmet from 'react-helmet';
+import {recordEvent} from "../config/data_layer";
 
 @inject('mapViewStore', 'layersStore', 'router')
 @withRouter
@@ -25,6 +26,18 @@ import Helmet from 'react-helmet';
     this.props.layersStore.layer_group_id = null;
   }
 
+  toggleLayer(event) {
+    event.preventDefault();
+
+    this.props.layersStore.toggleLayer(this.props.layersStore.layer_group.id);
+
+    recordEvent('layerSelected', {
+      'layerSelected': this.props.layersStore.active_layer_groups.values().map((layer) => layer.title).join(" | ")
+    });
+
+    // return false;
+  }
+
   render() {
     let className = "m-overlay";
     if (this.props.mapViewStore.overlay === 'layer-details') className += " is-showing";
@@ -34,6 +47,8 @@ import Helmet from 'react-helmet';
       imgStyle.backgroundImage = `url(${this.props.layersStore.layer_group.image['large']})`;
     }
 
+    const label_prefix = (this.props.layersStore.layer_group && this.props.layersStore.layer_group.is_active) ? "Don't use" : "Use";
+
     return (
       <Fragment>
         <Helmet>
@@ -42,7 +57,7 @@ import Helmet from 'react-helmet';
           <meta name='keywords' content={`layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`}/>
         </Helmet>
         <div className={className} onClick={this.handleModalBgClick.bind(this)}>
-          <div className="s-overlay--layers is-showing">
+          <div className={`s-overlay--layers is-showing ${(this.props.layersStore.layer_group && this.props.layersStore.layer_group.is_active) ? "is-selected" : ""}`}>
 
             <div className="close">
               <Link to="/map/layers" className="close">Close</Link>
@@ -74,7 +89,7 @@ import Helmet from 'react-helmet';
                   </div>
 
                   <div className="footer">
-                    <a href="#" className="use-this-layer">Use this layer</a>
+                    <a href="#" className="use-this-layer" onClick={this.toggleLayer.bind(this)}>{label_prefix} this layer</a>
                   </div>
                 </div>
               )
