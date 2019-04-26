@@ -278,7 +278,7 @@ import {recordEvent} from "../../../config/data_layer";
 
               <div className="form-group form-group--primary-field">
                 <input placeholder="Enter a topic…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)} />
-                <p style={{color: 'grey'}}>You can use quotation marks to match your exact search term.</p>
+                <p className="helper-text">You can use quotation marks to match your exact search term.</p>
               </div>
 
               <div className="date-range">
