@@ -11,6 +11,7 @@ export default class LayerModel {
   layer_type = '';
   layer_type_name = '';
   layer_data = '';
+  collection_id = null;
   enabled = false;
 
   @observable opacity = 1;
@@ -38,6 +39,7 @@ export default class LayerModel {
     layer.layer_type = object.layer_type;
     layer.layer_type_name = object.layer_type_name;
     layer.layer_data = object.layer_data;
+    layer.collection_id = object.collection_id;
     layer.enabled = object.enabled;
 
     return layer;

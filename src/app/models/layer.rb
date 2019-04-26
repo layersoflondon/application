@@ -12,6 +12,8 @@ class Layer < ApplicationRecord
   belongs_to :image, class_name: 'Attachments::Image', dependent: :destroy, optional: true
   accepts_nested_attributes_for :image
 
+  belongs_to :collection, optional: true
+
   attr_writer :tileserver_url
 
   # ensure we're storing JSON in our points (or other non-stringy) layer_data

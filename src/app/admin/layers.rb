@@ -8,6 +8,7 @@ ActiveAdmin.register Layer do
                 :layer_type,
                 :date_from,
                 :date_to,
+                :collection_id,
                 image_attributes: [
                   :file,
                   :id
