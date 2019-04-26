@@ -1,0 +1,13 @@
+<%= semantic_form_for [:admin, @layer_group], builder: ActiveAdmin::FormBuilder do |f| %>
+    <%= f.semantic_errors *f.object.errors.keys %>
+    <%= f.inputs "Basic Details" do %>
+        <%= f.input :name %>
+        <%= f.input :description, as: :quill_editor, input_html: {data: {options: {modules: {toolbar: [['bold', 'italic', 'underline'], ['link']]}, placeholder: 'Enter description in here', theme: 'snow'}}} %>
+        <%= f.fields_for :image do |imgf| %>
+                <%= imgf.input :file, as: :file, :hint => imgf.object.file.attached? ? image_tag(activestorage_url_for(imgf.object.file.variant(Rails.configuration.x.image_variants[:thumb]))) : "" %>
+        <% end %>
+    <% end %>
+
+    <%= f.actions %>
+
+<% end %>

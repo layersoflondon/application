@@ -47,7 +47,7 @@ import {recordEvent} from "../config/data_layer";
       imgStyle.backgroundImage = `url(${this.props.layersStore.layer_group.image['large']})`;
     }
 
-    const label_prefix = (this.props.layersStore.layer_group && this.props.layersStore.layer_group.is_active) ? "Don't use" : "Use";
+    const label_prefix = (this.props.layersStore.layer_group && this.props.layersStore.layer_group.slug === this.props.match.params.id && this.props.layersStore.layer_group.is_active) ? "Don't use" : "Use";
 
     return (
       <Fragment>
@@ -82,7 +82,7 @@ import {recordEvent} from "../config/data_layer";
                     <h2 className="subtitle">Available data</h2>
                     <div className="text-content">
                       <ul>
-                        {this.props.layersStore.layer_group.layers.map((l, i) => <li key={i}>{l.layer_type_name}</li>)}
+                        {this.props.layersStore.layer_group.layers.map((l, i) => <li key={i}>{l.name}</li>)}
                       </ul>
                     </div>
                     <a href="#" className="download-link">Download (.XLS format)</a>

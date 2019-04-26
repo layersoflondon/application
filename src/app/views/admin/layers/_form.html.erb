@@ -2,29 +2,14 @@
     <%= f.semantic_errors *f.object.errors.keys %>
     <%= f.inputs "Basic Details" do %>
         <%= f.input :title %>
+        <%= f.input :short_title %> <span>If the title is longer than <%= Layer::MAX_SHORT_TITLE_LENGTH %> chars, we'll truncate it <strong>or</strong> use this field instead</span>
+
         <%= f.input :description, as: :quill_editor, input_html: {data: {options: {modules: {toolbar: [['bold', 'italic', 'underline'], ['link']]}, placeholder: 'Enter description in here', theme: 'snow'}}} %>
-        <%= f.input :credit, as: :quill_editor, input_html: {data: {options: {modules: {toolbar: [['link']]}, placeholder: 'Enter credits here', theme: 'snow'}}} %>
-        <%= f.fields_for :image do |imgf| %>
-
-                <%= imgf.input :file, as: :file, :hint => imgf.object.file.attached? ? image_tag(activestorage_url_for(imgf.object.file.variant(Rails.configuration.x.image_variants[:thumb]))) : "" %>
-
-        <% end %>
-
     <% end %>
 
-    <%= f.inputs "Date and location" do %>
-        <%= f.input :lat %>
-        <%= f.input :lng %>
-        <%= f.input :date_from, as: :date_picker %>
-        <%= f.input :date_to, as: :date_picker %>
-    <% end %>
-
-    <%= f.inputs "Tileserver details" do %>
-        <%= f.input :tileserver_url %>
-     
-        
+    <%= f.inputs "Layer data" do %>
+        <%= render "admin/layers/layer_types/#{f.object.layer_type}", f: f %>
     <% end %>
 
     <%= f.actions %>
-
 <% end %>

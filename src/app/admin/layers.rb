@@ -1,49 +1,39 @@
-ActiveAdmin.register LayerGroup do
+ActiveAdmin.register Layer do
   permit_params :title,
+                :short_title,
                 :description,
                 :credit,
                 :lat,
                 :lng,
                 :layer_type,
-                :tileserver_url,
                 :date_from,
                 :date_to,
                 image_attributes: [
                   :file,
                   :id
-                ]
+                ],
+                layer_data: [:url, :points, :data]
 
   controller do
-
-
     def new
-      @layer = LayerGroup.new(image: Attachments::Image.new)
+      @layer = Layer.new
     end
 
     def show
       redirect_to edit_admin_layer_path(resource)
     end
-
   end
 
   index do
     selectable_column
 
     column :title
-    column :image do |r|
-      if r.image.present?
-        image_tag ApplicationController.helpers.activestorage_url_for(r.image.file.variant(Rails.configuration.x.image_variants[:thumb]))
-      else
-        "No image"
-      end
-    end
-
+    column :layer_type
 
     actions
   end
 
   filter :title
-
 
   form partial: "form"
 
