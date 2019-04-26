@@ -8,6 +8,7 @@ export default class LayerModel {
   date_from = null;
   date_to = null;
   layer_type = '';
+  layer_type_name = '';
   layer_data = '';
   enabled = false;
 
@@ -33,6 +34,7 @@ export default class LayerModel {
     layer.date_from = object.date_from;
     layer.date_to = object.date_to;
     layer.layer_type = object.layer_type;
+    layer.layer_type_name = object.layer_type_name;
     layer.layer_data = object.layer_data;
     layer.enabled = object.enabled;
 
