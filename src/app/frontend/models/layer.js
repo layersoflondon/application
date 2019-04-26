@@ -1,4 +1,4 @@
-import {observable} from 'mobx';
+import {observable, computed} from 'mobx';
 
 export default class LayerModel {
   id = null;
@@ -12,7 +12,16 @@ export default class LayerModel {
   enabled = false;
 
   @observable opacity = 1;
+  @observable parent_opacity = null;
   @observable is_active = true;
+
+  @computed get getOpacity() {
+    if( this.parent_opacity && this.parent_opacity < this.opacity ) {
+      return this.parent_opacity;
+    }else {
+      return this.opacity;
+    }
+  }
 
   static fromJS(object) {
     let layer = new LayerModel();

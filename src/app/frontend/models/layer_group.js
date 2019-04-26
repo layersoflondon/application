@@ -1,4 +1,4 @@
-import {observable, computed} from 'mobx';
+import {observable, computed, observe} from 'mobx';
 import LayerModel from './layer';
 
 export default class LayerGroupModel {
@@ -11,6 +11,12 @@ export default class LayerGroupModel {
   @observable opacity = 1;
   @observable is_active = false;
   @observable is_open = false;
+
+  constructor() {
+    observe( this, 'opacity', (change) => {
+      this.activeLayers.map((layer) => layer.parent_opacity = change.newValue);
+    });
+  }
 
   @computed get activeLayers() {
     return this.layers.filter((layer) => layer.is_active);

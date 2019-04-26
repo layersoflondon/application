@@ -11,7 +11,7 @@ import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet';
   }
 
   tileserverLayer(layer) {
-    return <TileLayer key={`layer-${layer.id}`} url={layer.layer_data.url} opacity={layer.opacity} zIndex={1000-this.props.layerIndex} />
+    return <TileLayer key={`layer-${layer.id}`} url={layer.layer_data.url} opacity={layer.getOpacity} zIndex={1000-this.props.layerIndex} />
   }
 
   render() {
