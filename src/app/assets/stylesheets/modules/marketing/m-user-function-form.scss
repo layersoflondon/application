@@ -88,6 +88,17 @@
   width: auto;
 }
 
-.m-user-function-form .styled-select {
+.m-user-function-form #error_explanation {
+  background:transparentize($red, 0.9);
+  color:$red;
+  margin: -30px -60px 30px;
+  padding: 20px 60px;
+}
 
+.m-user-function-form #error_explanation ul {
+  @include unlist;
+}
+
+.m-user-function-form #error_explanation h2:empty {
+  display:none;
 }
