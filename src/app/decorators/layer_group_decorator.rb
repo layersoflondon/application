@@ -1,4 +1,4 @@
-class LayerDecorator < Draper::Decorator
+class LayerGroupDecorator < Draper::Decorator
   delegate_all
 
   # Define presentation-specific methods here. Helpers are accessed through
@@ -9,14 +9,4 @@ class LayerDecorator < Draper::Decorator
   #       object.created_at.strftime("%a %m/%d/%y")
   #     end
   #   end
-
-  def name
-    if short_title.present?
-      short_title
-    elsif title.length > Layer::MAX_SHORT_TITLE_LENGTH
-      h.truncate(title, length: Layer::MAX_SHORT_TITLE_LENGTH)
-    else
-      title
-    end
-  end
 end

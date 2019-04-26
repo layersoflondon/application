@@ -15,7 +15,7 @@ class LayerGroupsIndex < Chewy::Index
     field :image, type: :object, value: -> {
       image.try(:data)
     }
-    field :layers, type: :object do
+    field :layers, type: :object, value: -> {layers.decorate} do
       include FieldDefinitions::Layer
     end
   end

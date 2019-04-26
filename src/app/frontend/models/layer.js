@@ -3,6 +3,7 @@ import {observable, computed} from 'mobx';
 export default class LayerModel {
   id = null;
   title = '';
+  name = '';
   description = '';
   credit = '';
   date_from = null;
@@ -29,6 +30,7 @@ export default class LayerModel {
 
     layer.id = object.id;
     layer.title = object.title;
+    layer.name = object.name;
     layer.description = object.description;
     layer.credit = object.credit;
     layer.date_from = object.date_from;

@@ -19,7 +19,9 @@ export default class LayersStore {
         this.loading = true;
         LayerGroup.show(change.newValue).then((response) => {
           let layer_group = LayerGroupModel.fromJS(response.data, this);
+          let current_group = this.layer_groups.get(layer_group.id);
           this.layer_group = layer_group;
+          this.layer_group.is_active = current_group.is_active;
           this.layer_groups.set(layer_group.id, layer_group);
         });
       }else {

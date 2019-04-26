@@ -24,7 +24,7 @@ const handle = (props) => {
   render() {
     return <div className="layer-component">
       <span className={`key-symbol key-symbol--outline ${this.layerSymbolClassName(this.props.layer)}`}></span>
-      <span className="name">{this.props.layer.title}</span>
+      <span className="name">{this.props.layer.name}</span>
       <div className="view-controls">
         <span className="show-hide">
         </span>
