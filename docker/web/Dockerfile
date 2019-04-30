@@ -22,6 +22,7 @@ ENV BUNDLE_PATH /gems
 RUN bundle install
 
 COPY node_modules /usr/src/app/node_modules
+COPY package.json yarn.lock /usr/src/app/
 RUN yarn install
 
 COPY . /usr/src/app/
