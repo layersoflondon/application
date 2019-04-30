@@ -35,7 +35,7 @@ import { Map, Marker, Popup, Polygon, TileLayer, ZoomControl } from 'react-leafl
   render() {
     return <ErrorBoundary>
       <div>
-        {this.props.layerGroup.activeLayers.map((layer) => this.fetchLayer(layer))}
+        {this.props.layerGroup.visibleLayers.map((layer) => this.fetchLayer(layer))}
       </div>
     </ErrorBoundary>;
   }

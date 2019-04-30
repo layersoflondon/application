@@ -14,12 +14,12 @@ export default class LayerGroupModel {
 
   constructor() {
     observe( this, 'opacity', (change) => {
-      this.activeLayers.map((layer) => layer.parent_opacity = change.newValue);
+      this.visibleLayers.map((layer) => layer.parent_opacity = change.newValue);
     });
   }
 
-  @computed get activeLayers() {
-    return this.layers.filter((layer) => layer.is_active);
+  @computed get visibleLayers() {
+    return this.layers.filter((layer) => layer.is_visible);
   }
 
   toggleIsOpen(){

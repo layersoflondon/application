@@ -47,7 +47,7 @@ import {recordEvent} from "../config/data_layer";
       imgStyle.backgroundImage = `url(${this.props.layersStore.layer_group.image['large']})`;
     }
 
-    const label_prefix = (this.props.layersStore.layer_group && this.props.layersStore.layer_group.slug === this.props.match.params.id && this.props.layersStore.layer_group.is_active) ? "Don't use" : "Use";
+    const label_prefix = (this.props.layersStore.layer_group && this.props.layersStore.layer_group.slug === this.props.match.params.id && this.props.layersStore.layer_group.is_active) ? "Remove" : "Use";
 
     return (
       <Fragment>

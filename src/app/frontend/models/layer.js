@@ -16,7 +16,7 @@ export default class LayerModel {
 
   @observable opacity = 1;
   @observable parent_opacity = null;
-  @observable is_active = true;
+  @observable is_visible = true;
 
   @computed get getOpacity() {
     if( typeof(this.parent_opacity)==="number" && this.parent_opacity < this.opacity ) {
@@ -24,6 +24,10 @@ export default class LayerModel {
     }else {
       return this.opacity;
     }
+  }
+
+  toggleVisibility() {
+    this.is_visible = !this.is_visible;
   }
 
   static fromJS(object) {
