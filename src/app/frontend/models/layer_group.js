@@ -11,6 +11,7 @@ export default class LayerGroupModel {
   @observable opacity = 1;
   @observable is_active = false;
   @observable is_open = false;
+  @observable layers = [];
 
   constructor() {
     observe( this, 'opacity', (change) => {

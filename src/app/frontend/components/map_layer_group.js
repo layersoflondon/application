@@ -12,30 +12,30 @@ import { Map, Marker, Popup, Polygon, TileLayer, ZoomControl } from 'react-leafl
     this.fetchLayer = this.fetchLayer.bind(this);
   }
 
-  tileserverLayer(layer) {
-    return <TileLayer key={`layer-${layer.id}`} url={layer.layer_data.url} opacity={layer.getOpacity} zIndex={1000-this.props.layerIndex} />
+  tileserverLayer(layer, index) {
+    return <TileLayer key={`layer-${layer.id}`} url={layer.layer_data.url} opacity={layer.getOpacity} zIndex={1000-index} />
   }
 
-  georeferenced_imageLayer(layer) {
+  georeferenced_imageLayer(layer, index) {
   }
 
-  datasetLayer(layer) {
+  datasetLayer(layer, index) {
   }
 
-  polygonLayer(layer) {
-    return <Polygon key={`layer-${layer.id}`} positions={layer.layer_data.points} opacity={layer.getOpacity} zIndex={1000-this.props.layerIndex} />
+  polygonLayer(layer, index) {
+    return <Polygon key={`layer-${layer.id}`} positions={layer.layer_data.points} opacity={layer.getOpacity} zIndex={1000+index} />
   }
 
-  fetchLayer(layer) {
+  fetchLayer(layer, index) {
     if( typeof this[`${layer.layer_type}Layer`] === 'function' ) {
-      return this[`${layer.layer_type}Layer`](layer);
+      return this[`${layer.layer_type}Layer`](layer, index);
     }
   }
 
   render() {
     return <ErrorBoundary>
       <div>
-        {this.props.layerGroup.visibleLayers.map((layer) => this.fetchLayer(layer))}
+        {this.props.layerGroup.visibleLayers.map((layer, index) => this.fetchLayer(layer, index))}
       </div>
     </ErrorBoundary>;
   }
