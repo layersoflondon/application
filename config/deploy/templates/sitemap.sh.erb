@@ -1,1 +1,1 @@
-0 0 * * * root cd <%= current_path %> && (RAILS_ENV=<%= fetch(:rails_env) %> <%= fetch(:rvm1_auto_script_path)%>/rvm-auto.sh . bundle exec rake sitemap:refresh)
+0 0 * * * root cd <%= current_path %> && (RAILS_ENV=<%= fetch(:rails_env) %> <%= fetch(:rvm1_auto_script_path)%>/rvm-auto.sh . bundle exec rake sitemap:refresh > /dev/null 2>&1)
