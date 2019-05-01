@@ -3,25 +3,6 @@ import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import LayerGroupTool from './layer_group_tool';
 
-const reorder = (items, startIndex, endIndex) => {
-  const result = Array.from(items);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return result;
-};
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-
-  // styles we need to apply on draggables
-  ...draggableStyle,
-});
-
-const getListStyle = isDraggingOver => ({
-  width: '100%',
-});
-
 @inject('layersStore')
 @withRouter
 @observer export default class LayerToolsContainer extends Component {
@@ -33,15 +14,6 @@ const getListStyle = isDraggingOver => ({
 
   handleOnClick(event) {
     this.setState({is_open: !this.state.is_open});
-  }
-
-  onDragEnd(result) {
-    if( !result.destination ) {
-      return;
-    }
-
-    const layers = reorder(this.props.layersStore.activeLayers, result.source.index, result.destination.index);
-    this.props.layersStore.setLayerGroups(layers);
   }
 
   render() {

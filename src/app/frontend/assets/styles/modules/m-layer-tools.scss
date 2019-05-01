@@ -183,7 +183,10 @@
 }
 
 .m-layer-tools .layer-components {
-  //padding-left: 24px;
+  position: relative;
+
+  .layer-component {
+  }
 }
 
 .m-layer-tools .layer-components .name {
