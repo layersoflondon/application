@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import Slider from 'rc-slider';
 
 const handle = (props) => {
@@ -7,6 +7,7 @@ const handle = (props) => {
   return <Slider.Handle value={value} {...otherProps} />;
 };
 
+@inject('trayViewStore')
 @observer export default class LayerTool extends Component {
   layerSymbolClassName(layer) {
     let className="";
@@ -27,6 +28,12 @@ const handle = (props) => {
     this.props.layer.toggleVisibility();
   }
 
+  showCollectionInTray() {
+    console.log(this.props.trayViewStore);
+    console.log(this.props.layer.collection_id);
+    this.props.trayViewStore.collection_id = this.props.layer.collection_id;
+  }
+
   render() {
     const layer_visibility = this.props.layer.is_visible ? 'is-visible' : 'is-hidden';
 
@@ -34,6 +41,10 @@ const handle = (props) => {
       <span className={`key-symbol key-symbol--outline ${this.layerSymbolClassName(this.props.layer)}`}></span>
       <span className="name">{this.props.layer.name}</span>
       <div className="view-controls">
+        {this.props.layer.collection_id && (
+            <span className="show-hide collection" onClick={this.showCollectionInTray.bind(this)}>
+            </span>
+        )}
         <span className={`show-hide ${layer_visibility}`} onClick={this.toggleLayerVisibility.bind(this)}>
         </span>
         <span className="slider">

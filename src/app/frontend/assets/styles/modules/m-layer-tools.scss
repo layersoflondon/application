@@ -134,6 +134,10 @@
   opacity: 0.8;
 }
 
+.m-layer-tools .show-hide.collection:after {
+  background: url('../assets/images/icon-collection.svg') center no-repeat;
+}
+
 .m-layer-tools .layer-component.is-hidden .show-hide:after {
   background: url('../assets/images/icon-hide.svg') center no-repeat;
   opacity: 0.4;
