@@ -19,11 +19,16 @@ import axios from 'axios';
       this.props.layer.is_loading = false;
       state.data = response.data;
 
-    }).finally(() => this.setState(state));
+    }).finally(() => {
+      this.setState(state)
+    }).catch( (error, response, a ) => {
+      console.log("Error: ", error, response, a);
+      this.props.layer.is_loading = false;
+    });
   }
 
   render() {
-    if( this.props.layer.is_loading ) {
+    if( this.props.layer.is_loading || !this.state.data ) {
       return <React.Fragment/>
     }
 
