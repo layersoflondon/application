@@ -1,0 +1,3 @@
+<%= f.fields_for :data, (f.object.data ? f.object.data : f.object.build_data) do |dataf| %>
+  <%= dataf.input :file, as: :file, :hint => dataf.object.file.attached? ? link_to("Data file", activestorage_url_for(dataf.object.file)) : "" %>
+<% end %>

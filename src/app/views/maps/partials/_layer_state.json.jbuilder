@@ -1,9 +1,14 @@
 json.id layer.id
-json.title layer.title
+json.name layer.name
 json.description layer.description
-json.credit layer.credit
-json.date layer.date_from
-json.url layer.layer_data["url"]
+json.slug layer.slug
+# json.credit layer.credit
+# json.date layer.date_from
+# json.url layer.layer_data["url"]
 json.image layer.image
 json.opacity 1
 json.enabled false
+
+json.layers do
+  json.array! layer.layers, partial: 'layers/layer', as: :layer
+end

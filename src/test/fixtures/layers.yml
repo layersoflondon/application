@@ -1,17 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  lat: 1.5
-  lng: 1.5
-  date_from: 2018-05-09
-  date_to: 2018-05-09
-  layer_type: 1
-  layer_data: MyText
-
-two:
-  lat: 1.5
-  lng: 1.5
-  date_from: 2018-05-09
-  date_to: 2018-05-09
-  layer_type: 1
-  layer_data: MyText
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one: {}
+# column: value
+#
+two: {}
+# column: value

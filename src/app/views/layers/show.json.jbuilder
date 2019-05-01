@@ -1,1 +1,1 @@
-json.partial! 'layers/layer', layer: @layer
+json.partial! 'layers/layer_group', layer_group: @layer_group

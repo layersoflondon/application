@@ -7,6 +7,7 @@ import LayerToolsContainer from './layer_tools_container';
 import ErrorBoundary from './error_boundary';
 import MapSearchContainer from './map_search_container';
 import pluralize from "pluralize";
+import MapLayerGroup from "./map_layer_group";
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapView extends Component {
@@ -108,8 +109,8 @@ import pluralize from "pluralize";
     const layers = <span className="tile-layers">
       <TileLayer url="https://maps.tilehosting.com/styles/basic/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
 
-      {this.props.layersStore.activeLayers.values().map((layer, index) => {
-        return <TileLayer key={layer.id} url={layer.url} opacity={layer.opacity} zIndex={1000-index} />
+      {this.props.layersStore.activeVisibleLayerGroups.map((layerGroup, index) => {
+        return <MapLayerGroup key={layerGroup.id} layerGroup={layerGroup} layerIndex={index} />
       })}
     </span>;
 

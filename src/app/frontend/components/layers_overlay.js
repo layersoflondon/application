@@ -2,7 +2,7 @@ import React,{Component, Fragment} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import Helmet from 'react-helmet';
-import Layer from './layer';
+import LayerGroup from './layer_group';
 
 @inject('mapViewStore', 'layersStore', 'router')
 @withRouter
@@ -49,7 +49,7 @@ import Layer from './layer';
 
               <div className="layers">
                 <h2>All Layers</h2>
-                {this.props.layersStore.layers.values().map((layer) => <Layer key={layer.id} layer={layer} {...this.props} />)}
+                {this.props.layersStore.layer_groups.values().map((layer_group) => <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)}
               </div>
 
             </div>
