@@ -23,7 +23,7 @@ import { Map, Marker, Popup, Polygon, TileLayer, ZoomControl } from 'react-leafl
   }
 
   polygonLayer(layer, index) {
-    return <Polygon key={`layer-${layer.id}`} positions={layer.layer_data.points} opacity={layer.getOpacity} zIndex={1000+index} />
+    return <Polygon key={`layer-${layer.id}`} positions={layer.layer_data.points} opacity={layer.getOpacity} fillOpacity={layer.getOpacity/2} zIndex={1000+index} />
   }
 
   fetchLayer(layer, index) {

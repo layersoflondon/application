@@ -11,6 +11,7 @@ export default class LayerGroupModel {
   @observable opacity = 1;
   @observable is_active = false;
   @observable is_open = false;
+  @observable is_visible = true;
   @observable layers = [];
 
   constructor() {
@@ -25,6 +26,10 @@ export default class LayerGroupModel {
 
   toggleIsOpen(){
     this.is_open = !this.is_open;
+  }
+
+  toggleVisibility() {
+    this.is_visible = !this.is_visible;
   }
 
   static fromJS(object) {

@@ -54,7 +54,11 @@ export default class LayersStore {
   }
 
   @computed get activeLayerGroups() {
-    return this.active_layer_groups;
+    return this.active_layer_groups.values();
+  }
+
+  @computed get activeVisibleLayerGroups() {
+    return this.active_layer_groups.values().filter((layer_group) => layer_group.is_visible);
   }
 
   static fromJS(layer_groups) {

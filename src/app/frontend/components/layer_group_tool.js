@@ -60,6 +60,10 @@ const handle = (props) => {
     this.props.layerGroup.layers = list;
   }
 
+  toggleLayerGroupVisibility() {
+    this.props.layerGroup.toggleVisibility();
+  }
+
   render() {
     let classes = 'layer';
     if(this.props.layerGroup.is_open) classes += ' is-open';
@@ -69,7 +73,7 @@ const handle = (props) => {
       <div className={classes}>
         <span className="name" onClick={()=>this.props.layerGroup.toggleIsOpen()}>{this.props.layerGroup.name}</span>
         <div className="view-controls">
-          <span className="show-hide">
+          <span className="show-hide" onClick={this.toggleLayerGroupVisibility.bind(this)}>
           </span>
           <span className="slider">
             <Slider min={0} max={1} step={0.1} handle={handle} defaultValue={this.props.layerGroup.opacity} onChange={(value) => this.props.layerGroup.opacity = value} />

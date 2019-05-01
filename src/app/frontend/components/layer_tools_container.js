@@ -29,7 +29,7 @@ import LayerGroupTool from './layer_group_tool';
 
         <div className="layers">
           <div>
-            {this.props.layersStore.activeLayerGroups.values().map((layerGroup) => <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} />)}
+            {this.props.layersStore.activeLayerGroups.map((layerGroup) => <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} />)}
           </div>
 
           <Link to="/map/layers">Choose new layers</Link>
