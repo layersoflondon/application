@@ -32,3 +32,5 @@
 en:
   layer_types:
     tileserver: "Map Tiles"
+    dataset: "Dataset"
+    collection: "Collection"

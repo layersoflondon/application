@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {observer, inject} from "mobx-react";
 import ErrorBoundary from './error_boundary';
-
-import { Map, Marker, Popup, Polygon, TileLayer, ZoomControl } from 'react-leaflet';
+import { Polygon, TileLayer } from 'react-leaflet';
+import CollectionLayer from "./collection_layer";
+import GeoJSONLayer from "./geojson_layer";
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapLayerGroup extends Component {
@@ -16,10 +17,12 @@ import { Map, Marker, Popup, Polygon, TileLayer, ZoomControl } from 'react-leafl
     return <TileLayer key={`layer-${layer.id}`} url={layer.layer_data.url} opacity={layer.getOpacity} zIndex={1000-index} />
   }
 
-  georeferenced_imageLayer(layer, index) {
+  collectionLayer(layer, index) {
+    return <CollectionLayer key={`layer-${layer.id}`} layer={layer} />
   }
 
   datasetLayer(layer, index) {
+    return <GeoJSONLayer key={`layer-${layer.id}`} layer={layer} />
   }
 
   polygonLayer(layer, index) {

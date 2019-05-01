@@ -18,9 +18,5 @@
         <%= render "admin/layers/layer_types/#{f.object.layer_type}", f: f %>
     <% end %>
 
-    <%= f.inputs "Linked collection" do %>
-        <%= f.input :collection, as: :searchable_select %>
-    <% end %>
-
     <%= f.actions %>
 <% end %>

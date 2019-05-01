@@ -29,9 +29,11 @@ const handle = (props) => {
   }
 
   showCollectionInTray() {
-    console.log(this.props.trayViewStore);
-    console.log(this.props.layer.collection_id);
     this.props.trayViewStore.collection_id = this.props.layer.collection_id;
+  }
+
+  handleLayerClick() {
+    this.props.layer.handleClicked()
   }
 
   render() {
@@ -39,7 +41,7 @@ const handle = (props) => {
 
     return <div className="layer-component">
       <span className={`key-symbol key-symbol--outline ${this.layerSymbolClassName(this.props.layer)}`}></span>
-      <span className="name">{this.props.layer.name}</span>
+      <span className="name" onClick={this.handleLayerClick.bind(this)}>{this.props.layer.name} {this.props.layer.is_loading && <span className="is-loading"></span>}</span>
       <div className="view-controls">
         {this.props.layer.collection_id && (
             <span className="show-hide collection" onClick={this.showCollectionInTray.bind(this)}>

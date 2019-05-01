@@ -105,6 +105,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 900;
+
+  .is-loading {
+    position: relative;
+    margin-left: 20px;
+  }
 }
 
 .m-layer-tools .loupe {

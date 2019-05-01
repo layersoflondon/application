@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_26_144139) do
+ActiveRecord::Schema.define(version: 2019_05_01_131207) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -231,11 +231,10 @@ ActiveRecord::Schema.define(version: 2019_04_26_144139) do
     t.text "layer_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "image_id"
     t.text "credit"
     t.bigint "layer_group_id"
     t.string "short_title"
-    t.integer "collection_id"
+    t.integer "data_id"
     t.index ["layer_group_id"], name: "index_layers_on_layer_group_id"
   end
 

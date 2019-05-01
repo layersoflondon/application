@@ -13,9 +13,8 @@ module FieldDefinitions
       field :date_to, type: 'date'
       field :layer_type, type: 'keyword'
       field :layer_data, type: 'object'
-      field :collection_id, type: 'integer'
-      field :image, type: :object, value: -> {
-        image.try(:data)
+      field :data, type: :object, value: -> {
+        data.try(:data)
       }
     end
   end

@@ -1,0 +1,3 @@
+<%= f.fields_for :data do |dataf| %>
+  <%= dataf.input :file, as: :file, :hint => dataf.object.file.attached? ? image_tag(activestorage_url_for(dataf.object.file)) : "" %>
+<% end %>

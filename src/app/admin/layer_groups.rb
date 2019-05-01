@@ -2,6 +2,7 @@ ActiveAdmin.register LayerGroup do
   permit_params :name,
                 :description,
                 :credit,
+                :collection_id,
                 layers: [],
                 image_attributes: [
                   :file,

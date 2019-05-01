@@ -8,16 +8,15 @@ ActiveAdmin.register Layer do
                 :layer_type,
                 :date_from,
                 :date_to,
-                :collection_id,
-                image_attributes: [
+                data_attributes: [
                   :file,
                   :id
                 ],
-                layer_data: [:url, :points, :data]
+                layer_data: [:url, :data, :collection_id]
 
   controller do
     def new
-      @layer = Layer.new
+      @layer = Layer.new(layer_type: 'tileserver', data: Attachments::Document.new)
     end
 
     def show

@@ -10,4 +10,4 @@ json.date_to layer['date_to']
 json.layer_type layer['layer_type']
 json.layer_type_name t("layer_types.#{layer['layer_type']}")
 json.layer_data layer['layer_data']
-json.collection_id layer['collection_id']
+json.data layer['data']
