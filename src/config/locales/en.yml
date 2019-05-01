@@ -34,3 +34,10 @@ en:
     attributes:
       email:
         not_found: "It doesn't look like this email exists in our records. You may have used a different email address, or need to sign up. If you think this is incorrect, please contact the Layers of London team."
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "Email can't be blank."
