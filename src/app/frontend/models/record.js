@@ -135,7 +135,7 @@ export default class RecordModel {
   set date_from(value) {
     if(value) {
       const date = new Date(value);
-      this.date_from_object = {date: date.getDate(), month: date.getMonth()+1, year: date.getFullYear()};
+      this.date_from_object = {date: date.getUTCDate(), month: date.getMonth()+1, year: date.getFullYear()};
     }else {
       this.date_from_object = {date: '', month: '', year: ''};
     }
@@ -154,7 +154,7 @@ export default class RecordModel {
   set date_to(value) {
     if(value) {
       const date = new Date(value);
-      this.date_to_object = {date: date.getDate(), month: date.getMonth()+1, year: date.getFullYear()};
+      this.date_to_object = {date: date.getUTCDate(), month: date.getMonth()+1, year: date.getFullYear()};
     }else {
       this.date_to_object = {date: '', month: '', year: ''};
     }
