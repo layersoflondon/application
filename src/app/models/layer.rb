@@ -1,17 +1,15 @@
 class Layer < ApplicationRecord
   belongs_to :layer_group, optional: true
 
-  enum layer_type: %i[tileserver dataset collection]
+  enum layer_type: %i[tileserver collection]
   serialize :layer_data, JSON
 
   MAX_SHORT_TITLE_LENGTH = 12
   validates :title, :layer_type, presence: true
-  validates :layer_data, presence: true, unless: -> {layer_type === 'dataset'}
+  validates :layer_data, presence: true
   validates :short_title, length: {maximum: MAX_SHORT_TITLE_LENGTH}
-  validate :lat, :lng, :date_from, unless: -> {layer_type =~ /(polygon)/}
-
-  belongs_to :data, class_name: 'Attachments::Document', dependent: :destroy, optional: true
-  accepts_nested_attributes_for :data
+  validates :date_from, presence: true
+  # validates :lat, :lng,  presence: true
 
   belongs_to :collection, optional: true
 
