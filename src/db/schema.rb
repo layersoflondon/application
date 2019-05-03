@@ -200,7 +200,7 @@ ActiveRecord::Schema.define(version: 2019_05_02_124411) do
     t.index ["georeferencer_id"], name: "index_georeferencer_collections_on_georeferencer_id"
   end
 
-  create_table "georeferencer_projects", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "georeferencer_projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "georeferencer_id"
