@@ -10,13 +10,32 @@ import VectorGrid from 'react-leaflet-vectorgrid';
     this.vectorRef = React.createRef();
   }
 
-  render() {
-    if( this.vectorRef && this.vectorRef.current ) {
-      console.log("setting ref");
-      window.vec = this.vectorRef;
-      this.vectorRef.current.leafletElement.setOpacity(this.props.layer.getOpacity);
-    }
+  componentDidMount() {
+    const fetchDataLayerName = async ()=> {
+      let getDataLayerName = new Promise((resolve, reject) => {
+        let dataLayerName = false;
+        let timer = setInterval(() => {
+          if( this.vectorRef && this.vectorRef.current && this.vectorRef.current && this.vectorRef.current.leafletElement && Object.keys(this.vectorRef.current.leafletElement._dataLayerNames).length ){
+            dataLayerName = Object.keys(this.vectorRef.current.leafletElement._dataLayerNames)[0];
+            resolve(dataLayerName);
+            clearInterval(timer);
+          }
 
+        }, 250);
+      });
+      let dataLayerName = await getDataLayerName;
+      this.setState({...this.state, vectorTileLayerStyles: {[dataLayerName]: {opacity: 1, color: this.props.layer.layer_data.vector_layer_colour}}});
+
+      setTimeout(() => {
+        this.vectorRef.current.leafletElement.options.vectorTileLayerStyles[dataLayerName] = {weight: 2, color: this.props.layer.layer_data.vector_layer_colour};
+        this.vectorRef.current.leafletElement.redraw();
+      }, 100);
+    };
+
+    fetchDataLayerName();
+  }
+
+  render() {
     let options = {
       type: 'protobuf',
       key: `layer-${this.props.layer.id}`,
@@ -27,19 +46,9 @@ import VectorGrid from 'react-leaflet-vectorgrid';
       vectorTileLayerStyles: {
         opacity: this.props.layer.getOpacity,
         fill: true,
-        // fillOpacity: this.props.layer.getOpacity,
-        // fillColor: 'red',
         stroke: false
       },
-      // styles: {
-      //   weight: 0.5,
-      //   opacity: 0.1,
-      //   color: '#ccc',
-      //   fillColor: '#390870',
-      //   fillOpacity: 0.1,
-      //   fill: true,
-      //   stroke: false,
-      // }
+      ...this.state
     };
 
     return <VectorGrid {...options} ref={this.vectorRef} />
