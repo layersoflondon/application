@@ -68,7 +68,7 @@ Rails.application.configure do
     Bullet.bullet_logger = true
   end
 
-    config.web_console.whitelisted_ips = '0/8'
+    config.web_console.whitelisted_ips = '0.0.0.0/8'
 
 
 end
