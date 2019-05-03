@@ -1,0 +1,4 @@
+<%= f.text_field :layer_data, name: 'layer[layer_data][url]', value: f.object.layer_data.try(:[], 'url') %>
+
+<%= f.input :lat %>
+<%= f.input :lng %>

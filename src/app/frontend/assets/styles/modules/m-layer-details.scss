@@ -1,0 +1,119 @@
+/* Layer details */
+
+.m-layer-details {
+  @include overlay-wrap-white;
+  margin-top: 170px;
+  position: relative;
+  @include mq(tablet) {
+    margin-top: 150px;
+  }
+  @include mq(small-smartphone) {
+    margin-top: 132px;
+  }
+}
+
+/*
+.m-layer-details h1 {
+  @include overlay-title;
+  margin-right: 40px;
+  margin-bottom: 0;
+}
+*/
+
+.m-layer-details h1 {
+  @include overlay-title;
+  margin-top: -120px;
+  float: left;
+  @include mq(small-smartphone) {
+    font-size: 26px;
+    margin-top: -80px;
+  }
+}
+
+.m-layer-details .description {
+  float: left;
+  width: 50%;
+  padding-right: 20px;
+  margin-bottom: 30px;
+  @include mq(smartphone) {
+    float: none;
+    width: auto;
+    padding-right: 0;
+  }
+  @include mq(small-smartphone) {
+    margin-bottom: 15px;
+  }
+}
+
+.m-layer-details .description .text-content {
+  @include top-and-tail;
+}
+
+.m-layer-details .data {
+  float: left;
+  width: 50%;
+  padding-left: 20px;
+  margin-bottom: 30px;
+  @include mq(smartphone) {
+    float: none;
+    width: auto;
+    padding-left: 0;
+  }
+  @include mq(small-smartphone) {
+    margin-bottom: 15px;
+  }
+}
+
+.m-layer-details .image {
+  height: 40vh;
+  background-position: center;
+  background-size: cover;
+  margin: -40px -50px 30px;
+  @include mq(small-smartphone) {
+    margin: -15px -15px 15px;
+  }
+}
+
+.m-layer-details .subtitle {
+  font-size: 14px;
+  margin-bottom: 10px;
+  background: #549a77;
+  display: inline-block;
+  padding: 3px 6px 2px;
+  color: white;
+  font-weight: 560;
+  margin-top: 0;
+}
+
+.m-layer-details .download-link {
+  @include big-square-button;
+  @include gray-button;
+  padding: 10px 18px;
+  font-size: 14px;
+}
+
+.m-layer-details .text-content ul {
+  padding-left: 24px;
+}
+
+.m-layer-details .use-this-layer {
+  @include big-square-button;
+  border: 3px solid $green;
+  background: transparent;
+  color: $green;
+}
+
+.m-layer-details .use-this-layer:hover {
+  background: #549a7624;
+}
+
+.m-layer-details .footer {
+  padding: 20px 40px;
+  background: #eee;
+  margin: 0 -50px -40px;
+  clear: both;
+  @include mq(small-smartphone) {
+    padding: 20px 15px;
+    margin: 0 -15px -15px;
+  }
+}

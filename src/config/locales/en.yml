@@ -30,4 +30,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  layer_types:
+    tileserver: "Map Tiles"
+    dataset: "Dataset"
+    collection: "Collection"

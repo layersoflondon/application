@@ -10,4 +10,13 @@ class LayerDecorator < Draper::Decorator
   #     end
   #   end
 
+  def name
+    if short_title.present?
+      short_title
+    elsif title.length > Layer::MAX_SHORT_TITLE_LENGTH
+      h.truncate(title, length: Layer::MAX_SHORT_TITLE_LENGTH)
+    else
+      title
+    end
+  end
 end

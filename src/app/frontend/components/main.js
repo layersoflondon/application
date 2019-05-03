@@ -18,6 +18,7 @@ import UserView from './user_view';
 import TeamView from './team_view';
 import PlacePicker from './place_picker';
 import LayersOverlay from './layers_overlay';
+import LayerDetailsOverlay from './layers_details_overlay';
 
 import CollectionForm from './forms/collections/collection_form';
 import UserForm from './forms/user/user_form';
@@ -48,7 +49,7 @@ import AddToCollection from "./record_view/add_to_collection";
 
 
       {/*permanantly visible components */}
-     
+
       <ErrorBoundary><Tools/></ErrorBoundary>
       <ErrorBoundary><Tray/></ErrorBoundary>
         <Route path='/map' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
@@ -59,6 +60,7 @@ import AddToCollection from "./record_view/add_to_collection";
         <Route exact path='/map/account/:tab' component={UserForm} />
         <Route exact path='/map/account/:tab/:id' component={UserForm} />
         <Route path='/map/layers' component={LayersOverlay} />
+        <Route path='/map/layers/:id' component={LayerDetailsOverlay} />
         <Route exact path='/map/search' component={SearchView} />
         <Route path='/map/search?results=true&q=:query' component={Tray} />
 

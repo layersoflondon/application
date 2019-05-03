@@ -1,0 +1,3 @@
+<%= f.inputs "Linked collection" do %>
+  <%= f.select :layer_data, options_for_select(Collection.all.order(:title).collect{|c| [c.title, c.id]}, f.object.layer_data.try(:[], 'collection_id')), {include_blank: "Choose a collection"}, {name: 'layer[layer_data][collection_id]'} %>
+<% end %>

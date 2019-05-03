@@ -57,20 +57,17 @@ import VisibilitySensor from 'react-visibility-sensor';
       <VisibilitySensor onChange={visibilityChanged} partialVisibility={true}>
         <Link to={path} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseLeave={()=>this.props.card.highlighted=false}>
           <div className="wrapper">
-
-              {
-                this.props.card.data.image &&
-                  <div className="image">
-                      {
-                          this.state.visible &&
-                              <Fragment>
-                                <Img src={this.props.card.data.image.card} loader={<span className="is-loading"></span>}/>
-                              </Fragment>
-                      }
-                  </div>
-              }
-
-
+            {
+              this.props.card.data.image &&
+                <div className="image">
+                  {
+                    this.state.visible &&
+                      <Fragment>
+                        <Img src={this.props.card.data.image.card} loader={<span className="is-loading"></span>}/>
+                      </Fragment>
+                  }
+                </div>
+            }
 
             {this.props.card.is_collection && <span className="collection-indicator">Collection</span>}
             <div className="text-content">
