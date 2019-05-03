@@ -15,12 +15,33 @@ class Layer < ApplicationRecord
 
   attr_writer :tileserver_url
 
+  enum vector_layer_colours: {
+      aqua: '#7FDBFF',
+      blue: '#0074D9',
+      navy: '#001F3F',
+      teal: '#39CCCC',
+      green: '#2ECC40',
+      olive: '#3D9970',
+      lime: '#01FF70',
+      red: '#FF4136',
+      fuchsia: '#F012BE',
+      purple: '#B10DC9',
+      maroon: '#85144B'
+  }
+
   # ensure we're storing JSON in our points (or other non-stringy) layer_data
+  # before_save -> {
+  #   key, val = layer_data.first
+  #   return unless val.is_a?(String) #&& ['points'].include?(key.to_s)
+  #   self.layer_data = layer_data.inject({}){|h, (k,v)| h[k] = JSON.parse(v) ; h}
+  # }, unless: -> {layer_type === 'dataset'}
+
   before_save -> {
-    key, val = layer_data.first
-    return unless val.is_a?(String) && ['points'].include?(key.to_s)
-    self.layer_data = layer_data.inject({}){|h, (k,v)| h[k] = JSON.parse(v) ; h}
-  }, unless: -> {layer_type === 'dataset'}
+    return unless layer_data.try(:[], :vector_tiles) === 'true'
+    return unless layer_data.is_a?(Hash)
+
+    layer_data['vector_layer_colour'] = self.class.vector_layer_colours.values.first unless layer_data.has_key?('vector_layer_colour')
+  }
 
   after_save -> {layer_group.save}, if: -> {layer_group.present?}
   after_destroy -> {layer_group.save}, if: -> {layer_group.present?}

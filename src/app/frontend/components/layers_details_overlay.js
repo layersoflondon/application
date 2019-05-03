@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import Helmet from 'react-helmet';
 import {recordEvent} from "../config/data_layer";
+import Parser from 'html-react-parser';
 
 @inject('mapViewStore', 'layersStore', 'router')
 @withRouter
@@ -35,7 +36,7 @@ import {recordEvent} from "../config/data_layer";
       'layerSelected': this.props.layersStore.active_layer_groups.values().map((layer) => layer.title).join(" | ")
     });
 
-    // return false;
+    this.props.router.push('/map/layers');
   }
 
   render() {
@@ -74,7 +75,7 @@ import {recordEvent} from "../config/data_layer";
 
                   <div className="description">
                     <div className="text-content">
-                      {this.props.layersStore.layer_group.description}
+                      {Parser(this.props.layersStore.layer_group.description)}
                     </div>
                   </div>
 

@@ -163,13 +163,13 @@
   display: none;
 }
 
-.m-layers-picker .layer button:before {
-  content: "Use this layer";
-}
-
-.m-layers-picker .layer.is-selected button:before {
-  content: "Deselect this layer";
-}
+//.m-layers-picker .layer button:before {
+//  content: "Use this layer";
+//}
+//
+//.m-layers-picker .layer.is-selected button:before {
+//  content: "Deselect this layer";
+//}
 
 .m-layers-picker .layer .description {
   font-size: 14px;

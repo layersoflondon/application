@@ -22,6 +22,10 @@ import {Link} from "react-router-dom";
           {Parser(this.props.layerGroup.description||"")}
           {this.props.layerGroup.credit && (<span className="credit">{Parser(this.props.layerGroup.credit)}</span>)}
         </div>
+
+        <div className="actions">
+          <button className="button">More Details</button>
+        </div>
       </Link>
     </div>
   }

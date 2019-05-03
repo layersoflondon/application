@@ -24,3 +24,11 @@ form#edit_featured_item li.is-disabled,
 form#new_featured_item li.is-disabled {
   display: none
 }
+
+.field-layer-colours {
+  .colour {
+    display: inline-block;
+    border: 1px solid #fff;
+    padding: 10px;
+  }
+}
