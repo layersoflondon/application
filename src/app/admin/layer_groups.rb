@@ -3,7 +3,7 @@ ActiveAdmin.register LayerGroup do
                 :description,
                 :credit,
                 :collection_id,
-                layers: [],
+                layer_ids: [],
                 image_attributes: [
                   :file,
                   :id
@@ -22,7 +22,7 @@ ActiveAdmin.register LayerGroup do
   index do
     selectable_column
 
-    column :title
+    column :name
     column :image do |r|
       if r.image.present?
         image_tag ApplicationController.helpers.activestorage_url_for(r.image.file.variant(Rails.configuration.x.image_variants[:thumb]))
