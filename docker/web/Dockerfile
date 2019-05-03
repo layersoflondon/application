@@ -21,9 +21,9 @@ WORKDIR /usr/src/app
 ENV BUNDLE_PATH /gems
 RUN bundle install
 
-COPY node_modules /usr/src/app/node_modules
+#COPY node_modules /usr/src/app/node_modules
 COPY package.json yarn.lock /usr/src/app/
-RUN yarn install
+RUN yarn install --modules-folder /node_modules
 
 COPY . /usr/src/app/
 

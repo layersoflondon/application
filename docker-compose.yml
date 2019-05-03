@@ -5,6 +5,7 @@ volumes:
     driver: local
   db_data:
   gem_cache:
+  node_modules_cache:
 
 services:
   mysql:
@@ -62,6 +63,7 @@ services:
     volumes:
     - ./src:/usr/src/app
     - gem_cache:/gems
+    - node_modules_cache:/node_modules
     environment:
       WEBPACKER_DEV_SERVER_HOST: webpack
     depends_on:
@@ -77,6 +79,7 @@ services:
     volumes:
     - ./src:/usr/src/app
     - gem_cache:/gems
+    - node_modules_cache:/node_modules
     environment:
       WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
     healthcheck:
