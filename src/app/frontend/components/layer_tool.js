@@ -9,17 +9,14 @@ const handle = (props) => {
 
 @inject('trayViewStore')
 @observer export default class LayerTool extends Component {
-  layerSymbolClassName(layer) {
-    let className="";
-    switch(layer.layer_type) {
-      case 'tileserver':
-        className="key-symbol--red";
-        break;
-      default:
-        className="";
+  layerSymbolColorStyle(layer) {
+    let style={};
+
+    if( layer.layer_type === 'tileserver' && layer.layer_data.vector_tiles === 'true') {
+      style.color = layer.layer_data.vector_layer_colour;
     }
 
-    return className;
+    return style;
   }
 
   toggleLayerVisibility(event) {
@@ -40,7 +37,7 @@ const handle = (props) => {
     const layer_visibility = this.props.layer.is_visible ? 'is-visible' : 'is-hidden';
 
     return <div className="layer-component">
-      <span className={`key-symbol key-symbol--outline ${this.layerSymbolClassName(this.props.layer)}`}></span>
+      <span className={`key-symbol key-symbol--outline`} style={this.layerSymbolColorStyle(this.props.layer)}></span>
       <span className="name" onClick={this.handleLayerClick.bind(this)}>{this.props.layer.name} {this.props.layer.is_loading && <span className="is-loading"></span>}</span>
       <div className="view-controls">
         {this.props.layer.collection_id && (

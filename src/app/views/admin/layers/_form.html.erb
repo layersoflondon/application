@@ -15,7 +15,7 @@
     <% end %>
 
     <%= f.inputs "Layer data" do %>
-        <%= render "admin/layers/layer_types/#{f.object.layer_type}", f: f %>
+        <%= render "admin/layers/layer_types/#{f.object.layer_type}", f: f if f.object.persisted? %>
     <% end %>
 
     <%= f.actions %>
