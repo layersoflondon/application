@@ -1,7 +1,7 @@
 class LayersController < ApplicationController
   # before_action :set_layer, only: %i[show]
   skip_before_action :authenticate_user!, only: %i[index show]
-  skip_after_action :verify_authorized, only: %i[index show search]
+  skip_after_action :verify_authorized, only: %i[index show search export]
 
   def index
     @layer_groups = LayerGroupsIndex.all.limit(999)
@@ -15,6 +15,19 @@ class LayersController < ApplicationController
   def search
     @layer_groups = LayerGroup.where("title like :query", {query: "%#{params[:query]}%"})
                   .or(LayerGroup.where("description like :query", {query: "%#{params[:query]}%"}))
+  end
+
+  def export
+    slug = "#{params[:layer_id]}"
+    byebug
+    @layer_group = LayerGroupsIndex.query{match(slug: slug)}.first
+
+    unless File.exists?(LayerGroup.export_filepath(slug))
+      layer_group = LayerGroup.find(slug)
+      layer_group.generate_export
+    end
+
+    send_file LayerGroup.export_filepath(slug), type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", disposition: 'attachment'
   end
 
   private

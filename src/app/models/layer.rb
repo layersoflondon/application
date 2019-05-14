@@ -6,14 +6,13 @@ class Layer < ApplicationRecord
 
   MAX_SHORT_TITLE_LENGTH = 12
   validates :title, :layer_type, presence: true
-  validates :layer_data, presence: true
+  validates :layer_data, presence: true, if: -> {persisted?}
   validates :short_title, length: {maximum: MAX_SHORT_TITLE_LENGTH}
   validates :date_from, presence: true
   # validates :lat, :lng,  presence: true
-  validate :geojson_feature_name
+  validate :geojson_feature_name, if: -> {layer_type === 'geojson'}
 
-  belongs_to :collection, optional: true
-  belongs_to :image, class_name: 'Attachments::Image', dependent: :destroy
+  belongs_to :image, class_name: 'Attachments::Image', dependent: :destroy, optional: true
   
   attr_writer :tileserver_url
 
@@ -60,6 +59,14 @@ class Layer < ApplicationRecord
     end
   end
 
+  def collection
+    return nil unless layer_type === 'collection'
+    return nil unless layer_data.try(:[], 'collection_id')
+
+    collection_id = layer_data.try(:[], 'collection_id').to_i
+    Collection.find(collection_id)
+  end
+
   def tileserver_url
     if tileserver?
       layer_data.try(:[], "url")
@@ -68,5 +75,27 @@ class Layer < ApplicationRecord
 
   def geojson_feature_name
     errors.add(:feature_name, "not present") unless layer_data.try(:[], 'feature_name').present?
+  end
+
+  def generate_export_data
+    description_text = Nokogiri::HTML.fragment(description).inner_text
+
+    case layer_type
+    when 'geojson'
+      row_layer_data = {}
+    when 'tileserver'
+      row_layer_data = {}
+    when 'collection'
+      _collection = collection
+      row_layer_data = {collection: _collection.try(:title), records: "#{_collection.records.size} Record".pluralize(_collection.records.size)}
+    else
+      row_layer_data = {}
+    end
+
+    {
+        description: description_text,
+        date: [date_from, date_to].map(&:to_s).reject(&:empty?).join(' - '),
+        credit: credit
+    }.merge(row_layer_data)
   end
 end
