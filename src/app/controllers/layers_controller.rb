@@ -19,7 +19,6 @@ class LayersController < ApplicationController
 
   def export
     slug = "#{params[:layer_id]}"
-    byebug
     @layer_group = LayerGroupsIndex.query{match(slug: slug)}.first
 
     unless File.exists?(LayerGroup.export_filepath(slug))
