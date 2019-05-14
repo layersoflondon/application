@@ -13,7 +13,8 @@ class Layer < ApplicationRecord
   validate :geojson_feature_name
 
   belongs_to :collection, optional: true
-
+  belongs_to :image, class_name: 'Attachments::Image', dependent: :destroy
+  
   attr_writer :tileserver_url
 
   enum vector_layer_colours: {
