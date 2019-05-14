@@ -1,7 +1,7 @@
 class Layer < ApplicationRecord
   belongs_to :layer_group, optional: true
 
-  enum layer_type: %i[tileserver collection]
+  enum layer_type: %i[tileserver geojson collection]
   serialize :layer_data, JSON
 
   MAX_SHORT_TITLE_LENGTH = 12
@@ -10,6 +10,7 @@ class Layer < ApplicationRecord
   validates :short_title, length: {maximum: MAX_SHORT_TITLE_LENGTH}
   validates :date_from, presence: true
   # validates :lat, :lng,  presence: true
+  validate :geojson_feature_name
 
   belongs_to :collection, optional: true
 
@@ -62,5 +63,9 @@ class Layer < ApplicationRecord
     if tileserver?
       layer_data.try(:[], "url")
     end
+  end
+
+  def geojson_feature_name
+    errors.add(:feature_name, "not present") unless layer_data.try(:[], 'feature_name').present?
   end
 end
