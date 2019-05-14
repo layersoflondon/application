@@ -6,7 +6,7 @@
 
         <%= f.input :description, as: :quill_editor, input_html: {data: {options: {modules: {toolbar: [['bold', 'italic', 'underline'], ['link']]}, placeholder: 'Enter description in here', theme: 'snow'}}} %>
 
-        <%= f.input :layer_type, as: :searchable_select %>
+        <%= f.input :layer_type, as: :searchable_select if f.object.persisted? %>
     <% end %>
 
     <%= f.inputs "Date and location" do %>
@@ -16,7 +16,7 @@
 
     <%= f.inputs "Layer data" do %>
         <%= render "admin/layers/layer_types/#{f.object.layer_type}", f: f if f.object.persisted? %>
-    <% end %>
+    <% end if f.object.persisted? %>
 
     <%= f.actions %>
 <% end %>

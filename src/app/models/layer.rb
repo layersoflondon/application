@@ -10,7 +10,7 @@ class Layer < ApplicationRecord
   validates :short_title, length: {maximum: MAX_SHORT_TITLE_LENGTH}
   validates :date_from, presence: true
   # validates :lat, :lng,  presence: true
-  validate :geojson_feature_name, if: -> {layer_type === 'geojson'}
+  # validate :geojson_feature_name, if: -> {layer_type === 'geojson'}
 
   belongs_to :image, class_name: 'Attachments::Image', dependent: :destroy, optional: true
   
