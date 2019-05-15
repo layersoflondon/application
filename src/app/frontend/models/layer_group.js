@@ -10,7 +10,7 @@ export default class LayerGroupModel {
 
   @observable opacity = 1;
   @observable is_active = false;
-  @observable is_open = false;
+  @observable is_open = true;
   @observable is_visible = true;
   @observable layers = [];
 
@@ -42,7 +42,7 @@ export default class LayerGroupModel {
     layer.enabled = object.enabled;
     layer.image = object.image;
 
-    layer.layers = object.layers.map((layer_data) => new LayerModel.fromJS(layer_data));
+    layer.layers = object.layers.map((layer_data) => new LayerModel.fromJS(layer_data, layer));
 
     return layer;
   }

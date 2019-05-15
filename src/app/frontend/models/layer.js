@@ -12,10 +12,11 @@ export default class LayerModel {
   layer_type_name = '';
   layer_data = '';
   enabled = false;
+  layer_group = null;
 
   @observable opacity = 1;
   @observable parent_opacity = null;
-  @observable is_visible = this.layer_type !== 'collection';
+  @observable is_visible = true;
   @observable is_loading = false;
 
   @computed get getOpacity() {
@@ -28,6 +29,14 @@ export default class LayerModel {
 
   toggleVisibility() {
     this.is_visible = !this.is_visible;
+
+    if(this.is_visible ) {
+      this.opacity = 1;
+    }else {
+      this.opacity = 0;
+    }
+
+    return this.is_visible;
   }
 
   handleClicked() {
@@ -36,7 +45,7 @@ export default class LayerModel {
     }
   }
 
-  static fromJS(object) {
+  static fromJS(object, layer_group) {
     let layer = new LayerModel();
 
     layer.id = object.id;
@@ -51,6 +60,7 @@ export default class LayerModel {
     layer.layer_data = object.layer_data;
     layer.data = object.data;
     layer.enabled = object.enabled;
+    layer.layer_group = layer_group;
 
     return layer;
   }
