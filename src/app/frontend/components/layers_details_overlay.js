@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import {recordEvent} from "../config/data_layer";
 import Parser from 'html-react-parser';
 
-@inject('mapViewStore', 'layersStore', 'router')
+@inject('mapViewStore', 'layersStore', 'router', 'trayViewStore')
 @withRouter
 @observer export default class LayerDetailsOverlay extends Component {
   constructor(props) {
@@ -30,7 +30,25 @@ import Parser from 'html-react-parser';
   toggleLayer(event) {
     event.preventDefault();
 
-    this.props.layersStore.toggleLayer(this.props.layersStore.layer_group.id);
+    const showing = this.props.layersStore.toggleLayer(this.props.layersStore.layer_group.id);
+
+    const layerGroup = this.props.layersStore.layer_groups.get(this.props.layersStore.layer_group.id);
+    const collectionLayers = layerGroup.layers.filter((layer)=>layer.layer_type === 'collection');
+    let layerGroupCollectionIds = collectionLayers.map((layer) => layer.layer_data.collection_id);
+    layerGroupCollectionIds = [].concat(...layerGroupCollectionIds).map((id) => parseInt(id, 10));
+
+    if( showing ) {
+      this.props.trayViewStore.collection_ids = layerGroupCollectionIds;
+    }else {
+      let currentCollectionIds = this.props.trayViewStore.collection_ids || [];
+
+      layerGroupCollectionIds.forEach((id) => {
+        let index = currentCollectionIds.indexOf(id);
+        if( index > -1 ) {
+          currentCollectionIds.splice(index, 1);
+        }
+      });
+    }
 
     recordEvent('layerSelected', {
       'layerSelected': this.props.layersStore.active_layer_groups.values().map((layer) => layer.title).join(" | ")

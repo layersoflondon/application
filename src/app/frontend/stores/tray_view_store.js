@@ -1,12 +1,15 @@
-import {observable, observe, computed} from 'mobx';
+import {observable, observe, computed, intercept} from 'mobx';
 import Record from '../sources/record';
 import Collection from '../sources/collection';
 import User from '../sources/user';
 import Team from '../sources/team';
 
 import CardModel from '../models/card';
-import axios from 'axios';
+import CollectionModel from '../models/collection';
 import Search from "../sources/search";
+import pluralize from 'pluralize'
+
+window.Collection = Collection;
 
 /**
  * The data store for the TrayView
@@ -35,6 +38,7 @@ export default class TrayViewStore {
   @observable loading_user = false;
   @observable record_id = null;
   @observable collection_id = null;
+  @observable collection_ids = null;
   @observable user_id = null;
   @observable team_id = null;
   @observable searching = false;
@@ -118,8 +122,53 @@ export default class TrayViewStore {
         });
       }else {
         this.collection_id = null;
+        this.collection_ids = null;
         this.loading_collection = false;
         this.locked = false;
+      }
+    });
+
+    intercept(this, "collection_ids", (change) => {
+      if( change.newValue && change.newValue.length ) {
+        let collection_ids = this.collection_ids || [];
+        collection_ids = [].concat(...collection_ids, change.newValue);
+        change.newValue = collection_ids;
+      }
+
+      return change;
+    });
+
+    observe(this, 'collection_ids', (change) => {
+      this.loading_error = false;
+      if( change.newValue ) {
+        this.loading_collection = true;
+        Collection.query({key: 'id', value: this.collection_ids.toJS()}).then((response) => {
+          this.root = true;
+
+          let records = response.data.map((data) => data.records);
+          records = [].concat(...records);
+          const title = `Showing ${records.length} ${pluralize('record', records.length)}`;
+
+          this.setHeaderContent({
+            title: title,
+            introduction: "",
+            tray_view_type: "Collection"
+          });
+          this.showCollectionOfCards(records);
+          //  Lock this view so dragging the map doesn't change the cards
+          this.locked = true;
+        }).catch((error) => {
+          this.loading_error = true;
+          this.collection_id = null;
+        }).then(() => {
+          this.loading_collection = false;
+        });
+      }else {
+        this.collection_id = null;
+        this.loading_collection = false;
+        this.locked = false;
+        this.root = true;
+        this.restoreRootState();
       }
     });
 
@@ -253,9 +302,6 @@ export default class TrayViewStore {
     // - team: team name, number of records, team description, link to request joining
     // - creator: creator name, profile image url, number of records, description of person
     // - search: search query as title, or date range if no search query
-
-
-
   }
 
   @computed get boundsFromMapRef() {
@@ -272,6 +318,15 @@ export default class TrayViewStore {
     };
 
     return bounds;
+  }
+
+  /**
+   *
+   * @param id
+   */
+  removeLayerGroupCollectionId(id) {
+    let collection_ids = this.collection_ids.filter((id) => id !== id);
+    this.collection_ids = collection_ids;
   }
 
   /**

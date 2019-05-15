@@ -39,6 +39,8 @@ export default class LayersStore {
       this.active_layer_groups.set(layer_id, this.layer_groups.get(layer_id));
       this.layer_groups.get(layer_id).is_active = true;
     }
+
+    return this.layer_groups.get(layer_id).is_active;
   }
 
   setLayerGroups(layer_groups) {
