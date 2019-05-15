@@ -5,3 +5,14 @@
   @include record-card;
 }
 
+.m-tray-records-list {
+  .m-record-card {
+    font-size: 14px;
+    @include record-card;
+
+    &.is-hidden,
+    &.is-hidden .wrapper {
+      display: none;
+    }
+  }
+}

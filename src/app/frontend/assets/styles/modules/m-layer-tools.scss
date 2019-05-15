@@ -232,6 +232,13 @@
   content: "\f0d8";
 }
 
+.m-layer-tools .layer.has-components:not(.is-open) {
+  .layer-components {
+    height: 0;
+    overflow: hidden;
+  }
+}
+
 .m-layer-tools .key-symbol {
   width: 10px;
   height: 10px;
