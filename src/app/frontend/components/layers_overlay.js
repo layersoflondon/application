@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 import Helmet from 'react-helmet';
 import LayerGroup from './layer_group';
 
-@inject('mapViewStore', 'layersStore', 'router')
+@inject('mapViewStore', 'layersStore', 'trayViewStore', 'router')
 @withRouter
 @observer export default class LayersOverlay extends Component {
   constructor(props) {
@@ -17,6 +17,12 @@ import LayerGroup from './layer_group';
 
   handleModalBgClick(event) {
     if( event.target.className === "m-overlay" ) {
+    }
+  }
+
+  checkRestoreTray(event) {
+    if( this.props.layersStore.activeLayerGroups.length === 0 ) {
+      this.props.trayViewStore.root = false;
     }
   }
 
@@ -35,7 +41,7 @@ import LayerGroup from './layer_group';
           <div className="s-overlay--layers is-showing">
 
             <div className="close">
-              <Link to="/map" className="close">Close</Link>
+              <Link to="/map" className="close" onClick={this.checkRestoreTray.bind(this)}>Close</Link>
             </div>
 
             <div className="m-layers-picker">
