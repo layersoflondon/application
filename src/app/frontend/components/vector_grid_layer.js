@@ -10,34 +10,14 @@ import VectorGrid from 'react-leaflet-vectorgrid';
     this.vectorRef = React.createRef();
   }
 
-  // componentDidMount() {
-  //   const fetchDataLayerName = async ()=> {
-  //     let getDataLayerName = new Promise((resolve, reject) => {
-  //       let dataLayerName = false;
-  //       let timer = setInterval(() => {
-  //         if( this.vectorRef && this.vectorRef.current && this.vectorRef.current && this.vectorRef.current.leafletElement && Object.keys(this.vectorRef.current.leafletElement._dataLayerNames).length ){
-  //           dataLayerName = Object.keys(this.vectorRef.current.leafletElement._dataLayerNames)[0];
-  //
-  //           console.log("GOT: ", dataLayerName);
-  //           resolve(dataLayerName);
-  //           clearInterval(timer);
-  //         }
-  //
-  //       }, 250);
-  //     });
-  //     let dataLayerName = await getDataLayerName;
-  //     this.setState({...this.state, vectorTileLayerStyles: {[dataLayerName]: {opacity: 1, color: this.props.layer.layer_data.vector_layer_colour}}});
-  //
-  //     setTimeout(() => {
-  //       this.vectorRef.current.leafletElement.options.vectorTileLayerStyles[dataLayerName] = {weight: 2, color: this.props.layer.layer_data.vector_layer_colour};
-  //       this.vectorRef.current.leafletElement.redraw();
-  //     }, 100);
-  //   };
-  //
-  //   fetchDataLayerName();
-  // }
+  componentWillReceiveProps(nextProps, nextContext) {
+    if( this.vectorRef && this.vectorRef.current ) {
+      this.vectorRef.current.leafletElement._container.style.opacity = nextProps.layer.opacity;
+    }
+  }
 
   render() {
+    const color = this.props.layer.layer_data.vector_layer_colour;
     let options = {
       type: 'protobuf',
       key: `layer-${this.props.layer.id}`,
@@ -46,17 +26,16 @@ import VectorGrid from 'react-leaflet-vectorgrid';
       subdomains: '*',
 
       vectorTileLayerStyles: {
-        opacity: this.props.layer.getOpacity,
-        fill: true,
-        stroke: false,
         [this.props.layer.layer_data.feature_name]: {
-          color: this.props.layer.layer_data.vector_layer_colour
+          opacity: this.props.layer.opacity,
+          fillOpacity: this.props.layer.opacity,
+          fill: false,
+          stroke: true,
+          color: color,
         }
       },
       ...this.state
     };
-
-    console.log(options);
 
     return <VectorGrid {...options} ref={this.vectorRef} />
   }

@@ -18,11 +18,11 @@ import VectorGridLayer from "./vector_grid_layer";
   }
 
   geojsonLayer(layer, index) {
-    return <VectorGridLayer key={`layer-${layer.id}`} layer={layer} index={index} />
+    return <VectorGridLayer key={`layer-${layer.id}`} layer={layer} index={index} opacity={layer.getOpacity} />
   }
 
   collectionLayer(layer, index) {
-    return <CollectionLayer key={`layer-${layer.id}`} layer={layer} />
+    return <CollectionLayer key={`layer-${layer.id}`} layer={layer} opacity={layer.getOpacity} />
   }
 
   fetchLayer(layer, index) {
