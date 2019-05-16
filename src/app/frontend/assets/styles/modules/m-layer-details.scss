@@ -112,6 +112,7 @@
   background: #eee;
   margin: 0 -50px -40px;
   clear: both;
+  text-align:right;
   @include mq(small-smartphone) {
     padding: 20px 15px;
     margin: 0 -15px -15px;

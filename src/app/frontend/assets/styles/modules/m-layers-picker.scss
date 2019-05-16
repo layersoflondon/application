@@ -126,7 +126,7 @@
 .m-layers-picker .layer > a {
   color: $black;
   display: block;
-  padding: 20px;
+  padding: 20px 20px 48px 20px;
   background: white;
   @include mq(smartphone) {
     padding: 15px;
@@ -138,25 +138,35 @@
 }
 
 .m-layers-picker .layer button {
-  background: transparent;
-  border-radius: 100px;
-  border: 2px solid $green;
-  color: $green;
-  font-weight: 700;
-  font-size: 14px;
-  margin-top: 6px;
-  margin-left: -2px;
   outline: 0;
+  background: #d0ebdd;
+  font-weight: 700;
+  margin: 0;
+  display: block;
+  font-size: 14px;
+  width: 100%;
+  padding: 10px 20px;
+  text-align: left;
+  -webkit-transition: all .2s;
   transition: all .2s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  @include link-arrow;
 }
 
-.m-layers-picker .layer button:hover {
-  background: #549a7624;
+.m-layers-picker .layer button:before {
+  position: relative;
+  top: -1px;
+}
+
+.m-layers-picker .layer > a:hover button {
+  padding-left: 25px;
 }
 
 .m-layers-picker .layer.is-selected button {
-  border: 2px solid #00000042;
-  color: #00000042;
+  background: #d5c549;
+  color: #6a6014;
 }
 
 .m-layers-picker .layer button span {

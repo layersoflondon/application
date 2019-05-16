@@ -23,7 +23,7 @@ import {Link} from "react-router-dom";
         </div>
 
         <div className="actions">
-          <button className="button">More Details</button>
+          <button className="button">Use this layer</button>
         </div>
       </Link>
     </div>
