@@ -7,7 +7,7 @@ class Layer < ApplicationRecord
   MAX_SHORT_TITLE_LENGTH = 40
   validates :title, :layer_type, presence: true
   validates :layer_data, presence: true, if: -> {persisted?}
-  validates :short_name, length: {maximum: MAX_SHORT_TITLE_LENGTH}
+  validates :short_title, length: {maximum: MAX_SHORT_TITLE_LENGTH}
   validates :date_from, presence: true
   # validates :lat, :lng,  presence: true
   # validate :geojson_feature_name, if: -> {layer_type === 'geojson'}
