@@ -71,7 +71,7 @@ const handle = (props) => {
 
     return (
       <div className={classes}>
-        <span className="name" onClick={()=>this.props.layerGroup.toggleIsOpen()}>{this.props.layerGroup.name}</span>
+        <span className="name" onClick={()=>this.props.layerGroup.toggleIsOpen()}>{this.props.layerGroup.short_name || this.props.layerGroup.name}</span>
         <div className="view-controls">
           <span className="show-hide" onClick={this.toggleLayerGroupVisibility.bind(this)}>
           </span>

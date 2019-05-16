@@ -4,6 +4,7 @@ import LayerModel from './layer';
 export default class LayerGroupModel {
   id = null;
   name = '';
+  short_name = '';
   description = '';
   slug = '';
   enabled = false;
@@ -37,6 +38,7 @@ export default class LayerGroupModel {
 
     layer.id = object.id;
     layer.name = object.name;
+    layer.short_name = object.short_name;
     layer.description = object.description;
     layer.slug = object.slug;
     layer.enabled = object.enabled;

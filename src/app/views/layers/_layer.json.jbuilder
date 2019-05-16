@@ -1,6 +1,5 @@
 json.id layer['id']
 json.title layer['title']
-json.name layer['name']
 json.description layer['description']
 json.credit layer['credit']
 json.lat layer['lat']

@@ -101,7 +101,7 @@ import Parser from 'html-react-parser';
                     <h2 className="subtitle">Available data</h2>
                     <div className="text-content">
                       <ul>
-                        {this.props.layersStore.layer_group.layers.map((l, i) => <li key={i}>{l.name}</li>)}
+                        {this.props.layersStore.layer_group.layers.map((l, i) => <li key={i}>{l.title}</li>)}
                       </ul>
                     </div>
                     <a className="download-link" href={`/layers/${this.props.layersStore.layer_group.slug}/export`} download>Download (.XLS format)</a>

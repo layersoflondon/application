@@ -17,7 +17,7 @@ import LayerGroupTool from './layer_group_tool';
   }
 
   render() {
-    this.state.is_open = (this.props.layersStore.active_layer_groups.size) ? true : this.state.is_open;
+    // this.state.is_open = (this.props.layersStore.active_layer_groups.size) ? true : this.state.is_open;
     let classes = "m-layer-tools";
     if( !this.state.is_open ) {
       classes += " is-closed";
