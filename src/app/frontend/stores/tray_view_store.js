@@ -139,10 +139,11 @@ export default class TrayViewStore {
     });
 
     observe(this, 'collection_ids', (change) => {
-      console.log("Setting collection_ids = ", change.newValue);
       this.loading_error = false;
       if( change.newValue ) {
+        if( !this.collection_ids.toJS().length ) return;
         this.loading_collection = true;
+
         Collection.query({key: 'id', value: this.collection_ids.toJS()}).then((response) => {
           this.root = true;
 
