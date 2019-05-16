@@ -48,14 +48,9 @@ import Equalizer from "./Equalizer";
             <div className="m-layers-picker">
               <div className="header">
                 <h1>Layers</h1>
-
-                <p>
-                  Activate the following layers on the map
-                </p>
               </div>
 
               <div className="layers">
-                <h2>All Layers</h2>
                 <Equalizer selector="a:first-child">
                   {this.props.layersStore.layer_groups.values().map((layer_group) => <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)}
                 </Equalizer>
