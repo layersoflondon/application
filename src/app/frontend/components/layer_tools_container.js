@@ -2,6 +2,24 @@ import React,{Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import LayerGroupTool from './layer_group_tool';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+  ...draggableStyle,
+  userSelect: 'none',
+  position: isDragging ? 'static' : 'relative',
+  height: isDragging ? '0' : 'auto',
+  display: 'block',
+});
+
+const getListStyle = isDraggingOver => ({
+  width: '100%',
+});
+
+const handle = (props) => {
+  const {value, dragging, index, ...otherProps} = props;
+  return <Slider.Handle value={value} {...otherProps} />;
+};
 
 @inject('layersStore')
 @withRouter
@@ -16,6 +34,18 @@ import LayerGroupTool from './layer_group_tool';
     this.setState({is_open: !this.state.is_open});
   }
 
+  onDragEnd(result) {
+    if( !result.destination ) {
+      return;
+    }
+
+    const list = this.props.layersStore.active_layer_groups;
+    const [removed] = list.splice(result.source.index, 1);
+    list.splice(result.destination.index, 0, removed);
+
+    this.props.layersStore.active_layer_groups = list;
+  }
+
   render() {
     // this.state.is_open = (this.props.layersStore.active_layer_groups.size) ? true : this.state.is_open;
     let classes = "m-layer-tools";
@@ -23,14 +53,29 @@ import LayerGroupTool from './layer_group_tool';
       classes += " is-closed";
     }
 
-    return <div className={classes}>
+    return <div className={classes} style={{ transform: "none" }}>
       <div className="panel">
         <button className="open" onClick={this.handleOnClick.bind(this)}>Layer tools</button>
 
         <div className="layers">
-          <div>
-            {this.props.layersStore.activeLayerGroups.map((layerGroup) => <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} />)}
-          </div>
+          <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
+            <Droppable style={{ transform: "none" }} droppableId="droppable">
+              {(provided, snapshot) => (
+                <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+                  {this.props.layersStore.activeLayerGroups.map((layerGroup, index) => (
+                    <Draggable key={layerGroup.id} draggableId={layerGroup.id} index={index}>
+                      {(provided, snapshot) => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
+                          <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
 
           <Link to="/map/layers">Choose new layers</Link>
         </div>
