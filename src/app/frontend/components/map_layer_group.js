@@ -14,11 +14,11 @@ import VectorGridLayer from "./vector_grid_layer";
   }
 
   tileserverLayer(layer, index) {
-    return <TileLayer key={`layer-${layer.id}`} url={layer.layer_data.url} opacity={layer.getOpacity} zIndex={1000-index} />
+    return <TileLayer key={`layer-${layer.id}`} url={layer.layer_data.url} opacity={layer.getOpacity} zIndex={this.props.layerIndex + index} />
   }
 
   geojsonLayer(layer, index) {
-    return <VectorGridLayer key={`layer-${layer.id}`} layer={layer} index={index} opacity={layer.getOpacity} />
+    return <VectorGridLayer key={`layer-${layer.id}`} layer={layer} layerIndex={this.props.layerIndex} index={index} opacity={layer.getOpacity} />
   }
 
   collectionLayer(layer, index) {

@@ -13,6 +13,7 @@ import VectorGrid from 'react-leaflet-vectorgrid';
   componentWillReceiveProps(nextProps, nextContext) {
     if( this.vectorRef && this.vectorRef.current ) {
       this.vectorRef.current.leafletElement._container.style.opacity = nextProps.layer.opacity;
+      this.vectorRef.current.leafletElement._container.style.zIndex = (nextProps.layerIndex -+nextProps.index);
     }
   }
 
@@ -37,6 +38,6 @@ import VectorGrid from 'react-leaflet-vectorgrid';
       ...this.state
     };
 
-    return <VectorGrid {...options} ref={this.vectorRef} />
+    return <VectorGrid {...options} ref={this.vectorRef} zIndex={this.props.layerIndex + this.props.index} />
   }
 }

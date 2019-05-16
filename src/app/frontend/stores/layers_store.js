@@ -8,7 +8,7 @@ export default class LayersStore {
   @observable layer_group = null;
   @observable layer_group_id = null;
 
-  @observable active_layer_groups = observable.map();
+  @observable active_layer_groups =[];
   @observable loupe_layer_id = null;
 
   @observable loading = false;
@@ -32,15 +32,19 @@ export default class LayersStore {
   }
 
   toggleLayer(layer_id) {
-    if(this.active_layer_groups.get(layer_id)) {
-      this.layer_groups.get(layer_id).is_active = false;
-      this.active_layer_groups.delete(layer_id);
+    let layerGroup = this.active_layer_groups.find((layerGroup) => layerGroup.id === layer_id);
+
+    if( layerGroup ) {
+      layerGroup.is_active = false;
+      const index = this.active_layer_groups.indexOf(layerGroup);
+      this.active_layer_groups.splice(index, 1);
     }else {
-      this.active_layer_groups.set(layer_id, this.layer_groups.get(layer_id));
-      this.layer_groups.get(layer_id).is_active = true;
+      layerGroup = this.layer_groups.get(layer_id);
+      layerGroup.is_active = true;
+      this.active_layer_groups.push(this.layer_groups.get(layer_id));
     }
 
-    return this.layer_groups.get(layer_id).is_active;
+    return layerGroup.is_active;
   }
 
   setLayerGroups(layer_groups) {
@@ -56,11 +60,11 @@ export default class LayersStore {
   }
 
   @computed get activeLayerGroups() {
-    return this.active_layer_groups.values();
+    return this.active_layer_groups.reverse();
   }
 
   @computed get activeVisibleLayerGroups() {
-    return this.active_layer_groups.values().filter((layer_group) => layer_group.is_visible);
+    return this.activeLayerGroups.filter((layer_group) => layer_group.is_visible);
   }
 
   static fromJS(layer_groups) {
