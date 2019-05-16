@@ -5,9 +5,13 @@ class LayerGroup < ApplicationRecord
 
   update_index('layer_groups') { self }
 
+  MAX_SHORT_TITLE_LENGTH = 30
+
   has_many :layers
   belongs_to :image, class_name: 'Attachments::Image', dependent: :destroy
   accepts_nested_attributes_for :image
+
+  validates :short_name, length: {maximum: MAX_SHORT_TITLE_LENGTH}
 
   def generate_export
     workbook = RubyXL::Workbook.new

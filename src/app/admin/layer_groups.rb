@@ -1,5 +1,6 @@
 ActiveAdmin.register LayerGroup do
   permit_params :name,
+                :short_name,
                 :description,
                 :credit,
                 :collection_id,

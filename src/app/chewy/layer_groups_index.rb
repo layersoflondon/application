@@ -10,6 +10,7 @@ class LayerGroupsIndex < Chewy::Index
   define_type LayerGroup do
     field :id, type: 'integer'
     field :name, type: 'text'
+    field :short_name, type: 'text'
     field :description, type: 'text'
     field :slug, type: :keyword
     field :image, type: :object, value: -> {

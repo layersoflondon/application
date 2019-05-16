@@ -2,7 +2,6 @@
     <%= f.semantic_errors *f.object.errors.keys %>
     <%= f.inputs "Basic Details" do %>
         <%= f.input :title %>
-        <%= f.input :short_title %> <span>If the title is longer than <%= Layer::MAX_SHORT_TITLE_LENGTH %> chars, we'll truncate it <strong>or</strong> use this field instead</span>
 
         <%= f.input :description, as: :quill_editor, input_html: {data: {options: {modules: {toolbar: [['bold', 'italic', 'underline'], ['link']]}, placeholder: 'Enter description in here', theme: 'snow'}}} %>
 

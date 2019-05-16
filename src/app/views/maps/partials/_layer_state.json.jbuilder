@@ -1,5 +1,6 @@
 json.id layer.id
 json.name layer.name
+json.short_name layer.short_name
 json.description layer.description
 json.slug layer.slug
 # json.credit layer.credit

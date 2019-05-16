@@ -16,7 +16,7 @@ import {Link} from "react-router-dom";
           <div className="image" style={{'backgroundImage': 'url(' + this.props.layerGroup.image.card + ')'}}>
           </div>
           }
-        <h2>{this.props.layerGroup.name}</h2>
+        <h2>{this.props.layerGroup.short_name}</h2>
         <div className="description">
           {Parser(this.props.layerGroup.description||"")}
           {this.props.layerGroup.credit && (<span className="credit">{Parser(this.props.layerGroup.credit)}</span>)}
