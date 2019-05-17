@@ -4,6 +4,7 @@ import MarkerContainer from './marker_container';
 import {observer, inject} from "mobx-react";
 import {observe} from 'mobx';
 import LayerToolsContainer from './layer_tools_container';
+import LightsOutTool from './lights_out_tool';
 import ErrorBoundary from './error_boundary';
 import MapSearchContainer from './map_search_container';
 import pluralize from "pluralize";
@@ -151,10 +152,13 @@ import MapLayerGroup from "./map_layer_group";
             {layers}
             {this.props.layersStore.loupe_layer && <TileLayer key={this.props.layersStore.loupe_layer.id} url={this.props.layersStore.loupe_layer.url} attribution={this.props.layersStore.loupe_layer.attribution} opacity={this.props.layersStore.loupe_layer.opacity} zIndex={1000+1} className="clipped-tilelayer" ref='clipped-tilelayer' />}
 
-            {markers}
+            {!this.props.mapViewStore.lightsOut &&
+              markers
+            }
           </Map>
         </div>
 
+        <LightsOutTool {...this.props} />
         <LayerToolsContainer {...this.props} />
       </div>
     </ErrorBoundary>;
