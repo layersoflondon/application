@@ -7,7 +7,6 @@ import {Link} from "react-router-dom";
   constructor(props) {
     super(props);
     this.creditLinkRef = React.createRef();
-    console.log(this.props.layerGroup["$mobx"].name, this.props.layerGroup.name);
   }
 
   render() {

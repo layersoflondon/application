@@ -38,6 +38,6 @@ import VectorGrid from 'react-leaflet-vectorgrid';
       ...this.state
     };
 
-    return <VectorGrid {...options} ref={this.vectorRef} zIndex={this.props.layerIndex + this.props.index} />
+    return <VectorGrid {...options} ref={this.vectorRef} zIndex={this.props.layerIndex - this.props.index} />
   }
 }

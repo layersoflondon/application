@@ -22,7 +22,21 @@ export default class LayerGroupModel {
   }
 
   @computed get visibleLayers() {
-    return this.layers.filter((layer) => layer.is_visible);
+    let layers = this.layers.filter((layer) => layer.is_visible);
+    let tileserverLayers = layers.filter((l)=>l.layer_type === 'tileserver');
+    let otherLayers = layers.filter((l) => l.layer_type !== 'tileserver');
+    layers = [].concat(otherLayers, tileserverLayers);
+
+    return layers;
+  }
+
+  @computed get allLayers() {
+    let layers = this.layers;
+    let tileserverLayers = layers.filter((l)=>l.layer_type === 'tileserver');
+    let otherLayers = layers.filter((l) => l.layer_type !== 'tileserver');
+    layers = [].concat(otherLayers, tileserverLayers);
+
+    return layers;
   }
 
   toggleIsOpen(){

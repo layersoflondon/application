@@ -14,7 +14,7 @@ import VectorGridLayer from "./vector_grid_layer";
   }
 
   tileserverLayer(layer, index) {
-    return <TileLayer key={`layer-${layer.id}`} url={layer.layer_data.url} opacity={layer.getOpacity} zIndex={this.props.layerIndex + index} />
+    return <TileLayer key={`layer-${layer.id}`} url={layer.layer_data.url} opacity={layer.getOpacity} zIndex={this.props.layerIndex - index} />
   }
 
   geojsonLayer(layer, index) {
