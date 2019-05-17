@@ -7,6 +7,7 @@ export default class CardModel {
   @observable highlighted_by_marker; // the marker associated with this card has been hovered
   @observable image;
   @observable visible = true;
+  @observable opacity = 1;
 
   constructor(object, store = null) {
     this.object = object;
