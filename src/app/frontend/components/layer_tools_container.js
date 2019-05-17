@@ -52,6 +52,9 @@ const handle = (props) => {
       classes += " is-closed";
     }
 
+    const lightsOutLabel = this.props.mapViewStore.lightsOut ? 'Show markers' : 'Hide markers';
+    const lightsOutClasses = this.props.mapViewStore.lightsOut ? 'lights-out is-active' : 'lights-out';
+
     return <div className={classes} style={{ transform: "none" }}>
       <div className="panel">
         <button className="open" onClick={this.handleOnClick.bind(this)}>Layer tools</button>
@@ -75,6 +78,8 @@ const handle = (props) => {
               )}
             </Droppable>
           </DragDropContext>
+
+          <Link className={lightsOutClasses} to="#" onClick={()=>this.props.mapViewStore.lightsOut = !this.props.mapViewStore.lightsOut}>{lightsOutLabel}</Link>
 
           <Link to="/map/layers">Choose new layers</Link>
         </div>

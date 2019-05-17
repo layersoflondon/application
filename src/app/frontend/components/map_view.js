@@ -4,7 +4,6 @@ import MarkerContainer from './marker_container';
 import {observer, inject} from "mobx-react";
 import {observe} from 'mobx';
 import LayerToolsContainer from './layer_tools_container';
-import LightsOutTool from './lights_out_tool';
 import ErrorBoundary from './error_boundary';
 import MapSearchContainer from './map_search_container';
 import pluralize from "pluralize";
@@ -158,7 +157,6 @@ import MapLayerGroup from "./map_layer_group";
           </Map>
         </div>
 
-        <LightsOutTool {...this.props} />
         <LayerToolsContainer {...this.props} />
       </div>
     </ErrorBoundary>;
