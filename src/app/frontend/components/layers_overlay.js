@@ -56,6 +56,10 @@ import Equalizer from "./Equalizer";
                 </Equalizer>
               </div>
 
+              <div className="confirm">
+                <button>I'm done!</button>
+              </div>
+
             </div>
           </div>
         </div>
