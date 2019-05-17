@@ -3,14 +3,18 @@
 <div class="s-overlay--your-account--teams is-showing">
     <div class="m-account-page m-account-page--teams">
         <div class="wrap">
-            <% if @teams.any? %>
-                <div class="section">
-                    <h2>Your teams and requests</h2>
+
+            <div class="section">
+                <h2>Your teams and requests</h2>
+                <% if @teams.any? %>
                     <ul>
                         <%= render partial: 'teams/team', collection: @teams %>
                     </ul>
-                </div>
-            <% end %>
+                <% else %>
+                    <p>You aren't part of any teams yet.</p>
+                <% end %>
+            </div>
+
         </div>
         <div class="wrap">
             <% if policy(Team).search? %>
