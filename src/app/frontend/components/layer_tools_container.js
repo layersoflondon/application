@@ -47,8 +47,7 @@ const handle = (props) => {
   }
 
   render() {
-    // this.state.is_open = (this.props.layersStore.active_layer_groups.size) ? true : this.state.is_open;
-    let classes = "m-layer-tools";
+    let classes = `m-layer-tools ${this.props.layersStore.activeVisibleLayerGroups.length}-layers`;
     if( !this.state.is_open ) {
       classes += " is-closed";
     }

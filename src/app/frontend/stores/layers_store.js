@@ -32,16 +32,19 @@ export default class LayersStore {
   }
 
   toggleLayer(layer_id) {
-    let layerGroup = this.active_layer_groups.find((layerGroup) => layerGroup.id === layer_id);
+    let activeLayerGroups = this.active_layer_groups.slice();
+    let layerGroup = activeLayerGroups.find((layerGroup) => layerGroup.id === layer_id);
 
     if( layerGroup ) {
       layerGroup.is_active = false;
-      const index = this.active_layer_groups.indexOf(layerGroup);
-      this.active_layer_groups.splice(index, 1);
+      const index = activeLayerGroups.indexOf(layerGroup);
+      activeLayerGroups.splice(index, 1);
+      this.active_layer_groups = activeLayerGroups;
     }else {
       layerGroup = this.layer_groups.get(layer_id);
       layerGroup.is_active = true;
-      this.active_layer_groups.push(this.layer_groups.get(layer_id));
+      activeLayerGroups.push(this.layer_groups.get(layer_id));
+      this.active_layer_groups = activeLayerGroups;
     }
 
     return layerGroup.is_active;
