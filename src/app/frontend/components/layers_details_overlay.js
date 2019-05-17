@@ -51,7 +51,7 @@ import Parser from 'html-react-parser';
     }
 
     recordEvent('layerSelected', {
-      'layerSelected': this.props.layersStore.active_layer_groups.map((layer) => layer.title).join(" | ")
+      'layerSelected': this.props.layersStore.activeLayerGroups.map((layer) => layer.title).join(" | ")
     });
 
     this.props.router.push('/map/layers');

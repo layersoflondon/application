@@ -39,11 +39,11 @@ const handle = (props) => {
       return;
     }
 
-    const list = this.props.layersStore.active_layer_groups;
+    const list = this.props.layersStore.activeLayerGroups;
     const [removed] = list.splice(result.source.index, 1);
     list.splice(result.destination.index, 0, removed);
 
-    this.props.layersStore.active_layer_groups = list;
+    this.props.layersStore.layer_group_order = list;
   }
 
   render() {

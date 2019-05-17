@@ -39,7 +39,7 @@ import Equalizer from "./Equalizer";
           <meta name='keywords' content={`layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`} />
         </Helmet>
         <div className={className} onClick={this.handleModalBgClick.bind(this)}>
-          <div className="s-overlay--layers is-showing">
+          <div className={`s-overlay--layers is-showing ${this.props.layersStore.activeVisibleLayerGroups.length}-active-layers`}>
 
             <div className="close">
               <Link to="/map" className="close" onClick={this.checkRestoreTray.bind(this)}>Close</Link>

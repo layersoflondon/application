@@ -7,9 +7,12 @@ import {Link} from "react-router-dom";
   constructor(props) {
     super(props);
     this.creditLinkRef = React.createRef();
+    console.log(this.props.layerGroup["$mobx"].name, this.props.layerGroup.name);
   }
 
   render() {
+    const label_prefix = this.props.layerGroup.is_active ? "Deselect" : "Select";
+
     return <div className={`layer ${(this.props.layerGroup.is_active) ? "layer is-selected" : ""}`}>
       <Link to={`/map/layers/${this.props.layerGroup.slug}`}>
           {this.props.layerGroup.image &&
@@ -23,7 +26,7 @@ import {Link} from "react-router-dom";
         </div>
 
         <div className="actions">
-          <button className="button">Use this layer</button>
+          <button className="button">{label_prefix} this layer</button>
         </div>
       </Link>
     </div>
