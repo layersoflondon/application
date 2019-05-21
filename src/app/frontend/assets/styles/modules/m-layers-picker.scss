@@ -247,3 +247,35 @@
   color: $green;
   margin: 0;
 }
+
+.m-layers-picker .confirm {
+  @include font-display;
+  @include polygon-background(yellow, top, false);
+  padding: 20px 25px;
+  color: $black;
+  display: inline-block;
+  position: fixed;
+  bottom: 0;
+  right: calc((100% - 1080px) / 2);
+  margin-right: -40px;
+  @media screen and (max-width:1190px) {
+    right:10px;
+    margin-right:0;
+  }
+  @include mq(smartphone) {
+    right:0;
+  }
+  @include mq(small-smartphone) {
+    padding: 14px 19px;
+  }
+}
+
+.m-layers-picker .confirm button,
+.m-layers-picker .confirm .btn {
+  @include big-square-button;
+  font-family: 'Muli', sans-serif;
+
+  @include mq(small-smartphone) {
+    padding: 10px 18px;
+  }
+}

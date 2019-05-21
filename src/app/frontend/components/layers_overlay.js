@@ -56,6 +56,12 @@ import Equalizer from "./Equalizer";
                 </Equalizer>
               </div>
 
+              {this.props.layersStore.activeLayerGroups.length &&
+                <div className="confirm">
+                  <Link to="/map" className="btn" onClick={this.checkRestoreTray.bind(this)}>I'm done!</Link>
+                </div>
+              }
+
             </div>
           </div>
         </div>
