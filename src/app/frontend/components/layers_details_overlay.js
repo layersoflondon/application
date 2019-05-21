@@ -104,7 +104,7 @@ import Parser from 'html-react-parser';
                         {this.props.layersStore.layer_group.layers.map((l, i) => <li key={i}>{l.title}</li>)}
                       </ul>
                     </div>
-                    <a className="download-link" href={`/layers/${this.props.layersStore.layer_group.slug}/export`} download>Download (.XLS format)</a>
+                    {/*<a className="download-link" href={`/layers/${this.props.layersStore.layer_group.slug}/export`} download>Download (.XLS format)</a>*/}
                   </div>
 
                   <div className="footer">
