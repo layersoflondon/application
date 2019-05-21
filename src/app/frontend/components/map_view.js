@@ -151,7 +151,9 @@ import MapLayerGroup from "./map_layer_group";
             {layers}
             {this.props.layersStore.loupe_layer && <TileLayer key={this.props.layersStore.loupe_layer.id} url={this.props.layersStore.loupe_layer.url} attribution={this.props.layersStore.loupe_layer.attribution} opacity={this.props.layersStore.loupe_layer.opacity} zIndex={1000+1} className="clipped-tilelayer" ref='clipped-tilelayer' />}
 
-            {markers}
+            {!this.props.mapViewStore.lightsOut &&
+              markers
+            }
           </Map>
         </div>
 
