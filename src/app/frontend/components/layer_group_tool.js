@@ -54,7 +54,9 @@ const handle = (props) => {
           </span>
         </div>
 
-        {this.props.layerGroup.allLayers.map((layer, index) => <LayerTool key={layer.id} layer={layer} />)}
+        <div className="layer-components">
+          {this.props.layerGroup.allLayers.map((layer, index) => <LayerTool key={layer.id} layer={layer} />)}
+        </div>
       </div>
     );
   }
