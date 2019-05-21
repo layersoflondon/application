@@ -64,7 +64,7 @@ const handle = (props) => {
 
     return <div className={`layer-component ${layer_visibility}`}>
       <span className={`key-symbol key-symbol--outline`} style={this.layerSymbolColorStyle(this.props.layer)}></span>
-      <span onClick={this.handleLayerClick.bind(this)}>{this.props.layer.title} {this.props.layer.is_loading && <span className="is-loading"></span>}</span>
+      <span className="name" onClick={this.handleLayerClick.bind(this)}>{this.props.layer.title} {this.props.layer.is_loading && <span className="is-loading"></span>}</span>
 
       <div className="view-controls">
         <span className={`show-hide ${layer_visibility}`} onClick={this.toggleLayerVisibility.bind(this)}>
