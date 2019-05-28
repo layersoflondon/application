@@ -72,11 +72,11 @@ namespace :import do
         lng = lng.to_s.strip().gsub(/(,|[[:space:]])/, '').to_f
         next if lat === 0.0 || lng === 0.0
 
-        puts "Importing #{title}"
-
         begin
           title = ActionController::Base.helpers.strip_tags(title)
           next if collection.records.find_by(title: title).present?
+
+          puts "Importing #{title}"
 
           record_description = ActionController::Base.helpers.simple_format(ActionController::Base.helpers.strip_tags(description))
 
