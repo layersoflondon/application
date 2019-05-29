@@ -30,7 +30,7 @@ namespace :import do
 
       #   Find or create the collection
       #
-      collection = team.collections.find_or_initialize_by(title: "Housing London: London County Council Collections")
+      collection = team.collections.find_or_initialize_by(title: "London's Health and Welfare: London County Council Collections")
       # set read state and write state
       collection.public_read!
       collection.team!
