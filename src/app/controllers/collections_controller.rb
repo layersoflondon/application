@@ -50,6 +50,11 @@ class CollectionsController < ApplicationController
     render json: '', status: :not_found unless @collection
     update_collection_params = collection_params.to_h
     @collection.assign_attributes(update_collection_params)
+
+    if @collection.write_state_changed? && @collection.write_state === 'team'
+      @collection.assign_attributes({owner_type: 'Team', owner_id: @collection.write_state_team_id})
+    end
+
     return @collection if @collection.save
     render json: @collection.errors, status: :unprocessable_entity
   end
