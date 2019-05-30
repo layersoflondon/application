@@ -30,7 +30,7 @@ class CollectionsIndex < Chewy::Index
     }).limit(limit).order(:sort_title)
   end
 
-  def self.user_collections(user_id)
+  def self.user_collections(user_id, limit: 200)
     query = {
       bool: {
         should: [
@@ -86,7 +86,7 @@ class CollectionsIndex < Chewy::Index
       }
     }
 
-    filter(query)
+    filter(query).limit(limit)
   end
 
   def self.everyone_collections(exclude_user_id: nil)
