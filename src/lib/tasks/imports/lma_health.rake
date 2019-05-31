@@ -149,6 +149,7 @@ namespace :import do
           end
 
           record.save!
+          collection.save
 
         rescue => e
           puts e

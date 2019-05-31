@@ -49,16 +49,20 @@ namespace :import do
       # ["No. ", "Collage Record No.", "Metropolitan Borough (pre-1965)", "Title", "Description", "Extra links (hyperlink underlined in text)", "Estate name link to image group search on COLLAGE", "Image (Content) Date", "COLLAGE link", "Catalogue No. (HIDE) ", "Geo-location (lat)", "Geo-location (long)", "LMA Website Link ", "Text for LMA Website Link"]
       # 
       rows[1..-1].each do |row|
-        number, collage_id, borough, title, description, extra_links, estate_name_link, date, collage_link, catalogue_number, lat, lng, lma_link, lma_link_text = *row
+        number, catalogue_number, collage_record_id, borough, lat, lng, date, created_by, title, description, extra_link_1, extra_link_1_title, estate_name_link, estate_name_link_title, extra_link_2, extra_link_2_title, extra_link_3, extra_link_3_title, extra_link_4, extra_link_4_title, lma_link, lma_link_title = *row
         # pull out the string portion of a date
         date = date.to_s.match(/\d+/).try(:[], 0)
         next unless date.present?
 
-        puts "Importing #{title}"
-
         begin
           title = ActionController::Base.helpers.strip_tags(title)
-          next if collection.records.find_by(title: title).present?
+          if collection.records.find_by(title: title).present?
+            puts "Skipping\n\n"
+            next
+          end
+
+          puts "Importing #{title}"
+
           record = Record.new({
                                 state: "published",
                                 title: ActionController::Base.helpers.strip_tags(title),
@@ -75,14 +79,14 @@ namespace :import do
           image = record.attachments.build(attachment_type: 'image', credit: 'London Metropolitan Archives (City of London Corporation)', attachable_attributes: {
             title: record.title
           })
-          file_path = File.join(File.expand_path(args[:images_path]), "#{catalogue_number}.jpg")
+          file_path = File.join(File.expand_path(args[:images_path]), "London Met Archives #{catalogue_number}.jpg")
           image.attachable.file.attach(io: StringIO.new(File.open(file_path).read), filename: "#{catalogue_number}.jpg")
           image.attachable.caption = ""
           record.save!
           record.update_attribute(:primary_image_id, image.attachable.id)
 
-          extra_links = (extra_links || "").strip.split(/\n+/)
-          extra_links.each do |link|
+          extra_links = [extra_link_1, extra_link_1_title, extra_link_2, extra_link_2_title, extra_link_3, extra_link_3_title, extra_link_4, extra_link_4_title].each_slice(2).to_a.reject{|el| el.all?(nil)}
+          extra_links.each do |link, title|
             if link.match(/youtube/i)
               #   we're creating a video attachment
               video = record.attachments.build(attachment_type: 'video', credit: "", attachable_attributes: {
@@ -92,7 +96,7 @@ namespace :import do
             else
               #   we're creating a normal link
               record.attachments.create(attachment_type: 'url', attachable_attributes: {
-                title: link,
+                title: (title || link),
                 url: link
               })
             end
@@ -105,9 +109,9 @@ namespace :import do
             })
           end
 
-          if lma_link.present? && lma_link_text.present?
+          if lma_link.present? && lma_link_title.present?
             record.attachments.create(attachment_type: 'url', attachable_attributes: {
-              title: lma_link_text.strip,
+              title: lma_link_title.strip,
               url: lma_link.strip
             })
           end
@@ -117,7 +121,7 @@ namespace :import do
           end
 
           record.save!
-
+          collection.save
         rescue => e
           puts e
           next
