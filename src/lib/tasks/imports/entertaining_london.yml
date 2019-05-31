@@ -2,7 +2,7 @@ find:
   team:
     name: "London Metropolitan Archives"
   collection:
-    title: "Entertaining London: London County Council Collections"
+    title: "London County Council Collections: Entertaining London"
 import:
   rows_indices:
     - 1
@@ -17,14 +17,15 @@ import:
     - created_by
     - title
     - description
-    - image_collage_link
-    - image_collage_link_title
-    - school_collage_link
-    - school_collage_link_title
     - extra_link_1
     - extra_link_1_title
     - extra_link_2
     - extra_link_2_title
+    - extra_link_3
+    - extra_link_3_title
+    - extra_link_4
+    - extra_link_4_title
+    - attribution
     - lma_website_link
     - lma_website_link_title
   image_filename_prefix: "London Met Archives"
@@ -39,4 +40,7 @@ import:
   extra_link_attributes:
     - extra_link_1
     - extra_link_2
+    - extra_link_3
+    - extra_link_4
     - lma_website_link
+  credit_attribute: attribution

@@ -25,6 +25,8 @@ import:
     - extra_link_1_title
     - extra_link_2
     - extra_link_2_title
+    - extra_link_3
+    - extra_link_3_title
     - lma_website_link
     - lma_website_link_title
   image_filename_prefix: "London Met Archives"
@@ -36,7 +38,10 @@ import:
                             The London County Council collection is held at London Metropolitan Archives:  <a href='https://search.lma.gov.uk/scripts/mwimain.dll/144/LMA_OPAC/web_detail/REFD+LCC?SESSIONSEARCH'>Collection Catalogue</a>.
                            "
   extra_link_attributes:
+    - image_collage_link
+    - school_collage_link
     - extra_link_1
     - extra_link_2
+    - extra_link_3s
     - lma_website_link
   credit_attribute: attribution
