@@ -1,18 +1,18 @@
 version: '3.1'
 
+networks:
+  error-network:
+      driver: bridge
+
 volumes:
   esdata:
     driver: local
-  db_data:
-  gem_cache:
-  node_modules_cache:
 
 services:
   mysql:
     image: mysql:5.7
     ports:
       - '3306:3306'
-      - '8889:3306'
     volumes:
       - ./src/database/import:/docker-entrypoint-initdb.d
     environment:
@@ -20,12 +20,16 @@ services:
       - MYSQL_DATABASE=layers-app_development
       - MYSQL_USER=user
       - MYSQL_PASSWORD=root
+    networks:
+      - error-network
     labels:
       - maintainer='jordi@error.agency'
   redis:
     image: redis:3.2
-#    ports:
-#      - '6379:6379'
+    networks:
+      - error-network
+    ports:
+      - '6379:6379'
     labels:
       - maintainer='jordi@error.agency'
 
@@ -33,9 +37,11 @@ services:
     build:
       context: .
       dockerfile: docker/elasticsearch/Dockerfile
-#    ports:
-#      - "9200:9200"
-#      - "8080:8080"
+    networks:
+      - error-network
+    ports:
+      - "9200:9200"
+      - "8080:8080"
     environment:
       LOGSPOUT: 'ignore'
       ES_JAVA_OPTS: '-Xms1024m -Xmx1024m'
@@ -53,39 +59,6 @@ services:
       test: ["CMD", "curl", "-SsfL", "127.0.0.1:9200/_cat/health?h=status"]
       interval: 60s
       timeout: 1s
-      retries: 10
-  web:
-    build:
-      context: ./src
-      dockerfile: ../docker/web/Dockerfile
-    ports:
-    - 3000:3000
-    volumes:
-    - ./src:/usr/src/app
-    - gem_cache:/gems
-    - node_modules_cache:/node_modules
-    environment:
-      WEBPACKER_DEV_SERVER_HOST: webpack
-    depends_on:
-      - webpack
-
-  webpack:
-    build:
-      context: ./src
-      dockerfile: ../docker/web/Dockerfile
-    command: ./bin/webpack-dev-server
-    ports:
-    - 3035:3035
-    volumes:
-    - ./src:/usr/src/app
-    - gem_cache:/gems
-    - node_modules_cache:/node_modules
-    environment:
-      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
-    healthcheck:
-      test: ["CMD","curl","--fail","127.0.0.1:3035/webpack-dev-server","||","exit 1"]
-      interval: 10s
-      timeout: 2s
       retries: 10
 
 
