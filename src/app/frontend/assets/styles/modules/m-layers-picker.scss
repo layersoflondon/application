@@ -18,8 +18,35 @@
 
 .m-layers-picker .search {
   float: right;
-  margin-bottom: 30px;
-  display: none;
+  margin-top: 50px;
+}
+
+.m-layers-picker .search input {
+  padding: 14px 14px 14px 44px;
+  border: 2px solid grey;
+  transition: border .2s;
+  color: white;
+  width: 220px;
+  background: transparent url('../assets/images/icon-search.svg') 14px 15px/20px no-repeat;
+}
+
+.m-layers-picker .search input:focus {
+  border: 2px solid white;
+}
+
+.m-layers-picker .search {
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: white;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: white;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: white;
+  }
 }
 
 .m-layers-picker .layers {
@@ -29,6 +56,23 @@
   @media screen and (max-width: 650px) {
     margin-right: 0;
   }
+}
+
+.m-layers-picker .section-title {
+  text-align: center;
+  margin-top: -64px;
+  margin-bottom: 14px;
+}
+
+.m-layers-picker .section-title h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  background: #549a77;
+  display: inline-block;
+  padding: 3px 6px 2px;
+  color: white;
+  font-weight: 500;
+  padding: 10px 15px;
 }
 
 .m-layers-picker .layers h2 {
@@ -72,7 +116,7 @@
 
 .m-layers-picker .layer .image {
   width: auto;
-  padding-bottom: 60%;
+  padding-bottom: 55%;
   background: #555;
   background-size: cover;
   background-position: center;
@@ -117,6 +161,9 @@
   @include font-display;
   margin-top: 16px;
   line-height: 1.3;
+  font-size: 18px;
+  font-weight: 600;
+  color: $red;
 }
 
 .m-layers-picker .wrap > button {
@@ -126,10 +173,10 @@
 .m-layers-picker .layer > a {
   color: $black;
   display: block;
-  padding: 20px 20px 48px 20px;
+  padding: 20px 20px 20px 20px;
   background: white;
   @include mq(smartphone) {
-    padding: 15px 15px 48px 15px;
+    padding: 15px 15px 15px 15px;
   }
 }
 
@@ -182,8 +229,8 @@
 //}
 
 .m-layers-picker .layer .description {
-  font-size: 14px;
-  margin: 10px 0;
+  font-size: 13px;
+  margin-top: 10px;
 }
 
 .m-layers-picker .layer > a {
@@ -202,26 +249,36 @@
 }
 
 .m-layers-picker .layer a:after {
-  content: "\f00c";
+  content: "\f067";
   color: white;
-  background: $green;
+  background: #3e3e3e;
   font: normal normal normal 24px/1 FontAwesome;
   text-align: center;
   position: absolute;
-  right: 20px;
-  bottom: -24px;
+  right: 12px;
+  top: 10px;
   display: block;
-  width: 60px;
-  height: 60px;
-  padding-top: 17px;
+  width: 50px;
+  height: 50px;
+  padding-top: 14px;
   border-radius: 100px;
-  opacity: 0;
-  transform: scale(0.7);
+  //transform: scale(0.7);
   transition: all .2s;
 }
 
+.m-layers-picker .layer a:hover:after {
+  color: $yellow;
+  transform: scale(1.1);
+}
+
 .m-layers-picker .layer.is-selected a:after {
+  content: "\f00c";
   opacity: 1;
+  transform: scale(1);
+  background: $green;
+}
+
+.m-layers-picker .layer.is-selected a:hover:after {
   transform: scale(1);
 }
 
@@ -258,12 +315,12 @@
   bottom: 0;
   right: calc((100% - 1080px) / 2);
   margin-right: -40px;
-  @media screen and (max-width:1190px) {
-    right:10px;
-    margin-right:0;
+  @media screen and (max-width: 1190px) {
+    right: 10px;
+    margin-right: 0;
   }
   @include mq(smartphone) {
-    right:0;
+    right: 0;
   }
   @include mq(small-smartphone) {
     padding: 14px 19px;
@@ -278,4 +335,51 @@
   @include mq(small-smartphone) {
     padding: 10px 18px;
   }
+}
+
+// Secondary layers
+
+
+.m-layers-picker .secondary-layers .section-title {
+  margin-bottom: 14px;
+  margin-top: 30px;
+}
+
+.m-layers-picker .secondary-layers .layer {
+  display: block;
+  width: auto;
+  @include clearfix;
+  padding-right: 0;
+}
+
+.m-layers-picker .secondary-layers .layer a {
+  overflow: hidden;
+  padding:0;
+  background: #2f2f2f;
+}
+
+.m-layers-picker .secondary-layers .layer h2 {
+  float: left;
+  width: 33.333333%;
+  margin-top:0;
+  padding:20px;
+}
+
+.m-layers-picker .secondary-layers .layer .description {
+  float:left;
+  width:33.333333%;
+  @include top-and-tail;
+  margin-top:0;
+  padding:20px;
+  color:white;
+}
+
+.m-layers-picker .secondary-layers .layer .image {
+  width: calc(33.333333% - 12px);
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  padding-bottom:0;
 }
