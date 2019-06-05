@@ -8,6 +8,7 @@ export default class MapViewStore {
   @observable zoom = null;
 
   @observable latlng = null;
+  @observable lightsOut = false;
 
   @observable add_record_mode = false;
 

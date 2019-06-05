@@ -7,6 +7,9 @@
   @include mq(tablet) {
     padding:40px;
   }
+  @include mq(small-smartphone) {
+    padding:30px 20px 20px 20px;
+  }
 }
 
 .m-site-footer .copyright {
@@ -85,9 +88,18 @@
   }
   @include mq(small-smartphone) {
     width:100%;
-    margin-bottom:50px;
+    margin-bottom: 20px;
   }
 }
+
+.m-site-footer .partners li:nth-child(3) img {
+  margin-top: -11px;
+  max-height: 60px;
+  @include mq(tablet) {
+    max-height: 52px;
+  }
+}
+
 
 .m-site-footer .partners li img {
   //width: 360px;

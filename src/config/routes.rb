@@ -86,6 +86,7 @@ Rails.application.routes.draw do
 
   resources :layers, only: [:index, :show], defaults: {format: :json} do
     get 'search', on: :collection
+    get 'export'
   end
 
   resources :taxonomies, only: [:index], defaults: {format: :json}

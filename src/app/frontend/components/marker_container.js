@@ -69,7 +69,7 @@ import LeafletDataIcon from './leaflet_data_icon';
       icon = highlighted_icon;
     }
 
-    return <Marker position={this.props.position} icon={icon}>
+    return <Marker position={this.props.position} icon={icon} opacity={this.props.cardComponent.opacity}>
 
       <Popup>
 

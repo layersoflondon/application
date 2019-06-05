@@ -146,3 +146,5 @@ gem 'georeferencer', git: "https://github.com/layersoflondon/georeferencer-ruby"
 gem 'friendly_id'
 
 gem 'sitemap_generator'
+
+gem 'rubyXL'

@@ -10,27 +10,34 @@ import VectorGrid from 'react-leaflet-vectorgrid';
     this.vectorRef = React.createRef();
   }
 
-  render() {
+  componentWillReceiveProps(nextProps, nextContext) {
     if( this.vectorRef && this.vectorRef.current ) {
-      this.vectorRef.current.leafletElement.setOpacity(this.props.layer.getOpacity);
+      this.vectorRef.current.leafletElement._container.style.opacity = nextProps.layer.getOpacity;
+      this.vectorRef.current.leafletElement._container.style.zIndex = (nextProps.layerIndex -+nextProps.index);
     }
+  }
 
+  render() {
+    const color = this.props.layer.layer_data.vector_layer_colour;
     let options = {
       type: 'protobuf',
       key: `layer-${this.props.layer.id}`,
       zIndex: 1000-this.props.index,
       url: this.props.layer.layer_data.url,
-      styles: {},
       subdomains: '*',
 
       vectorTileLayerStyles: {
-        opacity: this.props.layer.getOpacity,
-        fill: true,
-        fillOpacity: this.props.layer.getOpacity,
-        fillColor: '#c41312',
-      }
+        [this.props.layer.layer_data.feature_name]: {
+          opacity: this.props.layer.opacity,
+          fillOpacity: this.props.layer.opacity,
+          fill: false,
+          stroke: true,
+          color: color,
+        }
+      },
+      ...this.state
     };
 
-    return <VectorGrid {...options} ref={this.vectorRef} fillOpacity={this.props.layer.getOpacity} opacity={this.props.layer.getOpacity} />
+    return <VectorGrid {...options} ref={this.vectorRef} zIndex={this.props.layerIndex - this.props.index} />
   }
 }

@@ -1,5 +1,6 @@
 import LoLHTTPBase from './lol_http_base';
 import axios from 'axios';
+window.axios = axios;
 
 export default class Collection extends LoLHTTPBase {
   static resource_path = '/collections'; static path = '/collections';
@@ -50,5 +51,10 @@ export default class Collection extends LoLHTTPBase {
 
   static everyone() {
     return axios.get("/")
+  }
+
+  static query(query) {
+    let params = {params: {...query, query: true}};
+    return axios.get('/collections', params);
   }
 }

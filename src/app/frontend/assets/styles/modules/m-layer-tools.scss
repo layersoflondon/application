@@ -77,6 +77,11 @@
   margin: 8px -10px -10px -10px;
 }
 
+.m-layer-tools .panel .lights-out {
+  float: left;
+  background: none;
+}
+
 .m-layer-tools .layer {
   clear: both;
 }
@@ -230,6 +235,13 @@
 
 .m-layer-tools .layer.has-components.is-open > .name:before {
   content: "\f0d8";
+}
+
+.m-layer-tools .layer.has-components:not(.is-open) {
+  .layer-components {
+    height: 0;
+    overflow: hidden;
+  }
 }
 
 .m-layer-tools .key-symbol {

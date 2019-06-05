@@ -1,0 +1,59 @@
+find:
+  team:
+    name: "London Metropolitan Archives"
+  collection:
+    title: "Films from the London County Council Collection"
+import:
+  rows_indices:
+    - 1
+    - -1
+  row_attributes:
+    - number
+    - film
+    - location
+    - lat
+    - lng
+    - date
+    - created_by
+    - title
+    - other_title
+    - description
+    - collage_link
+    - collage_link_title
+    - extra_link_1
+    - extra_link_1_title
+    - extra_link_2
+    - extra_link_2_title
+    - lma_website_link
+    - lma_website_link_title
+  image_filename_prefix: "London Met Archives"
+  collection_description: "Films from the London County Council Collection is one of several collections curated by the Layers of London team at London Metropolitan Archives (LMA).  These collections bring together photographs, films and estate plans from the London County Council archive collection at LMA.
+
+                           This collection features clips from six films made by the London County Council (LCC) between 1920 and 1960. These films provide an insight into the services used by Londoners across these 40 years, as well as revealing the LCC’s vision for London. Several of the full-length films can be viewed on the LMA YouTube channel.
+
+                           Help to Build a Home (1920) is a black and white animated silent film which formed part of the LCC’s Housing Bond Campaign, which asked Londoners ‘to do their duty towards their neighbours and buy 6% housing bonds’.
+
+                           Capital County (1951) is a black and white film which gives a history of London’s growth and the impact the LCC has had on the city. A fictionalised character, Albert Brown, is shown using LCC services and standing for election.
+
+                           Green Islands (1954) is a colour film about the LCC’s parks and open spaces. The film seeks to show Londoner’s the many sports and pastimes which take place in the parks. The film also focuses on the natural beauty of the parks, through all seasons.
+
+                           The Silent Hope (1959) is a black and white film showing George Chatterton (Commander of the Glider Pilot Regiment in WWII) visiting several London schools for deaf children and looking at teaching methods.
+
+                           To Live and Learn (1960) is a black and white film about ‘London schools and London children’. It gives an overview of the LCC’s education provision for primary and secondary aged children. The film highlights the restructuring of educational services to meet the challenges of a ‘new and modern world’.
+
+                           The Changing Face of London (1960) is a black and white film showing the process of redevelopment in London during the twentieth century. The film gives an insight into the LCC’s role in rebuilding core areas of the city as well as providing new facilities for welfare services.
+
+                            <h3>About the London County Council</h3>
+                            From 1889 to 1965, the London County Council (LCC) was the top-level authority for the metropolitan boroughs of the County of London. As the most important elected authority in the country, the LCC co-ordinated, funded and directly provided a staggering range of services to people who lived in London and to the many millions who passed through the capital for work or pleasure.
+                            The London County Council collection is held at London Metropolitan Archives:  <a href='https://search.lma.gov.uk/scripts/mwimain.dll/144/LMA_OPAC/web_detail/REFD+LCC?SESSIONSEARCH'>Collection Catalogue</a>.
+                           "
+  extra_link_attributes:
+    - collage_link
+    - extra_link_1
+    - extra_link_2
+    - lma_website_link
+  default_values:
+    record:
+      description:
+        - title
+        - film

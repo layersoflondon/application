@@ -9,4 +9,14 @@ class LayerGroupDecorator < Draper::Decorator
   #       object.created_at.strftime("%a %m/%d/%y")
   #     end
   #   end
+
+  def title
+    if short_title.present?
+      short_title
+    elsif title.length > LayerGroup::MAX_SHORT_TITLE_LENGTH
+      h.truncate(title, length: LayerGroup::MAX_SHORT_TITLE_LENGTH)
+    else
+      title
+    end
+  end
 end

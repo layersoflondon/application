@@ -4,13 +4,14 @@ import LayerModel from './layer';
 export default class LayerGroupModel {
   id = null;
   name = '';
+  short_name = '';
   description = '';
   slug = '';
   enabled = false;
 
   @observable opacity = 1;
   @observable is_active = false;
-  @observable is_open = false;
+  @observable is_open = true;
   @observable is_visible = true;
   @observable layers = [];
 
@@ -21,7 +22,21 @@ export default class LayerGroupModel {
   }
 
   @computed get visibleLayers() {
-    return this.layers.filter((layer) => layer.is_visible);
+    let layers = this.layers.filter((layer) => layer.is_visible);
+    let tileserverLayers = layers.filter((l)=>l.layer_type === 'tileserver');
+    let otherLayers = layers.filter((l) => l.layer_type !== 'tileserver');
+    layers = [].concat(otherLayers, tileserverLayers);
+
+    return layers;
+  }
+
+  @computed get allLayers() {
+    let layers = this.layers;
+    let tileserverLayers = layers.filter((l)=>l.layer_type === 'tileserver');
+    let otherLayers = layers.filter((l) => l.layer_type !== 'tileserver');
+    layers = [].concat(otherLayers, tileserverLayers);
+
+    return layers;
   }
 
   toggleIsOpen(){
@@ -37,12 +52,13 @@ export default class LayerGroupModel {
 
     layer.id = object.id;
     layer.name = object.name;
+    layer.short_name = object.short_name;
     layer.description = object.description;
     layer.slug = object.slug;
     layer.enabled = object.enabled;
     layer.image = object.image;
 
-    layer.layers = object.layers.map((layer_data) => new LayerModel.fromJS(layer_data));
+    layer.layers = object.layers.map((layer_data) => new LayerModel.fromJS(layer_data, layer));
 
     return layer;
   }

@@ -1,0 +1,27 @@
+<li>
+  <label for="">
+    URL
+  </label>
+  <%= f.text_field :layer_data, name: 'layer[layer_data][url]', value: f.object.layer_data.try(:[], 'url') %>
+</li>
+
+<li>
+  <label for="">
+    Feature Name<abbr title="required">*</abbr>
+  </label>
+  <%= f.text_field :layer_data, name: 'layer[layer_data][feature_name]', value: f.object.layer_data.try(:[], 'feature_name') %>
+</li>
+
+<li>
+  <label for="">
+    Layer Colour
+  </label>
+
+  <div class="field-layer-colours">
+    <% Layer.vector_layer_colours.each do |key, value| %>
+      <%= content_tag(:div, class: 'colour', style: "background: #{value}") do %>
+        <%= f.radio_button :layer_data, value, {checked: f.object.layer_data.try(:[], 'vector_layer_colour').to_s === value.to_s, name: 'layer[layer_data][vector_layer_colour]'} %>
+      <% end %>
+    <% end %>
+  </div>
+</li>

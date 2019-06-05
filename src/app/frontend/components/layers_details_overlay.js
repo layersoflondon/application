@@ -3,8 +3,9 @@ import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import Helmet from 'react-helmet';
 import {recordEvent} from "../config/data_layer";
+import Parser from 'html-react-parser';
 
-@inject('mapViewStore', 'layersStore', 'router')
+@inject('mapViewStore', 'layersStore', 'router', 'trayViewStore')
 @withRouter
 @observer export default class LayerDetailsOverlay extends Component {
   constructor(props) {
@@ -29,13 +30,31 @@ import {recordEvent} from "../config/data_layer";
   toggleLayer(event) {
     event.preventDefault();
 
-    this.props.layersStore.toggleLayer(this.props.layersStore.layer_group.id);
+    const showing = this.props.layersStore.toggleLayer(this.props.layersStore.layer_group.id);
+
+    const layerGroup = this.props.layersStore.layer_groups.get(this.props.layersStore.layer_group.id);
+    const collectionLayers = layerGroup.layers.filter((layer)=>layer.layer_type === 'collection');
+    let layerGroupCollectionIds = collectionLayers.map((layer) => layer.layer_data.collection_id);
+    layerGroupCollectionIds = [].concat(...layerGroupCollectionIds).map((id) => parseInt(id, 10));
+
+    if( showing ) {
+      this.props.trayViewStore.collection_ids = layerGroupCollectionIds;
+    }else {
+      let currentCollectionIds = this.props.trayViewStore.collection_ids || [];
+
+      layerGroupCollectionIds.forEach((id) => {
+        let index = currentCollectionIds.indexOf(id);
+        if( index > -1 ) {
+          currentCollectionIds.splice(index, 1);
+        }
+      });
+    }
 
     recordEvent('layerSelected', {
-      'layerSelected': this.props.layersStore.active_layer_groups.values().map((layer) => layer.title).join(" | ")
+      'layerSelected': this.props.layersStore.activeLayerGroups.map((layer) => layer.title).join(" | ")
     });
 
-    // return false;
+    this.props.router.push('/map/layers');
   }
 
   render() {
@@ -74,7 +93,7 @@ import {recordEvent} from "../config/data_layer";
 
                   <div className="description">
                     <div className="text-content">
-                      {this.props.layersStore.layer_group.description}
+                      {Parser(this.props.layersStore.layer_group.description)}
                     </div>
                   </div>
 
@@ -82,14 +101,14 @@ import {recordEvent} from "../config/data_layer";
                     <h2 className="subtitle">Available data</h2>
                     <div className="text-content">
                       <ul>
-                        {this.props.layersStore.layer_group.layers.map((l, i) => <li key={i}>{l.name}</li>)}
+                        {this.props.layersStore.layer_group.layers.map((l, i) => <li key={i}>{l.title}</li>)}
                       </ul>
                     </div>
-                    <a href="#" className="download-link">Download (.XLS format)</a>
+                    {/*<a className="download-link" href={`/layers/${this.props.layersStore.layer_group.slug}/export`} download>Download (.XLS format)</a>*/}
                   </div>
 
                   <div className="footer">
-                    <a href="#" className="use-this-layer" onClick={this.toggleLayer.bind(this)}>{label_prefix} this layer</a>
+                    <a href="#" className="use-this-layer" onClick={this.toggleLayer.bind(this)} download>{label_prefix} this layer</a>
                   </div>
                 </div>
               )

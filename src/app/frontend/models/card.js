@@ -1,4 +1,4 @@
-import {observable, computed} from 'mobx';
+import {observable, computed, observe} from 'mobx';
 import RecordModel from "../models/record";
 import CollectionModel from "../models/collection";
 
@@ -6,6 +6,8 @@ export default class CardModel {
   @observable highlighted; // the pins associated with this card should be highlighted
   @observable highlighted_by_marker; // the marker associated with this card has been hovered
   @observable image;
+  @observable visible = true;
+  @observable opacity = 1;
 
   constructor(object, store = null) {
     this.object = object;

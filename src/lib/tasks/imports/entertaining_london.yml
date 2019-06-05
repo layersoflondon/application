@@ -1,0 +1,46 @@
+find:
+  team:
+    name: "London Metropolitan Archives"
+  collection:
+    title: "London County Council Collections: Entertaining London"
+import:
+  rows_indices:
+    - 1
+    - -1
+  row_attributes:
+    - on_collage
+    - catalogue_number
+    - collage_id
+    - lat
+    - lng
+    - date
+    - created_by
+    - title
+    - description
+    - extra_link_1
+    - extra_link_1_title
+    - extra_link_2
+    - extra_link_2_title
+    - extra_link_3
+    - extra_link_3_title
+    - extra_link_4
+    - extra_link_4_title
+    - attribution
+    - lma_website_link
+    - lma_website_link_title
+  image_filename_prefix: "London Met Archives"
+  collection_description: "Entertaining London is one of several collections curated by the Layers of London team at London Metropolitan Archives (LMA).  These collections bring together photographs, films and estate plans from the London County Council archive collection at LMA.
+
+                           London County Council (LCC) was established in 1889. As part of its remit to run public services in the capital, the Council quickly turned itself to the needs of Londoners for leisure, pleasure and entertainment. The brief was wide-reaching, beginning with the maintenance of one of the biggest networks of urban open spaces in the world. Many of the 125 photographs in this collection show the work of the LCC Parks Department, who employed hundreds of gardeners and park keepers, built dozens of sports facilities and playgrounds. The department also hosted year-round programmes of art and entertainment, from open-air sculpture exhibitions in Battersea Park to lakeside concerts at Kenwood House. The LCC also played a central role in the fight to protect London’s squares from development and educated generations of Londoners about the rich and globally significant history of the capital through the Geffrye Museum, the Horniman Museum, and the blue plaque scheme. The licensing and regulation of music, theatre and cinema venues also fell to the LCC until its abolition in 1965.
+
+                            <h3>About the London County Council</h3>
+                            From 1889 to 1965, the London County Council (LCC) was the top-level authority for the metropolitan boroughs of the County of London. As the most important elected authority in the country, the LCC co-ordinated, funded and directly provided a staggering range of services to people who lived in London and to the many millions who passed through the capital for work or pleasure.
+                            The London County Council collection is held at London Metropolitan Archives:  <a href='https://search.lma.gov.uk/scripts/mwimain.dll/144/LMA_OPAC/web_detail/REFD+LCC?SESSIONSEARCH'>Collection Catalogue</a>.
+                           "
+  extra_link_attributes:
+    - extra_link_1
+    - extra_link_2
+    - extra_link_3
+    - extra_link_4
+    - lma_website_link
+  credit_attribute: attribution

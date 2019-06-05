@@ -7,12 +7,18 @@ class CollectionsController < ApplicationController
 
   def index
 
-
     @collections = if user_signed_in? && !params[:everyone].present? && !params[:all].present?
                      CollectionsIndex.filter(terms: {contributor_ids: [current_user.id]}).to_a # collections this user has contributed to
                    elsif user_signed_in? && params[:everyone] && !params[:all].present?
                      # CollectionsIndex.filter(term: {write_state: "everyone"})
                      CollectionsIndex.everyone_collections(exclude_user_id: current_user.id)
+                   elsif params[:query].try(:==, "true") && params[:key].present? && params[:value].present?
+                     query = {
+                         terms: {
+                             params[:key] => params[:value]
+                         }
+                     }
+                     CollectionsIndex.filter(query).to_a
                    else
                      # Collection.includes(:owner, records: [:user, record_taxonomy_terms: [:taxonomy_term]]).public_read
                      CollectionsIndex.published.limit(params[:per_page])
@@ -50,6 +56,11 @@ class CollectionsController < ApplicationController
     render json: '', status: :not_found unless @collection
     update_collection_params = collection_params.to_h
     @collection.assign_attributes(update_collection_params)
+
+    if @collection.write_state_changed? && @collection.write_state === 'team'
+      @collection.assign_attributes({owner_type: 'Team', owner_id: @collection.write_state_team_id})
+    end
+
     return @collection if @collection.save
     render json: @collection.errors, status: :unprocessable_entity
   end

@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import PropTypes from 'prop-types';
 import {observer} from "mobx-react";
 import Parser from 'html-react-parser';
 import {Link} from "react-router-dom";
@@ -11,6 +10,8 @@ import {Link} from "react-router-dom";
   }
 
   render() {
+    const label_prefix = this.props.layerGroup.is_active ? "Deselect" : "Select";
+
     return <div className={`layer ${(this.props.layerGroup.is_active) ? "layer is-selected" : ""}`}>
       <Link to={`/map/layers/${this.props.layerGroup.slug}`}>
           {this.props.layerGroup.image &&
@@ -21,6 +22,10 @@ import {Link} from "react-router-dom";
         <div className="description">
           {Parser(this.props.layerGroup.description||"")}
           {this.props.layerGroup.credit && (<span className="credit">{Parser(this.props.layerGroup.credit)}</span>)}
+        </div>
+
+        <div className="actions">
+          <button className="button">{label_prefix} this layer</button>
         </div>
       </Link>
     </div>

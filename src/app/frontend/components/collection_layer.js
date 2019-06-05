@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {observer,  inject} from "mobx-react";
-import axios from 'axios';
 
 @inject('trayViewStore')
 @observer export default class CollectionLayer extends Component {
@@ -9,11 +8,20 @@ import axios from 'axios';
     this.state = {};
   }
 
-  componentWillMount() {
-    console.log(this.props.layer.is_visible);
-    if( this.props.layer.is_visible) {
-      this.props.trayViewStore.collection_id = this.props.layer.layer_data.collection_id;
-    }
+  // componentWillMount() {
+  //   if( this.props.layer.is_visible) {
+  //     this.props.trayViewStore.collection_ids = [this.props.layer.layer_data.collection_id];
+  //   }
+  // }
+  componentWillReceiveProps(nextProps, nextContext) {
+    const collection_id = parseInt(this.props.layer.layer_data.collection_id, 10);
+
+    const cards = this.props.trayViewStore.cards.values().filter((card) => {
+      const collection_ids = card.object.collection_ids || [];
+      return collection_ids.indexOf(collection_id)>-1;
+    });
+
+    cards.map((card)=>card.opacity = nextProps.opacity);
   }
 
   render() {

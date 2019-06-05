@@ -218,6 +218,7 @@ ActiveRecord::Schema.define(version: 2019_05_02_124411) do
     t.integer "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "short_name"
   end
 
   create_table "layers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -232,8 +233,8 @@ ActiveRecord::Schema.define(version: 2019_05_02_124411) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "credit"
-    t.bigint "layer_group_id"
     t.string "short_title"
+    t.bigint "layer_group_id"
     t.index ["layer_group_id"], name: "index_layers_on_layer_group_id"
   end
 

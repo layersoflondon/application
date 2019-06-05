@@ -126,10 +126,10 @@
 .m-layers-picker .layer > a {
   color: $black;
   display: block;
-  padding: 20px;
+  padding: 20px 20px 48px 20px;
   background: white;
   @include mq(smartphone) {
-    padding: 15px;
+    padding: 15px 15px 48px 15px;
   }
 }
 
@@ -138,38 +138,48 @@
 }
 
 .m-layers-picker .layer button {
-  background: transparent;
-  border-radius: 100px;
-  border: 2px solid $green;
-  color: $green;
-  font-weight: 700;
-  font-size: 14px;
-  margin-top: 6px;
-  margin-left: -2px;
   outline: 0;
+  background: #d0ebdd;
+  font-weight: 700;
+  margin: 0;
+  display: block;
+  font-size: 14px;
+  width: 100%;
+  padding: 10px 20px;
+  text-align: left;
+  -webkit-transition: all .2s;
   transition: all .2s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  @include link-arrow;
 }
 
-.m-layers-picker .layer button:hover {
-  background: #549a7624;
+.m-layers-picker .layer button:before {
+  position: relative;
+  top: -1px;
+}
+
+.m-layers-picker .layer > a:hover button {
+  padding-left: 25px;
 }
 
 .m-layers-picker .layer.is-selected button {
-  border: 2px solid #00000042;
-  color: #00000042;
+  background: #d5c549;
+  color: #6a6014;
 }
 
 .m-layers-picker .layer button span {
   display: none;
 }
 
-.m-layers-picker .layer button:before {
-  content: "Use this layer";
-}
-
-.m-layers-picker .layer.is-selected button:before {
-  content: "Deselect this layer";
-}
+//.m-layers-picker .layer button:before {
+//  content: "Use this layer";
+//}
+//
+//.m-layers-picker .layer.is-selected button:before {
+//  content: "Deselect this layer";
+//}
 
 .m-layers-picker .layer .description {
   font-size: 14px;
@@ -236,4 +246,36 @@
   display: inline;
   color: $green;
   margin: 0;
+}
+
+.m-layers-picker .confirm {
+  @include font-display;
+  @include polygon-background(yellow, top, false);
+  padding: 20px 25px;
+  color: $black;
+  display: inline-block;
+  position: fixed;
+  bottom: 0;
+  right: calc((100% - 1080px) / 2);
+  margin-right: -40px;
+  @media screen and (max-width:1190px) {
+    right:10px;
+    margin-right:0;
+  }
+  @include mq(smartphone) {
+    right:0;
+  }
+  @include mq(small-smartphone) {
+    padding: 14px 19px;
+  }
+}
+
+.m-layers-picker .confirm button,
+.m-layers-picker .confirm .btn {
+  @include big-square-button;
+  font-family: 'Muli', sans-serif;
+
+  @include mq(small-smartphone) {
+    padding: 10px 18px;
+  }
 }

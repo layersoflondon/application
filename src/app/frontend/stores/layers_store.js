@@ -8,7 +8,7 @@ export default class LayersStore {
   @observable layer_group = null;
   @observable layer_group_id = null;
 
-  @observable active_layer_groups = observable.map();
+  @observable layer_group_order = [];
   @observable loupe_layer_id = null;
 
   @observable loading = false;
@@ -32,17 +32,16 @@ export default class LayersStore {
   }
 
   toggleLayer(layer_id) {
-    if(this.active_layer_groups.get(layer_id)) {
-      this.layer_groups.get(layer_id).is_active = false;
-      this.active_layer_groups.delete(layer_id);
-    }else {
-      this.active_layer_groups.set(layer_id, this.layer_groups.get(layer_id));
-      this.layer_groups.get(layer_id).is_active = true;
-    }
-  }
+    let layerGroup = this.activeLayerGroups.find((layerGroup) => layerGroup.id === layer_id);
 
-  setLayerGroups(layer_groups) {
-    this.layer_groups = layer_groups;
+    if( layerGroup ) {
+      layerGroup.is_active = false;
+    }else {
+      layerGroup = this.layer_groups.get(layer_id);
+      layerGroup.is_active = true;
+    }
+
+    return layerGroup.is_active;
   }
 
   /**
@@ -54,11 +53,28 @@ export default class LayersStore {
   }
 
   @computed get activeLayerGroups() {
-    return this.active_layer_groups.values();
+    return this.layer_groups.values().filter((layer_group) => layer_group.is_active).reverse();
   }
 
   @computed get activeVisibleLayerGroups() {
-    return this.active_layer_groups.values().filter((layer_group) => layer_group.is_visible);
+    const layers = this.activeLayerGroups.filter((layer_group) => layer_group.is_visible);
+
+    if( this.layer_group_order.length && this.layer_group_order.length === layers.length ) {
+      layers.sort((a,b) => {
+        if(this.layer_group_order.indexOf(a.id) > this.layer_group_order.indexOf(b.id)) {
+          return 1;
+        }else {
+          return -1;
+        }
+      });
+    }
+
+    return layers;
+  }
+
+  @computed get sortedLayerGroups() {
+    const active = this.activeLayerGroups;
+    return active;
   }
 
   static fromJS(layer_groups) {
