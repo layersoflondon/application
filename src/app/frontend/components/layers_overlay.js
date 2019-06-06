@@ -76,7 +76,7 @@ import Layer from '../sources/layer';
                 </div>
               </div>
 
-              {highlightedLayers.length && (
+              {highlightedLayers.length>0 && (
                 <div className="layers">
                   <div className="section-title">
                     <h2>Highlighted layers</h2>
@@ -89,7 +89,7 @@ import Layer from '../sources/layer';
                 </div>
               )}
 
-              {layerDirectoryLayers.length && (
+              {layerDirectoryLayers.length>0 && (
                 <div className="secondary-layers">
                   <div className="section-title">
                     <h2>Layer directory</h2>
