@@ -13,26 +13,19 @@ import Layer from '../sources/layer';
   constructor(props) {
     super(props);
 
-    this.state = {query: ""};
+    this.state = {query: "", ids: null, searching: false};
 
-    const _filter = () => (Layer.search(this.state).then((response) => {
-      this.setState({ids: response.data.map((i)=>i.id)});
-    }));
+    const _filter = () => {
+      Layer.search(this.state).then((response) => {
+        this.setState({ids: response.data.map((i)=>i.id), searching: false});
+      });
+    };
 
     this.filter = debounce(_filter, 1000);
   }
 
   layerGroupFilter(event) {
-    this.setState({...this.state, query: event.currentTarget.value});
-    this.filter();
-  }
-
-  handleClick(event) {
-    this.router.history.goBack();
-  }
-
-  updateQuery(event) {
-    this.setState({query: event.currentTarget.value});
+    this.setState({...this.state, searching: true, query: event.currentTarget.value});
     this.filter();
   }
 
@@ -72,7 +65,7 @@ import Layer from '../sources/layer';
               <div className="header">
                 <h1>Layers</h1>
                 <div className="search">
-                  <input placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onChange={this.layerGroupFilter.bind(this)} />
+                  <input className={`${this.state.searching ? 'is-searching' : ''}`} placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onChange={this.layerGroupFilter.bind(this)} />
                 </div>
               </div>
 

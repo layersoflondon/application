@@ -28,6 +28,10 @@
   color: white;
   width: 220px;
   background: transparent url('../assets/images/icon-search.svg') 14px 15px/20px no-repeat;
+
+  &.is-searching {
+    border-color: red;
+  }
 }
 
 .m-layers-picker .search input:focus {
