@@ -13,11 +13,29 @@ class LayerGroupsIndex < Chewy::Index
     field :short_name, type: 'text'
     field :description, type: 'text'
     field :slug, type: :keyword
+    field :highlighted, type: 'boolean'
     field :image, type: :object, value: -> {
       image.try(:data)
     }
-    field :layers, type: :object, value: -> {layers.decorate} do
+    field :layers, type: :nested, value: -> {layers.decorate} do
       include FieldDefinitions::Layer
     end
+  end
+
+  def self.search(query, limit: 200)
+    query = {
+      bool: {
+        should: [
+          {
+            match: {name: query}
+          },
+          {
+            match: {description: query}
+          }
+        ]
+      }
+    }
+
+    filter(query).limit(limit)
   end
 end

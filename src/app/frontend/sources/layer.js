@@ -4,8 +4,9 @@ import axios from 'axios';
 export default class LayerGroup extends LoLHTTPBase {
   static resource_path = '/layers'; static path = '/layers';
 
-    static search(queryString) {
-        return axios.get(`${this.resource_path}?${queryString}`);
+    static search(query) {
+        const params = {params: {...query}};
+        return axios.get(`${this.resource_path}`, params);
     }
 
     static resourceIdPath(layer_id){

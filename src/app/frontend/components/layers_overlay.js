@@ -4,16 +4,41 @@ import {inject, observer} from "mobx-react";
 import Helmet from 'react-helmet';
 import LayerGroup from './layer_group';
 import Equalizer from "./Equalizer";
+import {debounce} from "underscore";
+import Layer from '../sources/layer';
 
 @inject('mapViewStore', 'layersStore', 'trayViewStore', 'router')
 @withRouter
 @observer export default class LayersOverlay extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {page: 1, query: ""};
+
+    const _filter = () => (Layer.search(this.state).then((response) => {
+        console.log("FILTERED");
+    }));
+
+    this.filter = debounce(_filter, 1000);
+  }
+
+  componentWillMount() {
+    const params = {page: 1, query: ""};
+    Layer.search(params).then((response) => this.setState({...this.state, layer_groups: response.data}));
+  }
+
+  layerGroupFilter(event) {
+    this.setState({...this.state, query: event.currentTarget.value});
+    this.filter();
   }
 
   handleClick(event) {
     this.router.history.goBack();
+  }
+
+  updateQuery(event) {
+    this.setState({query: event.currentTarget.value});
+    this.filter();
   }
 
   handleModalBgClick(event) {
@@ -49,7 +74,7 @@ import Equalizer from "./Equalizer";
               <div className="header">
                 <h1>Layers</h1>
                 <div className="search">
-                  <input placeholder="Search layers" type="text" name="search_layers" value=""/>
+                  <input placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onChange={this.layerGroupFilter.bind(this)} />
                 </div>
               </div>
 
@@ -58,189 +83,22 @@ import Equalizer from "./Equalizer";
                   <h2>Highlighted layers</h2>
                 </div>
                 <Equalizer selector="a:first-child">
-                  {this.props.layersStore.layer_groups.values().map((layer_group) =>
-                    <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)}
+                  {this.props.layersStore.highlightedLayerGroups.map((layer_group) =>
+                    <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
+                  }
                 </Equalizer>
               </div>
-
-
 
               <div className="secondary-layers">
                 <div className="section-title">
                   <h2>Layer directory</h2>
                 </div>
-                <div className="layer">
-                  <a href="/map/layers/map-of-the-county-of-essex-by-john-chapman-peter-andre-1777">
-                    <div className="image"></div>
-                    <h2>Map of the County of Essex by John Chapman &amp; Peter André (1777)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/os-maps-1940s-1960s">
-                    <div className="image"></div>
-                    <h2>OS Maps (1940s-1960s)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/faithorne-and-newcourt-map-1658">
-                    <div className="image"></div>
-                    <h2>Faithorne and Newcourt Map (1658)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/horwood-1799">
-                    <div className="image"></div>
-                    <h2>Horwood (1799)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/greenwood-1828">
-                    <div className="image"></div>
-                    <h2>Greenwood (1828)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/bomb-damage-1945">
-                    <div className="image"></div>
-                    <h2>Bomb Damage (1945)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/john-rocque-s-map-of-london-westminster-and-southwark-1746">
-                    <div className="image"></div>
-                    <h2>John Rocque's map of London, Westminster and Southwark (1746)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/os-maps-1893-1896">
-                    <div className="image"></div>
-                    <h2>OS Maps (1893-1896)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/modern-satellite-map">
-                    <div className="image"></div>
-                    <h2>Modern satellite map</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/william-morgan-s-map-of-the-city-of-london-westminster-and-southwark-1682">
-                    <div className="image"></div>
-                    <h2>William Morgan's Map of the City of London, Westminster and Southwark (1682)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/raf-aerial-collection-1945-1949">
-                    <div className="image"></div>
-                    <h2>RAF Aerial Collection (1945-1949)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/charles-booth-s-poverty-map-1886-1903">
-                    <div className="image"></div>
-                    <h2>Charles Booth's Poverty Map (1886-1903)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/tudor-map-1520">
-                    <div className="image"></div>
-                    <h2>Tudor Map (1520)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-                <div className="layer">
-                  <a href="/map/layers/ogilby-and-morgan-1676">
-                    <div className="image"></div>
-                    <h2>Ogilby and Morgan (1676)</h2>
-                    <div className="description">
-                      <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p>
-                      <span className="credit">
-                  <p><em>Digital version courtesy of the Historic Towns Trust.</em></p>
-               </span>
-                    </div>
-                  </a>
-                </div>
-
+                {this.props.layersStore.layerGroups.map((layer_group) =>
+                  <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
+                }
               </div>
 
-              {this.props.layersStore.activeLayerGroups.length &&
+              {this.props.layersStore.activeLayerGroups.length>0 &&
               <div className="confirm">
                 <Link to="/map" className="btn" onClick={this.checkRestoreTray.bind(this)}>I'm done!</Link>
               </div>

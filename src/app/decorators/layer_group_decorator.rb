@@ -19,4 +19,8 @@ class LayerGroupDecorator < Draper::Decorator
       title
     end
   end
+
+  def is_highlighted?
+    highlighted?
+  end
 end

@@ -52,10 +52,12 @@ export default class LayersStore {
     this.layer_group_id = id;
   }
 
+  // layer groups that can be rendered on the overlay
   @computed get activeLayerGroups() {
     return this.layer_groups.values().filter((layer_group) => layer_group.is_active).reverse();
   }
 
+  // layer groups that the user has activated
   @computed get activeVisibleLayerGroups() {
     const layers = this.activeLayerGroups.filter((layer_group) => layer_group.is_visible);
 
@@ -70,6 +72,16 @@ export default class LayersStore {
     }
 
     return layers;
+  }
+
+  // layers that are highlighted
+  @computed get highlightedLayerGroups() {
+    return this.layer_groups.values().filter((l) => l.highlighted);
+  }
+
+  // layers that aren't highlighted
+  @computed get layerGroups() {
+    return this.layer_groups.values().filter((l) => !l.highlighted);
   }
 
   @computed get sortedLayerGroups() {

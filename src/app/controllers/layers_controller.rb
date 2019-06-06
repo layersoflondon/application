@@ -4,7 +4,11 @@ class LayersController < ApplicationController
   skip_after_action :verify_authorized, only: %i[index show search export]
 
   def index
-    @layer_groups = LayerGroupsIndex.all.limit(999)
+    if params[:q].present?
+      @layer_groups = LayerGroupsIndex.search(params[:q], page: params[:page].to_i)
+    else
+      @layer_groups = LayerGroupsIndex.all.limit(999)
+    end
   end
 
   def show
@@ -34,5 +38,9 @@ class LayersController < ApplicationController
   def set_layer
     @layer_group = LayerGroup.find_by_id(params[:id])
     render json: '', status: :not_found unless @layer_group
+  end
+
+  def query_params
+    params.permit(:q, :name, :description, :slug)
   end
 end

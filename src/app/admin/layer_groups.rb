@@ -4,6 +4,7 @@ ActiveAdmin.register LayerGroup do
                 :description,
                 :credit,
                 :collection_id,
+                :highlighted,
                 layer_ids: [],
                 image_attributes: [
                   :file,

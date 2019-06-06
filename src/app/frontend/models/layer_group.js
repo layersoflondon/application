@@ -8,6 +8,7 @@ export default class LayerGroupModel {
   description = '';
   slug = '';
   enabled = false;
+  highlighted = false;
 
   @observable opacity = 1;
   @observable is_active = false;
@@ -57,6 +58,7 @@ export default class LayerGroupModel {
     layer.slug = object.slug;
     layer.enabled = object.enabled;
     layer.image = object.image;
+    layer.highlighted = object.highlighted;
 
     layer.layers = object.layers.map((layer_data) => new LayerModel.fromJS(layer_data, layer));
 

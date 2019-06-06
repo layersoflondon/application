@@ -7,6 +7,8 @@
         <%= f.fields_for :image do |imgf| %>
                 <%= imgf.input :file, as: :file, :hint => imgf.object.file.attached? ? image_tag(activestorage_url_for(imgf.object.file.variant(Rails.configuration.x.image_variants[:thumb]))) : "" %>
         <% end %>
+
+        <%= f.input :highlighted, label: "Highlighted Layer Group" %>
     <% end %>
 
     <%= f.inputs "Layers in this group" do %>
