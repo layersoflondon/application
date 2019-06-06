@@ -100,6 +100,13 @@ export default class LayersStore {
     return layers_store;
   }
 
+  addLayerGroups(layer_groups) {
+    layer_groups.map((layer_group) => {
+      let layer = LayerGroupModel.fromJS(layer_group);
+      this.layer_groups.set(layer.id, layer);
+    });
+  }
+
   @computed get loupe_layer() {
     if( this.loupe_layer_id ) {
       return this.layer_groups.get(this.loupe_layer_id);

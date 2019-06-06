@@ -4,10 +4,21 @@ class LayersController < ApplicationController
   skip_after_action :verify_authorized, only: %i[index show search export]
 
   def index
-    if params[:q].present?
-      @layer_groups = LayerGroupsIndex.search(params[:q], page: params[:page].to_i)
+    page = params[:page].present? ? params[:page].to_i : 1
+    per_page = params[:per_page].present? ? params[:per_page].to_i : 20
+
+    offset = per_page * (page-1)
+
+    if params[:query].present?
+      @layer_groups = LayerGroupsIndex.search(params[:query]).limit(per_page).offset(offset)
+      response.set_header("X-Total-Pages", @layer_groups.total_pages)
+    elsif params.has_key?(:overview) # set this to return limited highlights & directory results
+      layers_directory = LayerGroupsIndex.highlighted(is_highlighted: false).limit(20)
+      @layer_groups = [LayerGroupsIndex.highlighted.limit(9), layers_directory].flatten
+      response.set_header("X-Total-Pages", layers_directory.total_pages)
     else
-      @layer_groups = LayerGroupsIndex.all.limit(999)
+      @layer_groups = LayerGroupsIndex.all.limit(per_page).offset(offset)
+      response.set_header("X-Total-Pages", @layer_groups.total_pages)
     end
   end
 

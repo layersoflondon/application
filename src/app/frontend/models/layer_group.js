@@ -11,9 +11,9 @@ export default class LayerGroupModel {
   highlighted = false;
 
   @observable opacity = 1;
-  @observable is_active = false;
-  @observable is_open = true;
-  @observable is_visible = true;
+  @observable is_active = false; // user has added this layer
+  @observable is_open = true;    // expanded in layer tools
+  @observable is_visible = true; // opacity = 0 or visible switch set to off
   @observable layers = [];
 
   constructor() {
@@ -46,6 +46,14 @@ export default class LayerGroupModel {
 
   toggleVisibility() {
     this.is_visible = !this.is_visible;
+  }
+
+  inFilter(ids) {
+    if( ids && ids.hasOwnProperty('length') ) {
+      return ids.indexOf(this.id)>-1;
+    }else {
+      return true;
+    }
   }
 
   static fromJS(object) {

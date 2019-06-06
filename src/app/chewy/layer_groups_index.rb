@@ -22,20 +22,26 @@ class LayerGroupsIndex < Chewy::Index
     end
   end
 
-  def self.search(query, limit: 200)
-    query = {
+  def self.search(query)
+    multi_match_fields = %w[name^10 description]
+
+    query({
       bool: {
-        should: [
+        must: [
           {
-            match: {name: query}
-          },
-          {
-            match: {description: query}
+            multi_match: {
+              query: query,
+              type: 'best_fields',
+              fields: multi_match_fields,
+              analyzer: :english
+            }
           }
         ]
       }
-    }
+    })
+  end
 
-    filter(query).limit(limit)
+  def self.highlighted(is_highlighted: true)
+    filter({term: {highlighted: is_highlighted}})
   end
 end

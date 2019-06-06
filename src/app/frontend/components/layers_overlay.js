@@ -13,18 +13,13 @@ import Layer from '../sources/layer';
   constructor(props) {
     super(props);
 
-    this.state = {page: 1, query: ""};
+    this.state = {query: ""};
 
     const _filter = () => (Layer.search(this.state).then((response) => {
-        console.log("FILTERED");
+      this.setState({ids: response.data.map((i)=>i.id)});
     }));
 
     this.filter = debounce(_filter, 1000);
-  }
-
-  componentWillMount() {
-    const params = {page: 1, query: ""};
-    Layer.search(params).then((response) => this.setState({...this.state, layer_groups: response.data}));
   }
 
   layerGroupFilter(event) {
@@ -56,6 +51,9 @@ import Layer from '../sources/layer';
     let className = "m-overlay";
     if (this.props.mapViewStore.overlay === 'layers') className += " is-showing";
 
+    const highlightedLayers = this.props.layersStore.highlightedLayerGroups.filter((layer_group)=>layer_group.inFilter(this.state.ids));
+    const layerDirectoryLayers = this.props.layersStore.layerGroups.filter((layer_group)=>layer_group.inFilter(this.state.ids));
+
     return (
       <Fragment>
         <Helmet>
@@ -78,25 +76,32 @@ import Layer from '../sources/layer';
                 </div>
               </div>
 
-              <div className="layers">
-                <div className="section-title">
-                  <h2>Highlighted layers</h2>
+              {highlightedLayers.length && (
+                <div className="layers">
+                  <div className="section-title">
+                    <h2>Highlighted layers</h2>
+                  </div>
+                  <Equalizer selector="a:first-child">
+                    {highlightedLayers.map((layer_group) =>
+                      <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
+                    }
+                  </Equalizer>
                 </div>
-                <Equalizer selector="a:first-child">
-                  {this.props.layersStore.highlightedLayerGroups.map((layer_group) =>
+              )}
+
+              {layerDirectoryLayers.length && (
+                <div className="secondary-layers">
+                  <div className="section-title">
+                    <h2>Layer directory</h2>
+                  </div>
+
+                  {layerDirectoryLayers.map((layer_group) =>
                     <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
                   }
-                </Equalizer>
-              </div>
-
-              <div className="secondary-layers">
-                <div className="section-title">
-                  <h2>Layer directory</h2>
                 </div>
-                {this.props.layersStore.layerGroups.map((layer_group) =>
-                  <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
-                }
-              </div>
+              )}
+
+              {/*{Array(this.state.total_pages).fill().map((_,i)=>i+1).map((p, i)=><div key={`layer-group-page-${i}`}>{p}</div>)}*/}
 
               {this.props.layersStore.activeLayerGroups.length>0 &&
               <div className="confirm">

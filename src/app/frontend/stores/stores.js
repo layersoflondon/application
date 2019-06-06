@@ -12,7 +12,6 @@ import CollectionFormStore from './collection_form_store'
  * @returns {{recordFormStore, trayViewStore, mapViewStore, layersStore, collectionStore, recordStore}}
  */
 export default (state) => {
-  console.log("creating stores from state: ", state);
   const {tray, collections, layer_groups, map} = state.data;
   // console.log("Got state: ", state, tray, collections, layers, map);
 
