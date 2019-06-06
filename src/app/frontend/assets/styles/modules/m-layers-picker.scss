@@ -117,9 +117,7 @@
 .m-layers-picker .layer .image {
   width: auto;
   padding-bottom: 55%;
-  background: #555;
-  background-size: cover;
-  background-position: center;
+  background: #383838 url('../assets/images/layer-blank-crosses.png') 0 0/15px 15px;
   margin: -20px -20px 0 -20px;
   transition: all .2s;
   @include mq(smartphone) {
@@ -128,7 +126,7 @@
   }
 }
 
-.m-layers-picker .layer:nth-child(1) .image {
+/*.m-layers-picker .layer:nth-child(1) .image {
   background-image: url('../assets/images/map-1.jpg');
 }
 
@@ -150,10 +148,10 @@
 
 .m-layers-picker .layer:nth-child(6) .image {
   background-image: url('../assets/images/map-6.jpg');
-}
+}*/
 
 .m-layers-picker .layer a:hover .image {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .m-layers-picker .layer h2 {
@@ -164,7 +162,12 @@
   font-size: 18px;
   font-weight: 600;
   color: $red;
+  transition:all .2s;
 }
+
+/*.m-layers-picker .secondary-layers .layer a:hover h2 {
+  color:$yellow;
+}*/
 
 .m-layers-picker .wrap > button {
   @include big-square-button;
@@ -175,6 +178,7 @@
   display: block;
   padding: 20px 20px 20px 20px;
   background: white;
+  transition:all .2s;
   @include mq(smartphone) {
     padding: 15px 15px 15px 15px;
   }
@@ -182,6 +186,7 @@
 
 .m-layers-picker .layer > a:hover {
   //color: white;
+  background:lighten($yellow, 20%);
 }
 
 .m-layers-picker .layer button {
@@ -356,6 +361,10 @@
   overflow: hidden;
   padding:0;
   background: #2f2f2f;
+}
+
+.m-layers-picker .secondary-layers .layer a:hover {
+  background: #272727;
 }
 
 .m-layers-picker .secondary-layers .layer h2 {
