@@ -1,0 +1,53 @@
+find:
+  team:
+    name: "London Metropolitan Archives"
+  collection:
+    title: "London County Council Collections: Transporting London"
+import:
+  rows_indices:
+    - 1
+    - -1
+  row_attributes:
+    - number
+    - catalogue_number
+    - collage_id
+    - lat
+    - lng
+    - date
+    - created_by
+    - title
+    - description
+    - collage_link
+    - collage_link_title
+    - fatured_collage_link
+    - fatured_collage_link_title
+    - extra_link_1
+    - extra_link_1_title
+    - extra_link_2
+    - extra_link_2_title
+    - extra_link_3
+    - extra_link_3_title
+    - lma_website_link
+    - lma_website_link_title
+  image_filename_prefix: "London Met Archives"
+  collection_description: "The photographs in this collection show the myriad of ways in which the London County Council (LCC) kept the nation’s capital moving, both over the Thames and on the capital’s roads north and south of the river.
+
+                           When the LCC was formed in 1889, it inherited responsibility from the Metropolitan Board of Works for ten Thames bridges and Victoria, Albert and Chelsea Embankments. Over the following years the LCC improved connections across the Thames via foot tunnels at Greenwich and Woolwich, larger road tunnels at Blackwall and Rotherhithe, the free ferry at Woolwich, and a short-lived steamboat service.  
+
+                           The capital’s network of streets, roads, alleys and squares was also reshaped by the LCC. From the turn of the century to the outbreak of World War Two, the Street Naming Office led a crusade against duplicate street names in inner London. For example, the work involved replacing multiple New Streets, three of which ended up as Caslon Street, Braganza Street, and Hampshire Hog Lane.
+
+                           London grew continuously during the time of the LCC and with this car ownership increased. Inevitably, road congestion became another problem to be addressed.  Although the Metropolitan Borough Councils were each responsible for their own roads, the LCC played a central role in overseeing large infrastructure projects, such as the construction of Kingsway and the redevelopment of Elephant and Castle. Moreover, as the main licensing authority for London, the LCC were in charge of licensing all drivers and vehicles in the city.
+
+                           London takes pride in its public transport system.  From the turn of the twentieth century the LCC Tramways Department united, electrified and expanded the capital’s tram network, which passed to London Transport in 1932. The London Tramways system is celebrated in this collection, as an essential part of the history of the capital.
+
+                           <h3>About the London County Council</h3>
+                           From 1889 to 1965, the London County Council (LCC) was the top-level authority for the metropolitan boroughs of the County of London. As the most important elected authority in the country, the LCC co-ordinated, funded and directly provided a staggering range of services to people who lived in London and to the many millions who passed through the capital for work or pleasure.
+                           The London County Council collection is held at London Metropolitan Archives:  <a href='https://search.lma.gov.uk/scripts/mwimain.dll/144/LMA_OPAC/web_detail/REFD+LCC?SESSIONSEARCH'>Collection Catalogue</a>.
+                          "
+  extra_link_attributes:
+    - collage_link
+    - fatured_collage_link
+    - extra_link_1
+    - extra_link_2
+    - lma_website_link
+  credit_attribute: attribution

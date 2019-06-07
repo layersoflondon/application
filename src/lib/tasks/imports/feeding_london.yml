@@ -1,0 +1,47 @@
+find:
+  team:
+    name: "London Metropolitan Archives"
+  collection:
+    title: "Feeding London: London County Council Collections"
+import:
+  rows_indices:
+    - 1
+    - -1
+  row_attributes:
+    - catalogue_number
+    - collage_id
+    - lat
+    - lng
+    - date
+    - created_by
+    - title
+    - description
+    - attribution
+    - image_collage_link
+    - image_collage_link_title
+    - school_collage_link
+    - school_collage_link_title
+    - extra_link_1
+    - extra_link_1_title
+    - extra_link_2
+    - extra_link_2_title
+    - extra_link_3
+    - extra_link_3_title
+    - lma_website_link
+    - lma_website_link_title
+  image_filename_prefix: "London Met Archives"
+  collection_description: "London County Council (LCC) introduced a centralised supplies department in 1909 to provide council workers with everything they needed to do their work. This included huge supplies of ingredients for cooking in schools and staff canteens.  The department was greatly expanded in 1930 when the council took over responsibility for Public Assistance work in the capital (Mais, 1939,146 – 160).
+                           It is perhaps less well known that through the work of other Council departments, including Restaurants and Catering, Education and Public Control, the LCC exerted significant influence over London’s food production and supply.  As part of this, especially during critical times, the LCC was responsible for providing a main meal each day for untold numbers of grateful Londoners of all ages. The 110 images in this collection offer glimpses into this fascinating aspect of modern London history.
+
+                            <h3>About the London County Council</h3>
+                            From 1889 to 1965, the London County Council (LCC) was the top-level authority for the metropolitan boroughs of the County of London. As the most important elected authority in the country, the LCC co-ordinated, funded and directly provided a staggering range of services to people who lived in London and to the many millions who passed through the capital for work or pleasure.
+                            The London County Council collection is held at London Metropolitan Archives:  <a href='https://search.lma.gov.uk/scripts/mwimain.dll/144/LMA_OPAC/web_detail/REFD+LCC?SESSIONSEARCH'>Collection Catalogue</a>.
+                           "
+  extra_link_attributes:
+    - image_collage_link
+    - school_collage_link
+    - extra_link_1
+    - extra_link_2
+    - extra_link_3s
+    - lma_website_link
+  credit_attribute: attribution
