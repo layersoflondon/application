@@ -4,6 +4,7 @@ import ErrorBoundary from './error_boundary';
 import { TileLayer } from 'react-leaflet';
 import CollectionLayer from "./collection_layer";
 import VectorGridLayer from "./vector_grid_layer";
+import VectorGridFeature from "./vector_grid_feature";
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapLayerGroup extends Component {
@@ -18,7 +19,18 @@ import VectorGridLayer from "./vector_grid_layer";
   }
 
   geojsonLayer(layer, index) {
-    return <VectorGridLayer key={`layer-${layer.id}`} layer={layer} layerIndex={this.props.layerIndex} index={index} opacity={layer.getOpacity} />
+    let feature;
+    const vectorLayer = <VectorGridLayer key={`layer-${layer.id}`} layer={layer} layerIndex={this.props.layerIndex} index={index} opacity={layer.getOpacity} />;
+
+    const handleFeatureClick = (event) => layer.highlightedFeature = null;
+    if( layer.highlightedFeature ) {
+      feature = <VectorGridFeature key={`layer-feature-${layer.id}`} {...layer.highlightedFeature} onClickHandler={()=>handleFeatureClick} />
+    }
+
+    return <React.Fragment key={`layer-group-${layer.id}`}>
+      {vectorLayer}
+      {feature}
+    </React.Fragment>
   }
 
   collectionLayer(layer, index) {

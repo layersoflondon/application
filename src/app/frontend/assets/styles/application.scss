@@ -85,3 +85,22 @@
   color:white;
   @include clearfix;
 }
+
+/*Wraperclass for the divicon*/
+.feature-icon {
+  position: absolute;
+}
+/*Wrap the content of the divicon (text) in this class*/
+.feature-icon-content {
+  background-color: #fff;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #444;
+  padding: 3px;
+
+  position: relative;
+  left: -50%;
+  top: 5px;
+  width: 250px;
+}

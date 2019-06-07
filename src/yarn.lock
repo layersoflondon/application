@@ -7462,6 +7462,13 @@ react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.6:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
+react-leaflet-div-icon@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-leaflet-div-icon/-/react-leaflet-div-icon-1.1.0.tgz#a31b7ecf3aff66f780f23d7e96ba9420cf072c70"
+  integrity sha512-S3UdDlyplQp7o1lQIdeIidoD2lOzc0x7t4y/bg+N2Ceyo//727Pdgr8+1LWpohGLPeUU0P4RbCCkgBCawIDFug==
+  dependencies:
+    prop-types "^15.5.10"
+
 "react-leaflet-search@https://github.com/layersoflondon/react-leaflet-search.git":
   version "0.4.3"
   resolved "https://github.com/layersoflondon/react-leaflet-search.git#b2864f20076b64d6c4f33498f979a73a6915e558"
