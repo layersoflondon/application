@@ -28,9 +28,17 @@
   color: white;
   width: 220px;
   background: transparent url('../assets/images/icon-search.svg') 14px 15px/20px no-repeat;
+}
 
-  &.is-searching {
-    border-color: red;
+.m-layers-picker .search input + button {
+  margin-left: 10px;
+  float: right;
+  margin-bottom: 80px;
+  margin-top: 30px;
+  @include big-square-button;
+
+  &:disabled {
+    color: #bdc8c4;
   }
 }
 

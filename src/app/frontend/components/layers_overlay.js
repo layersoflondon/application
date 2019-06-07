@@ -15,22 +15,27 @@ import Layer from '../sources/layer';
 
     this.state = {query: "", ids: null, searching: false};
 
-    const _filter = () => {
+    this.filter = () => {
+      this.setState({searching: true});
       Layer.search(this.state).then((response) => {
-        this.setState({ids: response.data.map((i)=>i.id), searching: false});
+        const ids = response.data.map((i)=>i.id);
+        this.setState({ids: ids, searching: false});
       });
     };
-
-    this.filter = debounce(_filter, 1000);
   }
 
-  layerGroupFilter(event) {
-    this.setState({...this.state, searching: true, query: event.currentTarget.value});
-    this.filter();
+  updateLayerGroupFilter(event) {
+    this.setState({...this.state, query: event.currentTarget.value});
   }
 
   handleModalBgClick(event) {
     if (event.target.className === "m-overlay") {
+    }
+  }
+
+  handleReturn(event) {
+    if(event.key === 'Enter' && this.state.searching === false) {
+      this.filter();
     }
   }
 
@@ -65,7 +70,8 @@ import Layer from '../sources/layer';
               <div className="header">
                 <h1>Layers</h1>
                 <div className="search">
-                  <input className={`${this.state.searching ? 'is-searching' : ''}`} placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onChange={this.layerGroupFilter.bind(this)} />
+                  <input placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onKeyUp={this.handleReturn.bind(this)} onChange={this.updateLayerGroupFilter.bind(this)} />
+                  <button className="btn" disabled={this.state.query.length ? false : true} onClick={this.filter}>Go</button>
                 </div>
               </div>
 
