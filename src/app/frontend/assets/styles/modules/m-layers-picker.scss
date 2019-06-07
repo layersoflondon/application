@@ -9,6 +9,9 @@
   @include overlay-title;
   margin-right: 40px;
   margin-bottom: 0;
+  @include mq(small-smartphone) {
+    margin-right: 0;
+  }
 }
 
 .m-layers-picker .subtitle {
@@ -19,6 +22,9 @@
 .m-layers-picker .search {
   float: right;
   margin-top: 50px;
+  @include mq(small-smartphone) {
+    margin-top: 30px;
+  }
 }
 
 .m-layers-picker .search input {
@@ -28,15 +34,26 @@
   color: white;
   width: 220px;
   background: transparent url('../assets/images/icon-search.svg') 14px 15px/20px no-repeat;
+  @include mq(small-smartphone) {
+    width: 114px;
+  }
 }
 
 .m-layers-picker .search input + button {
-  margin-left: 10px;
-  float: right;
-  margin-bottom: 80px;
-  margin-top: 30px;
-  @include big-square-button;
-
+  border: 2px solid grey;
+  border-left:0px;
+  color: $yellow;
+  background:transparent;
+  padding: 13px;
+  //@include big-square-button;
+/*  &:before {
+    content: "\f0da";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1em;
+    margin-right: 10px;
+    z-index: 1;
+  }*/
   &:disabled {
     color: #bdc8c4;
   }
@@ -74,6 +91,9 @@
   text-align: center;
   margin-top: -64px;
   margin-bottom: 14px;
+  @include mq(small-tablet) {
+    margin-top:0;
+  }
 }
 
 .m-layers-picker .section-title h2 {
@@ -117,6 +137,9 @@
   margin-bottom: 30px;
   padding-right: 30px;
   vertical-align: top;
+  @include mq(smartphone) {
+    margin-bottom:15px;
+  }
   @include mq(small-tablet) {
     width: 50%;
   }
@@ -135,6 +158,12 @@
   @include mq(smartphone) {
     padding-bottom: 40%;
     margin: -15px -15px 0 -15px;
+  }
+  @media screen and (max-width: 650px) {
+    padding-bottom: 150px;
+  }
+  @include mq(small-smartphone) {
+    padding-bottom:100px;
   }
 }
 
@@ -193,6 +222,9 @@
   transition:all .2s;
   @include mq(smartphone) {
     padding: 15px 15px 15px 15px;
+  }
+  @media screen and (max-width: 650px) {
+    height:auto !important;
   }
 }
 
@@ -384,6 +416,14 @@
   width: 33.333333%;
   margin-top:0;
   padding:20px;
+  @include mq(smartphone) {
+    float:none;
+    width:66.666666%;
+    padding-bottom:0;
+  }
+  @media screen and (max-width: 650px) {
+    width:auto;
+  }
 }
 
 .m-layers-picker .secondary-layers .layer .description {
@@ -393,6 +433,14 @@
   margin-top:0;
   padding:20px;
   color:white;
+  @include mq(smartphone) {
+    float:none;
+    width:66.666666%;
+    padding-top:4px;
+  }
+  @media screen and (max-width: 650px) {
+    width:auto;
+  }
 }
 
 .m-layers-picker .secondary-layers .layer .image {
@@ -403,4 +451,30 @@
   bottom: 0;
   margin: 0;
   padding-bottom:0;
+/*  @include mq(smartphone) {
+    position:static;
+    padding-bottom: 40%;
+    width: auto;
+  }*/
+  @media screen and (max-width: 650px) {
+    position:static;
+    width: auto;
+    margin: -15px -15px 0 -15px;
+    padding-bottom: 150px;
+  }
+  @include mq(small-smartphone) {
+    padding-bottom:100px;
+  }
+}
+
+
+.m-layers-picker .layer .image {
+  /*
+  width: auto;
+  padding-bottom: 55%;
+  background: #383838 url('../assets/images/layer-blank-crosses.png') 0 0/15px 15px;
+
+  transition: all .2s;
+  */
+
 }
