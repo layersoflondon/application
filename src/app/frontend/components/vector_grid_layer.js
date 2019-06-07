@@ -17,6 +17,15 @@ import VectorGrid from 'react-leaflet-vectorgrid';
     }
   }
 
+  handleClick(event) {
+    const latlng = event.latlng;
+    const properties = event.layer.properties;
+    const featureId = event.layer._leaflet_id;
+
+    this.props.layer.highlightedFeature = null;
+    this.props.layer.highlightedFeature = {latlng: latlng, properties: properties, featureId: featureId};
+  }
+
   render() {
     const color = this.props.layer.layer_data.vector_layer_colour;
     let options = {
@@ -25,6 +34,7 @@ import VectorGrid from 'react-leaflet-vectorgrid';
       zIndex: 1000-this.props.index,
       url: this.props.layer.layer_data.url,
       subdomains: '*',
+      interactive: true,
 
       vectorTileLayerStyles: {
         [this.props.layer.layer_data.feature_name]: {
@@ -38,6 +48,6 @@ import VectorGrid from 'react-leaflet-vectorgrid';
       ...this.state
     };
 
-    return <VectorGrid {...options} ref={this.vectorRef} zIndex={this.props.layerIndex - this.props.index} />
+    return <VectorGrid {...options} ref={this.vectorRef} zIndex={this.props.layerIndex - this.props.index} onClick={this.handleClick.bind(this)} />
   }
 }

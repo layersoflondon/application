@@ -18,6 +18,7 @@ export default class LayerModel {
   @observable parent_opacity = null;
   @observable is_visible = true;
   @observable is_loading = false;
+  @observable highlightedFeature = null;
 
   @computed get getOpacity() {
     if( typeof(this.parent_opacity)==="number" && this.parent_opacity < this.opacity ) {
