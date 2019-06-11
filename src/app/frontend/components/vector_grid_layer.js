@@ -38,6 +38,7 @@ import VectorGrid from 'react-leaflet-vectorgrid';
 
       vectorTileLayerStyles: {
         [this.props.layer.layer_data.feature_name]: {
+      //TODO this needs to be an anonymous function taking (properties, zoom) so we can target zoom and set the weight of the line
           opacity: this.props.layer.opacity,
           fillOpacity: this.props.layer.opacity,
           fill: false,
