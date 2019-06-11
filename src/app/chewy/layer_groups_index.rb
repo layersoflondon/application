@@ -33,7 +33,8 @@ class LayerGroupsIndex < Chewy::Index
               query: query,
               type: 'best_fields',
               fields: multi_match_fields,
-              analyzer: :english
+              analyzer: :english,
+              fuzziness: "AUTO"
             }
           }
         ]
