@@ -1,0 +1,64 @@
+/* Vector meta popover */
+
+.leaflet-div-icon {
+  background:none;
+  border:0;
+}
+
+/*Wraperclass for the divicon*/
+.feature-icon {
+  position: absolute;
+  top: 8px;
+}
+
+/*Wrap the content of the divicon (text) in this class*/
+.feature-icon-content {
+  background-color: $yellow;
+
+  //border-radius: 5px;
+  //border-width: 2px;
+  //border-style: solid;
+  //border-color: #444;
+  padding: 5px;
+
+  position: relative;
+  left: -50%;
+  top: 5px;
+  min-width: 250px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  text-align:left;
+  @include clearfix;
+}
+
+.feature-icon-content:before {
+  content:"";
+  position:absolute;
+  display:block;
+  left:50%;
+  top:-8px;
+  margin-left:-8px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid $yellow;
+
+}
+
+.feature-icon-content td,
+.feature-icon-content th {
+  padding: 0 3px;
+}
+
+/*.feature-icon-content span {
+  float:left;
+  width:50%;
+}
+
+.feature-icon-content span.key {
+  font-weight:bold;
+  clear:left;
+}*/
+
+/*
+.feature-icon-content ul {
+  @include unlist;
+}*/

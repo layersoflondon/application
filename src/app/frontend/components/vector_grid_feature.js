@@ -17,18 +17,19 @@ export default class VectorGridFeature extends Component {
 
     render() {
         const content = Object.keys(this.state.properties).map((key, index) => {
-            return <li key={`feature-property-${key}-${index}-${this.props.featureId}`}>
-                <span className="key">{key}</span> <span className="value">{this.state.properties[key]}</span>
-            </li>
+            return <tr key={`feature-property-${key}-${index}-${this.props.featureId}`}>
+                <th className="key">{key}</th>
+                <td className="value">{this.state.properties[key]}</td>
+            </tr>
         });
 
         const marker = this.state.latlng ? (
             <DivIcon position={this.state.latlng} zIndexOffset={999999} onClick={this.props.onClickHandler()}>
                 <div className="feature-icon">
                     <div className="feature-icon-content">
-                        <ul>
+                        <table>
                             {content}
-                        </ul>
+                        </table>
                     </div>
                 </div>
             </DivIcon>
