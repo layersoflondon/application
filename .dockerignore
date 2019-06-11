@@ -1,6 +1,6 @@
-**/storage/*
-**/public/uploads/*
-**/alpha/*
-**/log/*
-**/tmp/*
-**/node_modules/*
+**/storage
+**/public/uploads
+**/alpha
+**/log
+**/tmp
+**/node_modules
