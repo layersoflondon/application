@@ -25,6 +25,7 @@ import Parser from 'html-react-parser';
 
   componentWillUnmount() {
     this.props.layersStore.layer_group_id = null;
+    this.props.layersStore.layer_group = null;
   }
 
   toggleLayer(event) {
