@@ -1,6 +1,6 @@
 import {observable, observe, computed} from 'mobx';
 import LayerGroupModel from '../models/layer_group';
-import LayerGroup from '../sources/layer';
+import Layer from '../sources/layer';
 
 export default class LayersStore {
   @observable layer_groups = observable.map();
@@ -15,9 +15,10 @@ export default class LayersStore {
 
   constructor() {
     observe(this, 'layer_group_id', (change) => {
+      console.log('change in layer group id')
       if( change.newValue ) {
         this.loading = true;
-        LayerGroup.show(change.newValue).then((response) => {
+        Layer.show(change.newValue).then((response) => {
           let layer_group = LayerGroupModel.fromJS(response.data, this);
           let current_group = this.layer_groups.get(layer_group.id);
           this.layer_group = layer_group;
