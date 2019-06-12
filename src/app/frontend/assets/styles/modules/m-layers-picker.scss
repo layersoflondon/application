@@ -478,3 +478,13 @@
   */
 
 }
+
+.m-layers-picker .no-results {
+  font-size: 24px;
+  text-align: center;
+  padding: 120px 20px 20px;
+  @include mq(smartphone) {
+    font-size: 18px;
+    padding: 60px 20px 20px;
+  }
+}
