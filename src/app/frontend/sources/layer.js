@@ -5,12 +5,13 @@ export default class Layer extends LoLHTTPBase {
   static resource_path = '/layers'; static path = '/layers';
 
     static search(params) {
+
         return axios.get(`${this.resource_path}`, {params: params});
     }
 
-    static resourceIdPath(layer_id){
-        this.resource_path = this.path = `/layers/${layer_id}`;
-    }
+  static show(id) {
+    return axios.get(`/layers/${id}.json`);
+  }
 }
 
 window.Layer = Layer;
