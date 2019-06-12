@@ -20,9 +20,7 @@ import {Link} from "react-router-dom";
           }
         <h2>{this.props.layerGroup.name}</h2>
         <div className="description">
-          {/*Parser(this.props.layerGroup.description||"")*/}
-          {/*this.props.layerGroup.credit && (<span className="credit">{Parser(this.props.layerGroup.credit)}</span>)*/}
-          <p>A Map of Tudor London, in about 1520. Reconstructed by modern historians and archaeologists and published by the Historic Towns Trust in 2018.</p><span className="credit"><p><em>Digital version courtesy of the Historic Towns Trust.</em></p></span>
+          {Parser(this.props.layerGroup.short_name||"")}
         </div>
 
         {/*<div className="actions">
