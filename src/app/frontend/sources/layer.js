@@ -1,7 +1,7 @@
 import LoLHTTPBase from './lol_http_base';
 import axios from 'axios';
 
-export default class LayerGroup extends LoLHTTPBase {
+export default class Layer extends LoLHTTPBase {
   static resource_path = '/layers'; static path = '/layers';
 
     static search(params) {
@@ -13,4 +13,4 @@ export default class LayerGroup extends LoLHTTPBase {
     }
 }
 
-window.LayerGroup = LayerGroup;
+window.Layer = Layer;
