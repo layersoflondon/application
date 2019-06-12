@@ -1,6 +1,6 @@
 json.id layer.id
 json.name layer.name
-json.short_name layer.short_name
+json.short_name layer.short_name.present? ? layer.short_name : strip_tags(layer.description).truncate(70)
 json.description layer.description
 json.slug layer.slug
 # json.credit layer.credit
