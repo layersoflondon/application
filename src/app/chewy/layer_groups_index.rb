@@ -26,20 +26,41 @@ class LayerGroupsIndex < Chewy::Index
     multi_match_fields = %w[name^10 description]
 
     query({
-      bool: {
-        must: [
-          {
-            multi_match: {
-              query: query,
-              type: 'best_fields',
-              fields: multi_match_fields,
-              analyzer: :english,
-              fuzziness: "AUTO"
+            bool: {
+              must: [
+                {
+                  multi_match: {
+                    query: query,
+                    type: "best_fields",
+                    fields: multi_match_fields,
+                    analyzer: :english,
+                    fuzziness: "AUTO"
+                  }
+                }
+              ],
+              should: [
+                {
+                  multi_match: {
+                    query: query,
+                    fields: multi_match_fields,
+                    type: 'phrase',
+                    boost: 10,
+                    analyzer: :english
+
+                  }
+                },
+                {
+                  multi_match: {
+                    query: query,
+                    fields: multi_match_fields,
+                    operator: 'and',
+                    boost: 5,
+                    analyzer: :english
+                  }
+                }
+              ]
             }
-          }
-        ]
-      }
-    })
+          })
   end
 
   def self.highlighted(is_highlighted: true)
