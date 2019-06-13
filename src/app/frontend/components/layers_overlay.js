@@ -17,7 +17,7 @@ import Layer from '../sources/layer';
 
     this.filter = () => {
       this.setState({searching: true});
-      Layer.search(this.state).then((response) => {
+      Layer.search({query: this.state.query}).then((response) => {
         const ids = response.data.map((i) => i.id);
         this.setState({ids: ids, searching: false});
       });
