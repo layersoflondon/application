@@ -23,7 +23,7 @@ export default (state) => {
   const collectionStore = CollectionStore.fromJS(collections, trayViewStore);
 
   const stores = {
-     recordFormStore: recordFormStore,
+    recordFormStore: recordFormStore,
     trayViewStore: trayViewStore,
     mapViewStore: mapViewStore,
     layersStore: layersStore,

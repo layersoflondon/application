@@ -28,8 +28,6 @@ import VectorGrid from 'react-leaflet-vectorgrid';
 
   render() {
     const color = this.props.layer.layer_data.vector_layer_colour;
-    console.log('Name: ' + this.props.layer.layer_data.feature_name);
-    console.log('Color: ' + color);
     let options = {
       type: 'protobuf',
       key: `layer-${this.props.layer.id}`,
@@ -40,8 +38,6 @@ import VectorGrid from 'react-leaflet-vectorgrid';
 
       vectorTileLayerStyles: {
         [this.props.layer.layer_data.feature_name]: (properties, zoom) => {
-      //TODO this needs to be an anonymous function taking (properties, zoom) so we can target zoom and set the weight of the line
-          //if (zoom == 2) {weight = 4;}
           let weight = (zoom-10)*(zoom-10)/8 + 1;
           if (weight<1) {
             weight=1;

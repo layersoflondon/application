@@ -44,6 +44,7 @@ const handle = (props) => {
     list.splice(result.destination.index, 0, removed);
 
     this.props.layersStore.layer_group_order = list;
+
   }
 
   render() {
