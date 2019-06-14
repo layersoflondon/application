@@ -23,7 +23,7 @@ import {Link} from 'react-router-dom';
 
     return <div className="sidebar">
       <div className="place">
-        <div className="m-mini-map" style={{backgroundImage: `url(https://maps.tilehosting.com/styles/basic/static/${this.props.trayViewStore.record.lng},${this.props.trayViewStore.record.lat},14/280x280.png?key=${this.props.mapboxStaticMapsKey})`}}>
+        <div className="m-mini-map" style={{backgroundImage: `url(https://api.maptiler.com/maps/basic/static/${this.props.trayViewStore.record.lng},${this.props.trayViewStore.record.lat},14/280x280.png?key=${this.props.mapboxStaticMapsKey})`}}>
         </div>
 
         <div className="text">{this.props.trayViewStore.record.lat}, {this.props.trayViewStore.record.lng}</div>
