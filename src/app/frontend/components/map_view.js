@@ -107,7 +107,7 @@ import MapLayerGroup from "./map_layer_group";
     }
 
     const layers = <span className="tile-layers">
-      <TileLayer url="https://maps.tilehosting.com/styles/basic/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
+      <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
 
       {this.props.layersStore.activeVisibleLayerGroups.map((layerGroup, index) => {
         const layerGroupIndex = 100000-((index+1)*1000);
