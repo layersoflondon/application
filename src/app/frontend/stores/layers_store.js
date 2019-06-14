@@ -15,7 +15,6 @@ export default class LayersStore {
 
   constructor() {
     observe(this, 'layer_group_id', (change) => {
-      console.log('change in layer group id')
       if( change.newValue ) {
         this.loading = true;
         Layer.show(change.newValue).then((response) => {
