@@ -28,7 +28,10 @@ export default class VectorGridFeature extends Component {
                 <div className="feature-icon">
                     <div className="feature-icon-content">
                         <table>
-                            {content}
+                            <tbody>
+                                {content}
+
+                            </tbody>
                         </table>
                     </div>
                 </div>
