@@ -106,7 +106,7 @@ import pluralize from "pluralize";
     }
 
     const layers = <span className="tile-layers">
-      <TileLayer url="https://maps.tilehosting.com/styles/basic/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
+      <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
 
       {this.props.layersStore.activeLayers.values().map((layer, index) => {
         return <TileLayer key={layer.id} url={layer.url} opacity={layer.opacity} zIndex={1000-index} />

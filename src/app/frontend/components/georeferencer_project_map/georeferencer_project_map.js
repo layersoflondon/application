@@ -31,7 +31,7 @@ export default class GeoreferencerProjectMap extends Component {
       <Map ref={this.setMapRef} center={this.props.centroid} zoom={13}>
         <ZoomControl position={`bottomright`} />
 
-        <TileLayer url="https://maps.tilehosting.com/styles/basic/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" zIndex={0} opacity={100} />
+        <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" zIndex={0} opacity={100} />
 
         {markers}
 

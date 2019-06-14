@@ -29,7 +29,7 @@ import {withRouter} from 'react-router-dom';
       <div>
         <div className="form-group form-group--location">
           <label className={creditsLabelClassName}>Location</label>
-          <div className="m-mini-map" style={{backgroundImage: `url(https://maps.tilehosting.com/styles/basic/static/${this.props.recordFormStore.record.lng},${this.props.recordFormStore.record.lat},16/280x150.png?key=${this.props.mapboxStaticMapsKey})`}} onClick={this.changeLocation.bind(this)}>
+          <div className="m-mini-map" style={{backgroundImage: `url(https://api.maptiler.com/maps/basic/static/${this.props.recordFormStore.record.lng},${this.props.recordFormStore.record.lat},16/280x150.png?key=${this.props.mapboxStaticMapsKey})`}} onClick={this.changeLocation.bind(this)}>
           </div>
         </div>
       </div>
