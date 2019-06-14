@@ -1,17 +1,9 @@
 class LayerGroupsIndex < Chewy::Index
-  settings analysis: {
-      analyzer: {
-          email: {
-              tokenizer: 'keyword',
-              filter: ['lowercase']
-          }
-      }
-  }
   define_type LayerGroup do
     field :id, type: 'integer'
-    field :name, type: 'text'
-    field :short_name, type: 'text'
-    field :description, type: 'text'
+    field :name, type: 'text', analyzer: :english
+    field :short_name, type: 'text', analyzer: :english
+    field :description, type: 'text', analyzer: :english
     field :slug, type: :keyword
     field :highlighted, type: 'boolean'
     field :image, type: :object, value: -> {
@@ -23,29 +15,25 @@ class LayerGroupsIndex < Chewy::Index
   end
 
   def self.search(query)
-    multi_match_fields = %w[name^10 description]
+    multi_match_fields = %w[name^2 short_name description]
 
     query({
             bool: {
-              must: [
-                {
-                  multi_match: {
-                    query: query,
-                    type: "best_fields",
-                    fields: multi_match_fields,
-                    analyzer: :english,
-                    fuzziness: "AUTO"
-                  }
-                }
-              ],
+
               should: [
                 {
                   multi_match: {
                     query: query,
                     fields: multi_match_fields,
-                    type: 'phrase',
-                    boost: 10,
-                    analyzer: :english
+                    type: 'best_fields',
+                    fuzziness: 'AUTO'
+                  }
+                },
+                {
+                  multi_match: {
+                    query: query,
+                    fields: multi_match_fields,
+                    type: 'phrase'
 
                   }
                 },
@@ -53,12 +41,11 @@ class LayerGroupsIndex < Chewy::Index
                   multi_match: {
                     query: query,
                     fields: multi_match_fields,
-                    operator: 'and',
-                    boost: 5,
-                    analyzer: :english
+                    operator: 'and'
                   }
                 }
-              ]
+              ],
+              minimum_should_match: 1
             }
           })
   end
