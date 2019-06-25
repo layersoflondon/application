@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const history = syncHistoryWithStore(browserHistory, routerStore);
     history.previousLocalStates = 0;
 
-    history.subscribe((location, action) => {
+    history.subscribe((newLocation, action) => {
         if( action === "PUSH" ) {
             history.previousLocalStates += 1;
         }

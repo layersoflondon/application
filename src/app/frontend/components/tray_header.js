@@ -32,6 +32,7 @@ import {recordPageView} from "../config/data_layer";
       this.props.closeAction(this);
     } else {
       this.props.router.history.push('/map');
+      this.props.trayViewStore.setHeaderContent({});
     }
   }
 

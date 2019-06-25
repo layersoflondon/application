@@ -19,6 +19,8 @@ export default class RecordViewComponentState {
 
         if(this.props.match.params.collection_id) {
           this.props.router.push(`/map/collections/${this.props.match.params.collection_id}`);
+        }else if( this.props.router.history.previousLocalStates>0 ) {
+          this.props.router.goBack();
         }else {
           this.props.router.push(`/map`);
         }
