@@ -30,6 +30,9 @@ class Record < ApplicationRecord
 
   validates :editing_team, presence: {message: "You need to choose a team if you want them to edit"}, if: -> {allow_team_editing}
 
+  has_many :user_record_comments
+  has_many :comments, through: :user_record_comments
+
   before_validation do
     self.editing_team = nil if !self.allow_team_editing
   end

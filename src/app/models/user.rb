@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_many :contributed_collections, through: :contributed_collection_records, class_name: "Collection", source: :collection
   has_one_attached :avatar
 
+  has_many :user_record_comments
+  has_many :comments, through: :user_record_comments
+
   enum role: [:teacher]
   enum title: {mr: "Mr", mrs: "Mrs", ms: "Ms", mx: "Mx", miss: "Miss", dr: "Dr", prof: "Prof", rev: "Rev"}
 
