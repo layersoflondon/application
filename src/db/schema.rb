@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(version: 2019_06_26_091017) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.text "content"
+    t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
