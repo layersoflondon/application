@@ -24,6 +24,24 @@
     }
 }
 
+.m-record-licences {
+  background: #dedede;
+  float: right;
+  position: relative;
+  width: calc(100% - 300px);
+  padding: 0 44px 40px 44px;
+  @include top-and-tail;
+
+  div {
+    font-size: 14px;
+  }
+
+  div a {
+    color:$green;
+    text-decoration:underline;
+  }
+}
+
 .m-record-credits div {
   font-size: 14px;
 }

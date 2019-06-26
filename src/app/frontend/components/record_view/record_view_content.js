@@ -52,8 +52,15 @@ import {Link }from 'react-router-dom';
             <div className="m-record-credits">
               <h3>Sources and attribution</h3>
               <div dangerouslySetInnerHTML={{__html: this.props.trayViewStore.record.credit}}></div>
+              <hr/>
             </div>
         }
+
+      <div className="m-record-licences">
+        <div>
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC Attribution 4.0 International</a>
+        </div>
+      </div>
 
     </Fragment>
   }
