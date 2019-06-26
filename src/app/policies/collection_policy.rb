@@ -9,7 +9,7 @@ class CollectionPolicy < ApplicationPolicy
 
 
   def update?
-    is_user_owner_of_collection? || is_user_team_leader_of_collection?
+    is_user_owner_of_collection? || user_belongs_team?
   end
 
   def edit?
@@ -31,7 +31,7 @@ class CollectionPolicy < ApplicationPolicy
   end
 
   def is_user_team_leader_of_collection?
-    record.owner_type == 'Team' && user.team_users.where(team_id: record.owner_id, role: 'leader').count.positive?
+    record.owner_type == 'Team' && user.team_users.where(team_id: record.owner_id).count.positive?
   end
 
   def user_belongs_team?
