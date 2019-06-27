@@ -15,6 +15,13 @@
         <p style="margin: 0;">Here's the message accompanying the report:</p>
         <br>
         <p style="margin: 0;"><em><%= strip_tags(@report.message) %></em></p>
+
+        <% if @report.issue === 'comment' && @report.comment.present? %>
+            The comment that has been flagged is: <br/>
+            <div class="comment" style="font-style: italic">
+              <%= @report.comment.content %>
+            </div>
+        <% end %>
     </td>
 </tr>
 <!-- end copy -->

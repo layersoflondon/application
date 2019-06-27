@@ -175,7 +175,7 @@ ActiveRecord::Schema.define(version: 2019_06_27_130153) do
     t.bigint "user_id"
     t.bigint "record_id"
     t.text "content"
-    t.integer "state", default: 0, null: false
+    t.string "state", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_id"], name: "index_comments_on_record_id"

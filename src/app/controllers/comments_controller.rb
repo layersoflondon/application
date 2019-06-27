@@ -11,7 +11,9 @@ class CommentsController < ApplicationController
 
     authorize(@comment)
 
-    @comment.save
+    return render json: @comment.errors.full_messages, status: :unprocessable_entity unless @comment.valid?
+
+    @comment.publish! if @comment.valid?
   end
 
   def update

@@ -29,7 +29,9 @@ import {withRouter} from 'react-router-dom';
       comments.push(response.data);
       this.props.trayViewStore.record.comments = comments;
 
-      this.setState({content: "", status: null});
+      this.setState({content: null, status: null, errors: null});
+    }).catch((error) => {
+      this.setState({errors: error.response.data});
     });
   }
 
@@ -44,8 +46,14 @@ import {withRouter} from 'react-router-dom';
         'bold', 'italic', 'underline'
     ];
 
+    const errors = <ul className="errors">{(this.state.errors || []).map((error, i) => <li key={`comment-error-${i}`}>{error}</li>)}</ul>;
+
     return <div className="m-comment-form">
       <h3>Add a comment</h3>
+      {
+        this.state.errors && this.state.errors.length>0 &&
+        errors
+      }
       <ReactQuill theme="snow" modules={modules} formats={formats} value={this.state.content} onChange={this.handleChange.bind(this)} />
       <button onClick={this.submitComment.bind(this)}>Add</button>
     </div>

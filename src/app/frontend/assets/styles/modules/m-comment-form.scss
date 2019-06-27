@@ -1,4 +1,12 @@
-// Comments
+// Comment form
+.m-comment-form .errors {
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    color: $red;
+  }
+}
 
 .m-comment-form .quill {
   border: 1px solid #ccc;
