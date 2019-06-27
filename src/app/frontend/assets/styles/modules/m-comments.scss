@@ -1,16 +1,64 @@
 // Comments
 
 .m-comments {
-  position: relative;
-  float: right;
-  width: calc(100% - 300px);
-  padding: 40px 44px 40px 44px;
   background: #fff;
   color: #333;
+  float: right;
+  padding: 40px 44px 40px 44px;
+  position: relative;
+  width: calc(100% - 300px);
+
+
   @include top-and-tail;
 
   &.is-loading {
     @include loading-spinner;
+  }
+}
+
+.m-comments .comment {
+  border-top: 1px solid #ccc;
+  padding: 10px 0 0 5px;
+
+  &:first-child {
+    border-top: none;
+  }
+}
+
+.m-comments .comment .comment-header {
+  font-size: 0.9em;
+
+  .comment-user {
+    font-weight: bold;
+  }
+
+  .comment-date {
+    font-style: italic;
+  }
+}
+
+.m-comments .comment .comment-footer {
+  font-size: 0.8em;
+
+  .actions {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .actions li > a:hover {
+    color: $orange;
+  }
+
+  .actions li {
+    display: inline;
+    margin-right: 10px;
+
+    a.delete {
+      color: $red;
+    }
+    a.cancel {
+      color: $green;
+    }
   }
 }
 

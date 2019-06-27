@@ -24,32 +24,37 @@ import Comment from '../../sources/comment';
 
   render() {
     return <div className={`comment comment--${this.state.status || ''}`} ref={this.div}>
-      <p>Comment: <strong>{this.props.comment.content}</strong></p>
-      <p>User: <strong>{this.props.comment.user.name}</strong></p>
-      <p>Date: <strong>{this.props.comment.datetime}</strong></p>
+      <div className="comment-header">
+        By <span className="comment-user">{this.props.comment.user.name}</span> on <span className="comment-date">{this.props.comment.datetime}</span>
+      </div>
 
-      <div className="comment-actions">
-        <ul>
-          <li>
-            <NavLink to={`${this.props.router.location.pathname}/report`}>Report this Comment</NavLink>
-          </li>
+      <div className="comment-content" dangerouslySetInnerHTML={{__html: this.props.comment.content}}>
+      </div>
+
+      <div className="comment-footer">
+        <ul className="actions">
           { (this.props.currentUser.id === this.props.comment.user.id && this.state.status === null) &&
             <li>
-              <a href="#" onClick={()=>this.setState({status: 'delete'})}>Remove Comment</a>
+              <a href="#" onClick={()=>this.setState({status: 'delete'})}>Remove</a>
             </li>
           }
 
           { (this.props.currentUser.id === this.props.comment.user.id && this.state.status === 'delete') &&
-          <li>
-            Are you sure? <a href="#" onClick={this.removeComment.bind(this)}>Yes</a> <a href="#" onClick={()=>this.setState({status: null})}>Cancel</a>
+          <li className={`action-${this.state.status}`}>
+            Are you sure? <a href="#" className="delete" onClick={this.removeComment.bind(this)}>Yes</a> <a href="#" className="cancel" onClick={()=>this.setState({status: null})}>Cancel</a>
           </li>
           }
 
           { (this.props.currentUser.id === this.props.comment.user.id && this.state.status === 'deleting') &&
-          <li>
+          <li className={`action-${this.state.status}`}>
             Deleting...
           </li>
           }
+
+
+          <li>
+            <NavLink to={`${this.props.router.location.pathname}/report`}>Report this Comment</NavLink>
+          </li>
         </ul>
       </div>
     </div>

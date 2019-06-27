@@ -8,7 +8,6 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.build(comment_params.merge({record_id: params[:record_id]}))
-    byebug
 
     authorize(@comment)
 

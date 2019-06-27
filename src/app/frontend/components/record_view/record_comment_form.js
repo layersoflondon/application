@@ -4,7 +4,7 @@ import ReactQuill from 'react-quill';
 import Comment from '../../sources/comment';
 import {withRouter} from 'react-router-dom';
 
-@inject('currentUser')
+@inject('currentUser', 'trayViewStore')
 @withRouter
 @observer export default class RecordCommentForm extends Component {
   constructor(props) {
@@ -25,7 +25,11 @@ import {withRouter} from 'react-router-dom';
     };
 
     Comment.create(this.props.match.params.id, params).then((response) => {
-      console.log("Got response: ", response);
+      const comments = this.props.trayViewStore.record.comments.slice();
+      comments.push(response.data);
+      this.props.trayViewStore.record.comments = comments;
+
+      this.setState({content: "", status: null});
     });
   }
 
@@ -40,8 +44,9 @@ import {withRouter} from 'react-router-dom';
     ];
 
     return <div className="m-comment-form">
+      <h3>Add a comment</h3>
       <ReactQuill theme="bubble" modules={modules} formats={formats} value={this.state.content} onChange={this.handleChange.bind(this)} />
-      <button onClick={this.submitComment.bind(this)}>Submit</button>
+      <button onClick={this.submitComment.bind(this)}>Add</button>
     </div>
   }
 }

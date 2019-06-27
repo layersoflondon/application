@@ -11,20 +11,21 @@ export default class RecordViewComments extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {status: 'loading', comments: []};
+    this.state = {status: 'loading'};
   }
 
   componentDidMount() {
     Comment.index(this.props.record.id).then((response) => {
-      this.setState({status: 'loaded', comments: response.data});
+      this.setState({status: 'loaded'});
+      this.props.record.comments = response.data;
     });
   }
 
   renderLoggedIn() {
     if( this.state.status === 'loaded' ) {
-      const comments = this.state.comments.map((comment, i) => <RecordViewComment key={`record-${this.props.record.id}-comment-${i}`} comment={comment} />);
+      const comments = this.props.record.comments.map((comment, i) => <RecordViewComment key={`record-${this.props.record.id}-comment-${i}`} comment={comment} />);
       return <div className={`m-comments ${this.state.status === 'loading' ? 'is-loading' : ''}`}>
-        <h3>Comments</h3>
+        {/*<h3>Comments</h3>*/}
         {comments}
 
         <RecordCommentForm />
