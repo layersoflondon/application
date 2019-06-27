@@ -38,9 +38,10 @@ import {Link} from 'react-router-dom';
 
   render() {
     if( !this.props.currentUser.id ) {
+      const return_to = this.props.location.pathname;
       return (
           <div className="m-comments">
-            <a href='/users/sign_up'>Sign Up</a> or <a href='/users/sign_in'>Log in</a> to make a comment.
+            <a href={`/users/sign_up?return_to=${return_to}`}>Sign Up</a> or <a href={`/users/sign_in?return_to=${return_to}`}>Log in</a> to make a comment.
           </div>
       )
     }
