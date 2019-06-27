@@ -36,16 +36,17 @@ import {withRouter} from 'react-router-dom';
   render() {
     const modules = {
       toolbar: [
-        ['bold']
+          'bold', 'italic', 'underline'
       ]
     };
 
     const formats = [
+        'bold', 'italic', 'underline'
     ];
 
     return <div className="m-comment-form">
       <h3>Add a comment</h3>
-      <ReactQuill theme="bubble" modules={modules} formats={formats} value={this.state.content} onChange={this.handleChange.bind(this)} />
+      <ReactQuill theme="snow" modules={modules} formats={formats} value={this.state.content} onChange={this.handleChange.bind(this)} />
       <button onClick={this.submitComment.bind(this)}>Add</button>
     </div>
   }
