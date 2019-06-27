@@ -7,9 +7,12 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = current_user.comments.build(comment_params)
+    @comment = current_user.comments.build(comment_params.merge({record_id: params[:record_id]}))
+    byebug
 
     authorize(@comment)
+
+    @comment.save
   end
 
   def update
@@ -21,7 +24,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
+    @comment = Record.find(params[:record_id]).comments.find(params[:id])
 
     authorize(@comment)
     @comment.destroy
@@ -29,6 +32,6 @@ class CommentsController < ApplicationController
 
   private
   def comment_params
-    params
+    params.require(:comment).permit(:content, :status)
   end
 end

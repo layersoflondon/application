@@ -1,0 +1,19 @@
+// Comments
+
+.m-comments {
+  position: relative;
+  float: right;
+  width: calc(100% - 300px);
+  padding: 40px 44px 40px 44px;
+  background: #fff;
+  color: #333;
+  @include top-and-tail;
+
+  &.is-loading {
+    @include loading-spinner;
+  }
+}
+
+.m-comments .comment.comment--deleted {
+  display: none;
+}
