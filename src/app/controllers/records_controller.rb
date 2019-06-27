@@ -215,7 +215,7 @@ class RecordsController < ApplicationController
   end
 
   def record_report_params
-    params.require(:report).permit(:issue, :message, :email)
+    params.require(:report).permit(:issue, :message, :email, :comment_id)
   end
 
   def record_collection_params

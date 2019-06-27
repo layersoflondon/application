@@ -51,9 +51,8 @@ import Comment from '../../sources/comment';
           </li>
           }
 
-
           <li>
-            <NavLink to={`${this.props.router.location.pathname}/report`}>Report this Comment</NavLink>
+            <NavLink to={`${this.props.router.location.pathname}/report?comment=${this.props.comment.id}`}>Report this Comment</NavLink>
           </li>
         </ul>
       </div>

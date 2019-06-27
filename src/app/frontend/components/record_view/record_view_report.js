@@ -15,7 +15,16 @@ import {Link, withRouter} from 'react-router-dom';
     }
 
     this.issues = {copyright: "Copyright", inappropriate: "Inappropriate or offensive", inaccurate: "Inaccurate"};
-    this.state = {form: {issue: Object.keys(this.issues)[0], message: '', email: email}, errors: [], record_id: this.props.router.location.pathname.split("/").slice(-2,-1), report_sent: false};
+
+    const params = new URLSearchParams(this.props.router.location.search);
+    let form = {issue: Object.keys(this.issues)[0], message: '', email: email};
+
+    if( params.get('comment') ) {
+      this.issues = {...this.issues, comment: "Comment"};
+      form = {...form, comment_id: params.get('comment'), issue: Object.keys(this.issues)[Object.keys(this.issues).length-1]};
+    }
+
+    this.state = {form: form, errors: [], record_id: this.props.router.location.pathname.split("/").slice(-2,-1), report_sent: false};
   }
 
   
