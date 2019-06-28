@@ -5,7 +5,7 @@ class LayersController < ApplicationController
 
   def index
     page = params[:page].present? ? params[:page].to_i : 1
-    per_page = params[:per_page].present? ? params[:per_page].to_i : 20
+    per_page = params[:per_page].present? ? params[:per_page].to_i : 999
 
     offset = per_page * (page-1)
 

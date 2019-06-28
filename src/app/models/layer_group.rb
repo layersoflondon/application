@@ -34,4 +34,12 @@ class LayerGroup < ApplicationRecord
   def self.export_filepath(slug = "")
     File.join(Rails.root, 'app', 'assets', 'exports', "#{slug}.xlsx")
   end
+
+  def date_from
+    layers.order(date_from: :asc).first.date_from
+  end
+
+  def date_to
+    layers.order(date_to: :desc).first.date_to
+  end
 end

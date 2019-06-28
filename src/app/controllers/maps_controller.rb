@@ -56,7 +56,7 @@ class MapsController < ApplicationController
     end
 
 
-    @layer_groups = LayerGroupsIndex.limit(999)
+    @layer_groups = LayerGroupsIndex.limit(999).order(:date_from)
 
     # return unless params[:resource].present?
     #

@@ -12,6 +12,8 @@ class LayerGroupsIndex < Chewy::Index
     field :layers, type: :nested, value: -> {layers.decorate} do
       include FieldDefinitions::Layer
     end
+    field :date_from, type: 'date'
+    field :date_to, type: 'date'
   end
 
   def self.search(query)
