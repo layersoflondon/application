@@ -53,7 +53,7 @@ const handle = (props) => {
       classes += " is-closed";
     }
 
-    const lightsOutLabel = this.props.mapViewStore.lightsOut ? 'Show markers' : 'Hide markers';
+    const lightsOutLabel = this.props.mapViewStore.lightsOut ? 'Show records' : 'Hide records';
     const lightsOutClasses = this.props.mapViewStore.lightsOut ? 'lights-out is-active' : 'lights-out';
 
     return <div className={classes} style={{ transform: "none" }}>

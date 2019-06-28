@@ -34,3 +34,4 @@ en:
     tileserver: "Map Tiles"
     dataset: "Dataset"
     collection: "Collection"
+    geojson: "GeoJSON"

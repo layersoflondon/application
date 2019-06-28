@@ -38,6 +38,22 @@ export default class LayersStore {
       layerGroup.is_active = false;
     }else {
       layerGroup = this.layer_groups.get(layer_id);
+
+      /*
+      figure out whether we're rendering a group of mixed layer types and switch off any geojson ones, or
+      whether we're rendering just geojson layers and switch off all but the first one
+       */
+      if( layerGroup.layers.length > 1 ) {
+        console.log("Changing layer group layers...")
+        const geojsonLayers = layerGroup.layers.filter((layer) => layer.layer_type === 'geojson');
+
+        if( layerGroup.layers.length === geojsonLayers.length ) { // all geojson
+          geojsonLayers.slice(1, geojsonLayers.length).map((layer)=>layer.opacity=0);
+        }else { // mixed
+          geojsonLayers.map((layer)=>layer.opacity=0);
+        }
+      }
+
       layerGroup.is_active = true;
     }
 
