@@ -222,7 +222,7 @@ ActiveRecord::Schema.define(version: 2019_06_27_130153) do
     t.boolean "show_on_website", default: true
   end
 
-  create_table "layer_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layer_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "slug"
@@ -244,6 +244,7 @@ ActiveRecord::Schema.define(version: 2019_06_27_130153) do
     t.text "layer_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "image_id"
     t.text "credit"
     t.string "short_title"
     t.bigint "layer_group_id"

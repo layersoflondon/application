@@ -1,13 +1,11 @@
 // Comments
 
 .m-comments {
-  background: #fff;
+  background: $yellow;
   color: #333;
   float: right;
-  padding: 40px 44px 40px 44px;
   position: relative;
   width: calc(100% - 300px);
-
 
   @include top-and-tail;
 
@@ -16,29 +14,38 @@
   }
 }
 
-.m-comments .comment {
-  border-top: 1px solid #ccc;
-  padding: 10px 0 0 5px;
+.m-comments a {
+  color:$red;
+}
 
-  &:first-child {
-    border-top: none;
-  }
+.m-comments .note {
+  padding: 40px 44px;
+}
+
+.m-comments .comment {
+  //padding: 10px 0 0 5px;
+  padding: 40px 44px 0 44px;
+
+  border-bottom: 1px solid #ccc;
+  overflow:hidden;
 }
 
 .m-comments .comment .comment-header {
   font-size: 0.9em;
+  float:left;
 
   .comment-user {
     font-weight: bold;
   }
 
   .comment-date {
-    font-style: italic;
+    opacity:0.7;
   }
 }
 
 .m-comments .comment .comment-footer {
   font-size: 0.8em;
+  float:right;
 
   .actions {
     list-style-type: none;

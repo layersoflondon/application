@@ -42,7 +42,7 @@ export default class RecordViewComments extends Component {
     }else {
       return (
           <div className="m-comments">
-            <NavLink to='/users/sign_up'>Sign Up</NavLink> or <NavLink to='/users/sign_in'>Log in</NavLink> to make a comment.
+            <div className="note">Want to add a comment to this record? <NavLink to='/users/sign_up'>Sign Up</NavLink> or <NavLink to='/users/sign_in'>Log in</NavLink>.</div>
           </div>
       )
     }

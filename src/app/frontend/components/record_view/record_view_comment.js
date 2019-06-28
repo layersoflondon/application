@@ -24,11 +24,13 @@ import Comment from '../../sources/comment';
 
   render() {
     return <div className={`comment comment--${this.state.status || ''}`} ref={this.div}>
-      <div className="comment-header">
-        By <span className="comment-user">{this.props.comment.user.name}</span> on <span className="comment-date">{this.props.comment.datetime}</span>
-      </div>
+
 
       <div className="comment-content" dangerouslySetInnerHTML={{__html: this.props.comment.content}}>
+      </div>
+
+      <div className="comment-header">
+        By <span className="comment-user">{this.props.comment.user.name}</span> on <span className="comment-date">{this.props.comment.datetime}</span>
       </div>
 
       <div className="comment-footer">
