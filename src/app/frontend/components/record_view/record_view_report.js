@@ -62,11 +62,12 @@ import {Link, withRouter} from 'react-router-dom';
     });
 
     const errors = this.state.errors.map((e, i) => <li key={i}>{e}</li>);
+    const content_type = this.state.form.issue === 'comment' ? "comment" : "record";
 
     return (
       <div className="m-record-report form--chunky">
-      <h1>Report this record</h1>
-      <p>If you think there's something wrong with this record, please let us know. Your message will be sent to the Layers of London team and not the original author.</p>
+      <h1>Report this {content_type}</h1>
+      <p>If you think there's something wrong with this {content_type}, please let us know. Your message will be sent to the Layers of London team and not the original author.</p>
 
       {this.state.errors.length > 0 && (
         <ul>{errors}</ul>

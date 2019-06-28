@@ -10,17 +10,19 @@
   position: relative;
   @include top-and-tail;
   @include mq(tablet) {
-    margin-left:0;
-    float:none;
-    width:80%;
-    padding:30px;
-    clear:left;
+    margin-left: 0;
+    float: none;
+    width: 80%;
+    padding: 30px;
+    clear: left;
     z-index: -1;
+    font-size: 16.1px;
   }
   @include mq(smartphone) {
-    padding:15px;
-    width:100%;
-    z-index:0;
+    padding: 15px;
+    width: 100%;
+    z-index: 0;
+    font-size: 14.1px;
   }
 }
 
@@ -37,12 +39,12 @@
 }
 
 .m-record-collections-list a {
-  color:$green;
-  text-decoration:underline;
+  color: $green;
+  text-decoration: underline;
 }
 
 .m-record-collections-list a:hover {
-  color:darken($green, 20%);
+  color: darken($green, 20%);
 }
 
 .m-record-collections-list > h3 {

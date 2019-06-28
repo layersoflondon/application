@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import ReactQuill from 'react-quill';
 import Comment from '../../sources/comment';
 import {withRouter} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 @inject('currentUser', 'trayViewStore')
 @withRouter
@@ -36,6 +37,13 @@ import {withRouter} from 'react-router-dom';
   }
 
   render() {
+    if( !this.props.currentUser.id ) {
+      const return_to = this.props.location.pathname;
+      return (
+        <div className="note">Want to add a comment to this record? <a href={`/users/sign_up?return_to=${return_to}`}>Sign Up</a> or <a href={`/users/sign_in?return_to=${return_to}`}>Log in</a>.</div>
+      )
+    }
+
     const modules = {
       toolbar: [
           'bold', 'italic', 'underline'
