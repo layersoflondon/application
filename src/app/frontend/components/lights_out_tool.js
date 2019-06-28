@@ -14,7 +14,7 @@ import {inject, observer} from "mobx-react";
       classes += ` is-active`;
     }
 
-    const label = this.props.mapViewStore.lightsOut ? 'Show Markers' : 'Hide Markers';
+    const label = this.props.mapViewStore.lightsOut ? 'Show Records' : 'Hide Records';
 
     return (
       <div className={classes}>
