@@ -53,6 +53,9 @@ import {observer} from "mobx-react";
             case 'audio/mpeg':
             case 'audio/m4a':
               return 'audio_file';
+            case 'audio/wav':
+            case 'audio/x-wav':
+              return 'audio_file';
             default:
               return null;
           }
@@ -112,6 +115,8 @@ import {observer} from "mobx-react";
       return <MediaItem {...item} {...this.props} object={media_item} key={`media_item_${index}`} index={index} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
     });
 
+    const validAttachmentContentTypes = 'image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a, audio/wav, audio/x-wav';
+
     const loading_items = this.state.loading.map((item, i) => {
       return <li className={`loading type-${item.type}`} key={`loading_${i}`}>
         <span className={item.type} style={{backgroundImage: `url(${item.url})`}}>
@@ -137,7 +142,7 @@ import {observer} from "mobx-react";
             </div>
 
             <div className="thumbs">
-              <Dropzone className="dropzone" disableClick={true} onClick={()=>console.log("clicked")} activeClassName={"is-active"} activeStyle={{border: '0'}} accept="image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a" onDrop={this.onDrop.bind(this)}>
+              <Dropzone className="dropzone" disableClick={true} onClick={()=>console.log("clicked")} activeClassName={"is-active"} activeStyle={{border: '0'}} accept={validAttachmentContentTypes} onDrop={this.onDrop.bind(this)}>
                 <ul>
                   {media_items}
 
