@@ -75,7 +75,7 @@
       font-family: FontAwesome;
       font-size: 5em;
       position: absolute;
-      margin: 0 25%;
+      margin: 13% calc(25% + 5px);
     }
   }
 
@@ -85,6 +85,16 @@
 
       &:after {
         content: "\f1c1";
+      }
+    }
+  }
+
+  li.type-audio {
+    a span {
+      background: transparent;
+
+      &:after {
+        content: "\f1c7";
       }
     }
   }

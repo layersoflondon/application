@@ -4,20 +4,20 @@ find:
   collection:
     title: "Films from the London County Council Collection"
 import:
+  sheet_index: 1
   rows_indices:
     - 1
     - -1
   row_attributes:
     - number
     - film
-    - location
     - lat
     - lng
     - date
     - created_by
     - title
-    - other_title
     - description
+    - attribution
     - collage_link
     - collage_link_title
     - extra_link_1
@@ -57,3 +57,4 @@ import:
       description:
         - title
         - film
+  credit_attribute: attribution
