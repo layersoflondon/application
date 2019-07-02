@@ -275,7 +275,7 @@ export default class RecordModel {
   }
 
   @computed get documents_images_and_video() {
-    return this.attachments.filter((a) => (a.is_document_or_image || a.is_video));
+    return this.attachments.filter((a) => (a.is_document_or_image || a.is_media));
   }
 
   get_attachment(id) {
