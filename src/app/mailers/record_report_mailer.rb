@@ -13,6 +13,8 @@ class RecordReportMailer < ApplicationMailer
                 "the record is not accurate"
               when 'inappropriate'
                 "the record is offensive or inappropriate"
+              when 'comment'
+                "a comment on the record has been flagged"
               end
 
     mail(to: AdminUser.all.collect(&:email), subject: "Layers of London - record reported by user")

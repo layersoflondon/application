@@ -15,7 +15,16 @@ import {Link, withRouter} from 'react-router-dom';
     }
 
     this.issues = {copyright: "Copyright", inappropriate: "Inappropriate or offensive", inaccurate: "Inaccurate"};
-    this.state = {form: {issue: Object.keys(this.issues)[0], message: '', email: email}, errors: [], record_id: this.props.router.location.pathname.split("/").slice(-2,-1), report_sent: false};
+
+    const params = new URLSearchParams(this.props.router.location.search);
+    let form = {issue: Object.keys(this.issues)[0], message: '', email: email};
+
+    if( params.get('comment') ) {
+      this.issues = {...this.issues, comment: "Comment"};
+      form = {...form, comment_id: params.get('comment'), issue: Object.keys(this.issues)[Object.keys(this.issues).length-1]};
+    }
+
+    this.state = {form: form, errors: [], record_id: this.props.router.location.pathname.split("/").slice(-2,-1), report_sent: false};
   }
 
   
@@ -53,11 +62,12 @@ import {Link, withRouter} from 'react-router-dom';
     });
 
     const errors = this.state.errors.map((e, i) => <li key={i}>{e}</li>);
+    const content_type = this.state.form.issue === 'comment' ? "comment" : "record";
 
     return (
       <div className="m-record-report form--chunky">
-      <h1>Report this record</h1>
-      <p>If you think there's something wrong with this record, please let us know. Your message will be sent to the Layers of London team and not the original author.</p>
+      <h1>Report this {content_type}</h1>
+      <p>If you think there's something wrong with this {content_type}, please let us know. Your message will be sent to the Layers of London team and not the original author.</p>
 
       {this.state.errors.length > 0 && (
         <ul>{errors}</ul>

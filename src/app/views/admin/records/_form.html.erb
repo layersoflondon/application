@@ -5,10 +5,10 @@
             <li><a href="#details">Details</a></li>
             <li><a href="#location">Location</a></li>
             <li><a href="#attachments">Attachments</a></li>
+            <li><a href="#comments">Comments</a></li>
         </ul>
 
         <div class="tab-content">
-
             <div id="the-basics">
                 <%= f.inputs name: "The Basics" do %>
                     <%= f.input :title  %>
@@ -58,16 +58,39 @@
                 <% end %>
             </div>
 
+            <div id="comments">
+                <div class="index_content">
+                    <div class="index_as_table">
+                        <table class="index_table index">
+                            <thead>
+                                <th>Destroy</th>
+                                <th>Content</th>
+                                <th>State</th>
+                            </thead>
+
+                            <tbody>
+                                <%= f.fields_for :comments, f.object.comments do |comment_form| %>
+                                    <tr>
+                                        <td width="25px">
+                                            <%= comment_form.check_box :_destroy %>
+                                        </td>
+
+                                        <td width="50%">
+                                            <%= sanitize(comment_form.object.content.html_safe) %>
+                                        </td>
+
+                                        <td>
+                                            <%= comment_form.object.state %>
+                                        </td>
+                                    </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
-
-
-
-
-
-
-    
 
     <%= f.actions %>
    
