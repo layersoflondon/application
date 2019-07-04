@@ -1,0 +1,46 @@
+// Comment form
+
+.m-comment-form {
+  padding: 40px 44px 40px 44px;
+  overflow: hidden;
+}
+
+.m-comment-form .errors {
+  list-style-type: none;
+
+  li {
+    color: $red;
+  }
+}
+
+.m-comment-form h3 {
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  opacity: 0.6;
+  font-size: 14px;
+  margin-top:0;
+}
+
+.m-comment-form .quill {
+  border:0;
+  margin-bottom: 10px;
+  background:white;
+}
+
+.m-comment-form .ql-toolbar.ql-snow {
+  border:0;
+  border-bottom: 1px solid $yellow;
+}
+
+.m-comment-form .ql-container.ql-snow {
+  border:0;
+}
+
+
+.m-comment-form > button {
+  background:$red;
+  color:white;
+  float:right;
+  padding: 10px 20px;
+}

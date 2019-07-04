@@ -29,7 +29,7 @@
   float: right;
   position: relative;
   width: calc(100% - 300px);
-  padding: 0 44px 40px 44px;
+  padding: 40px 44px 40px 44px;
   @include top-and-tail;
 
   div {
@@ -39,6 +39,19 @@
   div a {
     color:$green;
     text-decoration:underline;
+  }
+  @include mq(tablet) {
+    margin-left:0;
+    float:none;
+    width:80%;
+    padding:30px;
+    clear:left;
+    z-index: -1;
+  }
+  @include mq(smartphone) {
+    padding:15px;
+    width:100%;
+    z-index:0;
   }
 }
 

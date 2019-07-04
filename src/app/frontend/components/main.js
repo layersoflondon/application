@@ -92,6 +92,16 @@ import AddToCollection from "./record_view/add_to_collection";
           </ErrorBoundary>
         )} />
 
+      <Route exact path='/map/collections/:collection_id/records/:id/report' render={({match, location}) => (
+          <ErrorBoundary>
+            <RecordView match={match}>
+              <ErrorBoundary>
+                <RecordViewReport />
+              </ErrorBoundary>
+            </RecordView>
+          </ErrorBoundary>
+      )} />
+
         <Route exact path='/map/records/:id/add-to-collection' render={({match, location}) => (
           <ErrorBoundary>
             <RecordView>

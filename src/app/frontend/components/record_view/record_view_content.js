@@ -5,6 +5,7 @@ import RecordViewDownloads from './record_view_downloads';
 import RecordViewLinks from './record_view_links';
 import RecordViewText from './record_view_text';
 import {Link }from 'react-router-dom';
+import RecordViewComments from "./record_view_comments";
 
 @observer class RecordViewContent extends Component {
   constructor(props) {
@@ -61,6 +62,8 @@ import {Link }from 'react-router-dom';
           <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC Attribution 4.0 International</a>
         </div>
       </div>
+
+      <RecordViewComments record={this.props.trayViewStore.record} />
 
     </Fragment>
   }

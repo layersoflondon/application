@@ -50,6 +50,8 @@ Rails.application.routes.draw do
       patch 'collections', to: 'records#add_to_collections'
       delete 'collections', to: 'records#remove_from_collections'
     end
+
+    resources :comments, controller: 'comments', only: [:index, :create, :update, :destroy]
   end
 
   resources :collections, only: %i[index create show update destroy], defaults: {format: :json} do
