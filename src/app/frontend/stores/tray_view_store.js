@@ -390,7 +390,7 @@ export default class TrayViewStore {
     }
 
     this.loading = false;
-    this.cards = cards;
+    this.cards.replace(cards);
   }
 
   /**
@@ -398,10 +398,14 @@ export default class TrayViewStore {
    * @param card_data
    */
   updateCollectionOfCards(card_data) {
+    const items = observable.map();
+
     card_data.map((data) => {
       const card = CardModel.fromJS(data, this);
-      this.cards.set(card.id, card);
+      items.set(card.id, card);
     });
+    
+    this.cards.merge(items);
   }
 
   setHeaderContent(content) {
