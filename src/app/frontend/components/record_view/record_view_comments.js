@@ -30,7 +30,9 @@ export default class RecordViewComments extends Component {
         <RecordCommentForm />
       </div>
     } else {
-      return <span />
+      return <div className={`m-comments is-loading`}>
+        <div className="m-comment-form"></div>
+      </div>
     }
   }
 }
