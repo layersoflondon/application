@@ -118,7 +118,7 @@ namespace :import do
             image.attachable.file.attach(io: StringIO.new(File.open(file_path).read), filename: "#{@catalogue_number}.jpg")
             image.attachable.caption = ""
             record.save!
-            record.update_attribute(:primary_image_id, image.attachable.id)
+            # record.update_attribute(:primary_image_id, image.attachable.id)
           end
 
           if yaml[:import].try(:[], :extra_link_attributes).try(:any?)
