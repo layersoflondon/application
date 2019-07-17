@@ -108,7 +108,7 @@ class Record < ApplicationRecord
     sanitized = ActionController::Base.helpers.sanitize(description, tags: %w(p br h1 h2 b strong em u strikethrough s d ul ol), attributes: %w(href))
     doc = Nokogiri::HTML.fragment(sanitized)
     # remove paras with a break inside
-    doc.css("p>br:only-child").each {|br| br.parent.remove}
+    doc.css("p>br:only-child").each {|br| br.parent.remove if br.parent.children.count == 1}
     # remove empty paras
     doc.css('p').select {|p| p.children.empty?}.each(&:remove)
     self.description = doc.to_html
@@ -118,7 +118,7 @@ class Record < ApplicationRecord
     sanitized = ActionController::Base.helpers.sanitize(credit, tags: %w(p a), attributes: %w(href))
     doc = Nokogiri::HTML.fragment(sanitized)
     # remove paras with a break inside
-    doc.css("p>br:only-child").each {|br| br.parent.remove}
+    doc.css("p>br:only-child").each {|br| br.parent.remove if br.parent.children.count == 1}
     # remove empty paras
     doc.css('p').select {|p| p.children.empty?}.each(&:remove)
     self.credit = doc.to_html
