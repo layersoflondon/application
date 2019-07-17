@@ -5,8 +5,8 @@ find:
     title: "London County Council Collections: London’s Health and Welfare"
 import:
   rows_indices:
-    - 2
-    - 2
+    - 1
+    - -1
   row_attributes:
     - number
     - catalogue_number
