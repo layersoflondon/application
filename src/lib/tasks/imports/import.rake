@@ -79,6 +79,15 @@ namespace :import do
             credit = "London Metropolitan Archives (City of London Corporation): https://www.cityoflondon.gov.uk/things-to-do/london-metropolitan-archives/Pages/default.aspx"
           end
 
+          if yaml[:import].try(:[], :credit_attribute_2)
+            credit += "\r\n" + (instance_variable_get("@#{yaml[:import][:credit_attribute_2]}") || "")
+          end
+
+          if yaml[:import].try(:[], :credit_attribute_3)
+            credit += "\r\n" + (instance_variable_get("@#{yaml[:import][:credit_attribute_3]}") || "")
+          end
+
+
           if yaml[:import].has_key?(:default_values) && yaml[:import][:default_values].try(:[], :record).any?
             yaml[:import][:default_values][:record].each do |attribute_name, sub_attributes_for_value|
               current_attribute_value = instance_variable_get("@#{attribute_name}")
@@ -115,7 +124,7 @@ namespace :import do
           if yaml[:import].try(:[], :extra_link_attributes).try(:any?)
             extra_links = yaml[:import][:extra_link_attributes].select{|attr| instance_variable_get("@#{attr}")}.collect{|attr| [instance_variable_get("@#{attr}"), instance_variable_get("@#{attr}_title")]}
 
-            record.attachments = []
+            record.attachments ||= []
             extra_links.each do |link, title|
               if link.match(/youtube/i)
                 attachment = record.attachments.build(attachment_type: 'video', credit: '', attachable_attributes: {
@@ -139,7 +148,7 @@ namespace :import do
             CollectionRecord.create(collection_id: collection.id, record_id: record.id, contributing_user_id: user.id)
           end
 
-          collection.reload.save
+          CollectionsIndex.import collection
         rescue => e
           puts e
           next
