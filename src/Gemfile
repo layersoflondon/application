@@ -148,3 +148,5 @@ gem 'friendly_id'
 gem 'sitemap_generator'
 
 gem 'rubyXL'
+
+gem 'layers_of_london-booth-map_tool', path: '../../layers_of_london-booth-map_tool'

@@ -101,6 +101,16 @@ Rails.application.routes.draw do
 
   mount Rooftop::Rails::Engine => "/rooftop"
 
+  mount LayersOfLondon::Booth::MapTool::Engine => "/"
+
+  resource :maptools, only: [:show] do
+    resources :squares, except: [:show, :new, :destroy], controller: 'maptools' do
+      collection do
+        match ":id", via: [:get], to: "maptools#show", constraints: {id: /[0-9A-Za-z\-\.,]+/}
+      end
+    end
+  end
+
   # IMPORTANT: this is a greedy catchall route - it needs to be the last route in the file.
   #         # IMPORTANT: this is a greedy catchall route - it needs to be the last route in the file.
   match "/*nested_path(.:extension)", via: [:get], to: "pages#show", as: :page, constraints: ->(request) {request.path.exclude?('rails/active_storage') && (request.format == :html || request.format == '*/*')}

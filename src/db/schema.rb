@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_27_130153) do
+ActiveRecord::Schema.define(version: 2019_07_24_120136) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -222,7 +222,7 @@ ActiveRecord::Schema.define(version: 2019_06_27_130153) do
     t.boolean "show_on_website", default: true
   end
 
-  create_table "layer_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layer_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "slug"
@@ -244,11 +244,21 @@ ActiveRecord::Schema.define(version: 2019_06_27_130153) do
     t.text "layer_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "image_id"
     t.text "credit"
     t.string "short_title"
     t.bigint "layer_group_id"
     t.index ["layer_group_id"], name: "index_layers_on_layer_group_id"
+  end
+
+  create_table "layers_of_london_booth_map_tool_polygons", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.text "feature"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "layers_of_london_booth_map_tool_squares", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "record_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
