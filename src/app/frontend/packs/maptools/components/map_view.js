@@ -11,8 +11,9 @@ export default class MapView extends React.Component {
     constructor(props) {
         super(props);
 
-        this.mapRef = React.createRef();
-        window.mapRef = this.mapRef;
+        this.setMapRef = element => {
+            this.props.mapToolsStore.mapRef = element;
+        };
     }
 
     handleOnClick(event) {
@@ -102,12 +103,11 @@ export default class MapView extends React.Component {
         //
         // grid.addTo(this.mapRef.current.leafletElement)
 
-        this.mapRef.current.leafletElement.on(L.Draw.Event.CREATED, (event) => {
+        this.props.mapToolsStore.mapRef.leafletElement.on(L.Draw.Event.CREATED, (event) => {
             const layer = event.layer;
             layer.editing.enable();
 
-            this.mapRef.current.leafletElement.addLayer(layer);
-            createPolygon(1234, layer.toGeoJSON());
+            this.props.mapToolsStore.createFeature(1, layer.toGeoJSON());
         });
     }
 
@@ -136,18 +136,9 @@ export default class MapView extends React.Component {
             }
 
             <div className="m-map-area" style={{marginTop: 200, left: 0, width: '800px', height: '800px', marginLeft: '10px', bottom: '10px'}}>
-                <Map drawControl={canEdit} onClick={this.handleOnClick.bind(this)} ref={this.mapRef} zoomControl={zoomControl} center={center} zoom={zoom} dragging={draggingEnabled} touchZoom={zoomingEnabled} doubleClickZoom={zoomingEnabled} scrollWheelZoom={zoomingEnabled}>
+                <Map drawControl={canEdit} onClick={this.handleOnClick.bind(this)} ref={this.setMapRef} zoomControl={zoomControl} center={center} zoom={zoom} dragging={draggingEnabled} touchZoom={zoomingEnabled} doubleClickZoom={zoomingEnabled} scrollWheelZoom={zoomingEnabled}>
                     <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
-                    {/*<TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />*/}
-
-                    {this.props.mapToolsStore.featureData &&
-                        <GeoJSON data={this.props.mapToolsStore.featureData} />
-                    }
                 </Map>
-
-                {mapPosition &&
-                    <div></div>
-                }
             </div>
         </div>
     }

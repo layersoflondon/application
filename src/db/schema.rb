@@ -251,9 +251,11 @@ ActiveRecord::Schema.define(version: 2019_07_24_120136) do
   end
 
   create_table "layers_of_london_booth_map_tool_polygons", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.bigint "square_id"
     t.text "feature"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["square_id"], name: "index_layers_of_london_booth_map_tool_polygons_on_square_id"
   end
 
   create_table "layers_of_london_booth_map_tool_squares", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|

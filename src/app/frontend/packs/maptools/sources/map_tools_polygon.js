@@ -4,12 +4,17 @@ const getPolygons = (id) => {
     return axios.get(`/booth/maptools/squares/${id}/polygons`);
 };
 
-const createPolygon = (params) => {
-    return axios.post(`/booth/maptools/squares/1234/polygons`, {params: params});
+const getAllPolygons = () => {
+    return axios.get('/booth/maptools/squares');
+};
+
+const createPolygon = (square_id, params) => {
+    const data = {feature: params};
+    return axios.post(`/booth/maptools/squares/${square_id}/polygons`, data);
 };
 
 const deletePolygon = (id) => {
     return axios.delete(`/booth/maptools/${id}`);
 };
 
-export { getPolygons, createPolygon, deletePolygon };
+export { getPolygons, getAllPolygons, createPolygon, deletePolygon };
