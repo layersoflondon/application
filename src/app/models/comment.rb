@@ -7,12 +7,8 @@ class Comment < ApplicationRecord
   # validates :content, presence: true
   validate :content_length
 
-  def thread_participants
-    record.comments.includes(:user).references(:user).collect(&:user).uniq
-  end
-
   def other_thread_participants
-    thread_participants.reject {|u| u == self.user }
+    record.comment_thread_participants.reject {|u| u == self.user }
   end
 
   def content_length

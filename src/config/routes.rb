@@ -91,6 +91,13 @@ Rails.application.routes.draw do
     get 'export'
   end
 
+  resources :unsubscribed_record_comments, only: [:show] do
+    member do
+      get :unsubscribe, to: "unsubscribed_record_comments#unsubscribe!", as: :unsubscribe
+      get :subscribe, to: "unsubscribed_record_comments#subscribe!", as: :subscribe
+    end
+  end
+
   resources :taxonomies, only: [:index], defaults: {format: :json}
 
   resources :guides, only: [:show], path: "help-centre/guides"

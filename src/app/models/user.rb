@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :contributed_collection_records, class_name: 'CollectionRecord', foreign_key: :contributing_user_id
   has_many :contributed_collections, through: :contributed_collection_records, class_name: "Collection", source: :collection
   has_one_attached :avatar
+  has_many :unsubscribed_record_comments, dependent: :destroy
+  has_many :unsubscribed_records, through: :unsubscribed_record_comments, source: :record
 
   has_many :comments
 

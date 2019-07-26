@@ -20,6 +20,9 @@ class Record < ApplicationRecord
   has_many :taxonomy_terms, through: :record_taxonomy_terms
   belongs_to :credit_image, class_name: 'Attachments::Image', dependent: :destroy, optional: true
 
+  has_many :unsubscribed_record_comments, dependent: :destroy
+  has_many :unsubscribing_users, through: :unsubscribed_record_comments
+
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
   has_many :record_reports
@@ -218,6 +221,10 @@ class Record < ApplicationRecord
         errors.add(attribute.to_sym, "is invalid")
       end
     end
+  end
+
+  def comment_thread_participants
+    comments.includes(:user).references(:user).collect(&:user).uniq
   end
 
   private

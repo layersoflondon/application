@@ -35,6 +35,15 @@ class RecordPolicy < ApplicationPolicy
     true
   end
 
+  def subscribe_to_comments?
+    user.present? && (user.in?(record.comment_thread_participants) || record.user == user)
+  end
+
+  def unsubscribe_from_comments?
+    subscribe_to_comments?
+  end
+
+
   class Scope < Scope
     def resolve
       scope

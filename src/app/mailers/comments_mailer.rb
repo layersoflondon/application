@@ -7,7 +7,7 @@ class CommentsMailer < ApplicationMailer
     @comment = comment
     @record = comment.record
     @user = @record.user
-    mail(to: @user.email, subject: "Layers of London - new comment on your record")
+    mail(to: @user.email, subject: "Layers of London - new comment on your record") unless @user.unsubscribed_records.include?(@record)
   end
 
   def reply_notification(comment, recipient)
@@ -15,7 +15,7 @@ class CommentsMailer < ApplicationMailer
     @record = comment.record
     @user = comment.user
     @recipient = recipient
-    mail(to: @recipient.email, subject: "Layers of London - new reply to your comment")
+    mail(to: @recipient.email, subject: "Layers of London - new reply to your comment") unless @recipient.unsubscribed_records.include?(@record)
 
   end
 

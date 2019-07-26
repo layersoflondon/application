@@ -1,0 +1,11 @@
+<% content_for :title, "Record comment emails" %>
+
+<p><strong><%= record.title %></strong></p>
+
+<% if current_user.unsubscribed_records.include?(record) %>
+    <p>We've unsubscribed you from comments on this record. You won't get any more emails.</p>
+    <p><strong>Unsubscribed by accident?</strong> <%= link_to "Subscribe again", subscribe_unsubscribed_record_comment_path(record) %></p>
+<% else %>
+    You're subscribed to comments on this record. You'll get emails every time a new comment is posted.
+    <p><strong>Subscribed by accident?</strong> <%= link_to "Unsubscribe to stop emails", unsubscribe_unsubscribed_record_comment_path(record) %></p>
+<% end %>

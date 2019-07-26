@@ -41,6 +41,6 @@
 
 <tr>
     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Muli', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-        <p><strong>Don't want to get emails about this record?</strong> Mute the comment thread here and we'll stop sending emails about this record.</p>
+        <p><strong>Don't want to get emails about this record?</strong> <%= link_to "Mute the comment thread here", unsubscribe_unsubscribed_record_comment_url(@record.id) %> and we'll stop sending emails about this record.</p>
     </td>
 </tr>
