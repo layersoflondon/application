@@ -5,7 +5,7 @@ const getPolygons = (id) => {
 };
 
 const getAllPolygons = () => {
-    return axios.get('/booth/maptools/squares');
+    return axios.get('/booth/maptools/squares/polygons');
 };
 
 const createPolygon = (square_id, params) => {
@@ -13,8 +13,13 @@ const createPolygon = (square_id, params) => {
     return axios.post(`/booth/maptools/squares/${square_id}/polygons`, data);
 };
 
-const deletePolygon = (id) => {
-    return axios.delete(`/booth/maptools/${id}`);
+const updatePolygon = (square_id, id, params) => {
+    const data = {feature: params};
+    return axios.put(`/booth/maptools/squares/${square_id}/polygons/${id}`, data);
 };
 
-export { getPolygons, getAllPolygons, createPolygon, deletePolygon };
+const deletePolygon = (square_id, id) => {
+    return axios.delete(`/booth/maptools/squares/${square_id}/polygons/${id}`);
+};
+
+export { getPolygons, getAllPolygons, createPolygon, updatePolygon, deletePolygon };

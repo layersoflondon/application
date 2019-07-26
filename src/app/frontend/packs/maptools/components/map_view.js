@@ -103,11 +103,42 @@ export default class MapView extends React.Component {
         //
         // grid.addTo(this.mapRef.current.leafletElement)
 
+        const drawnItems = L.featureGroup().addTo(this.props.mapToolsStore.mapRef.leafletElement);
+
+        const drawingControl = new L.Control.Draw({
+            edit: {
+                featureGroup: drawnItems,
+                poly: {
+                    allowIntersection: false,
+                    showArea: true
+                }
+            },
+            draw: {
+                polygon: {
+                    allowIntersection: false,
+                    showArea: true
+                }
+            }
+        });
+
+        this.props.mapToolsStore.mapRef.leafletElement.addControl(drawingControl);
+        this.props.mapToolsStore.mapRef.leafletElement.squareItems = drawnItems;
+
         this.props.mapToolsStore.mapRef.leafletElement.on(L.Draw.Event.CREATED, (event) => {
             const layer = event.layer;
-            layer.editing.enable();
-
             this.props.mapToolsStore.createFeature(1, layer.toGeoJSON());
+        });
+
+        this.props.mapToolsStore.mapRef.leafletElement.on(L.Draw.Event.EDITED, (event) => {
+            event.layers.eachLayer((layer) => {
+                this.props.mapToolsStore.updateFeature(1, layer.properties.id, layer.toGeoJSON())
+            });
+        });
+
+        this.props.mapToolsStore.mapRef.leafletElement.on(L.Draw.Event.DELETED, (event) => {
+            event.layers.eachLayer((layer) => {
+                this.props.mapToolsStore.deleteFeature(1, layer.properties.id);
+            });
         });
     }
 
@@ -123,9 +154,9 @@ export default class MapView extends React.Component {
         let canEdit = false;
 
         if(this.props.match.params.lat && this.props.match.params.lng) {
-            draggingEnabled = false;
-            zoomingEnabled  = false;
-            zoomControl     = false;
+            draggingEnabled = true;
+            zoomingEnabled  = true;
+            zoomControl     = true;
             center = [parseFloat(this.props.match.params.lat), parseFloat(this.props.match.params.lng)];
             canEdit = true;
         }
@@ -136,7 +167,7 @@ export default class MapView extends React.Component {
             }
 
             <div className="m-map-area" style={{marginTop: 200, left: 0, width: '800px', height: '800px', marginLeft: '10px', bottom: '10px'}}>
-                <Map drawControl={canEdit} onClick={this.handleOnClick.bind(this)} ref={this.setMapRef} zoomControl={zoomControl} center={center} zoom={zoom} dragging={draggingEnabled} touchZoom={zoomingEnabled} doubleClickZoom={zoomingEnabled} scrollWheelZoom={zoomingEnabled}>
+                <Map onClick={this.handleOnClick.bind(this)} ref={this.setMapRef} zoomControl={zoomControl} center={center} zoom={zoom} dragging={draggingEnabled} touchZoom={zoomingEnabled} doubleClickZoom={zoomingEnabled} scrollWheelZoom={zoomingEnabled}>
                     <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
                 </Map>
             </div>

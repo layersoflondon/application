@@ -12,7 +12,7 @@ export default class Square extends React.Component {
     }
 
     componentWillMount() {
-        this.props.mapToolsStore.fetchPolygonsForSquare(1);
+        this.props.mapToolsStore.fetchPolygonsForSquare();
     }
 
     render() {

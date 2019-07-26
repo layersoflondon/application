@@ -1,5 +1,5 @@
-import {action, observe, observable, reaction, runInAction} from 'mobx/lib/mobx';
-import { getPolygons, getAllPolygons, createPolygon, updatePolygon, deletePolygon } from '../sources/map_tools_polygon';
+import {action, observe, observable, runInAction, toJS} from 'mobx/lib/mobx';
+import {getPolygons, getAllPolygons, createPolygon, updatePolygon, deletePolygon} from '../sources/map_tools_polygon';
 import L from 'leaflet';
 
 export default class MapToolsStore {
@@ -17,15 +17,25 @@ export default class MapToolsStore {
             const added   = change.newValue.values().filter((feature) => change.oldValue.get(feature.properties.id) === undefined);
 
             added.map((feature) => {
-                L.geoJson(feature).addTo(this.mapRef.leafletElement);
-            });
+                let leafletFeature;
 
-            removed.map((feature) => {
-                const removedFeatures = Object.values(this.mapRef.leafletElement._layers).filter((layer) => {
-                    return layer.hasOwnProperty('feature') && layer.feature.properties.id === feature.properties.id;
-                });
+                // if the user can't edit the feature, add it as a geojson layer to the map (when switching to edit mode, it wont be possible to change or delete the polygon)
+                if( !feature.properties.userCanEdit ) {
+                    const layer = new L.geoJson(feature);
+                    layer.addTo(this.mapRef.leafletElement);
+                    return;
+                }
 
-                removedFeatures.map((feature) => this.mapRef.leafletElement.removeLayer(feature));
+                if( feature.geometry.type === "Polygon" ) {
+                    const coords = toJS(feature).geometry.coordinates[0].map((latlng) => [latlng[1],latlng[0]]);
+                    leafletFeature = new L.Polygon(coords);
+                    leafletFeature.properties = feature.properties;
+
+                    this.mapRef.leafletElement.squareItems.addLayer(leafletFeature);
+                }else {
+                    leafletFeature = L.geoJson(feature);
+                    console.log(`Skipping unsupported feature type ${feature.geometry.type}`);
+                }
             });
         });
     }
@@ -42,7 +52,7 @@ export default class MapToolsStore {
         if( id ) {
             result = await getPolygons(id);
         }else {
-            result = await getAllPolygons(id);
+            result = await getAllPolygons();
         }
 
         runInAction(() => {
@@ -60,9 +70,19 @@ export default class MapToolsStore {
         const result = await createPolygon(square_id, feature);
 
         runInAction(() => {
-            const features = this.featureData.slice();
-            features.push(result.data);
+            const features = observable.map();
+            this.featureData.keys().map((id) => features.set(id, this.featureData.get(id)));
+            features.set(result.data.properties.id, result.data);
+
             this.featureData = features;
         });
+    }
+
+    @action.bound async updateFeature(square_id, id, feature) {
+        const result = await updatePolygon(square_id, id, feature);
+    }
+
+    @action.bound async deleteFeature(square_id, id) {
+        const result = await deletePolygon(square_id, id);
     }
 }
