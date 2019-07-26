@@ -61,4 +61,13 @@ services:
       timeout: 1s
       retries: 10
 
+  mailhog:
+    command: ["-smtp-bind-addr", "0.0.0.0:2525"]
+    user: root
+    image: mailhog/mailhog
+    ports:
+      - 2525:2525
+      - 8025:8025
+
+
 
