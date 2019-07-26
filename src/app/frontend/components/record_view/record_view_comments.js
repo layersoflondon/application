@@ -24,6 +24,7 @@ export default class RecordViewComments extends Component {
     if( this.state.status === 'loaded' ) {
       const comments = (this.props.record.comments || []).map((comment, i) => <RecordViewComment key={`record-${this.props.record.id}-comment-${i}`} comment={comment} />);
       return <div className={`m-comments ${this.state.status === 'loading' ? 'is-loading' : ''}`}>
+        <a id='comments'></a>
         {/*<h3>Comments</h3>*/}
         {comments}
 

@@ -23,7 +23,7 @@ import Comment from '../../sources/comment';
   }
 
   render() {
-    return <div className={`comment comment--${this.state.status || ''}`} ref={this.div}>
+    return <div className={`comment comment--${this.state.status || ''}`} ref={this.div} id={`comment-${this.props.comment.id}`}>
 
 
       <div className="comment-content" dangerouslySetInnerHTML={{__html: this.props.comment.content}}>

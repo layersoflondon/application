@@ -7,6 +7,14 @@ class Comment < ApplicationRecord
   # validates :content, presence: true
   validate :content_length
 
+  def thread_participants
+    record.comments.includes(:user).references(:user).collect(&:user).uniq
+  end
+
+  def other_thread_participants
+    thread_participants.reject {|u| u == self.user }
+  end
+
   def content_length
     errors.add(:content, "can't be blank") unless Nokogiri::HTML.fragment(self.content).text.strip.size>0
   end
@@ -25,6 +33,13 @@ class Comment < ApplicationRecord
 
     event :delete do
       transitions from: %i[draft published flagged], to: :deleted
+    end
+  end
+
+  after_create if: :published? do
+    CommentsMailer.owner_comment_notification(self).deliver_later
+    other_thread_participants.each do |user|
+      CommentsMailer.reply_notification(self, user).deliver_later
     end
   end
 
