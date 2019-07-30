@@ -32,12 +32,19 @@ class Comment < ApplicationRecord
     end
   end
 
+  before_validation do
+    self.content = ActionController::Base.helpers.sanitize(Rinku.auto_link(content), tags: %w(b u strong i em a), attributes: %w(href))
+  end
+
+
   after_create if: :published? do
+
     CommentsMailer.owner_comment_notification(self).deliver_later
     other_thread_participants.each do |user|
       CommentsMailer.reply_notification(self, user).deliver_later
     end
   end
+
 
   private
   def check_content
