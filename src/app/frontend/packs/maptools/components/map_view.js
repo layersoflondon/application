@@ -103,6 +103,7 @@ export default class MapView extends React.Component {
         //
         // grid.addTo(this.mapRef.current.leafletElement)
 
+        // Add the drawing controls to the map instance
         const drawnItems = L.featureGroup().addTo(this.props.mapToolsStore.mapRef.leafletElement);
 
         const drawingControl = new L.Control.Draw({
@@ -122,16 +123,26 @@ export default class MapView extends React.Component {
         });
 
         this.props.mapToolsStore.mapRef.leafletElement.addControl(drawingControl);
-        this.props.mapToolsStore.mapRef.leafletElement.squareItems = drawnItems;
+        this.props.mapToolsStore.mapRef.leafletElement.editableItems = drawnItems;
 
         this.props.mapToolsStore.mapRef.leafletElement.on(L.Draw.Event.CREATED, (event) => {
             const layer = event.layer;
-            this.props.mapToolsStore.createFeature(1, layer.toGeoJSON());
+            const data = layer.toGeoJSON();
+            if( layer.toGeoJSON().geometry.type === "Point" ) {
+                data.properties = {...data.properties, radius: layer.getRadius()}
+            }
+
+            this.props.mapToolsStore.createFeature(1, data);
         });
 
         this.props.mapToolsStore.mapRef.leafletElement.on(L.Draw.Event.EDITED, (event) => {
             event.layers.eachLayer((layer) => {
-                this.props.mapToolsStore.updateFeature(1, layer.properties.id, layer.toGeoJSON())
+                const data = layer.toGeoJSON();
+                if( layer.toGeoJSON().geometry.type === "Point" ) {
+                    data.properties = {...data.properties, radius: layer.getRadius()}
+                }
+
+                this.props.mapToolsStore.updateFeature(1, layer.properties.id, data);
             });
         });
 
@@ -142,8 +153,14 @@ export default class MapView extends React.Component {
         });
     }
 
+    componentWillMount() {
+        setTimeout(() => {
+            this.props.mapToolsStore.setPolygons();
+        }, 50);
+    }
+
     render() {
-        const zoom = this.props.match.params.lat ? 17 : 9;
+        let zoom = this.props.match.params.lat ? 17 : 9;
         const mapPosition = !!(this.props.match.params.lat && this.props.match.params.lng);
 
         let center = [51.5074, 0.1278];
@@ -154,11 +171,14 @@ export default class MapView extends React.Component {
         let canEdit = false;
 
         if(this.props.match.params.lat && this.props.match.params.lng) {
-            draggingEnabled = true;
-            zoomingEnabled  = true;
-            zoomControl     = true;
+            // draggingEnabled = false;
+            // zoomingEnabled  = false;
+            // zoomControl     = true;
             center = [parseFloat(this.props.match.params.lat), parseFloat(this.props.match.params.lng)];
             canEdit = true;
+        }else if( this.props.match.path.search(/\/1$/)>-1 ) {
+            zoom = 17;
+            center = [51.51066556016948,0.12187957763671876]
         }
 
         return <div>

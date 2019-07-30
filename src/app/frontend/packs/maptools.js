@@ -20,16 +20,23 @@ import { Router, Route } from 'react-router';
 import MapToolsContainer from './maptools/components/maptools_container';
 
 import MapToolsStore from './maptools/stores/maptools_store';
+import { getUserSession } from './maptools/sources/user_session';
+import { getAllPolygons } from './maptools/sources/map_tools_polygon';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const browserHistory = createBrowserHistory();
     const routerStore = new RouterStore();
     const history = syncHistoryWithStore(browserHistory, routerStore);
 
     const mapToolsStore = new MapToolsStore();
+    const userSession = await getUserSession();
+
+    // mapToolsStore.fetchPolygons();
+    const cachedPolygonData = await mapToolsStore.fetchPolygons();
 
     const stores = {
-        mapToolsStore: mapToolsStore
+        mapToolsStore: mapToolsStore,
+        userSession: userSession.data
     };
 
     window.stores = stores;
