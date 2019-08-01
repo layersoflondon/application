@@ -53,7 +53,7 @@ export default class SquareEditor extends React.Component {
     }
 
     renderState_in_progress() {
-        this.props.mapToolsStore.addDrawingUIToMap();
+        // this.props.mapToolsStore.addDrawingUIToMap();
 
         return <div>
             <p>

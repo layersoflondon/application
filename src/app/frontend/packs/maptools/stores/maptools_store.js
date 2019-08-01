@@ -29,7 +29,7 @@ export default class MapToolsStore {
                 if( feature.properties.userCanEdit === false || this.squareId !== feature.properties.square.id ) {
                     console.log("Adding immutable feature", feature.properties.userCanEdit, this.squareId, feature.properties.square.id);
                     const layer = new L.geoJson(feature);
-                    layer.addTo(this.mapRef.leafletElement);
+                    // layer.addTo(this.mapRef.leafletElement);
                     return;
                 }
 
@@ -40,13 +40,7 @@ export default class MapToolsStore {
                         const coords = toJS(feature).geometry.coordinates[0].map((latlng) => [latlng[1],latlng[0]]);
                         leafletFeature = new L.Polygon(coords);
                         leafletFeature.properties = feature.properties;
-                        feature.leafletFeatureElement = this.mapRef.leafletElement.editableItems.addLayer(leafletFeature);
-                        break;
-                    case "Point":
-                        leafletFeature = new L.Circle([toJS(feature).geometry.coordinates[1], toJS(feature).geometry.coordinates[0]], feature.properties.radius);
-                        leafletFeature.properties = feature.properties;
-                        this.mapRef.leafletElement.editableItems.addLayer(leafletFeature);
-                        feature.leafletFeatureElement = this.mapRef.leafletElement.editableItems.addLayer(leafletFeature);
+                        // feature.leafletFeatureElement = this.mapRef.leafletElement.editableItems.addLayer(leafletFeature);
                         break;
                     default:
                         break;
@@ -93,26 +87,6 @@ export default class MapToolsStore {
         this.featureData = features;
     }
 
-    @action.bound async createFeature(square_id, feature) {
-        const result = await createPolygon(square_id, feature);
-
-        runInAction(() => {
-            const features = observable.map();
-            this.featureData.keys().map((id) => features.set(id, this.featureData.get(id)));
-            features.set(result.data.properties.id, result.data);
-
-            this.featureData = features;
-        });
-    }
-
-    @action.bound async updateFeature(square_id, id, feature) {
-        const result = await updatePolygon(square_id, id, feature);
-    }
-
-    @action.bound async deleteFeature(square_id, id) {
-        const result = await deletePolygon(square_id, id);
-    }
-
     @action.bound setZoom(zoomLevel) {
         this.zoom = zoomLevel;
     }
@@ -126,10 +100,6 @@ export default class MapToolsStore {
         this.centre = centre;
     }
 
-    @action.bound addDrawingUIToMap() {
-        this.mapRef.leafletElement.addControl(this.drawingControl);
-    }
-
     @action.bound setZoomAndCentre(zoomLevel, centrePoint) {
         this.zoom = zoomLevel;
         // this.centre = centrePoint;
@@ -137,6 +107,33 @@ export default class MapToolsStore {
 
     @action.bound setSquare(id) {
         this.squareId = id;
+    }
+
+    @action.bound async createdPolygon(event) {
+        const layer = event.layer;
+        const data  = layer.toGeoJSON();
+
+        const result = await createPolygon(this.squareId, data);
+
+        runInAction(() => {
+            const features = observable.map();
+            this.featureData.keys().map((id) => features.set(id, this.featureData.get(id)));
+            features.set(result.data.properties.id, result.data);
+
+            this.featureData = features;
+        });
+    }
+
+    @action.bound editedPolygons(event) {
+        event.layers.eachLayer((layer) => {
+            updatePolygon(this.squareId, layer.properties.id, layer.toGeoJSON());
+        });
+    }
+
+    @action.bound deletedPolygons(event) {
+        event.layers.eachLayer((layer) => {
+            deletePolygon(this.squareId, layer.properties.id);
+        });
     }
 
     @computed get isZoomed() {

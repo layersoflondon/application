@@ -37,6 +37,7 @@
     "react-image": "^1.3.1",
     "react-leaflet": "^1.8.2",
     "react-leaflet-div-icon": "^1.1.0",
+    "react-leaflet-draw": "0.18",
     "react-leaflet-search": "https://github.com/layersoflondon/react-leaflet-search.git",
     "react-leaflet-vectorgrid": "^2.2.1",
     "react-quill": "^1.3.1",
