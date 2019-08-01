@@ -140,7 +140,7 @@ export default class MapView extends React.Component {
             <div className="m-map-area" data-zoom={this.props.mapToolsStore.zoom}>
                 <Map onClick={this.handleOnClick.bind(this)} ref={this.setMapRef} zoomControl={false} center={this.props.mapToolsStore.centre.toJS()} zoom={this.props.mapToolsStore.zoom} dragging={draggingEnabled} touchZoom={zoomingEnabled} doubleClickZoom={zoomingEnabled} scrollWheelZoom={zoomingEnabled}>
                     <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
-                    {/*<TileLayer url="http://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />*/}
+                    <TileLayer url="http://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png" />
                     <GeoJSON data={this.generateGridForBounds()} />
                 </Map>
             </div>
