@@ -1,4 +1,4 @@
-import {action, observe, observable, runInAction, toJS} from 'mobx';
+import {action, computed, observe, observable, runInAction, toJS} from 'mobx';
 import {getPolygons, getAllPolygons, createPolygon, updatePolygon, deletePolygon} from '../sources/map_tools_polygon';
 import L from 'leaflet';
 
@@ -117,6 +117,11 @@ export default class MapToolsStore {
         this.zoom = zoomLevel;
     }
 
+    @action.bound zoomOut() {
+        this.zoom = this.DEFAULT_ZOOM;
+        this.squareId = null;
+    }
+
     @action.bound setCentre(centre) {
         this.centre = centre;
     }
@@ -132,5 +137,9 @@ export default class MapToolsStore {
 
     @action.bound setSquare(id) {
         this.squareId = id;
+    }
+
+    @computed get isZoomed() {
+        return typeof this.squareId !== "undefined";
     }
 }
