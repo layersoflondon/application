@@ -7,14 +7,14 @@ export default class MapToolsStore {
     drawingControl = null;
 
     DEFAULT_TILE_SIZE = 250;
-    DEFAULT_ZOOM = 10;
+    DEFAULT_ZOOM = 12;
     FULL_ZOOM = 18;
 
     cachedFeatureData = observable.map();
     @observable featureData = observable.map();
-    @observable centre = [51.51066556016948,0.12187957763671876];
+    @observable centre = [51.496667801322666, -0.13629913330078128];
     @observable zoom = this.DEFAULT_ZOOM;
-    @observable tileZize = this.DEFAULT_TILE_SIZE;
+    @observable tileSize = this.DEFAULT_TILE_SIZE;
     @observable squareId = null;
 
     constructor() {
