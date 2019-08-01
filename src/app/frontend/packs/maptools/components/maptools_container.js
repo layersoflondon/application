@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router';
-import { NavLink} from 'react-router-dom';
-import MapTools from "./maptools";
+import MapView from "./map_view";
+import MapToolsOverview from "./maptools_overview";
+import Squares from "./squares";
 
 export default class MaptoolsContainer extends React.Component {
     constructor(props) {
@@ -10,10 +11,9 @@ export default class MaptoolsContainer extends React.Component {
 
     render() {
         return <React.Fragment>
-            MaptoolsContainer: <NavLink to={'/maptools/squares'}>Squares</NavLink>
-            <hr/>
-
-            <Route path='/maptools/squares' component={MapTools} />
+            <div className="m-page-header">
+                <Route path='/maptools/squares' component={Squares} />
+            </div>
         </React.Fragment>
     }
 }

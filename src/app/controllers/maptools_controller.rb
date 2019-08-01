@@ -1,6 +1,6 @@
 class MaptoolsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[index show state]
-  skip_after_action :verify_authorized, only: %i[index show state]
+  skip_before_action :authenticate_user!, only: %i[index show state edit]
+  skip_after_action :verify_authorized, only: %i[index show state edit]
 
   layout 'maptools'
 
@@ -12,5 +12,9 @@ class MaptoolsController < ApplicationController
 
   def create
     Rails.logger.info(params)
+  end
+
+  def edit
+    render plain: ""
   end
 end

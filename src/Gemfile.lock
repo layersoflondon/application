@@ -50,6 +50,7 @@ PATH
   remote: ../../layers_of_london-booth-map_tool
   specs:
     layers_of_london-booth-map_tool (0.1.0)
+      aasm (~> 5.0)
       pundit (~> 2.0)
       rails (~> 5.2)
 
