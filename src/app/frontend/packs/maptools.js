@@ -17,11 +17,12 @@ import {Provider} from 'mobx-react';
 import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
 import { Router, Route } from 'react-router';
 
-import MapToolsContainer from './maptools/components/maptools_container';
-
-import MapToolsStore from './maptools/stores/maptools_store';
 import { getUserSession } from './maptools/sources/user_session';
-import { getAllPolygons } from './maptools/sources/map_tools_polygon';
+import MapToolsStore from './maptools/stores/maptools_store';
+
+import MapView from './maptools/components/map_view';
+import MapToolsContainer from './maptools/components/maptools_container';
+import MapToolsOverview from './maptools/components/maptools_overview';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const browserHistory = createBrowserHistory();
@@ -31,8 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const mapToolsStore = new MapToolsStore();
     const userSession = await getUserSession();
 
-    // mapToolsStore.fetchPolygons();
-    const cachedPolygonData = await mapToolsStore.fetchPolygons();
+    await mapToolsStore.fetchPolygons();
 
     const stores = {
         mapToolsStore: mapToolsStore,
@@ -45,7 +45,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         <Provider {...stores}>
             <Router history={history}>
                 <React.Fragment>
+                    <Route component={MapView} />
                     <Route path='/maptools' component={MapToolsContainer} />
+                    <Route exact path='/maptools' component={MapToolsOverview} />
                 </React.Fragment>
             </Router>
         </Provider>,

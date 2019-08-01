@@ -104,9 +104,12 @@ Rails.application.routes.draw do
   mount LayersOfLondon::Booth::MapTool::Engine => "/"
 
   resource :maptools, only: [:show] do
-    resources :squares, except: [:show, :new, :destroy], controller: 'maptools' do
+    resources :squares, except: [:show, :new, :destroy, :edit], controller: 'maptools' do
       collection do
         match ":id", via: [:get], to: "maptools#show", constraints: {id: /[0-9A-Za-z\-\.,]+/}
+      end
+      member do
+        match "edit", via: [:get], to: "maptools#edit", constraints: {id: /[0-9A-Za-z\-\.,]+/}
       end
     end
   end
