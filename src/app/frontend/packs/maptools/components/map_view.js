@@ -82,10 +82,8 @@ export default class MapView extends React.Component {
             if( layer.toGeoJSON().geometry.type === "Point" ) {
                 data.properties = {...data.properties, radius: layer.getRadius()}
             }
-
-            setTimeout(() => {
-                this.props.mapToolsStore.createFeature(squareId(), data);
-            }, 3000);
+            
+            this.props.mapToolsStore.createFeature(squareId(), data);
         });
 
         this.props.mapToolsStore.mapRef.leafletElement.on(L.Draw.Event.EDITED, (event) => {
