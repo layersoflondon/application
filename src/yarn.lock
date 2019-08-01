@@ -7481,9 +7481,10 @@ react-leaflet-draw@0.18:
   resolved "https://registry.yarnpkg.com/react-leaflet-draw/-/react-leaflet-draw-0.18.0.tgz#bb523bc6f0f93139ebc968b074720a65282cebb2"
   integrity sha512-/iJLov5Qe5K9ze1Cmgphk5M6bn5EqvGzrnpPFnH3hJQ9kYqkXhGwZk5zVLlhCN3cy8smiesrMu2+/cpAqGmOrw==
 
-"react-leaflet-search@https://github.com/layersoflondon/react-leaflet-search.git":
-  version "0.4.3"
-  resolved "https://github.com/layersoflondon/react-leaflet-search.git#b2864f20076b64d6c4f33498f979a73a6915e558"
+react-leaflet-search@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-leaflet-search/-/react-leaflet-search-0.6.0.tgz#fac831b000466615e1a748b7e3f6929389ab36ef"
+  integrity sha512-5kzE4Szqs8tf96qSNZqUcMaWVXIjHXsxMLrzeaf8M99PdCFs9e7bLQjGKBCyvsDdJvcv3iNni20DjrMkwHjLEA==
 
 react-leaflet-vectorgrid@^2.2.1:
   version "2.2.1"

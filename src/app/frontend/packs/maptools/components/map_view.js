@@ -14,6 +14,11 @@ export default class MapView extends React.Component {
         this.setMapRef = element => {
             this.props.mapToolsStore.mapRef = element;
         };
+
+        this.setFeatureGroupRef = element => {
+            console.log(element);
+            this.featureGroup = element;
+        }
     }
 
     handleOnClick(event) {
@@ -139,28 +144,29 @@ export default class MapView extends React.Component {
             return feature.properties.userCanEdit && this.props.mapToolsStore.squareId === feature.properties.square.id;
         });
 
-        const polygons = <FeatureGroup>
-            {editableFeatures.map((feature, i) => {
-                const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
-                return <Polygon key={`polygon-${i}`} positions={coords} />;
-            })}
-        </FeatureGroup>;
+        const polygons = editableFeatures.map((feature, i) => {
+            const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
+            return <Polygon key={`polygon-${i}`} positions={coords} />;
+        });
 
         const immutableFeatures = this.props.mapToolsStore.featureData.values().filter((feature) => {
             return !feature.properties.userCanEdit || this.props.mapToolsStore.squareId !== feature.properties.square.id;
         });
 
-        const immutablePolygons = <FeatureGroup>
-            {immutableFeatures.map((feature, i) => {
-                const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
-                return <Polygon key={`polygon-${i}`} positions={coords} />;
-            })}
-        </FeatureGroup>;
+        const immutablePolygons = immutableFeatures.map((feature, i) => {
+            const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
+            return <Polygon key={`polygon-${i}`} positions={coords} />;
+        });
 
-        const drawingControl = this.props.mapToolsStore.isZoomed ? <FeatureGroup>
+        const addPolygonToMap = (event) => {
+            const layer = event.layer;
+            layer.addTo(this.props.mapToolsStore.mapRef.leafletElement);
+        };
+
+        const drawingControl = this.props.mapToolsStore.isZoomed ? <FeatureGroup ref={(fgRef) => {this.setFeatureGroupRef(fgRef)}}>
             <EditControl
                 position='bottomleft'
-                onCreated={this.props.mapToolsStore.createFeature}
+                onCreated={this.addPolygonToMap}
                 onEdited={this.props.mapToolsStore.editedPolygons}
                 onDeleted={this.props.mapToolsStore.deletedPolygons}
                 draw={{
