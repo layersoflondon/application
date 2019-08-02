@@ -1,8 +1,9 @@
 import React from 'react';
-import { Map, TileLayer, ZoomControl, GeoJSON, FeatureGroup, Polygon } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, GeoJSON, FeatureGroup, Popup, Polygon } from 'react-leaflet';
 import { EditControl } from "react-leaflet-draw";
 import { inject, observer } from 'mobx-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import {  withRouter } from 'react-router-dom';
+import PolygonContainer from './polygon_container';
 
 @inject('mapToolsStore')
 @withRouter
@@ -14,126 +15,19 @@ export default class MapView extends React.Component {
         this.setMapRef = element => {
             this.props.mapToolsStore.mapRef = element;
         };
-
-        this.setFeatureGroupRef = element => {
-            console.log(element);
-            this.featureGroup = element;
-        }
     }
 
     handleOnClick(event) {
         if( this.props.location.pathname.search(/\/squares\/\d+/) === -1 ) {
             this.props.history.push(`/maptools/squares/1`);
 
-            window.e = event;
             const centre = [event.lat, event.lng];
-            this.props.mapToolsStore.setZoomAndCentre(18, centre)
+            this.props.mapToolsStore.setZoomAndCentre(18, centre);
         }
     }
 
     componentWillMount() {
-        // setTimeout(() => {
-        //     this.initializeLeafletDrawingControlUI();
-        // }, 50);
-
-        setTimeout(() => {
-            this.props.mapToolsStore.setPolygons();
-        }, 150);
-    }
-
-    // initializeLeafletDrawingControlUI() {
-    //     const editableItems = L.featureGroup().addTo(this.props.mapToolsStore.mapRef.leafletElement);
-    //     const visibleItems  = L.featureGroup().addTo(this.props.mapToolsStore.mapRef.leafletElement);
-    //
-    //     const drawingControl = new L.Control.Draw({
-    //         position: 'bottomleft',
-    //         edit: {
-    //             featureGroup: editableItems,
-    //             poly: {
-    //                 allowIntersection: false,
-    //                 showArea: true,
-    //                 showLength: true
-    //             },
-    //             marker: false
-    //         },
-    //         draw: {
-    //             polygon: {
-    //                 allowIntersection: false,
-    //                 showArea: true,
-    //                 guidelineDistance: 10,
-    //                 showLength: true
-    //             },
-    //             polyline: false,
-    //             marker: false,
-    //             circlemarker: false,
-    //             rectangle: false,
-    //             circle: false
-    //         }
-    //     });
-    //
-    //     this.props.mapToolsStore.drawingControl = drawingControl;
-    //
-    //     this.props.mapToolsStore.mapRef.leafletElement.editableItems = editableItems;
-    //     this.props.mapToolsStore.mapRef.leafletElement.visibleItems = visibleItems;
-    //
-    //     const squareId = () => {
-    //         const locationId = this.props.location.pathname.match(/\/(\d+)/);
-    //         return locationId.length > 1 ? parseInt(locationId[1], 10) : null;
-    //     };
-    //
-    //     this.props.mapToolsStore.mapRef.leafletElement.on(L.Draw.Event.CREATED, (event) => {
-    //         const layer = event.layer;
-    //         const data = layer.toGeoJSON();
-    //         if( layer.toGeoJSON().geometry.type === "Point" ) {
-    //             data.properties = {...data.properties, radius: layer.getRadius()}
-    //         }
-    //
-    //         this.props.mapToolsStore.createFeature(squareId(), data);
-    //     });
-    //
-    //     this.props.mapToolsStore.mapRef.leafletElement.on(L.Draw.Event.EDITED, (event) => {
-    //         event.layers.eachLayer((layer) => {
-    //             const data = layer.toGeoJSON();
-    //
-    //             if( layer.toGeoJSON().geometry.type === "Point" ) {
-    //                 data.properties = {...data.properties, radius: layer.getRadius()}
-    //             }
-    //
-    //             this.props.mapToolsStore.updateFeature(squareId(), layer.properties.id, data);
-    //         });
-    //     });
-    //
-    //     this.props.mapToolsStore.mapRef.leafletElement.on(L.Draw.Event.DELETED, (event) => {
-    //         event.layers.eachLayer((layer) => {
-    //             this.props.mapToolsStore.deleteFeature(squareId(), layer.properties.id);
-    //         });
-    //     });
-    //
-    //     return drawingControl;
-    // }
-
-    generateGridForBounds(_bounds) {
-        const bounds = {_northEast: { lat: 52.05840151921515, lng: 1.2304687500000002 }, _southWest: { lat: 50.95583160830687, lng: -0.9873962402343751 }};
-
-        const northWest = [bounds._northEast.lat, bounds._southWest.lng];
-        const southEast = [bounds._southWest.lat, bounds._northEast.lng];
-
-        const coordinates = [[0.2103, 51.4858], [0.2110, 51.4858], [0.2115, 51.4888], [0.2103, 51.4858]];
-
-        const grid = {
-            type: 'FeatureCollection',
-            features: [
-                {
-                    type: 'Feature',
-                    geometry: {
-                        type:  'Polygon',
-                        coordinates: [coordinates]
-                    }
-                }
-            ]
-        };
-
-        return grid;
+        this.props.mapToolsStore.setPolygons();
     }
 
     render() {
@@ -141,12 +35,11 @@ export default class MapView extends React.Component {
         let zoomingEnabled  = true;
 
         const editableFeatures = this.props.mapToolsStore.featureData.values().filter((feature) => {
-            return feature.properties.userCanEdit && this.props.mapToolsStore.squareId === feature.properties.square.id;
+            return feature.properties.id && feature.properties.userCanEdit && this.props.mapToolsStore.squareId === feature.properties.square.id;
         });
 
         const polygons = editableFeatures.map((feature, i) => {
-            const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
-            return <Polygon key={`polygon-${i}`} positions={coords} />;
+            return <PolygonContainer key={`editable-polygon-${i}`} feature={feature} mapToolsStore={this.props.mapToolsStore} />;
         });
 
         const immutableFeatures = this.props.mapToolsStore.featureData.values().filter((feature) => {
@@ -158,15 +51,10 @@ export default class MapView extends React.Component {
             return <Polygon key={`polygon-${i}`} positions={coords} />;
         });
 
-        const addPolygonToMap = (event) => {
-            const layer = event.layer;
-            layer.addTo(this.props.mapToolsStore.mapRef.leafletElement);
-        };
-
-        const drawingControl = this.props.mapToolsStore.isZoomed ? <FeatureGroup ref={(fgRef) => {this.setFeatureGroupRef(fgRef)}}>
+        const drawingControl = this.props.mapToolsStore.isZoomed ? <FeatureGroup>
             <EditControl
                 position='bottomleft'
-                onCreated={this.addPolygonToMap}
+                onCreated={this.props.mapToolsStore.createdPolygon}
                 onEdited={this.props.mapToolsStore.editedPolygons}
                 onDeleted={this.props.mapToolsStore.deletedPolygons}
                 draw={{

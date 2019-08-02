@@ -17,37 +17,37 @@ export default class MapToolsStore {
     @observable tileSize = this.DEFAULT_TILE_SIZE;
     @observable squareId = null;
 
-    constructor() {
-        observe( this, 'featureData', (change) => {
-            const added   = change.newValue.values().filter((feature) => (change.oldValue.get(feature.properties.id) === undefined));
-            const features = added.length > 0 ? added : this.featureData.values();
-
-            features.map((feature) => {
-                let leafletFeature;
-
-                // if the user can't edit the feature, add it as a geojson layer to the map (when switching to edit mode, it wont be possible to change or delete the polygon)
-                if( feature.properties.userCanEdit === false || this.squareId !== feature.properties.square.id ) {
-                    console.log("Adding immutable feature", feature.properties.userCanEdit, this.squareId, feature.properties.square.id);
-                    const layer = new L.geoJson(feature);
-                    // layer.addTo(this.mapRef.leafletElement);
-                    return;
-                }
-
-                console.log("Adding editable feature");
-
-                switch(feature.geometry.type) {
-                    case "Polygon":
-                        const coords = toJS(feature).geometry.coordinates[0].map((latlng) => [latlng[1],latlng[0]]);
-                        leafletFeature = new L.Polygon(coords);
-                        leafletFeature.properties = feature.properties;
-                        // feature.leafletFeatureElement = this.mapRef.leafletElement.editableItems.addLayer(leafletFeature);
-                        break;
-                    default:
-                        break;
-                }
-            });
-        });
-    }
+    // constructor() {
+    //     observe( this, 'featureData', (change) => {
+    //         const added   = change.newValue.values().filter((feature) => (change.oldValue.get(feature.properties.id) === undefined));
+    //         const features = added.length > 0 ? added : this.featureData.values();
+    //
+    //         features.map((feature) => {
+    //             let leafletFeature;
+    //
+    //             // if the user can't edit the feature, add it as a geojson layer to the map (when switching to edit mode, it wont be possible to change or delete the polygon)
+    //             if( feature.properties.userCanEdit === false || this.squareId !== feature.properties.square.id ) {
+    //                 console.log("Adding immutable feature", feature.properties.userCanEdit, this.squareId, feature.properties.square.id);
+    //                 const layer = new L.geoJson(feature);
+    //                 // layer.addTo(this.mapRef.leafletElement);
+    //                 return;
+    //             }
+    //
+    //             console.log("Adding editable feature");
+    //
+    //             switch(feature.geometry.type) {
+    //                 case "Polygon":
+    //                     const coords = toJS(feature).geometry.coordinates[0].map((latlng) => [latlng[1],latlng[0]]);
+    //                     leafletFeature = new L.Polygon(coords);
+    //                     leafletFeature.properties = feature.properties;
+    //                     // feature.leafletFeatureElement = this.mapRef.leafletElement.editableItems.addLayer(leafletFeature);
+    //                     break;
+    //                 default:
+    //                     break;
+    //             }
+    //         });
+    //     });
+    // }
 
     @action.bound removeFeature(id) {
         const features = observable.map();
@@ -122,11 +122,17 @@ export default class MapToolsStore {
 
             this.featureData = features;
         });
+
+        return false;
+    }
+
+    @action.bound async updatePolygon(id, data) {
+        const result = await updatePolygon(this.squareId, id, data);
     }
 
     @action.bound editedPolygons(event) {
         event.layers.eachLayer((layer) => {
-            updatePolygon(this.squareId, layer.properties.id, layer.toGeoJSON());
+            // updatePolygon(this.squareId, layer.properties.id, layer.toGeoJSON());
         });
     }
 

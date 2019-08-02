@@ -179,3 +179,7 @@
     }
   }
 }
+
+.leaflet-popup-content-wrapper button[disabled] {
+  opacity: 0.5;
+}
