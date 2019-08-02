@@ -1,12 +1,13 @@
 import {action, computed, observe, observable, runInAction, toJS} from 'mobx';
 import {getPolygons, getAllPolygons, createPolygon, updatePolygon, deletePolygon} from '../sources/map_tools_polygon';
+import {getSquares} from "../sources/map_tools_squares";
 import L from 'leaflet';
 
 export default class MapToolsStore {
     mapRef = null;
     drawingControl = null;
 
-    DEFAULT_TILE_SIZE = 250;
+    DEFAULT_TILE_SIZE = 850;
     DEFAULT_ZOOM = 12;
     FULL_ZOOM = 18;
 
@@ -76,6 +77,14 @@ export default class MapToolsStore {
         });
 
         return true;
+    }
+
+    @action.bound async fetchSquares() {
+        const result = await getSquares();
+
+        runInAction(() => {
+            this.squares = result.data;
+        })
     }
 
     @action.bound setPolygons(polygon_data) {
