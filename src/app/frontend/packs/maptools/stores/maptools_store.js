@@ -34,7 +34,6 @@ export default class MapToolsStore {
                     return;
                 }
 
-                console.log("Adding editable feature");
 
                 switch(feature.geometry.type) {
                     case "Polygon":
@@ -54,6 +53,23 @@ export default class MapToolsStore {
                 }
             });
         });
+
+        observe(this, 'centre', (change) => {
+          if (change.newValue) {
+   
+            setTimeout(() =>  {
+              this.mapRef.leafletElement.panTo(L.latLng(change.newValue.slice()))
+            },100)
+          }
+
+
+        });
+
+        observe(this, 'squareId', (change) => {
+            const square = this.squares.features.filter((feature) => { return feature.properties.id === change.newValue})[0];
+            window.square = square;
+            this.centre = square.properties.centroid;
+        })
     }
 
     @action.bound removeFeature(id) {
@@ -141,7 +157,7 @@ export default class MapToolsStore {
 
     @action.bound setZoomAndCentre(zoomLevel, centrePoint) {
         this.zoom = zoomLevel;
-        // this.centre = centrePoint;
+        this.centre = centrePoint;
     }
 
     @action.bound setSquare(id) {
