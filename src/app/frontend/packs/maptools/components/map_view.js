@@ -113,6 +113,7 @@ export default class MapView extends React.Component {
       const feature = e.target.feature;
       if (feature.properties.id === null) return;
       if (this.props.mapToolsStore.squareId) return; // if we're editing a square, don't make squares clickable
+      if (this.props.mapToolsStore.state === "done") return; // don't zoom into done squares
       if (this.props.location.pathname.search(/\/squares\/\d+/) === -1) {
         this.props.history.push(`/maptools/squares/${feature.properties.id}`);
 
@@ -120,6 +121,52 @@ export default class MapView extends React.Component {
         this.props.mapToolsStore.setZoomAndCentre(18, centre)
       }
     });
+
+  }
+
+  geoJsonStyle(feature) {
+    let style = {
+      weight: (this.props.mapToolsStore.mapRef.leafletElement.getZoom() <= 10) ? 1 : 2,
+      color: "#999999"
+    };
+
+    //if the store has a square ID, we're editing a square. In which case we need to make all other squares grey
+    if (feature.properties.id && feature.properties.id === this.props.mapToolsStore.squareId) {
+      //this is the square we're working on
+      style.weight = 5;
+      style.color = "#4B9FFF"
+    } else if (this.props.mapToolsStore.squareId !== null) {
+      //we're working on a square but not this one
+      style.fillOpacity = 0.8;
+    } else {
+    //  determine the colour based on the state of the square
+      let fillColor;
+      let fillOpacity;
+      switch (feature.properties.state) {
+        case "not_started":
+          fillColor = null;
+          fillOpacity = 0;
+          break;
+        case "in_progress":
+          fillColor = "#ffb165";
+          fillOpacity = 0.8;
+          break;
+        case "done":
+          fillColor = "#40a35f";
+          fillOpacity = 0.8;
+          break;
+        case "flagged":
+
+      }
+
+      style.fillColor = fillColor;
+      style.fillOpacity = fillOpacity;
+    }
+
+    // otherwise if there's no square ID, we're choosing a square, in which case set the colour of the square by its status
+
+    
+    return style;
   }
 
 
@@ -138,7 +185,7 @@ export default class MapView extends React.Component {
                      attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
           <TileLayer url="http://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png"/>
 
-          <GeoJSON data={this.props.mapToolsStore.squares} onEachFeature={this.gridOnEachFeature.bind(this)}/>
+          <GeoJSON data={this.props.mapToolsStore.squares} onEachFeature={this.gridOnEachFeature.bind(this)} style={this.geoJsonStyle.bind(this)}/>
         </Map>
       </div>
     </React.Fragment>
