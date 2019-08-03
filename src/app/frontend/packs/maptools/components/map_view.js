@@ -186,6 +186,7 @@ export default class MapView extends React.Component {
           <TileLayer url="http://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png"/>
 
           <GeoJSON data={this.props.mapToolsStore.squares} onEachFeature={this.gridOnEachFeature.bind(this)} style={this.geoJsonStyle.bind(this)}/>
+          <GeoJSON data={this.props.mapToolsStore.squareGrid}/>
         </Map>
       </div>
     </React.Fragment>

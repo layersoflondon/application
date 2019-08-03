@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await mapToolsStore.fetchPolygons();
     await mapToolsStore.fetchSquares();
+    await mapToolsStore.fetchSquareGrid();
+    await mapToolsStore.fetchSquareCoordinates();
 
     const stores = {
         mapToolsStore: mapToolsStore,
