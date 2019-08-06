@@ -8,8 +8,16 @@ const getSquares = () => {
     return axios.get('/booth/maptools/squares');
 };
 
+const getSquareCoordinates = () => {
+    return axios.get('/booth/maptools/squares/coordinates')
+};
+
+const getSquareGrid = () => {
+    return axios.get('/booth/maptools/squares/grid')
+};
+
 const updateSquare = (id, params) => {
     return axios.put(`/booth/maptools/squares/${id}`, params);
 };
 
-export { getSquares, getSquare, updateSquare };
+export { getSquares, getSquare, updateSquare, getSquareCoordinates, getSquareGrid };

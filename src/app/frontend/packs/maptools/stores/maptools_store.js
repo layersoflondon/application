@@ -1,14 +1,15 @@
 import {action, computed, observe, observable, runInAction, toJS} from 'mobx';
 import {getPolygons, getAllPolygons, createPolygon, updatePolygon, deletePolygon} from '../sources/map_tools_polygon';
-import {getSquares} from "../sources/map_tools_squares";
+import {getSquares, getSquareCoordinates, getSquareGrid, getSquare} from "../sources/map_tools_squares";
 import L from 'leaflet';
 
 export default class MapToolsStore {
+
   mapRef = null;
   drawingControl = null;
 
   DEFAULT_TILE_SIZE = 850;
-  DEFAULT_ZOOM = 15;
+  DEFAULT_ZOOM = 13;
   FULL_ZOOM = 18;
 
   cachedFeatureData = observable.map();
@@ -17,51 +18,35 @@ export default class MapToolsStore {
   @observable zoom = this.DEFAULT_ZOOM;
   @observable tileSize = this.DEFAULT_TILE_SIZE;
   @observable squareId = null;
+  @observable squareIsLoading;
+  @observable square;
 
   constructor() {
-    // observe(this, 'featureData', (change) => {
-    //   const added = change.newValue.values().filter((feature) => (change.oldValue.get(feature.properties.id) === undefined));
-    //   const features = added.length > 0 ? added : this.featureData.values();
-    //
-    //   features.map((feature) => {
-    //     let leafletFeature;
-    //
-    //     // if the user can't edit the feature, add it as a geojson layer to the map (when switching to edit mode, it wont be possible to change or delete the polygon)
-    //     if (feature.properties.userCanEdit === false || this.squareId !== feature.properties.square.id) {
-    //       console.log("Adding immutable feature", feature.properties.userCanEdit, this.squareId, feature.properties.square.id);
-    //       const layer = new L.geoJson(feature);
-    //       // layer.addTo(this.mapRef.leafletElement);
-    //       return;
-    //     }
-    //
-    //     switch (feature.geometry.type) {
-    //       case "Polygon":
-    //         const coords = toJS(feature).geometry.coordinates[0].map((latlng) => [latlng[1], latlng[0]]);
-    //         leafletFeature = new L.Polygon(coords);
-    //         leafletFeature.properties = feature.properties;
-    //         // feature.leafletFeatureElement = this.mapRef.leafletElement.editableItems.addLayer(leafletFeature);
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    //   });
-    // });
 
     observe(this, 'centre', (change) => {
-      if (change.newValue) {
+      const setCenter = () => {
+        if (this.mapRef && this.squareIsLoading === false) {
+          this.mapRef.leafletElement.panTo(change.newValue.slice());
+        } else {
+          setTimeout(setCenter, 100)
+        }
+      };
 
-        setTimeout(() => {
-          this.mapRef.leafletElement.panTo(L.latLng(change.newValue.slice()))
-        }, 100)
-      }
+      if (change.newValue) setCenter();
+
+
     });
 
     observe(this, 'squareId', (change) => {
-      const square = this.squares.features.filter((feature) => {
-        return feature.properties.id === change.newValue
-      })[0];
-      window.square = square;
-      this.centre = square.properties.centroid;
+      runInAction(async () => {
+        this.squareIsLoading = true;
+        const square = await getSquare(change.newValue);
+        this.square = square.data;
+        this.squareIsLoading = false;
+        console.log(this.square.geojson.properties.centroid);
+        this.centre = this.square.geojson.properties.centroid;
+      });
+
     })
   }
 
@@ -104,6 +89,7 @@ export default class MapToolsStore {
     if (!polygon_data) {
       const data = this.featureData.values().length > 0 ? this.featureData.values() : this.cachedFeatureData.values();
       polygon_data = {features: data};
+
     }
 
     polygon_data.features.map((feature) => {
@@ -135,8 +121,7 @@ export default class MapToolsStore {
     this.squareId = id;
   }
 
-  @action.bound
-  async createdPolygon(event) {
+  @action.bound async createdPolygon(event) {
     console.log("created ")
     const layer = event.layer;
     const data = layer.toGeoJSON();
@@ -154,9 +139,26 @@ export default class MapToolsStore {
     return false;
   }
 
+  @action.bound async fetchSquareCoordinates() {
+    const result = await getSquareCoordinates();
+
+    runInAction(() => {
+      this.squareCoordinates = result.data;
+    })
+  }
+
+  @action.bound async fetchSquareGrid() {
+    const result = await getSquareGrid();
+
+    runInAction(() => {
+      this.squareGrid = result.data;
+    })
+  }
+
+
   @action.bound async updatePolygon(id, data) {
     const result = await updatePolygon(this.squareId, id, data);
-}
+  }
 
   @action.bound editedPolygons(event) {
     event.layers.eachLayer((layer) => {
