@@ -17,7 +17,7 @@ export default class SquareEditor extends React.Component {
         const squareId = parseFloat(this.props.match.params.id);
         // const features = this.props.mapToolsStore.cachedFeatureData.values().filter((feature) => parseInt(feature.properties.square.id, 10) === squareId);
 
-        this.props.mapToolsStore.setZoom(this.props.mapToolsStore.FULL_ZOOM);
+        // this.props.mapToolsStore.setZoom(this.props.mapToolsStore.FULL_ZOOM);
         this.props.mapToolsStore.setSquare(squareId);
 
         this.reloadSquare();

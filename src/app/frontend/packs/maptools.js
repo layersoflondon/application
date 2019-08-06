@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const userSession = await getUserSession();
 
     await mapToolsStore.fetchPolygons();
+    await mapToolsStore.fetchSquares();
 
     const stores = {
         mapToolsStore: mapToolsStore,
