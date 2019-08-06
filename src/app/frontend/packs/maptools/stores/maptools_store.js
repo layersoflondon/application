@@ -1,9 +1,11 @@
 import {action, computed, observe, observable, runInAction, toJS} from 'mobx';
 import {getPolygons, getAllPolygons, createPolygon, updatePolygon, deletePolygon} from '../sources/map_tools_polygon';
-import {getSquares} from "../sources/map_tools_squares";
+import {getSquares, getSquareCoordinates, getSquareGrid, getSquare} from "../sources/map_tools_squares";
 import L from 'leaflet';
 
 export default class MapToolsStore {
+
+
   mapRef = null;
   drawingControl = null;
 
@@ -48,20 +50,28 @@ export default class MapToolsStore {
     // });
 
     observe(this, 'centre', (change) => {
-      if (change.newValue) {
+      const setCenter = () => {
+        if (this.mapRef && this.squareIsLoading === false) {
+          this.mapRef.leafletElement.panTo(change.newValue.slice());
+        } else {
+          setTimeout(setCenter, 100)
+        }
+      };
 
-        setTimeout(() => {
-          this.mapRef.leafletElement.panTo(L.latLng(change.newValue.slice()))
-        }, 100)
-      }
+      if (change.newValue) setCenter();
+
+
     });
 
-    observe(this, 'squareId', (change) => {
-      const square = this.squares.features.filter((feature) => {
-        return feature.properties.id === change.newValue
-      })[0];
-      window.square = square;
-      this.centre = square.properties.centroid;
+    observe(this, 'squareId', async (change) => {
+      this.squareIsLoading = true;
+      console.log("square loading", this.squareIsLoading);
+      const square = await getSquare(change.newValue);
+      this.square = square.data;
+      this.squareIsLoading = false;
+      console.log(this.square.geojson.properties.centroid);
+      this.centre = this.square.geojson.properties.centroid;
+      console.log("square loading", this.squareIsLoading);
     })
   }
 
@@ -137,26 +147,36 @@ export default class MapToolsStore {
 
   @action.bound
   async createdPolygon(event) {
-    console.log("created ")
+    console.log("created ");
     const layer = event.layer;
     const data = layer.toGeoJSON();
 
     const result = await createPolygon(this.squareId, data);
 
-    runInAction(() => {
-      const features = observable.map();
-      this.featureData.keys().map((id) => features.set(id, this.featureData.get(id)));
-      features.set(result.data.properties.id, result.data);
-
-      this.featureData = features;
-    });
-
-    return false;
   }
+
+  @action.bound
+  async fetchSquareCoordinates() {
+    const result = await getSquareCoordinates();
+
+    runInAction(() => {
+      this.squareCoordinates = result.data;
+    })
+  }
+
+  @action.bound
+  async fetchSquareGrid() {
+    const result = await getSquareGrid();
+
+    runInAction(() => {
+      this.squareGrid = result.data;
+    })
+  }
+
 
   @action.bound async updatePolygon(id, data) {
     const result = await updatePolygon(this.squareId, id, data);
-}
+  }
 
   @action.bound editedPolygons(event) {
     event.layers.eachLayer((layer) => {
