@@ -36,7 +36,7 @@ export default class PolygonContainer extends React.Component {
     }
 
     getStyle(colour) {
-        const style = {color: 'blue', fillColor: 'blue', stroke: true, weight: 4, dashArray: null, dashOffset: null};
+        const style = {color: 'blue', opacity: 0.6, fillColor: 'blue', stroke: true, weight: 2, dashArray: null, dashOffset: 0};
 
         switch (colour) {
             case 'black':
@@ -46,8 +46,7 @@ export default class PolygonContainer extends React.Component {
             case 'blue-hatched':
                 style.color = 'royalblue';
                 style.fillColor = 'royalblue';
-                style.dashOffset = 20;
-                style.dashArray = '25 10';
+                style.dashArray = '10 10';
                 break;
             case 'red-soft':
                 style.color = 'salmon';
@@ -56,8 +55,7 @@ export default class PolygonContainer extends React.Component {
             case 'red-hatched':
                 style.color = 'orangered';
                 style.fillColor = 'orangered';
-                style.dashOffset = 20;
-                style.dashArray = '25 10';
+                style.dashArray = '10 10';
                 break;
             case 'red':
                 style.color = 'red';
@@ -66,6 +64,16 @@ export default class PolygonContainer extends React.Component {
             case 'yellow':
                 style.color = 'yellow';
                 style.fillColor = 'yellow';
+                break;
+            case 'yellow-hatched':
+                style.color = 'chocolate';
+                style.fillColor = 'yellow';
+                style.dashArray = '10 10';
+                style.opacity = 0.9;
+                break;
+            case 'unknown':
+                style.color = 'white';
+                style.fillColor = 'white';
                 break;
         }
 
@@ -96,6 +104,8 @@ export default class PolygonContainer extends React.Component {
                 <button onClick={this.setColour.bind(this)} data-colour='red-hatched'>red hatched</button>
                 <button onClick={this.setColour.bind(this)} data-colour='red'>red</button>
                 <button onClick={this.setColour.bind(this)} data-colour='yellow'>yellow</button>
+                <button onClick={this.setColour.bind(this)} data-colour='yellow-hatched'>yellow hatched</button>
+                <button onClick={this.setColour.bind(this)} data-colour='unknown'>too difficult to tell</button>
 
                 <hr/>
                 <button onClick={this.savePolygon.bind(this)}>Done</button>
@@ -104,7 +114,7 @@ export default class PolygonContainer extends React.Component {
 
         const style = this.getStyle(this.props.feature.properties.colour);
 
-        return <Polygon onClick={polygonClicked} positions={coords} ref={this.polygonRef} color={style.color} fillColor={style.fillColor} dashArray={style.dashArray} dashOffset={style.dashOffset}>
+        return <Polygon onClick={polygonClicked} positions={coords} ref={this.polygonRef} color={style.color} opacity={style.opacity} weight={style.weight} fillColor={style.fillColor} dashArray={style.dashArray} dashOffset={style.dashOffset}>
             {popup}
         </Polygon>;
     }

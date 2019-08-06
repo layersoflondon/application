@@ -179,4 +179,8 @@ export default class MapToolsStore {
   @computed get isZoomed() {
     return typeof this.squareId !== "undefined";
   }
+
+  @computed get atEditableSquare() {
+    return this.isZoomed && this.square && this.square.state.label === 'in_progress';
+  }
 }

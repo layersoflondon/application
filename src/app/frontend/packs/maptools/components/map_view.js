@@ -151,7 +151,7 @@ export default class MapView extends React.Component {
       return <Polygon key={`polygon-${i}`} positions={coords} />;
     });
 
-    const drawingControl = this.props.mapToolsStore.isZoomed ? <FeatureGroup>
+    const drawingControl = this.props.mapToolsStore.atEditableSquare ? <FeatureGroup>
       <EditControl
         position='bottomleft'
         onCreated={this.props.mapToolsStore.createdPolygon}
