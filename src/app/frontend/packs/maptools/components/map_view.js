@@ -3,6 +3,7 @@ import {Map, TileLayer, ZoomControl, GeoJSON} from 'react-leaflet';
 import _ from 'leaflet-draw';
 import {inject, observer} from 'mobx-react/index';
 import {NavLink, withRouter} from 'react-router-dom';
+import {getSquare} from "../sources/map_tools_squares";
 
 @inject('mapToolsStore')
 @withRouter
@@ -18,13 +19,28 @@ export default class MapView extends React.Component {
 
   handleOnClick(event) {
     if (this.props.location.pathname.search(/\/squares\/\d+/) === -1) {
-      this.props.history.push(`/maptools/squares/1`);
+      // determine which square we need to render from the lat/lng of the click
+      const lat = event.latlng.lat;
+      const lng = event.latlng.lng;
+      const coords = this.props.mapToolsStore.squareCoordinates;
+      const squares = coords.filter((coord) => {
+        const nwLat = coord.nw[0];
+        const nwLng = coord.nw[1];
+        const seLat = coord.se[0];
+        const seLng = coord.se[1];
 
-      window.e = event;
-      const centre = [event.lat, event.lng];
-      this.props.mapToolsStore.setZoomAndCentre(18, centre)
+        if (lat < nwLat && lat > seLat && lng > nwLng && lng < seLng) {
+          return true
+        }
+
+      });
+
+      const squareId = squares[0].id;
+
+      this.props.history.push(`/maptools/squares/${squareId}`);
+
+
     }
-    window.theClick = event;
   }
 
   componentWillMount() {
@@ -36,6 +52,7 @@ export default class MapView extends React.Component {
       this.props.mapToolsStore.setPolygons();
     }, 150);
   }
+
 
   initializeLeafletDrawingControlUI() {
     const editableItems = L.featureGroup().addTo(this.props.mapToolsStore.mapRef.leafletElement);
@@ -108,6 +125,13 @@ export default class MapView extends React.Component {
     return drawingControl;
   }
 
+  gridStyle(feature) {
+    return {
+      weight: (this.props.mapToolsStore.mapRef.leafletElement.getZoom() <= 10) ? 1 : 2,
+      color: "#999999"
+    }
+  }
+
   gridOnEachFeature(feature,layer) {
     layer.on('click', (e) => {
       const feature = e.target.feature;
@@ -117,8 +141,7 @@ export default class MapView extends React.Component {
       if (this.props.location.pathname.search(/\/squares\/\d+/) === -1) {
         this.props.history.push(`/maptools/squares/${feature.properties.id}`);
 
-        const centre = feature.properties.centroid;
-        this.props.mapToolsStore.setZoomAndCentre(18, centre)
+        this.props.mapToolsStore.setZoom(18)
       }
     });
 
@@ -169,6 +192,15 @@ export default class MapView extends React.Component {
     return style;
   }
 
+  squareStyle(feature) {
+    return {
+      weight: 5,
+      color: "#4B9FFF",
+      fillOpacity: 0.8,
+      fillColor: "#999999"
+    }
+  }
+
 
   render() {
     let draggingEnabled = true;
@@ -180,13 +212,17 @@ export default class MapView extends React.Component {
         <Map ref={this.setMapRef} zoomControl={false}
              center={this.props.mapToolsStore.centre.toJS()} zoom={this.props.mapToolsStore.zoom}
              dragging={draggingEnabled} touchZoom={zoomingEnabled} doubleClickZoom={zoomingEnabled}
-             scrollWheelZoom={zoomingEnabled}>
+             scrollWheelZoom={zoomingEnabled} onClick={this.handleOnClick.bind(this)} key={this.props.mapToolsStore.square ? `maptools-square-${this.props.mapToolsStore.square.id}` : 'maptools-squares'}>
           <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03"
                      attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
           <TileLayer url="http://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png"/>
 
-          <GeoJSON data={this.props.mapToolsStore.squares} onEachFeature={this.gridOnEachFeature.bind(this)} style={this.geoJsonStyle.bind(this)}/>
-          <GeoJSON data={this.props.mapToolsStore.squareGrid}/>
+          {/*<GeoJSON data={this.props.mapToolsStore.squares} onEachFeature={this.gridOnEachFeature.bind(this)} style={this.geoJsonStyle.bind(this)}/>*/}
+            <GeoJSON data={this.props.mapToolsStore.squareGrid} style={this.gridStyle.bind(this)}/>
+          { this.props.mapToolsStore.square &&
+            <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
+          }
+
         </Map>
       </div>
     </React.Fragment>

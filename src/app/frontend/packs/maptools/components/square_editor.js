@@ -25,8 +25,10 @@ export default class SquareEditor extends React.Component {
 
     reloadSquare() {
         (async () => {
-            const square = await getSquare(this.props.match.params.id);
-            this.setState({loading: false, square: square.data});
+            // const square = await getSquare(this.props.match.params.id);
+            // this.props.mapToolsStore.square = square.data;
+            // console.log(this.props.mapToolsStore.square);
+            this.setState({loading: false});
         })();
     }
 
@@ -76,13 +78,13 @@ export default class SquareEditor extends React.Component {
 
     render() {
 
-        if( this.state.loading ) {
+        if( this.state.loading || this.props.mapToolsStore.squareIsLoading ) {
             return <span>...</span>
         }else {
-            const classNames = `square-editor ${this.state.square.state.label}`;
+            const classNames = `square-editor ${this.props.mapToolsStore.square.state.label}`;
 
             return <div className={classNames}>
-                {this[`renderState_${this.state.square.state.label}`]()}
+                {this[`renderState_${this.props.mapToolsStore.square.state.label}`]()}
             </div>;
         }
     }
