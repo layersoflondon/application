@@ -21,7 +21,6 @@ export default class MapView extends React.Component {
     if (this.props.location.pathname.search(/\/squares\/\d+/) === -1) {
       this.props.history.push(`/maptools/squares/1`);
 
-      window.e = event;
       const centre = [event.lat, event.lng];
       this.props.mapToolsStore.setZoomAndCentre(18, centre)
     }
@@ -29,10 +28,6 @@ export default class MapView extends React.Component {
   }
 
   componentWillMount() {
-    setTimeout(() => {
-      this.initializeLeafletDrawingControlUI();
-    }, 50);
-
     setTimeout(() => {
       this.props.mapToolsStore.setPolygons();
     }, 150);
@@ -94,11 +89,9 @@ export default class MapView extends React.Component {
     }
 
     // otherwise if there's no square ID, we're choosing a square, in which case set the colour of the square by its status
-
     
     return style;
   }
-
 
   render() {
     let draggingEnabled = true;
@@ -125,7 +118,7 @@ export default class MapView extends React.Component {
       <EditControl
         position='bottomleft'
         onCreated={this.props.mapToolsStore.createdPolygon}
-        onEdited={this.props.mapToolsStore.editedPolygons}
+        onEdited={(event) => {this.props.mapToolsStore.editedPolygons(event)}}
         onDeleted={this.props.mapToolsStore.deletedPolygons}
         draw={{
           polygon: {

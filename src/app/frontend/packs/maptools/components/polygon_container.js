@@ -18,86 +18,93 @@ export default class PolygonContainer extends React.Component {
 
                 }, 150);
 
-                element.properties = this.props.feature.properties;
-                this.polygonElement = element;
+                element.leafletElement.properties = this.props.feature.properties;
             }
 
+            this.polygonElement = element;
             return element;
         };
     }
 
     savePolygon(event) {
         const data = this.polygonElement.leafletElement.toGeoJSON();
-        data.properties = this.polygonElement.properties;
+        data.properties = {...this.polygonElement.properties, ...this.polygonElement.leafletElement.properties};
 
-        this.props.mapToolsStore.updatePolygon(data.properties.id, data).then(() => {
+        this.props.mapToolsStore.updatePolygon(this.polygonElement.leafletElement.properties.id, data).then(() => {
             this.polygonElement.leafletElement.closePopup();
         });
+    }
+
+    getStyle(colour) {
+        const style = {color: 'blue', fillColor: 'blue', stroke: true, weight: 4, dashArray: null, dashOffset: null};
+
+        switch (colour) {
+            case 'black':
+                style.color = 'black';
+                style.fillColor = 'black';
+                break;
+            case 'blue-hatched':
+                style.color = 'royalblue';
+                style.fillColor = 'royalblue';
+                style.dashOffset = 20;
+                style.dashArray = '25 10';
+                break;
+            case 'red-soft':
+                style.color = 'salmon';
+                style.fillColor = 'salmon';
+                break;
+            case 'red-hatched':
+                style.color = 'orangered';
+                style.fillColor = 'orangered';
+                style.dashOffset = 20;
+                style.dashArray = '25 10';
+                break;
+            case 'red':
+                style.color = 'red';
+                style.fillColor = 'red';
+                break;
+            case 'yellow':
+                style.color = 'yellow';
+                style.fillColor = 'yellow';
+                break;
+        }
+
+        return style;
+    }
+
+    setColour(event) {
+        const {colour} = event.currentTarget.dataset;
+        const style = this.getStyle(colour);
+
+        this.polygonElement.leafletElement.properties = {...this.polygonElement.leafletElement.properties, colour: colour};
+        this.polygonElement.leafletElement.setStyle(style);
     }
 
     render() {
         const coords = this.props.feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
 
-        const setColour = colour => {
-            this.setState({colour: colour});
-            this.polygonElement.properties = {...this.polygonElement.properties, colour: colour};
-            return true;
-        };
-
         const polygonClicked = event => {
-            event.preventDefault();
             return false;
         };
 
         const popup = <Popup autoClose={false} closeOnClick={false} autoOpen={false}>
             <div feature={this.props.feature}>
-                <button onClick={() => setColour('black')}>black</button>
-                <button onClick={() => setColour('blue')}>blue</button>
-                <button onClick={() => setColour('blue-hatched')}>blue hatched</button>
-                <button onClick={() => setColour('red-soft')}>soft red</button>
-                <button onClick={() => setColour('red-hatched')}>red hatched</button>
-                <button onClick={() => setColour('red')}>red</button>
-                <button onClick={() => setColour('yellow')}>yellow</button>
+                <button onClick={this.setColour.bind(this)} data-colour='black'>black</button>
+                <button onClick={this.setColour.bind(this)} data-colour='blue'>blue</button>
+                <button onClick={this.setColour.bind(this)} data-colour='blue-hatched'>blue hatched</button>
+                <button onClick={this.setColour.bind(this)} data-colour='red-soft'>soft red</button>
+                <button onClick={this.setColour.bind(this)} data-colour='red-hatched'>red hatched</button>
+                <button onClick={this.setColour.bind(this)} data-colour='red'>red</button>
+                <button onClick={this.setColour.bind(this)} data-colour='yellow'>yellow</button>
 
                 <hr/>
-                <button onClick={this.savePolygon.bind(this)} disabled={this.state.colour === undefined}>Done</button>
+                <button onClick={this.savePolygon.bind(this)}>Done</button>
             </div>
         </Popup>;
 
-        // const colour = (this.state.colour || this.props.feature.properties.colour) || 'blue';
-        let style = {colour: 'blue', stroke: true, weight: 4, dashArray: null, dashOffset: null};
-        switch (this.state.colour || this.props.feature.properties.colour) {
-            case 'black':
-                style.colour = 'black';
-                break;
-            case 'blue':
-                style.colour = 'blue';
-                break;
-            case 'blue-hatched':
-                style.colour = 'royalblue';
-                style.dashOffset = 20;
-                style.dashArray = '25 10';
-                break;
-            case 'red-soft':
-                style.colour = 'salmon';
-                break;
-            case 'red-hatched':
-                style.colour = 'orangered';
-                style.dashOffset = 20;
-                style.dashArray = '25 10';
-                break;
-            case 'red':
-                style.colour = 'red';
-                break;
-            case 'yellow':
-                style.colour = 'yellow';
-                break;
-            default:
-                style.colour = 'blue';
-                break;
-        }
+        const style = this.getStyle(this.props.feature.properties.colour);
 
-        return <Polygon onClick={polygonClicked} positions={coords} ref={this.polygonRef} color={style.colour} fillColor={style.colour} dashArray={style.dashArray} dashOffset={style.dashOffset}>
+        return <Polygon onClick={polygonClicked} positions={coords} ref={this.polygonRef} color={style.color} fillColor={style.fillColor} dashArray={style.dashArray} dashOffset={style.dashOffset}>
             {popup}
         </Polygon>;
     }
