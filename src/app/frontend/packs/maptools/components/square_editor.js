@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { getSquare, updateSquare } from "../sources/map_tools_squares";
 
-@inject('mapToolsStore')
+@inject('mapToolsStore', 'userSession')
 @withRouter
 @observer
 export default class SquareEditor extends React.Component {
@@ -78,6 +78,12 @@ export default class SquareEditor extends React.Component {
     }
 
     render() {
+        if( !this.props.userSession.id ) {
+            return <div className={`square-editor not-logged-in`}>
+                <h3>You need to be signed in in order to start tracing. </h3>
+                <a href="/users/sign_up">Sign up</a> or sign in <a href="/users/sign_in">here</a> to get started!
+            </div>;
+        }
 
         if( this.state.loading || this.props.mapToolsStore.squareIsLoading ) {
             return <span>...</span>

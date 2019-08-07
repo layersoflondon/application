@@ -5,10 +5,9 @@ import { EditControl } from "react-leaflet-draw";
 import { inject, observer } from 'mobx-react';
 import {  withRouter } from 'react-router-dom';
 import PolygonContainer from './polygon_container';
-import {getSquare} from "../sources/map_tools_squares";
+import { getStyle } from '../helpers/styles';
 
-
-@inject('mapToolsStore')
+@inject('mapToolsStore', 'userSession')
 @withRouter
 @observer
 export default class MapView extends React.Component {
@@ -148,10 +147,13 @@ export default class MapView extends React.Component {
 
     const immutablePolygons = immutableFeatures.map((feature, i) => {
       const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
-      return <Polygon key={`polygon-${i}`} positions={coords} />;
+      const style = getStyle(feature.properties.colour);
+      return <Polygon key={`polygon-${i}`} positions={coords} {...style} />;
     });
 
-    const drawingControl = this.props.mapToolsStore.atEditableSquare ? <FeatureGroup>
+    const isSignedIn = typeof this.props.userSession.id !== "undefined";
+
+    const drawingControl = isSignedIn && this.props.mapToolsStore.atEditableSquare ? <FeatureGroup>
       <EditControl
         position='bottomleft'
         onCreated={this.props.mapToolsStore.createdPolygon}
