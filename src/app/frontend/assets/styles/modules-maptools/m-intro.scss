@@ -1,6 +1,70 @@
 /* Intro */
 
-.m-intro section {
-  padding:30px;
+.maptools-intro {
+  position: absolute;
+  z-index: 9999;
+  width: 100%;
+  color: #333;
+  bottom: 40px;
+}
 
+.m-intro {
+  margin: 10%;
+}
+
+.m-intro section {
+  padding: 30px;
+  background: #000;
+  color: $white;
+  width: 50%;
+  float:left;
+  max-width: 600px;
+  position: relative;
+
+  @include top-and-tail;
+
+  .columns {
+    @include clearfix;
+  }
+
+  .columns .column {
+    width: 50%;
+    float:left;
+    padding-right:10px;
+  }
+
+  .columns .column + .column {
+    padding-right:0;
+    padding-left:10px;
+  }
+
+  .sub-section {
+    position: absolute;
+    right: -50%;
+    top: 10%;
+    border: 1px solid red;
+  }
+
+  & + section {
+    background: #252525;
+    margin-left:-10px;
+    margin-top:60px;
+  }
+}
+
+.m-intro img {
+  max-width:100%;
+}
+
+.m-intro h3 {
+  text-transform:uppercase;
+  font-size:16px;
+  margin-top:0;
+}
+
+.m-intro .button {
+  @include button-style;
+  font-size: 20px;
+  font-weight: bold;
+  clear:both;
 }

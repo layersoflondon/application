@@ -1,5 +1,5 @@
 const getStyle = (colour) => {
-  const style = {color: 'blue', opacity: 0.6, fillColor: 'blue', stroke: true, weight: 2, dashArray: null, dashOffset: 0};
+  const style = {color: '#43585d', opacity: 0.6, fillColor: '#43585d', stroke: true, weight: 2, dashArray: null, dashOffset: 0};
 
   switch (colour) {
     case 'black':

@@ -65,7 +65,7 @@ export default class MapView extends React.Component {
     return {
       weight: (this.props.mapToolsStore.mapRef.leafletElement.getZoom() <= 10) ? 1 : 2,
       color: "#666666",
-      fillOpacity: 0.6,
+      fillOpacity: 0.5,
       fillColor: "#ffffff",
       className: "masking-square"
     }
