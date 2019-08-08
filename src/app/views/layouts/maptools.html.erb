@@ -28,41 +28,15 @@
           })
         </script>
     <% end %>
-    <%= stylesheet_pack_tag 'styles', media: 'all' %>
+
+    <%= stylesheet_pack_tag 'styles-maptools', media: 'all' %>
+
     <%= javascript_pack_tag 'maptools' %>
-
-
 
     <%= render partial: "shared/favicon" %>
 
     <%= render partial: "shared/gtm" %>
 
-  <style>
-    body {
-      background: #fff;
-    }
-
-    a {
-      color: #1a82e2;
-    }
-    a:hover {
-      color: #001F3F;
-    }
-
-    #maptools-grid {
-      position: absolute;
-      top: 0;
-      border: 2px solid red;
-    }
-
-    #maptools-grid .square {
-
-    }
-
-    .leaflet-tile-container.leaflet-zoom-animated img {
-      /*border: 2px solid red;*/
-    }
-  </style>
 </head>
 
 <body>

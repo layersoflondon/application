@@ -46,12 +46,11 @@ export default class SquareEditor extends React.Component {
         };
 
         return <div>
-            <h3>This square needs tracing</h3>
-            <p>
-                Would you like to help us trace it?
-            </p>
+            <h3>This square needs <strong>tracing</strong>.</h3>
+            <p>Would you like to help us trace it?</p>
 
-            <a className="button" href="#" onClick={startEditing}>Begin</a> or <a href="/maptools/squares">go back to the map</a>
+            <a className="button" href="#" onClick={startEditing}>Begin</a> <br />
+            or <a href="/maptools/squares">choose another square</a>.
         </div>
     }
 
@@ -59,13 +58,9 @@ export default class SquareEditor extends React.Component {
         // this.props.mapToolsStore.addDrawingUIToMap();
 
         return <div>
-            <p>
-                Please trace all coloured areas which are touching the square.
-            </p>
-
-            <p>
-                Click edit shape to change the existing ones, or go <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>back to the map</Link>
-            </p>
+            <p>Please trace all coloured areas which are within, or touching, the square.</p>
+            <p>Click edit shape to change the existing ones.</p>
+            <p><Link to='/maptools/squares' className="button" onClick={this.handleGoBackClick.bind(this)}>I'm done!</Link></p>
         </div>
     }
 
@@ -79,7 +74,7 @@ export default class SquareEditor extends React.Component {
 
     render() {
         if( !this.props.userSession.id ) {
-            return <div className={`square-editor not-logged-in`}>
+            return <div className={`m-edit-hint not-logged-in`}>
                 <h3>You need to be signed in in order to start tracing. </h3>
                 <a href="/users/sign_up">Sign up</a> or sign in <a href="/users/sign_in">here</a> to get started!
             </div>;
@@ -88,7 +83,7 @@ export default class SquareEditor extends React.Component {
         if( this.state.loading || this.props.mapToolsStore.squareIsLoading ) {
             return <span>...</span>
         }else {
-            const classNames = `square-editor ${this.props.mapToolsStore.square.state.label}`;
+            const classNames = `m-edit-hint ${this.props.mapToolsStore.square.state.label}`;
 
             return <div className={classNames}>
                 {this[`renderState_${this.props.mapToolsStore.square.state.label}`]()}

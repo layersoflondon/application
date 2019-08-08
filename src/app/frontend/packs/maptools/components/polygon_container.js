@@ -52,19 +52,19 @@ export default class PolygonContainer extends React.Component {
         };
 
         const popup = <Popup autoClose={false} closeOnClick={false} autoOpen={false}>
-            <div feature={this.props.feature}>
-                <button onClick={this.setColour.bind(this)} data-colour='black'>black</button>
-                <button onClick={this.setColour.bind(this)} data-colour='blue'>blue</button>
-                <button onClick={this.setColour.bind(this)} data-colour='blue-hatched'>blue hatched</button>
-                <button onClick={this.setColour.bind(this)} data-colour='red-soft'>soft red</button>
-                <button onClick={this.setColour.bind(this)} data-colour='red-hatched'>red hatched</button>
-                <button onClick={this.setColour.bind(this)} data-colour='red'>red</button>
-                <button onClick={this.setColour.bind(this)} data-colour='yellow'>yellow</button>
-                <button onClick={this.setColour.bind(this)} data-colour='yellow-hatched'>yellow hatched</button>
-                <button onClick={this.setColour.bind(this)} data-colour='unknown'>too difficult to tell</button>
+            <div className="m-color-picker" feature={this.props.feature}>
+                <button onClick={this.setColour.bind(this)} data-colour='black'>Black</button>
+                <button onClick={this.setColour.bind(this)} data-colour='blue'>Blue</button>
+                <button onClick={this.setColour.bind(this)} data-colour='blue-hatched'>Blue hatched</button>
+                <button onClick={this.setColour.bind(this)} data-colour='red-soft'>Soft red</button>
+                <button onClick={this.setColour.bind(this)} data-colour='red-hatched'>Red hatched</button>
+                <button onClick={this.setColour.bind(this)} data-colour='red'>Red</button>
+                <button onClick={this.setColour.bind(this)} data-colour='yellow'>Yellow</button>
+                <button onClick={this.setColour.bind(this)} data-colour='yellow-hatched'>Yellow hatched</button>
+                <button onClick={this.setColour.bind(this)} className="unknown" data-colour='unknown'>Too difficult to tell</button>
 
                 <hr/>
-                <button onClick={this.savePolygon.bind(this)}>Done</button>
+                <button className="done-button" onClick={this.savePolygon.bind(this)}>Done</button>
             </div>
         </Popup>;
 
