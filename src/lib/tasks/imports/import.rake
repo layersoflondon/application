@@ -107,7 +107,7 @@ namespace :import do
             user: user
           }) if record.nil?
 
-          image_filename_prefix = "#{yaml[:import].try(:[], :image_filename_prefix)} " || ""
+          image_filename_prefix = "#{yaml[:import].try(:[], :image_filename_prefix)}" || ""
 
           file_path = File.join(File.expand_path(args[:images_path]), "#{image_filename_prefix}#{@catalogue_number}.jpg")
           if File.exists?(file_path)

@@ -2,15 +2,15 @@ find:
   team:
     name: "London Metropolitan Archives"
   collection:
-    title: "London County Council Collections: London’s Health and Welfare"
+    title: "London County Council and Greater London Council Archive Collections: Estate Plans"
 import:
   rows_indices:
     - 1
-    - 4
+    - 1
   row_attributes:
     - number
+    - hide_number
     - catalogue_number
-    - collage_id
     - lat
     - lng
     - date
@@ -19,33 +19,17 @@ import:
     - description
     - collage_link
     - collage_link_title
-    - fatured_collage_link
-    - fatured_collage_link_title
-    - extra_link_1
-    - extra_link_1_title
-    - extra_link_2
-    - extra_link_2_title
-    - extra_link_3
-    - extra_link_3_title
     - lma_website_link
     - lma_website_link_title
-    - attribution_1
-    - attribution_2
-    - attribution_3
-  image_filename_prefix: "London Met Archives"
-  collection_description: "London’s Health and Welfare is one of several collections curated by the Layers of London team at London Metropolitan Archives (LMA). These collections bring together photographs, films and estate plans from the London County Council archive collection at LMA.
-                           This collection features 120 photographs which include hospitals, health centres, dispensaries, workhouse institutions, maternity homes and therapy departments. These services were established or maintained by London County Council Public Health Department after the passing of the 1929 Local Government Act. At this time, the council took on the duties of the Metropolitan Asylums Board and twenty-five Boards of Guardians of the Poor to become the overall commissioning and management body for London’s health and welfare services. It remained so until the establishment of the National Health Service in 1948. The photographs in this collection illustrate the bold and forward-looking strategy which the LCC adopted as it sought to improve the health and well-being of all Londoners.
 
-                           <h3>About the London County Council (LCC)</h3>
-                           From 1889 to 1965, the London County Council (LCC) was the top-level authority for the metropolitan boroughs of the County of London. As the most important elected authority in the country, the LCC co-ordinated, funded and directly provided a staggering range of services to people who lived in London and to the many millions who passed through the capital for work or pleasure.
+  image_filename_prefix: "Copyright_London_Met_Archives_"
+  collection_description: "This collection showcases a selection of architectural records from London County Council (LCC) and Greater London Council (GLC), all of which are held at London Metropolitan Archives.  The collection includes block plans, site plans and floor plans, elevations, section drawings and a few technical drawings, such as those needed when fitting equipment into buildings. The drawings were created or commissioned by the professionals in the LCC Architect’s Department. The influence which this department had on the way that the built environment of London developed during the first half of the twentieth century is hard to over-estimate.
 
-                           The London County Council collection is held at London Metropolitan Archives: <a href='https://search.lma.gov.uk/scripts/mwimain.dll/144/LMA_OPAC/web_detail/REFD+LCC?SESSIONSEARCH'>Collection Catalogue</a>
-"
+                           The London Building Act 1894 gave London County Council the power to appoint a “superintending architect of metropolitan buildings” to oversee the enforcement of regulations outlined in the Act. In doing so it took over all the responsibilities of its predecessor, the Metropolitan Board of Works.  Enforcement with regard to these responsibilities fell to the District Surveyors team.
+
+                           The role of the LCC Architect soon developed.  By 1909 there were 13 Committees dealing with construction works, and 35 sub-committees. The work included the construction of housing (under the Housing of the Working Classes Act 1890), including slum clearance; construction of buildings in connection with the introduction of electricity; construction of educational buildings, from nursery schools to colleges; construction of hospitals and institutions; construction of fire brigade stations; street and road improvements; maintenance and construction of bridges; public parks; Weights and Measures Stations and Gas Meter Testing Stations. Ultimately, the Chief Architect of the LCC was responsible for overseeing the design and construction of all these buildings, places and spaces, resulting in a highly distinctive look for London which is still recognizable today."
   extra_link_attributes:
     - collage_link
-    - fatured_collage_link
-    - extra_link_1
-    - extra_link_2
     - lma_website_link
   credit_attribute: attribution_1
   credit_attribute_2: attribution_2
