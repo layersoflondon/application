@@ -183,3 +183,10 @@
 .leaflet-popup-content-wrapper button[disabled] {
   opacity: 0.5;
 }
+
+.leaflet-custom-position {
+  border: 2px solid red;
+}
+.leaflet-custom-position .leaflet-control {
+  padding: 100px;;
+}

@@ -5,8 +5,7 @@ import L from 'leaflet';
 
 export default class MapToolsStore {
 
-  mapRef = null;
-  drawingControl = null;
+  @observable mapRef = null;
 
   DEFAULT_TILE_SIZE = 850;
   DEFAULT_ZOOM = 13;
@@ -22,6 +21,14 @@ export default class MapToolsStore {
   @observable square;
 
   constructor() {
+    // observe( this, 'mapRef', (change) => {
+    //   if( change.newValue ) {
+    //     const corners = change.newValue.leafletElement._controlCorners,
+    //         container = change.newValue.leafletElement._controlContainer;
+    //
+    //     corners['custom-position'] = L.DomUtil.create('div', 'leaflet-custom-position', container);
+    //   }
+    // });
 
     observe(this, 'centre', (change) => {
       const setCenter = () => {
@@ -43,7 +50,6 @@ export default class MapToolsStore {
         const square = await getSquare(change.newValue);
         this.square = square.data;
         this.squareIsLoading = false;
-        console.log(this.square.geojson.properties.centroid);
         this.centre = this.square.geojson.properties.centroid;
       });
 
@@ -152,9 +158,8 @@ export default class MapToolsStore {
 
     runInAction(() => {
       this.squareGrid = result.data;
-    })
+    });
   }
-
 
   @action.bound async updatePolygon(id, data) {
     const result = await updatePolygon(this.squareId, id, data);

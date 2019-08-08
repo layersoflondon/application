@@ -48,6 +48,8 @@ export default class PolygonContainer extends React.Component {
         const coords = this.props.feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
 
         const polygonClicked = event => {
+            window.t = event.target;
+            console.log(event.target);
             return false;
         };
 

@@ -13,6 +13,12 @@ export default class SquareEditor extends React.Component {
         this.state = {loading: true};
     }
 
+    updateSquareState(state) {
+        updateSquare(this.props.match.params.id, {state: state}).then((response) => {
+            this.props.mapToolsStore.square = response.data;
+        });
+    }
+
     componentDidMount() {
         const squareId = parseFloat(this.props.match.params.id);
         // const features = this.props.mapToolsStore.cachedFeatureData.values().filter((feature) => parseInt(feature.properties.square.id, 10) === squareId);
@@ -37,27 +43,17 @@ export default class SquareEditor extends React.Component {
     }
 
     renderState_not_started() {
-        const startEditing = () => {
-            updateSquare(this.props.match.params.id, {state: "in_progress"}).then((response) => {
-                console.log("OK", response.data);
-                this.props.mapToolsStore.square = response.data;
-            }).catch((error) => {
-            });
-        };
-
         return <div>
             <h3>This square needs tracing</h3>
             <p>
                 Would you like to help us trace it?
             </p>
 
-            <a className="button" href="#" onClick={startEditing}>Begin</a> or <a href="/maptools/squares">go back to the map</a>
+            <a className="button" href="#" onClick={() => this.updateSquareState('in_progress')}>Begin</a> or <a href="/maptools/squares">go back to the map</a>
         </div>
     }
 
     renderState_in_progress() {
-        // this.props.mapToolsStore.addDrawingUIToMap();
-
         return <div>
             <p>
                 Please trace all coloured areas which are touching the square.
@@ -66,11 +62,25 @@ export default class SquareEditor extends React.Component {
             <p>
                 Click edit shape to change the existing ones, or go <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>back to the map</Link>
             </p>
+
+            <hr/>
+            <button onClick={() => this.updateSquareState('done')}>I'm Done</button>
         </div>
     }
 
     renderState_done() {
-        return <span>done</span>
+        return <div>
+            <h1>
+                Please check that:
+            </h1>
+            <p>All polygons touching the square are drawn.</p>
+            <p>All polygons are the right shape.</p>
+            <p>All polygons are the right color.</p>
+            <p>Hit Edit mode to correct any issues.</p>
+
+            <hr/>
+            <button onClick={() => this.updateSquareState('back_in_progress')}>Edit mode</button>
+        </div>
     }
 
     renderState_flagged() {

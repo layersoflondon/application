@@ -155,6 +155,7 @@ export default class MapView extends React.Component {
 
     const drawingControl = isSignedIn && this.props.mapToolsStore.atEditableSquare ? <FeatureGroup>
       <EditControl
+        ref={this.setEditControlRef}
         position='bottomleft'
         onCreated={this.props.mapToolsStore.createdPolygon}
         onEdited={(event) => {this.props.mapToolsStore.editedPolygons(event)}}
@@ -184,9 +185,10 @@ export default class MapView extends React.Component {
 
 
           <GeoJSON data={this.props.mapToolsStore.squareGrid} style={this.gridStyle.bind(this)}/>
-           { this.props.mapToolsStore.square &&
-             <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
-            }
+
+          { this.props.mapToolsStore.square &&
+            <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
+          }
 
           {drawingControl}
           {immutablePolygons}
