@@ -136,15 +136,15 @@ export default class MapView extends React.Component {
     const editableFeatures = this.props.mapToolsStore.featureData.values().filter((feature) => {
       return feature.properties.id && feature.properties.userCanEdit && this.props.mapToolsStore.squareId === feature.properties.square.id;
     });
-
+    
     const polygons = editableFeatures.map((feature, i) => {
       return <PolygonContainer key={`editable-polygon-${i}`} feature={feature} mapToolsStore={this.props.mapToolsStore} />;
     });
 
     const immutableFeatures = this.props.mapToolsStore.featureData.values().filter((feature) => {
-      return !feature.properties.userCanEdit || this.props.mapToolsStore.squareId !== feature.properties.square.id;
+      return !feature.properties.id || !feature.properties.userCanEdit || this.props.mapToolsStore.squareId !== feature.properties.square.id;
     });
-
+    
     const immutablePolygons = immutableFeatures.map((feature, i) => {
       const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
       const style = getStyle(feature.properties.colour);
@@ -160,6 +160,10 @@ export default class MapView extends React.Component {
         onCreated={this.props.mapToolsStore.createdPolygon}
         onEdited={(event) => {this.props.mapToolsStore.editedPolygons(event)}}
         onDeleted={this.props.mapToolsStore.deletedPolygons}
+
+        onEditStart={() => this.props.mapToolsStore.setEditingMode(true)}
+        onEditStop={() => this.props.mapToolsStore.setEditingMode(false)}
+
         draw={{
           polygon: {
             allowIntersection: false,

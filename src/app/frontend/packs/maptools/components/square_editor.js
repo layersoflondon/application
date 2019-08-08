@@ -24,7 +24,12 @@ export default class SquareEditor extends React.Component {
         // const features = this.props.mapToolsStore.cachedFeatureData.values().filter((feature) => parseInt(feature.properties.square.id, 10) === squareId);
 
         // this.props.mapToolsStore.setZoom(this.props.mapToolsStore.FULL_ZOOM);
-        this.props.mapToolsStore.setSquare(squareId);
+        this.props.mapToolsStore.squareId = squareId;
+        this.props.mapToolsStore.squareIsLoading = true;
+        getSquare(squareId).then((response) => {
+            this.props.mapToolsStore.square = response.data;
+            this.props.mapToolsStore.squareIsLoading = false;
+        });
 
         this.reloadSquare();
     }
@@ -98,7 +103,8 @@ export default class SquareEditor extends React.Component {
         if( this.state.loading || this.props.mapToolsStore.squareIsLoading ) {
             return <span>...</span>
         }else {
-            const classNames = `square-editor ${this.props.mapToolsStore.square.state.label}`;
+            const editMode = this.props.mapToolsStore.inEditOrDrawingMode;
+            const classNames = `square-editor ${this.props.mapToolsStore.square.state.label} ${editMode ? 'edit-mode' : ''}`;
 
             return <div className={classNames}>
                 {this[`renderState_${this.props.mapToolsStore.square.state.label}`]()}
