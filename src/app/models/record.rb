@@ -36,6 +36,10 @@ class Record < ApplicationRecord
   has_many :comments
   accepts_nested_attributes_for :comments, allow_destroy: true
 
+  has_many :taggings, as: :tagger
+  has_many :tags, through: :taggings
+  has_many :tag_groups, through: :tags
+
   before_validation do
     self.editing_team = nil if !self.allow_team_editing
   end

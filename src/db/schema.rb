@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_26_153510) do
+ActiveRecord::Schema.define(version: 2019_08_08_131757) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -251,6 +251,30 @@ ActiveRecord::Schema.define(version: 2019_07_26_153510) do
     t.index ["layer_group_id"], name: "index_layers_on_layer_group_id"
   end
 
+  create_table "layers_of_london_booth_map_tool_polygons", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.bigint "square_id"
+    t.bigint "user_id"
+    t.text "feature"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["square_id"], name: "index_layers_of_london_booth_map_tool_polygons_on_square_id"
+    t.index ["user_id"], name: "index_layers_of_london_booth_map_tool_polygons_on_user_id"
+  end
+
+  create_table "layers_of_london_booth_map_tool_squares", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "aasm_state"
+    t.text "geojson"
+    t.integer "square_size"
+    t.float "north_west_lat"
+    t.float "north_west_lng"
+    t.float "south_east_lat"
+    t.float "south_east_lng"
+    t.integer "row"
+    t.integer "col"
+  end
+
   create_table "record_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "record_id"
     t.string "issue", null: false
@@ -298,6 +322,29 @@ ActiveRecord::Schema.define(version: 2019_07_26_153510) do
     t.string "student_details"
     t.integer "team_id"
     t.boolean "allow_team_editing", default: false
+  end
+
+  create_table "tag_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "taggings", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.integer "tag_id"
+    t.string "tagger_type"
+    t.integer "tagger_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.integer "tag_group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "taxonomies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|

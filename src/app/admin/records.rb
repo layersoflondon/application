@@ -16,7 +16,7 @@ ActiveAdmin.register Record do
   # Get all fields for all types of attachment (i.e. any class in the Attachments module)
   column_names = Attachments.constants.select {|c| Attachments.const_get(c).is_a?(Class)}.collect {|c| Attachments.const_get(c).send(:column_names)}.flatten.uniq.collect(&:to_sym)
   # Permit all columns on Record and all columns on attachables.
-  permit_params [Record.column_names.collect(&:to_sym), attachments_attributes: [:id, :_destroy, attachable_attributes: column_names.push(:_destroy)], comments_attributes: [:id, :_destroy, :state]]
+  permit_params [Record.column_names.collect(&:to_sym), tag_ids: [], attachments_attributes: [:id, :_destroy, attachable_attributes: column_names.push(:_destroy)], comments_attributes: [:id, :_destroy, :state]]
   
   controller do
     def scoped_collection

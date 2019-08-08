@@ -32,3 +32,26 @@ form#new_featured_item li.is-disabled {
     padding: 10px;
   }
 }
+
+body.admin_records div#tags .col {
+  float: left;
+  width: 32%;
+  padding: 10px;
+}
+
+body.admin_records div#tags ol legend {
+  display: none;
+}
+
+body.admin_records div#tags h4 {
+  margin-bottom: 0;
+}
+
+body.admin_records div#tags ol > li label {
+  width: 80%;
+  margin-left: 5px
+}
+
+body.admin_records div#tags ol > li label input {
+  margin-right: 10px;
+}

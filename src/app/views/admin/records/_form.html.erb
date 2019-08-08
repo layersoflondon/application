@@ -41,6 +41,20 @@
                 <% end %>
             </div>
 
+            <div id="tags">
+                <%= f.inputs name: "Tags" do %>
+                    <% TagGroup.all.in_groups(3).each do |groups| %>
+                        <div class="col">
+                            <% groups.each do |group| %>
+                                <% next if group.nil? %>
+                                <h4><%= group.name %></h4>
+                                <%= f.input :tags, as: :check_boxes, collection: group.tags %>
+                            <% end %>
+                        </div>
+                    <% end %>
+                <% end %>
+            </div>
+
             <div id="location">
                 <%= f.inputs name: "Location" do %>
                     <%= f.input :lat %>
