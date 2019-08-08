@@ -5,8 +5,7 @@ import L from 'leaflet';
 
 export default class MapToolsStore {
 
-  mapRef = null;
-  drawingControl = null;
+  @observable mapRef = null;
 
   DEFAULT_TILE_SIZE = 850;
   DEFAULT_ZOOM = 13;
@@ -20,9 +19,9 @@ export default class MapToolsStore {
   @observable squareId = null;
   @observable squareIsLoading;
   @observable square;
+  @observable inEditOrDrawingMode = false;
 
   constructor() {
-
     observe(this, 'centre', (change) => {
       const setCenter = () => {
         if (this.mapRef && this.squareIsLoading === false) {
@@ -36,18 +35,6 @@ export default class MapToolsStore {
 
 
     });
-
-    observe(this, 'squareId', (change) => {
-      runInAction(async () => {
-        this.squareIsLoading = true;
-        const square = await getSquare(change.newValue);
-        this.square = square.data;
-        this.squareIsLoading = false;
-        console.log(this.square.geojson.properties.centroid);
-        this.centre = this.square.geojson.properties.centroid;
-      });
-
-    })
   }
 
   @action.bound removeFeature(id) {
@@ -122,21 +109,22 @@ export default class MapToolsStore {
   }
 
   @action.bound async createdPolygon(event) {
-    console.log("created ")
     const layer = event.layer;
     const data = layer.toGeoJSON();
 
     const result = await createPolygon(this.squareId, data);
 
     runInAction(() => {
+      // add the saved polygon, with our custom properties into the store
       const features = observable.map();
       this.featureData.keys().map((id) => features.set(id, this.featureData.get(id)));
       features.set(result.data.properties.id, result.data);
+      // to avoid duplicating the shape, remove the one created by leaflet.draw
+      // our re-render will draw a polygon from the features.map
+      layer.removeFrom(this.mapRef.leafletElement);
 
       this.featureData = features;
     });
-
-    return false;
   }
 
   @action.bound async fetchSquareCoordinates() {
@@ -152,9 +140,8 @@ export default class MapToolsStore {
 
     runInAction(() => {
       this.squareGrid = result.data;
-    })
+    });
   }
-
 
   @action.bound async updatePolygon(id, data) {
     const result = await updatePolygon(this.squareId, id, data);
@@ -164,7 +151,6 @@ export default class MapToolsStore {
     event.layers.eachLayer((layer) => {
       const data = layer.toGeoJSON();
       data.properties = {...layer.properties};
-      console.log(layer.properties, data);
 
       updatePolygon(this.squareId, layer.properties.id, data);
     });
@@ -182,5 +168,9 @@ export default class MapToolsStore {
 
   @computed get atEditableSquare() {
     return this.isZoomed && this.square && this.square.state.label === 'in_progress';
+  }
+
+  @action.bound setEditingMode(enabled) {
+    this.inEditOrDrawingMode = enabled;
   }
 }

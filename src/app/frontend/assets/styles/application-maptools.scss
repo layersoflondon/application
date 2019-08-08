@@ -115,6 +115,12 @@ $booth-yellow: #eaa349;
 .leaflet-popup-content-wrapper button[disabled] {
   opacity: 0.5;
 }
+.leaflet-custom-position {
+  border: 2px solid red;
+}
+.leaflet-custom-position .leaflet-control {
+  padding: 100px;;
+}
 
 .gridline {
   //opacity:0.2;

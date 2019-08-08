@@ -13,12 +13,23 @@ export default class SquareEditor extends React.Component {
         this.state = {loading: true};
     }
 
+    updateSquareState(state) {
+        updateSquare(this.props.match.params.id, {state: state}).then((response) => {
+            this.props.mapToolsStore.square = response.data;
+        });
+    }
+
     componentDidMount() {
         const squareId = parseFloat(this.props.match.params.id);
         // const features = this.props.mapToolsStore.cachedFeatureData.values().filter((feature) => parseInt(feature.properties.square.id, 10) === squareId);
 
         // this.props.mapToolsStore.setZoom(this.props.mapToolsStore.FULL_ZOOM);
-        this.props.mapToolsStore.setSquare(squareId);
+        this.props.mapToolsStore.squareId = squareId;
+        this.props.mapToolsStore.squareIsLoading = true;
+        getSquare(squareId).then((response) => {
+            this.props.mapToolsStore.square = response.data;
+            this.props.mapToolsStore.squareIsLoading = false;
+        });
 
         this.reloadSquare();
     }
@@ -37,35 +48,37 @@ export default class SquareEditor extends React.Component {
     }
 
     renderState_not_started() {
-        const startEditing = () => {
-            updateSquare(this.props.match.params.id, {state: "in_progress"}).then((response) => {
-                console.log("OK", response.data);
-                this.props.mapToolsStore.square = response.data;
-            }).catch((error) => {
-            });
-        };
-
         return <div>
             <h3>This square needs <strong>tracing</strong>.</h3>
             <p>Would you like to help us trace it?</p>
 
-            <a className="button" href="#" onClick={startEditing}>Begin</a> <br />
+            <a className="button" href="#" onClick={() => this.updateSquareState('in_progress')}>Begin</a>
             or <a href="/maptools/squares">choose another square</a>.
         </div>
     }
 
     renderState_in_progress() {
-        // this.props.mapToolsStore.addDrawingUIToMap();
-
         return <div>
             <p>Please trace all coloured areas which are within, or touching, the square.</p>
             <p>Click edit shape to change the existing ones.</p>
-            <p><Link to='/maptools/squares' className="button" onClick={this.handleGoBackClick.bind(this)}>I'm done!</Link></p>
+            <button onClick={() => this.updateSquareState('done')}>I'm Done</button>
+            or go <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>back to the map</Link>.
         </div>
     }
 
     renderState_done() {
-        return <span>done</span>
+        return <div>
+            <h1>
+                Please check that:
+            </h1>
+            <p>All polygons touching the square are drawn.</p>
+            <p>All polygons are the right shape.</p>
+            <p>All polygons are the right color.</p>
+            <p>Hit Edit mode to correct any issues.</p>
+
+            <hr/>
+            <button onClick={() => this.updateSquareState('back_in_progress')}>Edit mode</button>
+        </div>
     }
 
     renderState_flagged() {
@@ -83,7 +96,9 @@ export default class SquareEditor extends React.Component {
         if( this.state.loading || this.props.mapToolsStore.squareIsLoading ) {
             return <span>...</span>
         }else {
-            const classNames = `m-edit-hint ${this.props.mapToolsStore.square.state.label}`;
+
+            const editMode = this.props.mapToolsStore.inEditOrDrawingMode;
+            const classNames = `m-edit-hint ${this.props.mapToolsStore.square.state.label} ${editMode ? 'edit-mode' : ''}`;
 
             return <div className={classNames}>
                 {this[`renderState_${this.props.mapToolsStore.square.state.label}`]()}
