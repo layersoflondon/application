@@ -52,6 +52,7 @@ import {observer} from "mobx-react";
               return 'geodata';
             case 'audio/mpeg':
             case 'audio/m4a':
+            case 'audio/x-m4a':
               return 'audio_file';
             case 'audio/wav':
             case 'audio/x-wav':
@@ -115,7 +116,7 @@ import {observer} from "mobx-react";
       return <MediaItem {...item} {...this.props} object={media_item} key={`media_item_${index}`} index={index} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
     });
 
-    const validAttachmentContentTypes = 'image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a, audio/wav, audio/x-wav';
+    const validAttachmentContentTypes = 'image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a, audio/wav, audio/x-wav, audio/x-m4a';
 
     const loading_items = this.state.loading.map((item, i) => {
       return <li className={`loading type-${item.type}`} key={`loading_${i}`}>
