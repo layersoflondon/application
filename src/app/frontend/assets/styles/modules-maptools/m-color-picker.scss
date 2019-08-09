@@ -1,0 +1,94 @@
+/* Color picker */
+
+// Booth colours
+
+
+
+.m-color-picker {
+  @include clearfix;
+  @include black-box-styles;
+  width: 300px;
+  font-size: 14px;
+}
+
+.m-color-picker button {
+  width: calc(50% - 5px);
+  margin-right: 5px;
+  float: left;
+  margin-bottom: 10px;
+  position: relative;
+  text-align: left;
+  padding-left: 32px;
+  background: #404040;
+  color: white;
+  transition:all .2s;
+}
+
+.m-color-picker button:hover {
+  background: lighten(#404040, 15%);
+}
+
+.m-color-picker button:nth-child(even) {
+  width: calc(50% - 5px);
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+.m-color-picker button:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25px;
+  height: 25px;
+  background: #fce0bc;
+}
+
+.m-color-picker button.done-button {
+  width: auto;
+  float: right;
+  @include button-style;
+  margin-bottom: 0;
+}
+
+.m-color-picker button.done-button:before {
+  content: none;
+}
+
+.m-color-picker button.unknown {
+  width: auto;
+}
+
+.m-color-picker button.unknown:before {
+  content: "?";
+  text-align: center;
+  color: black;
+  font-family: "Helvetica Neue";
+  font-weight: bold;
+  padding-top: 2px;
+}
+
+.m-color-picker button[data-colour="red"]:before { background: $booth-red; }
+
+.m-color-picker button[data-colour="red-soft"]:before { background: $booth-soft-red; }
+
+.m-color-picker button[data-colour="red-hatched"]:before {
+  background-image: linear-gradient(135deg, $booth-paper 25%, $booth-red 25%, $booth-red 50%, $booth-paper 50%, $booth-paper 75%, $booth-red 75%, $booth-red 100%);
+  background-size: 8.49px 8.49px;
+}
+
+.m-color-picker button[data-colour="blue"]:before { background: $booth-blue; }
+
+.m-color-picker button[data-colour="blue-hatched"]:before {
+  background-image: linear-gradient(135deg, $booth-paper 25%, $booth-blue 25%, $booth-blue 50%, $booth-paper 50%, $booth-paper 75%, $booth-blue 75%, $booth-blue 100%);
+  background-size: 8.49px 8.49px;
+}
+
+.m-color-picker button[data-colour="black"]:before { background: $booth-black; }
+
+.m-color-picker button[data-colour="yellow"]:before { background: $booth-yellow; }
+
+.m-color-picker button[data-colour="yellow-hatched"]:before {
+  background-image: linear-gradient(135deg, $booth-paper 25%, $booth-yellow 25%, $booth-yellow 50%, $booth-paper 50%, $booth-paper 75%, $booth-yellow 75%, $booth-yellow 100%);
+  background-size: 8.49px 8.49px;
+}

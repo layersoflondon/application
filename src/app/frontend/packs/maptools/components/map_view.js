@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Map, TileLayer, GeoJSON, FeatureGroup, Polygon } from 'react-leaflet';
-import { EditControl } from "react-leaflet-draw";
-import { inject, observer } from 'mobx-react';
-import {  withRouter } from 'react-router-dom';
+import {Map, TileLayer, GeoJSON, FeatureGroup, Polygon} from 'react-leaflet';
+import {EditControl} from "react-leaflet-draw";
+import {inject, observer} from 'mobx-react';
+import {withRouter} from 'react-router-dom';
 import PolygonContainer from './polygon_container';
-import { getStyle } from '../helpers/styles';
+import {getStyle} from '../helpers/styles';
 
 @inject('mapToolsStore', 'userSession')
 @withRouter
@@ -51,16 +51,27 @@ export default class MapView extends React.Component {
   }
 
 
-
-
   gridStyle(feature) {
     return {
       weight: (this.props.mapToolsStore.mapRef.leafletElement.getZoom() <= 10) ? 1 : 2,
-      color: "#999999"
+      color: "#ffffff",
+      fillOpacity: 0.7,
+      className: "gridline"
     }
   }
 
-  gridOnEachFeature(feature,layer) {
+  squareStyle(feature) {
+    // The masking square
+    return {
+      weight: (this.props.mapToolsStore.mapRef.leafletElement.getZoom() <= 10) ? 1 : 2,
+      color: "#666666",
+      fillOpacity: 0.5,
+      fillColor: "#ffffff",
+      className: "masking-square"
+    }
+  }
+
+  gridOnEachFeature(feature, layer) {
     layer.on('click', (e) => {
       const feature = e.target.feature;
       if (feature.properties.id === null) return;
@@ -90,7 +101,7 @@ export default class MapView extends React.Component {
       //we're working on a square but not this one
       style.fillOpacity = 0.8;
     } else {
-    //  determine the colour based on the state of the square
+      //  determine the colour based on the state of the square
       let fillColor;
       let fillOpacity;
       switch (feature.properties.state) {
@@ -115,18 +126,8 @@ export default class MapView extends React.Component {
     }
 
     // otherwise if there's no square ID, we're choosing a square, in which case set the colour of the square by its status
-    
+
     return style;
-  }
-
-
-  squareStyle(feature) {
-    return {
-      weight: 5,
-      color: "#4B9FFF",
-      fillOpacity: 0.8,
-      fillColor: "#999999"
-    }
   }
 
   render() {
@@ -138,7 +139,7 @@ export default class MapView extends React.Component {
     });
 
     const polygons = editableFeatures.map((feature, i) => {
-      return <PolygonContainer key={`editable-polygon-${i}`} feature={feature} mapToolsStore={this.props.mapToolsStore} />;
+      return <PolygonContainer key={`editable-polygon-${i}`} feature={feature} mapToolsStore={this.props.mapToolsStore}/>;
     });
 
     const immutableFeatures = this.props.mapToolsStore.featureData.values().filter((feature) => {
@@ -158,7 +159,9 @@ export default class MapView extends React.Component {
         ref={this.setEditControlRef}
         position='bottomleft'
         onCreated={this.props.mapToolsStore.createdPolygon}
-        onEdited={(event) => {this.props.mapToolsStore.editedPolygons(event)}}
+        onEdited={(event) => {
+          this.props.mapToolsStore.editedPolygons(event)
+        }}
         onDeleted={this.props.mapToolsStore.deletedPolygons}
 
         onEditStart={() => this.props.mapToolsStore.setEditingMode(true)}
@@ -167,8 +170,8 @@ export default class MapView extends React.Component {
         draw={{
           polygon: {
             allowIntersection: false,
-            showArea: true,
-            showLength: true,
+            showArea: false,
+            showLength: false,
             guideLineDistance: 10
           },
           polyline: false, marker: false, circlemarker: false, rectangle: false, circle: false
@@ -190,8 +193,8 @@ export default class MapView extends React.Component {
 
           <GeoJSON data={this.props.mapToolsStore.squareGrid} style={this.gridStyle.bind(this)}/>
 
-          { this.props.mapToolsStore.square &&
-            <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
+          {this.props.mapToolsStore.square &&
+          <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
           }
 
           {drawingControl}

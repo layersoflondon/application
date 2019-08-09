@@ -1,0 +1,12 @@
+/* Hint */
+
+.m-hint {
+  background: #000;
+  color:$yellow;
+  position: absolute;
+  z-index: 9999;
+  bottom: 50px;
+  left: 50px;
+  padding: 10px 20px;
+  font-size: 2.2em;
+}

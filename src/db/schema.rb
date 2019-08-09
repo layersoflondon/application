@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_02_120000) do
+ActiveRecord::Schema.define(version: 2019_08_06_161900) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -271,6 +271,8 @@ ActiveRecord::Schema.define(version: 2019_08_02_120000) do
     t.float "north_west_lng"
     t.float "south_east_lat"
     t.float "south_east_lng"
+    t.integer "row"
+    t.integer "col"
   end
 
   create_table "record_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|

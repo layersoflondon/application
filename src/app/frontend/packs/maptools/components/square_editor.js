@@ -49,27 +49,20 @@ export default class SquareEditor extends React.Component {
 
     renderState_not_started() {
         return <div>
-            <h3>This square needs tracing</h3>
-            <p>
-                Would you like to help us trace it?
-            </p>
+            <h3>This square needs <strong>tracing</strong>.</h3>
+            <p>Would you like to help us trace it?</p>
 
-            <a className="button" href="#" onClick={() => this.updateSquareState('in_progress')}>Begin</a> or <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>go back to the map</Link>
+            <a className="button" href="#" onClick={() => this.updateSquareState('in_progress')}>Begin</a>
+            <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>choose another square</Link>.
         </div>
     }
 
     renderState_in_progress() {
         return <div>
-            <p>
-                Please trace all coloured areas which are touching the square.
-            </p>
-
-            <p>
-                Click edit shape to change the existing ones, or go <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>back to the map</Link>
-            </p>
-
-            <hr/>
-            <button onClick={() => this.updateSquareState('done')}>I'm Done</button>
+            <p>Please trace all coloured areas which are within, or touching, the square using the tools below.</p>
+            <p>Click 'Edit layers' to change the existing ones.</p>
+            <button onClick={() => this.updateSquareState('done')}>I'm done!</button>
+            or go <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>back to the map</Link>.
         </div>
     }
 
@@ -96,7 +89,7 @@ export default class SquareEditor extends React.Component {
 
     render() {
         if( !this.props.userSession.id ) {
-            return <div className={`square-editor not-logged-in`}>
+            return <div className={`m-edit-hint not-logged-in`}>
                 <h3>You need to be signed in in order to start tracing. </h3>
                 <a href="/users/sign_up">Sign up</a> or sign in <a href="/users/sign_in">here</a> to get started!
             </div>;
@@ -105,8 +98,9 @@ export default class SquareEditor extends React.Component {
         if( this.state.loading || this.props.mapToolsStore.squareIsLoading ) {
             return <span>...</span>
         }else {
+
             const editMode = this.props.mapToolsStore.inEditOrDrawingMode;
-            const classNames = `square-editor ${this.props.mapToolsStore.square.state.label} ${editMode ? 'edit-mode' : ''}`;
+            const classNames = `m-edit-hint ${this.props.mapToolsStore.square.state.label} ${editMode ? 'edit-mode' : ''}`;
 
             return <div className={classNames}>
                 {this[`renderState_${this.props.mapToolsStore.square.state.label}`]()}

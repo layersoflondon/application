@@ -17,6 +17,7 @@
   background: transparent;
   color: #333;
   box-shadow: none;
+  border-radius:none;
 }
 
 // fixme: remove these once prototype is frozen.
@@ -39,7 +40,6 @@
   opacity: 1 !important;
   visibility: visible !important;
 }
-
 
 .m-map-area {
   z-index: 1;

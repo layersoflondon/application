@@ -13,7 +13,7 @@ export default class Squares extends React.Component {
             <Route exact path={`${this.props.match.path}/:id`} component={SquareEditor} />
 
             <Route exact path={`${this.props.match.path}`} render={() => {
-                return <div className="maptools-hint">Choose a square to begin</div>
+                return <div className="m-hint">Choose a square to begin</div>
             }} />
         </div>
     }
