@@ -45,6 +45,7 @@
     "react-scripts": "^1.1.1",
     "react-select": "^2.0.0",
     "react-soundplayer": "^1.0.4",
+    "react-switch": "^5.0.1",
     "react-transition-group": "^2.4.0",
     "react-visibility-sensor": "^3.11.0",
     "reactjs": "^1.0.0",

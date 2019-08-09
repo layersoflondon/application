@@ -148,7 +148,6 @@ export default class MapView extends React.Component {
 
     const drawingControl = isSignedIn && this.props.mapToolsStore.atEditableSquare ? <FeatureGroup>
       <EditControl
-        ref={this.setEditControlRef}
         position='bottomleft'
         onCreated={this.props.mapToolsStore.createdPolygon}
         onEdited={(event) => {
@@ -169,6 +168,7 @@ export default class MapView extends React.Component {
           polyline: false, marker: false, circlemarker: false, rectangle: false, circle: false
         }}
       />
+
       {polygons}
     </FeatureGroup> : null;
 
@@ -183,11 +183,11 @@ export default class MapView extends React.Component {
           <TileLayer url="http://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png"/>
 
 
-          <GeoJSON data={this.props.mapToolsStore.squareGrid} style={this.gridStyle.bind(this)}/>
+          {/*<GeoJSON data={this.props.mapToolsStore.squareGrid} style={this.gridStyle.bind(this)}/>*/}
 
-          {this.props.mapToolsStore.square &&
-          <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
-          }
+          {/*{this.props.mapToolsStore.square &&*/}
+          {/*<GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>*/}
+          {/*}*/}
 
           {drawingControl}
           {immutablePolygons}

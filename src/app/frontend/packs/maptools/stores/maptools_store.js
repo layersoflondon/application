@@ -33,6 +33,16 @@ export default class MapToolsStore {
 
       if (change.newValue) setCenter();
     });
+
+    observe(this, 'showShapes', (change) => {
+      const polygon_layers = Object.values(this.mapRef.leafletElement._layers).filter((layer)=>layer.hasOwnProperty('editing'));
+
+      if( change.newValue === true ) {
+        polygon_layers.map((layer) => layer.setStyle({fillOpacity: 0.2, opacity: 0.6}));
+      }else {
+        polygon_layers.map((layer) => layer.setStyle({fillOpacity: 0, opacity: 0}));
+      }
+    });
   }
 
   @computed get editableFeatures() {
@@ -187,5 +197,9 @@ export default class MapToolsStore {
 
   @action.bound setEditingMode(enabled) {
     this.inEditOrDrawingMode = enabled;
+  }
+
+  @action.bound toggleShowShapes() {
+    this.showShapes = !this.showShapes;
   }
 }

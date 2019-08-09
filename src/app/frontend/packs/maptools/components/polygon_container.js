@@ -64,10 +64,6 @@ export default class PolygonContainer extends React.Component {
             return false;
         };
 
-        const isCurrent = (buttonClass) => {
-            return `${buttonClass} ${buttonClass===this.props.feature.properties.colour ? 'is-current' : ''}`
-        };
-
         const setPopupButtonClass = () => {
             const popup = document.querySelector('.m-color-picker');
             const currentButton = popup.querySelector('button.is-current');
