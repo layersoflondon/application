@@ -22,10 +22,12 @@ export default class MapToolsStore {
   @observable showShapes = true;
 
   constructor() {
-    observe(this, 'centre', (change) => {
+
+    observe(this, 'square', (change) => {
       const setCenter = () => {
         if (this.mapRef && this.squareIsLoading === false) {
-          this.mapRef.leafletElement.panTo(change.newValue.slice());
+          this.mapRef.leafletElement.flyTo(change.newValue.geojson.properties.centroid.slice(), this.FULL_ZOOM);
+
         } else {
           setTimeout(setCenter, 100)
         }
