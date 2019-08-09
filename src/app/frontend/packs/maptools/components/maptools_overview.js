@@ -14,7 +14,7 @@ export default class MapToolsOverview extends React.Component {
 
     return <main className="maptools-intro">
 
-      <div class="m-intro">
+      <div className="m-intro">
 
         <section>
 
