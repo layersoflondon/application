@@ -6,7 +6,7 @@ L.drawLocal = {
     toolbar: {
       actions: {
         title: '',
-        text: ''
+        text: 'Cancel'
       },
       finish: {
         title: '',
@@ -34,12 +34,12 @@ L.drawLocal = {
       },
       circlemarker: {
         tooltip: {
-          start: '.'
+          start: ''
         }
       },
       marker: {
         tooltip: {
-          start: '.'
+          start: ''
         }
       },
       polygon: {
