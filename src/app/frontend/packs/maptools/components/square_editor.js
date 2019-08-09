@@ -44,7 +44,7 @@ export default class SquareEditor extends React.Component {
     }
 
     handleGoBackClick(event) {
-        this.props.mapToolsStore.zoomOut();
+        this.props.mapToolsStore.setZoom(this.props.mapStore.DEFAULT_ZOOM);
     }
 
     renderState_not_started() {

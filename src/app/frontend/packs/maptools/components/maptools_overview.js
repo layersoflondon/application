@@ -7,6 +7,10 @@ import Img from 'react-image';
 @withRouter
 @observer
 export default class MapToolsOverview extends React.Component {
+  componentDidMount() {
+    this.props.mapToolsStore.setZoom(this.props.mapToolsStore.WELCOME_ZOOM);
+  }
+
   render() {
     const tracingUrl = require('../../../assets/images/booth/intro-tracing.jpg');
     const checkingUrl = require('../../../assets/images/booth/intro-checking.jpg');
