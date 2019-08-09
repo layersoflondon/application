@@ -1,12 +1,17 @@
 import React from 'react';
 import {withRouter, NavLink} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
+import Img from 'react-image';
 
 @inject('mapToolsStore')
 @withRouter
 @observer
 export default class MapToolsOverview extends React.Component {
   render() {
+    const tracingUrl = require('../../../assets/images/booth/intro-tracing.jpg');
+    const checkingUrl = require('../../../assets/images/booth/intro-checking.jpg');
+    console.log(tracingUrl);
+
     return <main className="maptools-intro">
 
       <div class="m-intro">
@@ -18,14 +23,14 @@ export default class MapToolsOverview extends React.Component {
           <div className="columns">
             <div className="column">
               <h3>Tracing</h3>
-              <img src="../../../assets/images/booth/intro-tracing.jpg" alt=""/>
+              <Img src={tracingUrl} />
               <p>Vestibulum blandit varius odio, nec tristique diam tincidunt a. Sed suscipit eget lacus eget egestas.
                 Aenean fermentum ligula.</p>
             </div>
 
             <div className="column">
               <h3>Checking</h3>
-              <img src="../../../assets/images/booth/intro-checking.jpg" alt=""/>
+              <Img src={checkingUrl} />
               <p>Duis eget neque in ligula dignissim faucibus. Sed suscipit eget lacus eget egestas. Aenean fermentum
                 ligula.</p>
             </div>
