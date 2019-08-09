@@ -18,14 +18,14 @@ export default class MapToolsOverview extends React.Component {
           <div className="columns">
             <div className="column">
               <h3>Tracing</h3>
-              <img src="https://placehold.it/300x150" alt=""/>
+              <img src="../../../assets/images/booth/intro-tracing.jpg" alt=""/>
               <p>Vestibulum blandit varius odio, nec tristique diam tincidunt a. Sed suscipit eget lacus eget egestas.
                 Aenean fermentum ligula.</p>
             </div>
 
             <div className="column">
               <h3>Checking</h3>
-              <img src="https://placehold.it/300x150" alt=""/>
+              <img src="../../../assets/images/booth/intro-checking.jpg" alt=""/>
               <p>Duis eget neque in ligula dignissim faucibus. Sed suscipit eget lacus eget egestas. Aenean fermentum
                 ligula.</p>
             </div>
