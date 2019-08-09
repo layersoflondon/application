@@ -9,6 +9,10 @@ import SquareFilter from "./square_filter";
 @observer
 export default class Squares extends React.Component {
 
+    componentDidMount() {
+        this.props.mapToolsStore.setZoom(this.props.mapToolsStore.DEFAULT_ZOOM);
+    }
+
     render() {
         return <div className="m-map-wrapper">
             <Route exact path={`${this.props.match.path}/:id`} component={SquareEditor} />

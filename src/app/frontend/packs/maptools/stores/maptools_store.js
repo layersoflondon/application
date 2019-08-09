@@ -6,15 +6,14 @@ export default class MapToolsStore {
 
   @observable mapRef = null;
 
-  DEFAULT_TILE_SIZE = 850;
   DEFAULT_ZOOM = 13;
   FULL_ZOOM = 18;
+  WELCOME_ZOOM = 15;
 
   cachedFeatureData = observable.map();
   @observable featureData = observable.map();
   @observable centre = [51.496667801322666, -0.13629913330078128];
   @observable zoom = this.DEFAULT_ZOOM;
-  @observable tileSize = this.DEFAULT_TILE_SIZE;
   @observable squareId = null;
   @observable squareIsLoading;
   @observable square;
@@ -22,10 +21,25 @@ export default class MapToolsStore {
   @observable showShapes = true;
 
   constructor() {
-    observe(this, 'centre', (change) => {
+
+    observe(this, 'zoom', (change) => {
+      const setZoom = () => {
+        if (this.mapRef) {
+          this.mapRef.leafletElement.setZoom(change.newValue);
+
+        } else {
+          setTimeout(setZoom, 100)
+        }
+      };
+
+      if (change.newValue) setZoom();
+    })
+
+    observe(this, 'square', (change) => {
       const setCenter = () => {
         if (this.mapRef && this.squareIsLoading === false) {
-          this.mapRef.leafletElement.panTo(change.newValue.slice());
+          this.mapRef.leafletElement.flyTo(change.newValue.geojson.properties.centroid.slice(), this.FULL_ZOOM);
+
         } else {
           setTimeout(setCenter, 100)
         }
