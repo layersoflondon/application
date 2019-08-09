@@ -24,6 +24,11 @@
   transition:all .2s;
 }
 
+.m-color-picker button.is-current {
+  background: #7b7777;
+  color: #ffeb57;
+}
+
 .m-color-picker button:hover {
   background: lighten(#404040, 15%);
 }
