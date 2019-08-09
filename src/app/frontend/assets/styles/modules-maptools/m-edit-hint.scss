@@ -8,6 +8,13 @@
   left:40px;
   padding: 30px;
   width: 260px;
+  @include mq(tablet) {
+    padding:20px;
+    left:auto;
+    right:40px;
+    top:auto;
+    bottom:40px;
+  }
 }
 
 .m-edit-hint > div {

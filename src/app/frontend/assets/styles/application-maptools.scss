@@ -56,6 +56,7 @@ $booth-yellow: #eaa349;
 @import "modules-maptools/m-edit-hint";
 @import "modules-maptools/m-color-picker";
 @import "modules-maptools/m-site-header";
+@import "modules-maptools/m-message";
 
 // Booth Maptools Drawing Styles
 @import "../../../../node_modules/leaflet-draw/dist/leaflet.draw";
@@ -80,8 +81,12 @@ $booth-yellow: #eaa349;
 #maptools-root .m-map-area {
   margin-top: 0;
   width: 100%;
-  height: calc(100% - 80px;);
+  height: calc(100% - 80px);
   top: 80px;
+  @include mq(smartphone) {
+    top: 70px;
+    height: calc(100% - 70px);
+  }
 }
 
 .leaflet-popup-content-wrapper button[disabled] {

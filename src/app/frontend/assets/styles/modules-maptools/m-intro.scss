@@ -9,19 +9,30 @@
 }
 
 .m-intro {
-  margin: 10%;
+  margin: 10% 15%;
+  @include mq(tablet) {
+    margin: 40px;
+    font-size:14px;
+  }
 }
 
 .m-intro section {
   padding: 30px;
   background: #000;
   color: $white;
-  width: 50%;
+  width: 55%;
   float:left;
   max-width: 600px;
   position: relative;
 
   @include top-and-tail;
+  @include mq(tablet) {
+    padding:20px;
+  }
+
+  & + section {
+    width:45%;
+  }
 
   .columns {
     @include clearfix;
@@ -49,6 +60,12 @@
     background: #252525;
     margin-left:-10px;
     margin-top:60px;
+  }
+
+
+  h1 {
+    font-weight:200;
+    color:$yellow;
   }
 }
 
