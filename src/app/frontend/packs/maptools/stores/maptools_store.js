@@ -178,7 +178,7 @@ export default class MapToolsStore {
   }
 
   @computed get isZoomed() {
-    return typeof this.squareId !== "undefined";
+    return this.squareId !== null;
   }
 
   @computed get atEditableSquare() {
