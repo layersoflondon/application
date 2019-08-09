@@ -33,9 +33,23 @@ export default class MapToolsStore {
       };
 
       if (change.newValue) setCenter();
-
-
     });
+  }
+
+  @computed get editableFeatures() {
+    return this.featureData.values().filter((feature) => {
+      return feature.properties.id && feature.properties.userCanEdit && (this.squareId === feature.properties.square.id);
+    });
+  }
+
+  @computed get immutableFeatures() {
+    if( !this.atEditableSquare ) {
+      return this.featureData.values();
+    } else {
+      return this.featureData.values().filter((feature) => {
+        return !feature.properties.userCanEdit || (this.squareId !== feature.properties.square.id);
+      });
+    }
   }
 
   @action.bound removeFeature(id) {
