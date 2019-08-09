@@ -24,6 +24,8 @@ import MapView from './maptools/components/map_view';
 import MapToolsContainer from './maptools/components/maptools_container';
 import MapToolsOverview from './maptools/components/maptools_overview';
 
+import _ from './maptools/helpers/leaflet-config';
+
 document.addEventListener('DOMContentLoaded', async () => {
     const browserHistory = createBrowserHistory();
     const routerStore = new RouterStore();

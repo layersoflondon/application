@@ -1,7 +1,6 @@
 import {action, computed, observe, observable, runInAction, toJS} from 'mobx';
 import {getPolygons, getAllPolygons, createPolygon, updatePolygon, deletePolygon} from '../sources/map_tools_polygon';
 import {getSquares, getSquareCoordinates, getSquareGrid, getSquare} from "../sources/map_tools_squares";
-import L from 'leaflet';
 
 export default class MapToolsStore {
 
