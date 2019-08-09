@@ -71,9 +71,9 @@ export default class SquareEditor extends React.Component {
             <h1>
                 Please check that:
             </h1>
-            <p>All polygons touching the square are drawn.</p>
-            <p>All polygons are the right shape.</p>
-            <p>All polygons are the right color.</p>
+            <p>You've drawn over all the coloured blocks on the map.</p>
+            <p>The shapes you've drawn match the ones on Booth's map</p>
+            <p>All shapes are the right color.</p>
             <p>Hit Edit mode to correct any issues.</p>
 
             <hr/>
