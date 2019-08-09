@@ -42,6 +42,7 @@ export default class PolygonContainer extends React.Component {
 
         this.polygonElement.leafletElement.properties = {...this.polygonElement.leafletElement.properties, colour: colour};
         this.polygonElement.leafletElement.setStyle(style);
+        this.savePolygon();
     }
 
     render() {
@@ -53,7 +54,7 @@ export default class PolygonContainer extends React.Component {
             return false;
         };
 
-        const popup = <Popup autoClose={false} closeOnClick={false} autoOpen={false}>
+        const popup = <Popup autoClose={true} closeOnClick={false} autoOpen={false}>
             <div className="m-color-picker" feature={this.props.feature}>
                 <button onClick={this.setColour.bind(this)} data-colour='black'>Black</button>
                 <button onClick={this.setColour.bind(this)} data-colour='blue'>Blue</button>

@@ -134,19 +134,11 @@ export default class MapView extends React.Component {
     let draggingEnabled = true;
     let zoomingEnabled = true;
 
-    const editableFeatures = this.props.mapToolsStore.featureData.values().filter((feature) => {
-      return feature.properties.id && feature.properties.userCanEdit && this.props.mapToolsStore.squareId === feature.properties.square.id;
-    });
-    
-    const polygons = editableFeatures.map((feature, i) => {
+    const polygons = this.props.mapToolsStore.editableFeatures.map((feature, i) => {
       return <PolygonContainer key={`editable-polygon-${i}`} feature={feature} mapToolsStore={this.props.mapToolsStore}/>;
     });
 
-    const immutableFeatures = this.props.mapToolsStore.featureData.values().filter((feature) => {
-      return !feature.properties.id || !feature.properties.userCanEdit || this.props.mapToolsStore.squareId !== feature.properties.square.id;
-    });
-    
-    const immutablePolygons = immutableFeatures.map((feature, i) => {
+    const immutablePolygons = this.props.mapToolsStore.immutableFeatures.map((feature, i) => {
       const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
       const style = getStyle(feature.properties.colour);
       return <Polygon key={`polygon-${i}`} positions={coords} {...style} />;

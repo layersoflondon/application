@@ -12,7 +12,7 @@ import 'whatwg-fetch'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import createBrowserHistory from 'history/createBrowserHistory';
+import {createBrowserHistory} from 'history';
 import {Provider} from 'mobx-react';
 import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
 import { Router, Route } from 'react-router';
@@ -23,6 +23,8 @@ import MapToolsStore from './maptools/stores/maptools_store';
 import MapView from './maptools/components/map_view';
 import MapToolsContainer from './maptools/components/maptools_container';
 import MapToolsOverview from './maptools/components/maptools_overview';
+
+import _ from './maptools/helpers/leaflet-config';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const browserHistory = createBrowserHistory();
