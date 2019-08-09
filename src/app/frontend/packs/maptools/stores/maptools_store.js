@@ -45,6 +45,19 @@ export default class MapToolsStore {
     });
   }
 
+  // given the current state of a square, the front end component will render a function that matches the
+  // state.label name (ie renderState_done() is called for 'done' state.
+  // if the state is 'done', we need to have the square verified by a different user so we return 'doneCheck' in this case
+  renderStateForSquare(square, user) {
+    if( square.state.label === 'done' && square.state.user.id !== user.id ) {
+      return 'doneCheck';
+    }else {
+      return square.state.label;
+    }
+
+    return 'done';
+  }
+
   @computed get editableFeatures() {
     return this.featureData.values().filter((feature) => {
       return feature.properties.id && feature.properties.userCanEdit && (this.squareId === feature.properties.square.id);

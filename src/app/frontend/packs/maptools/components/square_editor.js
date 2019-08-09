@@ -69,6 +69,19 @@ export default class SquareEditor extends React.Component {
     renderState_done() {
         return <div>
             <h1>
+                Awaiting verification
+            </h1>
+
+            <hr/>
+            <button onClick={() => this.updateSquareState('back_in_progress')}>Edit mode</button>
+            <br/>
+            <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>Back to the map</Link>
+        </div>
+    }
+
+    renderState_doneCheck() {
+        return <div>
+            <h1>
                 Please check that:
             </h1>
             <p>All polygons touching the square are drawn.</p>
@@ -79,12 +92,20 @@ export default class SquareEditor extends React.Component {
             <hr/>
             <button onClick={() => this.updateSquareState('back_in_progress')}>Edit mode</button>
             <br/>
+            <button onClick={() => this.updateSquareState('verified')}>Looks good!</button>
             <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>Back to the map</Link>
         </div>
     }
 
     renderState_flagged() {
         return <span>flagged</span>
+    }
+
+    renderState_verified() {
+        return <div>
+            This square has been completed and verified. <br/>
+            <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>Back to the map</Link>
+        </div>
     }
 
     render() {
@@ -103,7 +124,7 @@ export default class SquareEditor extends React.Component {
             const classNames = `m-edit-hint ${this.props.mapToolsStore.square.state.label} ${editMode ? 'edit-mode' : ''}`;
 
             return <div className={classNames}>
-                {this[`renderState_${this.props.mapToolsStore.square.state.label}`]()}
+                {this[`renderState_${this.props.mapToolsStore.renderStateForSquare(this.props.mapToolsStore.square, this.props.userSession)}`]()}
             </div>;
         }
     }
