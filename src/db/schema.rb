@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_08_131757) do
+ActiveRecord::Schema.define(version: 2019_08_09_103820) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -329,6 +329,7 @@ ActiveRecord::Schema.define(version: 2019_08_08_131757) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "sort_order"
   end
 
   create_table "taggings", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -345,6 +346,7 @@ ActiveRecord::Schema.define(version: 2019_08_08_131757) do
     t.integer "tag_group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "sort_order"
   end
 
   create_table "taxonomies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|

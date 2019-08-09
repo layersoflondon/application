@@ -118,10 +118,19 @@ class TagsGenerator < ::Rails::Generators::Base
 
     }
 
-    tags.each do |group, tags|
+    tags.each_with_index do |(group, tags), i|
       tag_group = TagGroup.find_or_create_by(name: group.strip)
+      if tag_group.sort_order.nil?
+        tag_group.update_attribute(:sort_order, i+1)
+      end
       tags.each do |tag|
         Tag.find_or_create_by(tag_group: tag_group, name: tag.strip)
+      end
+      Tag.find_or_create_by(tag_group: tag_group, name: "Other")
+      Tag.where(tag_group: tag_group).each_with_index do |tag,j|
+        if tag.sort_order.nil?
+          tag.update_attribute(:sort_order, j+1)
+        end
       end
     end
 

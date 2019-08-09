@@ -1,7 +1,10 @@
 ActiveAdmin.register Tag do
   menu parent: "Tags"
 
-  permit_params :name, :tag_group_id
+  permit_params :name, :tag_group_id, :sort_order
+
+  orderable
+  config.sort_order = 'sort_order_asc'
 
   form do |f|
     f.inputs do
@@ -10,6 +13,13 @@ ActiveAdmin.register Tag do
       f.actions
     end
 
+  end
+
+  index do
+    orderable_handle_column
+    column :name
+    column :tag_group
+    actions
   end
 end
 
