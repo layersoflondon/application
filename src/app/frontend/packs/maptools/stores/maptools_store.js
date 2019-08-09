@@ -6,8 +6,7 @@ export default class MapToolsStore {
 
   @observable mapRef = null;
 
-  DEFAULT_TILE_SIZE = 850;
-  DEFAULT_ZOOM = 13;
+  DEFAULT_ZOOM = 15;
   FULL_ZOOM = 18;
 
   cachedFeatureData = observable.map();
