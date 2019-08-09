@@ -20,6 +20,7 @@ export default class MapToolsStore {
   @observable squareIsLoading;
   @observable square;
   @observable inEditOrDrawingMode = false;
+  @observable showShapes = true;
 
   constructor() {
     observe(this, 'centre', (change) => {
@@ -106,6 +107,7 @@ export default class MapToolsStore {
 
   @action.bound setSquare(id) {
     this.squareId = id;
+    this.zoom = this.FULL_ZOOM;
   }
 
   @action.bound async createdPolygon(event) {

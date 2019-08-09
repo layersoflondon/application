@@ -42,6 +42,7 @@ export default class PolygonContainer extends React.Component {
 
         this.polygonElement.leafletElement.properties = {...this.polygonElement.leafletElement.properties, colour: colour};
         this.polygonElement.leafletElement.setStyle(style);
+        this.savePolygon();
     }
 
     render() {
@@ -53,7 +54,7 @@ export default class PolygonContainer extends React.Component {
             return false;
         };
 
-        const popup = <Popup autoClose={false} closeOnClick={false} autoOpen={false}>
+        const popup = <Popup autoClose={true} closeOnClick={false} autoOpen={false}>
             <div feature={this.props.feature}>
                 <button onClick={this.setColour.bind(this)} data-colour='black'>black</button>
                 <button onClick={this.setColour.bind(this)} data-colour='blue'>blue</button>
@@ -64,9 +65,6 @@ export default class PolygonContainer extends React.Component {
                 <button onClick={this.setColour.bind(this)} data-colour='yellow'>yellow</button>
                 <button onClick={this.setColour.bind(this)} data-colour='yellow-hatched'>yellow hatched</button>
                 <button onClick={this.setColour.bind(this)} data-colour='unknown'>too difficult to tell</button>
-
-                <hr/>
-                <button onClick={this.savePolygon.bind(this)}>Done</button>
             </div>
         </Popup>;
 

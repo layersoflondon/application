@@ -54,7 +54,7 @@ export default class SquareEditor extends React.Component {
                 Would you like to help us trace it?
             </p>
 
-            <a className="button" href="#" onClick={() => this.updateSquareState('in_progress')}>Begin</a> or <a href="/maptools/squares">go back to the map</a>
+            <a className="button" href="#" onClick={() => this.updateSquareState('in_progress')}>Begin</a> or <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>go back to the map</Link>
         </div>
     }
 
@@ -85,6 +85,8 @@ export default class SquareEditor extends React.Component {
 
             <hr/>
             <button onClick={() => this.updateSquareState('back_in_progress')}>Edit mode</button>
+            <br/>
+            <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>Back to the map</Link>
         </div>
     }
 
