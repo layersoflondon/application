@@ -199,11 +199,17 @@ a:hover {
   }
 }
 
+.leaflet-draw-section + .leaflet-draw-section.leaflet-draw-section.leaflet-draw-section .leaflet-draw-actions-top {
+  // Second group
+  li:nth-child(1) {
+    display: none;
+  }
+}
+
 .leaflet-draw-section + .leaflet-draw-section.leaflet-draw-section.leaflet-draw-section .leaflet-draw-actions-bottom {
   // Second group
-  li:nth-child(1),
-  li:nth-child(3),
-  li:nth-child(2) {
+  //li:nth-child(1),
+  li:nth-child(3){
     display: none;
   }
 }

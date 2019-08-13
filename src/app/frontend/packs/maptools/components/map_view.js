@@ -17,6 +17,14 @@ export default class MapView extends React.Component {
     this.setMapRef = element => {
       this.props.mapToolsStore.mapRef = element;
     };
+
+    this.setFeatureGroupRef = element => {
+      this.props.mapToolsStore.editableFeatureGroup = element;
+    };
+
+    this.setEditControlRef = element => {
+      this.props.mapToolsStore.editControl = element;
+    };
   }
 
   handleOnClick(event) {
@@ -146,17 +154,21 @@ export default class MapView extends React.Component {
 
     const isSignedIn = typeof this.props.userSession.id !== "undefined";
 
-    const drawingControl = isSignedIn && this.props.mapToolsStore.atEditableSquare ? <FeatureGroup>
+    const drawingControl = isSignedIn && this.props.mapToolsStore.atEditableSquare ? <FeatureGroup ref={this.setFeatureGroupRef}>
       <EditControl
+        ref={this.setEditControlRef}
         position='bottomleft'
         onCreated={this.props.mapToolsStore.createdPolygon}
-        onEdited={(event) => {
-          this.props.mapToolsStore.editedPolygons(event)
-        }}
+        onEdited={this.props.mapToolsStore.editedPolygons}
         onDeleted={this.props.mapToolsStore.deletedPolygons}
+
+        onEditResize={this.props.mapToolsStore.editedPolygons}
+        onEditMove={this.props.mapToolsStore.editedPolygons}
 
         onEditStart={() => this.props.mapToolsStore.setEditingMode(true)}
         onEditStop={() => this.props.mapToolsStore.setEditingMode(false)}
+        onDeleteStart={() => this.props.mapToolsStore.setDeleteMode(true)}
+        onDeleteStop={() => this.props.mapToolsStore.setDeleteMode(false)}
 
         draw={{
           polygon: {

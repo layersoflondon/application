@@ -5,6 +5,8 @@ import {getSquares, getSquareCoordinates, getSquareGrid, getSquare} from "../sou
 export default class MapToolsStore {
 
   @observable mapRef = null;
+  editControl = null;
+  editableFeatureGroup = null;
 
   DEFAULT_ZOOM = 13;
   FULL_ZOOM = 18;
@@ -18,15 +20,24 @@ export default class MapToolsStore {
   @observable squareIsLoading;
   @observable square;
   @observable inEditOrDrawingMode = false;
+  @observable inDeleteMode = false;
   @observable showShapes = true;
 
   constructor() {
+    observe(this, 'mapRef', (change) => {
+      if( change.newValue ) {
+        this.mapRef.leafletElement.on('mouseup', (event) => {
+          if( this.inEditOrDrawingMode === true ) {
+            this.editControl.leafletElement._toolbars.edit._save();
+          }
+        });
+      }
+    });
 
     observe(this, 'zoom', (change) => {
       const setZoom = () => {
         if (this.mapRef) {
           this.mapRef.leafletElement.setZoom(change.newValue);
-
         } else {
           setTimeout(setZoom, 100)
         }
@@ -49,14 +60,10 @@ export default class MapToolsStore {
     });
 
     observe(this, 'showShapes', (change) => {
-      const polygon_layers = Object.values(this.mapRef.leafletElement._layers).filter((layer)=>layer.hasOwnProperty('editing') && layer.hasOwnProperty('properties'));
-
-      window.polys = polygon_layers;
-
       if( change.newValue === true ) {
-        polygon_layers.map((layer) => layer.setStyle({fillOpacity: 0.2, opacity: 0.6}));
+        this.polygonLayers.map((layer) => layer.setStyle({fillOpacity: 0.2, opacity: 0.6}));
       }else {
-        polygon_layers.map((layer) => layer.setStyle({fillOpacity: 0, opacity: 0}));
+        this.polygonLayers.map((layer) => layer.setStyle({fillOpacity: 0, opacity: 0}));
       }
     });
   }
@@ -88,6 +95,19 @@ export default class MapToolsStore {
         return !feature.properties.userCanEdit || (this.squareId !== feature.properties.square.id);
       });
     }
+  }
+
+  @computed get polygonLayers() {
+    return Object.values(this.mapRef.leafletElement._layers).filter((layer) => {
+      const hasPath = layer.hasOwnProperty('_path');
+
+      if( !hasPath ) return false;
+
+      const isInteractiveLayer = layer._path.classList.contains('leaflet-interactive');
+      const isMaskingSquare = layer._path.classList.contains('masking-square');
+
+      return hasPath && (isInteractiveLayer && !isMaskingSquare);
+    });
   }
 
   @action.bound removeFeature(id) {
@@ -205,7 +225,6 @@ export default class MapToolsStore {
     event.layers.eachLayer((layer) => {
       const data = layer.toGeoJSON();
       data.properties = {...layer.properties};
-
       updatePolygon(this.squareId, layer.properties.id, data);
     });
   }
@@ -226,6 +245,10 @@ export default class MapToolsStore {
 
   @action.bound setEditingMode(enabled) {
     this.inEditOrDrawingMode = enabled;
+  }
+
+  @action.bound setDeleteMode(enabled) {
+    this.inDeleteMode = enabled;
   }
 
   @action.bound toggleShowShapes() {
