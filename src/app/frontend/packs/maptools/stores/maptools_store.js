@@ -49,7 +49,9 @@ export default class MapToolsStore {
     });
 
     observe(this, 'showShapes', (change) => {
-      const polygon_layers = Object.values(this.mapRef.leafletElement._layers).filter((layer)=>layer.hasOwnProperty('editing'));
+      const polygon_layers = Object.values(this.mapRef.leafletElement._layers).filter((layer)=>layer.hasOwnProperty('editing') && layer.hasOwnProperty('properties'));
+
+      window.polys = polygon_layers;
 
       if( change.newValue === true ) {
         polygon_layers.map((layer) => layer.setStyle({fillOpacity: 0.2, opacity: 0.6}));
