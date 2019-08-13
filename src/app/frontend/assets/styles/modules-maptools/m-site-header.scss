@@ -1,0 +1,39 @@
+.m-site-header {
+  background:black;
+  width:100%;
+  height:80px;
+  padding: 26px;
+  color:$yellow;
+  @include mq(smartphone) {
+    height: 70px;
+  }
+}
+
+.m-site-header h1 {
+  margin:0;
+  float:left;
+  font-size:20px;
+  @include mq(smartphone) {
+    font-size: 14px;
+  }
+}
+
+.m-site-header .help-link {
+  float:right;
+}
+
+.m-site-header .help-link button {
+  font-weight:bold;
+  border-radius:100px;
+  background: #404040;
+  color: $yellow;
+  transition:all .2s;
+  @include mq(smartphone) {
+    position: relative;
+    top: -4px;
+  }
+}
+
+.m-site-header .help-link button:hover {
+  background: lighten(#404040, 15%);
+}

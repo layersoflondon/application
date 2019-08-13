@@ -1,0 +1,28 @@
+/* Edit hint */
+
+.m-edit-hint {
+  @include black-box-styles;
+  position: absolute;
+  z-index: 10000;
+  top: 30%;
+  left:40px;
+  padding: 30px;
+  width: 260px;
+  @include mq(tablet) {
+    padding:20px;
+    left:auto;
+    right:40px;
+    top:auto;
+    bottom:40px;
+  }
+}
+
+.m-edit-hint > div {
+  @include top-and-tail;
+}
+
+.m-edit-hint button,
+.m-edit-hint .button {
+  width:100%;
+  margin-bottom:10px;
+}

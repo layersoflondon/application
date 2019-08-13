@@ -32,8 +32,6 @@ import MapLayerGroup from "./map_layer_group";
     });
   }
 
-
-
   componentDidMount() {
     this.initial_bounds = this.props.mapViewStore.current_bounds;
   }

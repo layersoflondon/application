@@ -1,0 +1,18 @@
+/* Squares filter */
+.m-squares-filter {
+  position: absolute;
+  z-index: 10000;
+  background: #fff;
+  top: 100px;
+  right: 20px;
+}
+
+.m-squares-filter > label > span {
+  display: block;
+  float: left;
+  margin: 10px;
+}
+
+.m-squares-filter > label > div {
+  margin: 8px 6px 0 0;
+}

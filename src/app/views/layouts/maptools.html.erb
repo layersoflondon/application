@@ -7,13 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <%= stylesheet_link_tag 'map' %>
-
     <!--<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>-->
-
     <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:400,600,700|Muli:400,600,700" rel="stylesheet">
-
     <%= render partial: "shared/rollbar" if Rails.env.production? %>
-
     <script type="text/javascript" charset="utf-8">
         <%# Redirect the old site structure, which uses hash anchors %>
         if (window.location.toString().match(/#\/?(collections|pins)\/\d+/)) {
@@ -24,7 +20,6 @@
     <script type="text/javascript" charset="utf-8">
       window.dataLayerParams = window.dataLayerParams || [];
     </script>
-
     <% if params[:new_signup] %>
         <script type="text/javascript" charset="utf-8">
           dataLayerParams.push({
@@ -34,9 +29,9 @@
         </script>
     <% end %>
 
-    <%= stylesheet_pack_tag 'styles', media: 'all' %>
+    <%= stylesheet_pack_tag 'styles-maptools', media: 'all' %>
 
-    <%= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag 'maptools' %>
 
     <%= render partial: "shared/favicon" %>
 
@@ -45,6 +40,18 @@
 </head>
 
 <body>
+    <div class="m-site-header">
+        <h1>Tracing the Booth poverty map</h1>
+        <div class="help-link">
+            <button>?</button>
+        </div>
+    </div>
+    <div class="m-message">
+        <h2>Sorry, this site requires a larger screen!</h2>
+        <p>This project requires complex interactions, to trace shapes on a map, which would be extremely difficult on a mobile-sized device. Please try on a desktop computer, laptop or tablet.</p>
+        <p>Thank you!</p>
+    </div>
+    <div class="m-blocker"></div>
     <%= yield %>
 </body>
 </html>

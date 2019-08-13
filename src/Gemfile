@@ -150,3 +150,5 @@ gem 'sitemap_generator'
 gem 'rubyXL'
 
 gem 'rinku'
+
+gem 'layers_of_london-booth-map_tool', '~> 0.1.0'

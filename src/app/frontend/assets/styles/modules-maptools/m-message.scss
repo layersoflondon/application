@@ -1,0 +1,32 @@
+/* Message */
+
+.maptools-intro {
+  @include mq(smartphone) {
+    display: none;
+  }
+}
+
+.m-message {
+  position: relative;
+  margin:25px;
+  z-index: 500;
+  padding: 26px;
+  @include black-box-styles;
+  @include top-and-tail;
+  display:none;
+  @include mq(smartphone) {
+    display: block;
+  }
+}
+
+.m-blocker {
+  position: absolute;
+  top:70px;
+  bottom:0;
+  left:0;
+  right:0;
+  display:none;
+  @include mq(smartphone) {
+    display: block;
+  }
+}

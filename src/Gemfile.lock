@@ -233,6 +233,7 @@ GEM
     friendly_id (5.2.5)
       activerecord (>= 4.0.0)
     geocoder (1.5.1)
+    geokit (1.13.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     has_scope (0.7.2)
@@ -274,6 +275,11 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
+    layers_of_london-booth-map_tool (0.1.0)
+      aasm (~> 5.0)
+      geokit
+      pundit (~> 2.0)
+      rails (~> 5.2)
     libv8 (6.7.288.46.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -491,6 +497,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder (~> 2.5)
   jquery-rails
+  layers_of_london-booth-map_tool (~> 0.1.0)
   listen (>= 3.0.5, < 3.2)
   mini_magick
   mini_racer
