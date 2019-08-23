@@ -1,14 +1,14 @@
 /* Highlighted content */
 
 .m-highlighted-content {
-  width: 38%;
+  //width: 38%;
   top: 720px;
   right: 0;
   border: 20px solid $black;
   border-width: 15px 0 15px 15px;
   z-index: 1;
   background: $black;
-  position:absolute;
+  //position:absolute;
   @include mq(small-tablet) {
     position:relative;
     width:100%;
@@ -23,6 +23,8 @@
 .m-highlighted-content .m-record-card {
   @include record-card;
   margin-bottom:15px;
+  width:50%;
+  float:left;
   @include mq(small-tablet) {
     width:calc(50% - 7px);
     float:left;

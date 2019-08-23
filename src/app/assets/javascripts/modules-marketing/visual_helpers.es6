@@ -2,7 +2,6 @@ class VisualHelpers {
 
     constructor() {
 
-        this.setupScrolling();
         this.setupVisibleTriggers();
         this.setupRandomImages();
         this.setupRandomTitles();
@@ -41,19 +40,6 @@ class VisualHelpers {
                     el.removeClass("is-not-viewable");
                     el.addClass("is-viewable");
                 }
-            });
-
-        });
-
-    }
-
-    setupScrolling() {
-
-        $(document).ready(function () {
-            window.targ = $('.m-highlighted-content');
-
-            $(window).scroll(function () {
-                window.targ.css('transform', 'translate3d(0px,' + ((window.pageYOffset / 2) * -1) + 'px, 0px)');
             });
 
         });

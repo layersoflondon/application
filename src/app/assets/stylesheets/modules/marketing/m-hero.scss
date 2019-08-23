@@ -8,8 +8,8 @@
   margin-bottom: 15px;
   @include mq(small-tablet) {
     @include clearfix;
-    height:auto;
-    min-height:0;
+    height: auto;
+    min-height: 0;
   }
 }
 
@@ -21,27 +21,31 @@
 }
 
 .m-hero .text-content {
-  width: 50%;
+  width: 61%;
+  float: left;
   height: 100%;
   position: relative;
-  padding: 230px 80px 140px;
-  background: rgba(0, 0, 0, 0.4);
+  padding: 180px 80px 140px 0;
+  color: white;
+  //background: rgba(0, 0, 0, 0.4);
+  // TODO
   @include mq(tablet) {
-    padding-left:40px;
-    padding-right:40px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
   @include mq(small-tablet) {
-    width:100%;
+    width: 100%;
     padding: 40px;
-    height:auto;
+    height: auto;
   }
 }
 
 .m-hero--home .text-content {
-  float: right;
+  //float: right;
+  // TODO
   @include mq(small-tablet) {
     text-align: center;
-    padding:20px;
+    padding: 20px;
   }
 }
 
@@ -64,32 +68,37 @@
   font-size: 64px;
   margin-top: 20px;
   color: $green;
+  margin-bottom: 36px;
   @include mq(tablet) {
     font-size: 46px;
   }
   @include mq(small-tablet) {
     font-size: 44px;
-    margin-top:0;
+    margin-top: 0;
   }
   @include mq(small-smartphone) {
     font-size: 34px;
   }
 }
 
+.m-hero--home h1 {
+  color: white;
+}
+
 .m-hero a {
-  background: transparentize($green, 0.5);
-  color: #ffffff;
-  padding: 17px 25px;
-  border-radius: 100px;
-  text-transform: uppercase;
-  font-weight: bold;
-  margin-top: -1px;
-  display: inline-block;
-  transition: all .2s;
-  @include mq(smartphone) {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
+  /*  background: transparentize($green, 0.5);
+    color: #ffffff;
+    padding: 17px 25px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: -1px;
+    display: inline-block;
+    transition: all .2s;
+    @include mq(smartphone) {
+      padding: 10px 20px;
+      font-size: 14px;
+    }*/
 }
 
 .m-hero a:hover {
@@ -98,10 +107,53 @@
 }
 
 .m-hero a:before {
-  content: "\f0da";
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: 1em;
-  margin-right: 10px;
-  z-index: 1;
+  /*  content: "\f0da";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1em;
+    margin-right: 10px;
+    z-index: 1;*/
+}
+
+.m-hero .search {
+  margin-bottom: 20px;
+}
+
+.m-hero input[type="text"] {
+  font-size: 20px;
+  background: transparent;
+  padding: 15px 18px 17px;
+  border: 3px solid $green;
+  width: 478px;
+  color:white;
+}
+
+.m-hero {
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: white;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: white;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: white;
+  }
+}
+
+.m-hero input[type="submit"] {
+  border: 0;
+  padding: 21px 18px;
+  background: white;
+  color: #549a77;
+  border-radius: 100px;
+  margin-left: 18px;
+  float: none;
+  width: auto;
+  font-weight: 600;
+  font-size: 20px;
+  position: relative;
+  top: 1px;
 }

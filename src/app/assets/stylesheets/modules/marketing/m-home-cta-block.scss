@@ -5,6 +5,7 @@
   position: relative;
   @include clearfix;
   @include cta-block;
+  clear:both;
 }
 
 .m-home-cta-block + .m-home-cta-block {
