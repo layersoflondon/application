@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'tag_groups/index'
+  get 'tag_groups/show'
   # Robot gem renders env-specific robots.txt files
   mount_roboto
 
@@ -77,7 +79,10 @@ Rails.application.routes.draw do
   end
 
   resources :georeferencer_projects, only: :show, path: 'layermaker'
-  
+
+  resources :tag_groups, only: [:index, :show], defaults: {format: :json} do
+    resources :tags, only: [:index, :show]
+  end
 
   resource :map, controller: 'maps' do
     match '/state', via: :get, to: 'maps#state', as: :map_state, format: :json

@@ -231,6 +231,15 @@ class Record < ApplicationRecord
     comments.includes(:user).references(:user).collect(&:user).uniq
   end
 
+  def is_discoverable?
+    has_image = primary_image.present?
+    has_description = description.length>10
+    has_attachments = attachments.size>1
+    is_in_collections = collections.any?
+
+    has_image && has_description && has_attachments && is_in_collections
+  end
+
   private
 
   def user_is_member_of_team

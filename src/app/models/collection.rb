@@ -58,4 +58,11 @@ class Collection < ApplicationRecord
     end
   end
 
+  def is_discoverable?
+    has_image = primary_image.present?
+    has_description = description.length>10
+    has_records = records.any?
+
+    has_image && has_description && has_records
+  end
 end
