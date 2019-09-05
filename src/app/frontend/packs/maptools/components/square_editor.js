@@ -60,7 +60,7 @@ export default class SquareEditor extends React.Component {
     renderState_in_progress() {
         return <div>
             <p>Please trace all coloured areas which are within, or touching, the square using the tools below.</p>
-            <p>Click 'Edit layers' to change the existing ones.</p>
+            <p>Click 'Edit shape' to change the existing ones.</p>
             <button onClick={() => this.updateSquareState('done')}>I'm done!</button>
             or go <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>back to the map</Link>.
         </div>

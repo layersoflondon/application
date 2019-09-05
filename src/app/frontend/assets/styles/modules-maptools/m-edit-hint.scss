@@ -8,6 +8,7 @@
   left:40px;
   padding: 30px;
   width: 260px;
+  @include top-and-tail;
   @include mq(tablet) {
     padding:20px;
     left:auto;
