@@ -20,4 +20,5 @@ else
   json.partial! 'search/record_card', record: record
 end
 
-json.tag_groups record.tag_groups
+json.tag_groups record.tag_groups.uniq
+json.tag_ids record.tag_ids

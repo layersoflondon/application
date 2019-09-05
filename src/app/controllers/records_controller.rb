@@ -182,6 +182,7 @@ class RecordsController < ApplicationController
         :credit,
         :allow_team_editing,
         :team_id,
+        tag_ids: [],
         location: %i[
           address
         ]

@@ -87,3 +87,69 @@
   color:white;
   @include clearfix;
 }
+
+.m-tag-groups {
+  .tag-group {
+    text-align: center;
+    display: inline-block;
+    width: 20%;
+    height: 180px;
+    vertical-align: top;
+    position: relative;
+
+    .tag-group-count {
+      background: $green;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+
+      color: #fff;
+      font-size: 0.8em;
+      width: 20px;
+      display: inline-block;
+      height: 20px;
+      font-weight: bold;
+      padding: 1px 0 0 0;
+      margin: 0 0 0 5px;
+    }
+
+    .tags {
+      position: absolute;
+      z-index: 999;
+      top: 25%;
+      width: 400px;
+      left: -100px;
+      background: #fff;
+
+      ul {
+        list-style-type: none;
+        text-align: left;
+
+        .tag {
+          display: inline-block;
+          width: 45%;
+          vertical-align: top;
+          text-align: left;
+          padding: 10px 0;
+
+          label {
+            background: none;
+            color: #222;
+          }
+
+          input[type=checkbox] {
+            float: left;
+            width: auto;
+            margin-top: 3px;
+            margin-left: -20px;
+          }
+        }
+      }
+
+      button {
+        float: right;
+        margin: 0 10px 10px 0;
+      }
+    }
+  }
+}

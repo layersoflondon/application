@@ -1,4 +1,4 @@
-import {observable, computed, observe} from 'mobx';
+import {observable, computed, observe, action} from 'mobx';
 import GoogleMapsClient from '../sources/google_maps_client';
 
 import RecordModel from '../models/record';
@@ -58,5 +58,26 @@ export default class RecordFormStore {
     const store = new RecordFormStore();
     Object.assign(store, object);
     return store;
+  }
+
+  @action toggleTag(tag_id) {
+    tag_id = parseInt(tag_id, 10);
+    let tag_ids = this.record.tag_ids.slice();
+    let added = true;
+
+    if( this.tagIsChecked(tag_id) ) {
+      tag_ids = tag_ids.filter((id) => id !== tag_id);
+      added = false;
+    }else {
+      tag_ids.push(tag_id);
+    }
+
+    this.record.tag_ids = tag_ids;
+
+    return added;
+  }
+
+  tagIsChecked(id) {
+    return this.record.tag_ids.indexOf(id)>-1;
   }
 }

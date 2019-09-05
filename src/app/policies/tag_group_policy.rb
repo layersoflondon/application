@@ -10,8 +10,7 @@ class TagGroupPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      # TagGroupsIndex.all.order(created_at: :desc)
-      scope.all
+      scope.limit(999)
     end
   end
 end

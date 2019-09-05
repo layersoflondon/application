@@ -26,6 +26,7 @@ import RecordForm from './forms/records/record_form';
 import ErrorBoundary from "./error_boundary";
 import NotFound from "./not_found";
 import AddToCollection from "./record_view/add_to_collection";
+import RecordTags from "./forms/records/record_tags";
 
 @inject('router', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore', 'collectionFormStore')
 @withRouter
