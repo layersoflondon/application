@@ -1,7 +1,7 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:update, :destroy, :like, :report]
   skip_before_action :authenticate_user!, only: [:show, :index, :report, :for_user]
-  skip_after_action :verify_authorized, only: [:index, :show, :report, :for_user] #show is in here because we authorize in the method
+  skip_after_action :verify_authorized, only: [:index, :show, :report, :for_user, :related] #show is in here because we authorize in the method
 
   decorates_assigned :record, :records, with: RecordDecorator
 
@@ -52,6 +52,16 @@ class RecordsController < ApplicationController
       user_id: params[:id],
       record_states: (current_user.try(:id) == params[:id].to_i) ? ['published', 'draft'] : ['published']
     )
+  end
+
+  def related
+    record = RecordsIndex.published.filter(ids: {values: [params[:id]]}).first
+
+    raise ActiveRecord::RecordNotFound, "Record not found" unless record.present?
+    raise Pundit::NotAuthorizedError unless RecordPolicy.new(current_user, record).show?
+
+    related = RecordsIndex.published.filter(ids: {values: record.related_record_ids})
+    render json: related
   end
 
   def update
@@ -182,6 +192,7 @@ class RecordsController < ApplicationController
         :credit,
         :allow_team_editing,
         :team_id,
+        tag_ids: [],
         location: %i[
           address
         ]

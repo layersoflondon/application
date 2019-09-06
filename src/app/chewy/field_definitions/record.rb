@@ -40,9 +40,24 @@ module FieldDefinitions
               owner_id: collection.owner_id
             }
           end
+      }
 
-
-
+      field :tag_groups, type: :nested, value: -> {
+        tag_groups.collect do |tag_group|
+          {
+            id: tag_group.id,
+            name: tag_group.name, slug: tag_group.slug,
+            tags: tag_group.tags.select{|t| tags.include?(t)}.collect do |tag|
+              {
+                id: tag.id, name: tag.name, slug: tag.slug, tag_group_id: tag.tag_group_id
+              }
+            end
+          }
+        end
+      }
+      field :tag_ids, value: -> {tag_ids}
+      field :related_record_ids, value: -> {
+        related.collect(&:id)
       }
 
       field :user_collections do
@@ -89,6 +104,8 @@ module FieldDefinitions
 
       field :added_by_student, type: 'boolean'
       field :student_details, type: 'keyword'
+
+
     end
   end
 end

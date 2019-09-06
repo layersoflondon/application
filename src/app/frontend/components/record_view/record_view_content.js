@@ -3,8 +3,10 @@ import {observer} from "mobx-react";
 import RecordViewComponentState from './record_view_component_state';
 import RecordViewDownloads from './record_view_downloads';
 import RecordViewLinks from './record_view_links';
+import RecordViewTags from './record_view_tags';
 import RecordViewText from './record_view_text';
-import {Link }from 'react-router-dom';
+import RecordViewRelated from './record_view_related';
+import {Link} from 'react-router-dom';
 import RecordViewComments from "./record_view_comments";
 
 @observer class RecordViewContent extends Component {
@@ -30,9 +32,13 @@ import RecordViewComments from "./record_view_comments";
           this.props.trayViewStore.record.links.length > 0 &&
           <RecordViewLinks {...this.props} />
         }
+        {
+          this.props.trayViewStore.record.tag_groups.length > 0 &&
+          <RecordViewTags {...this.props} />
+        }
       </div>
 
-      {this.props.trayViewStore.record.collections.length &&
+      {this.props.trayViewStore.record.collections.length > 0 &&
       <div className="m-record-collections-list">
         <h3>Collections this record belongs to</h3>
         <ul>
@@ -64,7 +70,7 @@ import RecordViewComments from "./record_view_comments";
       </div>
 
       <RecordViewComments record={this.props.trayViewStore.record} />
-
+      <RecordViewRelated record={this.props.trayViewStore.record} />
     </Fragment>
   }
 }
