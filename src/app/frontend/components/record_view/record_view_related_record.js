@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 
 @observer class RecordViewRelatedRecord extends Component {
   containerClasses() {
-    const number = this.props.record.title.split('').map((c) => {return c.charCodeAt() }).reduce((a,b) => a + b, 0) % 10;
+    const number = this.props.record.attributes.title.split('').map((c) => {return c.charCodeAt() }).reduce((a,b) => a + b, 0) % 10;
     if (this.props.record.image) {
       return "";
     } else {
@@ -14,12 +14,14 @@ import {Link} from 'react-router-dom';
   }
 
   render() {
+    console.log(this.props.record);
+
     return <div className={this.containerClasses()}>
-      <Link to='/'>
+      <Link to={`/map/records/${this.props.record.attributes.id}`}>
         <div className="wrapper">
           <div className="text-content">
             <h1>
-              {this.props.record.title}
+              {this.props.record.attributes.title}
             </h1>
             <p dangerouslySetInnerHTML={{__html: this.props.record.excerpt}}>
             </p>
