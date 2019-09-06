@@ -34,6 +34,13 @@
 }
 
 .m-related {
+  .m-highlighted-content .m-record-card {
+    @include mq(smartphone) {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
   .m-highlighted-content .m-record-card.placeholder-0 {
     background: $navy url('../assets/images/placeholder/wide-01.svg') center/cover;
   }
