@@ -98,6 +98,10 @@
     vertical-align: top;
     position: relative;
 
+    &:hover {
+      cursor: pointer;
+    }
+
     .tag-group-count {
       background: $green;
       -webkit-border-radius: 50%;

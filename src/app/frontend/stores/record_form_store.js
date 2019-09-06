@@ -23,6 +23,8 @@ export default class RecordFormStore {
   // other http code = lookup failed.
   @observable place_lookup_status = null;
 
+  @observable visible_tag_group = null;
+
   constructor() {
     observe(this, 'latlng', (update) => {
       if( update.newValue && update.newValue.lat && update.newValue.lng ) {
@@ -79,5 +81,9 @@ export default class RecordFormStore {
 
   tagIsChecked(id) {
     return this.record.tag_ids.indexOf(id)>-1;
+  }
+
+  @action setVisibleTagGroup(id) {
+    this.visible_tag_group = parseInt(id, 10);
   }
 }

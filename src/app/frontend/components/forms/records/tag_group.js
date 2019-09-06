@@ -18,6 +18,11 @@ import Tag from './tag';
     this.tag = (props) => <li key={`tag-${props.id}`}>{props.name}</li>
   }
 
+  toggleVisibility(event) {
+    const {tagGroupId} = event.target.dataset;
+    this.props.recordFormStore.setVisibleTagGroup(tagGroupId);
+  }
+
   render() {
     const toggleInput = (event) => {
       const added = this.props.recordFormStore.toggleTag(event.currentTarget.id);
@@ -29,9 +34,10 @@ import Tag from './tag';
     };
 
     const tags = this.props.tagGroup.tags.map((tag, i) => <Tag key={`tag-${i}`} {...tag} isChecked={this.props.recordFormStore.tagIsChecked(tag.id)} inputClicked={toggleInput} />);
+    const visible = this.props.recordFormStore.visible_tag_group === this.props.tagGroup.id;
 
     return <div className="tag-group">
-      <h4 onClick={() => this.setState({visible: !this.state.visible})}>
+      <h4 data-tag-group-id={this.props.tagGroup.id} onClick={this.toggleVisibility.bind(this)}>
         {this.props.tagGroup.name}
 
         {this.state.count>0 &&
@@ -40,14 +46,14 @@ import Tag from './tag';
       </h4>
 
       <div className="tags">
-        { this.state.visible &&
+        { visible &&
           <ul>
             {tags}
           </ul>
         }
 
-        { this.state.visible &&
-          <button onClick={() => this.setState({visible: !this.state.visible})}>Done</button>
+        { visible &&
+          <button onClick={this.toggleVisibility.bind(this)}>Done</button>
         }
       </div>
     </div>

@@ -119,3 +119,20 @@
 
 }
 
+.m-article .tags ul {
+  list-style-type: none;
+  margin: 0;
+
+  li {
+    float: left;
+    margin-top: 0;
+
+    span {
+      background: $yellow;
+      margin: 2px;
+      padding: 2px 5px;
+      font-size: 0.8em;
+
+    }
+  }
+}

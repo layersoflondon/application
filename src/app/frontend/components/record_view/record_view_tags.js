@@ -11,7 +11,9 @@ import RecordViewComponentState from "./record_view_component_state";
     const tags = this.props.trayViewStore.record.tag_groups.map((tag_group, i) => (
         tag_group.tags.map((tag, i) => (
             <li key={`tag-${tag.id}`}>
-              {tag.name}
+              <span>
+                {tag.name}
+              </span>
             </li>
         ))
     ));

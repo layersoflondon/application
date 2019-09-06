@@ -14,8 +14,6 @@ import {Link} from 'react-router-dom';
   }
 
   render() {
-    console.log(this.props.record);
-
     return <div className={this.containerClasses()}>
       <Link to={`/map/records/${this.props.record.attributes.id}`}>
         <div className="wrapper">
