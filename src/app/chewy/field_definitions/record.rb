@@ -56,6 +56,9 @@ module FieldDefinitions
         end
       }
       field :tag_ids, value: -> {tag_ids}
+      field :related_record_ids, value: -> {
+        related.collect(&:id)
+      }
 
       field :user_collections do
         field :value, value: ->{id}

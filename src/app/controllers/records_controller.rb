@@ -54,6 +54,12 @@ class RecordsController < ApplicationController
     )
   end
 
+  def related
+    record = Record.find(params[:id])
+    authorize record
+    render json: record.related
+  end
+
   def update
     check_transition(record_params[:state])
 

@@ -22,3 +22,4 @@ end
 
 json.tag_groups record.tag_groups.uniq
 json.tag_ids record.tag_ids
+# json.related_record_ids record.related_records.collect(&:id)

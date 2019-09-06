@@ -240,6 +240,18 @@ class Record < ApplicationRecord
     has_image && has_description && has_attachments && is_in_collections
   end
 
+  def related
+    # get Tagger objects that are tagged with some of the same tags from this records,
+    # grouped by tag_id and ordered by the ones with the most matches first
+    matching_tagged_records = Hash[Tagging.where(tag_id: tag_ids).where.not(tagger_id: id).group_by(&:tag_id).sort_by{|k,v| v.size}.reverse]
+
+    # get the polymorphic tagger(record) instance
+    tagger_ids = matching_tagged_records.values[0..10].flatten.uniq.collect(&:tagger_id)
+    return [] unless tagger_ids.any?
+
+    Record.where(id: tagger_ids)
+  end
+
   private
 
   def user_is_member_of_team

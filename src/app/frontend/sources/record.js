@@ -23,6 +23,10 @@ export default class Record extends LoLHTTPBase {
   static remove_from_collections(id, params) {
     return axios({method: 'delete', url: `${this.resource_path}/collections`, data: params});
   }
+
+  static related(id, params) {
+    return axios.get(`${this.resource_path}/related`, params);
+  }
 }
 
 window.Record = Record;

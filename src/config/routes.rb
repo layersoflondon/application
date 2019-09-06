@@ -51,6 +51,7 @@ Rails.application.routes.draw do
       post 'report'
       patch 'collections', to: 'records#add_to_collections'
       delete 'collections', to: 'records#remove_from_collections'
+      get 'related'
     end
 
     resources :comments, controller: 'comments', only: [:index, :create, :update, :destroy]

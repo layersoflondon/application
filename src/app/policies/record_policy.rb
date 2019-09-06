@@ -35,6 +35,10 @@ class RecordPolicy < ApplicationPolicy
     true
   end
 
+  def related?
+    show?
+  end
+
   def subscribe_to_comments?
     user.present? && (user.in?(record.comment_thread_participants) || record.user == user)
   end
