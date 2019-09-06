@@ -24,8 +24,8 @@ export default class Record extends LoLHTTPBase {
     return axios({method: 'delete', url: `${this.resource_path}/collections`, data: params});
   }
 
-  static related(id, params) {
-    return axios.get(`${this.resource_path}/related`, params);
+  static related(id) {
+    return axios.get(`${this.resource_path}/related`);
   }
 }
 

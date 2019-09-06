@@ -63,6 +63,7 @@
 @import "modules/m-vector-meta-popover";
 @import "modules/m-comments";
 @import "modules/m-comment-form";
+@import "modules/m-related";
 
 /*
 @import "modules/m-site-header";
@@ -151,5 +152,15 @@
         margin: 0 10px 10px 0;
       }
     }
+  }
+}
+
+.m-record .m-highlighted-content .m-record-card {
+  width: 32%;
+  margin-left: 1%;
+  display: inline-block;
+
+  &:first-child {
+    margin-left: 0;
   }
 }
