@@ -15,7 +15,7 @@ import {Link} from 'react-router-dom';
 
   render() {
     return <div className={this.containerClasses()}>
-      <Link to={`/map/records/${this.props.record.attributes.id}`}>
+      <Link to={`/map/records/${this.props.record.attributes.id}`} onClick={() => this.props.trayViewStore.record_id = this.props.record.id}>
         <div className="wrapper">
           <div className="text-content">
             <h1>

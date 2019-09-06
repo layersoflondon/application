@@ -25,9 +25,11 @@ import RecordViewRelatedRecord from "./record_view_related_record";
 
       return <Fragment>
           <div className={`m-related related-records-count-${this.props.record.related.length}`}>
-            <h3>
-              You may also like...
-            </h3>
+            {this.props.record.related.length>0 &&
+              <h3>
+                You may also like...
+              </h3>
+            }
             <div className="m-highlighted-content">
               {cards}
             </div>
