@@ -1,6 +1,6 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:update, :destroy, :like, :report]
-  skip_before_action :authenticate_user!, only: [:show, :index, :report, :for_user]
+  skip_before_action :authenticate_user!, only: [:show, :index, :report, :for_user, :related]
   skip_after_action :verify_authorized, only: [:index, :show, :report, :for_user, :related] #show is in here because we authorize in the method
 
   decorates_assigned :record, :records, with: RecordDecorator
