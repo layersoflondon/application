@@ -60,9 +60,17 @@ import {recordEvent, recordPageView} from "../../config/data_layer";
         <Fragment>
           <Helmet>
             <title>{this.props.trayViewStore.record.title} | Layers of London | Recording the Layers of London's Rich Heritage</title>
+            <meta name='og:title' content={`${this.props.trayViewStore.record.title} | Layers of London | Recording the Layers of London's Rich Heritage`} />
             <meta name='description' content={`Read about ${this.props.trayViewStore.record.title} and thousands of other fascinating records on Layers of London. Add your own records, and help us build more layers.`}/>
+            <meta name='og:description' content={`Read about ${this.props.trayViewStore.record.title} and thousands of other fascinating records on Layers of London. Add your own records, and help us build more layers.`}/>
             <meta name='keywords' content={`${this.props.trayViewStore.record.title}, layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`} />
             <link rel='canonical' href={`${window.location.protocol}//${window.location.host}/map/records/${this.props.trayViewStore.record.id}`} />
+            <meta name='og:url' content={`${window.location.protocol}//${window.location.host}/map/records/${this.props.trayViewStore.record.id}`} />
+            {this.props.trayViewStore.record.has_hero_image &&
+            <meta name='og:image' content={this.props.trayViewStore.record.hero_image.primary}/>
+            }
+            <meta name='twitter:card' content='summary' />
+
           </Helmet>
 
           <div className="m-overlay is-showing">
