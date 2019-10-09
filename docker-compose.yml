@@ -1,8 +1,4 @@
-version: '3.1'
-
-networks:
-  error-network:
-      driver: bridge
+version: '3.5'
 
 volumes:
   bundle: 
@@ -57,20 +53,19 @@ services:
     ports:
       - '3306:3306'
     volumes:
+      - ./config/docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - db_data:/var/lib/mysql
+      - ./src:/app:cached
       - ./src/database/import:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=layers-app_development
-      - MYSQL_USER=user
+      - MYSQL_USER=root
       - MYSQL_PASSWORD=root
-    networks:
-      - error-network
     labels:
       - maintainer='jordi@error.agency'
   redis:
     image: redis:3.2
-    networks:
-      - error-network
     ports:
       - '6379:6379'
     labels:
@@ -80,8 +75,6 @@ services:
     build:
       context: .
       dockerfile: docker/elasticsearch/Dockerfile
-    networks:
-      - error-network
     ports:
       - "9200:9200"
       - "8080:8080"
