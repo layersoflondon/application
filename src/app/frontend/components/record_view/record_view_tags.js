@@ -8,14 +8,15 @@ import RecordViewComponentState from "./record_view_component_state";
   }
 
   render() {
-    const tags = this.props.trayViewStore.record.tag_groups.map((tag_group, i) => (
-        tag_group.tags.map((tag, i) => (
-            <li key={`tag-${tag.id}`}>
+    let tags_data = [].concat(...stores.trayViewStore.record.tag_groups.map((tg) => tg.tags));
+    tags_data = tags_data.filter((tag, index, array) => array.indexOf(tag) === index); //unique array of tags
+
+    const tags = tags_data.map((tag, i) => (
+        <li key={`tag-${tag.id}`}>
               <span>
                 {tag.name}
               </span>
-            </li>
-        ))
+        </li>
     ));
 
     return <div className="tags">
