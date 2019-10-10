@@ -26,3 +26,5 @@ ENV PATH /app/bin:$BUNDLE_BIN:$PATH
 
 WORKDIR /app
 RUN gem update --system && gem install bundler:2.0.1
+
+ENTRYPOINT ["/entrypoint.sh"]

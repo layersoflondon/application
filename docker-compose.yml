@@ -26,6 +26,7 @@ services:
       - ~/.ssh:/root/.ssh
       - irb_history:/root/irb_history
       - ./docker/web/.irbrc:/root/.irbrc
+      - ./docker/web/entrypoint.sh:/entrypoint.sh
     stdin_open: true
     tty: true
   web:
@@ -93,7 +94,7 @@ services:
       - es_data:/usr/share/elasticsearch/data
     healthcheck:
       test: ["CMD", "curl", "-SsfL", "127.0.0.1:9200/_cat/health?h=status"]
-      interval: 60s
+      interval: 10s
       timeout: 1s
       retries: 10
 
