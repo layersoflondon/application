@@ -24,16 +24,6 @@ export default class MapToolsStore {
   @observable showShapes = true;
 
   constructor() {
-    observe(this, 'mapRef', (change) => {
-      if( change.newValue ) {
-        this.mapRef.leafletElement.on('mouseup', (event) => {
-          if( this.inEditOrDrawingMode === true ) {
-            this.editControl.leafletElement._toolbars.edit._save();
-          }
-        });
-      }
-    });
-
     observe(this, 'zoom', (change) => {
       const setZoom = () => {
         if (this.mapRef) {
