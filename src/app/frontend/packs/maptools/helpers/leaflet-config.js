@@ -46,7 +46,7 @@ L.drawLocal = {
         tooltip: {
           start: '',
           cont: '',
-          end: ''
+          end: 'Click first point to save this shape'
         }
       },
       polyline: {
