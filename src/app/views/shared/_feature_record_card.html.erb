@@ -1,12 +1,14 @@
 <% is_collection = feature_record_card.item_type == "Collection" %>
 <div class="m-record-card <%= is_collection ? "m-record-card--collection" : "" %> <%= feature_record_card.placeholder_class %>">
     <%= link_to feature_record_card.path, class: "wrapper" do %>
-        <div class="image" style="background-image: url(<%= feature_record_card.image %>)"></div>
-        <% if is_collection %>
-            <span class="collection-indicator">Collection</span>
-        <% end %>
-        <div class="text-content">
+        <div class="header">
+            <div class="image" style="background-image: url(<%= feature_record_card.image %>)"></div>
+            <% if is_collection %>
+                <span class="collection-indicator">Collection</span>
+            <% end %>
             <h1><%= feature_record_card.title %></h1>
+        </div>
+        <div class="text-content">
             <p><%= feature_record_card.description %></p>
         </div>
         <div class="link-indicator"></div>

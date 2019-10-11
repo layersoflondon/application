@@ -2,10 +2,8 @@
 
 .m-hero {
   clear: both;
-  min-height: 820px;
-  height: 820px;
   position: relative;
-  margin-bottom: 15px;
+  min-height: 670px;
   @include mq(small-tablet) {
     @include clearfix;
     height: auto;
@@ -27,7 +25,6 @@
   position: relative;
   padding: 180px 80px 140px 0;
   color: white;
-  //background: rgba(0, 0, 0, 0.4);
   // TODO
   @include mq(tablet) {
     padding-left: 40px;
@@ -55,7 +52,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: asset-url('map-2.png') center/cover no-repeat !important;
+  //background: asset-url('map-light.jpg') center/cover no-repeat !important;
 }
 
 .t-homepage .m-hero .image {
