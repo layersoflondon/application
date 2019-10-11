@@ -73,14 +73,26 @@ module FieldDefinitions
       field :team_id
       field :allow_team_editing
 
-      field :attachments, type: 'object' do
-        field :id, type: 'integer'
-        field :title, type: 'text', analyzer: :english
-        field :caption, type: 'text', analyzer: :english
-        field :credit, type: 'text', analyzer: :english
-        field :attachable_type, type: 'keyword'
-        field :attachable, type: 'object', value: -> {attachable.data}
-      end
+      # field :attachments, type: 'object' do
+      #   field :id, type: 'integer'
+      #   field :title, type: 'text', analyzer: :english
+      #   field :caption, type: 'text', analyzer: :english
+      #   field :credit, type: 'text', analyzer: :english
+      #   field :attachable_type, type: 'keyword'
+      #   field :attachable, type: 'object', value: -> {attachable.data}
+      # end
+      field :attachments, type: 'object', value: -> {
+        attachments.select{|a| a.attachable.data}.collect do |attachment|
+          {
+            id: attachment.id,
+            title: attachment.title,
+            caption: attachment.caption,
+            credit: attachment.credit,
+            attachable_type: attachment.attachable_type,
+            attachable: attachment.attachable.data
+          }
+        end
+      }
 
       field :image, type: 'object', value: -> {
         primary_image.try(:data)

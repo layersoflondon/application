@@ -11,6 +11,8 @@ class Attachments::Video < ApplicationRecord
 
   # Utility method used when we index
   def data
+    return nil unless youtube_id.present?
+    
     poster = "https://img.youtube.com/vi/#{youtube_id}/0.jpg"
     {
       content_type: "url/video",
