@@ -21,7 +21,7 @@ export default class SquareEditor extends React.Component {
 
   componentDidMount() {
     const squareId = parseFloat(this.props.match.params.id);
-    // const features = this.props.mapToolsStore.cachedFeatureData.values().filter((feature) => parseInt(feature.properties.square.id, 10) === squareId);
+    this.props.mapToolsStore.setUser(this.props.userSession);
 
     // this.props.mapToolsStore.setZoom(this.props.mapToolsStore.FULL_ZOOM);
     this.props.mapToolsStore.squareId = squareId;
@@ -49,7 +49,7 @@ export default class SquareEditor extends React.Component {
 
   renderState_not_started() {
     return <div>
-      <span class="surtitle">Untraced</span>
+      <span className="surtitle">Untraced</span>
       <hr/>
       <h3>This square needs <strong>tracing</strong>.</h3>
       <p>Would you like to help us trace it?</p>
@@ -61,7 +61,7 @@ export default class SquareEditor extends React.Component {
 
   renderState_in_progress() {
     return <div>
-      <span class="surtitle">In progress: Tracing</span>
+      <span className="surtitle">In progress: Tracing</span>
       <hr/>
       <p>Please trace all coloured areas which are within, or touching, the square using the tools below.</p>
       <p>Click 'Edit shape' to change the existing ones.</p>
@@ -72,7 +72,7 @@ export default class SquareEditor extends React.Component {
 
   renderState_done() {
     return <div>
-      <span class="surtitle">Traced</span>
+      <span className="surtitle">Traced</span>
       <hr/>
       <h1>You traced this square!</h1>
       <p>Now another user needs to check that it's correct.</p>
@@ -85,7 +85,25 @@ export default class SquareEditor extends React.Component {
 
   renderState_doneCheck() {
     return <div>
-      <span class="surtitle">In progress: Checking</span>
+      <span className="surtitle">Traced</span>
+      <hr/>
+      <h1>
+        This square needs checking
+      </h1>
+      <p>
+        This square has been traced by another user and needs checking. <br />
+        Would you like to check it?
+      </p>
+
+      <button onClick={() => this.props.mapToolsStore.overrideRenderStateForSquare('doneChecking')}>Begin</button>
+      <br/>
+      or <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>choose another square</Link>
+    </div>
+  }
+
+  renderState_doneChecking() {
+    return <div>
+      <span className="surtitle">In progress: Checking</span>
       <hr/>
       <h1>
         Please check that:
@@ -99,6 +117,7 @@ export default class SquareEditor extends React.Component {
       <button onClick={() => this.updateSquareState('back_in_progress')}>Edit mode</button>
       <br/>
       <button onClick={() => this.updateSquareState('verified')}>Looks good!</button>
+      <br/>
       <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>Back to the map</Link>
     </div>
   }
@@ -109,7 +128,7 @@ export default class SquareEditor extends React.Component {
 
   renderState_verified() {
     return <div>
-      <span class="surtitle">Traced and Checked</span>
+      <span className="surtitle">Traced and Checked</span>
       <hr/>
       <h1>All done!</h1>
       <p>This square has been traced and checked. If you can see any obvious errors you can reopen it for editing.</p>
@@ -123,7 +142,7 @@ export default class SquareEditor extends React.Component {
   render() {
     if (!this.props.userSession.id) {
       return <div className={`m-edit-hint not-logged-in`}>
-        <span class="surtitle">Sign in to begin!</span>
+        <span className="surtitle">Sign in to begin!</span>
         <hr/>
         <h3>You need to be signed in in order to start tracing.</h3>
         <a href="/users/sign_up">Sign up</a> or sign in <a href="/users/sign_in">here</a> to get started!
@@ -137,8 +156,9 @@ export default class SquareEditor extends React.Component {
       const editMode = this.props.mapToolsStore.inEditOrDrawingMode;
       const classNames = `m-edit-hint ${this.props.mapToolsStore.square.state.label} ${editMode ? 'edit-mode' : ''}`;
 
+      console.log(this.props.mapToolsStore.renderStateForSquare);
       return <div className={classNames}>
-        {this[`renderState_${this.props.mapToolsStore.renderStateForSquare(this.props.mapToolsStore.square, this.props.userSession)}`]()}
+        {this[`renderState_${this.props.mapToolsStore.renderStateForSquare}`]()}
       </div>;
     }
   }

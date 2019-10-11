@@ -22,6 +22,9 @@ export default class MapToolsStore {
   @observable inEditOrDrawingMode = false;
   @observable inDeleteMode = false;
   @observable showShapes = true;
+  @observable renderState = null;
+
+  user = null;
 
   constructor() {
     observe(this, 'zoom', (change) => {
@@ -40,13 +43,16 @@ export default class MapToolsStore {
       const setCenter = () => {
         if (this.mapRef && this.squareIsLoading === false) {
           this.mapRef.leafletElement.flyTo(change.newValue.geojson.properties.centroid.slice(), this.FULL_ZOOM);
-
         } else {
           setTimeout(setCenter, 100)
         }
       };
 
-      if (change.newValue) setCenter();
+      if (change.newValue) {
+        setCenter();
+
+        this.setRenderStateForSquare(change.newValue, this.user);
+      }
     });
 
     observe(this, 'showShapes', (change) => {
@@ -61,14 +67,20 @@ export default class MapToolsStore {
   // given the current state of a square, the front end component will render a function that matches the
   // state.label name (ie renderState_done() is called for 'done' state.
   // if the state is 'done', we need to have the square verified by a different user so we return 'doneCheck' in this case
-  renderStateForSquare(square, user) {
+  @action.bound setRenderStateForSquare(square, user) {
     if( square.state.label === 'done' && square.state.user.id !== user.id ) {
-      return 'doneCheck';
+      this.renderState = 'doneCheck';
     }else {
-      return square.state.label;
+      this.renderState = square.state.label;
     }
+  }
 
-    return 'done';
+  @action.bound overrideRenderStateForSquare(state) {
+    this.renderState = state;
+  }
+
+  @computed get renderStateForSquare() {
+    return this.renderState;
   }
 
   @computed get editableFeatures() {
@@ -223,6 +235,10 @@ export default class MapToolsStore {
     event.layers.eachLayer((layer) => {
       deletePolygon(this.squareId, layer.properties.id);
     });
+  }
+
+  @action.bound setUser(user) {
+    this.user = user;
   }
 
   @computed get isZoomed() {
