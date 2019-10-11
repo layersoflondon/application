@@ -49,7 +49,7 @@ export default class Attachment {
   }
 
   @computed get is_media_or_video() {
-    return this.attachable_type === 'Attachments::Video' || this.is_media;
+    return (this.attachable_type === 'Attachments::Video' || this.is_media) && this.attachable;
   }
 
   @computed get is_link() {
@@ -106,7 +106,7 @@ export default class Attachment {
     store.record_id = record_id;
 
     if(store.is_video) {
-      store.url = object.attachable.youtube_id;
+      store.url = object.attachable && object.attachable.youtube_id;
     }
 
     return store;

@@ -81,6 +81,7 @@ export default class TrayViewStore {
             this.loading_record = true;
             this.loading_error = false;
           }).catch((error) => {
+            console.log(error);
             // console.log(`Error getting record ${this.record_id}`, error);
             this.record_id = null;
             this.loading_error = true;
