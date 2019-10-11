@@ -49,6 +49,8 @@ export default class SquareEditor extends React.Component {
 
     renderState_not_started() {
         return <div>
+            <span class="surtitle">Untraced</span>
+            <hr />
             <h3>This square needs <strong>tracing</strong>.</h3>
             <p>Would you like to help us trace it?</p>
 
@@ -59,6 +61,8 @@ export default class SquareEditor extends React.Component {
 
     renderState_in_progress() {
         return <div>
+            <span class="surtitle">In progress: Tracing</span>
+            <hr />
             <p>Please trace all coloured areas which are within, or touching, the square using the tools below.</p>
             <p>Click 'Edit shape' to change the existing ones.</p>
             <button onClick={() => this.updateSquareState('done')}>I'm done!</button>
@@ -68,12 +72,12 @@ export default class SquareEditor extends React.Component {
 
     renderState_done() {
         return <div>
-            <h1>
-                Awaiting verification
-            </h1>
-
+            <span class="surtitle">Traced</span>
             <hr/>
-            <button onClick={() => this.updateSquareState('back_in_progress')}>Edit mode</button>
+            <h1>You traced this square!</h1>
+            <p>Now another user needs to check that it's correct.</p>
+            <hr/>
+            <button onClick={() => this.updateSquareState('back_in_progress')}>Reopen for editing</button>
             <br/>
             <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>Back to the map</Link>
         </div>
@@ -81,6 +85,8 @@ export default class SquareEditor extends React.Component {
 
     renderState_doneCheck() {
         return <div>
+            <span class="surtitle">In progress: Checking</span>
+            <hr/>
             <h1>
                 Please check that:
             </h1>
@@ -103,7 +109,11 @@ export default class SquareEditor extends React.Component {
 
     renderState_verified() {
         return <div>
-            This square has been completed and verified. <br/>
+            <span class="surtitle">Traced and Checked</span>
+            <hr/>
+            <h1>All done!</h1>
+            <p>This square has been traced and checked. If you can see any obvious errors you can reopen it for editing.</p>
+            <hr/>
             <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>Back to the map</Link>
         </div>
     }
@@ -111,7 +121,9 @@ export default class SquareEditor extends React.Component {
     render() {
         if( !this.props.userSession.id ) {
             return <div className={`m-edit-hint not-logged-in`}>
-                <h3>You need to be signed in in order to start tracing. </h3>
+                <span class="surtitle">Sign in to begin!</span>
+                <hr/>
+                <h3>You need to be signed in in order to start tracing.</h3>
                 <a href="/users/sign_up">Sign up</a> or sign in <a href="/users/sign_in">here</a> to get started!
             </div>;
         }

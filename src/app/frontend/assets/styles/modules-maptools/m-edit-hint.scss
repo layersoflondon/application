@@ -6,8 +6,9 @@
   z-index: 10000;
   top: 30%;
   left:40px;
-  padding: 30px;
+  padding: 20px;
   width: 260px;
+  font-size: 14px;
   @include top-and-tail;
   @include mq(tablet) {
     padding:20px;
@@ -26,4 +27,17 @@
 .m-edit-hint .button {
   width:100%;
   margin-bottom:10px;
+  padding: 10px;
+  font-weight:bold;
+}
+
+.m-edit-hint .surtitle {
+  text-transform:uppercase;
+  font-size:14px;
+}
+
+.m-edit-hint h1 {
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+  font-size: 1.6em;
 }
