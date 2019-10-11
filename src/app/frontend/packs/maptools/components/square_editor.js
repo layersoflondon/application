@@ -103,7 +103,12 @@ export default class SquareEditor extends React.Component {
 
     renderState_verified() {
         return <div>
-            This square has been completed and verified. <br/>
+            <p>
+                This square has been completed and verified
+            </p>
+            <hr/>
+            <button onClick={() => this.updateSquareState('back_in_progress')}>Edit mode</button>
+            <br/>
             <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>Back to the map</Link>
         </div>
     }
