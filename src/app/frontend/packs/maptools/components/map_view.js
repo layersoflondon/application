@@ -57,16 +57,7 @@ export default class MapView extends React.Component {
       this.props.mapToolsStore.setPolygons();
     }, 150);
   }
-
-
-  gridStyle(feature) {
-    return {
-      weight: (this.props.mapToolsStore.mapRef.leafletElement.getZoom() <= 10) ? 1 : 2,
-      color: "#ffffff",
-      fillOpacity: 0.7,
-      className: "gridline"
-    }
-  }
+  
 
   squareStyle(feature) {
     // The masking square
@@ -94,21 +85,14 @@ export default class MapView extends React.Component {
 
   }
 
-  geoJsonStyle(feature) {
+  gridStyle(feature) {
     let style = {
       weight: (this.props.mapToolsStore.mapRef.leafletElement.getZoom() <= 10) ? 1 : 2,
-      color: "#999999"
+      color: "#ffffff",
+      className: 'gridline'
     };
 
-    //if the store has a square ID, we're editing a square. In which case we need to make all other squares grey
-    if (feature.properties.id && feature.properties.id === this.props.mapToolsStore.squareId) {
-      //this is the square we're working on
-      style.weight = 5;
-      style.color = "#4B9FFF"
-    } else if (this.props.mapToolsStore.squareId !== null) {
-      //we're working on a square but not this one
-      style.fillOpacity = 0.8;
-    } else {
+
       //  determine the colour based on the state of the square
       let fillColor;
       let fillOpacity;
@@ -118,23 +102,23 @@ export default class MapView extends React.Component {
           fillOpacity = 0;
           break;
         case "in_progress":
+          fillColor = null;
+          fillOpacity = 0;
+          break;
+        case "done":
           fillColor = "#ffb165";
           fillOpacity = 0.8;
           break;
-        case "done":
+        case "verified":
           fillColor = "#40a35f";
           fillOpacity = 0.8;
           break;
         case "flagged":
 
       }
-
       style.fillColor = fillColor;
       style.fillOpacity = fillOpacity;
-    }
-
-    // otherwise if there's no square ID, we're choosing a square, in which case set the colour of the square by its status
-
+      
     return style;
   }
 
@@ -195,7 +179,8 @@ export default class MapView extends React.Component {
           <TileLayer url="http://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png"/>
 
           { !this.props.mapToolsStore.square &&
-          <GeoJSON data={this.props.mapToolsStore.squareGrid} style={this.gridStyle.bind(this)}/>
+          <GeoJSON data={this.props.mapToolsStore.squares} style={this.gridStyle.bind(this)} />
+
           }
 
           {this.props.mapToolsStore.square &&
