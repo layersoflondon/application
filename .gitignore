@@ -56,3 +56,6 @@ src/alpha
 
 # Ignore exported Layer group data
 /src/app/assets/exports/*
+
+
+/vendor/booth-maptools
