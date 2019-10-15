@@ -28,15 +28,17 @@ export default class MapToolsOverview extends React.Component {
             <div className="column">
               <h3>Tracing</h3>
               <Img src={tracingUrl} />
-              <p>Vestibulum blandit varius odio, nec tristique diam tincidunt a. Sed suscipit eget lacus eget egestas.
-                Aenean fermentum ligula.</p>
+              <p>
+                Add new shapes to trace the colour coded regions of the map.
+              </p>
             </div>
 
             <div className="column">
               <h3>Checking</h3>
               <Img src={checkingUrl} />
-              <p>Duis eget neque in ligula dignissim faucibus. Sed suscipit eget lacus eget egestas. Aenean fermentum
-                ligula.</p>
+              <p>
+                Check existing squares to verify that all buildings have been traced and are the right colour.
+              </p>
             </div>
 
           </div>

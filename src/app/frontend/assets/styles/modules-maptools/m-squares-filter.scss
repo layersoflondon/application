@@ -1,10 +1,12 @@
 /* Squares filter */
+
 .m-squares-filter {
   position: absolute;
   z-index: 10000;
-  background: #fff;
+  background: #000;
   top: 100px;
   right: 20px;
+  color:white;
 }
 
 .m-squares-filter > label > span {

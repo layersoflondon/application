@@ -576,3 +576,13 @@
     font-size:14px;
   }
 }
+
+.m-record .m-highlighted-content .m-record-card {
+  width: 32%;
+  margin-left: 1%;
+  display: inline-block;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}

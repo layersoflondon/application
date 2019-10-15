@@ -20,7 +20,7 @@ export default class SquareFilter extends React.Component {
         const label = this.props.mapToolsStore.showShapes ? 'Hide shapes' : 'Show shapes';
         return <div className="m-squares-filter">
             <label>
-                <span>{label}</span>
+                <span>Show shapes</span>
                 <Switch onChange={this.handleChange.bind(this)} checked={this.props.mapToolsStore.showShapes} disabled={this.props.mapToolsStore.inEditOrDrawingMode} />
             </label>
         </div>;

@@ -8,7 +8,8 @@ const getStyle = (colour) => {
       break;
     case 'blue-hatched':
       style.fillColor = '#43585d';
-      style.dashArray = '5 5';
+      // style.dashArray = '5 5';
+      style.color = '#325470';
       style.className = 'drawn-polygon-blue-hatched';
       break;
     case 'red-soft':
@@ -17,7 +18,8 @@ const getStyle = (colour) => {
       break;
     case 'red-hatched':
       style.fillColor = '#e3513d';
-      style.dashArray = '5 5';
+      // style.dashArray = '5 5';
+      style.color = '#ea232b';
       style.className = 'orangered';
       break;
     case 'red':
@@ -28,7 +30,8 @@ const getStyle = (colour) => {
       break;
     case 'yellow-hatched':
       style.fillColor = '#eaa349';
-      style.dashArray = '5 5';
+      style.color = '#ef8a29';
+      // style.dashArray = '5 5';
       style.opacity = 0.9;
       break;
     case 'unknown':

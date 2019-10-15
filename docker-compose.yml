@@ -1,33 +1,71 @@
-version: '3.1'
-
-networks:
-  error-network:
-      driver: bridge
+version: '3.5'
 
 volumes:
-  esdata:
+  bundle: 
+  node_modules: 
+  rails_cache: 
+  packs: 
+  db_data: 
+  es_data:
     driver: local
+  irb_history:
 
 services:
+  rails_base: &rails_base
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    tmpfs:
+      - /tmp
+    volumes:
+      - ./src:/app
+      - bundle:/bundle
+      - node_modules:/app/node_modules
+      - packs:/app/public/packs
+      - rails_cache:/app/tmp/cache
+      - ~/.ssh:/root/.ssh
+      - irb_history:/root/irb_history
+      - ./docker/web/.irbrc:/root/.irbrc
+      - ./docker/web/entrypoint.sh:/entrypoint.sh
+    stdin_open: true
+    tty: true
+  web:
+    <<: *rails_base
+    ports:
+      - 3000:3000
+    command: rails s -b 0.0.0.0
+    environment:
+      - WEBPACKER_DEV_SERVER_HOST=webpacker
+
+  webpacker:
+    <<: *rails_base
+    ports:
+      - 3035:3035
+    command: ./bin/webpack-dev-server
+    environment:
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+  
+  shell:
+    <<: *rails_base
+    command: bash
+
   mysql:
     image: mysql:5.7
     ports:
       - '3306:3306'
     volumes:
+      - ./config/docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - db_data:/var/lib/mysql
       - ./src/database/import:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=layers-app_development
-      - MYSQL_USER=user
+      - MYSQL_USER=root
       - MYSQL_PASSWORD=root
-    networks:
-      - error-network
     labels:
       - maintainer='jordi@error.agency'
   redis:
     image: redis:3.2
-    networks:
-      - error-network
     ports:
       - '6379:6379'
     labels:
@@ -37,27 +75,26 @@ services:
     build:
       context: .
       dockerfile: docker/elasticsearch/Dockerfile
-    networks:
-      - error-network
     ports:
       - "9200:9200"
       - "8080:8080"
     environment:
-      LOGSPOUT: 'ignore'
-      ES_JAVA_OPTS: '-Xms1024m -Xmx1024m'
-      bootstrap.memory_lock: 'false'
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 262144
-        hard: 262144
+      # LOGSPOUT: 'ignore'
+      # ES_JAVA_OPTS: '-Xms1024m -Xmx1024m'
+      # bootstrap.memory_lock: 'false'
+      discovery.type: 'single-node'
+    # ulimits:
+    #   memlock:
+    #     soft: -1
+    #     hard: -1
+    #   nofile:
+    #     soft: 262144
+    #     hard: 262144
     volumes:
-      - esdata:/usr/share/elasticsearch/data
+      - es_data:/usr/share/elasticsearch/data
     healthcheck:
       test: ["CMD", "curl", "-SsfL", "127.0.0.1:9200/_cat/health?h=status"]
-      interval: 60s
+      interval: 10s
       timeout: 1s
       retries: 10
 

@@ -1,4 +1,4 @@
-FROM ruby:2.6
+FROM ruby:2.6.3
 
 LABEL maintainer="ed@error.agency"
 
@@ -14,17 +14,17 @@ RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
     nodejs \
     yarn
 
-RUN gem install bundler -v '2.0.1'
+# Configure bundler and PATH
+ENV LANG=C.UTF-8 \
+    GEM_HOME=/bundle \
+    BUNDLE_JOBS=4 \
+    BUNDLE_RETRY=3
+ENV BUNDLE_PATH $GEM_HOME
+ENV BUNDLE_APP_CONFIG=$BUNDLE_PATH \
+    BUNDLE_BIN=$BUNDLE_PATH/bin
+ENV PATH /app/bin:$BUNDLE_BIN:$PATH
 
-COPY Gemfile* /usr/src/app/
-WORKDIR /usr/src/app
-ENV BUNDLE_PATH /gems
-RUN bundle install
+WORKDIR /app
+RUN gem update --system && gem install bundler:2.0.1
 
-#COPY node_modules /usr/src/app/node_modules
-COPY package.json yarn.lock /usr/src/app/
-RUN yarn install --modules-folder /node_modules
-
-COPY . /usr/src/app/
-
-CMD ["bin/rails", "s", "-b", "0.0.0.0"]
+ENTRYPOINT ["/entrypoint.sh"]

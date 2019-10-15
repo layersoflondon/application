@@ -325,7 +325,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_151958) do
     t.boolean "allow_team_editing", default: false
   end
 
-  create_table "tag_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "tag_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.string "slug"
     t.datetime "created_at", null: false
@@ -333,7 +333,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_151958) do
     t.integer "sort_order"
   end
 
-  create_table "taggings", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "taggings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "tag_id"
     t.string "tagger_type"
     t.integer "tagger_id"
@@ -341,7 +341,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_151958) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.string "slug"
     t.integer "tag_group_id"

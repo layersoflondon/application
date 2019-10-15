@@ -8,6 +8,7 @@ import Dates from './dates';
 import Media from './media';
 import Links from './links';
 import CollectionsEditor from './collections_editor';
+import RecordTags from './record_tags';
 import TeamPicker from './team_picker';
 import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
@@ -207,6 +208,7 @@ import NotFound from "../../not_found";
                 <Media {...this.props} />
                 <Links {...this.props} />
                 <CollectionsEditor {...this.props} />
+                <RecordTags {...this.props} />
                 {
                   (this.props.recordFormStore.record.user.id === this.props.currentUser.id) &&
                 <TeamPicker {...this.props} />                                             

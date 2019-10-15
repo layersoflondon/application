@@ -34,8 +34,11 @@ class CollectionsController < ApplicationController
     @collection = current_user.collections.build(collection_params)
     authorize(@collection)
 
-    # todo: work out a better way to determine the owner based on params
-    @collection.owner_id = current_user.id if @collection.owner_type == "User"
+    if collection_params[:write_state] == 'team'
+      @collection.assign_attributes({owner_type: 'Team', owner_id: @collection.write_state_team_id})
+    else
+      @collection.assign_attributes({owner_type: 'User', owner_id: current_user.id})
+    end
 
     if @collection.save
       render json: @collection

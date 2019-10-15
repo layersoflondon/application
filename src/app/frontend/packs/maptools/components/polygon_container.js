@@ -38,6 +38,10 @@ export default class PolygonContainer extends React.Component {
         });
     }
 
+    shouldComponentUpdate() {
+        return false;
+    }
+
     setColour(event) {
         const {colour} = event.currentTarget.dataset;
         const style = getStyle(colour);

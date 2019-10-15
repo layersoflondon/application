@@ -1,14 +1,25 @@
 <% if local_assigns.has_key?(:entity) %>
     <% content_for :title, CGI.unescape_html(entity.title).html_safe %>
     <% content_for :meta_tags do %>
+        <meta name="og:title" content="<%= CGI.unescape_html(entity.title).html_safe %>">
+
         <% if entity.respond_to?(:content) %>
-            <meta name="description" content="<%= strip_tags(entity.content).truncate(180) %>">
+            <% content = strip_tags(entity.content).truncate(180) %>
         <% else %>
-            <meta name="description" content="Read about <%= entity.title %> and explore thousands of records, layers and collections on Layers of London. Add your own records, and help us build more layers.">
+            <% content = "Read about #{entity.title} and explore thousands of records, layers and collections on Layers of London. Add your own records, and help us build more layers." %>
         <% end %>
+        <meta name="description" content="<%= content %>">
+        <meta name="og:description" content="<%= content %>">
 
         <meta name="keywords" content="<%= entity.title %>, layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study
     ">
+        <% if entity.respond_to?(:has_hero_image?) && entity.has_hero_image? %>
+            <meta name="og:image" content="<%= entity.hero_image %>">
+        <% else %>
+            <meta name="og:image" content="<%= asset_url("lol-email-header.png") %>">
+        <% end %>
+        <meta name="og:url" content="<%= request.url %>">
+        <meta name='twitter:card' content='summary' />
     <% end %>
 
 <% end %>
