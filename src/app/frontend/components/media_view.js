@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
 import {NavLink, Link, withRouter} from 'react-router-dom';
 import Img from 'react-image';
-import {appendQueryString} from '../helpers/modals';
+import {appendQueryString, removeQueryStringParams} from '../helpers/modals';
 
 @inject('router', 'trayViewStore', 'mapViewStore')
 @withRouter
@@ -28,6 +28,10 @@ import {appendQueryString} from '../helpers/modals';
     this.scrollingPaneRef.current.scrollLeft += scroll_by;
   }
 
+  handleOnClick() {
+    this.props.mapViewStore.toggleModal('media', false);
+  }
+
   render() {
     if(!this.props.trayViewStore.record || !this.props.mapViewStore.mediaModal) return <React.Fragment />
 
@@ -42,13 +46,12 @@ import {appendQueryString} from '../helpers/modals';
       </div>;
     });
 
-    const link = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}` : `/map/records/${this.props.match.params.id}`;
-
+    const search = removeQueryStringParams(this.props.router.location, ['media', 'media-item-id']);
     return <div className="m-overlay is-showing" style={{zIndex: 12341234, top: 0, left: 0}}>
       <div className="s-overlay--media is-showing">
         <div className="m-media-viewer *m-media-viewer--basic">
           <div className="close">
-            <Link to={link}>Close</Link>
+            <Link to={`/map?${search}`} onClick={this.handleOnClick.bind(this)}>Close</Link>
           </div>
 
           <div className="wrap">

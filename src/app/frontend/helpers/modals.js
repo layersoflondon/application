@@ -53,6 +53,16 @@ const appendQueryString = (location, params) => {
   return queryString.stringify(search);
 }
 
+const removeQueryStringParams = (location, params) => {
+  const search  = queryString.parse(location.search);
+
+  params.map((key) => {
+    search[key] = undefined;
+  });
+
+  return queryString.stringify(search);
+}
+
 const getQueryStringValue = (location, param) => {
   const search  = queryString.parse(location.search);
   return search[param];
@@ -60,4 +70,4 @@ const getQueryStringValue = (location, param) => {
 
 window.removeModal = removeModal;
 
-export {appendQueryString, getCurrentModal, getCurrentModals, getQueryStringValue, setCurrentModal, getValueForModal, removeModal, MODAL_NAMES};
+export {appendQueryString, getCurrentModal, getCurrentModals, getQueryStringValue, setCurrentModal, getValueForModal, removeModal, removeQueryStringParams, MODAL_NAMES};
