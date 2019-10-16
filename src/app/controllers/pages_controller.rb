@@ -8,10 +8,11 @@ class PagesController < ApplicationController
   nested_rooftop_resource :page
   decorates_assigned :page, with: PageDecorator
   decorates_assigned :featured_items, with: FeaturedItemDecorator
-
+  decorates_assigned :tag_groups, with: TagGroupDecorator
+  
   skip_before_action :authenticate_user!
   skip_after_action :verify_authorized
-
+  
   prepend_before_action :redirect_page_if_required, only: :show
   prepend_before_action :find_and_validate_page, only: :show
 
@@ -53,7 +54,6 @@ class PagesController < ApplicationController
   def get_homepage_content
     # This is where you put homepage-specific stuff - usually other calls to Rooftop which you assign to instance variables.
     @featured_items = FeaturedItemsIndex.order(sort_order: :asc)
+    @tag_groups = TagGroupsIndex.all
   end
-
-
 end

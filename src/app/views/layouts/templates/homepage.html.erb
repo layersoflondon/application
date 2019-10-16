@@ -57,6 +57,18 @@
             </ul>
         </div>
 
+        <ul class="m-tag-groups-list">
+            <% tag_groups.each do |tag_group| %>
+                <li><%= link_to tag_group.name, resources_map_path(resource: :search, tag_group_ids: tag_group.id, results: true, tag_name: tag_group.name) %> 
+                    <ul class="m-tags-tooltip">
+                        <% tag_group.tags.each do |tag| %>
+                            <%= link_to tag["name"], resources_map_path(resource: :search, tag_ids: tag["id"], results: true, tag_name: tag["name"]) %>
+                        <% end %>
+                    </ul>
+                </li>
+            <% end %>
+        </ul>
+
     </main>
 
     <div class="homepage-ctas-wrapper">

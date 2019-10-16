@@ -15,6 +15,12 @@ class SearchController < ApplicationController
       @results = RecordsIndex.user_records(params)
     elsif params[:collections].present? && params[:collections].in?(["true", true])
       @results = CollectionsIndex.published
+    elsif params[:tag_ids].present?
+      tag_ids = [params[:tag_ids]]
+      @results = RecordsIndex.published.with_tags(tag_ids)
+    elsif params[:tag_group_ids].present?
+      tag_group_ids = [params[:tag_group_ids]]
+      @results = RecordsIndex.published.with_tag_groups(tag_group_ids)
     else
       render json: '', status: :bad_request
     end
