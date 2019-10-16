@@ -20,7 +20,7 @@ import {Router} from 'react-router';
 import axios from 'axios';
 import initStore from '../stores/stores';
 
-import {getCurrentModal, setCurrentModal} from '../helpers/modals';
+import {getCurrentModals} from '../helpers/modals';
 
 document.addEventListener('DOMContentLoaded', () => {
     if( typeof window.__STATE === "undefined" ) return;
@@ -47,10 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 history.previousLocalStates += 1;
             }
 
-            const currentModal = getCurrentModal(newLocation);
-            if(currentModal) {
-                console.log("Showing modal", currentModal);
-                stores.mapViewStore.toggleModal(currentModal, true);
+            const currentModals = getCurrentModals(newLocation);
+            
+            if(currentModals) {
+                currentModals.map((modal) => stores.mapViewStore.toggleModal(modal, true));
             }
         });
 

@@ -11,7 +11,7 @@ import RecordViewContent from './record_view_content';
 import RecordViewFooter from './record_view_footer';
 import NotFound from '../not_found'
 
-import {recordEvent, recordPageView} from "../../config/data_layer";
+import {recordPageView} from "../../config/data_layer";
 import {removeModal, getValueForModal} from '../../helpers/modals';
 
 @observer class RecordView extends Component {
@@ -49,9 +49,9 @@ import {removeModal, getValueForModal} from '../../helpers/modals';
       let content_gallery_component = null;
 
       if( this.props.trayViewStore.record.view_type === 'gallery' ) {
-        header_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} numberOfItems={4} />;
+        header_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} numberOfItems={4} router={this.props.router} />;
       }else {
-        content_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} />;
+        content_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} router={this.props.router} />;
       }
 
       return(

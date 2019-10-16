@@ -1,14 +1,19 @@
 import queryString from 'query-string';
 
 const MODAL_NAMES = [
-  'record', 'record_form'
+  'record', 'media', 'record_form'
 ];
 
-const getCurrentModal = (location) => {
+const getCurrentModals = (location) => {
   const search  = queryString.parse(location.search);
-  const current = Object.keys(search).find((key) => MODAL_NAMES.indexOf(key)>-1);
+  const current = Object.keys(search).filter((key) => MODAL_NAMES.indexOf(key)>-1);
   
   return current;
+}
+
+const getCurrentModal = (location) => {
+  const current = getCurrentModals(location);
+  return current.length ? current[0] : null;
 }
 
 const setCurrentModal = (location, modal, value) => {
@@ -28,7 +33,7 @@ const removeModal = (location, modal, store) => {
   const search  = queryString.parse(location.search);
   search[modal] = undefined;
 
-  if(store) store.toggleModal('record', false);
+  if(store) store.toggleModal(modal, false);
   
   return queryString.stringify(search);
 }
@@ -36,8 +41,23 @@ const removeModal = (location, modal, store) => {
 const getValueForModal = (location, modal) => {
   const search  = queryString.parse(location.search);
   return search[modal];
+};
+
+const appendQueryString = (location, params) => {
+  const search  = queryString.parse(location.search);
+
+  params.map((keyValue) => {
+    search[keyValue.key] = keyValue.value;
+  });
+
+  return queryString.stringify(search);
+}
+
+const getQueryStringValue = (location, param) => {
+  const search  = queryString.parse(location.search);
+  return search[param];
 }
 
 window.removeModal = removeModal;
 
-export {getCurrentModal, setCurrentModal, getValueForModal, removeModal, MODAL_NAMES};
+export {appendQueryString, getCurrentModal, getCurrentModals, getQueryStringValue, setCurrentModal, getValueForModal, removeModal, MODAL_NAMES};

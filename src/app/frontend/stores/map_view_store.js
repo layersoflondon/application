@@ -25,19 +25,19 @@ export default class MapViewStore {
     extendObservable(this, modalNames);
   }
 
-  @computed get current_bounds() {
-    let center = this.map_ref.leafletElement.getBounds().getCenter();
-    let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
-    const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
-    const south_east = this.map_ref.leafletElement.getBounds().getSouthEast();
+  // @computed get current_bounds() {
+  //   let center = this.map_ref.leafletElement.getBounds().getCenter();
+  //   let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+  //   const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
+  //   const south_east = this.map_ref.leafletElement.getBounds().getSouthEast();
     
-    return {
-      top_left: north_west,
-      bottom_right: south_east,
-      center: center,
-      radius: radius
-    };
-  }
+  //   return {
+  //     top_left: north_west,
+  //     bottom_right: south_east,
+  //     center: center,
+  //     radius: radius
+  //   };
+  // }
 
   panTo(lat, lng, zoom = null) {
     this.initial_position = this.center;
@@ -61,7 +61,6 @@ export default class MapViewStore {
 
   @action.bound toggleModal(modal, value) {
     const visible = value || !this[`${modal}Modal`];
-    console.log(`Setting ${modal} = ${visible}`);
     this[`${modal}Modal`] = visible;
   }
 }

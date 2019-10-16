@@ -85,6 +85,14 @@ import RecordTags from "./forms/records/record_tags";
 
       <Route component={RecordView} />
 
+      <MediaView>
+        <TransitionGroup>
+          <CSSTransition timeout={100} classNames={'media-item'} key={location.key} >
+            <Route component={MediaItem} />
+          </CSSTransition>
+        </TransitionGroup>
+      </MediaView>
+
         <Route path='/map' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
         <Route exact path='/map?:lat/:lng' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
 
@@ -147,7 +155,7 @@ import RecordTags from "./forms/records/record_tags";
           {/*<Redirect to='/map' />*/}
         {/*)} />*/}
 
-        <Route exact={true} path='/map/records/:id/media/:media_item_id' render={( {match, location} ) => (
+        {/* <Route exact={true} path='/map/records/:id/media/:media_item_id' render={( {match, location} ) => (
           <RecordView>
             <MediaView>
               <TransitionGroup>
@@ -157,7 +165,7 @@ import RecordTags from "./forms/records/record_tags";
               </TransitionGroup>
             </MediaView>
           </RecordView>
-        )} />
+        )} /> */}
 
         {/* fixme: dry this route up later*/}
         <Route exact={true} path='/map/collections/:collection_id/records/:id/media/:media_item_id' render={( {match, location} ) => (

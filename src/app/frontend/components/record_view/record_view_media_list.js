@@ -29,7 +29,7 @@ import {Link} from 'react-router-dom';
     let media_components = <span />;
 
     if( media_container_class === 'thumbs' ) {
-      media_components = thumbs.map((media) => <RecordViewMediaListItem key={`media_${media.id}`} media={media} record={this.props.record} />);
+      media_components = thumbs.map((media) => <RecordViewMediaListItem key={`media_${media.id}`} media={media} record={this.props.record} router={this.props.router} />);
     }
 
     let expandable_media_list = false;
