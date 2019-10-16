@@ -184,11 +184,14 @@ export default class MapView extends React.Component {
           }
 
           {this.props.mapToolsStore.square &&
-          <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
+            <React.Fragment>
+              <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
+              {immutablePolygons}
+
+            </React.Fragment>
           }
 
           {drawingControl}
-          {immutablePolygons}
 
         </Map>
       </div>
