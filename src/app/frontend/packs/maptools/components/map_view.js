@@ -106,12 +106,12 @@ export default class MapView extends React.Component {
           fillOpacity = 0;
           break;
         case "done":
-          fillColor = "#ffb165";
-          fillOpacity = 0.8;
+          fillColor = "#FFCF00";
+          fillOpacity = 0.3;
           break;
         case "verified":
-          fillColor = "#40a35f";
-          fillOpacity = 0.8;
+          fillColor = "#00FF0B";
+          fillOpacity = 0.2;
           break;
         case "flagged":
 
