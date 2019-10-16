@@ -179,7 +179,7 @@ export default class MapView extends React.Component {
           <TileLayer url="http://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png"/>
 
           { !this.props.mapToolsStore.square &&
-          <GeoJSON data={this.props.mapToolsStore.squares} style={this.gridStyle.bind(this)} />
+            <GeoJSON data={this.props.mapToolsStore.squares} style={this.gridStyle.bind(this)} />
 
           }
 
