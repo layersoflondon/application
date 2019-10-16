@@ -5,8 +5,15 @@ import {Redirect, withRouter} from 'react-router-dom';
 import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import Helmet from 'react-helmet';
 
+import TrayContainer from './tray_container';
+import TrayRecordsIndex from './tray/records_index';
+import TrayCollection from './tray/collection';
+import TrayUserRecordsIndex from './tray/user_records_index';
+import TrayTeamRecordsIndex from './tray/team_records_index';
+import TrayGettingStarted from './tray/getting_started';
+import Tray from './tray/tray';
+
 import Tools from './tools';
-import Tray from './tray';
 import MapView from './map_view';
 import SearchView from './forms/search/search_view';
 import RecordView from './record_view_wrapper';
@@ -52,7 +59,32 @@ import RecordTags from "./forms/records/record_tags";
       {/*permanantly visible components */}
 
       <ErrorBoundary><Tools/></ErrorBoundary>
-      <ErrorBoundary><Tray/></ErrorBoundary>
+      <ErrorBoundary>
+        <TrayContainer>
+          <Switch>
+            <Route exact path='/map' component={TrayGettingStarted} />
+            <Route exact path='/map/:type' render={({match}) => {
+              let title = "";
+              switch(match.params.type) {
+                case 'highlighted':
+                  title = "Highlights"
+                  break;
+                case 'popular':
+                  title = "Popular";
+                  break;
+              }
+              return <TrayRecordsIndex type={match.params.type} title={title} />
+            }} />
+
+            <Route exact path='/map/collections/:id' component={TrayCollection} />
+            <Route exact path='/map/teams/:id' component={TrayTeamRecordsIndex} />
+            <Route exact path='/map/users/:id' component={TrayUserRecordsIndex} />
+          </Switch>
+        </TrayContainer>
+      </ErrorBoundary>
+
+      <Route component={RecordView} />
+
         <Route path='/map' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
         <Route exact path='/map?:lat/:lng' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
 
@@ -79,10 +111,8 @@ import RecordTags from "./forms/records/record_tags";
         <Route exact path='/map/records/:id/edit' component={RecordForm} />
         <Route exact path='/map/collections/:collection_id/records/:id/edit' component={RecordForm} />
 
-
-
         {/* view a record */}
-        <Route exact path='/map/records/:id' component={RecordView} />
+        {/* <Route exact path='/map/records/:id' component={RecordView} /> */}
         <Route exact path='/map/records/:id/report' render={({match, location}) => (
           <ErrorBoundary>
             <RecordView match={match}>
@@ -143,7 +173,7 @@ import RecordTags from "./forms/records/record_tags";
         )} />
 
         {/* view a collection */}
-        <Route exact path='/map/collections/:id' component={CollectionView} />
+        {/* <Route exact path='/map/collections/:id' component={CollectionView} /> */}
 
         {/* view a team */}
         <Route exact path='/map/teams/:id' component={TeamView} />

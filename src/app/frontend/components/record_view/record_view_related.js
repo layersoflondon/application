@@ -18,7 +18,7 @@ import RecordViewRelatedRecord from "./record_view_related_record";
   }
 
   render() {
-    if( this.state.status === 'loaded' ) {
+    if( this.state.status === 'loaded' && this.props.record.related ) {
       const cards = this.props.record.related.map((related_record, i) => {
         return <RecordViewRelatedRecord key={`related-${i}`} record={related_record} />
       });

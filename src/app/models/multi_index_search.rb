@@ -4,6 +4,14 @@ class MultiIndexSearch
     CollectionsIndex
   ]
 
+  def self.highlighted(params = {})
+    self.query({q: "highlighted"}, limit: (params[:limit] || 2)) # fixme: make this do a proper query
+  end
+
+  def self.popular(params = {})
+    self.query({q: "popular"}, limit: (params[:limit] || 6)) # fixme: make this do a proper query
+  end
+
   def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 100)
     Rails.logger.info("called filter_by_geobounds")
 

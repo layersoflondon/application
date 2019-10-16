@@ -1,15 +1,13 @@
-import {observable, observe, computed, intercept} from 'mobx';
+import {action, observable, observe, computed, intercept, runInAction} from 'mobx';
 import Record from '../sources/record';
+import Search from '../sources/search';
+
 import Collection from '../sources/collection';
 import User from '../sources/user';
 import Team from '../sources/team';
 
 import CardModel from '../models/card';
-import CollectionModel from '../models/collection';
-import Search from "../sources/search";
 import pluralize from 'pluralize'
-
-window.Collection = Collection;
 
 /**
  * The data store for the TrayView
@@ -44,11 +42,15 @@ export default class TrayViewStore {
   @observable searching = false;
   @observable loading_error = false;
 
+  @observable results
+
+  @observable highlightedResults = observable.map();
+  @observable mainResults = observable.map();
+
   map_ref = null;
   tray_list_ref = null;
 
   constructor() {
-
     this.setHeaderContent({});
 
     observe(this, 'cards', (change) => {
@@ -64,70 +66,70 @@ export default class TrayViewStore {
     });
 
     // mutating the visible_record_id will fetch that record and update the RecordView component with the relevant state
-    observe(this, 'record_id', (change) => {
-      this.loading_record = true;
-      this.loading_error = false;
+    // observe(this, 'record_id', (change) => {
+    //   this.loading_record = true;
+    //   this.loading_error = false;
 
-      if( change.newValue && change.newValue !== 'new' ) {
-        // if(this.cards.get(`record_${change.newValue}`)) {
-        //   let card = this.cards.get(`record_${change.newValue}`);
-        //   this.record = card.data;
-        //   this.loading_record = false;
-        // }else {
-          Record.show(null, this.record_id).then((response) => {
-            let card = CardModel.fromJS(response.data, this);
-            this.cards.set(card.id, card);
-            this.record = card.data;
-            this.loading_record = true;
-            this.loading_error = false;
-          }).catch((error) => {
-            console.log(error);
-            // console.log(`Error getting record ${this.record_id}`, error);
-            this.record_id = null;
-            this.loading_error = true;
-          }).then(() => {
-            this.loading_record = false;
-          });
-        // }
+    //   if( change.newValue && change.newValue !== 'new' ) {
+    //     // if(this.cards.get(`record_${change.newValue}`)) {
+    //     //   let card = this.cards.get(`record_${change.newValue}`);
+    //     //   this.record = card.data;
+    //     //   this.loading_record = false;
+    //     // }else {
+    //       Record.show(null, this.record_id).then((response) => {
+    //         let card = CardModel.fromJS(response.data, this);
+    //         this.cards.set(card.id, card);
+    //         this.record = card.data;
+    //         this.loading_record = true;
+    //         this.loading_error = false;
+    //       }).catch((error) => {
+    //         console.log(error);
+    //         // console.log(`Error getting record ${this.record_id}`, error);
+    //         this.record_id = null;
+    //         this.loading_error = true;
+    //       }).then(() => {
+    //         this.loading_record = false;
+    //       });
+    //     // }
 
-        if(this.fetch_additional_records && !this.locked) {
-          setTimeout(() => {
-            this.reloadTrayDataForBounds(this.boundsFromMapRef, true);
-          }, 5);
-        }
-      }else {
-        this.record = null;
-        this.loading_record = false;
-      }
-    });
+    //     if(this.fetch_additional_records && !this.locked) {
+    //       setTimeout(() => {
+    //         this.reloadTrayDataForBounds(this.boundsFromMapRef, true);
+    //       }, 5);
+    //     }
+    //   }else {
+    //     this.record = null;
+    //     this.loading_record = false;
+    //   }
+    // });
 
-    observe(this, 'collection_id', (change) => {
-      this.loading_error = false;
-      if( change.newValue ) {
-        this.loading_collection = true;
-        Collection.show(null, this.collection_id).then((response) => {
-          this.root = false;
-          this.setHeaderContent({
-            title: response.data.title,
-            introduction: response.data.description,
-            tray_view_type: "Collection"
-          });
-          this.showCollectionOfCards(response.data.records);
-          //  Lock this view so dragging the map doesn't change the cards
-          this.locked = true;
-        }).catch((error) => {
-          this.loading_error = true;
-          this.collection_id = null;
-        }).then(() => {
-          this.loading_collection = false;
-        });
-      }else {
-        this.collection_id = null;
-        this.collection_ids = null;
-        this.loading_collection = false;
-        this.locked = false;
-      }
-    });
+    // observe(this, 'collection_id', (change) => {
+    //   this.loading_error = false;
+    //   if( change.newValue ) {
+    //     this.loading_collection = true;
+    //     Collection.show(null, this.collection_id).then((response) => {
+    //       this.root = false;
+    //       this.setHeaderContent({
+    //         title: response.data.title,
+    //         introduction: response.data.description,
+    //         tray_view_type: "Collection"
+    //       });
+    //       this.showCollectionOfCards(response.data.records);
+    //       //  Lock this view so dragging the map doesn't change the cards
+    //       this.locked = true;
+    //     }).catch((error) => {
+    //       this.loading_error = true;
+    //       this.collection_id = null;
+    //     }).then(() => {
+    //       this.loading_collection = false;
+    //     });
+    //   }else {
+    //     this.collection_id = null;
+    //     this.collection_ids = null;
+    //     this.loading_collection = false;
+    //     this.locked = false;
+    //   }
+    // });
 
     intercept(this, "collection_ids", (change) => {
       if( change.newValue && change.newValue.length ) {
@@ -201,30 +203,30 @@ export default class TrayViewStore {
       }
     });
 
-    observe(this, 'team_id', (change) => {
-      if( change.newValue ) {
-        this.loading_collection = true;
-        Team.show(null,this.team_id).then((response) => {
-          this.root = false;
-          this.setHeaderContent({
-            title: response.data.name,
-            introduction: response.data.description,
-            tray_view_type: "Team"
-          });
-          this.showCollectionOfCards(response.data.records);
+  //   observe(this, 'team_id', (change) => {
+  //     if( change.newValue ) {
+  //       this.loading_collection = true;
+  //       Team.show(null,this.team_id).then((response) => {
+  //         this.root = false;
+  //         this.setHeaderContent({
+  //           title: response.data.name,
+  //           introduction: response.data.description,
+  //           tray_view_type: "Team"
+  //         });
+  //         this.showCollectionOfCards(response.data.records);
 
-          this.locked = true;
-        }).catch((error) => {
-          this.team_id = null;
-        }).then(() => {
-          this.loading_team = false;
-        });
-      }else {
-        this.team_id = null;
-        this.loading_team = false;
-        this.locked = false;
-      }
-    });
+  //         this.locked = true;
+  //       }).catch((error) => {
+  //         this.team_id = null;
+  //       }).then(() => {
+  //         this.loading_team = false;
+  //       });
+  //     }else {
+  //       this.team_id = null;
+  //       this.loading_team = false;
+  //       this.locked = false;
+  //     }
+  //   });
   }
 
   toggleTrayVisibility(event) {
@@ -348,8 +350,7 @@ export default class TrayViewStore {
    * @param id
    * @param fetch_additional_records
    */
-  fetchRecord(id, fetch_additional_records = false) {
-    this.fetch_additional_records = fetch_additional_records;
+  fetchRecord(id) {
     this.record_id = id;
   }
 
@@ -368,10 +369,6 @@ export default class TrayViewStore {
     // }
   }
 
-  fetchTrayData() {
-    this.reloadTrayDataForBounds(this.boundsFromMapRef);
-  }
-
   /**
    * replace the current collection of cards with the given data
    *
@@ -386,7 +383,7 @@ export default class TrayViewStore {
       cards.set(card.id, card);
     });
 
-    if( this.cards.keys().toString() !== cards.keys().toString() ) {
+    if( this.tray_list_ref.current && this.cards.keys().toString() !== cards.keys().toString() ) {
       this.tray_list_ref.current.scrollTop = 0;
     }
 
@@ -452,5 +449,80 @@ export default class TrayViewStore {
     this.cards.set(card.id, card);
 
     return card;
+  }
+
+  // actions
+  @action.bound fetchGettingStartedData() {
+    this.highlightedResults.clear();
+    this.mainResults.clear();
+    
+    runInAction(async () => {
+      const highlightedContentData = await Search.perform({type: 'highlighted', limit: 2});
+      const popularContentData     = await Search.perform({type: 'popular', limit: 6});
+      
+      const highlightedContent = observable.map();
+      const popularContent = observable.map();
+
+      highlightedContentData.data.map((result) => {
+        const card = CardModel.fromJS(result, this);
+        highlightedContent.set(result.id, card);
+      });
+
+      popularContentData.data.map((result) => {
+        const card = CardModel.fromJS(result, this);
+        popularContent.set(result.id, card);
+      });
+
+      this.highlightedResults.replace(highlightedContent);
+      this.mainResults.replace(popularContent);
+    });
+  }
+
+  @action.bound fetchData(params) {
+    this.mainResults.clear();
+
+    runInAction(async() => {
+      const mainContentData = await Search.perform(params);
+      const mainResults = observable.map();
+      mainContentData.data.map((result) => {
+        const card = CardModel.fromJS(result, this);
+        mainResults.set(result.id, card);
+      });
+      
+      this.mainResults.replace(mainResults);
+    });
+  }
+
+  @action.bound fetchRecord(id) {
+    Record.show(null, id).then((response) => {
+      let card = CardModel.fromJS(response.data, this);
+      this.cards.set(card.id, card);
+      this.record = card.data;
+      this.loading_record = true;
+      this.loading_error = false;
+    }).catch((error) => {
+      console.log(error);
+      this.record_id = null;
+      this.loading_error = true;
+    }).then(() => {
+      this.loading_record = false;
+    });
+  }
+
+  @action.bound fetchCollection(id) {
+    this.mainResults.clear();
+
+    runInAction(async() => {
+      const collection = await Collection.show(null, id);
+      this.collection = collection.data;
+      
+      const mainResults = observable.map();
+      this.collection.records.map((result) => {
+        const card = CardModel.fromJS(result, this);
+        mainResults.set(result.id, card);
+      });
+      
+      this.mainResults.replace(mainResults);
+    });
   }
 }

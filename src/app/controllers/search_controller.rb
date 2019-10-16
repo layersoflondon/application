@@ -15,6 +15,9 @@ class SearchController < ApplicationController
       @results = RecordsIndex.user_records(params)
     elsif params[:collections].present? && params[:collections].in?(["true", true])
       @results = CollectionsIndex.published
+    elsif params[:type].present? && params[:type].in?(['highlighted', 'popular'])
+      args = params.permit!.to_hash.without(:type)
+      @results = MultiIndexSearch.send(params[:type], args)
     else
       render json: '', status: :bad_request
     end

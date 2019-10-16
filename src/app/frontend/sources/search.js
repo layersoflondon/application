@@ -8,3 +8,5 @@ export default class Search extends LoLHTTPBase {
         return axios.post(`${this.resource_path}`, params);
     }
 }
+
+window.Search = Search;

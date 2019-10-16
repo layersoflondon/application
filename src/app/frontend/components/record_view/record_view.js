@@ -1,7 +1,6 @@
 import React,{Component, Fragment} from 'react';
-import { Map, Marker, TileLayer } from 'react-leaflet'
+import {Link} from 'react-router-dom';
 import {observer} from "mobx-react";
-import {NavLink} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 
 import RecordViewMediaList from './record_view_media_list';
@@ -13,28 +12,27 @@ import RecordViewFooter from './record_view_footer';
 import NotFound from '../not_found'
 
 import {recordEvent, recordPageView} from "../../config/data_layer";
+import {removeModal, getValueForModal} from '../../helpers/modals';
 
 @observer class RecordView extends Component {
   constructor(props) {
     super(props);
 
     this.state = {loading: true};
-  }
 
-  componentWillMount() {
-    const fetch_nearby_data = this.props.trayViewStore.cards.size === 0;
-
-    if( this.props.match.params.collection_id ) {
-      this.props.trayViewStore.fetchCollectionAndRecord(this.props.match.params.collection_id, this.props.match.params.id);
-    }else if( this.props.match.params.id ) {
-      this.props.trayViewStore.fetchRecord(this.props.match.params.id, fetch_nearby_data);
+    this.fetchRecord = () => {
+      const id = getValueForModal(this.props.location, 'record');
+      return this.props.trayViewStore.fetchRecord(id)
     }
   }
 
-  componentWillUnmount() {
-    if( this.props.router.location.pathname.search(/\/edit$/) > -1 ) {
-    }else {
-    }
+  componentDidMount() {
+    this.fetchRecord();
+  }
+
+  handleOnClick(event) {
+    this.props.mapViewStore.toggleModal('record', false);
+    this.props.trayViewStore.record = null;
   }
   
   render() {
@@ -42,7 +40,7 @@ import {recordEvent, recordPageView} from "../../config/data_layer";
       return <NotFound {...this.props} />
     }
 
-    if( this.props.trayViewStore.record ) {
+    if( this.props.trayViewStore.record && this.props.mapViewStore.recordModal ) {
       if (this.props.router.location.pathname.search(/\/media/) === -1) {
         recordPageView(this.props.trayViewStore.record.title);
       }
@@ -76,11 +74,10 @@ import {recordEvent, recordPageView} from "../../config/data_layer";
           <div className="m-overlay is-showing">
             <div className="s-overlay--record is-showing">
               <div className={header_classes}>
-
                 <div className="close">
-                  <a href="#" className="close" onClick={this.handleCloseOnClick}>Close</a>
+                  <Link onClick={this.handleOnClick.bind(this)} to={`${this.props.router.location.pathname}${removeModal(this.props.router.location, 'record')}`} className="close">Close</Link>
                 </div>
-
+                
                 <div className="wrap">
                   <RecordViewHeader  {...this.props} gallery={header_gallery_component} />
                   <RecordViewContent {...this.props} gallery={content_gallery_component} />

@@ -20,6 +20,8 @@ import {Router} from 'react-router';
 import axios from 'axios';
 import initStore from '../stores/stores';
 
+import {getCurrentModal, setCurrentModal} from '../helpers/modals';
+
 document.addEventListener('DOMContentLoaded', () => {
     if( typeof window.__STATE === "undefined" ) return;
     const userPresent = window.__USER_PRESENT;
@@ -32,25 +34,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const history = syncHistoryWithStore(browserHistory, routerStore);
     history.previousLocalStates = 0;
 
-    history.subscribe((newLocation, action) => {
-        if( action === "PUSH" ) {
-            history.previousLocalStates += 1;
-        }
-    });
-
     // fetch the initial app state then initialize the stores and components
     axios.get('/map/state.json').then((response) => {
         const stores = initStore(response.data);
         stores.router = routerStore;
         stores.currentUser = window.__USER;
 
+        history.subscribe((newLocation, action) => {
+            stores.trayViewStore.loading_error = false; // reset any loading errors when we change location
+
+            if( action === "PUSH" ) {
+                history.previousLocalStates += 1;
+            }
+
+            const currentModal = getCurrentModal(newLocation);
+            if(currentModal) {
+                console.log("Showing modal", currentModal);
+                stores.mapViewStore.toggleModal(currentModal, true);
+            }
+        });
+
         ReactDOM.render(
-          <Provider {...stores} userPresent={userPresent} adminUserPresent={adminUserPresent} mapBounds={mapBounds} mapboxStaticMapsKey={mapboxStaticMapsKey}>
-            <Router history={history} >
-              <Main />
-            </Router>
-          </Provider>,
-          document.getElementById("map-root")
+            <Provider {...stores} userPresent={userPresent} adminUserPresent={adminUserPresent} mapBounds={mapBounds} mapboxStaticMapsKey={mapboxStaticMapsKey}>
+                <Router history={history} >
+                <Main />
+                </Router>
+            </Provider>,
+            document.getElementById("map-root")
         );
     });
 

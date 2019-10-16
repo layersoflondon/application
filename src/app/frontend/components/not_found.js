@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 
 import {inject} from "mobx-react/index";
 
-@inject('router')
+@inject('router', 'mapViewStore')
 @observer export default class NotFound extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +12,14 @@ import {inject} from "mobx-react/index";
 
   handleCloseOnClick(event) {
     event.preventDefault();
-    this.props.router.history.push('/map');
+
+    let newLocation = '/map';
+    
+    if(this.props.mapViewStore.previousLocation) {
+      newLocation = this.props.mapViewStore.previousLocation;
+    }
+
+    this.props.router.history.push(newLocation);
   }
 
   render() {

@@ -1,4 +1,5 @@
-import {observe, observable, computed} from "mobx";
+import {action, extendObservable, observe, observable, computed} from "mobx";
+import {MODAL_NAMES} from '../helpers/modals';
 
 /**
  * Handle's map attributes like initial position (center), the zoom level, currently visible overlay
@@ -18,17 +19,10 @@ export default class MapViewStore {
   // map_ref = null;
 
   constructor() {
-    // if we render the record_form, we should hide the place_picker component by exiting 'add_record_mode'
-    // observe(this, 'overlay', (change) => {
-    //   if( change.newValue === "record_form" ) {
-    //
-    //     this.add_record_mode = false;
-    //   }
-    // });
-
-    // observe(this, 'center', (change) => {
-      // this.map_ref.leafletElement.panTo(new L.LatLng(...(change.newValue.toJS())))
-    // });
+    // make any modals defined in modals::MODAL_NAMES observable props
+    const modalNames = {};
+    MODAL_NAMES.map((m) => modalNames[`${m}Modal`] = null);
+    extendObservable(this, modalNames);
   }
 
   @computed get current_bounds() {
@@ -59,5 +53,15 @@ export default class MapViewStore {
     Object.assign(map_view_store, object);
 
     return map_view_store;
+  }
+
+  modalIsVisible(modal) {
+    return this[`${modal}Modal`];
+  }
+
+  @action.bound toggleModal(modal, value) {
+    const visible = value || !this[`${modal}Modal`];
+    console.log(`Setting ${modal} = ${visible}`);
+    this[`${modal}Modal`] = visible;
   }
 }
