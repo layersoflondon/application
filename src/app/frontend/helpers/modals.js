@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 
 const MODAL_NAMES = [
-  'record', 'media', 'newRecord'
+  'record', 'media', 'newRecord', 'editRecord'
 ];
 
 const getCurrentModals = (location) => {
@@ -43,6 +43,8 @@ const getValueForModal = (location, modal) => {
   return search[modal];
 };
 
+const getQueryStringParam = getValueForModal;
+
 const appendQueryString = (location, params, remove) => {
   const search  = queryString.parse(location.search);
 
@@ -76,4 +78,4 @@ const getQueryStringValue = (location, param) => {
 
 window.removeModal = removeModal;
 
-export {appendQueryString, getCurrentModal, getCurrentModals, getQueryStringValue, setCurrentModal, getValueForModal, removeModal, removeQueryStringParams, MODAL_NAMES};
+export {appendQueryString, getCurrentModal, getCurrentModals, getQueryStringValue, getQueryStringParam, setCurrentModal, getValueForModal, removeModal, removeQueryStringParams, MODAL_NAMES};

@@ -18,11 +18,11 @@ import RecordViewRelatedRecord from "./record_view_related_record";
   }
 
   render() {
-    if( this.state.status === 'loaded' && this.props.record.related ) {
+    if( this.state.status === 'loaded' ) {
       const cards = this.props.record.related.map((related_record, i) => {
         return <RecordViewRelatedRecord key={`related-${i}`} record={related_record} />
       });
-
+      
       return <Fragment>
           <div className={`m-related related-records-count-${this.props.record.related.length}`}>
             {this.props.record.related.length>0 &&

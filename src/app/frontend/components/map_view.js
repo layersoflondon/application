@@ -59,8 +59,8 @@ import {removeModal, appendQueryString} from '../helpers/modals';
       this.props.recordFormStore.record.lat = lat;
       this.props.recordFormStore.record.lng = lng;
 
-      this.props.mapViewStore.setChoosePlaceMode(false);
-      this.props.mapViewStore.setRecordEditMode(true);
+      this.props.mapViewStore.inChoosePlaceMode = false;
+      this.props.mapViewStore.inEditRecordMode = true;
 
       if (!!this.props.recordFormStore.record.id) {
         this.props.router.push(`/map/records/${this.props.recordFormStore.record.id}/edit`)

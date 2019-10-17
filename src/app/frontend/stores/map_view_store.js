@@ -1,6 +1,5 @@
-import {action, extendObservable, runInAction, observable, computed} from "mobx";
+import {action, extendObservable, runInAction, observable, computed, observe} from "mobx";
 import {MODAL_NAMES} from '../helpers/modals';
-import { observer } from "mobx-react";
 
 /**
  * Handle's map attributes like initial position (center), the zoom level, currently visible overlay
@@ -25,6 +24,12 @@ export default class MapViewStore {
     const modalNames = {};
     MODAL_NAMES.map((m) => modalNames[`${m}Modal`] = null);
     extendObservable(this, modalNames);
+
+    observe(this, 'editRecordModal', (change) => {
+      if(change.newValue) {
+        runInAction(() => this.recordModal = false)
+      }
+    });
   }
 
   @computed get current_bounds() {
@@ -67,24 +72,25 @@ export default class MapViewStore {
     this[`${modal}Modal`] = visible;
   }
 
-  @action.bound setChoosePlaceMode(enabled) {
+  // @action.bound setChoosePlaceMode(enabled) {
+  //   runInAction(() => {
+  //     this.add_record_mode = enabled;
+  //     this.trayViewStore.toggleTrayVisibility();
+  //   });
+  // }
+
+  @computed get inChoosePlaceMode() {
+    return this.add_record_mode;
+  }set inChoosePlaceMode(value) {
     runInAction(() => {
-      this.add_record_mode = enabled;
+      this.add_record_mode = value;
       this.trayViewStore.toggleTrayVisibility();
     });
   }
 
-  @action.bound setRecordEditMode(enabled) {
-    runInAction(() => {
-      this.edit_record_mode = enabled;
-    })
-  }
-
-  @computed get inChoosePlaceMode() {
-    return this.add_record_mode;
-  }
-
   @computed get inEditRecordMode() {
     return this.edit_record_mode;
+  }set inEditRecordMode(value) {
+    this.edit_record_mode = value;
   }
 }

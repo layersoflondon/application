@@ -21,7 +21,7 @@ import {observer, inject} from "mobx-react";
   handleCancelOnClick(event) {
     event.preventDefault();
 
-    this.props.mapViewStore.setChoosePlaceMode(false);
+    this.props.mapViewStore.inChoosePlaceMode = false;
   }
 
   render() {

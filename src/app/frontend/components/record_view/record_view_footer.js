@@ -51,7 +51,7 @@ import {NavLink} from 'react-router-dom';
 
           {
             this.props.trayViewStore.record.user_can_edit_record &&
-            <NavLink to={`${link_path}/records/${this.props.match.params.id}/edit`} className="edit">Edit</NavLink>
+            <NavLink to={`/map?editRecord=${this.props.trayViewStore.record.id}`} className="edit">Edit</NavLink>
           }
         </div>
       </div>

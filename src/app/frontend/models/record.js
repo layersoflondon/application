@@ -47,6 +47,7 @@ export default class RecordModel {
   @observable tag_ids = [];
 
   tag_groups = [];
+  related = [];
 
   added_by_student = false;
   user_can_edit = true;

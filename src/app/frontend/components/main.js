@@ -117,8 +117,8 @@ import RecordTags from "./forms/records/record_tags";
         <Route component={RecordForm} />
 
         {/* edit an existing record */}
-        <Route exact path='/map/records/:id/edit' component={RecordForm} />
-        <Route exact path='/map/collections/:collection_id/records/:id/edit' component={RecordForm} />
+        {/* <Route exact path='/map/records/:id/edit' component={RecordForm} /> */}
+        {/* <Route exact path='/map/collections/:collection_id/records/:id/edit' component={RecordForm} /> */}
 
         {/* view a record */}
         {/* <Route exact path='/map/records/:id' component={RecordView} /> */}

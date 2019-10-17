@@ -31,22 +31,15 @@ export default class RecordFormComponentState {
       }
 
       handleOnBlur() {
-        if (!this.props.recordFormStore.record.id) {
-          //if no ID, we're creating a record
-          this.createDraftRecord();
-        } else {
-          //  We're updating a record
-          this.props.recordFormStore.record.persist().then((response) => {
-          //  reset errors
-            this.props.recordFormStore.record = RecordModel.fromJS(response.data);
-            this.props.recordFormStore.record.errors = {};
-          }).catch((error) => {
-            this.props.recordFormStore.record.errors = error.response.data;
-            this.props.recordFormStore.record.errors_on_publishing = error.response.data;
-            this.props.recordFormStore.record.valid_for_publishing = false;
-          })
-        }
-
+        this.props.recordFormStore.record.persist().then((response) => {    
+          
+          this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+          this.props.recordFormStore.record.errors = {};
+        }).catch((error) => {
+          this.props.recordFormStore.record.errors = error.response.data;
+          this.props.recordFormStore.record.errors_on_publishing = error.response.data;
+          this.props.recordFormStore.record.valid_for_publishing = false;
+        })
       }
 
       appendErrorClassNameToField(fieldName, classes="") {

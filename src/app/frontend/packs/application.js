@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const choosePlace = getQueryStringValue(newLocation, 'choose-place');
             if(choosePlace === "true") {
-                stores.mapViewStore.setChoosePlaceMode(true);
+                stores.mapViewStore.inChoosePlaceMode = true;
             }
             
             if(currentModals) {
