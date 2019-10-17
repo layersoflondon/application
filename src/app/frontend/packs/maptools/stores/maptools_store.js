@@ -48,10 +48,20 @@ export default class MapToolsStore {
         }
       };
 
+      const setOverview = () => {
+        if (this.mapRef) {
+          this.mapRef.leafletElement.flyTo(change.oldValue.geojson.properties.centroid.slice(), this.DEFAULT_ZOOM);
+        } else {
+          setTimeout(setOverview, 100)
+        }
+      };
+
       if (change.newValue) {
         setCenter();
 
         this.setRenderStateForSquare(change.newValue, this.user);
+      } else {
+        setOverview();
       }
     });
 
