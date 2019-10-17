@@ -26,6 +26,10 @@ export default class RecordFormComponentState {
         this.props.recordFormStore.record[name] = value;
       }
 
+      createDraftRecord() {
+        console.log("record_form_component_state");
+      }
+
       handleOnBlur() {
         if (!this.props.recordFormStore.record.id) {
           //if no ID, we're creating a record

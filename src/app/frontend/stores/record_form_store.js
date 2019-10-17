@@ -55,7 +55,11 @@ export default class RecordFormStore {
       }else {
         this.place_lookup_status = 404
       }
-    }).catch((error)=>{console.log("Google error:", error)});
+    }).catch((error)=>{
+      console.log("Google error:", error);
+      this.record.location = {address: ''};
+      this.found_places = [];
+    });
   }
 
   static fromJS(object) {
