@@ -44,9 +44,9 @@ import {appendQueryString} from '../helpers/modals';
 
   createCollectionLink() {
       if (this.props.userPresent) {
-          return <Link to='/map/collections/new' data-label="Create collection" onClick={this.handleHamburgerOnClick.bind(this)}><span>Create collection</span></Link>
+          return <Link to='/map?newCollection=true' data-label="Create collection" onClick={this.handleHamburgerOnClick.bind(this)}><span>Create collection</span></Link>
       } else {
-          return <a data-label="Create collection" href="/users/sign_in?return_to=/map/collections/new"><span>Create collection</span></a>
+          return <a data-label="Create collection" href="/users/sign_in?return_to=/map?newCollection=true"><span>Create collection</span></a>
       }
   }
 

@@ -3,6 +3,8 @@ import {inject, observer} from "mobx-react";
 import RecordViewComponentState from './record_view_component_state';
 import Record from '../../sources/record';
 import {Link, withRouter} from 'react-router-dom';
+import {getQueryStringParam} from '../../helpers/modals';
+
 @inject('currentUser', 'router', 'userPresent')
 @withRouter
 @observer class RecordViewReport extends Component {
@@ -53,7 +55,6 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   formContent() {
-
     const choices = Object.keys(this.issues).map((key, i) => {
       return<label key={i}>
         <input type='radio' name='issue' value={key} checked={this.state.form.issue === key} onChange={this.handleChange.bind(this)} />
@@ -95,7 +96,6 @@ import {Link, withRouter} from 'react-router-dom';
         )}
 
         <button onClick={this.sendReport.bind(this)}>Send</button>
-
       </div>
     </div>
     )
@@ -112,6 +112,9 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   render() {
+    const showReportForm = getQueryStringParam(this.props.location, 'reportRecord');
+
+    if(!showReportForm) return <React.Fragment />;
 
     let content;
     if (this.state.report_sent) {
@@ -124,10 +127,9 @@ import {Link, withRouter} from 'react-router-dom';
     return <Fragment>
       <div className="m-overlay is-showing" style={{zIndex: 12341234, top: 0, left: 0}}>
         <div className="close">
-          <Link to={`/map/records/${this.state.record_id}`}>Close</Link>
+          <Link to={`/map`}>Close</Link>
         </div>
         { content }
-
       </div>
     </Fragment>
   }

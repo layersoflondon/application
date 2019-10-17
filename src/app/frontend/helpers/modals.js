@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 
 const MODAL_NAMES = [
-  'record', 'media', 'newRecord', 'editRecord'
+  'record', 'media', 'newRecord', 'editRecord', 'newCollection', 'editCollection'
 ];
 
 const getCurrentModals = (location) => {

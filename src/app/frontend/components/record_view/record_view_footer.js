@@ -2,6 +2,7 @@ import React,{Component, Fragment} from 'react';
 import {observer} from "mobx-react";
 import RecordViewComponentState from './record_view_component_state';
 import {NavLink} from 'react-router-dom';
+import {appendQueryString} from '../../helpers/modals';
 
 @observer class RecordViewFooter extends Component {
   constructor(props) {
@@ -30,9 +31,7 @@ import {NavLink} from 'react-router-dom';
   }
 
   render() {
-    const link_path = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}` : '/map';
-
-    const subject = `Flagged record&body=Hi - The record '${this.props.trayViewStore.record.title}' (https://beta.layersoflondon.org/map/records/${this.props.trayViewStore.record.id}) is incorrect, inaccurate or inappropriate.`;
+    const reportLinkPath = appendQueryString(this.props.location, [{key: 'reportRecord', value: true}]);
 
     return <Fragment>
       <div className="footer">
@@ -47,7 +46,7 @@ import {NavLink} from 'react-router-dom';
 
           <button onClick={this.showOnMap.bind(this)}>See on map</button>
 
-          <NavLink to={`${this.props.router.location.pathname}/report`}>Report this record</NavLink>
+          <NavLink to={`${this.props.router.location.pathname}?${reportLinkPath}`}>Report this record</NavLink>
 
           {
             this.props.trayViewStore.record.user_can_edit_record &&

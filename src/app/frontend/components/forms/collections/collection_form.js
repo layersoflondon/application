@@ -9,6 +9,7 @@ import Select from 'react-select'
 import Record from "../../../sources/record";
 import RecordModel from "../../../models/record";
 import {recordEvent} from "../../../config/data_layer";
+import {getQueryStringParam} from '../../../helpers/modals';
 
 @inject('router', 'mapViewStore', 'collectionStore', 'layersStore', 'trayViewStore', 'collectionFormStore')
 @withRouter
@@ -18,13 +19,16 @@ import {recordEvent} from "../../../config/data_layer";
 
     // todo: set owner type either in the controller, or when the write state is changed
     this.state = {id: null, title: "", description: "", read_state: 'public_read', write_state: "creator", write_state_team_id: null, owner_type: "User", teams: null, errors: []};
-
   }
 
   componentWillMount() {
+    const newCollection = getQueryStringParam(this.props.router.location, 'newCollection') === "true";
+    const editCollection = getQueryStringParam(this.props.router.location, 'editCollection');
 
-    if( this.props.match.params.id && this.props.match.params.id !== 'new'  ) {
-      Collection.show(null, this.props.match.params.id).then((response) => {
+    if(newCollection) {
+      this.props.collectionFormStore.collection = CollectionModel.fromJS({}, this.props.trayViewStore);
+    }else if(editCollection) {
+      Collection.show(null, editCollection).then((response) => {
         this.setState(response.data);
         this.props.collectionFormStore.collection = CollectionModel.fromJS(response.data, this.props.trayViewStore);
       });
@@ -66,8 +70,14 @@ import {recordEvent} from "../../../config/data_layer";
       recordEvent('createCollection', {
         'collection': collection.title
       });
+      
+      this.props.mapViewStore.inAddCollectionMode  = false;
+      this.props.mapViewStore.inEditCollectionMode = false;
+      this.props.mapViewStore.newCollectionModal   = false;
+      this.props.mapViewStore.editCollectionModal  = false;
       this.props.router.push(`/map/collections/${collection.id}`);
     }).catch((response) => {
+      console.log(response, response.data);
       this.props.router.push(`/map`);
     });
   }
@@ -87,10 +97,12 @@ import {recordEvent} from "../../../config/data_layer";
     if( this.state.teams === null) {
       return <div/> // wait for the teams to be loaded
     }
+    
+    if(!(this.props.mapViewStore.inEditCollectionMode || this.props.mapViewStore.inAddCollectionMode)) {
+      return <React.Fragment />;
+    }
 
-    let className = "m-overlay";
-    if( this.props.mapViewStore.overlay === 'collection_form' ) className+=" is-showing";
-
+    let className = "m-overlay is-showing";
     const formTitle = this.props.collectionFormStore.collection.is_persisted ? "Edit collection" : "Create collection";
 
     if (!this.props.collectionFormStore.collection.is_editable) {
@@ -167,16 +179,10 @@ import {recordEvent} from "../../../config/data_layer";
 
                 <input value="Save" type="submit" />
               </form>
-
-
-
             </div>
           </div>
         </div>
       );
     }
-    
-
-
   }
 }

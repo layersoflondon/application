@@ -14,6 +14,9 @@ export default class MapViewStore {
   @observable add_record_mode = false;
   @observable edit_record_mode = false;
 
+  @observable add_collection_mode  = false;
+  @observable edit_collection_mode = false;
+
   initial_position = null;
 
   // dom reference to the leaflet map instance (is assigned in by the map_view)
@@ -29,6 +32,12 @@ export default class MapViewStore {
       if(change.newValue) {
         runInAction(() => this.recordModal = false)
       }
+    });
+
+    observe(this, 'newCollectionModal', (change) => {
+      runInAction(() => {
+        this.inAddCollectionMode = change.newValue;
+      })
     });
   }
 
@@ -72,13 +81,6 @@ export default class MapViewStore {
     this[`${modal}Modal`] = visible;
   }
 
-  // @action.bound setChoosePlaceMode(enabled) {
-  //   runInAction(() => {
-  //     this.add_record_mode = enabled;
-  //     this.trayViewStore.toggleTrayVisibility();
-  //   });
-  // }
-
   @computed get inChoosePlaceMode() {
     return this.add_record_mode;
   }set inChoosePlaceMode(value) {
@@ -92,5 +94,17 @@ export default class MapViewStore {
     return this.edit_record_mode;
   }set inEditRecordMode(value) {
     this.edit_record_mode = value;
+  }
+
+  @computed get inAddCollectionMode() {
+    return this.add_collection_mode;
+  }set inAddCollectionMode(value) {
+    this.add_collection_mode = value;
+  }
+
+  @computed get inEditCollectionMode() {
+    return this.edit_collection_mode;
+  }set inEditCollectionMode(value) {
+    this.edit_collection_mode = value;
   }
 }

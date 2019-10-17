@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if(choosePlace === "true") {
                 stores.mapViewStore.inChoosePlaceMode = true;
             }
+
+            console.log("Enabling modals: ", currentModals);
             
             if(currentModals) {
                 currentModals.map((modal) => stores.mapViewStore.toggleModal(modal, true));

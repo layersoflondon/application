@@ -85,6 +85,14 @@ import RecordTags from "./forms/records/record_tags";
 
       <Route component={RecordView} />
 
+      <Route render={({location}) => (
+        <ErrorBoundary>
+          <RecordView>
+            <RecordViewReport />
+          </RecordView>
+        </ErrorBoundary>
+      )} />
+
       <MediaView>
         <TransitionGroup>
           <CSSTransition timeout={100} classNames={'media-item'} key={location.key} >
@@ -97,17 +105,17 @@ import RecordTags from "./forms/records/record_tags";
         <Route exact path='/map?:lat/:lng' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
 
         {/* Various Overlays ... */}
-        <Route exact path='/map/account' component={UserForm} />
+        {/* <Route exact path='/map/account' component={UserForm} />
         <Route exact path='/map/account/:tab' component={UserForm} />
         <Route exact path='/map/account/:tab/:id' component={UserForm} />
         <Route path='/map/layers' component={LayersOverlay} />
         <Route path='/map/layers/:id' component={LayerDetailsOverlay} />
         <Route exact path='/map/search' component={SearchView} />
-        <Route path='/map/search?results=true&q=:query' component={Tray} />
+        <Route path='/map/search?results=true&q=:query' component={Tray} /> */}
 
         {/* show the collections form */}
-        <Route exact path='/map/collections/new' component={CollectionForm} />
-        <Route exact path='/map/collections/:id/edit' component={CollectionForm} />
+        {/* <Route exact path='/map/collections/new' component={CollectionForm} />
+        <Route exact path='/map/collections/:id/edit' component={CollectionForm} /> */}
 
 
         {/* the route we go to when '+ Add record' is clicked to allow the user to choose a place */}
@@ -115,6 +123,9 @@ import RecordTags from "./forms/records/record_tags";
 
         {/* once the user has chosen a place on the map, we show the form */}
         <Route component={RecordForm} />
+
+        {/* create/edit a collectiomn */}
+        <Route component={CollectionForm} />
 
         {/* edit an existing record */}
         {/* <Route exact path='/map/records/:id/edit' component={RecordForm} /> */}
