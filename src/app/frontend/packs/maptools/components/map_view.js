@@ -61,11 +61,26 @@ export default class MapView extends React.Component {
 
   squareStyle(feature) {
     // The masking square
+
+    let checkedFillColor = "null";
+    let checkedFillOpacity = 0;
+
+    switch (feature.properties.state) {
+      case "done":
+        checkedFillColor = "#FFCF00";
+        checkedFillOpacity = 0.3;
+        break;
+      case "verified":
+        checkedFillColor = "#00FF0B";
+        checkedFillOpacity = 0.2;
+        break;
+    }
+
     return {
       weight: (this.props.mapToolsStore.mapRef.leafletElement.getZoom() <= 10) ? 1 : 2,
       color: "#666666",
-      fillOpacity: 0.5,
-      fillColor: "#ffffff",
+      fillOpacity: checkedFillOpacity,
+      fillColor: checkedFillColor,
       className: "masking-square"
     }
   }
