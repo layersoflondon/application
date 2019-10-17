@@ -1,5 +1,6 @@
-import {action, extendObservable, observe, observable, computed} from "mobx";
+import {action, extendObservable, runInAction, observable, computed} from "mobx";
 import {MODAL_NAMES} from '../helpers/modals';
+import { observer } from "mobx-react";
 
 /**
  * Handle's map attributes like initial position (center), the zoom level, currently visible overlay
@@ -12,6 +13,7 @@ export default class MapViewStore {
   @observable lightsOut = false;
 
   @observable add_record_mode = false;
+  @observable edit_record_mode = false;
 
   initial_position = null;
 
@@ -25,19 +27,20 @@ export default class MapViewStore {
     extendObservable(this, modalNames);
   }
 
-  // @computed get current_bounds() {
-  //   let center = this.map_ref.leafletElement.getBounds().getCenter();
-  //   let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
-  //   const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
-  //   const south_east = this.map_ref.leafletElement.getBounds().getSouthEast();
+  @computed get current_bounds() {
+    console.log("current_bounds() called");
+    let center = this.map_ref.leafletElement.getBounds().getCenter();
+    let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+    const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
+    const south_east = this.map_ref.leafletElement.getBounds().getSouthEast();
     
-  //   return {
-  //     top_left: north_west,
-  //     bottom_right: south_east,
-  //     center: center,
-  //     radius: radius
-  //   };
-  // }
+    return {
+      top_left: north_west,
+      bottom_right: south_east,
+      center: center,
+      radius: radius
+    };
+  }
 
   panTo(lat, lng, zoom = null) {
     this.initial_position = this.center;
@@ -62,5 +65,26 @@ export default class MapViewStore {
   @action.bound toggleModal(modal, value) {
     const visible = value || !this[`${modal}Modal`];
     this[`${modal}Modal`] = visible;
+  }
+
+  @action.bound setChoosePlaceMode(enabled) {
+    runInAction(() => {
+      this.add_record_mode = enabled;
+      this.trayViewStore.toggleTrayVisibility();
+    });
+  }
+
+  @action.bound setRecordEditMode(enabled) {
+    runInAction(() => {
+      this.edit_record_mode = enabled;
+    })
+  }
+
+  @computed get inChoosePlaceMode() {
+    return this.add_record_mode;
+  }
+
+  @computed get inEditRecordMode() {
+    return this.edit_record_mode;
   }
 }

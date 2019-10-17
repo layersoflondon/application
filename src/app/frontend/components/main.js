@@ -111,9 +111,10 @@ import RecordTags from "./forms/records/record_tags";
 
 
         {/* the route we go to when '+ Add record' is clicked to allow the user to choose a place */}
-        <Route path='/map/choose-place' component={PlacePicker} />
+        <Route component={PlacePicker} />
+
         {/* once the user has chosen a place on the map, we show the form */}
-        <Route path='/map/records/new' component={RecordForm} />
+        <Route component={RecordForm} />
 
         {/* edit an existing record */}
         <Route exact path='/map/records/:id/edit' component={RecordForm} />

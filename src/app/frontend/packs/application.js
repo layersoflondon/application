@@ -20,7 +20,7 @@ import {Router} from 'react-router';
 import axios from 'axios';
 import initStore from '../stores/stores';
 
-import {getCurrentModals} from '../helpers/modals';
+import {getQueryStringValue, getCurrentModals} from '../helpers/modals';
 
 document.addEventListener('DOMContentLoaded', () => {
     if( typeof window.__STATE === "undefined" ) return;
@@ -48,6 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const currentModals = getCurrentModals(newLocation);
+
+            const choosePlace = getQueryStringValue(newLocation, 'choose-place');
+            if(choosePlace === "true") {
+                stores.mapViewStore.setChoosePlaceMode(true);
+            }
             
             if(currentModals) {
                 currentModals.map((modal) => stores.mapViewStore.toggleModal(modal, true));

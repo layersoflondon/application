@@ -20,7 +20,6 @@ import axios from 'axios';
 
   componentDidMount() {
     axios.get('/tag_groups').then((response) => {
-      console.log("Setting tagGroups: ", response.data);
       this.setState({tagGroups: response.data});
     });
   }

@@ -3,6 +3,7 @@ import {observer, inject} from "mobx-react";
 import PropTypes from 'prop-types';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import Img from 'react-image';
+import {appendQueryString} from '../helpers/modals';
 
 @inject('userPresent', 'adminUserPresent', 'mapViewStore', 'trayViewStore', 'currentUser')
 @withRouter
@@ -50,10 +51,13 @@ import Img from 'react-image';
   }
 
   addRecordLink() {
+      const search = appendQueryString(this.props.location, [{key: 'choose-place', value: true}]);
+      const path = `/map?${search}`;
+      
       if (this.props.userPresent) {
-          return <Link to='/map/choose-place' data-label="Add record" onClick={this.handleHamburgerOnClick.bind(this)}><span>Add record</span></Link>
+          return <Link to={path} data-label="Add record" onClick={this.handleHamburgerOnClick.bind(this)}><span>Add record</span></Link>
       } else {
-          return <a data-label="Add record" href="/users/sign_in?return_to=/map/choose-place"><span>Add record</span></a>
+          return <a data-label="Add record" href={`/users/sign_in?return_to=${path}`}><span>Add record</span></a>
       }
   }
 

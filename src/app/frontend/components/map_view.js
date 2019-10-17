@@ -8,6 +8,7 @@ import ErrorBoundary from './error_boundary';
 import MapSearchContainer from './map_search_container';
 import pluralize from "pluralize";
 import MapLayerGroup from "./map_layer_group";
+import {removeModal, appendQueryString} from '../helpers/modals';
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapView extends Component {
@@ -51,16 +52,21 @@ import MapLayerGroup from "./map_layer_group";
   handleOnClick(event) {
     this.props.mapViewStore.latlng = event.latlng;
 
-    if( this.props.mapViewStore.add_record_mode ) {
+    if( this.props.mapViewStore.inChoosePlaceMode ) {
       const {lat, lng} = event.latlng;
 
       this.props.recordFormStore.latlng = event.latlng;
       this.props.recordFormStore.record.lat = lat;
       this.props.recordFormStore.record.lng = lng;
+
+      this.props.mapViewStore.setChoosePlaceMode(false);
+      this.props.mapViewStore.setRecordEditMode(true);
+
       if (!!this.props.recordFormStore.record.id) {
         this.props.router.push(`/map/records/${this.props.recordFormStore.record.id}/edit`)
       } else {
-        this.props.router.push('/map/records/new');
+        const path = appendQueryString(this.props.router.location, [{key: 'newRecord', value: true}], ['choose-place']);
+        this.props.router.push(`/map?${path}`);
       }
 
     }

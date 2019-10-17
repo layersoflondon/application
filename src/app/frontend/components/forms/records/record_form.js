@@ -23,28 +23,20 @@ import NotFound from "../../not_found";
   }
 
   componentWillMount() {
-
-
-
-    if( this.props.match.params.id && this.props.recordFormStore.record.id !== parseInt(this.props.match.params.id) ) {
-      Record.show(null, this.props.match.params.id).then((response) => {
-        this.props.recordFormStore.record = RecordModel.fromJS(response.data);
-      }).catch((error) => {
-        this.setState({loadingError: true});
-        console.log(error);
-      });
-    } else if (this.props.location.pathname.match(/\/new/)) {
-      if (!this.props.recordFormStore.record.lat || !this.props.recordFormStore.record.lng) {
-        this.props.router.push('/map/choose-place');
-      }
-      this.createDraftRecord();
-    }
-
-  }
-
-
-  componentWillUnmount() {
-      // this.props.recordFormStore.record = new RecordModel()
+    console.log("record_form#componentWilMount");
+    // if( this.props.match.params.id && this.props.recordFormStore.record.id !== parseInt(this.props.match.params.id) ) {
+    //   Record.show(null, this.props.match.params.id).then((response) => {
+    //     this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+    //   }).catch((error) => {
+    //     this.setState({loadingError: true});
+    //     console.log(error);
+    //   });
+    // } else if (this.props.location.pathname.match(/\/new/)) {
+    //   if (!this.props.recordFormStore.record.lat || !this.props.recordFormStore.record.lng) {
+    //     this.props.router.push('/map/choose-place');
+    //   }
+    //   this.createDraftRecord();
+    // }
   }
 
   createDraftRecord() {
@@ -104,9 +96,7 @@ import NotFound from "../../not_found";
       case "published":
         message = "Publish this record?";
         break;
-
     }
-
 
     if (window.confirm(message)) {
       let r = Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
@@ -145,9 +135,7 @@ import NotFound from "../../not_found";
       }
     }
 
-
-    this.props.mapViewStore.add_record_mode = false;
-    this.props.trayViewStore.tray_is_visible = true;
+    this.props.mapViewStore.setRecordEditMode(false);
   }
 
   render() {
@@ -155,6 +143,10 @@ import NotFound from "../../not_found";
       return <NotFound/>
     }
 
+    if(!this.props.mapViewStore.inEditRecordMode) {
+      return <React.Fragment />
+    }
+    
     if( this.props.recordFormStore.record.id && !this.props.recordFormStore.record.user_can_edit_record ) {
       return <div className='m-overlay'>
         <div className="close">

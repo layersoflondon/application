@@ -22,6 +22,8 @@ export default (state) => {
   const trayViewStore = TrayViewStore.fromJS(tray);
   const collectionStore = CollectionStore.fromJS(collections, trayViewStore);
 
+  mapViewStore.trayViewStore = trayViewStore;
+
   const stores = {
     recordFormStore: recordFormStore,
     trayViewStore: trayViewStore,

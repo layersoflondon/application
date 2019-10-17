@@ -7,7 +7,6 @@ const googleMapsClient = googleMaps.createClient({
 });
 
 export default class GoogleMapsClient {
-
     static addressLookUp(latitude, longitude){
         let latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
 

@@ -229,7 +229,7 @@ export default class TrayViewStore {
   //   });
   }
 
-  toggleTrayVisibility(event) {
+  @action.bound toggleTrayVisibility(event) {
     this.tray_is_visible = !this.tray_is_visible;
   }
 
@@ -310,6 +310,7 @@ export default class TrayViewStore {
   }
 
   @computed get boundsFromMapRef() {
+    console.log("get boundsFromMapRef() called");
     let center = this.map_ref.leafletElement.getBounds().getCenter();
     let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
     const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
@@ -480,7 +481,7 @@ export default class TrayViewStore {
 
   @action.bound fetchData(params) {
     this.mainResults.clear();
-
+    
     runInAction(async() => {
       const mainContentData = await Search.perform(params);
       const mainResults = observable.map();

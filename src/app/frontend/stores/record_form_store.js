@@ -1,5 +1,6 @@
 import {observable, computed, observe, action} from 'mobx';
 import GoogleMapsClient from '../sources/google_maps_client';
+window.GoogleMapsClient = GoogleMapsClient;
 
 import RecordModel from '../models/record';
 
@@ -44,6 +45,7 @@ export default class RecordFormStore {
 
   startLookup() {
     this.place_lookup_status = true;
+    
     GoogleMapsClient.addressLookUp(this.record.lat, this.record.lng).then((response)=> {
       this.place_lookup_status = response.status;
 

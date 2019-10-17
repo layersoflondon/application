@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 
 const MODAL_NAMES = [
-  'record', 'media', 'record_form'
+  'record', 'media', 'newRecord'
 ];
 
 const getCurrentModals = (location) => {
@@ -43,12 +43,18 @@ const getValueForModal = (location, modal) => {
   return search[modal];
 };
 
-const appendQueryString = (location, params) => {
+const appendQueryString = (location, params, remove) => {
   const search  = queryString.parse(location.search);
 
   params.map((keyValue) => {
     search[keyValue.key] = keyValue.value;
   });
+
+  if(remove) {
+    remove.map((key) => {
+      search[key] = undefined;
+    })
+  }
 
   return queryString.stringify(search);
 }
