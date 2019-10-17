@@ -144,8 +144,11 @@ export default class SquareEditor extends React.Component {
       return <div className={`m-edit-hint not-logged-in`}>
         <span className="surtitle">Sign in to begin!</span>
         <hr/>
-        <h3>You need to be signed in in order to start tracing.</h3>
-        <a href="/users/sign_up">Sign up</a> or sign in <a href="/users/sign_in">here</a> to get started!
+        <h3>You need to be signed in in order to start tracing and checking.</h3>
+        <a className="button" href="/users/sign_up">Sign up</a>
+         or sign in <a href="/users/sign_in">here</a> to get started!
+        <hr/>
+        <Link to="/maptools/squares" onClick={this.handleGoBackClick.bind(this)}>Back to map</Link>
       </div>;
     }
 

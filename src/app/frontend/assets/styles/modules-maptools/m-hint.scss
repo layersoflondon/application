@@ -2,11 +2,44 @@
 
 .m-hint {
   background: #000;
-  color:$yellow;
+  color: $yellow;
   position: absolute;
   z-index: 9999;
   bottom: 50px;
   left: 50px;
-  padding: 10px 20px;
+  padding: 10px 17px;
   font-size: 2.2em;
+  @include mq(tablet) {
+    padding: 10px 16px;
+    font-size: 1.8em;
+  }
+  @include mq(smartphone) {
+    display: none;
+  }
+}
+
+.m-key {
+  background: #000;
+  color: $yellow;
+  position: absolute;
+  z-index: 9999;
+  bottom: 50px;
+  right: 50px;
+  padding: 10px;
+  font-size: 14px;
+  @include mq(smartphone) {
+    display: none;
+  }
+}
+
+.m-key img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  vertical-align: middle;
+}
+
+.m-key img:last-child {
+  margin-bottom: 0;
 }
