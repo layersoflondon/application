@@ -27,8 +27,10 @@ export default class TrayCollection extends Component {
       return <Card key={`record_${result.id}`} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
     });
     
+    const closePath = this.props.trayViewStore.goBackTo || '/map';
+
     return <div>
-      <Link style={{float: 'right'}} to='/map'>&times; close</Link>
+      <Link style={{float: 'right'}} to={closePath} onClick={() => this.props.trayViewStore.goBackTo = null}>&times; close</Link>
 
       {
         this.props.trayViewStore.collection && 

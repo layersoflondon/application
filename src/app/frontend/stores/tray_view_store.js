@@ -48,17 +48,11 @@ export default class TrayViewStore {
   @observable highlightedResults = observable.map();
   @observable mainResults = observable.map();
 
-  path = '/map';
+  previousPath = null;
   map_ref = null;
   tray_list_ref = null;
 
   constructor() {
-    observe(this, 'cards', (change) => {
-      if(this.root) {
-        // this.previous_cards = change.oldValue;
-      }
-    });
-
     observe(this, 'tray_is_visible', (change) => {
       setTimeout(() => {
         this.map_ref.leafletElement.invalidateSize();
@@ -110,57 +104,6 @@ export default class TrayViewStore {
         this.restoreRootState();
       }
     });
-
-    observe(this, 'user_id', (change) => {
-      if( change.newValue ) {
-        this.loading_collection = true;
-        User.show(null,this.user_id).then((response) => {
-          this.root = false;
-          this.setHeaderContent({
-            title: response.data.name,
-            profile_image_url: response.data.avatar_url,
-            introduction: response.data.description,
-            tray_view_type: "User"
-          });
-          this.showCollectionOfCards(response.data.records);
-        
-          this.locked = true;
-        }).catch((error) => {
-          this.user_id = null;
-        }).then(() => {
-          this.loading_user = false;
-        });
-      }else {
-        this.user_id = null;
-        this.loading_user = false;
-        this.locked = false;
-      }
-    });
-
-  //   observe(this, 'team_id', (change) => {
-  //     if( change.newValue ) {
-  //       this.loading_collection = true;
-  //       Team.show(null,this.team_id).then((response) => {
-  //         this.root = false;
-  //         this.setHeaderContent({
-  //           title: response.data.name,
-  //           introduction: response.data.description,
-  //           tray_view_type: "Team"
-  //         });
-  //         this.showCollectionOfCards(response.data.records);
-
-  //         this.locked = true;
-  //       }).catch((error) => {
-  //         this.team_id = null;
-  //       }).then(() => {
-  //         this.loading_team = false;
-  //       });
-  //     }else {
-  //       this.team_id = null;
-  //       this.loading_team = false;
-  //       this.locked = false;
-  //     }
-  //   });
   }
 
   @action.bound toggleTrayVisibility(event) {
@@ -170,7 +113,6 @@ export default class TrayViewStore {
   reloadTrayData() {
     this.loading = true;
     
-    console.log("Search.perform() 3");
     Search.perform({q: ""}).then((response) => {
       this.showCollectionOfCards(response.data);
     }).then(() => {
@@ -196,7 +138,6 @@ export default class TrayViewStore {
   }
 
   @computed get mapBounds() {
-    console.log("get mapBounds() called");
     let center = this.map_ref.leafletElement.getBounds().getCenter();
     let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
     const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
@@ -239,14 +180,6 @@ export default class TrayViewStore {
    */
   fetchRecord(id) {
     this.record_id = id;
-  }
-
-  /**
-   * when we Route back to /map, check whether we a previous set of cards and restore those, rather than fetching again
-   * fixme: we might want to look at expiring this previous set and fetching updated data...
-   */
-  restoreRootState() {
-    // this.reloadTrayDataForBounds(this.mapBounds);
   }
 
   /**
@@ -352,22 +285,8 @@ export default class TrayViewStore {
    *
    * @param append_data
    */
-  @action.bound reloadTrayDataForCurrentBounds(append_data = false) {
-    console.log("reloadTrayDataForCurrentBounds called");
-    this.loading = true;
-    const reloadForBounds = () => {
-      let bounds;
-      if (this.map_ref) {
-        bounds = this.mapBounds;
-      } else {
-        setTimeout(reloadForBounds, 1)
-      }
-
-      this.fetchData({geobounding: bounds})
-      return bounds;
-    };
-
-    reloadForBounds();
+  @action.bound reloadTrayDataForBounds(bounds, append_data = false) {
+    this.fetchData({geobounding: bounds});
   }
 
   @action.bound fetchData(params, options = {}) {
@@ -428,7 +347,6 @@ export default class TrayViewStore {
     this.loading = true;
 
     runInAction(async() => {
-      console.log("Search.perform() 6");
       const response = await Search.perform({collections: true});
       this.showCollectionOfCards(response.data);
 
@@ -455,9 +373,9 @@ export default class TrayViewStore {
     this.locked = value;
   }
 
-  @computed get mapPath() {
-    return this.path;
-  }set mapPath(value) {
-    this.path = value;
+  @computed get goBackto() {
+    return this.previousPath;
+  }set goBackto(value) {
+    this.previousPath = value;
   }
 }

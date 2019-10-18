@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import VisibilitySensor from 'react-visibility-sensor';
 import {Link, withRouter} from 'react-router-dom';
 import Img from 'react-image';
+import { inject } from 'mobx-react';
 
+@inject('trayViewStore')
 @withRouter
 export default class CollectionCard extends Component {
   constructor(props) {
@@ -18,8 +20,13 @@ export default class CollectionCard extends Component {
   }
 
   render() {
+    const setPreviousPath = () => {
+      const path = [this.props.location.pathname, this.props.location.search].filter((part)=>part).join("/");
+      this.props.trayViewStore.goBackTo = path;
+    }
+
     return <VisibilitySensor onChange={(visible) => this.setState({visible})} partialVisibility={true}>
-      <Link to={`/map/collections/${this.props.card.data.id}`} className='m-record-card m-record-card--collection' onMouseEnter={this.highlightCard.bind(this)} onMouseLeave={()=>this.props.card.highlighted=false}>
+      <Link to={`/map/collections/${this.props.card.data.id}`} className='m-record-card m-record-card--collection' onMouseEnter={this.highlightCard.bind(this)} onMouseLeave={()=>this.props.card.highlighted=false} onClick={setPreviousPath}>
         <div className="wrapper">
           {
             this.props.card.data.image &&
