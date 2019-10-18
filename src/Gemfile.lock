@@ -315,6 +315,7 @@ GEM
     multi_json (1.13.1)
     multipart-post (2.0.0)
     mysql2 (0.4.10)
+    natural_sort (0.3.0)
     nio4r (2.3.1)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
@@ -507,6 +508,7 @@ DEPENDENCIES
   mini_magick
   mini_racer
   mysql2 (~> 0.4.4)
+  natural_sort
   oj
   puma (~> 3.11)
   pundit
