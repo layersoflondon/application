@@ -4,14 +4,16 @@ import {Link} from 'react-router-dom';
 import Card from '../card';
 import CollectionCard from '../collection_card';
 
-@inject('trayViewStore')
+@inject('trayViewStore', 'mapViewStore')
 @observer
 export default class TrayRecordsIndex extends Component {
   constructor(props) {
     super(props);
     
     if(this.props.type === "geobounded") {
-      this.props.trayViewStore.reloadTrayDataForCurrentBounds();
+      this.props.mapViewStore.getMapBounds().then((bounds) => {
+        this.props.trayViewStore.reloadTrayDataForBounds(bounds);
+      });
     }else {
       this.props.trayViewStore.fetchData({type: this.props.type}, {lockTray: true});
     }

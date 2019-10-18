@@ -15,11 +15,8 @@ import {openModalLink, searchPath} from '../helpers/modals';
   constructor(props) {
     super(props);
 
-    this.mapRef = null;
     this.setMapRef = element => {
-      this.mapRef = element;
-      this.props.mapViewStore.map_ref = this.mapRef;
-      this.props.trayViewStore.map_ref = this.mapRef;
+      this.props.mapViewStore.mapRef = element;
     };
 
     this.state = {headerShowing: false};
@@ -34,20 +31,24 @@ import {openModalLink, searchPath} from '../helpers/modals';
   }
 
   componentDidMount() {
-    this.initial_bounds = this.props.trayViewStore.mapBounds
+    this.props.mapViewStore.getMapBounds().then((bounds) => {
+      this.initial_bounds = bounds;
+    });
   }
 
   handleOnDragEnd() {
     if(!this.props.trayViewStore.locked) {
-      const center = this.props.trayViewStore.mapBounds.center;
-      this.props.router.push(`/map/${center.lat},${center.lng}`);
+      this.props.mapViewStore.getMapBounds().then((bounds) => {
+        this.props.router.push(`/map/${bounds.center.lat},${bounds.center.lng}`);
+      });
     }
   }
 
   handleOnZoomEnd() {
     if(!this.props.trayViewStore.locked) {
-      const center = this.props.trayViewStore.mapBounds.center;
-      this.props.router.push(`/map/${center.lat},${center.lng}`);
+      this.props.mapViewStore.getMapBounds().then((bounds) => {
+        this.props.router.push(`/map/${bounds.center.lat},${bounds.center.lng}`);
+      });
     }
   }
 

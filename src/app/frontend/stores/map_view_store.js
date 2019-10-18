@@ -42,12 +42,11 @@ export default class MapViewStore {
     });
   }
 
-  @computed get current_bounds() {
-    console.log("current_bounds() called");
-    let center = this.map_ref.leafletElement.getBounds().getCenter();
-    let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
-    const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
-    const south_east = this.map_ref.leafletElement.getBounds().getSouthEast();
+  @computed get mapBounds() {
+    let center = this.mapRef.leafletElement.getBounds().getCenter();
+    let radius = this.mapRef.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+    const north_west = this.mapRef.leafletElement.getBounds().getNorthWest();
+    const south_east = this.mapRef.leafletElement.getBounds().getSouthEast();
     
     return {
       top_left: north_west,
@@ -55,6 +54,22 @@ export default class MapViewStore {
       center: center,
       radius: radius
     };
+  }
+
+  @action.bound getMapBounds() {
+    return new Promise((resolve) => {
+      const waitForMapRef = () => {
+        
+        if (this.mapRef) {
+          const bounds = this.mapBounds;
+          resolve(bounds);
+        } else {
+          setTimeout(waitForMapRef, 10)
+        }
+      };
+      
+      waitForMapRef();
+    });
   }
 
   panTo(lat, lng, zoom = null) {
