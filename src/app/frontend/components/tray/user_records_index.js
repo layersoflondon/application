@@ -9,8 +9,9 @@ import CollectionCard from '../collection_card';
 export default class TrayUserRecordsIndex extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
     
-    this.props.trayViewStore.fetchData({type: this.props.type});
+    this.props.trayViewStore.fetchData({user_id: this.props.match.params.id});
   }
 
   render() {

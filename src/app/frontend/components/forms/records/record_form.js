@@ -13,7 +13,8 @@ import TeamPicker from './team_picker';
 import Record from './../../../sources/record';
 import RecordModel from './../../../models/record';
 import NotFound from "../../not_found";
-import {getQueryStringParam} from '../../../helpers/modals';
+import {Link} from 'react-router-dom';
+import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
 
 @inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore', 'currentUser')
 @observer export default class RecordForm extends Component {
@@ -128,20 +129,20 @@ import {getQueryStringParam} from '../../../helpers/modals';
     event.preventDefault();
     this.props.recordFormStore.record = new RecordModel();
 
-    if(this.props.match.params.collection_id) {
-      this.props.router.push(`/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}`);
-    }else if(this.props.match.params.id) {
-      this.props.trayViewStore.locked = false;
-      this.props.router.push(`/map/records/${this.props.match.params.id}`);
-    }else {
-      this.props.trayViewStore.locked = false;
+    // if(this.props.match.params.collection_id) {
+    //   this.props.router.push(`/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}`);
+    // }else if(this.props.match.params.id) {
+    //   this.props.trayViewStore.locked = false;
+    //   this.props.router.push(`/map/records/${this.props.match.params.id}`);
+    // }else {
+    //   this.props.trayViewStore.locked = false;
 
-      if( this.props.router.history.previousLocalStates > 1 ) {
-        this.props.router.goBack();
-      }else {
-        this.props.router.push(`/map`);
-      }
-    }
+    //   if( this.props.router.history.previousLocalStates > 1 ) {
+    //     this.props.router.goBack();
+    //   }else {
+    //     this.props.router.push(`/map`);
+    //   }
+    // }
 
     this.props.mapViewStore.inEditRecordMode = false;
   }
@@ -158,7 +159,7 @@ import {getQueryStringParam} from '../../../helpers/modals';
     if( this.props.recordFormStore.record.id && !this.props.recordFormStore.record.user_can_edit_record ) {
       return <div className='m-overlay'>
         <div className="close">
-          <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
+          <Link to={closeModalLink(this.props.router.location, 'newRecord')} className="close" onClick={this.handleCloseOnClick.bind(this)}></Link>
         </div>
 
         <div className="m-add-record">
@@ -188,7 +189,7 @@ import {getQueryStringParam} from '../../../helpers/modals';
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
           <div className="close">
-            <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
+            <Link to={closeModalLink(this.props.router.location, 'newRecord')} className="close" onClick={this.handleCloseOnClick.bind(this)}></Link>
           </div>
 
           <div className="m-add-record">

@@ -9,7 +9,7 @@ import Select from 'react-select'
 import Record from "../../../sources/record";
 import RecordModel from "../../../models/record";
 import {recordEvent} from "../../../config/data_layer";
-import {getQueryStringParam} from '../../../helpers/modals';
+import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers/modals';
 
 @inject('router', 'mapViewStore', 'collectionStore', 'layersStore', 'trayViewStore', 'collectionFormStore')
 @withRouter
@@ -105,13 +105,18 @@ import {getQueryStringParam} from '../../../helpers/modals';
     let className = "m-overlay is-showing";
     const formTitle = this.props.collectionFormStore.collection.is_persisted ? "Edit collection" : "Create collection";
 
+    const closePath = removeModal(this.props.router.location, 'newCollection');
+    const handleOnClick = () => {
+      removeModal(this.props.router.location, 'newCollection', this.props.mapViewStore);
+    }
+
     if (!this.props.collectionFormStore.collection.is_editable) {
       return (
         <div className={className}>
           <div className="s-overlay--add-collection is-showing">
 
             <div className="close">
-              <Link to="/map" className="close">Close</Link>
+              <Link to={closeModalLink(this.props.router.location, 'newCollection')} className="close" onClick={handleOnClick}>Close</Link>
             </div>
 
             <div className="m-add-collection">
@@ -128,7 +133,7 @@ import {getQueryStringParam} from '../../../helpers/modals';
           <div className="s-overlay--add-collection is-showing">
 
             <div className="close">
-              <Link to="/map" className="close">Close</Link>
+              <Link to={closeModalLink(this.props.router.location, 'newCollection')} className="close" onClick={handleOnClick}>Close</Link>
             </div>
 
             <div className="m-add-collection">

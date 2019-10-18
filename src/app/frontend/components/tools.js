@@ -3,7 +3,7 @@ import {observer, inject} from "mobx-react";
 import PropTypes from 'prop-types';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import Img from 'react-image';
-import {appendQueryString} from '../helpers/modals';
+import {appendQueryString, openModalLink} from '../helpers/modals';
 
 @inject('userPresent', 'adminUserPresent', 'mapViewStore', 'trayViewStore', 'currentUser')
 @withRouter
@@ -40,19 +40,16 @@ import {appendQueryString} from '../helpers/modals';
       }
   }
 
-
-
   createCollectionLink() {
       if (this.props.userPresent) {
-          return <Link to='/map?newCollection=true' data-label="Create collection" onClick={this.handleHamburgerOnClick.bind(this)}><span>Create collection</span></Link>
+        return <Link to={openModalLink(this.props.location, {key: 'newCollection', value: true})} data-label="Create collection" onClick={this.handleHamburgerOnClick.bind(this)}><span>Create collection</span></Link>
       } else {
-          return <a data-label="Create collection" href="/users/sign_in?return_to=/map?newCollection=true"><span>Create collection</span></a>
+        return <a data-label="Create collection" href="/users/sign_in?return_to=/map?newCollection=true"><span>Create collection</span></a>
       }
   }
 
   addRecordLink() {
-      const search = appendQueryString(this.props.location, [{key: 'choose-place', value: true}]);
-      const path = `/map?${search}`;
+      const path = openModalLink(this.props.location, {key: 'choose-place', value: true});
       
       if (this.props.userPresent) {
           return <Link to={path} data-label="Add record" onClick={this.handleHamburgerOnClick.bind(this)}><span>Add record</span></Link>
@@ -93,13 +90,13 @@ import {appendQueryString} from '../helpers/modals';
               <div className="m-smartphone-menu-wrapper">
                   <div className="m-tools">
                       <div className="m-tool-button m-tool-button--search">
-                          <Link to='/map/search' data-label="Search records" onClick={this.handleHamburgerOnClick.bind(this)}><span>Search records</span></Link>
+                          <Link to={openModalLink(this.props.location, {key: 'search', value: true})} data-label="Search records" onClick={this.handleHamburgerOnClick.bind(this)}><span>Search records</span></Link>
                       </div>
                       <div className="m-tool-button m-tool-button--layers">
-                          <Link to='/map/layers' data-label="Layers" onClick={this.handleHamburgerOnClick.bind(this)}><span>Layers</span></Link>
+                          <Link to={openModalLink(this.props.location, {key: 'layers', value: true})} data-label="Layers" onClick={this.handleHamburgerOnClick.bind(this)}><span>Layers</span></Link>
                       </div>
                     <div className="m-tool-button m-tool-button--collections">
-                      <Link to='/map/search?results=true&collections=true' data-label="Collections" onClick={this.handleHamburgerOnClick.bind(this)}><span>Collections</span></Link>
+                      <Link to='/map/collections' data-label="Collections" onClick={this.handleHamburgerOnClick.bind(this)}><span>Collections</span></Link>
                     </div>
                       <div className="m-tool-button m-tool-button--add-collection">
                           {this.createCollectionLink()}

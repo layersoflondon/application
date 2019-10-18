@@ -155,8 +155,7 @@ export default class SquareEditor extends React.Component {
 
       const editMode = this.props.mapToolsStore.inEditOrDrawingMode;
       const classNames = `m-edit-hint ${this.props.mapToolsStore.square.state.label} ${editMode ? 'edit-mode' : ''}`;
-
-      console.log(this.props.mapToolsStore.renderStateForSquare);
+      
       return <div className={classNames}>
         {this[`renderState_${this.props.mapToolsStore.renderStateForSquare}`]()}
       </div>;

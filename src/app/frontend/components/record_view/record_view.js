@@ -12,7 +12,7 @@ import RecordViewFooter from './record_view_footer';
 import NotFound from '../not_found'
 
 import {recordPageView} from "../../config/data_layer";
-import {removeModal, getValueForModal} from '../../helpers/modals';
+import {removeModal, getValueForModal, closeModalLink} from '../../helpers/modals';
 
 @observer class RecordView extends Component {
   constructor(props) {
@@ -28,6 +28,15 @@ import {removeModal, getValueForModal} from '../../helpers/modals';
 
   componentDidMount() {
     this.fetchRecord();
+  }
+
+  componentDidUpdate(oldProps) {
+    const previousId = getValueForModal(oldProps.router.location, 'record');
+    const id = getValueForModal(this.props.router.location, 'record');
+    
+    if(id && previousId !== id) {
+      this.fetchRecord();
+    }
   }
 
   handleOnClick(event) {
@@ -75,7 +84,7 @@ import {removeModal, getValueForModal} from '../../helpers/modals';
             <div className="s-overlay--record is-showing">
               <div className={header_classes}>
                 <div className="close">
-                  <Link onClick={this.handleOnClick.bind(this)} to={`${this.props.router.location.pathname}${removeModal(this.props.router.location, 'record')}`} className="close">Close</Link>
+                  <Link onClick={this.handleOnClick.bind(this)} to={closeModalLink(this.props.router.location, 'record')} className="close">Close</Link>
                 </div>
                 
                 <div className="wrap">

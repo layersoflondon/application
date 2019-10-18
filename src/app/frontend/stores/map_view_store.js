@@ -25,7 +25,8 @@ export default class MapViewStore {
   constructor() {
     // make any modals defined in modals::MODAL_NAMES observable props
     const modalNames = {};
-    MODAL_NAMES.map((m) => modalNames[`${m}Modal`] = null);
+    MODAL_NAMES.map((m) => modalNames[`${m}Modal`] = false);
+    
     extendObservable(this, modalNames);
 
     observe(this, 'editRecordModal', (change) => {
@@ -77,8 +78,9 @@ export default class MapViewStore {
   }
 
   @action.bound toggleModal(modal, value) {
-    const visible = value || !this[`${modal}Modal`];
-    this[`${modal}Modal`] = visible;
+    runInAction(() => {
+      this[`${modal}Modal`] = value;
+    });
   }
 
   @computed get inChoosePlaceMode() {

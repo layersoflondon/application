@@ -47,15 +47,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 history.previousLocalStates += 1;
             }
 
-            const currentModals = getCurrentModals(newLocation);
-
+            
             const choosePlace = getQueryStringValue(newLocation, 'choose-place');
             if(choosePlace === "true") {
                 stores.mapViewStore.inChoosePlaceMode = true;
             }
-
-            console.log("Enabling modals: ", currentModals);
             
+            stores.mapViewStore.toggleModal('search', false);
+            
+            const currentModals = getCurrentModals(newLocation);
             if(currentModals) {
                 currentModals.map((modal) => stores.mapViewStore.toggleModal(modal, true));
             }

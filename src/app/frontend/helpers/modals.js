@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 
 const MODAL_NAMES = [
-  'record', 'media', 'newRecord', 'editRecord', 'newCollection', 'editCollection'
+  'record', 'media', 'search', 'layers', 'layer', 'newRecord', 'editRecord', 'newCollection', 'editCollection'
 ];
 
 const getCurrentModals = (location) => {
@@ -76,6 +76,35 @@ const getQueryStringValue = (location, param) => {
   return search[param];
 }
 
-window.removeModal = removeModal;
+const openModalLink = (location, paramObject, opts) => {
+  const options = {...opts};
+  const search  = queryString.parse(location.search);
+  search[paramObject.key] = paramObject.value;
 
-export {appendQueryString, getCurrentModal, getCurrentModals, getQueryStringValue, getQueryStringParam, setCurrentModal, getValueForModal, removeModal, removeQueryStringParams, MODAL_NAMES};
+  if(options.remove) options.remove.map((key) => search[key] = undefined);
+  
+  const searchPath = queryString.stringify(search).replace(/&&/, '');
+  return `${location.pathname}?${searchPath}`;
+}
+
+const closeModalLink = (location, param) => {
+  const search  = queryString.parse(location.search);
+
+  if(Array.isArray(param)) {
+    param.map((key) => search[key] = undefined)
+  }else {
+    search[param] = undefined;
+  }
+  
+  const searchPath = queryString.stringify(search).replace(/&&/, '');
+  return `${location.pathname}?${searchPath}`;
+}
+
+const searchPath = () => {
+  const search = queryString.parse(location.search);
+  const string = queryString.stringify(search).replace(/&&/,'');
+
+  return string;
+}
+
+export {appendQueryString, closeModalLink, openModalLink, getCurrentModal, getCurrentModals, getQueryStringValue, getQueryStringParam, setCurrentModal, getValueForModal, removeModal, removeQueryStringParams, searchPath, MODAL_NAMES};

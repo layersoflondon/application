@@ -10,7 +10,15 @@ export default class TrayRecordsIndex extends Component {
   constructor(props) {
     super(props);
     
-    this.props.trayViewStore.fetchData({type: this.props.type});
+    if(this.props.type === "geobounded") {
+      
+    }else {
+      this.props.trayViewStore.fetchData({type: this.props.type});
+    }
+  }
+
+  componentWillUpdate() {
+    console.log("UPDATE");
   }
 
   render() {

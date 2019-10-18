@@ -4,6 +4,7 @@ import {inject, observer} from "mobx-react";
 import SearchViewTaxonomy from "./_search_view_taxonomy";
 import Search from "../../../sources/search";
 import {recordEvent} from "../../../config/data_layer";
+import {closeModalLink} from '../../../helpers/modals';
 
 @inject('router', 'mapViewStore', 'trayViewStore')
 @withRouter
@@ -122,6 +123,9 @@ import {recordEvent} from "../../../config/data_layer";
 
     function serializeQuery(params, prefix) {
       const query = Object.keys(params).map((key) => {
+        if(key === 'collections') {
+          return;
+        }
         const value  = params[key];
 
         if (params.constructor === Array)
@@ -154,17 +158,18 @@ import {recordEvent} from "../../../config/data_layer";
 
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
+      this.props.trayViewStore.searchParams = search_params;
+      
       const {push} = {...this.props.router};
-      const params = serializeQuery(search_params);
+      const params = serializeQuery(search_params).replace(/&&/,'');
       // push(`?results=true&q=${this.state.q}`);
       this.setState({showing_results: true});
-      this.props.trayViewStore.setHeaderContent({
-        title: header_title,
-        subtitle: !!this.state.q ? header_subtitle : "",
-        tray_view_type: "Search"
-      });
+      // this.props.trayViewStore.setHeaderContent({
+      //   title: header_title,
+      //   subtitle: !!this.state.q ? header_subtitle : "",
+      //   tray_view_type: "Search"
+      // });
       this.props.trayViewStore.showCollectionOfCards(response.data);
-
 
       if( response.data.length > 0 ) {
         // get first response object with a lat & lng (if it's a collection, get the first one with records)
@@ -186,6 +191,7 @@ import {recordEvent} from "../../../config/data_layer";
 
       this.props.trayViewStore.locked = true;
       this.props.trayViewStore.root = false;
+
       this.props.router.history.push(`/map/search?show_results=true&${params}`)
     });
   }
@@ -244,12 +250,12 @@ import {recordEvent} from "../../../config/data_layer";
   }
 
   render() {
-    let className = "m-overlay";
-    if( this.props.mapViewStore.overlay === 'search' ) className += " is-showing";
+    if(!this.props.mapViewStore.modalIsVisible('search')) return <React.Fragment />;
 
-    if( this.state.showing_results || this.props.trayViewStore.loading ) {
-      return <span></span>;
-    }
+    let className = "m-overlay is-showing";
+    // if( this.state.showing_results || this.props.trayViewStore.loading ) {
+    //   return <span></span>;
+    // }
 
     const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} isCheckedMethod={this.isChecked.bind(this)} />);
 
@@ -259,7 +265,7 @@ import {recordEvent} from "../../../config/data_layer";
         <div className="s-overlay--search is-showing">
 
           <div className="close">
-            <Link to="/map" className="close">Close</Link>
+            <Link to={closeModalLink(this.props.router.location, 'search')} className="close" onClick={() => this.props.mapViewStore.searchModal = false}>Close</Link>
           </div>
 
           <div className="m-search-overlay">

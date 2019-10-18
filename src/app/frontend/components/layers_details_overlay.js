@@ -4,6 +4,7 @@ import {inject, observer} from "mobx-react";
 import Helmet from 'react-helmet';
 import {recordEvent} from "../config/data_layer";
 import Parser from 'html-react-parser';
+import {getQueryStringValue, removeModal} from '../helpers/modals';
 
 @inject('mapViewStore', 'layersStore', 'router', 'trayViewStore')
 @withRouter
@@ -18,8 +19,18 @@ import Parser from 'html-react-parser';
   }
 
   componentWillMount() {
-    if( this.props.match.params.id ) {
-      this.props.layersStore.fetchLayerGroup(this.props.match.params.id);
+    const id = getQueryStringValue(this.props.router.location, 'layer');
+    
+    if( id ) {
+      this.props.layersStore.fetchLayerGroup(id);
+    }
+  }
+
+  componentDidUpdate() {
+    const id = getQueryStringValue(this.props.router.location, 'layer');
+
+    if( id ) {
+      this.props.layersStore.fetchLayerGroup(id);
     }
   }
 
@@ -59,8 +70,9 @@ import Parser from 'html-react-parser';
   }
 
   render() {
-    let className = "m-overlay";
-    if (this.props.mapViewStore.overlay === 'layer-details') className += " is-showing";
+    if(!this.props.mapViewStore.modalIsVisible('layer')) return <React.Fragment />;
+
+    let className = "m-overlay is-showing";
 
     let imgStyle = {};
     if( this.props.layersStore.layer_group && this.props.layersStore.layer_group.image ) {
@@ -68,6 +80,12 @@ import Parser from 'html-react-parser';
     }
 
     const label_prefix = (this.props.layersStore.layer_group && this.props.layersStore.layer_group.slug === this.props.match.params.id && this.props.layersStore.layer_group.is_active) ? "Remove" : "Use";
+
+    const closePath = removeModal(this.props.router.location, 'layer');
+    const handleOnClick = () => {
+      removeModal(this.props.router.location, 'layer', this.props.mapViewStore);
+      this.props.router.push(`/map?${closePath}`);
+    }
 
     return (
       <Fragment>
@@ -80,7 +98,7 @@ import Parser from 'html-react-parser';
           <div className={`s-overlay--layers is-showing ${(this.props.layersStore.layer_group && this.props.layersStore.layer_group.is_active) ? "is-selected" : ""}`}>
 
             <div className="close">
-              <Link to="/map/layers" className="close">Close</Link>
+              <Link to={`/map?${closePath}`} className="close" onClick={handleOnClick}>Close</Link>
             </div>
 
             {

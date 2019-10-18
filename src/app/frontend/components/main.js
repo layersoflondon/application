@@ -7,11 +7,13 @@ import Helmet from 'react-helmet';
 
 import TrayContainer from './tray_container';
 import TrayRecordsIndex from './tray/records_index';
+import TrayCollectionsIndex from './tray/collections_index';
 import TrayCollection from './tray/collection';
 import TrayUserRecordsIndex from './tray/user_records_index';
 import TrayTeamRecordsIndex from './tray/team_records_index';
 import TrayGettingStarted from './tray/getting_started';
-import Tray from './tray/tray';
+import TraySearchResults from './tray/search_results';
+
 
 import Tools from './tools';
 import MapView from './map_view';
@@ -55,7 +57,6 @@ import RecordTags from "./forms/records/record_tags";
         <meta name='keywords' content="layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study" />
       </Helmet>
 
-
       {/*permanantly visible components */}
 
       <ErrorBoundary><Tools/></ErrorBoundary>
@@ -63,6 +64,12 @@ import RecordTags from "./forms/records/record_tags";
         <TrayContainer>
           <Switch>
             <Route exact path='/map' component={TrayGettingStarted} />
+            <Route exact path='/map/search' component={TraySearchResults} />
+            <Route exact path='/map/collections' component={TrayCollectionsIndex} />
+            <Route exact path='/map/:lat,:lng' render={({match})=> {
+              console.log(match);
+              return <TrayRecordsIndex type='geobounded' lat={match.params.lat} lng={match.params.lng} />
+            }} />
             <Route exact path='/map/:type' render={({match}) => {
               let title = "";
               switch(match.params.type) {
@@ -83,7 +90,7 @@ import RecordTags from "./forms/records/record_tags";
         </TrayContainer>
       </ErrorBoundary>
 
-      <Route component={RecordView} />
+      {/* <Route component={RecordView} /> */}
 
       <Route render={({location}) => (
         <ErrorBoundary>
@@ -105,12 +112,15 @@ import RecordTags from "./forms/records/record_tags";
         <Route exact path='/map?:lat/:lng' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
 
         {/* Various Overlays ... */}
+        <Route component={SearchView} />
+        <Route component={LayersOverlay} />
+        <Route component={LayerDetailsOverlay} />
+        
         {/* <Route exact path='/map/account' component={UserForm} />
         <Route exact path='/map/account/:tab' component={UserForm} />
         <Route exact path='/map/account/:tab/:id' component={UserForm} />
         <Route path='/map/layers' component={LayersOverlay} />
         <Route path='/map/layers/:id' component={LayerDetailsOverlay} />
-        <Route exact path='/map/search' component={SearchView} />
         <Route path='/map/search?results=true&q=:query' component={Tray} /> */}
 
         {/* show the collections form */}

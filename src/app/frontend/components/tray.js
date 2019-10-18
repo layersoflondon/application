@@ -51,9 +51,9 @@ import TrayHeader from "./tray_header";
 
       <div className="window" ref={this.tray_list}>
         <div className="s-tray-area--default is-showing">
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <TrayHeader showTrayHeader={!this.props.trayViewStore.root} {...this.props}/>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           <div className="m-tray-records-list">
             {cards}

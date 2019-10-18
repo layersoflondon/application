@@ -12,8 +12,23 @@ json.created_at DateTime.parse(collection.created_at).strftime("%d/%m/%Y")
 json.updated_at DateTime.parse(collection.updated_at).strftime("%d/%m/%Y")
 json.owner collection.owner
 json.contributor_ids collection.contributor_ids
-json.records do
-  json.array! collection.records.collect {|r| OpenStruct.new(r)}.select {|r| RecordPolicy.new(current_user, r).show?}, partial: 'search/record', as: :record
+# json.records do
+#   json.array! collection.records.collect {|r| OpenStruct.new(r)}.select {|r| RecordPolicy.new(current_user, r).show?}, partial: 'search/record', as: :record
+# end
+json.records do 
+  json.array!(collection.records.select{|r| RecordPolicy.new(current_user, OpenStruct.new(r)).show?}) do |record|
+    json.id record['id']
+    json.title record['title']
+    json.description record['description']
+    json.excerpt record['excerpt']
+    json.lat record['pin']['lat']
+    json.lng record['pin']['lon']
+    json.state record['state']
+    json.collection_ids record['collection_ids'].try(:uniq)
+    json.tag_groups record['tag_groups']
+    json.tag_ids record['tag_ids']
+  end
 end
+
 json.image collection.image
 json.user_can_edit user_signed_in? ? CollectionPolicy.new(current_user,collection).edit? : false

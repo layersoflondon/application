@@ -52,9 +52,9 @@ import { Route } from 'react-router';
 
       <div className="window" ref={this.props.trayViewStore.tray_list_ref}>
         <div className="s-tray-area--default is-showing">
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <TrayHeader showTrayHeader={!this.props.trayViewStore.root} {...this.props}/>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           <div className="m-tray-records-list">
             {this.props.children}

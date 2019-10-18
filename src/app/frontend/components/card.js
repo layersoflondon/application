@@ -4,7 +4,7 @@ import {observer, inject} from "mobx-react";
 import {Link, withRouter} from 'react-router-dom';
 import Img from 'react-image';
 import VisibilitySensor from 'react-visibility-sensor';
-
+import {openModalLink} from '../helpers/modals';
 
 @inject('router', 'mapViewStore')
 @withRouter
@@ -29,13 +29,11 @@ import VisibilitySensor from 'react-visibility-sensor';
 
     if( this.props.card.is_collection ) container_classes += " m-record-card--collection";
 
-    let resource = '/';
+    let cardLink = '/';
     if( this.props.card.is_collection ) {
-      resource = 'collections';
-    }else if(this.props.card.collection_id) {
-      resource = `collections/${this.props.card.collection_id}`;
+      cardLink = `/map/collections/${this.props.card.data.id}`;
     }else {
-      resource = 'records';
+      cardLink = openModalLink(this.props.location, {key: 'record', value: this.props.card.data.id});
     }
 
     if( this.props.card.highlighted_by_marker) {
@@ -48,7 +46,7 @@ import VisibilitySensor from 'react-visibility-sensor';
 
     return (
       <VisibilitySensor onChange={visibilityChanged} partialVisibility={true}>
-        <Link to={`?record=${this.props.card.data.id}`} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseLeave={()=>this.props.card.highlighted=false}>
+        <Link to={cardLink} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseLeave={()=>this.props.card.highlighted=false}>
           <div className="wrapper">
             {
               this.props.card.data.image &&

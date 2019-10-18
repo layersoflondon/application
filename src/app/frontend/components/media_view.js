@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
 import {NavLink, Link, withRouter} from 'react-router-dom';
 import Img from 'react-image';
-import {appendQueryString, removeQueryStringParams} from '../helpers/modals';
+import {appendQueryString, removeQueryStringParams, closeModalLink} from '../helpers/modals';
 
 @inject('router', 'trayViewStore', 'mapViewStore')
 @withRouter
@@ -51,7 +51,7 @@ import {appendQueryString, removeQueryStringParams} from '../helpers/modals';
       <div className="s-overlay--media is-showing">
         <div className="m-media-viewer *m-media-viewer--basic">
           <div className="close">
-            <Link to={`/map?${search}`} onClick={this.handleOnClick.bind(this)}>Close</Link>
+            <Link to={closeModalLink(this.props.router.location, ['media', 'media-item-id'])} onClick={this.handleOnClick.bind(this)}>Close</Link>
           </div>
 
           <div className="wrap">

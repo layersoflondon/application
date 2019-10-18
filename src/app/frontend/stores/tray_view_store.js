@@ -8,6 +8,7 @@ import Team from '../sources/team';
 
 import CardModel from '../models/card';
 import pluralize from 'pluralize'
+import { appendQueryString } from '../helpers/modals';
 
 /**
  * The data store for the TrayView
@@ -51,8 +52,6 @@ export default class TrayViewStore {
   tray_list_ref = null;
 
   constructor() {
-    this.setHeaderContent({});
-
     observe(this, 'cards', (change) => {
       if(this.root) {
         // this.previous_cards = change.oldValue;
@@ -64,72 +63,6 @@ export default class TrayViewStore {
         this.map_ref.leafletElement.invalidateSize();
       }, 500);
     });
-
-    // mutating the visible_record_id will fetch that record and update the RecordView component with the relevant state
-    // observe(this, 'record_id', (change) => {
-    //   this.loading_record = true;
-    //   this.loading_error = false;
-
-    //   if( change.newValue && change.newValue !== 'new' ) {
-    //     // if(this.cards.get(`record_${change.newValue}`)) {
-    //     //   let card = this.cards.get(`record_${change.newValue}`);
-    //     //   this.record = card.data;
-    //     //   this.loading_record = false;
-    //     // }else {
-    //       Record.show(null, this.record_id).then((response) => {
-    //         let card = CardModel.fromJS(response.data, this);
-    //         this.cards.set(card.id, card);
-    //         this.record = card.data;
-    //         this.loading_record = true;
-    //         this.loading_error = false;
-    //       }).catch((error) => {
-    //         console.log(error);
-    //         // console.log(`Error getting record ${this.record_id}`, error);
-    //         this.record_id = null;
-    //         this.loading_error = true;
-    //       }).then(() => {
-    //         this.loading_record = false;
-    //       });
-    //     // }
-
-    //     if(this.fetch_additional_records && !this.locked) {
-    //       setTimeout(() => {
-    //         this.reloadTrayDataForBounds(this.boundsFromMapRef, true);
-    //       }, 5);
-    //     }
-    //   }else {
-    //     this.record = null;
-    //     this.loading_record = false;
-    //   }
-    // });
-
-    // observe(this, 'collection_id', (change) => {
-    //   this.loading_error = false;
-    //   if( change.newValue ) {
-    //     this.loading_collection = true;
-    //     Collection.show(null, this.collection_id).then((response) => {
-    //       this.root = false;
-    //       this.setHeaderContent({
-    //         title: response.data.title,
-    //         introduction: response.data.description,
-    //         tray_view_type: "Collection"
-    //       });
-    //       this.showCollectionOfCards(response.data.records);
-    //       //  Lock this view so dragging the map doesn't change the cards
-    //       this.locked = true;
-    //     }).catch((error) => {
-    //       this.loading_error = true;
-    //       this.collection_id = null;
-    //     }).then(() => {
-    //       this.loading_collection = false;
-    //     });
-    //   }else {
-    //     this.collection_id = null;
-    //     this.collection_ids = null;
-    //     this.loading_collection = false;
-    //     this.locked = false;
-    //   }
-    // });
 
     intercept(this, "collection_ids", (change) => {
       if( change.newValue && change.newValue.length ) {
@@ -242,7 +175,7 @@ export default class TrayViewStore {
    */
   reloadTrayDataForBounds(bounds, append_data = false) {
     this.loading = true;
-
+    
     Search.perform({geobounding: bounds}).then((response) => {
       if( append_data ) {
         this.updateCollectionOfCards(response.data);
@@ -258,46 +191,20 @@ export default class TrayViewStore {
 
   reloadTrayData() {
     this.loading = true;
-
-    Search.perform({q: "test"}).then((response) => {
+    
+    Search.perform({q: ""}).then((response) => {
       this.showCollectionOfCards(response.data);
     }).then(() => {
       this.loading = false;
     });
   }
 
-  moveToNextCard() {
-    // const current_card = this.card_store.cards.find((c) => c.id === this.visible_record_id);
-    // const current_index = this.card_store.cards.indexOf(current_card);
-    //
-    // const next_cards = this.card_store.cards.slice(current_index+1);
-    // const next_card = next_cards.find((c) => !c.is_collection);
-    //
-    // if( next_card ) {
-    //   console.log("Setting visible_record_id");
-    //   this.visible_record_id = next_card.id;
-    // }
-  }
-
-  moveToPreviousCard() {
-    // const current_card = this.card_store.cards.find((c) => c.id === this.visible_record_id);
-    // const current_index = this.card_store.cards.indexOf(current_card);
-    //
-    // const previous_cards = this.card_store.cards.slice(0, current_index).reverse();
-    // const previous_card = previous_cards.find((c) => !c.is_collection);
-    //
-    // if( previous_card ) {
-    //   console.log("Setting visible_record_id");
-    //   this.visible_record_id = previous_card.id;
-    // }
-  }
-
   @computed get collectionsCount() {
-    return this.cards.values().map((c) => { return c.is_collection ? 1 : 0}).reduce((a,b) => {return a + b}, 0)
+    return this.mainResults.values().map((c) => { return c.is_collection ? 1 : 0}).reduce((a,b) => {return a + b}, 0)
   }
 
   @computed get recordsCount() {
-    return this.cards.size - this.collectionsCount;
+    return this.mainResults.size - this.collectionsCount;
   }
 
   @computed get trayViewType() {
@@ -309,8 +216,8 @@ export default class TrayViewStore {
     // - search: search query as title, or date range if no search query
   }
 
-  @computed get boundsFromMapRef() {
-    console.log("get boundsFromMapRef() called");
+  @computed get mapBounds() {
+    console.log("get mapBounds() called");
     let center = this.map_ref.leafletElement.getBounds().getCenter();
     let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
     const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
@@ -360,14 +267,8 @@ export default class TrayViewStore {
    * fixme: we might want to look at expiring this previous set and fetching updated data...
    */
   restoreRootState() {
-    this.reloadTrayDataForBounds(this.boundsFromMapRef);
-
-    // if(this.previous_cards && this.previous_cards.size) {
-    //   // this.cards = this.previous_cards;
-    //   this.reloadTrayDataForBounds(this.boundsFromMapRef);
-    // }else {
-    //   this.reloadTrayDataForBounds(this.boundsFromMapRef);
-    // }
+    console.log("restoreRootState");
+    // this.reloadTrayDataForBounds(this.mapBounds);
   }
 
   /**
@@ -384,12 +285,12 @@ export default class TrayViewStore {
       cards.set(card.id, card);
     });
 
-    if( this.tray_list_ref.current && this.cards.keys().toString() !== cards.keys().toString() ) {
+    if( this.tray_list_ref.current && this.mainResults.keys().toString() !== cards.keys().toString() ) {
       this.tray_list_ref.current.scrollTop = 0;
     }
 
     this.loading = false;
-    this.cards.replace(cards);
+    this.mainResults.replace(cards);
   }
 
   /**
@@ -404,20 +305,7 @@ export default class TrayViewStore {
       items.set(card.id, card);
     });
     
-    this.cards.merge(items);
-  }
-
-  setHeaderContent(content) {
-    this.header_content = Object.assign({
-      title: "",
-      subtitle: "",
-      profile_image_url: "",
-      introduction: "",
-      creator_link_url: "",
-      creator_link_text: "",
-      close_action: null,
-      tray_view_type: null
-    }, content)
+    this.mainResults.merge(items);
   }
 
   /**
@@ -434,7 +322,7 @@ export default class TrayViewStore {
 
     tray_data.cards.map((data) => {
       const card = CardModel.fromJS(data, store);
-      store.cards.set(card.id, card);
+      store.mainResults.set(card.id, card);
     });
 
     return store;
@@ -447,15 +335,14 @@ export default class TrayViewStore {
    */
   addOrUpdateRecord(data) {
     const card = CardModel.fromJS(data, this);
-    this.cards.set(card.id, card);
+    this.mainResults.set(card.id, card);
 
     return card;
   }
 
   // actions
   @action.bound fetchGettingStartedData() {
-    this.highlightedResults.clear();
-    this.mainResults.clear();
+    this.loading = true;
     
     runInAction(async () => {
       const highlightedContentData = await Search.perform({type: 'highlighted', limit: 2});
@@ -476,11 +363,14 @@ export default class TrayViewStore {
 
       this.highlightedResults.replace(highlightedContent);
       this.mainResults.replace(popularContent);
+
+      this.loading = false;
     });
   }
 
   @action.bound fetchData(params) {
     this.mainResults.clear();
+    this.loading = true;
     
     runInAction(async() => {
       const mainContentData = await Search.perform(params);
@@ -491,13 +381,14 @@ export default class TrayViewStore {
       });
       
       this.mainResults.replace(mainResults);
+      this.loading = false;
     });
   }
 
   @action.bound fetchRecord(id) {
     Record.show(null, id).then((response) => {
       let card = CardModel.fromJS(response.data, this);
-      this.cards.set(card.id, card);
+      this.mainResults.set(card.id, card);
       this.record = card.data;
       this.loading_record = true;
       this.loading_error = false;
@@ -525,5 +416,25 @@ export default class TrayViewStore {
       
       this.mainResults.replace(mainResults);
     });
+  }
+
+  @action.bound fetchCollections() {
+    this.mainResults.clear();
+    this.loading = true;
+
+    runInAction(async() => {
+      const response = await Search.perform({collections: true});
+      this.showCollectionOfCards(response.data);
+
+      this.loading = false;
+    });
+  }
+
+  @computed get cardsToRenderOnMap() {
+    const cards = observable.map();
+    cards.merge(this.highlightedResults);
+    cards.merge(this.mainResults);
+    
+    return cards;
   }
 }

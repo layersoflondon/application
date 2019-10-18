@@ -4,8 +4,8 @@ import {inject, observer} from "mobx-react";
 import Helmet from 'react-helmet';
 import LayerGroup from './layer_group';
 import Equalizer from "./Equalizer";
-import {debounce} from "underscore";
 import Layer from '../sources/layer';
+import {closeModalLink, removeModal} from '../helpers/modals';
 
 @inject('mapViewStore', 'layersStore', 'trayViewStore', 'router')
 @withRouter
@@ -46,11 +46,16 @@ import Layer from '../sources/layer';
   }
 
   render() {
-    let className = "m-overlay";
-    if (this.props.mapViewStore.overlay === 'layers') className += " is-showing";
+    if(!this.props.mapViewStore.modalIsVisible('layers')) return <React.Fragment />;
+
+    let className = "m-overlay is-showing";
 
     const highlightedLayers = this.props.layersStore.highlightedLayerGroups.filter((layer_group) => layer_group.inFilter(this.state.ids));
     const layerDirectoryLayers = this.props.layersStore.layerGroups.filter((layer_group) => layer_group.inFilter(this.state.ids));
+
+    const handleOnClick = () => {
+      removeModal(this.props.router.location, 'layers', this.props.mapViewStore);
+    }
 
     return (
       <Fragment>
@@ -63,7 +68,7 @@ import Layer from '../sources/layer';
           <div className={`s-overlay--layers is-showing ${this.props.layersStore.activeVisibleLayerGroups.length}-active-layers`}>
 
             <div className="close">
-              <Link to="/map" className="close" onClick={this.checkRestoreTray.bind(this)}>Close</Link>
+              <Link to={closeModalLink(this.props.router.location, 'layers')} className="close" onClick={handleOnClick}>Close</Link>
             </div>
 
             <div className="m-layers-picker">

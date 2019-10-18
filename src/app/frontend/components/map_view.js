@@ -8,7 +8,7 @@ import ErrorBoundary from './error_boundary';
 import MapSearchContainer from './map_search_container';
 import pluralize from "pluralize";
 import MapLayerGroup from "./map_layer_group";
-import {removeModal, appendQueryString} from '../helpers/modals';
+import {openModalLink, searchPath} from '../helpers/modals';
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapView extends Component {
@@ -63,10 +63,9 @@ import {removeModal, appendQueryString} from '../helpers/modals';
       this.props.mapViewStore.inEditRecordMode = true;
 
       if (!!this.props.recordFormStore.record.id) {
-        this.props.router.push(`/map/records/${this.props.recordFormStore.record.id}/edit`)
+        this.props.router.push(openModalLink(this.props.router.location, {key: 'editRecord', value: this.props.recordFormStore.record.id}));
       } else {
-        const path = appendQueryString(this.props.router.location, [{key: 'newRecord', value: true}], ['choose-place']);
-        this.props.router.push(`/map?${path}`);
+        this.props.router.push(openModalLink(this.props.router.location, {key: 'newRecord', value: true}, {remove: ['choose-place']}));
       }
 
     }
@@ -97,7 +96,7 @@ import {removeModal, appendQueryString} from '../helpers/modals';
     let markers = [];
 
     if( this.props.trayViewStore.cards.size ) {
-      this.props.trayViewStore.cards.values().map((c) => {
+      this.props.trayViewStore.cardsToRenderOnMap.values().map((c) => {
         let key;
         if( c.is_collection ) {
           c.data.records.map((r)=> {
@@ -119,16 +118,16 @@ import {removeModal, appendQueryString} from '../helpers/modals';
       })}
     </span>;
 
-    const headerContent = this.props.trayViewStore.header_content;
+    // const headerContent = this.props.trayViewStore.header_content;
     const headerMeta = <div className="meta">
       {[
-        headerContent.tray_view_type,
+        // headerContent.tray_view_type,
         (!!this.props.trayViewStore.recordsCount && pluralize('record', this.props.trayViewStore.recordsCount, true)) || null,
         (!!this.props.trayViewStore.collectionsCount && pluralize('collection',this.props.trayViewStore.collectionsCount,true)) || null].filter((e) => {return e}).join(", ")}
     </div>;
 
     return <ErrorBoundary>
-      {
+      {/* {
         this.state.headerShowing && !this.props.mapViewStore.add_record_mode && (
           <div className="m-map-view-title-area">
             { (headerContent.title) &&
@@ -142,7 +141,7 @@ import {removeModal, appendQueryString} from '../helpers/modals';
             {headerMeta}
           </div>
         )
-      }
+      } */}
 
       <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
         <div className={`m-map ${this.props.mapViewStore.add_record_mode ? 'is-adding' : ''}`}>
