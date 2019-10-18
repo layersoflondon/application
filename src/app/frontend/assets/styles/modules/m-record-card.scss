@@ -16,3 +16,15 @@
     }
   }
 }
+
+.m-tray-records-container {
+  .records-section .m-tray-title-area {
+    position: relative;
+  }
+
+  .records-section .m-tray-title-area .meta {
+    position: absolute;
+    right: 0;
+    top: 20px;
+  }
+}

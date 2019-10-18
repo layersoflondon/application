@@ -23,30 +23,41 @@ export default class TrayCollection extends Component {
   }
 
   render() {
+    if(this.props.trayViewStore.loading) return <React.Fragment />
+
     const mainResults = this.props.trayViewStore.mainResults.values().map((result) => {
       return <Card key={`record_${result.id}`} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
     });
     
     const closePath = this.props.trayViewStore.goBackTo || '/map';
 
-    return <div>
-      <Link style={{float: 'right'}} to={closePath} onClick={() => this.props.trayViewStore.goBackTo = null}>&times; close</Link>
+    return <React.Fragment>
+      <div className="m-tray-title-area">
+        <h1>
+          {this.props.trayViewStore.collection.title}
+        </h1>
+        <Link className="close" style={{float: 'right'}} to={closePath} onClick={() => this.props.trayViewStore.goBackTo = null}>&times;</Link>
 
+        <div className="meta">
+        </div>
+      </div>
+{/* 
       {
         this.props.trayViewStore.collection && 
         <h1>
           {this.props.trayViewStore.collection.title}
         </h1>
-      }
+      } */}
       
-      {
-        this.props.trayViewStore.mainResults.size>0 && 
-        <React.Fragment>
-          <h1>{this.props.title}</h1>
-          {mainResults}
-        </React.Fragment>
-      }
-      
-    </div>
+      <div className="m-tray-records-list">
+        {
+          this.props.trayViewStore.mainResults.size>0 && 
+          <React.Fragment>
+            <h1>{this.props.title}</h1>
+            {mainResults}
+          </React.Fragment>
+        }
+      </div>      
+    </React.Fragment>
   }
 }

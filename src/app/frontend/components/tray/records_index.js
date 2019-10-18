@@ -18,12 +18,6 @@ export default class TrayRecordsIndex extends Component {
       this.props.trayViewStore.fetchData({type: this.props.type}, {lockTray: true});
     }
   }
-
-  // componentDidUpdate() {
-  //   if(this.props.type === "geobounded") {
-  //     console.log("UPDATE GEOBOUNDED");
-  //   }
-  // }
   
   render() {
     const mainResults = this.props.trayViewStore.mainResults.values().map((result) => {
@@ -36,17 +30,20 @@ export default class TrayRecordsIndex extends Component {
       }
     });
     
-    return <div>
-      <Link style={{float: 'right'}} to='/map' onClick={() => this.props.trayViewStore.trayLocked = false}>&times; close</Link>
-
-      {
-        this.props.trayViewStore.mainResults.size>0 && 
-        <React.Fragment>
-          <h1>{this.props.title}</h1>
-          {mainResults}
-        </React.Fragment>
-      }
+    return <React.Fragment>
+      <div className="m-tray-title-area">
+        <Link className="close" style={{float: 'right'}} to='/map' onClick={() => this.props.trayViewStore.trayLocked = false}>&times;</Link>
+        <h1>{this.props.title}</h1>
+      </div>
       
-    </div>
+      <div className="m-tray-records-list">
+        {
+          this.props.trayViewStore.mainResults.size>0 && 
+          <React.Fragment>
+            {mainResults}
+          </React.Fragment>
+        }
+      </div>      
+    </React.Fragment>
   }
 }

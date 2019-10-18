@@ -16,17 +16,30 @@ export default class TrayCollectionsIndex extends Component {
       return <Card key={`record_${result.id}`} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
     });
     
-    return <div>
-      <Link style={{float: 'right'}} to='/map'>&times; close</Link>
-
-      {
-        this.props.trayViewStore.mainResults.size>0 && 
-        <React.Fragment>
-          <h1>{this.props.title}</h1>
-          {mainResults}
-        </React.Fragment>
-      }
+    return <React.Fragment>
+      <div className="m-tray-title-area">
+        <Link style={{float: 'right'}} to='/map'>&times; close</Link>
+        <h1>
+          Results for your collection search
+        </h1>
+        {
+          !this.props.trayViewStore.loading && 
+          <div className="meta">
+            Search, {this.props.trayViewStore.mainResults.size} collections
+          </div>
+        }
+      </div>
       
-    </div>
+      <div className="m-tray-records-list">
+        {
+          this.props.trayViewStore.mainResults.size>0 && 
+          <React.Fragment>
+            <h1>{this.props.title}</h1>
+            {mainResults}
+          </React.Fragment>
+        }
+      </div>
+      
+    </React.Fragment>
   }
 }

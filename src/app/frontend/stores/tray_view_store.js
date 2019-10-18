@@ -326,6 +326,7 @@ export default class TrayViewStore {
   }
 
   @action.bound fetchCollection(id) {
+    this.loading = true;
     this.mainResults.clear();
 
     runInAction(async() => {
@@ -338,6 +339,7 @@ export default class TrayViewStore {
         mainResults.set(result.id, card);
       });
       
+      this.loading = false;
       this.mainResults.replace(mainResults);
     });
   }
@@ -355,7 +357,6 @@ export default class TrayViewStore {
   }
 
   @computed get cardsToRenderOnMap() {
-    console.log("cardsToRenderOnMap", Math.random());
     let cards = observable.map();
 
     cards.merge(this.mainResults);

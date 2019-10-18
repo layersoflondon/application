@@ -33,21 +33,33 @@ import CollectionCard from '../collection_card';
       }
     });
 
-    return <div>
+    return <div className="m-tray-records-container">
       {
         this.props.trayViewStore.highlightedResults.size>0 && 
-        <React.Fragment>
-          <h1>Highlighted - <Link to='/map/highlighted'>More</Link></h1>
-          {highlightedResults}
-        </React.Fragment>
+        <div className="records-section">
+          <div className="m-tray-title-area">
+            <h1>Highlighted</h1>
+            <div className="meta"><Link to='/map/highlighted'>More</Link></div>
+          </div>
+
+          <div className="m-tray-records-list">
+            {highlightedResults}
+          </div>
+        </div>
       }
 
       {
         this.props.trayViewStore.mainResults.size>0 && 
-        <React.Fragment>
-          <h1>Popular - <Link to='/map/popular'>More</Link></h1>
-          {mainResults}
-        </React.Fragment>
+        <div className="records-section">
+          <div className="m-tray-title-area">
+            <h1>Popular</h1>
+            <div className="meta"><Link to='/map/popular'>More</Link></div>
+          </div>
+
+          <div className="m-tray-records-list">
+            {mainResults}
+          </div>
+        </div>
       }
     </div>
   }

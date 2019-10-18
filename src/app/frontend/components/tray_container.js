@@ -42,9 +42,7 @@ import { Route } from 'react-router';
             <TrayHeader showTrayHeader={!this.props.trayViewStore.root} {...this.props}/>
           </ErrorBoundary> */}
 
-          <div className="m-tray-records-list">
-            {this.props.children}
-          </div>
+          {this.props.children}
         </div>
       </div>
     </div>;
