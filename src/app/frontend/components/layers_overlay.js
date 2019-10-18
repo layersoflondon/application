@@ -114,7 +114,7 @@ import {closeModalLink, removeModal} from '../helpers/modals';
 
               {this.props.layersStore.activeLayerGroups.length > 0 &&
               <div className="confirm">
-                <Link to="/map" className="btn" onClick={this.checkRestoreTray.bind(this)}>I'm done!</Link>
+                <Link to={closeModalLink(this.props.router.location, 'layers')} className="btn" onClick={handleOnClick}>I'm done!</Link>
               </div>
               }
 

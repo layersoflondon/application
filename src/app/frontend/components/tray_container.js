@@ -15,21 +15,7 @@ import { Route } from 'react-router';
 
     this.props.trayViewStore.tray_list_ref = React.createRef();
   }
-
-  componentWillMount() {
-    if (this.props.router.history.location.pathname === "/map") {
-      setTimeout(() => {
-        this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
-      }, 2);
-    }
-  }
-
-  componentWillReceiveProps() {
-    if(this.props.router.history.location.pathname === "/map" && !this.props.trayViewStore.root ) {
-      this.props.trayViewStore.restoreRootState();
-    }
-  }
-
+  
   render() {
     const cards = this.props.trayViewStore.cards.values().map( (c) => {
       const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;

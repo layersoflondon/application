@@ -11,11 +11,8 @@ export default class TraySearchResults extends Component {
     super(props);
     
     this.state = queryString.parse(this.props.router.location.search);
+    this.props.trayViewStore.trayLocked = true;
     this.props.trayViewStore.fetchData(this.state);
-  }
-
-  componentDidUpdate() {
-    console.log("UPDATE");
   }
 
   render() {
@@ -24,7 +21,7 @@ export default class TraySearchResults extends Component {
     });
     
     return <div>
-      <Link style={{float: 'right'}} to='/map'>&times; close</Link>
+      <Link style={{float: 'right'}} to='/map' onClick={() => this.props.trayViewStore.trayLocked = false}>&times; close</Link>
 
       {
         this.props.trayViewStore.mainResults.size>0 && 

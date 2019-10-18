@@ -34,18 +34,20 @@ import {openModalLink, searchPath} from '../helpers/modals';
   }
 
   componentDidMount() {
-    this.initial_bounds = this.props.mapViewStore.current_bounds;
+    this.initial_bounds = this.props.trayViewStore.mapBounds
   }
 
   handleOnDragEnd() {
     if(!this.props.trayViewStore.locked) {
-      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+      const center = this.props.trayViewStore.mapBounds.center;
+      this.props.router.push(`/map/${center.lat},${center.lng}`);
     }
   }
 
   handleOnZoomEnd() {
     if(!this.props.trayViewStore.locked) {
-      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+      const center = this.props.trayViewStore.mapBounds.center;
+      this.props.router.push(`/map/${center.lat},${center.lng}`);
     }
   }
 
@@ -94,20 +96,18 @@ import {openModalLink, searchPath} from '../helpers/modals';
     const map_zoom = this.props.mapViewStore.zoom;
 
     let markers = [];
-
-    if( this.props.trayViewStore.cards.size ) {
-      this.props.trayViewStore.cardsToRenderOnMap.values().map((c) => {
-        let key;
-        if( c.is_collection ) {
-          c.data.records.map((r)=> {
-            key = `collection_${c.id}_record_${r.id}`;
-            markers.push( <ErrorBoundary key={key}><MarkerContainer position={r.position} record={r} cardComponent={c} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
-          })
-        }else {
-          markers.push( <ErrorBoundary key={c.id}><MarkerContainer position={c.data.position} record={c.data} cardComponent={c} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
-        }
-      });
-    }
+    
+    this.props.trayViewStore.cardsToRenderOnMap.values().map((c) => {
+      let key;
+      if( c.is_collection ) {
+        c.data.records.map((r)=> {
+          key = `collection_${c.id}_record_${r.id}`;
+          markers.push( <ErrorBoundary key={key}><MarkerContainer position={r.position} record={r} cardComponent={c} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
+        })
+      }else {
+        markers.push( <ErrorBoundary key={c.id}><MarkerContainer position={c.data.position} record={c.data} cardComponent={c} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
+      }
+    });
 
     const layers = <span className="tile-layers">
       <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />

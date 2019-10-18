@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import LayerGroupTool from './layer_group_tool';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import {openModalLink} from '../helpers/modals';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
@@ -82,7 +83,7 @@ const handle = (props) => {
 
           <Link className={lightsOutClasses} to="#" onClick={()=>this.props.mapViewStore.lightsOut = !this.props.mapViewStore.lightsOut}>{lightsOutLabel}</Link>
 
-          <Link to="/map/layers">Choose new layers</Link>
+          <Link to={openModalLink(this.props.router.location, {key: 'layers', value: true})}>Choose new layers</Link>
         </div>
       </div>
     </div>

@@ -11,16 +11,18 @@ export default class TrayRecordsIndex extends Component {
     super(props);
     
     if(this.props.type === "geobounded") {
-      
+      this.props.trayViewStore.reloadTrayDataForCurrentBounds();
     }else {
-      this.props.trayViewStore.fetchData({type: this.props.type});
+      this.props.trayViewStore.fetchData({type: this.props.type}, {lockTray: true});
     }
   }
 
-  componentWillUpdate() {
-    console.log("UPDATE");
-  }
-
+  // componentDidUpdate() {
+  //   if(this.props.type === "geobounded") {
+  //     console.log("UPDATE GEOBOUNDED");
+  //   }
+  // }
+  
   render() {
     const mainResults = this.props.trayViewStore.mainResults.values().map((result) => {
       const key = `${result.is_collection ? 'collection' : 'record'}_${result.id}`;
@@ -33,7 +35,7 @@ export default class TrayRecordsIndex extends Component {
     });
     
     return <div>
-      <Link style={{float: 'right'}} to='/map'>&times; close</Link>
+      <Link style={{float: 'right'}} to='/map' onClick={() => this.props.trayViewStore.trayLocked = false}>&times; close</Link>
 
       {
         this.props.trayViewStore.mainResults.size>0 && 

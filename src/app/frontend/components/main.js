@@ -67,7 +67,6 @@ import RecordTags from "./forms/records/record_tags";
             <Route exact path='/map/search' component={TraySearchResults} />
             <Route exact path='/map/collections' component={TrayCollectionsIndex} />
             <Route exact path='/map/:lat,:lng' render={({match})=> {
-              console.log(match);
               return <TrayRecordsIndex type='geobounded' lat={match.params.lat} lng={match.params.lng} />
             }} />
             <Route exact path='/map/:type' render={({match}) => {

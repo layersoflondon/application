@@ -48,6 +48,7 @@ export default class TrayViewStore {
   @observable highlightedResults = observable.map();
   @observable mainResults = observable.map();
 
+  path = '/map';
   map_ref = null;
   tray_list_ref = null;
 
@@ -166,32 +167,10 @@ export default class TrayViewStore {
     this.tray_is_visible = !this.tray_is_visible;
   }
 
-  /**
-   * perform a search using just the current visible bounds of the map. this will be called
-   * whenever the user drags or zooms the map in order to show relevant markers
-   *
-   * @param bounds
-   * @param append_data
-   */
-  reloadTrayDataForBounds(bounds, append_data = false) {
-    this.loading = true;
-    
-    Search.perform({geobounding: bounds}).then((response) => {
-      if( append_data ) {
-        this.updateCollectionOfCards(response.data);
-      }else {
-        this.showCollectionOfCards(response.data);
-      }
-    }).then(() => {
-      this.root = true;
-      this.locked = false;
-      this.loading = false;
-    });
-  }
-
   reloadTrayData() {
     this.loading = true;
     
+    console.log("Search.perform() 3");
     Search.perform({q: ""}).then((response) => {
       this.showCollectionOfCards(response.data);
     }).then(() => {
@@ -267,7 +246,6 @@ export default class TrayViewStore {
    * fixme: we might want to look at expiring this previous set and fetching updated data...
    */
   restoreRootState() {
-    console.log("restoreRootState");
     // this.reloadTrayDataForBounds(this.mapBounds);
   }
 
@@ -353,12 +331,12 @@ export default class TrayViewStore {
 
       highlightedContentData.data.map((result) => {
         const card = CardModel.fromJS(result, this);
-        highlightedContent.set(result.id, card);
+        highlightedContent.set(card.id, card);
       });
 
       popularContentData.data.map((result) => {
         const card = CardModel.fromJS(result, this);
-        popularContent.set(result.id, card);
+        popularContent.set(card.id, card);
       });
 
       this.highlightedResults.replace(highlightedContent);
@@ -368,10 +346,36 @@ export default class TrayViewStore {
     });
   }
 
-  @action.bound fetchData(params) {
+  /**
+   * perform a search using just the current visible bounds of the map. this will be called
+   * whenever the user drags or zooms the map in order to show relevant markers
+   *
+   * @param append_data
+   */
+  @action.bound reloadTrayDataForCurrentBounds(append_data = false) {
+    console.log("reloadTrayDataForCurrentBounds called");
+    this.loading = true;
+    const reloadForBounds = () => {
+      let bounds;
+      if (this.map_ref) {
+        bounds = this.mapBounds;
+      } else {
+        setTimeout(reloadForBounds, 1)
+      }
+
+      this.fetchData({geobounding: bounds})
+      return bounds;
+    };
+
+    reloadForBounds();
+  }
+
+  @action.bound fetchData(params, options = {}) {
     this.mainResults.clear();
     this.loading = true;
     
+    const lockTray = options.lockTray || false;
+
     runInAction(async() => {
       const mainContentData = await Search.perform(params);
       const mainResults = observable.map();
@@ -382,6 +386,7 @@ export default class TrayViewStore {
       
       this.mainResults.replace(mainResults);
       this.loading = false;
+      this.locked = lockTray;
     });
   }
 
@@ -423,6 +428,7 @@ export default class TrayViewStore {
     this.loading = true;
 
     runInAction(async() => {
+      console.log("Search.perform() 6");
       const response = await Search.perform({collections: true});
       this.showCollectionOfCards(response.data);
 
@@ -431,10 +437,27 @@ export default class TrayViewStore {
   }
 
   @computed get cardsToRenderOnMap() {
-    const cards = observable.map();
-    cards.merge(this.highlightedResults);
+    console.log("cardsToRenderOnMap", Math.random());
+    let cards = observable.map();
+
     cards.merge(this.mainResults);
-    
+
+    this.highlightedResults.values().map((result) => {
+      if(cards.keys().indexOf(result.id)<0) cards.set(result.id, result);
+    });
+
     return cards;
+  }
+
+  @computed get trayLocked() {
+    return this.locked;
+  }set trayLocked(value) {
+    this.locked = value;
+  }
+
+  @computed get mapPath() {
+    return this.path;
+  }set mapPath(value) {
+    this.path = value;
   }
 }

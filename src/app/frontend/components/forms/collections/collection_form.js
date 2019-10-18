@@ -39,13 +39,6 @@ import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers
       teams = response.data.map((team) => ({value: team.id, label: team.name}));
       this.setState({teams: teams});
     });
-
-    //TODO why do we do this?
-    if( this.props.trayViewStore.cards.size === 0 && !this.props.trayViewStore.locked ) {
-      setTimeout(() => {
-        this.props.trayViewStore.restoreRootState();
-      }, 10);
-    }
   }
 
   handleOnChange(event) {

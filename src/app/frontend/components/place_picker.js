@@ -8,17 +8,7 @@ import {closeModalLink} from '../helpers/modals';
   constructor(props) {
     super(props);
   }
-
-  componentWillMount() {
-    if(!this.props.mapViewStore.inChoosePlaceMode) return;
-
-    if( this.props.trayViewStore.cards.size === 0 && !this.props.trayViewStore.locked ) {
-      setTimeout(() => {
-        this.props.trayViewStore.restoreRootState();
-      }, 10);
-    }
-  }
-
+  
   handleCancelOnClick(event) {
     event.preventDefault();
 
