@@ -79,29 +79,31 @@ document.addEventListener('DOMContentLoaded', () => {
     eventer(messageEvent, (event) => {
         if (event.data.scope === 'clickable-iframe-element') {
             let path = "/map";
-            if (event.data.type && event.data.id) {
+            
+            if(event.data.action === 'edit') {
                 switch (event.data.type) {
-                  case 'record':
-                      path += '/records';
-                      break;
-                  case 'collection':
-                      path += '/collections';
-                      break;
-                  case 'team':
-                      path += '/teams';
-                      break;
+                    case 'record':
+                        path += '?editRecord='+event.data.id;
+                        break;
+                    case 'collection':
+                        path += '?editCollection='+event.data.id;
+                        break;
+                    case 'team':
+                        path += '/teams/'+event.data.id;
+                        break;
                 }
-
-                if (event.data.id) {
-                    path += `/${event.data.id}`;
-                }
-
-                if (event.data.action) {
-                    path += `/${event.data.action}`;
-                }
-
-                history.push(path);
             }
+
+            console.log(path, event.data.action, event.data.type, event.data.id);
+            // if (event.data.id) {
+            //     path += `=${event.data.id}`;
+            // }
+
+            // if (event.data.action) {
+            //     path += `/${event.data.action}`;
+            // }
+
+            history.push(path);
         }
     },false);
 });

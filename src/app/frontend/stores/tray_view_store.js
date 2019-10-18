@@ -49,13 +49,13 @@ export default class TrayViewStore {
   @observable mainResults = observable.map();
 
   previousPath = null;
-  map_ref = null;
+  mapRef = null;
   tray_list_ref = null;
 
   constructor() {
     observe(this, 'tray_is_visible', (change) => {
       setTimeout(() => {
-        this.map_ref.leafletElement.invalidateSize();
+        this.mapRef.leafletElement.invalidateSize();
       }, 500);
     });
 
@@ -138,10 +138,10 @@ export default class TrayViewStore {
   }
 
   @computed get mapBounds() {
-    let center = this.map_ref.leafletElement.getBounds().getCenter();
-    let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
-    const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
-    const south_east = this.map_ref.leafletElement.getBounds().getSouthEast();
+    let center = this.mapRef.leafletElement.getBounds().getCenter();
+    let radius = this.mapRef.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+    const north_west = this.mapRef.leafletElement.getBounds().getNorthWest();
+    const south_east = this.mapRef.leafletElement.getBounds().getSouthEast();
 
     const bounds = {
       top_left: north_west,

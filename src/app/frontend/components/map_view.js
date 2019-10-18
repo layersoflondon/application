@@ -17,6 +17,7 @@ import {openModalLink, searchPath} from '../helpers/modals';
 
     this.setMapRef = element => {
       this.props.mapViewStore.mapRef = element;
+      this.props.trayViewStore.mapRef = element;
     };
 
     this.state = {headerShowing: false};

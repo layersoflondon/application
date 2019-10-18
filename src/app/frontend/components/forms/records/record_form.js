@@ -67,7 +67,7 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
   handleClickedOnSave(event) {
     event.preventDefault();
     // when successfully updating a Record, we should propagate the updated data throughout the stores that are
-    // rendering it. since the tray and map render their data from the trayViewStore.cards observable, we can just
+    // rendering it. since the tray and map render their data from the trayViewStore.mainResults observable, we can just
     // overwrite the data there (see addOrUpdateRecord)
     const {state} = event.target.dataset;
 
@@ -76,7 +76,7 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
     this.props.recordFormStore.record.persist().then((response) => {
       let card = this.props.trayViewStore.addOrUpdateRecord(response.data);
 
-      card = this.props.trayViewStore.cards.get(card.id);
+      card = this.props.trayViewStore.mainResults.get(card.id);
       this.props.trayViewStore.record = card.data;
       this.props.trayViewStore.tray_is_visible = true;
 
@@ -87,6 +87,7 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
 
       this.props.recordFormStore.record = new RecordModel();
     }).catch((error) => {
+      console.log(error)
       this.props.recordFormStore.record.errors = error.response.data;
     })
   }
@@ -110,7 +111,7 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
     if (window.confirm(message)) {
       let r = Record.update(null, this.props.recordFormStore.record.id, {record: {state: state}}).then((response) => {
         if( state === 'deleted' ) {
-          this.props.trayViewStore.cards.delete(`record_${this.props.recordFormStore.record.id}`);
+          this.props.trayViewStore.mainResults.delete(`record_${this.props.recordFormStore.record.id}`);
           this.props.recordFormStore.record = new RecordModel();
 
           if (this.props.router.history.previousLocalStates > 1) {

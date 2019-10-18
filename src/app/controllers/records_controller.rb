@@ -83,7 +83,7 @@ class RecordsController < ApplicationController
     if @record.state == 'deleted' && @result == true
       return render json: '', status: :ok
     end
-
+    
     unless @result.present?
       render json: @record.errors, status: :unprocessable_entity
     end

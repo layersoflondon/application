@@ -10,9 +10,6 @@ export default class TrayHeader extends Component {
     this.state = {
       introShowing: false
     }
-
-    console.log(this.props.closePath);
-    console.log(this.props.closeOnClick);
   }
 
   toggleIntro() {

@@ -21,12 +21,6 @@ import RecordViewComponentState from "./record_view_component_state";
     this.props.trayViewStore.fetchRecord(this.props.match.params.id, fetch_nearby_data);
   }
 
-  componentWillUnmount() {
-    if( this.props.router.location.pathname.search(/\/edit$/) > -1 ) {
-    }else {
-    }
-  }
-
   render_state_expanded(header_class) {
     return <div className={header_class}>
       <div className='title-area'>

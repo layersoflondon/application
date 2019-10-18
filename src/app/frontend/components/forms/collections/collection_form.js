@@ -22,10 +22,19 @@ import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers
   }
 
   componentWillMount() {
+    this.initializeCollectionState();
+  }
+
+  componentDidUpdate() {
+    this.initializeCollectionState();
+  }
+
+  initializeCollectionState() {
     const newCollection = getQueryStringParam(this.props.router.location, 'newCollection') === "true";
     const editCollection = getQueryStringParam(this.props.router.location, 'editCollection');
 
-    console.log(editCollection);
+    if(!(newCollection || editCollection)) return;
+
     if(newCollection) {
       this.props.collectionFormStore.collection = CollectionModel.fromJS({}, this.props.trayViewStore);
     }else if(editCollection) {
@@ -37,7 +46,6 @@ import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers
 
     let teams = [];
     Team.index().then((response) => {
-      console.log("Setting teams...", response);
       teams = response.data.map((team) => ({value: team.id, label: team.name}));
       this.setState({teams: teams});
     });
@@ -99,11 +107,13 @@ import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers
 
     let className = "m-overlay is-showing";
     const formTitle = this.props.collectionFormStore.collection.is_persisted ? "Edit collection" : "Create collection";
-
-    const closePath = removeModal(this.props.router.location, 'newCollection');
+    
     const handleOnClick = () => {
       removeModal(this.props.router.location, 'newCollection', this.props.mapViewStore);
+      removeModal(this.props.router.location, 'editCollection', this.props.mapViewStore);
     }
+
+    const closeLink = <Link to={closeModalLink(this.props.router.location, ['newCollection', 'editCollection'])} className="close" onClick={handleOnClick}>Close</Link>;
 
     if (!this.props.collectionFormStore.collection.is_editable) {
       return (
@@ -111,7 +121,7 @@ import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers
           <div className="s-overlay--add-collection is-showing">
 
             <div className="close">
-              <Link to={closeModalLink(this.props.router.location, 'newCollection')} className="close" onClick={handleOnClick}>Close</Link>
+              {closeLink}
             </div>
 
             <div className="m-add-collection">
@@ -127,7 +137,7 @@ import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers
           <div className="s-overlay--add-collection is-showing">
 
             <div className="close">
-              <Link to={closeModalLink(this.props.router.location, 'newCollection')} className="close" onClick={handleOnClick}>Close</Link>
+              {closeLink}
             </div>
 
             <div className="m-add-collection">

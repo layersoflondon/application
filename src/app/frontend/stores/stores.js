@@ -19,6 +19,7 @@ export default (state) => {
   const collectionFormStore = new CollectionFormStore.fromJS({});
   const mapViewStore = MapViewStore.fromJS(map);
   const layersStore = LayersStore.fromJS(layer_groups);
+  console.log(tray);
   const trayViewStore = TrayViewStore.fromJS(tray);
   const collectionStore = CollectionStore.fromJS(collections, trayViewStore);
 
