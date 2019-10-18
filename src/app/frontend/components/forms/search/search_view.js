@@ -155,8 +155,7 @@ import {closeModalLink} from '../../../helpers/modals';
     }
     
     const header_title = !!this.state.q ? `Your search for “${this.state.q}”` : `Results ${header_subtitle}`;
-
-    console.log("Search.perform() 1");
+    
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
       this.props.trayViewStore.searchParams = search_params;
