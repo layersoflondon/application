@@ -45,15 +45,11 @@ import Tag from './tag';
         }
       </h4>
 
-      <div className="tags">
+      <div className={`tags ${visible ? 'is-visible' : ''}`}>
         { visible &&
           <ul>
             {tags}
           </ul>
-        }
-
-        { visible &&
-          <button onClick={this.toggleVisibility.bind(this)}>Done</button>
         }
       </div>
     </div>
