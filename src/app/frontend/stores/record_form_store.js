@@ -1,4 +1,4 @@
-import {observable, computed, observe, action} from 'mobx';
+import {observable, computed, observe, action, runInAction} from 'mobx';
 import GoogleMapsClient from '../sources/google_maps_client';
 window.GoogleMapsClient = GoogleMapsClient;
 
@@ -23,8 +23,8 @@ export default class RecordFormStore {
   // 200 = lookup finished, success.
   // other http code = lookup failed.
   @observable place_lookup_status = null;
-
   @observable visible_tag_group = null;
+  clickEventListener = null;
 
   constructor() {
     observe(this, 'latlng', (update) => {
@@ -33,6 +33,27 @@ export default class RecordFormStore {
         this.record.lng = update.newValue.lng;
 
         this.startLookup();
+      }
+    });
+
+    observe(this, 'visible_tag_group', (change) => {
+      if(change.newValue) {
+        const tagsContainer = document.querySelector(`[data-tag-group-id='${change.newValue}']`);
+
+        this.clickEventListener = (event) => {
+          const clickedContainer = event.target.classList.toString() === tagsContainer.classList.toString();
+          const clickedChildElement = tagsContainer.contains(event.target);
+          
+          if(!clickedContainer && !clickedChildElement) {
+            runInAction(() => {
+              this.visible_tag_group = null;
+            });
+          }
+        }
+        
+        document.addEventListener('click', this.clickEventListener);
+      }else if(this.clickEventListener) {
+        document.removeEventListener('click', this.clickEventListener);
       }
     });
   }
