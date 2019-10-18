@@ -21,7 +21,7 @@ module DecoratorConcerns
     end
 
     def slides 
-      if has_field?(slides)
+      if has_field?(:slides)
         fields.slides.map do |slide|
           ["image", "caption"]
 
