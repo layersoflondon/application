@@ -1,41 +1,43 @@
 import React,{Component} from 'react';
 import {inject, observer} from 'mobx-react';
-import {Link} from 'react-router-dom';
 import Card from '../card';
-import CollectionCard from '../collection_card';
+import pluralize from 'pluralize';
+import TrayHeader from '../tray_header';
 
 @inject('trayViewStore')
 @observer
 export default class TrayUserRecordsIndex extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
     
-    this.props.trayViewStore.fetchData({user_id: this.props.match.params.id});
+    this.props.trayViewStore.fetchData({user_id: this.props.match.params.id}, {headers: ['x-user-name']});
   }
 
   render() {
-    const mainResults = this.props.trayViewStore.mainResults.values().map((result) => {
-      const key = `${result.is_collection ? 'collection' : 'record'}_${result.id}`;
+    if(this.props.trayViewStore.loading) return <React.Fragment />
 
-      if(result.is_collection) {
-        return <CollectionCard key={key} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
-      }else {
-        return <Card key={key} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
-      }
+    const mainResults = this.props.trayViewStore.mainResults.values().map((result) => {
+      return <Card key={`record_${result.id}`} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
     });
     
-    return <div>
-      <Link style={{float: 'right'}} to='/map'>&times; close</Link>
-
-      {
-        this.props.trayViewStore.mainResults.size>0 && 
-        <React.Fragment>
-          <h1>{this.props.title}</h1>
-          {mainResults}
-        </React.Fragment>
-      }
+    return <React.Fragment>
+      <TrayHeader 
+        title={""}
+        // subtitle={this.props.trayViewStore.collection.title} 
+        introduction={`Records created by `}
+        metaDescription={`View records by `}
+        metaData={`User,${pluralize('record', this.props.trayViewStore.mainResults.size, true)}`} 
+        closePath={`/map`}
+      />
       
-    </div>
+      <div className="m-tray-records-list">
+        {
+          this.props.trayViewStore.mainResults.size>0 && 
+          <React.Fragment>
+            {mainResults}
+          </React.Fragment>
+        }
+      </div>      
+    </React.Fragment>
   }
 }

@@ -47,7 +47,6 @@ export default class TrayCollection extends Component {
         {
           this.props.trayViewStore.mainResults.size>0 && 
           <React.Fragment>
-            <h1>{this.props.title}</h1>
             {mainResults}
           </React.Fragment>
         }
