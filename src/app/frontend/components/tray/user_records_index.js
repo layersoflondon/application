@@ -10,11 +10,20 @@ export default class TrayUserRecordsIndex extends Component {
   constructor(props) {
     super(props);
     
-    this.props.trayViewStore.fetchData({user_id: this.props.match.params.id}, {headers: ['x-user-name']});
+    this.user = null;
+
+    this.state = {loading: true};
+    User.show(null, this.props.match.params.id).then((response) => {
+      this.user = response.data;
+      this.props.trayViewStore.fetchData({user_id: this.props.match.params.id});
+    }).finally(() => {
+      this.loading = false;
+      this.setState({loading: false});
+    })
   }
 
   render() {
-    if(this.props.trayViewStore.loading) return <React.Fragment />
+    if(this.props.trayViewStore.loading || this.state.loading) return <React.Fragment />
 
     const mainResults = this.props.trayViewStore.mainResults.values().map((result) => {
       return <Card key={`record_${result.id}`} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
@@ -22,11 +31,11 @@ export default class TrayUserRecordsIndex extends Component {
     
     return <React.Fragment>
       <TrayHeader 
-        title={""}
+        title={this.user.name}
         // subtitle={this.props.trayViewStore.collection.title} 
-        introduction={`Records created by `}
-        metaDescription={`View records by `}
-        metaData={`User,${pluralize('record', this.props.trayViewStore.mainResults.size, true)}`} 
+        introduction={this.user.description}
+        metaDescription={`View records by ${this.user.name}`}
+        metaData={`User, ${pluralize('record', this.props.trayViewStore.mainResults.size, true)}`} 
         closePath={`/map`}
       />
       
