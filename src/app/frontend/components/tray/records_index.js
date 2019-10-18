@@ -33,7 +33,10 @@ export default class TrayRecordsIndex extends Component {
     return <React.Fragment>
       <div className="m-tray-title-area">
         <Link className="close" style={{float: 'right'}} to='/map' onClick={() => this.props.trayViewStore.trayLocked = false}>&times;</Link>
-        <h1>{this.props.title}</h1>
+        {
+          this.props.title && 
+          <h1>{this.props.title}</h1>
+        }
       </div>
       
       <div className="m-tray-records-list">

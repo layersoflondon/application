@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import {inject, observer} from 'mobx-react';
-import {Link} from 'react-router-dom';
 import Card from '../card';
+import TrayHeader from '../tray_header';
+import pluralize from 'pluralize';
 
 @inject('router', 'trayViewStore', 'mapViewStore')
 @observer
@@ -17,18 +18,13 @@ export default class TrayCollectionsIndex extends Component {
     });
     
     return <React.Fragment>
-      <div className="m-tray-title-area">
-        <Link style={{float: 'right'}} to='/map'>&times; close</Link>
-        <h1>
-          Results for your collection search
-        </h1>
-        {
-          !this.props.trayViewStore.loading && 
-          <div className="meta">
-            Search, {this.props.trayViewStore.mainResults.size} collections
-          </div>
-        }
-      </div>
+      <TrayHeader 
+        title="Results for your collection search" 
+        // subtitle={this.props.trayViewStore.collection.title} 
+        metaDescription={`Collections index`}
+        metaData={`Collection, ${pluralize('collection', this.props.trayViewStore.mainResults.size, true)}`} 
+        closePath={`/map`}
+      />
       
       <div className="m-tray-records-list">
         {

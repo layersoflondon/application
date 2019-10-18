@@ -40,6 +40,12 @@ export default class MapViewStore {
         this.inAddCollectionMode = change.newValue;
       })
     });
+
+    observe(this, 'editCollectionModal', (change) => {
+      runInAction(() => {
+        this.inEditCollectionMode = change.newValue;
+      })
+    });
   }
 
   @computed get mapBounds() {

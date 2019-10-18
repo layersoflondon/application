@@ -1,38 +1,18 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
-import {observer} from "mobx-react";
-import {Link, withRouter} from 'react-router-dom';
-import pluralize from 'pluralize'
+import Helmet from 'react-helmet';
+import {Link} from 'react-router-dom';
 
-import {inject} from "mobx-react/index";
-import Helmet from "react-helmet";
-import {recordPageView} from "../config/data_layer";
-
-@inject('router', 'trayViewStore', 'mapViewStore')
-@withRouter
-@observer export default class TrayHeader extends Component {
+export default class TrayHeader extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       introShowing: false
     }
-  }
 
-  componentWillUpdate() {
-    this.content = this.props.trayViewStore.header_content;
-  }
-
-  componentWillMount() {
-    this.content = this.props.trayViewStore.header_content;
-  }
-
-  closeTray() {
-    if (typeof(this.props.closeAction) === 'function' ) {
-      this.props.closeAction(this);
-    } else {
-      this.props.router.history.push('/map');
-    }
+    console.log(this.props.closePath);
+    console.log(this.props.closeOnClick);
   }
 
   toggleIntro() {
@@ -40,102 +20,73 @@ import {recordPageView} from "../config/data_layer";
   }
 
   render() {
-    const closeButton = <div className="close">
-      <a className="close" onClick={this.closeTray.bind(this)}>Close</a>
-    </div>;
+    // switch(this.content.tray_view_type) {
+    //   case 'Collection':
+    //     meta_description_intro = `View records in the collection '${this.props.trayViewStore.header_content.title}'`;
+    //     recordPageView(this.props.trayViewStore.header_content.title);
+    //     break;
+    //   case 'User':
+    //     meta_description_intro = `View records by ${this.props.trayViewStore.header_content.title}`;
+    //     recordPageView(this.props.trayViewStore.header_content.title);
+    //     break;
+    //   case 'Team':
+    //     meta_description_intro = `View records by the ${this.props.trayViewStore.header_content.title} team`;
+    //     recordPageView(this.props.trayViewStore.header_content.title);
+    //     break;
+    //   case 'Search':
+    //     meta_description_intro = `View records which match ${this.props.trayViewStore.header_content.title}`;
+    //     break;
+    // }
 
     const introClassName = (this.state.introShowing) ? "is-expanded" : "";
 
-    const meta = <div className="meta">
-      {[
-        this.content.tray_view_type,
-        (!!this.props.trayViewStore.recordsCount && pluralize('record', this.props.trayViewStore.recordsCount, true)) || null,
-        (!!this.props.trayViewStore.collectionsCount && pluralize('collection',this.props.trayViewStore.collectionsCount,true)) || null].filter((e) => {return e}).join(", ")}
-    </div>;
-
-    let meta_description_intro = "";
-
-    switch(this.content.tray_view_type) {
-      case 'Collection':
-        meta_description_intro = `View records in the collection '${this.props.trayViewStore.header_content.title}'`;
-        recordPageView(this.props.trayViewStore.header_content.title);
-        break;
-      case 'User':
-        meta_description_intro = `View records by ${this.props.trayViewStore.header_content.title}`;
-        recordPageView(this.props.trayViewStore.header_content.title);
-        break;
-      case 'Team':
-        meta_description_intro = `View records by the ${this.props.trayViewStore.header_content.title} team`;
-        recordPageView(this.props.trayViewStore.header_content.title);
-        break;
-      case 'Search':
-        meta_description_intro = `View records which match ${this.props.trayViewStore.header_content.title}`;
-        break;
-    }
-
-
-
-    const trayHeader = <React.Fragment>
+    return <React.Fragment>
       <Helmet>
-        <title>{this.props.trayViewStore.header_content.title} | Layers of London | Recording the Layers of London's Rich Heritage</title>
-        <meta name='description' content={`${meta_description_intro} and thousands of other fascinating records and collections on Layers of London. Add your own records, and help us build more layers.`} />
-        <meta name='keywords' content={`${this.props.trayViewStore.header_content.title}, layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`} />
+        <title>{this.props.title} | Layers of London | Recording the Layers of London's Rich Heritage</title>
+        <meta name='description' content={`${this.props.metaDescription} and thousands of other fascinating records and collections on Layers of London. Add your own records, and help us build more layers.`} />
+        <meta name='keywords' content={`${this.props.title}, layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`} />
       </Helmet>
+
       <div className="m-tray-title-area">
-        {closeButton}
+        <div className="close">
+          <Link to={this.props.closePath} className="close" onClick={this.props.closeOnClick}>Close</Link>
+        </div>
+        
         {
-          this.content.profile_image_url &&
-          <div className="profile-pic">
-            <div className="image random-image" style={{backgroundImage: `url(${this.content.profile_image_url})`}}></div>
-          </div>
-        }
-        {
-          this.content.title &&
-          <h1 dangerouslySetInnerHTML={{__html: this.content.title}}></h1>
+          this.props.title &&
+          <h1 dangerouslySetInnerHTML={{__html: this.props.title}}></h1>
         }
 
         {
-          this.content.subtitle &&
-          <h2>{this.content.subtitle}</h2>
+          this.props.subtitle &&
+          <h2>{this.props.subtitle}</h2>
         }
 
-        {meta}
-
-        {
-          (this.content.creator_link_text && this.content.creator_link_url) &&
-            <div className="creator-link">
-              <Link to={this.content.creator_link_url}>{this.content.creator_link_text}</Link>
-            </div>
-        }
+        <div className="meta">
+          {this.props.metaData}
+        </div>
       </div>
       {
-        this.content.introduction &&
+        this.props.introduction &&
         <div className={`m-tray-introduction ${introClassName}`}>
           <div className="wrap">
-            <p dangerouslySetInnerHTML={{__html: this.content.introduction}}></p>
+            <p dangerouslySetInnerHTML={{__html: this.props.introduction}}></p>
           </div>
+
           <a className="read-more" onClick={this.toggleIntro.bind(this)}>{this.state.introShowing ? "Hide" : "Read more"}</a>
         </div>
       }
     </React.Fragment>;
-
-
-    return (this.props.showTrayHeader) ? trayHeader : null;
   }
 }
 
 TrayHeader.propTypes = {
-  trayViewStore: PropTypes.object.isRequired,
-  showTrayHeader: PropTypes.bool.isRequired,
-  // title: PropTypes.string.isRequired,
-  // profile_image_url: PropTypes.string,
-  // introduction: PropTypes.string,
-  // creator_link_url: PropTypes.string,
-  // creator_link_text: PropTypes.string,
-  // closeAction: PropTypes.func,
-  // mapViewStore: PropTypes.object.isRequired
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
+  metaDescription: PropTypes.string.isRequired,
+  closePath: PropTypes.string
 };
 
 TrayHeader.defaultProps = {
-  showTrayHeader: true
-};
+  closeOnClick: () => {}
+}

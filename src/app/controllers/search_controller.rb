@@ -14,7 +14,7 @@ class SearchController < ApplicationController
     elsif params[:user_id].present?
       @results = RecordsIndex.user_records(params)
     elsif params[:collections].present? && params[:collections].in?(["true", true])
-      args = Rails.env.development? ? {limit: 20} : {} # todo: remove to test with full collections list 
+      args = Rails.env.development? ? {limit: 2} : {} # todo: remove to test with full collections list 
       @results = CollectionsIndex.published(**args)
     elsif params[:type].present? && params[:type].in?(['highlighted', 'popular'])
       args = params.permit!.to_hash.without(:type)

@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
 import {inject, observer} from 'mobx-react';
-import {Link} from 'react-router-dom';
 import Card from '../card';
 import {setCurrentModal} from '../../helpers/modals';
+import TrayHeader from '../tray_header';
+import pluralize from "pluralize";
 
 @inject('router', 'trayViewStore', 'mapViewStore')
 @observer
@@ -32,22 +33,15 @@ export default class TrayCollection extends Component {
     const closePath = this.props.trayViewStore.goBackTo || '/map';
 
     return <React.Fragment>
-      <div className="m-tray-title-area">
-        <h1>
-          {this.props.trayViewStore.collection.title}
-        </h1>
-        <Link className="close" style={{float: 'right'}} to={closePath} onClick={() => this.props.trayViewStore.goBackTo = null}>&times;</Link>
-
-        <div className="meta">
-        </div>
-      </div>
-{/* 
-      {
-        this.props.trayViewStore.collection && 
-        <h1>
-          {this.props.trayViewStore.collection.title}
-        </h1>
-      } */}
+      <TrayHeader 
+        title={this.props.trayViewStore.collection.title} 
+        // subtitle={this.props.trayViewStore.collection.title} 
+        introduction={this.props.trayViewStore.collection.description}
+        metaDescription={`View records in the collection ${this.props.trayViewStore.collection.title}`}
+        metaData={`Collection, ${pluralize('record', this.props.trayViewStore.collection.records.length, true)}`} 
+        closePath={closePath}
+        closeOnClick={() => this.props.trayViewStore.goBackTo = null}
+      />
       
       <div className="m-tray-records-list">
         {

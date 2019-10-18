@@ -25,6 +25,7 @@ import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers
     const newCollection = getQueryStringParam(this.props.router.location, 'newCollection') === "true";
     const editCollection = getQueryStringParam(this.props.router.location, 'editCollection');
 
+    console.log(editCollection);
     if(newCollection) {
       this.props.collectionFormStore.collection = CollectionModel.fromJS({}, this.props.trayViewStore);
     }else if(editCollection) {
@@ -36,6 +37,7 @@ import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers
 
     let teams = [];
     Team.index().then((response) => {
+      console.log("Setting teams...", response);
       teams = response.data.map((team) => ({value: team.id, label: team.name}));
       this.setState({teams: teams});
     });
@@ -113,7 +115,6 @@ import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers
             </div>
 
             <div className="m-add-collection">
-
               <h1>{formTitle}</h1>
               <p>You don't have permission to edit this collection.</p>
             </div>
