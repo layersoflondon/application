@@ -368,17 +368,19 @@ import tag from '../tag_groups/tag';
               </div>
 
               <hr/>
-              {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
-                return <TagGroup 
-                  key={`tag-group-${tagGroup.id}`}
-                  tagGroup={tagGroup} 
-                  isVisible={this.state.visibleTagGroup === tagGroup.id}
-                  enabledTagIds={() => {}}
-                  toggleTag={this.toggleTag}
-                  tagIsChecked={()=>{}}
-                  setVisibleTagGroup={this.toggleTagGroup}
-                />
-              })}
+              <div className="m-tag-groups">
+                {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
+                  return <TagGroup 
+                    key={`tag-group-${tagGroup.id}`}
+                    tagGroup={tagGroup} 
+                    isVisible={this.state.visibleTagGroup === tagGroup.id}
+                    enabledTagIds={() => {}}
+                    toggleTag={this.toggleTag}
+                    tagIsChecked={()=>{}}
+                    setVisibleTagGroup={this.toggleTagGroup}
+                  />
+                })}
+              </div>
 
               <div className="form-group">
                 <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search</button>
