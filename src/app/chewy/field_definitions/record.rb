@@ -55,6 +55,7 @@ module FieldDefinitions
           }
         end
       }
+      field :tag_group_ids, value: -> {tag_group_ids}
       field :tag_ids, value: -> {tag_ids}
       field :related_record_ids, value: -> {
         related.collect(&:id)

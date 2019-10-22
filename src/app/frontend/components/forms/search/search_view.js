@@ -5,50 +5,14 @@ import SearchViewTaxonomy from "./_search_view_taxonomy";
 import Search from "../../../sources/search";
 import {recordEvent} from "../../../config/data_layer";
 import {closeModalLink} from '../../../helpers/modals';
-import TagGroup from '../tag_groups/tag_group';
-import tag from '../tag_groups/tag';
 
-@inject('router', 'mapViewStore', 'trayViewStore', 'tagGroupsStore')
+@inject('router', 'mapViewStore', 'trayViewStore')
 @withRouter
 @observer export default class SearchView extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}, collections: false, visibleTagGroup: null, tag_ids: []};
-
-    this.closeEventHandler = (event) => {
-      if(event.target.classList.contains('s-overlay--search')){
-        this.setState({visibleTagGroup: null});
-      }
-    };
-
-    this.toggleTagGroup = (id) => {
-      let value = parseInt(id, 10);
-      
-      if(this.state.visibleTagGroup === value) {
-        value = null;
-        document.querySelector("[class^='s-overlay']").removeEventListener('click', this.closeEventHandler);
-      }else {
-        document.querySelector("[class^='s-overlay']").addEventListener('click', this.closeEventHandler);
-      }
-      
-      this.setState({visibleTagGroup: value});
-    }
-
-    this.toggleTag = (id) => {
-      const value = parseInt(id, 10);
-      const index = this.state.tag_ids.indexOf(value);
-
-      let ids = this.state.tag_ids.slice();
-
-      if(index>-1) {
-        ids.splice(index, 1);
-      }else {
-        ids.push(value);
-      }
-
-      this.setState({tag_ids: ids});
-    }
+    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}, collections: false, tag_ids: "", tag_group_ids: "", tag_name: ""};
   }
 
   componentWillMount() {
@@ -133,6 +97,18 @@ import tag from '../tag_groups/tag';
       search_params.user_id = this.state.user_id;
     }
 
+    if( this.state.tag_ids ) {
+      search_params.tag_ids = this.state.tag_ids;
+    }
+
+    if( this.state.tag_group_ids ) {
+      search_params.tag_group_ids = this.state.tag_group_ids;
+    }
+
+    if( this.state.tag_name ) {
+      search_params.tag_name = this.state.tag_name;
+    }
+
     if( this.state.terms ) {
       search_params.terms = this.state.terms;
     }
@@ -156,8 +132,6 @@ import tag from '../tag_groups/tag';
     if( this.state.collections) {
       search_params.collections = true;
     }
-  
-    search_params.tag_ids = this.state.tag_ids.join(',');
 
     function serializeQuery(params, prefix) {
       const query = Object.keys(params).map((key) => {
@@ -190,6 +164,10 @@ import tag from '../tag_groups/tag';
 
     if (this.state.collections) {
       header_subtitle = "for your collection search"
+    }
+
+    if (this.state.tag_name) {
+      header_subtitle = `tagged with ${this.state.tag_name}`    
     }
     
     const header_title = !!this.state.q ? `Your search for “${this.state.q}”` : `Results ${header_subtitle}`;
@@ -243,6 +221,9 @@ import tag from '../tag_groups/tag';
     const start_year_match = location.search.match(/date_range\[gte\]=([^-]+)/);
     const end_year_match = location.search.match(/date_range\[lte\]=([^-]+)/);
     const user_match = location.search.match(/user_id=([^$,&]+)/);
+    const tags_match = location.search.match(/tag_ids=([^$,&]+)/);
+    const tag_groups_match = location.search.match(/tag_group_ids=([^$,&]+)/);
+    const tag_name_match = location.search.match(/tag_name=([^$,&]+)/);
     const collections_match = location.search.search(/collections=true/);
 
     let state = {showing_results: false, collections: false};
@@ -265,6 +246,18 @@ import tag from '../tag_groups/tag';
 
     if(end_year_match && end_year_match.length>1) {
       state.end_year = end_year_match[1];
+    }
+
+    if(tags_match && tags_match.length > 1) {
+      state.tag_ids = tags_match[1];
+    }
+
+    if(tag_groups_match && tag_groups_match.length > 1) {
+      state.tag_group_ids = tag_groups_match[1];
+    }
+
+    if(tag_name_match && tag_name_match.length > 1) {
+      state.tag_name = tag_name_match[1];
     }
 
     if(collections_match && collections_match > -1) {
@@ -295,7 +288,7 @@ import tag from '../tag_groups/tag';
     //   return <span></span>;
     // }
 
-    // const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} isCheckedMethod={this.isChecked.bind(this)} />);
+    const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} isCheckedMethod={this.isChecked.bind(this)} />);
 
     const toggle_classname = (this.state.geobounding !== 'london') ? 'is-toggled' : "";
     return (
@@ -367,20 +360,46 @@ import tag from '../tag_groups/tag';
                 }
               </div>
 
-              <hr/>
-              <div className="m-tag-groups">
-                {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
-                  return <TagGroup 
-                    key={`tag-group-${tagGroup.id}`}
-                    tagGroup={tagGroup} 
-                    isVisible={this.state.visibleTagGroup === tagGroup.id}
-                    enabledTagIds={() => {}}
-                    toggleTag={this.toggleTag}
-                    tagIsChecked={()=>{}}
-                    setVisibleTagGroup={this.toggleTagGroup}
-                  />
-                })}
-              </div>
+              {/*TODO this needs to work. Hiding for now*/}
+              {/*<div className="filters">*/}
+
+                {/*<div className="filters-show">*/}
+                  {/*<button onClick={() => this.setState({type_picker_visible: !this.state.type_picker_visible})}>Filter by Media, Type, Theme</button>*/}
+                {/*</div>*/}
+
+                {/*{this.state.type_picker_visible &&*/}
+                {/*<div className="filters-content">*/}
+                  {/*<div className="form-group form-group--checklist form-group--replaced-checkboxes">*/}
+                    {/*<h2 className="label">Media</h2>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Images</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Video</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Audio</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                    {/*<label>*/}
+                      {/*<input type="checkbox"/>*/}
+                      {/*<span>Documents</span>*/}
+                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
+                    {/*</label>*/}
+                  {/*</div>*/}
+
+
+                  {/*{taxonomies}*/}
+
+                {/*</div>*/}
+                {/*}*/}
+
+              {/*</div>*/}
 
               <div className="form-group">
                 <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search</button>

@@ -1,0 +1,12 @@
+/* Homepage background */
+
+.m-homepage-background {
+  position:absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background:red;
+  background: asset-url('map-2.png');
+  z-index: -1;
+}

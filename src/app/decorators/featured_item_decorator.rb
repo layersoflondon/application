@@ -15,7 +15,7 @@ class FeaturedItemDecorator < Draper::Decorator
   end
 
   def description
-    h.strip_tags(object.description).truncate(100).html_safe
+    h.strip_tags(object.description).truncate(400).html_safe
   end
 
   def path

@@ -3,6 +3,8 @@ class PageDecorator < Draper::Decorator
   include DecoratorConcerns::SEO
   include DecoratorConcerns::Images
   include DecoratorConcerns::HomepageCtas
+  include DecoratorConcerns::HomepageSlideshow
+
   delegate_all
 
   decorates_association :sidebar_ctas, with: SidebarCtaDecorator

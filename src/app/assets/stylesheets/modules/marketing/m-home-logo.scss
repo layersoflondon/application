@@ -3,13 +3,13 @@
 
 .m-home-logo {
   float: left;
-  width:50%;
+  width:39%;
   position:relative;
-  margin-top: 260px;
+  margin-top: 210px;
   @include mq(small-tablet) {
     width:100%;
-    margin-top: 200px;
-    margin-bottom: 100px;
+    margin-top: 120px;
+    margin-bottom: 20px;
   }
   @include mq(small-smartphone) {
     margin-top: 130px;
@@ -31,12 +31,11 @@
 }
 
 .m-home-logo img {
-  width: 490px;
+  width: 320px;
   margin:0 auto;
   display:block;
-  margin-top: -12px;
   @include mq(tablet) {
-    width: 380px;
+    width: 270px;
   }
   @include mq(small-smartphone) {
     width: 230px;
