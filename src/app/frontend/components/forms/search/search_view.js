@@ -5,15 +5,50 @@ import SearchViewTaxonomy from "./_search_view_taxonomy";
 import Search from "../../../sources/search";
 import {recordEvent} from "../../../config/data_layer";
 import {closeModalLink} from '../../../helpers/modals';
-import SearchViewTagGroup from './search_tag_groups';
+import TagGroup from '../tag_groups/tag_group';
+import tag from '../tag_groups/tag';
 
-@inject('router', 'mapViewStore', 'trayViewStore')
+@inject('router', 'mapViewStore', 'trayViewStore', 'tagGroupsStore')
 @withRouter
 @observer export default class SearchView extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}, collections: false};
+    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}, collections: false, visibleTagGroup: null, tag_ids: []};
+
+    this.closeEventHandler = (event) => {
+      if(event.target.classList.contains('s-overlay--search')){
+        this.setState({visibleTagGroup: null});
+      }
+    };
+
+    this.toggleTagGroup = (id) => {
+      let value = parseInt(id, 10);
+      
+      if(this.state.visibleTagGroup === value) {
+        value = null;
+        document.querySelector("[class^='s-overlay']").removeEventListener('click', this.closeEventHandler);
+      }else {
+        document.querySelector("[class^='s-overlay']").addEventListener('click', this.closeEventHandler);
+      }
+      
+      this.setState({visibleTagGroup: value});
+    }
+
+    this.toggleTag = (id) => {
+      const value = parseInt(id, 10);
+      const index = this.state.tag_ids.indexOf(value);
+
+      let ids = this.state.tag_ids.slice();
+
+      if(index>-1) {
+        ids.splice(index, 1);
+      }else {
+        ids.push(value);
+      }
+
+      this.setState({tag_ids: ids});
+    }
   }
 
   componentWillMount() {
@@ -121,6 +156,8 @@ import SearchViewTagGroup from './search_tag_groups';
     if( this.state.collections) {
       search_params.collections = true;
     }
+  
+    search_params.tag_ids = this.state.tag_ids.join(',');
 
     function serializeQuery(params, prefix) {
       const query = Object.keys(params).map((key) => {
@@ -331,48 +368,17 @@ import SearchViewTagGroup from './search_tag_groups';
               </div>
 
               <hr/>
-              <SearchViewTagGroup />
-
-              {/*TODO this needs to work. Hiding for now*/}
-              {/*<div className="filters">*/}
-
-                {/*<div className="filters-show">*/}
-                  {/*<button onClick={() => this.setState({type_picker_visible: !this.state.type_picker_visible})}>Filter by Media, Type, Theme</button>*/}
-                {/*</div>*/}
-
-                {/*{this.state.type_picker_visible &&*/}
-                {/*<div className="filters-content">*/}
-                  {/*<div className="form-group form-group--checklist form-group--replaced-checkboxes">*/}
-                    {/*<h2 className="label">Media</h2>*/}
-                    {/*<label>*/}
-                      {/*<input type="checkbox"/>*/}
-                      {/*<span>Images</span>*/}
-                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
-                    {/*</label>*/}
-                    {/*<label>*/}
-                      {/*<input type="checkbox"/>*/}
-                      {/*<span>Video</span>*/}
-                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
-                    {/*</label>*/}
-                    {/*<label>*/}
-                      {/*<input type="checkbox"/>*/}
-                      {/*<span>Audio</span>*/}
-                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
-                    {/*</label>*/}
-                    {/*<label>*/}
-                      {/*<input type="checkbox"/>*/}
-                      {/*<span>Documents</span>*/}
-                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
-                    {/*</label>*/}
-                  {/*</div>*/}
-
-
-                  {/*{taxonomies}*/}
-
-                {/*</div>*/}
-                {/*}*/}
-
-              {/*</div>*/}
+              {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
+                return <TagGroup 
+                  key={`tag-group-${tagGroup.id}`}
+                  tagGroup={tagGroup} 
+                  isVisible={this.state.visibleTagGroup === tagGroup.id}
+                  enabledTagIds={() => {}}
+                  toggleTag={this.toggleTag}
+                  tagIsChecked={()=>{}}
+                  setVisibleTagGroup={this.toggleTagGroup}
+                />
+              })}
 
               <div className="form-group">
                 <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search</button>

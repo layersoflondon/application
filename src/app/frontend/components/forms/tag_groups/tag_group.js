@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import RecordFormComponentState from './record_form_component_state';
+import RecordFormComponentState from '../records/record_form_component_state';
 import {observer} from "mobx-react";
 import Tag from './tag';
 
@@ -7,12 +7,9 @@ import Tag from './tag';
   constructor(props) {
     super(props);
 
-    const tag_ids = props.tagGroup.tags.map((tag) => tag.id);
-    const enabled_tag_ids = this.props.recordFormStore.record.tag_ids.filter((tag_id) => tag_ids.indexOf(tag_id)>-1);
-
     this.state = {
       visible: false,
-      count: enabled_tag_ids.length
+      count: this.props.enabledTagIds.length
     };
 
     this.tag = (props) => <li key={`tag-${props.id}`}>{props.name}</li>
@@ -20,12 +17,12 @@ import Tag from './tag';
 
   toggleVisibility(event) {
     const {tagGroupId} = event.target.dataset;
-    this.props.recordFormStore.setVisibleTagGroup(tagGroupId);
+    this.props.setVisibleTagGroup(tagGroupId);
   }
 
   render() {
     const toggleInput = (event) => {
-      const added = this.props.recordFormStore.toggleTag(event.currentTarget.id);
+      const added = this.props.toggleTag(event.currentTarget.id);
 
       let count = this.state.count;
       const new_count = added ? count+=1 : count-=1;
@@ -33,8 +30,7 @@ import Tag from './tag';
       this.setState({count: new_count});
     };
 
-    const tags = this.props.tagGroup.tags.map((tag, i) => <Tag key={`tag-${i}`} {...tag} isChecked={this.props.recordFormStore.tagIsChecked(tag.id)} inputClicked={toggleInput} />);
-    const visible = this.props.recordFormStore.visible_tag_group === this.props.tagGroup.id;
+    const tags = this.props.tagGroup.tags.map((tag, i) => <Tag key={`tag-${i}`} {...tag} tagIsChecked={this.tagIsChecked} inputClicked={toggleInput} />);
 
     return <div className="tag-group">
       <h4 data-tag-group-id={this.props.tagGroup.id} onClick={this.toggleVisibility.bind(this)}>
@@ -45,8 +41,8 @@ import Tag from './tag';
         }
       </h4>
 
-      <div className={`tags ${visible ? 'is-visible' : ''}`}>
-        { visible &&
+      <div className={`tags ${this.props.isVisible ? 'is-visible' : ''}`}>
+        { this.props.isVisible &&
           <ul>
             {tags}
           </ul>

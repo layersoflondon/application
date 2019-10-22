@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
 import {observer} from "mobx-react";
-import TagGroup from './tag_group';
+import TagGroup from '../tag_groups/tag_group';
 
 import axios from 'axios';
 
@@ -12,6 +12,10 @@ import axios from 'axios';
       record: this.props.recordFormStore.record,
       tagGroups: null
     }
+
+    this.setVisibleTagGroup = (id) => this.props.recordFormStore.setVisibleTagGroup(id);
+    this.toggleTag = (id) => this.props.recordFormStore.toggleTag(id);
+    this.tagIsChecked = (id) => true;
   }
 
   componentWillReceiveProps() {
@@ -31,7 +35,20 @@ import axios from 'axios';
 
     let tag_groups;
     if( this.state.tagGroups ) {
-      tag_groups = this.state.tagGroups.map((group, i) => <TagGroup key={`tagGroup-${i}`} {...this.props} tagGroup={group} />)
+      tag_groups = this.state.tagGroups.map((group, i) => {
+        const tag_ids = group.tags.map((tag) => tag.id);
+        const enabled_tag_ids = this.props.recordFormStore.record.tag_ids.filter((tag_id) => tag_ids.indexOf(tag_id)>-1);
+        const isVisible = this.props.recordFormStore.visible_tag_group === group.id;
+        return <TagGroup 
+                  key={`tagGroup-${i}`} 
+                  tagGroup={group} 
+                  isVisible={isVisible} 
+                  enabledTagIds={enabled_tag_ids} {...this.props} 
+                  toggleTag={this.toggleTag} 
+                  tagIsChecked={this.tagIsTagged}
+                  setVisibleTagGroup={this.setVisibleTagGroup} 
+        />;
+      });
     }else {
       pane_classname + ' is-loading';
     }

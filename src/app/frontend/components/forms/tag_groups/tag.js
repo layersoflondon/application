@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import RecordFormComponentState from './record_form_component_state';
+import RecordFormComponentState from '../records/record_form_component_state';
 import {observer} from "mobx-react";
 
 @observer class Tag extends Component {
