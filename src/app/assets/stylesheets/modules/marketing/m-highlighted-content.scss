@@ -5,8 +5,9 @@
   right: 0;
   z-index: 1;
   text-align: center;
-  margin-top:-180px;
+  margin-top: -180px;
   @include mq(small-tablet) {
+    margin-top: -70px;
     position: relative;
     width: 100%;
     transform: none !important;
@@ -24,13 +25,18 @@
   grid-template-rows: auto;
   grid-column-gap: 80px;
   grid-row-gap: 80px;
-  text-align:left;
+  text-align: left;
+  @include mq(tablet) {
+    grid-column-gap: 40px;
+    grid-row-gap: 40px;
+    padding: 0 40px 40px 40px;
+  }
 }
 
 .m-highlighted-content .m-record-card {
 
   &:nth-child(even) {
-    position:relative;
+    position: relative;
     top: -70px;
   }
 
@@ -40,7 +46,7 @@
     position: relative;
     @include link-animation;
     //height: 280px;
-    height:auto;
+    height: auto;
     color: white;
     @include mq(small-smartphone) {
       height: 230px;
@@ -75,8 +81,8 @@
   .text-content {
     @include top-and-tail;
     position: relative;
-/*    bottom: 0;
-    left: 0;*/
+    /*    bottom: 0;
+        left: 0;*/
     padding: 0;
     width: 100%;
     @include transition(all .4s);
@@ -97,9 +103,8 @@
     margin: 0;
     padding: 7px 12px;
     position: absolute;
-    bottom:0;
+    bottom: 0;
     max-width: 90%;
-    //@include transform(translate3d(0, -100%, 0));
   }
 
   .text-content p {
@@ -112,15 +117,15 @@
   }
 
   .text-content p p {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
   }
 
   .collection-indicator {
     display: block;
     float: left;
     @include font-display;
-    font-weight:600;
+    font-weight: 600;
     transition: all .2s;
     color: black;
     padding: 7px 12px;
@@ -130,15 +135,15 @@
 }
 
 .m-highlighted-content .m-record-card:nth-child(even) {
-  @include mq(small-tablet) {
-    width: calc(50% - 8px);
+/*  @include mq(small-tablet) {
+    //width: calc(50% - 8px);
     margin-left: 0;
     margin-right: 8px
   }
   @media screen and (max-width: 640px) {
     width: 100%;
     margin-right: 0;
-  }
+  }*/
 }
 
 .m-highlighted-content .m-record-card:last-child {
@@ -150,11 +155,11 @@
 
 .m-highlighted-content .m-record-card .image {
   @include record-card;
-  background: url(/example/4-large.jpg) center/cover no-repeat;
+  background: #2f2f2f url(/example/4-large.jpg) center/cover no-repeat;
 }
 
 .m-highlighted-content h2 {
-  text-align:center;
+  text-align: center;
   display: inline-block;
   position: relative;
   color: white;
@@ -163,7 +168,7 @@
   text-transform: uppercase;
   font-size: 16px;
   font-weight: 600;
-  margin-top:80px;
+  margin-top: 80px;
   margin-bottom: 100px;
   @include mq(smartphone) {
     top: -28px;

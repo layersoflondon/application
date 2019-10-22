@@ -8,7 +8,22 @@ class VisualHelpers {
     this.setupRandomTitles();
     this.parallax();
     this.equalHeights();
+    this.childTagPopovers();
 
+  }
+
+  childTagPopovers() {
+
+    $(".m-tag-groups-list .child-tags").hide();
+
+    $(".m-tag-groups-list > li").on( {
+      'mouseenter':function() {
+        $(this).find('.child-tags').fadeIn(200);
+      },
+      'mouseleave':function() {
+        $(this).find('.child-tags').fadeOut(200);
+      }
+    });
   }
 
   slideshows() {

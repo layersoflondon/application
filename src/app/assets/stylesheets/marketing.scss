@@ -48,14 +48,7 @@
 @import "modules/marketing/m-home-tags";
 @import "modules/marketing/m-homepage-background";
 @import "modules/marketing/m-layers-slideshow";
-
-/*a {
-  color:$blue;
-}
-
-a:hover {
-  color:darken($blue, 20%);
-}*/
+@import "modules/marketing/m-tag-groups-list";
 
 a.button {
   background:$blue;

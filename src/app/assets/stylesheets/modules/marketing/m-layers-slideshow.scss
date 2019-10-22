@@ -72,6 +72,10 @@
   padding: 40px;
   z-index: 100;
   width: 25%;
+  @include mq(tablet) {
+    left:40px;
+    padding:20px;
+  }
 
   h3 {
     margin: 0;

@@ -1,9 +1,12 @@
 /* Home CTA Block */
 
 .homepage-ctas-wrapper {
-  padding:100px 60px 60px 60px;
-  background:$green;
+  padding: 100px 60px 60px 60px;
+  background: $green;
   @include clearfix;
+  @include mq(tablet) {
+    padding: 100px 40px 40px 40px;
+  }
 }
 
 .m-home-cta-block {
@@ -11,10 +14,25 @@
   position: relative;
   width: 33.333333%;
   float: left;
-  padding:40px;
+  padding: 40px;
+  @include mq(tablet) {
+    padding: 0 20px 0 0;
+  }
+  @include mq(smartphone) {
+    width: 100%;
+  }
 
   .image {
-    display: none;
+    min-height: 260px;
+    @include mq(tablet) {
+      min-height: 190px;
+    }
+  }
+
+  .image img {
+    width: 100%;
+    margin-left: -20px;
+    max-width: 280px;
   }
 
   h3 {
@@ -23,10 +41,10 @@
     line-height: 1.3;
     font-size: 40px;
     display: inline-block;
-    color:white;
-    min-height: 162px;
+    color: white;
+    min-height: 70px;
     @include mq(tablet) {
-      font-size: 34px;
+      font-size: 30px;
     }
     @include mq(smartphone) {
       font-size: 26px;
@@ -37,6 +55,9 @@
     font-size: 16px;
     color: white;
     margin: 20px 0 28px;
+    @include mq(tablet) {
+      font-size: 14px;
+    }
     @include mq(smartphone) {
       font-size: 13px;
     }
@@ -51,6 +72,10 @@
     font-weight: bold;
     display: inline-block;
     transition: all .2s;
+    @include mq(tablet) {
+      padding: 11px 19px;
+      font-size: 14px;
+    }
     @include mq(smartphone) {
       padding: 10px 20px;
       font-size: 14px;

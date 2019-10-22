@@ -175,26 +175,6 @@ a:hover {
   color: $link-hover-color;
 }
 
-.grid {
-  @include grid;
-}
-
-.grid > div {
-  @include grid-item (1, 5);
-  margin-bottom: 20px
-}
-
-.grid > div:first-child {
-  @include grid-item (2, 5);
-  @include grid-item-offset (2, 5);
-}
-
-.grid a {
-  background: red;
-  display: block;
-  height: 100px;
-}
-
 .container-thing {
   width: 800px;
   background: orange;
