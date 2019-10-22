@@ -26,9 +26,12 @@ export default class TraySearchResults extends Component {
       return <Card key={`record_${result.id}`} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
     });
     
+    const query = getQueryStringParam(this.props.router.location, 'q');
+    const trayHeaderTitle = query ? `Your search results for “${getQueryStringParam(this.props.router.location, 'q')}“` : "Your search results";
+
     return <React.Fragment>
       <TrayHeader 
-        title={`Your search results for “${getQueryStringParam(this.props.router.location, 'q')}“`}
+        title={trayHeaderTitle}
         // subtitle={this.props.trayViewStore.collection.title} 
         metaDescription={`Search results for ${getQueryStringParam(this.props.router.location, 'q')}`}
         metaData={`${pluralize('record', recordCount, true)} and ${pluralize('collection', collectionCount, true)} search results`} 

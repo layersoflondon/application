@@ -19,6 +19,8 @@ class SearchController < ApplicationController
     elsif params[:type].present? && params[:type].in?(['highlighted', 'popular'])
       args = params.permit!.to_hash.without(:type)
       @results = MultiIndexSearch.send(params[:type], args)
+    elsif params[:tag_ids].present?
+      @results = MultiIndexSearch.query({q: ""})
     else
       render json: '', status: :bad_request
     end

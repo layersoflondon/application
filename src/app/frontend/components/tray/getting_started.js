@@ -3,6 +3,7 @@ import {inject, observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
 import Card from '../card';
 import CollectionCard from '../collection_card';
+import TrayTags from './tags';
 
 @inject('trayViewStore', 'mapViewStore')
 @observer export default class GettingStartedTray extends Component {
@@ -58,6 +59,18 @@ import CollectionCard from '../collection_card';
 
           <div className="m-tray-records-list">
             {mainResults}
+          </div>
+        </div>
+      }
+
+      {
+        !this.props.trayViewStore.loading && 
+        <div className="records-section">
+          <div className="m-tray-title-area">
+            <h1>Search by tag</h1>
+          </div>
+          <div className="m-tag-groups">
+            <TrayTags />
           </div>
         </div>
       }

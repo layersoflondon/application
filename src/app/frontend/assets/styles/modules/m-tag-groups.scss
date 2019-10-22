@@ -87,3 +87,24 @@
     }
   }
 }
+
+.m-tray-records-container .records-section .m-tag-groups .tag-group .tags {
+  padding: 10px 15px;
+  
+  ul {
+    padding: 0;
+
+    li {
+      float: left;
+      padding: 10px;
+    }
+  
+    li a {
+      color: #111;
+    }
+  }
+}
+
+.m-tray-area .m-tray-records-container .records-section .m-tag-groups .tag-group .tags:before {
+  margin-top: -8px;
+}

@@ -257,7 +257,7 @@ export default class TrayViewStore {
     
     runInAction(async () => {
       const highlightedContentData = await Search.perform({type: 'highlighted', limit: 2});
-      const popularContentData     = await Search.perform({type: 'popular', limit: 6});
+      const popularContentData     = await Search.perform({type: 'popular', limit: 10});
       
       const highlightedContent = observable.map();
       const popularContent = observable.map();
@@ -271,8 +271,11 @@ export default class TrayViewStore {
         const card = CardModel.fromJS(result, this);
         popularContent.set(card.id, card);
       });
+      
+      if(this.highlightedResults.size === 0) {
+        this.highlightedResults.replace(highlightedContent);
+      }
 
-      this.highlightedResults.replace(highlightedContent);
       this.mainResults.replace(popularContent);
 
       this.loading = false;
