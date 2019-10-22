@@ -5,6 +5,7 @@ import SearchViewTaxonomy from "./_search_view_taxonomy";
 import Search from "../../../sources/search";
 import {recordEvent} from "../../../config/data_layer";
 import {closeModalLink} from '../../../helpers/modals';
+import SearchViewTagGroup from './search_tag_groups';
 
 @inject('router', 'mapViewStore', 'trayViewStore')
 @withRouter
@@ -257,7 +258,7 @@ import {closeModalLink} from '../../../helpers/modals';
     //   return <span></span>;
     // }
 
-    const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} isCheckedMethod={this.isChecked.bind(this)} />);
+    // const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} isCheckedMethod={this.isChecked.bind(this)} />);
 
     const toggle_classname = (this.state.geobounding !== 'london') ? 'is-toggled' : "";
     return (
@@ -328,6 +329,9 @@ import {closeModalLink} from '../../../helpers/modals';
                 </div>
                 }
               </div>
+
+              <hr/>
+              <SearchViewTagGroup />
 
               {/*TODO this needs to work. Hiding for now*/}
               {/*<div className="filters">*/}

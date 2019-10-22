@@ -3,7 +3,8 @@ import TrayViewStore from './tray_view_store';
 import CollectionStore from './collection_store';
 import LayersStore from './layers_store';
 import RecordFormStore from './record_form_store';
-import CollectionFormStore from './collection_form_store'
+import CollectionFormStore from './collection_form_store';
+import TagGroupsStore from './tag_groups_store';
 
 /**
  * given a state object, instantiate our stores using the json rendered into the page
@@ -20,6 +21,7 @@ export default (state) => {
   const layersStore = LayersStore.fromJS(layer_groups);
   const trayViewStore = TrayViewStore.fromJS(tray);
   const collectionStore = CollectionStore.fromJS(collections, trayViewStore);
+  const tagGroupsStore = new TagGroupsStore();
 
   mapViewStore.trayViewStore = trayViewStore;
 
@@ -29,7 +31,8 @@ export default (state) => {
     mapViewStore: mapViewStore,
     layersStore: layersStore,
     collectionStore: collectionStore,
-    collectionFormStore: collectionFormStore
+    collectionFormStore: collectionFormStore,
+    tagGroupsStore
   };
 
   window.stores = stores;
