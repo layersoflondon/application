@@ -5,6 +5,7 @@
 @import "base--marketing";
 
 @import "library/font-awesome";
+@import "library/responsiveslides";
 
 @import "leaflet/leaflet";
 
@@ -44,14 +45,10 @@
 @import "modules/marketing/m-layermaker-projects";
 @import "modules/marketing/m-layermaker-header";
 @import "modules/marketing/m-layermaker-detail";
-
-/*a {
-  color:$blue;
-}
-
-a:hover {
-  color:darken($blue, 20%);
-}*/
+@import "modules/marketing/m-home-tags";
+@import "modules/marketing/m-homepage-background";
+@import "modules/marketing/m-layers-slideshow";
+@import "modules/marketing/m-tag-groups-list";
 
 a.button {
   background:$blue;

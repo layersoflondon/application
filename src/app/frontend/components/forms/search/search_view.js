@@ -12,7 +12,7 @@ import {closeModalLink} from '../../../helpers/modals';
   constructor(props) {
     super(props);
 
-    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}, collections: false};
+    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}, collections: false, tag_ids: "", tag_group_ids: "", tag_name: ""};
   }
 
   componentWillMount() {
@@ -97,6 +97,18 @@ import {closeModalLink} from '../../../helpers/modals';
       search_params.user_id = this.state.user_id;
     }
 
+    if( this.state.tag_ids ) {
+      search_params.tag_ids = this.state.tag_ids;
+    }
+
+    if( this.state.tag_group_ids ) {
+      search_params.tag_group_ids = this.state.tag_group_ids;
+    }
+
+    if( this.state.tag_name ) {
+      search_params.tag_name = this.state.tag_name;
+    }
+
     if( this.state.terms ) {
       search_params.terms = this.state.terms;
     }
@@ -153,6 +165,10 @@ import {closeModalLink} from '../../../helpers/modals';
     if (this.state.collections) {
       header_subtitle = "for your collection search"
     }
+
+    if (this.state.tag_name) {
+      header_subtitle = `tagged with ${this.state.tag_name}`    
+    }
     
     const header_title = !!this.state.q ? `Your search for “${this.state.q}”` : `Results ${header_subtitle}`;
     
@@ -205,6 +221,9 @@ import {closeModalLink} from '../../../helpers/modals';
     const start_year_match = location.search.match(/date_range\[gte\]=([^-]+)/);
     const end_year_match = location.search.match(/date_range\[lte\]=([^-]+)/);
     const user_match = location.search.match(/user_id=([^$,&]+)/);
+    const tags_match = location.search.match(/tag_ids=([^$,&]+)/);
+    const tag_groups_match = location.search.match(/tag_group_ids=([^$,&]+)/);
+    const tag_name_match = location.search.match(/tag_name=([^$,&]+)/);
     const collections_match = location.search.search(/collections=true/);
 
     let state = {showing_results: false, collections: false};
@@ -227,6 +246,18 @@ import {closeModalLink} from '../../../helpers/modals';
 
     if(end_year_match && end_year_match.length>1) {
       state.end_year = end_year_match[1];
+    }
+
+    if(tags_match && tags_match.length > 1) {
+      state.tag_ids = tags_match[1];
+    }
+
+    if(tag_groups_match && tag_groups_match.length > 1) {
+      state.tag_group_ids = tag_groups_match[1];
+    }
+
+    if(tag_name_match && tag_name_match.length > 1) {
+      state.tag_name = tag_name_match[1];
     }
 
     if(collections_match && collections_match > -1) {

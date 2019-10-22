@@ -2,6 +2,10 @@
 <% end %>
 <% content_for :template do %>
 
+    <div class="m-homepage-background">
+
+    </div>
+
     <div class="m-hero m-hero--large m-hero--home">
         <div class="image"></div>
         <div class="m-home-logo">
@@ -9,30 +13,86 @@
             <%= image_tag(("logotype.svg"), :class => "viewable") %>
         </div>
         <div class="text-content">
-            <!--<span class="surtitle">Layers of London</span>-->
             <h1 class="viewable"><%= strip_tags(page.content) %></h1>
-            <%= link_to "Explore the map", map_path %>
+
+            <%= form_with(url: resources_map_path(resource: :search), method: :get, local: :true) do %>
+                <div class="search">
+                    <%= hidden_field_tag :results, true %>
+                    <%= text_field_tag :q, nil, placeholder: "Search for a place or topic you’re interested in…" %>
+                    <%= submit_tag 'Go' %>
+                </div>
+            <% end %>
+
+            Or <%= link_to "explore the map", map_path %>.
+
         </div>
     </div>
-    <%= render 'pages/big_search' %>
-    <div class="m-highlighted-content">
-        <h2>Highlights</h2>
-        <%= render partial: "shared/feature_record_card", collection: featured_items %>
-    </div>
-    <% page.homepage_ctas.each_with_index do |cta, i| %>
-        <%
-            class_name = case
-                           when (i+1)%2 == 0
-                             "m-home-cta-block--flipped"
-                           when (i+1)%3 == 0
-                             "m-home-cta-block--gray"
-                           else
-                             ""
-        %>
 
+    <%#= render 'pages/big_search' %>
+
+    <main class="main--home">
+
+        <div class="m-highlighted-content">
+            <div class="record-cards">
+                <%= render partial: "shared/feature_record_card", collection: featured_items %>
+            </div>
+        </div>
+
+        <div class="m-layers-slideshow">
+            <div class="text-content">
+                <h3><%= page.slideshow_title %></h3>
+                <div class="description">
+                    <p><%= page.slideshow_subtitle %></p>
+                </div>
+                <%= link_to page.slideshow_button_text, page.slideshow_link, class: "button" %>
+            </div>
+            <ul class="rslides">
+                <%= page.slides.each do |slide| %>
+                    <li>
+                        <%= image_tag(slide.image) %>
+                        <span class="caption"><%= slide.caption %></span>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+
+        <div class="m-home-tags">
+            <h2>Search content by tag</h2>
+            <ul class="m-tag-groups-list">
+                <% tag_groups.each do |tag_group| %>
+                    <li><%= link_to resources_map_path(resource: :search, tag_group_ids: tag_group.id, results: true, tag_name: tag_group.name) do %><span><%=tag_group.name%></span><% end %>
+                        <div class="child-tags">
+                            <ul>
+                                <% tag_group.tags.each do |tag| %>
+                                    <li><%= link_to resources_map_path(resource: :search, tag_ids: tag["id"], results: true, tag_name: tag["name"]) do %><span><%=tag["name"]%></span><% end %></li>
+                                <% end %>
+                            </ul>
+                        </div>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+
+    </main>
+
+    <div class="homepage-ctas-wrapper">
+
+        <% page.homepage_ctas.each_with_index do |cta, i| %>
+            <%
+                class_name = case
+                               when (i+1)%2 == 0
+                                 "m-home-cta-block--flipped"
+                               when (i+1)%3 == 0
+                                 "m-home-cta-block--gray"
+                               else
+                                 ""
+            %>
+
+            <% end %>
+            <%= render partial: "pages/homepage_cta", locals: {class: class_name, homepage_cta: cta} %>
         <% end %>
-        <%= render partial: "pages/homepage_cta", locals: {class: class_name, homepage_cta: cta} %>
-    <% end %>
+
+    </div>
 
 <% end %>
 
