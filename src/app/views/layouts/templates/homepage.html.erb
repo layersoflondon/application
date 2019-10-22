@@ -40,20 +40,19 @@
 
         <div class="m-layers-slideshow">
             <div class="text-content">
-                <h3>Explore our unique, historic map layers</h3>
+                <h3><%= page.slideshow_title %></h3>
                 <div class="description">
-                    <p>Our map layers have been stretched and manipulated to fit over the contemporary map of London;
-                        meaning you can focus on a street, building or area and see how it has changed over time!</p>
+                    <p><%= page.slideshow_subtitle %></p>
                 </div>
-                <a class="button" href="/map">Step back in time</a>
+                <%= link_to page.slideshow_button_text, page.slideshow_link, class: "button" %>
             </div>
             <ul class="rslides">
-                <li><img src="/assets/map-grab-1.jpg" alt=""></li>
-                <li><img src="/assets/map-grab-2.jpg" alt=""></li>
-                <li><img src="/assets/map-grab-3.jpg" alt=""></li>
-                <li><img src="/assets/map-grab-4.jpg" alt=""></li>
-                <li><img src="/assets/map-grab-5.jpg" alt=""></li>
-                <li><img src="/assets/map-grab-6.jpg" alt=""></li>
+                <%= page.slides.each do |slide| %>
+                    <li>
+                        <%= image_tag(slide.image) %>
+                        <span class="caption"><%= slide.caption %></span>
+                    </li>
+                <% end %>
             </ul>
         </div>
 
