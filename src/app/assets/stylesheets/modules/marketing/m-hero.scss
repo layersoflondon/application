@@ -4,6 +4,9 @@
   clear: both;
   position: relative;
   min-height: 670px;
+  @include mq(tablet) {
+    min-height: 600px;
+  }
   @include mq(small-tablet) {
     @include clearfix;
     height: auto;
@@ -38,11 +41,18 @@
 }
 
 .m-hero--home .text-content {
-  //float: right;
-  // TODO
   @include mq(small-tablet) {
     text-align: center;
     padding: 20px;
+  }
+  @include mq(smartphone) {
+    max-width: 550px;
+    margin: 0 auto;
+    float: none;
+    padding-bottom: 100px;
+  }
+  @media screen and (max-width: 660px) {
+    padding-bottom: 20px;
   }
 }
 
@@ -73,8 +83,10 @@
     font-size: 34px;
     margin-top: 0;
   }
+  @include mq(smartphone) {
+  }
   @include mq(small-smartphone) {
-    font-size: 34px;
+    font-size: 24px;
   }
 }
 
@@ -122,7 +134,23 @@
   padding: 15px 18px 17px;
   border: 3px solid $green;
   width: 478px;
-  color:white;
+  color: white;
+  @include mq(tablet) {
+    font-size: 15px;
+    padding: 15px 15px 15px;
+    width: 392px;
+  }
+  @include mq(smartphone) {
+    font-size: 17px;
+    width: calc(100% - 89px);
+  }
+  @include mq(small-smartphone) {
+    font-size: 11px;
+    padding: 15px 10px;
+    width: 100%;
+    color: white;
+    margin-bottom: 10px;
+  }
 }
 
 .m-hero {
@@ -153,4 +181,11 @@
   font-size: 20px;
   position: relative;
   top: 1px;
+  @include mq(tablet) {
+    padding: 18px 16px;
+    margin-left: 10px;
+  }
+  @include mq(small-smartphone) {
+    padding: 11px 9px;
+  }
 }

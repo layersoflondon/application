@@ -18,7 +18,30 @@ class VisualHelpers {
 
     $(".m-tag-groups-list > li").on( {
       'mouseenter':function() {
-        $(this).find('.child-tags').fadeIn(200);
+        var elem = $(this).find('.child-tags');
+        elem.css('transform', 'translate3d(0,0,0)');
+        elem.find('.spike').css('transform', 'translate3d(0,0,0)');
+        elem.fadeIn(200);
+
+        var elemOffset =  elem.offset();
+        var overhangRight = (elemOffset.left + elem.outerWidth()) - elem.closest('.m-home-tags').outerWidth();
+
+        if (overhangRight < 0 ) {
+          overhangRight = 0;
+        } else {
+          elem.css('transform', 'translate3d(' + (overhangRight * -1) + 'px,0,0)');
+          elem.find('.spike').css('transform', 'translate3d(' + overhangRight + 'px,0,0)');
+        }
+
+        var overhangLeft = elemOffset.left;
+
+        if (overhangLeft > 0 ) {
+          overhangLeft = 0;
+        } else {
+          console.log(overhangLeft);
+          elem.css('transform', 'translate3d(' + (overhangLeft * -1) + 'px,0,0)');
+          elem.find('.spike').css('transform', 'translate3d(' + overhangLeft + 'px,0,0)');
+        }
       },
       'mouseleave':function() {
         $(this).find('.child-tags').fadeOut(200);
