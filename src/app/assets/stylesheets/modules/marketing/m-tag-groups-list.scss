@@ -2,6 +2,15 @@
 
 .m-home-tags {
   padding: 100px;
+  @media screen and (max-width: 1300px) {
+    padding: 100px 50px;
+  }
+  @include mq(tablet) {
+    padding: 40px;
+  }
+  @include mq(smartphone) {
+    padding: 45px 5px;
+  }
 }
 
 /*
@@ -40,6 +49,16 @@
   color: white;
   margin: 0 0 80px 0;
   font-size: 18px;
+  @include mq(tablet) {
+    margin: 0 0 50px 0;
+  }
+  @include mq(small-tablet) {
+    margin: 0 0 40px 0;
+    font-size: 16px;
+  }
+  @include mq(smartphone) {
+    margin: 0 0 30px 0;
+  }
 }
 
 .m-tag-groups-list {
@@ -48,6 +67,9 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: -50px;
+  @include mq(small-tablet) {
+    margin-bottom: -10px;
+  }
 }
 
 .m-tag-groups-list > li {
@@ -55,8 +77,13 @@
   position: relative;
   flex: 0 0 calc(20%);
   margin-bottom: 50px;
+  padding: 0 10px;
   @include mq(tablet) {
-    flex: 0 0 calc(33.333333%);
+    flex: 0 0 calc(25%);
+    margin-bottom: 40px;
+  }
+  @include mq(small-tablet) {
+    margin-bottom: 20px;
   }
 }
 
@@ -74,10 +101,16 @@
   justify-content: center;
   align-items: center;
   transition: all .4s;
-  @include mq(tablet) {
-    height: 180px;
-    width: 180px;
-    font-size: 18px;
+  @include mq(small-tablet) {
+    height: 150px;
+    width: 150px;
+    font-size: 16px;
+    padding: 17px 15px;
+  }
+  @include mq(smartphone) {
+    height: 120px;
+    width: 120px;
+    font-size: 14px;
   }
 }
 
@@ -89,7 +122,7 @@
 
 .m-tag-groups-list .child-tags {
   text-align: left;
-  @include spike('top', $red, 30px, 20px);
+  //@include spike('top', $red, 30px, 20px);
   padding: 20px 16px;
   width: 400px;
   background: $red;
@@ -99,10 +132,33 @@
   top: 100%;
   margin-top: -30px;
   z-index: 3;
+  @include mq(smartphone) {
+    width: 160px;
+    margin-left: -80px;
+    margin-top: -10px;
+    padding: 15px 10px;
+  }
+}
+
+.m-tag-groups-list .child-tags .spike {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  margin-left: -15px;
+  color: red;
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+  border-top: 0 solid transparent;
+  border-bottom: 20px solid $red;
 }
 
 .m-tag-groups-list .child-tags ul {
   @include grid(2, 10px, 10px);
+  @include mq(smartphone) {
+    @include grid(1, 10px, 5px);
+  }
 }
 
 .m-tag-groups-list .child-tags li {

@@ -12,15 +12,34 @@
 
 .m-layers-slideshow .rslides_tabs {
   position: absolute;
-  left: calc(33.333333% + 140px);
+  left: 540px;
   bottom: 40px;
   z-index: 10;
   @include unlist;
+  @include mq(tablet) {
+    left: 390px;
+  }
+  @include mq(smartphone) {
+    left: auto;
+    bottom: auto;
+    top: 15px;
+    right: 15px;
+  }
 }
 
 .m-layers-slideshow .rslides_tabs li {
   display: inline-block;
   margin-right: 30px;
+  @include mq(tablet) {
+    margin-right: 20px;
+  }
+  @include mq(smartphone) {
+    margin-right: 5px;
+  }
+}
+
+.m-layers-slideshow .rslides_tabs li:last-child {
+  margin-right:0;
 }
 
 .m-layers-slideshow .rslides_tabs li a {
@@ -33,6 +52,14 @@
   text-indent: -9999px;
   overflow: hidden;
   position: relative;
+  @include mq(tablet) {
+    width: 42px;
+    height: 42px;
+  }
+  @include mq(smartphone) {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .m-layers-slideshow .rslides_tabs li a:before {
@@ -45,16 +72,28 @@
   background: $yellow;
   border-radius: 100px;
   transition: all .2s;
-  transform:scale(0);
-  background:#333;
+  transform: scale(0);
+  background: #333;
+  @include mq(tablet) {
+    width: 18px;
+    height: 18px;
+    left: 12px;
+    top: 12px;
+  }
+  @include mq(smartphone) {
+    width: 13px;
+    height: 13px;
+    left: 6px;
+    top: 6px;
+  }
 }
 
 .m-layers-slideshow .rslides_tabs li a:hover:before {
-  transform:scale(1);
+  transform: scale(1);
 }
 
 .m-layers-slideshow .rslides_tabs li.rslides_here a:before {
-  transform:scale(1);
+  transform: scale(1);
   background: $yellow;
 }
 
@@ -71,16 +110,24 @@
   background: rgba(0, 0, 0, 0.9);
   padding: 40px;
   z-index: 100;
-  width: 25%;
+  width: 400px;
+
   @include mq(tablet) {
-    left:40px;
-    padding:20px;
+    left: 40px;
+    padding: 20px;
+    width: 300px;
+    bottom: -20px;
+  }
+
+  @include mq(smartphone) {
+    left: 15px;
+    width: 290px;
   }
 
   h3 {
     margin: 0;
     @include font-display;
-    line-height: 1.3;
+    line-height: 1.1;
     font-size: 40px;
     display: inline-block;
     color: white;
@@ -96,6 +143,9 @@
     font-size: 16px;
     color: white;
     margin: 20px 0 28px;
+    @include mq(tablet) {
+      font-size: 14px;
+    }
     @include mq(smartphone) {
       font-size: 13px;
     }

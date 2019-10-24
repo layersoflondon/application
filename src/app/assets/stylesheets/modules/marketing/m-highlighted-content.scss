@@ -31,6 +31,16 @@
     grid-row-gap: 40px;
     padding: 0 40px 40px 40px;
   }
+  @media screen and (max-width: 660px) {
+    grid-template-columns: 1fr;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+  @include mq(smartphone) {
+    grid-column-gap: 15px;
+    grid-row-gap: 30px;
+    padding: 0 15px 15px;
+  }
 }
 
 .m-highlighted-content .m-record-card {
@@ -38,6 +48,9 @@
   &:nth-child(even) {
     position: relative;
     top: -70px;
+    @media screen and (max-width: 660px) {
+      top: 0;
+    }
   }
 
   .wrapper {
@@ -45,17 +58,16 @@
     transition: all .4s;
     position: relative;
     @include link-animation;
-    //height: 280px;
     height: auto;
     color: white;
-    @include mq(small-smartphone) {
-      height: 230px;
-    }
   }
 
   .header {
     position: relative;
     height: 400px;
+    @include mq(tablet) {
+      height: 290px;
+    }
   }
 
   .image {
@@ -114,6 +126,12 @@
     padding: 20px;
     @include transition(all .4s);
     background: transparentize($black, 0.1);
+    @include mq(tablet) {
+      font-size:14px;
+    }
+    @include mq(smartphone) {
+      padding: 15px;
+    }
   }
 
   .text-content p p {
@@ -135,15 +153,15 @@
 }
 
 .m-highlighted-content .m-record-card:nth-child(even) {
-/*  @include mq(small-tablet) {
-    //width: calc(50% - 8px);
-    margin-left: 0;
-    margin-right: 8px
-  }
-  @media screen and (max-width: 640px) {
-    width: 100%;
-    margin-right: 0;
-  }*/
+  /*  @include mq(small-tablet) {
+      //width: calc(50% - 8px);
+      margin-left: 0;
+      margin-right: 8px
+    }
+    @media screen and (max-width: 640px) {
+      width: 100%;
+      margin-right: 0;
+    }*/
 }
 
 .m-highlighted-content .m-record-card:last-child {
@@ -176,14 +194,8 @@
 }
 
 .m-highlighted-content .m-record-card h1 {
-  font-weight: 600;
+  font-weight: 400;
   font-size: 26px;
-  @include mq(smartphone) {
-    font-weight: 400;
-  }
-}
-
-.m-highlighted-content .m-record-card {
 }
 
 .m-highlighted-content .m-record-card.placeholder-0 {
@@ -207,7 +219,6 @@
 }
 
 .m-highlighted-content .m-record-card.placeholder-5 {
-  border: 5px solid red;
   background: $navy url('../assets/images/placeholder/wide-06.svg') center/cover;
 }
 

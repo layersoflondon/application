@@ -62,6 +62,7 @@
                 <% tag_groups.each do |tag_group| %>
                     <li><%= link_to resources_map_path(resource: :search, tag_group_ids: tag_group.id, results: true, tag_name: tag_group.name) do %><span><%=tag_group.name%></span><% end %>
                         <div class="child-tags">
+                            <span class='spike'></span>
                             <ul>
                                 <% tag_group.tags.each do |tag| %>
                                     <li><%= link_to resources_map_path(resource: :search, tag_ids: tag["id"], results: true, tag_name: tag["name"]) do %><span><%=tag["name"]%></span><% end %></li>
