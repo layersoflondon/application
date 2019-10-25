@@ -97,7 +97,7 @@ const closeModalLink = (location, param) => {
   }
   
   const searchPath = queryString.stringify(search).replace(/&&/, '');
-  return `${location.pathname}?${searchPath}`;
+  return [location.pathname, searchPath].filter((p) => p).join("?");
 }
 
 const searchPath = () => {
