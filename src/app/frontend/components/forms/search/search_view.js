@@ -170,7 +170,7 @@ window.queryString = queryString;
       search_params.collections = true;
     }
   
-    search_params.tag_ids = this.state.tag_ids;//.join(',');
+    search_params.tag_ids = this.state.tag_ids.join(',');
 
     function serializeQuery(params, prefix) {
       const query = Object.keys(params).map((key) => {
@@ -207,6 +207,7 @@ window.queryString = queryString;
     
     const header_title = !!this.state.q ? `Your search for “${this.state.q}”` : `Results ${header_subtitle}`;
     
+    console.log(search_params);
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
       this.props.trayViewStore.searchParams = search_params;
