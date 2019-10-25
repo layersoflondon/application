@@ -1,4 +1,6 @@
 class TagGroupsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[index]
+  
   def index
     @tag_groups = TagGroupPolicy::Scope.new(current_user, TagGroupsIndex).resolve
     authorize @tag_groups
