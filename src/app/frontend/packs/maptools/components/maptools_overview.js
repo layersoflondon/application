@@ -29,7 +29,7 @@ export default class MapToolsOverview extends React.Component {
               <h3>Tracing</h3>
               <Img src={tracingUrl} />
               <p>
-                Add new shapes to trace the colour coded regions of the map.
+                Draw shapes to trace around colour coded areas of the map.
               </p>
             </div>
 
@@ -37,7 +37,7 @@ export default class MapToolsOverview extends React.Component {
               <h3>Checking</h3>
               <Img src={checkingUrl} />
               <p>
-                Check existing squares to verify that all buildings have been traced and are the right colour.
+                Check the work of others to verify that areas of the map have been traced and colour coded correctly.
               </p>
             </div>
 
@@ -52,11 +52,17 @@ export default class MapToolsOverview extends React.Component {
           <h1>About the project</h1>
 
           <div className="details">
-            In 1899, Charles Booth and his team conducted a survey of the poverty levels across London.
-            As part of their results, they took a contemporary map, and highlighted area with coloured shapes to denote
-            poverty level.
-            This site is an application to crowd-source the tracing of these areas into a vector format, which can be
-            put to better use by historians.
+            <p>
+              In 1889 the first volume of Charles Booth's monumental London enquiry was published.  Included within it was a map which used different colours to codify the levels of wealth and poverty on London's streets.
+            </p>
+
+            <p>
+              We want to accurately capture those classifications and colours to better understand London at the time. You can help us to do that by tracing the different colours on the map and checking the accuracy of tracing that has already been done.
+            </p>
+
+            <p>
+              To learn more about Charles Booth’s life and work, visit <a href="https://booth.lse.ac.uk/">Charles Booth’s London</a>.
+            </p>
           </div>
 
         </section>
