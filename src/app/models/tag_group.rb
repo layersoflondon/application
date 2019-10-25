@@ -1,6 +1,8 @@
 class TagGroup < ApplicationRecord
   include FriendlyId
 
+  update_index('tag_groups#tag_group') { self }
+
   friendly_id :name
   has_many :tags, dependent: :destroy
 

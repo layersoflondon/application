@@ -32,7 +32,7 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
 
   componentWillUpdate() {
     const record_id = getQueryStringParam(this.props.router.location, 'editRecord');
-
+    
     if(record_id && !this.props.recordFormStore.record.id) {
       this.fetchRecord(record_id);
     }
@@ -129,6 +129,9 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
   handleCloseOnClick(event) {
     event.preventDefault();
     this.props.recordFormStore.record = new RecordModel();
+    
+    const url = closeModalLink(this.props.router.location, ['newRecord', 'editRecord']);
+    this.props.router.push(url);
 
     // if(this.props.match.params.collection_id) {
     //   this.props.router.push(`/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}`);
@@ -160,7 +163,7 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
     if( this.props.recordFormStore.record.id && !this.props.recordFormStore.record.user_can_edit_record ) {
       return <div className='m-overlay'>
         <div className="close">
-          <Link to={closeModalLink(this.props.router.location, 'newRecord')} className="close" onClick={this.handleCloseOnClick.bind(this)}></Link>
+          <Link to={closeModalLink(this.props.router.location, ['newRecord', 'editRecord'])} className="close" onClick={this.handleCloseOnClick.bind(this)}></Link>
         </div>
 
         <div className="m-add-record">
@@ -190,7 +193,7 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
           <div className="close">
-            <Link to={closeModalLink(this.props.router.location, 'newRecord')} className="close" onClick={this.handleCloseOnClick.bind(this)}></Link>
+            <Link to={closeModalLink(this.props.router.location, ['newRecord', 'editRecord'])} className="close" onClick={this.handleCloseOnClick.bind(this)}></Link>
           </div>
 
           <div className="m-add-record">

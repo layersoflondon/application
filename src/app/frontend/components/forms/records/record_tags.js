@@ -26,7 +26,7 @@ import TagGroup from '../tag_groups/tag_group';
     let   pane_classname = (this.props.recordFormStore.visible_pane==='tags') ? 'is-open' : '';
     const title = "Tag this record";
 
-    const tag_groups = this.props.tagGroupsStore.tagGroups.values().map((group, i) => {
+    const tag_groups = this.props.tagGroupsStore.tag_groups.values().map((group, i) => {
       const tag_ids = group.tags.map((tag) => tag.id);
       const enabled_tag_ids = this.props.recordFormStore.record.tag_ids.filter((tag_id) => tag_ids.indexOf(tag_id)>-1);
       const isVisible = this.props.recordFormStore.visible_tag_group === group.id;
