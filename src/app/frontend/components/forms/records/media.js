@@ -116,6 +116,12 @@ import {observer} from "mobx-react";
       return <MediaItem {...item} {...this.props} object={media_item} key={`media_item_${index}`} index={index} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
     });
 
+    // const youtube_videos = this.props.recordFormStore.record.videos.map((item, i) => {
+    //   const media_item = Attachment.fromJS(item, this.props.recordFormStore.record.id);
+    //   const index = this.props.recordFormStore.record.attachments.indexOf(item);
+    //   return <p>{item</p>
+    // });
+
     const validAttachmentContentTypes = 'image/jpeg, image/png, application/pdf, text/plain, application/json, audio/mpeg, audio/m4a, audio/wav, audio/x-wav, audio/x-m4a';
 
     const loading_items = this.state.loading.map((item, i) => {
