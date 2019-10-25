@@ -378,18 +378,19 @@ window.queryString = queryString;
                 }
               </div>
 
-              <hr/>
-              {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
-                return <TagGroup 
-                  key={`tag-group-${tagGroup.id}`}
-                  tagGroup={tagGroup} 
-                  isVisible={this.state.visibleTagGroup === tagGroup.id}
-                  enabledTagIds={() => {}}
-                  toggleTag={this.toggleTag}
-                  tagIsChecked={this.tagIsChecked}
-                  setVisibleTagGroup={this.toggleTagGroup}
-                />
-              })}
+              <div className="filter-by-tag">
+                {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
+                  return <TagGroup
+                    key={`tag-group-${tagGroup.id}`}
+                    tagGroup={tagGroup}
+                    isVisible={this.state.visibleTagGroup === tagGroup.id}
+                    enabledTagIds={() => {}}
+                    toggleTag={this.toggleTag}
+                    tagIsChecked={this.tagIsChecked}
+                    setVisibleTagGroup={this.toggleTagGroup}
+                  />
+                })}
+              </div>
 
               <div className="form-group">
                 <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search</button>

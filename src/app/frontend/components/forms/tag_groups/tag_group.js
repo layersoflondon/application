@@ -42,6 +42,7 @@ import Tag from './tag';
       </h4>
 
       <div className={`tags ${this.props.isVisible ? 'is-visible' : ''}`}>
+        <div className="spike"></div>
         { this.props.isVisible &&
           <ul>
             {tags}
