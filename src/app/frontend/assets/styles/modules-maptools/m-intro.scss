@@ -85,3 +85,11 @@
   font-weight: bold;
   clear:both;
 }
+
+.m-intro a {
+    color: $yellow;
+    text-decoration: underline;
+  &:hover {
+    color: darken($yellow, 25%);
+  }
+}

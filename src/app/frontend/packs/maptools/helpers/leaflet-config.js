@@ -18,7 +18,7 @@ L.drawLocal = {
       },
       buttons: {
         polyline: '',
-        polygon: 'Draw shape',
+        polygon: 'Draw a shape',
         rectangle: '',
         circle: '',
         marker: '',

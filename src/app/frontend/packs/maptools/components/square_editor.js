@@ -108,8 +108,8 @@ export default class SquareEditor extends React.Component {
       <h1>
         Please check that:
       </h1>
-      <p>All polygons touching the square are drawn.</p>
-      <p>The shapes you've drawn match the ones on Booth's map</p>
+      <p>All coloured shapes touching the square are drawn.</p>
+      <p>The shapes drawn match the ones on Booth's map</p>
       <p>All shapes are the right color.</p>
       <p>Hit Edit mode to correct any issues.</p>
 
@@ -146,7 +146,7 @@ export default class SquareEditor extends React.Component {
         <hr/>
         <h3>You need to be signed in in order to start tracing and checking.</h3>
         <a className="button" href="/users/sign_up">Sign up</a>
-         or sign in <a href="/users/sign_in">here</a> to get started!
+         or <a href="/users/sign_in">sign in</a> to get started!
         <hr/>
         <Link to="/maptools/squares" onClick={this.handleGoBackClick.bind(this)}>Back to map</Link>
       </div>;
