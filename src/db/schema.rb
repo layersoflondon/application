@@ -253,7 +253,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["layer_group_id"], name: "index_layers_on_layer_group_id"
   end
 
-  create_table "layers_of_london_booth_map_tool_polygons", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layers_of_london_booth_map_tool_polygons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "square_id"
     t.bigint "user_id"
     t.text "feature"
@@ -263,7 +263,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["user_id"], name: "index_layers_of_london_booth_map_tool_polygons_on_user_id"
   end
 
-  create_table "layers_of_london_booth_map_tool_squares", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layers_of_london_booth_map_tool_squares", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "aasm_state"
@@ -443,15 +443,6 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "view_counts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.string "viewable_type"
-    t.bigint "viewable_id"
-    t.integer "count", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["viewable_type", "viewable_id"], name: "index_view_counts_on_viewable_type_and_viewable_id"
   end
 
   add_foreign_key "attachments", "records"
