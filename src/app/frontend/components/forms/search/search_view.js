@@ -57,7 +57,7 @@ window.queryString = queryString;
       const search = queryString.parse(this.props.router.location.search, {arrayFormat: 'bracket'});
       
       if(search.tag_ids) {
-        const tag_ids = search.tag_ids.map((id) => parseInt(id, 10));
+        const tag_ids = search.tag_ids.split(',').map((id) => parseInt(id, 10));
         
         return tag_ids.indexOf(value)>-1;
       }
@@ -205,9 +205,6 @@ window.queryString = queryString;
       header_subtitle = "for your collection search"
     }
     
-    const header_title = !!this.state.q ? `Your search for “${this.state.q}”` : `Results ${header_subtitle}`;
-    
-    console.log(search_params);
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
       this.props.trayViewStore.searchParams = search_params;
