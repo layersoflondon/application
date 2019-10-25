@@ -8,6 +8,13 @@ class FeaturedItem < ApplicationRecord
 
   update_index('featured_items#featured_item') { self }
 
+  after_create -> {
+    item.class.update_index_value!(item.id, :featured_item, true)
+  }
+
+  after_destroy -> {
+    item.class.update_index_value!(item.id, :featured_item, false)
+  }
 end
 
 

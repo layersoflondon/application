@@ -45,7 +45,7 @@ import axios from 'axios';
                   isVisible={isVisible} 
                   enabledTagIds={enabled_tag_ids} {...this.props} 
                   toggleTag={this.toggleTag} 
-                  tagIsChecked={this.tagIsTagged}
+                  tagIsChecked={() => {}}
                   setVisibleTagGroup={this.setVisibleTagGroup} 
         />;
       });

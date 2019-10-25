@@ -42,6 +42,8 @@ class RecordsController < ApplicationController
 
     raise ActiveRecord::RecordNotFound, "Record not found" unless @record.present?
     raise Pundit::NotAuthorizedError unless RecordPolicy.new(current_user, @record).show?
+
+    
     # TODO create a RecordViewJob which increments async.
     # @record.increment!(:view_count) unless cookies[:viewed_records].present? && cookies[:viewed_records].include?(@record.id)
   end

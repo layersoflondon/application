@@ -9,6 +9,7 @@ module FieldDefinitions
       field :excerpt, type: 'text', analyzer: :english
       field :like_count, type: 'integer'
       field :view_count, type: 'integer'
+      field :featured_item, type: :boolean
       field :state, type: 'keyword'
       field :pin, type: 'geo_point', value: ->{ {lat: lat, lon: lng} }
       field :date_from, type: 'date'
@@ -109,8 +110,6 @@ module FieldDefinitions
 
       field :added_by_student, type: 'boolean'
       field :student_details, type: 'keyword'
-
-
     end
   end
 end

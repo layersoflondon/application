@@ -30,7 +30,7 @@ import Tag from './tag';
       this.setState({count: new_count});
     };
 
-    const tags = this.props.tagGroup.tags.map((tag, i) => <Tag key={`tag-${i}`} {...tag} tagIsChecked={this.tagIsChecked} inputClicked={toggleInput} />);
+    const tags = this.props.tagGroup.tags.map((tag, i) => <Tag key={`tag-${i}`} {...tag} tagIsChecked={this.props.tagIsChecked(tag.id)} inputClicked={toggleInput} />);
 
     return <div className="tag-group">
       <h4 data-tag-group-id={this.props.tagGroup.id} onClick={this.toggleVisibility.bind(this)}>

@@ -1,11 +1,11 @@
 class TagGroupPolicy < ApplicationPolicy
 
   def index?
-    user.present?
+    true
   end
 
   def show?
-    user.present?
+    true
   end
 
   class Scope < Scope

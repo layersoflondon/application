@@ -6,10 +6,12 @@ module FieldDefinitions
       field :id, type: :integer
       field :title, type: :text, analyzer: :english
       field :sort_title, type: :integer
+      field :view_count, type: 'integer'
       field :description, type: :text, analyzer: :english
       field :read_state, type: :keyword
       field :write_state, type: :keyword
       field :write_state_team_id, type: :integer
+      field :featured_item, type: :boolean
       field :state, type: :keyword, value: -> {
         public_read? ? "published" : nil
       }

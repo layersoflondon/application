@@ -3,10 +3,8 @@ class Record < ApplicationRecord
   include AASM
   include SortFields
 
-
-
   update_index('records#record') { self }
- 
+  
   has_many :collection_records, dependent: :destroy
   has_many :collections, through: :collection_records
   has_many :attachments, dependent: :destroy
@@ -91,7 +89,6 @@ class Record < ApplicationRecord
     if primary_image.nil? && attachments.image.any?
       attachments.image.first.attachable.set_as_only_primary!
     end
-
   end
 
   # check whether the record is valid for publishing. If it's not, we record what needs to happen to make it so
@@ -250,6 +247,22 @@ class Record < ApplicationRecord
     return [] unless tagger_ids.any?
 
     Record.where(id: tagger_ids)
+  end
+
+  def self.update_view_count!(id)
+    object = self.find(id)
+    object.update_column(:view_count, object.view_count+=1)
+
+    self.update_index_value!(id, :view_count, object.view_count)
+  end
+
+  def self.update_index_value!(id, field, value)
+    object = self.find(id)
+    object.update_column(field, value)
+
+    Chewy.strategy(:atomic) do 
+      RecordsIndex.import self.where(id: id), update_fields: [field]
+    end
   end
 
   private
