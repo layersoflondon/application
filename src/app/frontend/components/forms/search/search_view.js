@@ -55,7 +55,7 @@ window.queryString = queryString;
       }else {
         ids.push(value);
       }
-
+      
       this.setState({tag_ids: ids});
     }
 
@@ -65,6 +65,18 @@ window.queryString = queryString;
       if(this.state.tag_ids.length>0) {  
         return this.state.tag_ids.indexOf(value)>-1;
       }
+
+      return false;
+    }
+
+    this.enabledTagIdsInGroup = (id) => {
+      this.state.tag_ids;
+      const group = this.props.tagGroupsStore.tag_groups.get(id);
+      const groupTagIds = group.tags.map((tag) => tag.id);
+      
+      const enabledTagIds = this.state.tag_ids.filter((id) => groupTagIds.indexOf(id)>-1);
+      
+      return enabledTagIds;
     }
   }
 
@@ -388,7 +400,7 @@ window.queryString = queryString;
                   key={`tag-group-${tagGroup.id}`}
                   tagGroup={tagGroup} 
                   isVisible={this.state.visibleTagGroup === tagGroup.id}
-                  enabledTagIds={this.state.tag_ids}
+                  enabledTagIds={this.enabledTagIdsInGroup(tagGroup.id)}
                   toggleTag={this.toggleTag}
                   tagIsChecked={this.tagIsChecked}
                   setVisibleTagGroup={this.toggleTagGroup}

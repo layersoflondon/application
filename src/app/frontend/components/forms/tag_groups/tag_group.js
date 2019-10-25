@@ -36,8 +36,8 @@ import Tag from './tag';
       <h4 data-tag-group-id={this.props.tagGroup.id} onClick={this.toggleVisibility.bind(this)}>
         {this.props.tagGroup.name}
 
-        {this.state.count>0 &&
-          <span className="tag-group-count">{this.state.count}</span>
+        {this.props.enabledTagIds.length>0 &&
+          <span className="tag-group-count">{this.props.enabledTagIds.length}</span>
         }
       </h4>
 
