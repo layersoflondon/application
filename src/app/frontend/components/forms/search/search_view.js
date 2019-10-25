@@ -16,10 +16,11 @@ window.queryString = queryString;
   constructor(props) {
     super(props);
 
-    const search = queryString.parse(this.props.router.location.search, {arrayFormat: 'bracket'});
+    const search = queryString.parse(this.props.router.location.search, {arrayFormat: 'comma'});
     let tag_ids = [];
-    if(search.tag_ids){
-      tag_ids = search.tag_ids.map((id) => parseInt(id, 10));
+    
+    if(search.tag_ids) {
+      tag_ids = search.tag_ids.split(',').map((id) => parseInt(id, 10));
     }
     
     this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}, collections: false, visibleTagGroup: null, tag_ids: tag_ids};

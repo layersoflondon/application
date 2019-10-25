@@ -16,7 +16,7 @@ import NotFound from "../../not_found";
 import {Link} from 'react-router-dom';
 import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
 
-@inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore', 'currentUser')
+@inject('router', 'mapViewStore', 'recordFormStore', 'trayViewStore', 'collectionStore', 'tagGroupsStore', 'currentUser')
 @observer export default class RecordForm extends Component {
   constructor(props) {
     super(props);

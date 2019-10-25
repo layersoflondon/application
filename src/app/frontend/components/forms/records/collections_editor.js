@@ -8,7 +8,6 @@ import {observe} from "mobx";
 import {observer} from "mobx-react";
 
 @observer class CollectionsEditor extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
