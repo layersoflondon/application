@@ -16,7 +16,13 @@ window.queryString = queryString;
   constructor(props) {
     super(props);
 
-    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}, collections: false, visibleTagGroup: null, tag_ids: []};
+    const search = queryString.parse(this.props.router.location.search, {arrayFormat: 'bracket'});
+    let tag_ids = [];
+    if(search.tag_ids){
+      tag_ids = search.tag_ids.map((id) => parseInt(id, 10));
+    }
+    
+    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}, collections: false, visibleTagGroup: null, tag_ids: tag_ids};
 
     this.closeEventHandler = (event) => {
       if(event.target.classList.contains('s-overlay--search')){
@@ -54,12 +60,9 @@ window.queryString = queryString;
 
     this.tagIsChecked = (id) => {
       const value = parseInt(id, 10);
-      const search = queryString.parse(this.props.router.location.search, {arrayFormat: 'bracket'});
       
-      if(search.tag_ids) {
-        const tag_ids = search.tag_ids.split(',').map((id) => parseInt(id, 10));
-        
-        return tag_ids.indexOf(value)>-1;
+      if(this.state.tag_ids.length>0) {  
+        return this.state.tag_ids.indexOf(value)>-1;
       }
     }
   }
@@ -384,7 +387,7 @@ window.queryString = queryString;
                   key={`tag-group-${tagGroup.id}`}
                   tagGroup={tagGroup} 
                   isVisible={this.state.visibleTagGroup === tagGroup.id}
-                  enabledTagIds={() => {}}
+                  enabledTagIds={this.state.tag_ids}
                   toggleTag={this.toggleTag}
                   tagIsChecked={this.tagIsChecked}
                   setVisibleTagGroup={this.toggleTagGroup}
