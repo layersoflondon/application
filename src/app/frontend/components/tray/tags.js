@@ -1,21 +1,11 @@
 import React,{Component} from 'react';
 import TrayTagGroup from './tag_group';
 import axios from 'axios';
+import { inject } from 'mobx-react';
 
+@inject('tagGroupsStore')
 export default class TrayTags extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {
-    axios.get('/tag_groups').then((response) => {
-      this.setState({tagGroups: response.data});
-    });
-  }
-
   render() {
-    if(!this.state.tagGroups) return <React.Fragment />
-    return this.state.tagGroups.map((tagGroup) => <TrayTagGroup key={`tag-group-${tagGroup.id}`} tagGroup={tagGroup} />)
+    return this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => <TrayTagGroup key={`tag-group-${tagGroup.id}`} tagGroup={tagGroup} />)
   }
 }

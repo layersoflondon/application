@@ -278,8 +278,7 @@ class RecordsController < ApplicationController
 
   def increment_view_count
     cookie = ActiveSupport::JSON.decode(cookies[:record_views]) rescue []
-
-    Rails.logger.info("\n\nIncrementing count: #{!cookie.include?(@record.id.to_i)}\n\n\n")
+    
     unless cookie.include?(@record.id.to_i)
       cookie << @record.id
       cookies[:record_views] = {value: JSON.generate(cookie), expires: 1.year.from_now}

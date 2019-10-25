@@ -9,13 +9,7 @@ export default class TrayTagGroup extends Component {
 
     this.eventListener = null;
   }
-
-  componentDidMount() {
-    axios.get('/tag_groups').then((response) => {
-      this.setState({tagGroups: response.data});
-    });
-  }
-
+  
   showTagGroup(event) {
     const visible = !this.state.visible;
     this.setState({visible: visible});

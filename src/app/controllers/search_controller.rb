@@ -20,7 +20,8 @@ class SearchController < ApplicationController
       args = type_search_params.to_hash.without('type').with_indifferent_access
       @results = MultiIndexSearch.popular(args)
     elsif params[:tag_ids].present?
-      @results = MultiIndexSearch.query({q: ""})
+      tag_ids = params[:tag_ids].split(',').map(&:to_i)
+      @results = MultiIndexSearch.tagged(tag_ids)
     else
       render json: '', status: :bad_request
     end
