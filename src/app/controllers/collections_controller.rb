@@ -3,6 +3,8 @@ class CollectionsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   skip_after_action :verify_authorized, only: %i[index show]
 
+  after_action :increment_view_count, only: :show
+
   decorates_assigned :collection, :collections
 
   def index
@@ -95,5 +97,16 @@ class CollectionsController < ApplicationController
       :owner_id,
       :owner_type
     )
+  end
+
+  def increment_view_count
+    cookie = ActiveSupport::JSON.decode(cookies[:collection_views]) rescue []
+
+    unless cookie.include?(@collection.id.to_i)
+      cookie << @collection.id.to_i
+      cookies[:collection_views] = {value: JSON.generate(cookie), expires: 1.year.from_now}
+
+      Collection.update_view_count!(@collection.id)
+    end
   end
 end

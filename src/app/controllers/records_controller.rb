@@ -3,6 +3,8 @@ class RecordsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :index, :report, :for_user, :related]
   skip_after_action :verify_authorized, only: [:index, :show, :report, :for_user, :related] #show is in here because we authorize in the method
 
+  after_action :increment_view_count, only: :show
+
   decorates_assigned :record, :records, with: RecordDecorator
 
   def index
@@ -271,6 +273,18 @@ class RecordsController < ApplicationController
     if session[:teacher_classroom_user] && current_user.teacher_token_expires < Time.now
       record.errors.add(:user, "Your classroom session has finished")
       nil
+    end
+  end
+
+  def increment_view_count
+    cookie = ActiveSupport::JSON.decode(cookies[:record_views]) rescue []
+
+    Rails.logger.info("\n\nIncrementing count: #{!cookie.include?(@record.id.to_i)}\n\n\n")
+    unless cookie.include?(@record.id.to_i)
+      cookie << @record.id
+      cookies[:record_views] = {value: JSON.generate(cookie), expires: 1.year.from_now}
+
+      Record.update_view_count!(@record.id)
     end
   end
 end

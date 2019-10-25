@@ -16,10 +16,10 @@ import RecordViewComponentState from "./record_view_component_state";
     this.state = {loading: true};
   }
 
-  componentWillMount() {
-    const fetch_nearby_data = this.props.trayViewStore.cards.size === 0;
-    this.props.trayViewStore.fetchRecord(this.props.match.params.id, fetch_nearby_data);
-  }
+  // componentWillMount() {
+  //   const fetch_nearby_data = this.props.trayViewStore.cards.size === 0;
+  //   this.props.trayViewStore.fetchRecord(this.props.match.params.id, fetch_nearby_data);
+  // }
 
   render_state_expanded(header_class) {
     return <div className={header_class}>
