@@ -6,7 +6,7 @@ import {observer} from "mobx-react";
   render() {
     return <li className="tag">
       <label>
-        <input id={this.props.id} type="checkbox" checked={this.props.tagIsChecked} onChange={(event) => this.props.inputClicked(event)} />
+        <input id={this.props.id} value={1} type="checkbox" checked={this.props.tagIsChecked} onChange={(event) => this.props.inputClicked(event)} />
         {this.props.name}
       </label>
     </li>

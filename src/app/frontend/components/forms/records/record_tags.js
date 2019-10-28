@@ -3,7 +3,6 @@ import RecordFormComponentState from './record_form_component_state';
 import {observer, inject} from "mobx-react";
 import TagGroup from '../tag_groups/tag_group';
 
-@inject('tagGroupsStore')
 @observer class RecordTags extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +13,7 @@ import TagGroup from '../tag_groups/tag_group';
 
     this.setVisibleTagGroup = (id) => this.props.recordFormStore.setVisibleTagGroup(id);
     this.toggleTag = (id) => this.props.recordFormStore.toggleTag(id);
-    this.tagIsChecked = (id) => true;
+    this.tagIsChecked = (id) => this.props.recordFormStore.tagIsChecked(id);
   }
 
   componentWillReceiveProps() {
@@ -36,7 +35,7 @@ import TagGroup from '../tag_groups/tag_group';
                 isVisible={isVisible} 
                 enabledTagIds={enabled_tag_ids} {...this.props} 
                 toggleTag={this.toggleTag} 
-                tagIsChecked={() => {}}
+                tagIsChecked={this.tagIsChecked}
                 setVisibleTagGroup={this.setVisibleTagGroup} 
       />;
     });
