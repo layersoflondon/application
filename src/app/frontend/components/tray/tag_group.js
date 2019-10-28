@@ -34,6 +34,7 @@ export default class TrayTagGroup extends Component {
       {
         this.state.visible && 
         <div className={`tags is-visible`}>
+          <div class="spike"></div>
           <ul>
             {this.props.tagGroup.tags.map((tag) => {
               return <li key={tag.id}>

@@ -379,6 +379,7 @@ window.queryString = queryString;
               </div>
 
               <div className="filter-by-tag">
+                <h2>Tags</h2>
                 {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
                   return <TagGroup
                     key={`tag-group-${tagGroup.id}`}
