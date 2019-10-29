@@ -1,22 +1,21 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
 
 export default class TrayTagGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {visible: false};
 
-    this.eventListener = null;
+    this.eventListener = (event) => {
+      if(parseInt(this.props.tagGroup.id, 10) !== parseInt(event.target.dataset.tagGroupId, 10)) {
+        this.setState({visible: false});
+      }
+    }
   }
 
   showTagGroup(event) {
     const visible = !this.state.visible;
     this.setState({visible: visible});
-
-    this.eventListener = (event) => {
-      this.setState({visible: false});
-    }
 
     if (visible) {
       document.addEventListener('click', this.eventListener);
@@ -27,7 +26,7 @@ export default class TrayTagGroup extends Component {
 
   render() {
     return <div className="parent-tag" key={`tag-group-${this.props.tagGroup.id}`}>
-      <h4 data-tag-group-id={this.props.tagGroup.id} onClick={this.showTagGroup.bind(this)}>
+      <h4 className="tag-group-name" data-tag-group-id={this.props.tagGroup.id} onClick={this.showTagGroup.bind(this)}>
         {this.props.tagGroup.name}
       </h4>
 
