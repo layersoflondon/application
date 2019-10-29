@@ -19,6 +19,18 @@ export default class TrayRecordsIndex extends Component {
     }
   }
 
+  componentDidUpdate(oldProps) {
+    const geobounded = this.props.type === "geobounded";
+    const lat = this.props.lat;
+    const lng = this.props.lng;
+
+    if(geobounded && (lat !== oldProps.lat || lng !== oldProps.lng)) {
+      this.props.mapViewStore.getMapBounds().then((bounds) => {
+        this.props.trayViewStore.reloadTrayDataForBounds(bounds);
+      });
+    }
+  }
+
   render() {
     const mainResults = this.props.trayViewStore.mainResults.values().map((result) => {
       const key = `${result.is_collection ? 'collection' : 'record'}_${result.id}`;
@@ -31,16 +43,6 @@ export default class TrayRecordsIndex extends Component {
     });
 
     return <React.Fragment>
-      <div className="m-tray-title-area">
-        <div className="close">
-          <Link className="close" style={{float: 'right'}} to='/map' onClick={() => this.props.trayViewStore.trayLocked = false}>&times;</Link>
-        </div>
-        {
-          this.props.title &&
-          <h1>{this.props.title}</h1>
-        }
-      </div>
-
       <div className="m-tray-records-list">
         {
           this.props.trayViewStore.mainResults.size > 0 &&
