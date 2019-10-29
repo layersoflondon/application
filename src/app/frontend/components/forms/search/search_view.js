@@ -427,17 +427,19 @@ window.queryString = queryString;
 
               <div className="filter-by-tag">
                 <h2>Tags</h2>
-                {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
-                  return <TagGroup
-                    key={`tag-group-${tagGroup.id}`}
-                    tagGroup={tagGroup}
-                    isVisible={this.state.visibleTagGroup === tagGroup.id}
-                    enabledTagIds={this.enabledTagIdsInGroup(tagGroup.id)}
-                    toggleTag={this.toggleTag}
-                    tagIsChecked={this.tagIsChecked}
-                    setVisibleTagGroup={this.toggleTagGroup}
-                  />
-                })}
+                <div className="parent-tags">
+                  {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
+                    return <TagGroup
+                      key={`tag-group-${tagGroup.id}`}
+                      tagGroup={tagGroup}
+                      isVisible={this.state.visibleTagGroup === tagGroup.id}
+                      enabledTagIds={this.enabledTagIdsInGroup(tagGroup.id)}
+                      toggleTag={this.toggleTag}
+                      tagIsChecked={this.tagIsChecked}
+                      setVisibleTagGroup={this.toggleTagGroup}
+                    />
+                  })}
+                </div>
               </div>
 
               <div className="form-group">

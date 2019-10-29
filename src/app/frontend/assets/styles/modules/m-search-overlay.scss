@@ -356,6 +356,7 @@
 
 .m-search-overlay .filter-by-tag {
   @include tags-list;
+  margin-bottom:50px;
 }
 
 .m-search-overlay .filter-by-tag h2 {
@@ -366,4 +367,50 @@
   margin: 0 0 20px 0;
   font-size: 18px;
   width:100%;
+}
+
+@media screen and (min-width: 901px) and (max-width:1150px) {
+
+  .m-search-overlay .filter-by-tag .parent-tag:nth-child(4n+1) .child-tags {
+    left: -10px;
+    margin-left: 0;
+  }
+
+  .m-search-overlay .filter-by-tag .parent-tag:nth-child(4n+4) .child-tags {
+    left: auto;
+    right: -10px;
+  }
+
+  .m-search-overlay .filter-by-tag .parent-tag:nth-child(4n+1) .child-tags .spike {
+    left: calc(((((100vw) - 40px - 20px - 20px - 20px) / 4) / 2) + 10px);
+  }
+
+  .m-search-overlay .filter-by-tag .parent-tag:nth-child(4n+4) .child-tags .spike {
+    left: auto;
+    right: calc(((((100vw) - 40px - 20px - 20px - 20px) / 4) / 2) - 10px);
+  }
+
+}
+@media screen and (min-width: 768px) and (max-width:900px) {
+
+
+  .m-search-overlay .filter-by-tag .parent-tag:nth-child(3n+1) .child-tags {
+    left: -10px;
+    margin-left: 0;
+  }
+
+  .m-search-overlay .filter-by-tag .parent-tag:nth-child(3n+3) .child-tags {
+    left: auto;
+    right: -10px;
+  }
+
+  .m-search-overlay .filter-by-tag .parent-tag:nth-child(3n+1) .child-tags .spike {
+    left: calc(((((100vw) - 40px - 20px - 20px) / 3) / 2) + 10px);
+  }
+
+  .m-search-overlay .filter-by-tag .parent-tag:nth-child(3n+3) .child-tags .spike {
+    left: auto;
+    right: calc(((((100vw) - 40px - 20px - 20px) / 3) / 2) - 10px);
+  }
+
 }

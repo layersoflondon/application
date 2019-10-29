@@ -1,0 +1,67 @@
+// Tray title area
+
+.m-tray-subtitle-area {
+  @include clearfix;
+  margin-bottom: 17px;
+}
+
+.m-tray-subtitle-area h1 {
+  margin-top: 0;
+  margin-bottom: 0;
+  /* font-family: 'Zilla Slab', serif; */
+  font-weight: 400;
+  max-width: calc(100% - 47px);
+  background: #ffffff1a;
+  display: inline-block;
+  float: left;
+  color: $yellow;
+  padding: 3px 10px;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.m-tray-subtitle-area h1 span {
+  font-size: 0.75em;
+}
+
+.m-tray-subtitle-area .close {
+  float: right;
+  margin-top: -4px;
+  margin-right: -4px;
+}
+
+.m-tray-subtitle-area .close a {
+  background: url('../assets/images/icon-close.svg') center no-repeat;
+  width: 50px;
+  height: 50px;
+  @include kellum;
+  text-indent: 50px;
+  padding: 0;
+  opacity: 0.7;
+  @include transition(all .2s);
+  cursor: pointer;
+}
+
+.m-tray-subtitle-area .close a:hover {
+  opacity: 1;
+}
+
+.m-tray-subtitle-area .more {
+  float: right;
+  margin-top: 4px;
+}
+
+.m-tray-subtitle-area .more a {
+  height: 50px;
+  padding: 0;
+  opacity: 0.7;
+  font-size: 16px;
+  color: white;
+  text-transform: uppercase;
+  @include transition(all .2s);
+  cursor: pointer;
+}
+
+.m-tray-subtitle-area .more a:hover {
+  opacity: 1;
+}

@@ -32,7 +32,7 @@ import Tag from './tag';
 
     const tags = this.props.tagGroup.tags.map((tag, i) => <Tag key={`tag-${i}`} {...tag} tagIsChecked={this.props.tagIsChecked(tag.id)} inputClicked={toggleInput} />);
 
-    return <div className="tag-group">
+    return <div className="parent-tag">
       <h4 data-tag-group-id={this.props.tagGroup.id} onClick={this.toggleVisibility.bind(this)}>
         {this.props.tagGroup.name}
 
@@ -41,7 +41,7 @@ import Tag from './tag';
         }
       </h4>
 
-      <div className={`tags ${this.props.isVisible ? 'is-visible' : ''}`}>
+      <div className={`child-tags ${this.props.isVisible ? 'is-visible' : ''}`}>
         <div className="spike"></div>
         { this.props.isVisible &&
           <ul>

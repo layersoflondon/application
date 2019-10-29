@@ -4,7 +4,102 @@
   @include tags-list;
 }
 
-/*
-.m-tray-area .m-tray-records-container .records-section .m-tag-groups .tag-group .tags:before {
-  margin-top: -8px;
-}*/
+@media screen and (min-width: 1151px) {
+  .m-tag-groups .parent-tag:nth-child(3n+1) .child-tags {
+    left: -10px;
+    margin-left: 0;
+  }
+
+  .m-tag-groups .parent-tag:nth-child(3n+3) .child-tags {
+    left: auto;
+    right: -10px;
+  }
+
+  .m-tag-groups .parent-tag:nth-child(3n+1) .child-tags .spike {
+    left: calc(((((55vw - 20px) - 40px - 20px - 20px) / 3) / 2) + 10px);
+  }
+
+  .m-tag-groups .parent-tag:nth-child(3n+3) .child-tags .spike {
+    left: auto;
+    right: calc(((((55vw - 20px) - 40px - 20px - 20px) / 3) / 2) - 10px);
+  }
+}
+
+@media screen and (min-width: 1680px) {
+  .m-tag-groups .parent-tag:nth-child(3n+1) .child-tags {
+    left: -10px;
+    margin-left: 0;
+  }
+
+  .m-tag-groups .parent-tag:nth-child(3n+3) .child-tags {
+    left: auto;
+    right: -10px;
+  }
+
+  .m-tag-groups .parent-tag:nth-child(3n+1) .child-tags .spike {
+    left: calc(((((904px) - 40px - 20px - 20px) / 3) / 2) + 10px);
+  }
+
+  .m-tag-groups .parent-tag:nth-child(3n+3) .child-tags .spike {
+    left: auto;
+    right: calc(((((904px) - 40px - 20px - 20px) / 3) / 2) - 10px);
+  }
+}
+
+@media screen and (min-width: 901px) and (max-width: 1150px) {
+
+  .m-tag-groups .parent-tag:nth-child(4n+1) .child-tags {
+    left: -10px;
+    margin-left: 0;
+  }
+
+  .m-tag-groups .parent-tag:nth-child(4n+4) .child-tags {
+    left: auto;
+    right: -10px;
+  }
+
+  .m-tag-groups .parent-tag:nth-child(4n+1) .child-tags .spike {
+    left: calc(((((100vw) - 40px - 20px - 20px - 20px) / 4) / 2) + 10px);
+  }
+
+  .m-tag-groups .parent-tag:nth-child(4n+4) .child-tags .spike {
+    left: auto;
+    right: calc(((((100vw) - 40px - 20px - 20px - 20px) / 4) / 2) - 10px);
+  }
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 900px) {
+
+  .m-tag-groups .parent-tag:nth-child(3n+1) .child-tags {
+    left: -10px;
+    margin-left: 0;
+  }
+
+  .m-tag-groups .parent-tag:nth-child(3n+3) .child-tags {
+    left: auto;
+    right: -10px;
+  }
+
+  .m-tag-groups .parent-tag:nth-child(3n+1) .child-tags .spike {
+    left: calc(((((100vw) - 40px - 20px - 20px) / 3) / 2) + 10px);
+  }
+
+  .m-tag-groups .parent-tag:nth-child(3n+3) .child-tags .spike {
+    left: auto;
+    right: calc(((((100vw) - 40px - 20px - 20px) / 3) / 2) - 10px);
+  }
+
+}
+
+.m-add-record .m-tag-groups .parent-tag h4 {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.m-add-record .m-tag-groups .parent-tag h4:hover {
+  color: black;
+}
+
+.m-add-record .m-tag-groups .tag-group-count {
+  background: $green;
+}
