@@ -44,7 +44,7 @@ export default class TrayHeader extends Component {
         <meta name='keywords' content={`${this.props.title}, layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`} />
       </Helmet>
 
-      <div className="m-tray-title-area">
+      <div className={`m-tray-title-area ${this.props.headerClass}`}>
         <div className="close">
           <Link to={this.props.closePath} className="close" onClick={this.props.closeOnClick}>Close</Link>
         </div>
@@ -85,5 +85,6 @@ TrayHeader.propTypes = {
 };
 
 TrayHeader.defaultProps = {
-  closeOnClick: () => {}
+  closeOnClick: () => {},
+  headerClass: ''
 }

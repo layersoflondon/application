@@ -22,6 +22,10 @@
     position: relative;
   }
 
+  .records-section .m-tray-title-area.is-hidden {
+    display: none;
+  }
+
   .records-section .m-tray-title-area .meta {
     position: absolute;
     right: 0;
