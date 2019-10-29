@@ -89,15 +89,18 @@ import {appendQueryString, openModalLink} from '../helpers/modals';
 
               <div className="m-smartphone-menu-wrapper">
                   <div className="m-tools">
+                      <div className="m-tool-button m-tool-button--getting-started">
+                        <Link to='/map' data-label="Getting started" onClick={this.handleHamburgerOnClick.bind(this)}><span>Getting Started</span></Link>
+                      </div>
                       <div className="m-tool-button m-tool-button--search">
                           <Link to={openModalLink(this.props.location, {key: 'search', value: true})} data-label="Search records" onClick={this.handleHamburgerOnClick.bind(this)}><span>Search records</span></Link>
                       </div>
                       <div className="m-tool-button m-tool-button--layers">
                           <Link to={openModalLink(this.props.location, {key: 'layers', value: true})} data-label="Layers" onClick={this.handleHamburgerOnClick.bind(this)}><span>Layers</span></Link>
                       </div>
-                    <div className="m-tool-button m-tool-button--collections">
-                      <Link to='/map/collections' data-label="Collections" onClick={this.handleHamburgerOnClick.bind(this)}><span>Collections</span></Link>
-                    </div>
+                      <div className="m-tool-button m-tool-button--collections">
+                        <Link to='/map/collections' data-label="Collections" onClick={this.handleHamburgerOnClick.bind(this)}><span>Collections</span></Link>
+                      </div>
                       <div className="m-tool-button m-tool-button--add-collection">
                           {this.createCollectionLink()}
                       </div>

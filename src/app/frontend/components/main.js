@@ -108,7 +108,6 @@ import RecordTags from "./forms/records/record_tags";
       </MediaView>
 
         <Route path='/map' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
-        <Route exact path='/map?:lat/:lng' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
 
         {/* Various Overlays ... */}
         <Route component={SearchView} />

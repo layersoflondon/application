@@ -58,6 +58,13 @@
   @include transition(all .2s);
 }
 
+.m-tool-button--getting-started a:before {
+  content: "\f015";
+  font-size: 1.9em;
+  margin-left: -3px;
+  color: #fff;
+}
+
 .m-tool-button--search a:before {
   background: url('../assets/images/icon-search.svg') center no-repeat;
 }
