@@ -9,6 +9,12 @@ Rails.application.routes.draw do
   get '/the-map', to: redirect('/map')
   get '/search', to: redirect('/map/search')
 
+  get '/map/search', to: redirect('/map?search=true')
+  get '/map/records/:id', to: redirect('/map?record=%{id}')
+  get '/map/choose-place', to: redirect('/map?choose-place=true')
+  get '/map/layers', to: redirect('/map?layers=true')
+  get '/map/collections/new', to: redirect('/map?newCollection=true')
+
   #Redirect for trailing slash on map
   get '/map/', to: redirect("/map"), constraints: ->(req) { req.original_fullpath == "/map/"}
 

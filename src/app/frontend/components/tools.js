@@ -42,7 +42,7 @@ import {appendQueryString, openModalLink} from '../helpers/modals';
 
   createCollectionLink() {
       if (this.props.userPresent) {
-        return <Link to={openModalLink(this.props.location, {key: 'newCollection', value: true})} data-label="Create collection" onClick={this.handleHamburgerOnClick.bind(this)}><span>Create collection</span></Link>
+        return <Link to={openModalLink(this.props.location, {key: 'newCollection', value: true}, {remove: ['choose-place', 'record']})} data-label="Create collection" onClick={this.handleHamburgerOnClick.bind(this)}><span>Create collection</span></Link>
       } else {
         return <a data-label="Create collection" href="/users/sign_in?return_to=/map?newCollection=true"><span>Create collection</span></a>
       }
