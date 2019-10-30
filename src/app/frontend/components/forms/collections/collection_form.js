@@ -25,8 +25,10 @@ import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers
     this.initializeCollectionState();
   }
 
-  componentDidUpdate() {
-    this.initializeCollectionState();
+  componentDidUpdate(props) {
+    if(props.location.key !== this.props.location.key) {
+      this.initializeCollectionState();
+    }
   }
 
   initializeCollectionState() {
