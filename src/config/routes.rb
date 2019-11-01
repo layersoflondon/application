@@ -8,8 +8,7 @@ Rails.application.routes.draw do
   get '/map/pins/:id', to: redirect('/map/records/%{id}')
   get '/the-map', to: redirect('/map')
   get '/search', to: redirect('/map/search')
-
-  get '/map/search', to: redirect('/map?search=true')
+  
   get '/map/records/:id', to: redirect('/map?record=%{id}')
   get '/map/choose-place', to: redirect('/map?choose-place=true')
   get '/map/layers', to: redirect('/map?layers=true')

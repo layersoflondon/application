@@ -14,7 +14,7 @@ import RecordViewComponentState from "./record_view_component_state";
     const tags = tags_data.map((tag, i) => (
         <li key={`tag-${tag.id}`}>
               <span>
-                {tag.name}
+                <a href={`/map/search?show_results=true&tag_ids=${[tag.id]}`}>{tag.name}</a>
               </span>
         </li>
     ));

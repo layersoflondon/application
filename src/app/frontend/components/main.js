@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
 import { Route, Switch } from 'react-router';
-import {Redirect, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import Helmet from 'react-helmet';
 
@@ -22,7 +22,6 @@ import RecordView from './record_view_wrapper';
 import RecordViewReport from './record_view/record_view_report';
 import MediaView from './media_view';
 import MediaItem from './media_item';
-import CollectionView from './collection_view';
 import UserView from './user_view';
 import TeamView from './team_view';
 import PlacePicker from './place_picker';
@@ -35,7 +34,6 @@ import RecordForm from './forms/records/record_form';
 import ErrorBoundary from "./error_boundary";
 import NotFound from "./not_found";
 import AddToCollection from "./record_view/add_to_collection";
-import RecordTags from "./forms/records/record_tags";
 
 @inject('router', 'recordFormStore', 'trayViewStore', 'mapViewStore', 'collectionStore', 'layersStore', 'collectionFormStore')
 @withRouter
