@@ -5241,6 +5241,11 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
+leaflet-draw@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/leaflet-draw/-/leaflet-draw-1.0.4.tgz#45be92f378ed253e7202fdeda1fcc71885198d46"
+  integrity sha512-rsQ6saQO5ST5Aj6XRFylr5zvarWgzWnrg46zQ1MEOEIHsppdC/8hnN8qMoFvACsPvTioAuysya/TVtog15tyAQ==
+
 leaflet.vectorgrid@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/leaflet.vectorgrid/-/leaflet.vectorgrid-1.3.0.tgz#ff2deea17d06a9c6cc5e65d8c7287093950e219a"
@@ -7469,9 +7474,15 @@ react-leaflet-div-icon@^1.1.0:
   dependencies:
     prop-types "^15.5.10"
 
-"react-leaflet-search@https://github.com/layersoflondon/react-leaflet-search.git":
-  version "0.4.3"
-  resolved "https://github.com/layersoflondon/react-leaflet-search.git#b2864f20076b64d6c4f33498f979a73a6915e558"
+react-leaflet-draw@0.18:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/react-leaflet-draw/-/react-leaflet-draw-0.18.0.tgz#bb523bc6f0f93139ebc968b074720a65282cebb2"
+  integrity sha512-/iJLov5Qe5K9ze1Cmgphk5M6bn5EqvGzrnpPFnH3hJQ9kYqkXhGwZk5zVLlhCN3cy8smiesrMu2+/cpAqGmOrw==
+
+react-leaflet-search@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-leaflet-search/-/react-leaflet-search-0.6.0.tgz#fac831b000466615e1a748b7e3f6929389ab36ef"
+  integrity sha512-5kzE4Szqs8tf96qSNZqUcMaWVXIjHXsxMLrzeaf8M99PdCFs9e7bLQjGKBCyvsDdJvcv3iNni20DjrMkwHjLEA==
 
 react-leaflet-vectorgrid@^2.2.1:
   version "2.2.1"
@@ -7624,6 +7635,13 @@ react-soundplayer@^1.0.4:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
     soundcloud-audio "^1.2.2"
+
+react-switch@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-switch/-/react-switch-5.0.1.tgz#449277f4c3aed5286fffd0f50d5cbc2a23330406"
+  integrity sha512-Pa5kvqRfX85QUCK1Jv0rxyeElbC3aNpCP5hV0LoJpU/Y6kydf0t4kRriQ6ZYA4kxWwAYk/cH51T4/sPzV9mCgQ==
+  dependencies:
+    prop-types "^15.6.2"
 
 react-transition-group@^2.2.1, react-transition-group@^2.4.0:
   version "2.4.0"

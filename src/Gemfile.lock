@@ -6,6 +6,16 @@ GIT
       rails (>= 4.2, < 6.0.0)
 
 GIT
+  remote: https://github.com/layersoflondon/booth-maptools
+  revision: 0f54f879a86bf979eb5a8e974e094b14cc76b823
+  specs:
+    layers_of_london-booth-map_tool (0.1.2)
+      aasm (~> 5.0)
+      geokit
+      pundit (~> 2.0)
+      rails (~> 5.2)
+
+GIT
   remote: https://github.com/layersoflondon/georeferencer-ruby
   revision: 064d629fd2ba2c65786294c2bf5ec0c7e26485c7
   specs:
@@ -233,6 +243,7 @@ GEM
     friendly_id (5.2.5)
       activerecord (>= 4.0.0)
     geocoder (1.5.1)
+    geokit (1.13.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     has_scope (0.7.2)
@@ -491,6 +502,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder (~> 2.5)
   jquery-rails
+  layers_of_london-booth-map_tool!
   listen (>= 3.0.5, < 3.2)
   mini_magick
   mini_racer
