@@ -122,9 +122,11 @@ import AddToCollection from "./record_view/add_to_collection";
         {/* create/edit a collectiomn */}
         <Route component={CollectionForm} />
 
+        {/* Add a record to a collection */}
+        <Route component={AddToCollection} />
+
         {/* view a record */}
-        {/* <Route exact path='/map/records/:id' component={RecordView} /> */}
-        <Route exact path='/map/records/:id/report' render={({match, location}) => (
+        {/* <Route exact path='/map/records/:id/report' render={({match, location}) => (
           <ErrorBoundary>
             <RecordView match={match}>
               <ErrorBoundary>
@@ -132,9 +134,9 @@ import AddToCollection from "./record_view/add_to_collection";
               </ErrorBoundary>
             </RecordView>
           </ErrorBoundary>
-        )} />
+        )} /> */}
 
-      <Route exact path='/map/collections/:collection_id/records/:id/report' render={({match, location}) => (
+      {/* <Route exact path='/map/collections/:collection_id/records/:id/report' render={({match, location}) => (
           <ErrorBoundary>
             <RecordView match={match}>
               <ErrorBoundary>
@@ -142,9 +144,9 @@ import AddToCollection from "./record_view/add_to_collection";
               </ErrorBoundary>
             </RecordView>
           </ErrorBoundary>
-      )} />
+      )} /> */}
 
-        <Route exact path='/map/records/:id/add-to-collection' render={({match, location}) => (
+        {/* <Route exact path='/map/records/:id/add-to-collection' render={({match, location}) => (
           <ErrorBoundary>
             <RecordView>
               <ErrorBoundary>
@@ -152,7 +154,7 @@ import AddToCollection from "./record_view/add_to_collection";
               </ErrorBoundary>
             </RecordView>
           </ErrorBoundary>
-        )} />
+        )} /> */}
 
         {/* fixme: dry this route up later*/}
         <Route exact={true} path='/map/collections/:collection_id/records/:id/media/:media_item_id' render={( {match, location} ) => (

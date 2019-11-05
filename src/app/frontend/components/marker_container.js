@@ -19,7 +19,7 @@ import LeafletDataIcon from './leaflet_data_icon';
 
   handleOnClick(event) {
     event.preventDefault();
-    this.props.history.push(`/map/records/${this.props.record.id}`);
+    this.props.history.push(`/map?record=${this.props.record.id}`);
   }
 
   toggleHighlightCard() {

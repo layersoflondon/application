@@ -133,21 +133,6 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
     const url = closeModalLink(this.props.router.location, ['newRecord', 'editRecord']);
     this.props.router.push(url);
 
-    // if(this.props.match.params.collection_id) {
-    //   this.props.router.push(`/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}`);
-    // }else if(this.props.match.params.id) {
-    //   this.props.trayViewStore.locked = false;
-    //   this.props.router.push(`/map/records/${this.props.match.params.id}`);
-    // }else {
-    //   this.props.trayViewStore.locked = false;
-
-    //   if( this.props.router.history.previousLocalStates > 1 ) {
-    //     this.props.router.goBack();
-    //   }else {
-    //     this.props.router.push(`/map`);
-    //   }
-    // }
-
     this.props.mapViewStore.inEditRecordMode = false;
   }
 

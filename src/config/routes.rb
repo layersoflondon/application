@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   mount_roboto
 
   # Alpha redirects
-  get '/map/pins/:id', to: redirect('/map/records/%{id}')
+  get '/map/pins/:id', to: redirect('/map?record=%{id}')
   get '/the-map', to: redirect('/map')
   get '/search', to: redirect('/map/search')
   
