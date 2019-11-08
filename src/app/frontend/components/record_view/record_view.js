@@ -71,8 +71,8 @@ import {removeModal, getValueForModal, closeModalLink} from '../../helpers/modal
             <meta name='description' content={`Read about ${this.props.trayViewStore.record.title} and thousands of other fascinating records on Layers of London. Add your own records, and help us build more layers.`}/>
             <meta name='og:description' content={`Read about ${this.props.trayViewStore.record.title} and thousands of other fascinating records on Layers of London. Add your own records, and help us build more layers.`}/>
             <meta name='keywords' content={`${this.props.trayViewStore.record.title}, layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`} />
-            <link rel='canonical' href={`${window.location.protocol}//${window.location.host}/map/records/${this.props.trayViewStore.record.id}`} />
-            <meta name='og:url' content={`${window.location.protocol}//${window.location.host}/map/records/${this.props.trayViewStore.record.id}`} />
+            <link rel='canonical' href={`${window.location.protocol}//${window.location.host}/map?record=${this.props.trayViewStore.record.id}`} />
+            <meta name='og:url' content={`${window.location.protocol}//${window.location.host}/map?record=${this.props.trayViewStore.record.id}`} />
             {this.props.trayViewStore.record.has_hero_image &&
             <meta name='og:image' content={this.props.trayViewStore.record.hero_image.primary}/>
             }

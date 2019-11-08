@@ -28,6 +28,13 @@ export default class MapViewStore {
     MODAL_NAMES.map((m) => modalNames[`${m}Modal`] = false);
     
     extendObservable(this, modalNames);
+    // console.log(modalNames);
+    
+    // MODAL_NAMES.map((m) => {
+    //   observe(this, `${m}Modal`, (change) => {
+    //     console.log(`Got this modal: ${m}`);
+    //   });
+    // });
 
     observe(this, 'editRecordModal', (change) => {
       if(change.newValue) {

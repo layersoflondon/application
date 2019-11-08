@@ -2,18 +2,6 @@
 SitemapGenerator::Sitemap.default_host = root_url
 
 SitemapGenerator::Sitemap.create do
-  
-  # top level pages from rooftop, and children
-  # guide_path
-  # faq_entry
-  # post
-  # /map
-  # /map/layers
-  # /map/records/:id
-  # /map/records/:id/media/:media_item_id
-  # /map/collections/:collecton_id
-  # /map/search?results=true&collections=true
-  # 
   Page.all.select {|p| p.parent.nil?}.each do |page|
     add(page_path(page.nested_path), lastmod: page.updated_at)
     page.resolved_children.each do |child|

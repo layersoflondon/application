@@ -36,7 +36,7 @@ import {Link} from 'react-router-dom';
 
     if( media.length > this.props.numberOfItems ) {
       expandable_media_list =  <div className="extra-count">
-        <Link to={`/map/records/${this.props.record.id}/media/${media[0].id}`}>
+        <Link to={`/map?record=${this.props.record.id}/media/${media[0].id}`}>
           + <span>{media_items_total - this.props.numberOfItems}</span>
         </Link>
       </div>

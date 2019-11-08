@@ -22,16 +22,20 @@
   float:right;
 }
 
+.m-site-header .help-link a, 
 .m-site-header .help-link button {
   font-weight:bold;
-  border-radius:100px;
-  background: #404040;
   color: $yellow;
   transition:all .2s;
   @include mq(smartphone) {
     position: relative;
     top: -4px;
   }
+}
+
+.m-site-header .help-link button {
+  border-radius:100px;
+  background: #404040;
 }
 
 .m-site-header .help-link button:hover {

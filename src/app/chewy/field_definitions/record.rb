@@ -27,6 +27,7 @@ module FieldDefinitions
       end
 
       field :collection_ids
+      
       field :collections, type: :nested, value: -> {
           collections.collect do |collection|
             {

@@ -18,9 +18,10 @@ json.user do
   json.contact_me record.user['contact_me']
 end
 
-json.collection_ids do
-  json.array! record.collections.collect {|r| OpenStruct.new(r)}.select {|r| r.read_state == 'public_read' || (current_user.present? && r.read_state == 'private_read' && r.owner_type == "User" && r.owner_id == current_user.id)}.collect(&:id)
-end
+json.collection_ids
+# json.collection_ids do
+#   json.array! record.collections.collect {|r| OpenStruct.new(r)}.select {|r| r.read_state == 'public_read' || (current_user.present? && r.read_state == 'private_read' && r.owner_type == "User" && r.owner_id == current_user.id)}.collect(&:id)
+# end
 
 json.team_id record.team_id
 json.allow_team_editing record.allow_team_editing

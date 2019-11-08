@@ -10,9 +10,11 @@ class Record < ApplicationRecord
   has_many :attachments, dependent: :destroy
   # update_index('attachments#attachment') { attachments }
   belongs_to :user
+  
   update_index 'users#user' do
     previous_changes['user_id'] || user
   end
+
   has_one :primary_image, class_name: 'Attachments::Image', foreign_key: :id, primary_key: :primary_image_id
   has_many :record_taxonomy_terms, class_name: 'RecordTaxonomyTerm', dependent: :destroy
   has_many :taxonomy_terms, through: :record_taxonomy_terms
