@@ -10,13 +10,20 @@ import pluralize from "pluralize";
 export default class TrayCollection extends Component {
   constructor(props) {
     super(props);
-    this.props.trayViewStore.fetchCollection(this.props.match.params.id);
   }
 
   componentDidMount() {
     const search = setCurrentModal(this.props.router.location, 'record', undefined);
     const path = [this.props.router.location.pathname, search].filter((v)=>v).join('?');
     this.props.mapViewStore.previousLocation = path;
+
+    this.props.trayViewStore.fetchCollection(this.props.match.params.id);
+  }
+
+  componentDidUpdate(oldProps) {
+    if(oldProps.match.params.id !== this.props.match.params.id) {
+      this.props.trayViewStore.fetchCollection(this.props.match.params.id);
+    }
   }
 
   componentWillUnmount() {
@@ -24,7 +31,7 @@ export default class TrayCollection extends Component {
   }
 
   render() {
-    if(this.props.trayViewStore.loading) return <React.Fragment />
+    if(!this.props.trayViewStore.collection || this.props.trayViewStore.loading) return <React.Fragment />
 
     const mainResults = this.props.trayViewStore.mainResults.values().map((result) => {
       return <Card key={`record_${result.id}`} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />

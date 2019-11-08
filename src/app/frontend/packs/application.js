@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if( action === "PUSH" ) {
                 history.previousLocalStates += 1;
             }
-
             
             const choosePlace = getQueryStringValue(newLocation, 'choose-place');
             if(choosePlace === "true") {
@@ -58,6 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentModals = getCurrentModals(newLocation);
             if(currentModals) {
                 currentModals.map((modal) => stores.mapViewStore.toggleModal(modal, true));
+            }
+            
+            if(currentModals.indexOf('record')<0) {
+                stores.mapViewStore.recordModal = false;
+                stores.trayViewStore.record = null;
             }
         });
 
