@@ -6,7 +6,7 @@ import pluralize from 'pluralize';
 import {getQueryStringParam} from '../../helpers/modals';
 import TrayHeader from '../tray_header';
 
-@inject('router', 'trayViewStore', 'mapViewStore')
+@inject('router', 'trayViewStore', 'mapViewStore', 'tagGroupsStore')
 @observer
 export default class TraySearchResults extends Component {
   constructor(props) {
@@ -27,16 +27,17 @@ export default class TraySearchResults extends Component {
     
     const query = getQueryStringParam(this.props.router.location, 'q');
     const trayHeaderTitle = query ? `Your search results for “${getQueryStringParam(this.props.router.location, 'q')}“` : "Your search results";
-
+    const filterTags = getQueryStringParam(this.props.router.location, 'tag_ids').split(',')
+    const filterTagsCount = filterTags.length
     const recordMeta = pluralize('record', recordCount, true);
-    let collectionMeta;
 
+    let collectionMeta;
     if(collectionCount>0) {
       collectionMeta = pluralize('collection', collectionCount, true);
     }
 
     let metaDataString = '';
-    
+
     if(!this.props.trayViewStore.loading) {
       metaDataString = `${[recordMeta, collectionMeta].filter((m) => m).join(' and ')} search results`;
     }
@@ -44,10 +45,9 @@ export default class TraySearchResults extends Component {
     return <React.Fragment>
       <TrayHeader 
         title={trayHeaderTitle}
-        // subtitle={this.props.trayViewStore.collection.title} 
         metaDescription={`Search results for ${getQueryStringParam(this.props.router.location, 'q')}`}
         metaData={metaDataString}
-        subtitle={`tags`}
+        // subtitle={`tags`} TODO: Tag name/count
         closePath={`/map`}
         closeOnClick={() => this.props.trayViewStore.trayLocked = false}
       />
