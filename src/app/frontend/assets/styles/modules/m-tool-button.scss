@@ -59,10 +59,14 @@
 }
 
 .m-tool-button--getting-started a:before {
-  content: "\f015";
+/*  content: "\f015";
   font-size: 1.9em;
   margin-left: -3px;
-  color: #fff;
+  color: #fff;*/
+}
+
+.m-tool-button--getting-started a:before {
+  background: url('../assets/images/icon-getting-started.svg') center no-repeat;
 }
 
 .m-tool-button--search a:before {

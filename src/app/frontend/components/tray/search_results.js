@@ -46,7 +46,8 @@ export default class TraySearchResults extends Component {
         title={trayHeaderTitle}
         // subtitle={this.props.trayViewStore.collection.title} 
         metaDescription={`Search results for ${getQueryStringParam(this.props.router.location, 'q')}`}
-        metaData={metaDataString} 
+        metaData={metaDataString}
+        subtitle={`tags`}
         closePath={`/map`}
         closeOnClick={() => this.props.trayViewStore.trayLocked = false}
       />

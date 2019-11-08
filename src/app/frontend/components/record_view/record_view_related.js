@@ -32,7 +32,7 @@ import RecordViewRelatedRecord from "./record_view_related_record";
                 You may also like...
               </h3>
             }
-            <div className="m-highlighted-content">
+            <div className="records-cards">
               {cards}
             </div>
           </div>

@@ -152,18 +152,6 @@
 
 }
 
-.m-highlighted-content .m-record-card:nth-child(even) {
-  /*  @include mq(small-tablet) {
-      //width: calc(50% - 8px);
-      margin-left: 0;
-      margin-right: 8px
-    }
-    @media screen and (max-width: 640px) {
-      width: 100%;
-      margin-right: 0;
-    }*/
-}
-
 .m-highlighted-content .m-record-card:last-child {
   margin-bottom: 0;
   @include mq(tablet) {
@@ -172,7 +160,6 @@
 }
 
 .m-highlighted-content .m-record-card .image {
-  @include record-card;
   background: #2f2f2f url(/example/4-large.jpg) center/cover no-repeat;
 }
 
