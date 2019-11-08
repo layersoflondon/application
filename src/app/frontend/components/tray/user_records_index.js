@@ -11,7 +11,16 @@ export default class TrayUserRecordsIndex extends Component {
     super(props);
     
     this.user = null;
+    this.fetchRecords();
+  }
 
+  componentDidUpdate(newProps) {
+    if(newProps.match.params.id !== this.props.match.params.id) {
+      this.fetchRecords();
+    }
+  }
+
+  fetchRecords() {
     this.state = {loading: true};
     User.show(null, this.props.match.params.id).then((response) => {
       this.user = response.data;
@@ -19,7 +28,7 @@ export default class TrayUserRecordsIndex extends Component {
     }).finally(() => {
       this.loading = false;
       this.setState({loading: false});
-    })
+    });
   }
 
   render() {
