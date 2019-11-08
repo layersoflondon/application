@@ -27,7 +27,7 @@ import {openModalLink} from '../../helpers/modals';
               <div className="image">
                 {
                   <Fragment>
-                    <Img src={this.props.record.attributes.image.url}/>
+                    <Img src={this.props.record.attributes.image.card}/>
                   </Fragment>
                 }
               </div>

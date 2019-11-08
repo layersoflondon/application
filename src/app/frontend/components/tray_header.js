@@ -56,7 +56,7 @@ export default class TrayHeader extends Component {
 
         {
           this.props.subtitle &&
-          <h2>tag tag tag{this.props.subtitle}</h2>
+          <h2>{this.props.subtitle}</h2>
         }
 
         <div className="meta">
