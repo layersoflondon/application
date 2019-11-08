@@ -31,7 +31,7 @@ import {removeModal, getValueForModal, closeModalLink} from '../../helpers/modal
   }
 
   componentDidUpdate(oldProps) {
-    const previousId = getValueForModal(oldProps.router.location, 'record');
+    const previousId = getValueForModal(oldProps.location, 'record');
     const id = getValueForModal(this.props.router.location, 'record');
     
     if(id && previousId !== id) {

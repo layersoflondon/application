@@ -11,6 +11,16 @@ import RecordViewRelatedRecord from "./record_view_related_record";
   }
 
   componentDidMount() {
+    this.fetchRelatedRecords();
+  }
+
+  componentDidUpdate(oldProps) {
+    if(this.props.record.id !== oldProps.record.id) {
+      this.fetchRelatedRecords();
+    }
+  }
+
+  fetchRelatedRecords() {
     Record.related(this.props.record.id).then((response) => {
       this.props.record.related = response.data;
       this.setState({status: 'loaded'});
