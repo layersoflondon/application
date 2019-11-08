@@ -21,7 +21,7 @@ import {Link} from 'react-router-dom';
             <h1>
               {this.props.record.attributes.title}
             </h1>
-            <p dangerouslySetInnerHTML={{__html: this.props.record.excerpt}}>
+            <p dangerouslySetInnerHTML={{__html: this.props.record.attributes.excerpt}}>
             </p>
           </div>
 
