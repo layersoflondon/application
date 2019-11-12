@@ -103,7 +103,7 @@ import {openModalLink} from '../helpers/modals';
       let key;
       if( card.is_collection ) {
         card.data.records.map((record, i)=> {
-          key = `collection_${card.id}_record_${r.id}_${i}`;
+          key = `collection_${card.id}_record_${record.id}_${i}`;
           markers.push( <ErrorBoundary key={key}><MarkerContainer position={record.position} record={record} cardComponent={card} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
         })
       }else {
