@@ -27,9 +27,18 @@ export default class TraySearchResults extends Component {
     
     const query = getQueryStringParam(this.props.router.location, 'q');
     const trayHeaderTitle = query ? `Your search results for “${getQueryStringParam(this.props.router.location, 'q')}“` : "Your search results";
-    const filterTags = getQueryStringParam(this.props.router.location, 'tag_ids').split(',')
-    const filterTagsCount = filterTags.length
+    const tagIds = getQueryStringParam(this.props.router.location, 'tag_ids').split(',')
+    const tags = this.props.tagGroupsStore.tag_groups.values().map((group) => group.tags.map((tag) => tag)).flatten()
+    const searchTags = tags.filter((tag) => tagIds.includes(String(tag.id)))
+    const searchTagsLength = searchTags.length
     const recordMeta = pluralize('record', recordCount, true);
+
+    let subtitle;
+    if(searchTagsLength>1) {
+      subtitle = `In ${searchTagsLength} tags`
+    } else if(searchTagsLength === 1) {
+      subtitle = `Tag: ${searchTags[0].name}`
+    }
 
     let collectionMeta;
     if(collectionCount>0) {
@@ -47,7 +56,7 @@ export default class TraySearchResults extends Component {
         title={trayHeaderTitle}
         metaDescription={`Search results for ${getQueryStringParam(this.props.router.location, 'q')}`}
         metaData={metaDataString}
-        // subtitle={`tags`} TODO: Tag name/count
+        subtitle={subtitle}
         closePath={`/map`}
         closeOnClick={() => this.props.trayViewStore.trayLocked = false}
       />
