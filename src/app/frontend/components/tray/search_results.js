@@ -15,13 +15,15 @@ export default class TraySearchResults extends Component {
     this.state = queryString.parse(this.props.router.location.search);
     this.props.trayViewStore.trayLocked = true;
     this.props.trayViewStore.fetchData(this.state);
+
+    this.props.trayViewStore.goBackTo = `${this.props.router.location.pathname}${this.props.router.location.search}`;
   }
 
   render() {
     const recordCount = this.props.trayViewStore.mainResults.values().filter((r) => !r.is_collection).length;
     const collectionCount = this.props.trayViewStore.mainResults.values().filter((r) => r.is_collection).length;
-
-    const mainResults = this.props.trayViewStore.mainResults.values().map((result) => {
+    
+    const mainResults = this.props.trayViewStore.mainResults.values().map((result, i) => {
       return <Card key={`record_${result.id}`} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
     });
     
@@ -52,6 +54,7 @@ export default class TraySearchResults extends Component {
     }
 
     const closeOnClickHandler = () => {
+      this.props.trayViewStore.goBackTo = null;
       this.props.trayViewStore.trayLocked = false;
     };
 

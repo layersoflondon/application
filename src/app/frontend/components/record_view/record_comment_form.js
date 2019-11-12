@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 import ReactQuill from 'react-quill';
 import Comment from '../../sources/comment';
 import {withRouter} from 'react-router-dom';
-import {Link} from 'react-router-dom';
+import {getQueryStringValue} from '../../helpers/modals';
 
 @inject('currentUser', 'trayViewStore')
 @withRouter
@@ -25,7 +25,9 @@ import {Link} from 'react-router-dom';
       }
     };
 
-    Comment.create(this.props.match.params.id, params).then((response) => {
+    const recordId = getQueryStringValue(this.props.location, 'record');
+    
+    Comment.create(recordId, params).then((response) => {
       const comments = this.props.trayViewStore.record.comments.slice();
       comments.push(response.data);
       this.props.trayViewStore.record.comments = comments;
@@ -38,7 +40,7 @@ import {Link} from 'react-router-dom';
 
   render() {
     if( !this.props.currentUser.id ) {
-      const return_to = this.props.location.pathname;
+      const return_to = `${this.props.location.pathname}${this.props.location.search}`;
       return (
         <div className="note">Want to add a comment to this record? <a href={`/users/sign_up?return_to=${return_to}`}>Sign Up</a> or <a href={`/users/sign_in?return_to=${return_to}`}>Log in</a>.</div>
       )

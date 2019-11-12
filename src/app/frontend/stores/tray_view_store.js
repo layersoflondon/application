@@ -315,7 +315,11 @@ export default class TrayViewStore {
   @action.bound fetchRecord(id) {
     Record.show(null, id).then((response) => {
       let card = CardModel.fromJS(response.data, this);
-      this.mainResults.set(card.id, card);
+      
+      if(!this.mainResults.has(card.id)){
+        this.mainResults.set(card.id, card);
+      }
+      
       this.record = card.data;
       this.loading_record = true;
       this.loading_error = false;
