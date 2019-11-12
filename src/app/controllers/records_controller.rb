@@ -64,7 +64,7 @@ class RecordsController < ApplicationController
     raise ActiveRecord::RecordNotFound, "Record not found" unless record.present?
     raise Pundit::NotAuthorizedError unless RecordPolicy.new(current_user, record).show?
 
-    related = RecordsIndex.published.filter(ids: {values: record.related_record_ids})
+    related = RecordsIndex.published.filter(ids: {values: record.related_record_ids}).limit(6)
     render json: related
   end
 
