@@ -34,16 +34,13 @@ import RecordViewComponentState from "./record_view_component_state";
   }
 
   render_state_expanded_with_hero(header_class) {
-    // this.props.record.hero_image => {url: '....'}
-
-    console.log(this.props.trayViewStore.record.hero_image.primary);
     return <div className={header_class}>
 
       <div className="m-record-hero">
         <div className="image">
           {
             this.props.trayViewStore.record.hero_image.primary &&
-            <Link to={`${this.props.match.url}/media/${this.props.media.id}`}>
+            <Link to={`/map?record=${this.props.trayViewStore.record.id}&media=true&media-item-id=${this.props.trayViewStore.record.hero_image.id}`}>
               <Img src={this.props.trayViewStore.record.hero_image.primary} loader={<span className='is-loading'></span>} />
             </Link>
           }
@@ -75,7 +72,7 @@ import RecordViewComponentState from "./record_view_component_state";
     const hero_image_media_item = this.props.trayViewStore.record.hero_image_media_item;
 
     if( hero_image_media_item ) {
-      return <Link to={`${this.props.match.url}/media/${hero_image_media_item.id}`}>
+      return <Link to={`/map?record=${this.props.trayViewStore.record.id}&media=true&media-item-id=${hero_image_media_item.id}`}>
         <Img src={this.props.trayViewStore.record.hero_image.primary} loader={<span className='is-loading'></span>} />
       </Link>
     }else {
