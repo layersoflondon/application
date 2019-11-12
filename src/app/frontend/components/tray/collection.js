@@ -38,6 +38,10 @@ export default class TrayCollection extends Component {
     });
     
     const closePath = this.props.trayViewStore.goBackTo || '/map';
+    const closeOnClickHandler = () => {
+      this.props.trayViewStore.goBackTo = null;
+      this.props.trayViewStore.trayLocked = false;
+    };
 
     return <React.Fragment>
       <TrayHeader 
@@ -47,7 +51,7 @@ export default class TrayCollection extends Component {
         metaDescription={`View records in the collection ${this.props.trayViewStore.collection.title}`}
         metaData={`Collection, ${pluralize('record', this.props.trayViewStore.collection.records.length, true)}`} 
         closePath={closePath}
-        closeOnClick={() => this.props.trayViewStore.goBackTo = null}
+        closeOnClick={closeOnClickHandler}
       />
       
       <div className="m-tray-records-list">

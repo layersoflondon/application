@@ -331,9 +331,11 @@ export default class TrayViewStore {
   @action.bound fetchCollection(id) {
     this.loading = true;
     this.mainResults.clear();
+    this.highlightedResults.clear();
 
     runInAction(async() => {
       const collection = await Collection.show(null, id);
+      this.locked = true;
       this.collection = collection.data;
       
       const mainResults = observable.map();
@@ -380,6 +382,11 @@ export default class TrayViewStore {
   @computed get goBackto() {
     return this.previousPath;
   }set goBackto(value) {
+    console.log("Assigning goBackTo = ", value);
     this.previousPath = value;
+    if(value === null) {
+      console.log("unlocking tray");
+      this.locked = false;
+    }
   }
 }

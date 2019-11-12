@@ -51,6 +51,10 @@ export default class TraySearchResults extends Component {
       metaDataString = `${[recordMeta, collectionMeta].filter((m) => m).join(' and ')} search results`;
     }
 
+    const closeOnClickHandler = () => {
+      this.props.trayViewStore.trayLocked = false;
+    };
+
     return <React.Fragment>
       <TrayHeader 
         title={trayHeaderTitle}
@@ -58,7 +62,7 @@ export default class TraySearchResults extends Component {
         metaData={metaDataString}
         subtitle={subtitle}
         closePath={`/map`}
-        closeOnClick={() => this.props.trayViewStore.trayLocked = false}
+        closeOnClick={closeOnClickHandler}
       />
 
       <div className="m-tray-records-list">

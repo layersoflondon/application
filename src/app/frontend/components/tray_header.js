@@ -17,24 +17,6 @@ export default class TrayHeader extends Component {
   }
 
   render() {
-    // switch(this.content.tray_view_type) {
-    //   case 'Collection':
-    //     meta_description_intro = `View records in the collection '${this.props.trayViewStore.header_content.title}'`;
-    //     recordPageView(this.props.trayViewStore.header_content.title);
-    //     break;
-    //   case 'User':
-    //     meta_description_intro = `View records by ${this.props.trayViewStore.header_content.title}`;
-    //     recordPageView(this.props.trayViewStore.header_content.title);
-    //     break;
-    //   case 'Team':
-    //     meta_description_intro = `View records by the ${this.props.trayViewStore.header_content.title} team`;
-    //     recordPageView(this.props.trayViewStore.header_content.title);
-    //     break;
-    //   case 'Search':
-    //     meta_description_intro = `View records which match ${this.props.trayViewStore.header_content.title}`;
-    //     break;
-    // }
-
     const introClassName = (this.state.introShowing) ? "is-expanded" : "";
 
     return <React.Fragment>
