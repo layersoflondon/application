@@ -33,8 +33,8 @@ export default class TrayCollection extends Component {
   render() {
     if(!this.props.trayViewStore.collection || this.props.trayViewStore.loading) return <React.Fragment />
 
-    const mainResults = this.props.trayViewStore.mainResults.values().map((result) => {
-      return <Card key={`record_${result.id}`} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
+    const mainResults = this.props.trayViewStore.mainResults.values().map((result, i) => {
+      return <Card key={`record_${result.id}_${i}`} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
     });
     
     const closePath = this.props.trayViewStore.goBackTo || '/map';

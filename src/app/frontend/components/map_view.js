@@ -8,7 +8,7 @@ import ErrorBoundary from './error_boundary';
 import MapSearchContainer from './map_search_container';
 import pluralize from "pluralize";
 import MapLayerGroup from "./map_layer_group";
-import {openModalLink, searchPath} from '../helpers/modals';
+import {openModalLink} from '../helpers/modals';
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapView extends Component {
@@ -99,15 +99,15 @@ import {openModalLink, searchPath} from '../helpers/modals';
 
     let markers = [];
     
-    this.props.trayViewStore.cardsToRenderOnMap.values().map((c) => {
+    this.props.trayViewStore.cardsToRenderOnMap.values().map((card, i) => {
       let key;
-      if( c.is_collection ) {
-        c.data.records.map((r)=> {
-          key = `collection_${c.id}_record_${r.id}`;
-          markers.push( <ErrorBoundary key={key}><MarkerContainer position={r.position} record={r} cardComponent={c} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
+      if( card.is_collection ) {
+        card.data.records.map((record, i)=> {
+          key = `collection_${card.id}_record_${r.id}_${i}`;
+          markers.push( <ErrorBoundary key={key}><MarkerContainer position={record.position} record={record} cardComponent={card} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
         })
       }else {
-        markers.push( <ErrorBoundary key={c.id}><MarkerContainer position={c.data.position} record={c.data} cardComponent={c} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
+        markers.push( <ErrorBoundary key={`${card.id}_${i}`}><MarkerContainer position={card.data.position} record={card.data} cardComponent={card} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
       }
     });
 
