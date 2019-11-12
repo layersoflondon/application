@@ -19,7 +19,10 @@ class FeaturedItemDecorator < Draper::Decorator
   end
 
   def path
-    h.resource_map_path(resource: object.item_type.downcase.pluralize, id: object.item_id)
+    if object.item_type.downcase === 'record'
+      "/map?record=#{object.item_id}"
+    else
+      h.resource_map_path(resource: object.item_type.downcase.pluralize, id: object.item_id)
+    end
   end
-
 end
