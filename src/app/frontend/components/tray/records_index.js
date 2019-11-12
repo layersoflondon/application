@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {inject, observer} from 'mobx-react';
-import {Link} from 'react-router-dom';
 import Card from '../card';
 import CollectionCard from '../collection_card';
+import TrayHeader from '../tray_header';
 
 @inject('trayViewStore', 'mapViewStore')
 @observer
@@ -42,7 +42,30 @@ export default class TrayRecordsIndex extends Component {
       }
     });
 
+    let header;
+
+    const closeOnClickHandler = () => {
+      this.props.trayViewStore.goBackTo = null;
+      this.props.trayViewStore.trayLocked = false;
+    };
+
+    const typeTitle = () => {
+      const title = this.props.type;
+      return `${title.charAt(0).toUpperCase()}${title.slice(1)}`;
+    };
+
+    if (this.props.type !== "geobounded") {
+      header = <TrayHeader 
+        title={typeTitle()}
+        metaData={`${this.props.type} records and collections`}
+        metaDescription={`${this.props.type} records and collections`}
+        closePath={`/map`}
+        closeOnClick={closeOnClickHandler}
+      />;
+    }
+
     return <React.Fragment>
+      {header}
       <div className="m-tray-records-list">
         {
           this.props.trayViewStore.mainResults.size > 0 &&
