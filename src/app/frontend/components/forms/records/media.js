@@ -108,7 +108,11 @@ import {observer} from "mobx-react";
 
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='media' ? 'block' : 'none'};
-    const pane_classname = (this.props.recordFormStore.visible_pane==='media') ? 'is-open' : '';
+    let pane_classname = (this.props.recordFormStore.visible_pane==='media') ? 'is-open' : '';
+    
+    if(!this.props.recordFormStore.record.id) {
+      pane_classname = `${pane_classname} is-disabled`;
+    }
 
     const media_items = this.props.recordFormStore.record.documents_images_and_video.map((item,i) => {
       const media_item = Attachment.fromJS(item, this.props.recordFormStore.record.id);
@@ -132,6 +136,7 @@ import {observer} from "mobx-react";
         </span>
       </li>
     });
+
 
     return (
       <div className={`section ${pane_classname}`}>

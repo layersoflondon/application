@@ -24,6 +24,11 @@ class RecordTags extends Component {
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane === 'tags' ? 'block' : 'none'};
     let pane_classname = (this.props.recordFormStore.visible_pane === 'tags') ? 'is-open' : '';
+
+    if(!this.props.recordFormStore.record.id) {
+      pane_classname = `${pane_classname} is-disabled`;
+    }
+    
     const title = "Tag this record";
 
     const tag_groups = this.props.tagGroupsStore.tag_groups.values().map((group, i) => {

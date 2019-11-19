@@ -59,6 +59,8 @@ export default class RecordFormComponentState {
       }
 
       togglePaneVisibility(event) {
+        if( !this.props.recordFormStore.record.id ) return false;
+        
         if( this.props.recordFormStore.visible_pane === event.target.dataset.name ) {
           this.props.recordFormStore.visible_pane = null;
         }else {
