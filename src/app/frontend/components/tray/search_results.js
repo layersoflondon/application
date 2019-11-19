@@ -26,9 +26,10 @@ export default class TraySearchResults extends Component {
     const mainResults = this.props.trayViewStore.mainResults.values().map((result, i) => {
       return <Card key={`record_${result.id}`} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore} />
     });
+
+    const query = getQueryStringParam(this.props.router.location, 'q') || "";
+    const trayHeaderTitle = query ? `Your search results for “${query}“` : "Your search results";
     
-    const query = getQueryStringParam(this.props.router.location, 'q');
-    const trayHeaderTitle = query ? `Your search results for “${getQueryStringParam(this.props.router.location, 'q')}“` : "Your search results";
     const tagIds = getQueryStringParam(this.props.router.location, 'tag_ids').split(',')
     const tags = this.props.tagGroupsStore.tag_groups.values().map((group) => group.tags.map((tag) => tag)).flatten()
     const searchTags = tags.filter((tag) => tagIds.includes(String(tag.id)))
