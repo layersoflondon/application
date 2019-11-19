@@ -23,6 +23,10 @@ import {appendQueryString} from '../../helpers/modals';
 
     this.props.trayViewStore.record = null;
 
+    if(this.props.mapViewStore.isTabletDevice) {
+      this.props.trayViewStore.setTrayVisibility(false);
+    }
+
     // const matches = this.props.router.location.pathname.match(/^(\/map\/collections\/\d+)\/records/);
 
     // if( matches && matches.length>1 ) {

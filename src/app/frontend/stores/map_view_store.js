@@ -137,4 +137,8 @@ export default class MapViewStore {
   }set inEditCollectionMode(value) {
     this.edit_collection_mode = value;
   }
+
+  @computed get isTabletDevice() {
+    return document.querySelector("meta[name=device-tablet]").content === "true";
+  }
 }

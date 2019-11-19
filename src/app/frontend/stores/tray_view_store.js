@@ -3,12 +3,9 @@ import Record from '../sources/record';
 import Search from '../sources/search';
 
 import Collection from '../sources/collection';
-import User from '../sources/user';
-import Team from '../sources/team';
 
 import CardModel from '../models/card';
 import pluralize from 'pluralize'
-import { appendQueryString } from '../helpers/modals';
 
 /**
  * The data store for the TrayView
@@ -108,6 +105,10 @@ export default class TrayViewStore {
 
   @action.bound toggleTrayVisibility(event) {
     this.tray_is_visible = !this.tray_is_visible;
+  }
+
+  @action.bound setTrayVisibility(value) {
+    this.tray_is_visible = value;
   }
 
   reloadTrayData() {

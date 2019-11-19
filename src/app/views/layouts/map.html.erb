@@ -6,6 +6,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
+    <meta name="device" content="<%= browser.device.tablet? ? browser.device.id : ''  %>">
+    <meta name="device-tablet" content="<%= browser.device.tablet? %>">
+
     <%= stylesheet_link_tag 'map' %>
 
     <!--<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>-->
