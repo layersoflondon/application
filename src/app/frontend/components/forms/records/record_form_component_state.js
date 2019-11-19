@@ -31,15 +31,16 @@ export default class RecordFormComponentState {
       }
 
       handleOnBlur() {
-        this.props.recordFormStore.record.persist().then((response) => {    
-          
-          this.props.recordFormStore.record = RecordModel.fromJS(response.data);
-          this.props.recordFormStore.record.errors = {};
-        }).catch((error) => {
-          this.props.recordFormStore.record.errors = error.response.data;
-          this.props.recordFormStore.record.errors_on_publishing = error.response.data;
-          this.props.recordFormStore.record.valid_for_publishing = false;
-        })
+        setTimeout(() => {
+          this.props.recordFormStore.record.persist().then((response) => {    
+            this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+            this.props.recordFormStore.record.errors = {};
+          }).catch((error) => {
+            this.props.recordFormStore.record.errors = error.response.data;
+            this.props.recordFormStore.record.errors_on_publishing = error.response.data;
+            this.props.recordFormStore.record.valid_for_publishing = false;
+          })
+        }, 10);
       }
 
       appendErrorClassNameToField(fieldName, classes="") {

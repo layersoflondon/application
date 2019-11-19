@@ -89,7 +89,7 @@ class RecordsController < ApplicationController
     end
     
     unless @result.present?
-      render json: @record.errors, status: :unprocessable_entity
+      return render json: @record.errors, status: :unprocessable_entity
     end
   end
 
