@@ -43,7 +43,7 @@ import {openModalLink} from '../helpers/modals';
     let visibilityChanged = (visible) => {
       this.setState({visible: visible})
     };
-
+    
     return (
       <VisibilitySensor onChange={visibilityChanged} partialVisibility={true}>
         <Link to={cardLink} className={container_classes} onMouseEnter={this.highlightCard.bind(this)} onMouseLeave={()=>this.props.card.highlighted=false}>
