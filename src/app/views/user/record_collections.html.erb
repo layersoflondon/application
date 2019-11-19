@@ -6,7 +6,11 @@
       <ul>
         <% records.each do |record| %>
           <li>
-            <a href="#" class="clickable" data-type="record" data-id="<%= record.id %>"><%= record.title %></a>
+            <% if record.state == 'draft' %>
+              <%= record.title %>
+            <% else %>
+              <a href="#" class="clickable" data-type="record" data-id="<%= record.id %>"><%= record.title %></a>
+            <% end %>
             <button class="edit clickable" data-type="record" data-id="<%= record.id %>" data-action="edit">Edit</button>
             <span class="draft-indicator"><%= record.state %></span>
           </li>
