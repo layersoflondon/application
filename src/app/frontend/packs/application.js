@@ -98,6 +98,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+            if(event.data.action === 'view') {
+                switch (event.data.type) {
+                    case 'record':
+                        path += '?record='+event.data.id;
+                        break;
+                    case 'collection':
+                        path += '/collections/'+event.data.id;
+                        break;
+                }
+                stores.mapViewStore.accountModal = false
+            }
+
             console.log(path, event.data.action, event.data.type, event.data.id);
             // if (event.data.id) {
             //     path += `=${event.data.id}`;

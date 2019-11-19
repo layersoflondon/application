@@ -27,6 +27,7 @@
 .m-account-page a {
   color: $green;
   font-weight: 700;
+  cursor: pointer; // needed to account for links with no href
 }
 
 .m-account-page .section {
