@@ -36,6 +36,8 @@ import ErrorBoundary from '../../error_boundary';
             <div className="date-input-wrap">
               <input placeholder="Day"
                      type="text"
+                     pattern="[0-9]*"
+                     inputmode="numeric"
                      name="date_from_day"
                      data-date-field="date_from_object"
                      data-date-attribute-name="date"
@@ -45,6 +47,8 @@ import ErrorBoundary from '../../error_boundary';
               />
               <input placeholder="Month"
                      type="text"
+                     pattern="[0-9]*"
+                     inputmode="numeric"
                      name="date_from_month"
                      data-date-field="date_from_object"
                      data-date-attribute-name="month"
@@ -55,6 +59,8 @@ import ErrorBoundary from '../../error_boundary';
               />
               <input placeholder="Year"
                      type="text"
+                     pattern="[0-9]*"
+                     inputmode="numeric"
                      name="date_from_year"
                      data-date-field="date_from_object"
                      data-date-attribute-name="year"
@@ -79,6 +85,8 @@ import ErrorBoundary from '../../error_boundary';
             <div>
               <input placeholder="Day"
                      type="text"
+                     pattern="[0-9]*"
+                     inputmode="numeric"
                      name="date_to_day"
                      data-date-field="date_to_object"
                      data-date-attribute-name="date"
@@ -88,6 +96,8 @@ import ErrorBoundary from '../../error_boundary';
               />
               <input placeholder="Month"
                      type="text"
+                     pattern="[0-9]*"
+                     inputmode="numeric"
                      name="date_to_month"
                      data-date-field="date_to_object"
                      data-date-attribute-name="month"
@@ -98,6 +108,8 @@ import ErrorBoundary from '../../error_boundary';
               />
               <input placeholder="Year"
                      type="text"
+                     pattern="[0-9]*"
+                     inputmode="numeric"
                      name="date_to_year"
                      data-date-field="date_to_object"
                      data-date-attribute-name="year"
