@@ -17,13 +17,12 @@ import {getQueryStringParam} from '../../helpers/modals';
     }
 
     this.issues = {copyright: "Copyright", inappropriate: "Inappropriate or offensive", inaccurate: "Inaccurate"};
-
-    const params = new URLSearchParams(this.props.router.location.search);
     let form = {issue: Object.keys(this.issues)[0], message: '', email: email};
+    const commentId = getQueryStringParam(this.props.location, 'comment');
 
-    if( params.get('comment') ) {
+    if( commentId ) {
       this.issues = {...this.issues, comment: "Comment"};
-      form = {...form, comment_id: params.get('comment'), issue: Object.keys(this.issues)[Object.keys(this.issues).length-1]};
+      form = {...form, comment_id: commentId, issue: Object.keys(this.issues)[Object.keys(this.issues).length-1]};
     }
 
     const recordId = getQueryStringParam(this.props.location, 'record');
