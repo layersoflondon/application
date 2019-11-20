@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import RecordViewComponentState from "./record_view_component_state";
 import {NavLink, withRouter} from 'react-router-dom';
 import Comment from '../../sources/comment';
+import {getQueryStringParam} from '../../helpers/modals';
 
 @inject('router', 'currentUser')
 @withRouter
@@ -17,12 +18,15 @@ import Comment from '../../sources/comment';
   removeComment(event) {
     this.setState({status: 'deleting'});
 
-    Comment.destroy(this.props.match.params.id, this.props.comment.id).then((response) => {
+    const recordId = getQueryStringParam(this.props.location, 'record');
+
+    Comment.destroy(recordId, this.props.comment.id).then((response) => {
       this.setState({status: 'deleted'});
     });
   }
 
   render() {
+    const recordId = getQueryStringParam(this.props.location, 'record');
     return <div className={`comment comment--${this.state.status || ''}`} ref={this.div} id={`comment-${this.props.comment.id}`}>
 
 
@@ -54,7 +58,7 @@ import Comment from '../../sources/comment';
           }
 
           <li>
-            <NavLink to={`${this.props.router.location.pathname}/report?comment=${this.props.comment.id}`}>Report this Comment</NavLink>
+            <NavLink to={`${this.props.router.location.pathname}/report?record=${recordId}&reportRecord=true&comment=${this.props.comment.id}`}>Report this Comment</NavLink>
           </li>
         </ul>
       </div>
