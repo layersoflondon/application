@@ -26,7 +26,8 @@ import {getQueryStringParam} from '../../helpers/modals';
       form = {...form, comment_id: params.get('comment'), issue: Object.keys(this.issues)[Object.keys(this.issues).length-1]};
     }
 
-    this.state = {form: form, errors: [], record_id: this.props.router.location.pathname.split("/").slice(-2,-1), report_sent: false};
+    const recordId = getQueryStringParam(this.props.location, 'record');
+    this.state = {form: form, errors: [], record_id: recordId, report_sent: false};
   }
 
   
@@ -42,8 +43,6 @@ import {getQueryStringParam} from '../../helpers/modals';
   }
 
   sendReport(event) {
-    const path = this.props.router.location.pathname.split("/");
-    path.splice(-1, 1);
     Record.report(null, {report: this.state.form}).then((response) => {
       this.setState({report_sent: true});
     }).catch((error) => {
@@ -51,7 +50,6 @@ import {getQueryStringParam} from '../../helpers/modals';
         this.setState({errors: error.response.data, report_sent: false});
       }
     });
-
   }
 
   formContent() {
