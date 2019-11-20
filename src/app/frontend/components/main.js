@@ -14,7 +14,6 @@ import TrayTeamRecordsIndex from './tray/team_records_index';
 import TrayGettingStarted from './tray/getting_started';
 import TraySearchResults from './tray/search_results';
 
-
 import Tools from './tools';
 import MapView from './map_view';
 import SearchView from './forms/search/search_view';
@@ -124,54 +123,7 @@ import AddToCollection from "./record_view/add_to_collection";
 
         {/* Add a record to a collection */}
         <Route component={AddToCollection} />
-
-        {/* view a record */}
-        {/* <Route exact path='/map/records/:id/report' render={({match, location}) => (
-          <ErrorBoundary>
-            <RecordView match={match}>
-              <ErrorBoundary>
-                <RecordViewReport />
-              </ErrorBoundary>
-            </RecordView>
-          </ErrorBoundary>
-        )} /> */}
-
-      {/* <Route exact path='/map/collections/:collection_id/records/:id/report' render={({match, location}) => (
-          <ErrorBoundary>
-            <RecordView match={match}>
-              <ErrorBoundary>
-                <RecordViewReport />
-              </ErrorBoundary>
-            </RecordView>
-          </ErrorBoundary>
-      )} /> */}
-
-        {/* <Route exact path='/map/records/:id/add-to-collection' render={({match, location}) => (
-          <ErrorBoundary>
-            <RecordView>
-              <ErrorBoundary>
-                <AddToCollection match={match}/>
-              </ErrorBoundary>
-            </RecordView>
-          </ErrorBoundary>
-        )} /> */}
-
-        {/* fixme: dry this route up later*/}
-        <Route exact={true} path='/map/collections/:collection_id/records/:id/media/:media_item_id' render={( {match, location} ) => (
-          <RecordView>
-            <MediaView>
-              <TransitionGroup>
-                <CSSTransition timeout={100} classNames={'media-item'} key={location.key} >
-                  <Route exact={true} path='/map/collections/:collection_id/records/:id/media/:media_item_id' component={MediaItem} />
-                </CSSTransition>
-              </TransitionGroup>
-            </MediaView>
-          </RecordView>
-        )} />
-
-        {/* view a collection */}
-        {/* <Route exact path='/map/collections/:id' component={CollectionView} /> */}
-
+        
         {/* view a team */}
         <Route exact path='/map/teams/:id' component={TeamView} />
 

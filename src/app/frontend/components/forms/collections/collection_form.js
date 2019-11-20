@@ -6,8 +6,6 @@ import CollectionModel from '../../../models/collection';
 import {inject} from "mobx-react/index";
 import Team from "../../../sources/team";
 import Select from 'react-select'
-import Record from "../../../sources/record";
-import RecordModel from "../../../models/record";
 import {recordEvent} from "../../../config/data_layer";
 import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers/modals';
 

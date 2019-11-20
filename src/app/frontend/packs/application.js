@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const stores = initStore(response.data);
         stores.router = routerStore;
         stores.currentUser = window.__USER;
-
+        
         history.subscribe((newLocation, action) => {
             stores.trayViewStore.loading_error = false; // reset any loading errors when we change location
 
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ReactDOM.render(
             <Provider {...stores} userPresent={userPresent} adminUserPresent={adminUserPresent} mapBounds={mapBounds} mapboxStaticMapsKey={mapboxStaticMapsKey}>
                 <Router history={history} >
-                <Main />
+                    <Main />
                 </Router>
             </Provider>,
             document.getElementById("map-root")
