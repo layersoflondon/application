@@ -304,7 +304,7 @@ export default class TrayViewStore {
       const mainResults = observable.map();
       mainContentData.data.map((result) => {
         const card = CardModel.fromJS(result, this);
-        mainResults.set(result.id, card);
+        mainResults.set(card.id, card);
       });
       
       this.mainResults.replace(mainResults);

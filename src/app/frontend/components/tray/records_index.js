@@ -33,7 +33,7 @@ export default class TrayRecordsIndex extends Component {
 
   render() {
     const mainResults = this.props.trayViewStore.mainResults.values().map((result) => {
-      const key = `${result.is_collection ? 'collection' : 'record'}_${result.id}`;
+      const key = `${result.is_collection ? 'collection_' : ''}${result.id}`;
 
       if (result.is_collection) {
         return <CollectionCard key={key} card={result} trayViewStore={this.props.trayViewStore} mapViewStore={this.props.mapViewStore}/>
