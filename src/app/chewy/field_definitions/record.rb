@@ -23,7 +23,6 @@ module FieldDefinitions
         field :name, type: 'text'
         field :description, type: 'text'
         field :avatar_url, type: 'keyword'
-        field :contact_me, type: 'boolean'
       end
 
       field :collection_ids
