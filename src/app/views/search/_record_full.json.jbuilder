@@ -15,7 +15,6 @@ json.user do
   json.student_name record.student_details if record.added_by_student
   json.description record.user['description']
   json.avatar_url record.user['avatar_url']
-  json.contact_me record.user['contact_me']
 end
 
 json.collection_ids

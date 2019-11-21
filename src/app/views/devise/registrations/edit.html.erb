@@ -28,14 +28,6 @@
 
     </div>
 
-        <div class="form-group form-group--single-checkbox">
-            <span class="label">Contact preferences</span>
-            <label>
-                <%= f.check_box :contact_me %>
-                <span>Allow users to contact me <span class="nb">If this box is checked other users will be able to send you a message - from links on your records and collections. Mesages will be sent through the site to your email address – your email address will <strong>NOT</strong> be shared.</span></span>
-            </label>
-        </div>
-
         <div class="form-group form-group--current-password">
           <%= f.label :current_password %> <i>We need your current password to confirm your changes.</i>
           <%= f.password_field :current_password, autocomplete: "off" , style: 'background: #f5f2f7' %>
