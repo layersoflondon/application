@@ -33,7 +33,7 @@ class RecordTags extends Component {
 
     const tag_groups = this.props.tagGroupsStore.tag_groups.values().map((group, i) => {
       const tag_ids = group.tags.map((tag) => tag.id);
-      const enabled_tag_ids = this.props.recordFormStore.record.tag_ids.filter((tag_id) => tag_ids.indexOf(tag_id) > -1);
+      const enabled_tag_ids = (this.props.recordFormStore.record.tag_ids || []).filter((tag_id) => tag_ids.indexOf(tag_id) > -1);
       const isVisible = this.props.recordFormStore.visible_tag_group === group.id;
       return <TagGroup
         key={`tagGroup-${i}`}
@@ -52,7 +52,7 @@ class RecordTags extends Component {
 
         <div className="pane" style={pane_styles}>
           <div className="m-tag-groups">
-            <div class="parent-tags">
+            <div className="parent-tags">
               {tag_groups}
             </div>
           </div>
