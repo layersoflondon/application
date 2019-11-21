@@ -38,13 +38,13 @@ export default class RecordFormStore {
 
     observe(this, 'visible_tag_group', (change) => {
       if(change.newValue) {
-        const tagsContainer = document.querySelector(`[data-tag-group-id='${change.newValue}']`);
+        const tagsContainer = document.querySelector(`.section--add-tags [data-tag-group-id='${change.newValue}']`);
 
         this.clickEventListener = (event) => {
           const clickedContainer = event.target.classList.toString() === tagsContainer.classList.toString();
           const clickedChildElement = tagsContainer.contains(event.target);
-          
-          if(!clickedContainer && !clickedChildElement) {
+
+          if(!clickedContainer && !clickedChildElement || event.target.contains(tagsContainer)) {
             runInAction(() => {
               this.visible_tag_group = null;
             });
@@ -91,7 +91,7 @@ export default class RecordFormStore {
 
   @action toggleTag(tag_id) {
     tag_id = parseInt(tag_id, 10);
-    let tag_ids = this.record.tag_ids.slice();
+    let tag_ids = (this.record.tag_ids || []).slice();
     let added = true;
 
     if( this.tagIsChecked(tag_id) ) {
@@ -107,7 +107,7 @@ export default class RecordFormStore {
   }
 
   tagIsChecked(id) {
-    return this.record.tag_ids.indexOf(id)>-1;
+    return (this.record.tag_ids || []).indexOf(id)>-1;
   }
 
   @action setVisibleTagGroup(id) {
