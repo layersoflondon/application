@@ -8,5 +8,6 @@ json.set! :tags do
     json.tag_group_id tag['tag_group_id']
     json.name tag['name']
     json.slug tag['slug']
+    json.record_count tag['record_count']
   end
 end

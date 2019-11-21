@@ -25,6 +25,10 @@ export default class TrayTagGroup extends Component {
   }
 
   render() {
+    const tags = this.props.tagGroup.tags.filter((tag) => {
+      return tag.record_count>0;
+    });
+
     return <div className="parent-tag" key={`tag-group-${this.props.tagGroup.id}`}>
       <h4 className="tag-group-name" data-tag-group-id={this.props.tagGroup.id} onClick={this.showTagGroup.bind(this)}>
         {this.props.tagGroup.name}
@@ -35,7 +39,7 @@ export default class TrayTagGroup extends Component {
         <div className={`child-tags is-visible`}>
           <div className="spike"></div>
           <ul>
-            {this.props.tagGroup.tags.map((tag) => {
+            {tags.map((tag) => {
               return <li className="child-tag" key={tag.id}>
                 <Link to={`/map/search?show_results=true&tag_ids=${[tag.id]}`}>{tag.name}</Link>
               </li>

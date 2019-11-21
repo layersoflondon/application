@@ -15,6 +15,8 @@ class Record < ApplicationRecord
     previous_changes['user_id'] || user
   end
 
+  after_save :update_tags_index, if: -> {self.tag_ids_changed?}
+
   has_one :primary_image, class_name: 'Attachments::Image', foreign_key: :id, primary_key: :primary_image_id
   has_many :record_taxonomy_terms, class_name: 'RecordTaxonomyTerm', dependent: :destroy
   has_many :taxonomy_terms, through: :record_taxonomy_terms
@@ -37,7 +39,7 @@ class Record < ApplicationRecord
   accepts_nested_attributes_for :comments, allow_destroy: true
 
   has_many :taggings, as: :tagger
-  has_many :tags, through: :taggings
+  has_many :tags, through: :taggings, after_add: :update_tags_index, after_remove: :update_tags_index
   has_many :tag_groups, through: :tags
 
   before_validation do
@@ -273,5 +275,9 @@ class Record < ApplicationRecord
     if editing_team.present? && !user.teams.include?(editing_team)
       errors[:team] << "must be one you're a member of"
     end
+  end
+
+  def update_tags_index(tag)
+    update_index("tag_groups#tag_group") {tag.tag_group}
   end
 end
