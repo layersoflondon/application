@@ -48,41 +48,9 @@
             </div>
         </div>
 
-        <div class="m-layers-slideshow">
-            <div class="text-content">
-                <h3><%= page.slideshow_title %></h3>
-                <div class="description">
-                    <p><%= page.slideshow_subtitle %></p>
-                </div>
-                <%= link_to page.slideshow_button_text, page.slideshow_link, class: "button" %>
-            </div>
-            <ul class="rslides">
-                <%= page.slides.each do |slide| %>
-                    <li>
-                        <%= image_tag(slide.image) %>
-                        <span class="caption"><%= slide.caption %></span>
-                    </li>
-                <% end %>
-            </ul>
-        </div>
+        <%= render partial: "pages/homepage_slider" %>
 
-        <div class="m-home-tags">
-            <h2>Search content by tag</h2>
-            <ul class="m-tag-groups-list">
-                <% tag_groups.each do |tag_group| %>
-                    <li><%= link_to resources_map_path(resource: :search, tag_group_ids: tag_group.id, results: true, tag_name: tag_group.name) do %><span><%=tag_group.name%></span><% end %>
-                        <div class="child-tags">
-                            <span class='spike'></span>
-                            <ul>
-                                <% tag_group.tags.each do |tag| %>
-                                    <li><%= link_to resources_map_path(resource: :search, tag_ids: tag["id"], results: true, tag_name: tag["name"]) do %><span><%=tag["name"]%></span><% end %></li>
-                                <% end %>
-                            </ul>
-                        </div>
-                    </li>
-                <% end %>
-            </ul>
-        </div>
+        <%= render partial: "pages/homepage_tags" %>
 
     </main>
 
