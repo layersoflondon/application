@@ -22,6 +22,12 @@ import {Link} from 'react-router-dom';
     return <div className="meta">
       <div className="dates">
         <span className="date start-date">{this.props.trayViewStore.record.display_date_from}</span>
+        {this.props.trayViewStore.record.display_date_to && 
+        <React.Fragment>
+          <span> to </span>
+          <span className="date end-date">{this.props.trayViewStore.record.display_date_to}</span>
+        </React.Fragment>
+        }
       </div>
       <div className="creator">
         By {author_prefix}

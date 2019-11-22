@@ -367,9 +367,14 @@ export default class RecordModel {
     const date_to = this.date_to_object;
     const dateString = `${date_to.year.toString().padStart(4,'0')}-${date_to.month.toString().padStart(2,'0')}-${date_to.date.toString().padStart(2,'0')}`;
     const dateFormat = "YYYY-MM-DD";
-    return moment(dateString, dateFormat).format(this.date_to_formatting_string);
-  }
+    const date = moment(dateString, dateFormat);
 
+    if(date.isValid()) {
+      return date.format(this.date_to_formatting_string);
+    }
+    
+    return null;
+  }
 
   toJS() {
     return {
