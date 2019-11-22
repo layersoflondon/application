@@ -10,13 +10,12 @@ import Dropzone from 'react-dropzone';
 import {observer} from "mobx-react";
 
 @observer class Media extends Component {
+  MAX_FILE_SIZE = 4;
+
   constructor(props) {
     super(props);
-
     this.state = {is_visible: false, items: this.props.recordFormStore.record.attachments, errors: [], loading: []};
-
     this.fileInputRef = React.createRef();
-
   }
 
   showFileInput(event) {
@@ -25,7 +24,9 @@ import {observer} from "mobx-react";
   }
 
   onFileInputChange(event) {
-    this.onDrop(Array.from(event.target.files), []);
+    const files = Array.from(event.target.files).fiter((file) => file.size < this.MAX_FILE_SIZE*1024*1024);
+
+    this.onDrop(files, []);
   }
 
   onDrop(acceptedFiles, rejectedFiles, event) {
@@ -33,12 +34,13 @@ import {observer} from "mobx-react";
       console.log(arguments);
     });
 
-    acceptedFiles.forEach(file => {
+    const files = acceptedFiles.filter((file) => file.size < this.MAX_FILE_SIZE*1024*1024);
+
+    files.forEach(file => {
       const reader = new FileReader();
 
       reader.onload = (f) => {
         const attachment_type = (type) => {
-          //content_type = type.split("/")[0];
           switch(type) {
             case 'image/jpg':
             case 'image/jpeg':
@@ -136,8 +138,7 @@ import {observer} from "mobx-react";
         </span>
       </li>
     });
-
-
+    
     return (
       <div className={`section ${pane_classname}`}>
         <h2 className="title" data-name="media" onClick={this.togglePaneVisibility}>Add media &amp; documents</h2>
@@ -147,7 +148,10 @@ import {observer} from "mobx-react";
 
             <div className="add-tools">
               <div className="form-group add-file">
-                <a href="#" onClick={this.showFileInput.bind(this)}><span className="image"></span><em>Upload a file</em></a>
+                <a href="#" onClick={this.showFileInput.bind(this)}><span className="image"></span>
+                  <em>Upload a file</em>
+                  <span><br/>{this.MAX_FILE_SIZE}Mb max size</span>
+                </a>
                 <input type="file" ref={this.fileInputRef} onChange={this.onFileInputChange.bind(this)} style={{display: 'none'}} />
               </div>
               <YoutubeForm {...this.props} />
