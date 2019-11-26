@@ -40,7 +40,9 @@ const removeModal = (location, modal, store) => {
 
 const getValueForModal = (location, modal) => {
   const search  = queryString.parse(location.search);
-  return search[modal];
+  const response = search[modal];
+
+  return (typeof(response) == 'undefined') ? "" : response;
 };
 
 const getQueryStringParam = getValueForModal;
