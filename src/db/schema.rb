@@ -445,6 +445,15 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "view_counts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "viewable_type"
+    t.bigint "viewable_id"
+    t.integer "count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["viewable_type", "viewable_id"], name: "index_view_counts_on_viewable_type_and_viewable_id"
+  end
+
   add_foreign_key "attachments", "records"
   add_foreign_key "collection_records", "collections"
   add_foreign_key "collection_records", "records"

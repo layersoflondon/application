@@ -13,6 +13,14 @@ import TrayTags from './tags';
     this.props.trayViewStore.fetchGettingStartedData();
   }
 
+  componentDidUpdate() {
+    this.props.trayViewStore.showHighlightedResults = true;
+  }
+
+  componentWillUnmount() {
+    this.props.trayViewStore.showHighlightedResults = false;
+  }
+
   render() {
     const highlightedResults = this.props.trayViewStore.highlightedResults.values().map((result) => {
       const key = `${result.is_collection ? 'collection' : 'record'}_${result.id}`;

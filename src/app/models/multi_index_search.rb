@@ -197,7 +197,7 @@ class MultiIndexSearch
           }
         }
       }
-    )
+    ).limit(limit)
   end
 
   def self.boost_collections(query)

@@ -9,6 +9,7 @@ import TrayHeader from '../tray_header';
 export default class TrayRecordsIndex extends Component {
   constructor(props) {
     super(props);
+    this.props.trayViewStore.showHighlightedResuts = false;
 
     if (this.props.type === "geobounded") {
       this.props.mapViewStore.getMapBounds().then((bounds) => {

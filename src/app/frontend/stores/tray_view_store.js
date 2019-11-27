@@ -44,6 +44,7 @@ export default class TrayViewStore {
 
   @observable highlightedResults = observable.map();
   @observable mainResults = observable.map();
+  @observable show_highlighted_results = false;
 
   previousPath = null;
   mapRef = null;
@@ -289,7 +290,7 @@ export default class TrayViewStore {
    *
    * @param append_data
    */
-  @action.bound reloadTrayDataForBounds(bounds, append_data = false) {
+  @action.bound reloadTrayDataForBounds(bounds) {
     this.fetchData({geobounding: bounds});
   }
 
@@ -302,6 +303,7 @@ export default class TrayViewStore {
     runInAction(async() => {
       const mainContentData = await Search.perform(params);
       const mainResults = observable.map();
+      
       mainContentData.data.map((result) => {
         const card = CardModel.fromJS(result, this);
         mainResults.set(card.id, card);
@@ -368,13 +370,15 @@ export default class TrayViewStore {
 
   @computed get cardsToRenderOnMap() {
     let cards = observable.map();
-
+    
     cards.merge(this.mainResults);
-
-    this.highlightedResults.values().map((result) => {
-      if(cards.keys().indexOf(result.id)<0) cards.set(result.id, result);
-    });
-
+    
+    if(this.showHighlightedResults) {
+      this.highlightedResults.values().map((result) => {
+        if(cards.keys().indexOf(result.id)<0) cards.set(result.id, result);
+      });
+    }
+    
     return cards;
   }
 
@@ -382,6 +386,12 @@ export default class TrayViewStore {
     return this.locked;
   }set trayLocked(value) {
     this.locked = value;
+  }
+
+  @computed get showHighlightedResults() {
+    return this.show_highlighted_results;
+  }set showHighlightedResults(value) {
+    this.show_highlighted_results = value;
   }
 
   @computed get goBackto() {
