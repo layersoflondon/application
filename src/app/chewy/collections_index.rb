@@ -89,7 +89,7 @@ class CollectionsIndex < Chewy::Index
     filter(query).limit(limit)
   end
 
-  def self.everyone_collections(exclude_user_id: nil)
+  def self.everyone_collections(exclude_user_id: nil, limit: 1000)
     query = {bool: {
       must: [
         {
@@ -113,7 +113,7 @@ class CollectionsIndex < Chewy::Index
       query[:bool][:must] << exclude_user_query
     end
 
-    filter(query)
+    filter(query).limit(limit)
   end
 
   def self.find_with_ordered_records(id)
