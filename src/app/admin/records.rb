@@ -33,6 +33,10 @@ ActiveAdmin.register Record do
   scope :draft
   scope :flagged
 
+  scope :untagged do
+    Record.published.untagged
+  end
+
   filter :title
   filter :user_email_cont, label: "User Email", placeholder: "person@example.com"
 
