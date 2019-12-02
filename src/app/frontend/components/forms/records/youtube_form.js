@@ -36,6 +36,8 @@ import {observer} from "mobx-react";
       video.attachable = data.attachable;
       video.attachable_type = data.attachable_type;
 
+      this.setState({youtube_id: ""});
+      
       attachments.push(video);
       this.props.recordFormStore.record.attachments = attachments;
     }).catch((error) => {

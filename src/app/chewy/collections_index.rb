@@ -115,4 +115,8 @@ class CollectionsIndex < Chewy::Index
 
     filter(query)
   end
+
+  def self.find_with_ordered_records(id)
+    find(id).tap { |c| c.records.sort_by! { |r| NaturalSort(r["title"]) } }
+  end
 end

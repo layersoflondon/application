@@ -19,3 +19,7 @@ if local_assigns.has_key?(:full) && full
 else
   json.partial! 'search/record_card', record: record
 end
+
+json.tag_groups (record.tag_groups.uniq rescue [])
+json.tag_ids record.tag_ids
+# json.related_record_ids record.related_records.collect(&:id)

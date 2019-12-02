@@ -13,12 +13,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Main from '../components/main';
-import createBrowserHistory from 'history/createBrowserHistory';
+import {createBrowserHistory} from 'history';
 import {Provider} from 'mobx-react';
 import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
 import {Router} from 'react-router';
 import axios from 'axios';
 import initStore from '../stores/stores';
+
+import {getQueryStringValue, getCurrentModals} from '../helpers/modals';
 
 document.addEventListener('DOMContentLoaded', () => {
     if( typeof window.__STATE === "undefined" ) return;
@@ -32,25 +34,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const history = syncHistoryWithStore(browserHistory, routerStore);
     history.previousLocalStates = 0;
 
-    history.subscribe((newLocation, action) => {
-        if( action === "PUSH" ) {
-            history.previousLocalStates += 1;
-        }
-    });
-
     // fetch the initial app state then initialize the stores and components
     axios.get('/map/state.json').then((response) => {
         const stores = initStore(response.data);
         stores.router = routerStore;
         stores.currentUser = window.__USER;
+        
+        history.subscribe((newLocation, action) => {
+            stores.trayViewStore.loading_error = false; // reset any loading errors when we change location
+
+            if( action === "PUSH" ) {
+                history.previousLocalStates += 1;
+            }
+            
+            const choosePlace = getQueryStringValue(newLocation, 'choose-place');
+            if(choosePlace === "true") {
+                stores.mapViewStore.inChoosePlaceMode = true;
+            }
+            
+            stores.mapViewStore.toggleModal('search', false);
+            
+            const currentModals = getCurrentModals(newLocation);
+            if(currentModals) {
+                currentModals.map((modal) => stores.mapViewStore.toggleModal(modal, true));
+            }
+            
+            if(currentModals.indexOf('record')<0) {
+                stores.mapViewStore.recordModal = false;
+                stores.trayViewStore.record = null;
+            }
+        });
 
         ReactDOM.render(
-          <Provider {...stores} userPresent={userPresent} adminUserPresent={adminUserPresent} mapBounds={mapBounds} mapboxStaticMapsKey={mapboxStaticMapsKey}>
-            <Router history={history} >
-              <Main />
-            </Router>
-          </Provider>,
-          document.getElementById("map-root")
+            <Provider {...stores} userPresent={userPresent} adminUserPresent={adminUserPresent} mapBounds={mapBounds} mapboxStaticMapsKey={mapboxStaticMapsKey}>
+                <Router history={history} >
+                    <Main />
+                </Router>
+            </Provider>,
+            document.getElementById("map-root")
         );
     });
 
@@ -62,29 +83,43 @@ document.addEventListener('DOMContentLoaded', () => {
     eventer(messageEvent, (event) => {
         if (event.data.scope === 'clickable-iframe-element') {
             let path = "/map";
-            if (event.data.type && event.data.id) {
+            
+            if(event.data.action === 'edit') {
                 switch (event.data.type) {
-                  case 'record':
-                      path += '/records';
-                      break;
-                  case 'collection':
-                      path += '/collections';
-                      break;
-                  case 'team':
-                      path += '/teams';
-                      break;
+                    case 'record':
+                        path += '?editRecord='+event.data.id;
+                        break;
+                    case 'collection':
+                        path += '?editCollection='+event.data.id;
+                        break;
+                    case 'team':
+                        path += '/teams/'+event.data.id;
+                        break;
                 }
-
-                if (event.data.id) {
-                    path += `/${event.data.id}`;
-                }
-
-                if (event.data.action) {
-                    path += `/${event.data.action}`;
-                }
-
-                history.push(path);
             }
+
+            if(event.data.action === 'view') {
+                switch (event.data.type) {
+                    case 'record':
+                        path += '?record='+event.data.id;
+                        break;
+                    case 'collection':
+                        path += '/collections/'+event.data.id;
+                        break;
+                }
+                stores.mapViewStore.accountModal = false
+            }
+
+            console.log(path, event.data.action, event.data.type, event.data.id);
+            // if (event.data.id) {
+            //     path += `=${event.data.id}`;
+            // }
+
+            // if (event.data.action) {
+            //     path += `/${event.data.action}`;
+            // }
+
+            history.push(path);
         }
     },false);
 });

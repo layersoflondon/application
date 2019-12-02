@@ -36,10 +36,22 @@ class LayerGroup < ApplicationRecord
   end
 
   def date_from
-    layers.order(date_from: :asc).first.date_from
+    if layers.any?
+      layers.order(date_from: :asc).first.date_from
+    else
+      nil
+    end
+
+
   end
 
   def date_to
-    layers.order(date_to: :desc).first.date_to
+    if layers.any?
+      layers.order(date_to: :desc).first.date_to
+    else
+      nil
+    end
+
+    
   end
 end

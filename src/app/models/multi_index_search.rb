@@ -4,9 +4,26 @@ class MultiIndexSearch
     CollectionsIndex
   ]
 
-  def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 100)
-    Rails.logger.info("called filter_by_geobounds")
+  def self.highlighted(params = {})
+    es_query = Chewy::Search::Request.new(*INDEXES).filter(terms: {state: ['published']})
+    es_query = es_query.query({term: {featured_item: true}}).limit(100)
+    
+    es_query = es_query.limit(params[:limit]) if params[:limit]
 
+    es_query
+  end
+
+  def self.popular(params = {})
+    # self.query({q: "popular"}, limit: (params[:limit] || 6)) # fixme: make this do a proper query
+    es_query = Chewy::Search::Request.new(*INDEXES).filter(terms: {state: ['published']})
+    es_query = es_query.order(view_count: :desc)
+
+    es_query = es_query.limit(params[:limit]) if params[:limit]
+
+    es_query
+  end
+
+  def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 100)
     if search_params[:q]
       es_query = self.query(search_params, indexes: indexes, limit: limit)
     else
@@ -92,6 +109,7 @@ class MultiIndexSearch
     )
 
     es_query = boost_collections(es_query)
+    es_query = boost_popular(es_query) if search_params[:popular]
 
 
     if search_params[:attachment_type].present?
@@ -164,6 +182,22 @@ class MultiIndexSearch
 
   def self.filter_by_state(query, states: ['published'])
     query.filter(terms: {state: states})
+  end
+  
+  def self.tagged(tag_ids, indexes: INDEXES, limit: 100)
+    query = Chewy::Search::Request.new(*indexes)
+    query = query.filter(terms: {state: ['published']})
+
+    query.query(
+      terms_set: {
+        tag_ids: {
+          terms: tag_ids,
+          minimum_should_match_script: {
+            source: "params.num_terms"
+          }
+        }
+      }
+    ).limit(limit)
   end
 
   def self.boost_collections(query)

@@ -1,17 +1,94 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import SearchViewTaxonomy from "./_search_view_taxonomy";
 import Search from "../../../sources/search";
 import {recordEvent} from "../../../config/data_layer";
+import {closeModalLink} from '../../../helpers/modals';
+import TagGroup from '../tag_groups/tag_group';
+import tag from '../tag_groups/tag';
+import queryString from 'query-string';
 
-@inject('router', 'mapViewStore', 'trayViewStore')
+window.queryString = queryString;
+
+@inject('router', 'mapViewStore', 'trayViewStore', 'tagGroupsStore')
 @withRouter
 @observer export default class SearchView extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {q: "", geobounding: 'london', start_year: "", end_year: "", showing_results: false, terms: {type: [], theme: []}, collections: false};
+    const search = queryString.parse(this.props.router.location.search, {arrayFormat: 'comma'});
+    let tag_ids = [];
+
+    if (search.tag_ids) {
+      tag_ids = search.tag_ids.split(',').map((id) => parseInt(id, 10));
+    }
+
+    this.state = {
+      q: "",
+      geobounding: 'london',
+      start_year: "",
+      end_year: "",
+      showing_results: false,
+      terms: {type: [], theme: []},
+      collections: false,
+      visibleTagGroup: null,
+      tag_ids: tag_ids
+    };
+
+    this.closeEventHandler = (event) => {
+      if (event.target.classList.contains('s-overlay--search')) {
+        this.setState({visibleTagGroup: null});
+      }
+    };
+
+    this.toggleTagGroup = (id) => {
+      let value = parseInt(id, 10);
+
+      if (this.state.visibleTagGroup === value) {
+        value = null;
+        document.querySelector("[class^='s-overlay']").removeEventListener('click', this.closeEventHandler);
+      } else {
+        document.querySelector("[class^='s-overlay']").addEventListener('click', this.closeEventHandler);
+      }
+
+      this.setState({visibleTagGroup: value});
+    }
+
+    this.toggleTag = (id) => {
+      const value = parseInt(id, 10);
+      const index = this.state.tag_ids.indexOf(value);
+
+      let ids = this.state.tag_ids.slice();
+
+      if (index > -1) {
+        ids.splice(index, 1);
+      } else {
+        ids.push(value);
+      }
+
+      this.setState({tag_ids: ids});
+    }
+
+    this.tagIsChecked = (id) => {
+      const value = parseInt(id, 10);
+
+      if (this.state.tag_ids.length > 0) {
+        return this.state.tag_ids.indexOf(value) > -1;
+      }
+
+      return false;
+    }
+
+    this.enabledTagIdsInGroup = (id) => {
+      this.state.tag_ids;
+      const group = this.props.tagGroupsStore.tag_groups.get(id);
+      const groupTagIds = group.tags.map((tag) => tag.id);
+
+      const enabledTagIds = this.state.tag_ids.filter((id) => groupTagIds.indexOf(id) > -1);
+
+      return enabledTagIds;
+    }
   }
 
   componentWillMount() {
@@ -28,15 +105,15 @@ import {recordEvent} from "../../../config/data_layer";
   }
 
   toggleTerm(event) {
-    const {target: { name, value }} = event;
+    const {target: {name, value}} = event;
 
     const terms = this.state.terms;
     const current_terms = terms[name].slice();
     const term_index = current_terms.indexOf(value);
 
-    if(term_index === -1) {
+    if (term_index === -1) {
       current_terms.push(value);
-    }else {
+    } else {
       current_terms.splice(term_index, 1);
     }
 
@@ -45,15 +122,15 @@ import {recordEvent} from "../../../config/data_layer";
   }
 
   isChecked(event) {
-    const {target: { name, value }} = event;
+    const {target: {name, value}} = event;
 
-    return this.state.terms[name].indexOf(value)>-1 ? true : '';
+    return this.state.terms[name].indexOf(value) > -1 ? true : '';
   }
 
   getBounds() {
     let map = this.props.trayViewStore.map_ref;
     let center = map.leafletElement.getBounds().getCenter();
-    let radius = map.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+    let radius = map.leafletElement.getBounds().getNorthEast().distanceTo(center) / 1000;
 
     let north_west = map.leafletElement.getBounds().getNorthWest();
     let south_east = map.leafletElement.getBounds().getSouthEast();
@@ -72,15 +149,15 @@ import {recordEvent} from "../../../config/data_layer";
   }
 
   toggleSearchBounds(event) {
-    if(event.target.checked) {
+    if (event.target.checked) {
       this.setState({geobounding: this.getBounds()});
-    }else {
+    } else {
       this.setState({geobounding: 'london'});
     }
   }
 
   handleKeyUp(event) {
-    if( event.nativeEvent.key === "Enter" ) {
+    if (event.nativeEvent.key === "Enter") {
       this.handleSearchOnClick();
     }
   }
@@ -88,41 +165,46 @@ import {recordEvent} from "../../../config/data_layer";
   handleSearchOnClick(event) {
     const search_params = {};
 
-    if( this.state.q ) {
+    if (this.state.q) {
       search_params.q = this.state.q;
     }
 
-    if( this.state.user_id ) {
+    if (this.state.user_id) {
       search_params.user_id = this.state.user_id;
     }
 
-    if( this.state.terms ) {
+    if (this.state.terms) {
       search_params.terms = this.state.terms;
     }
 
-    if( this.state.start_year ) {
-      if(!search_params.date_range) search_params.date_range = {};
+    if (this.state.start_year) {
+      if (!search_params.date_range) search_params.date_range = {};
 
       search_params.date_range.gte = `${this.state.start_year}-01-01`;
     }
 
-    if( this.state.end_year ) {
-      if(!search_params.date_range) search_params.date_range = {};
+    if (this.state.end_year) {
+      if (!search_params.date_range) search_params.date_range = {};
 
       search_params.date_range.lte = `${this.state.end_year}-01-01`;
     }
 
-    if( this.state.geobounding !== 'london' ) {
+    if (this.state.geobounding !== 'london') {
       search_params.geobounding = this.getBounds()
     }
 
-    if( this.state.collections) {
+    if (this.state.collections) {
       search_params.collections = true;
     }
 
+    search_params.tag_ids = this.state.tag_ids.join(',');
+
     function serializeQuery(params, prefix) {
       const query = Object.keys(params).map((key) => {
-        const value  = params[key];
+        if (key === 'collections') {
+          return;
+        }
+        const value = params[key];
 
         if (params.constructor === Array)
           key = `${prefix}[]`;
@@ -149,32 +231,31 @@ import {recordEvent} from "../../../config/data_layer";
     if (this.state.collections) {
       header_subtitle = "for your collection search"
     }
-    
-    const header_title = !!this.state.q ? `Your search for “${this.state.q}”` : `Results ${header_subtitle}`;
 
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
+      this.props.trayViewStore.searchParams = search_params;
+
       const {push} = {...this.props.router};
-      const params = serializeQuery(search_params);
+      const params = serializeQuery(search_params).replace(/&&/, '');
       // push(`?results=true&q=${this.state.q}`);
       this.setState({showing_results: true});
-      this.props.trayViewStore.setHeaderContent({
-        title: header_title,
-        subtitle: !!this.state.q ? header_subtitle : "",
-        tray_view_type: "Search"
-      });
+      // this.props.trayViewStore.setHeaderContent({
+      //   title: header_title,
+      //   subtitle: !!this.state.q ? header_subtitle : "",
+      //   tray_view_type: "Search"
+      // });
       this.props.trayViewStore.showCollectionOfCards(response.data);
 
-
-      if( response.data.length > 0 ) {
+      if (response.data.length > 0) {
         // get first response object with a lat & lng (if it's a collection, get the first one with records)
         const results_with_coords = response.data.filter((obj) => {
-          return (obj.hasOwnProperty('records') && obj.records.length>0) || obj.hasOwnProperty('lat');
+          return (obj.hasOwnProperty('records') && obj.records.length > 0) || obj.hasOwnProperty('lat');
         });
 
         let first_result = results_with_coords[0];
 
-        if( first_result.hasOwnProperty('records') ) {
+        if (first_result.hasOwnProperty('records')) {
           first_result = first_result.records[0];
         }
 
@@ -186,6 +267,7 @@ import {recordEvent} from "../../../config/data_layer";
 
       this.props.trayViewStore.locked = true;
       this.props.trayViewStore.root = false;
+
       this.props.router.history.push(`/map/search?show_results=true&${params}`)
     });
   }
@@ -203,28 +285,28 @@ import {recordEvent} from "../../../config/data_layer";
 
     let state = {showing_results: false, collections: false};
 
-    if(showing_results_match && showing_results_match>-1) {
+    if (showing_results_match && showing_results_match > -1) {
       state.showing_results = true;
     }
 
-    if(query_match && query_match.length>1) {
+    if (query_match && query_match.length > 1) {
       state.q = query_match[1];
     }
 
-    if(user_match && user_match.length>1) {
+    if (user_match && user_match.length > 1) {
       state.user_id = user_match[1];
     }
 
-    if(start_year_match && start_year_match.length>1) {
+    if (start_year_match && start_year_match.length > 1) {
       state.start_year = start_year_match[1];
     }
 
-    if(end_year_match && end_year_match.length>1) {
+    if (end_year_match && end_year_match.length > 1) {
       state.end_year = end_year_match[1];
     }
 
-    if(collections_match && collections_match > -1) {
-      state.collections=true
+    if (collections_match && collections_match > -1) {
+      state.collections = true
     }
 
     /**
@@ -232,26 +314,26 @@ import {recordEvent} from "../../../config/data_layer";
      * perform the search this will only  happen if the initial route is mapped to this component with
      * a query string (user refreshes the search results page
      */
-    if( showing_results_match>-1 && !updated_props) {
+    if (showing_results_match > -1 && !updated_props) {
       this.setState(state);
-      
+
       setTimeout(() => {
         this.handleSearchOnClick();
       }, 50);
-    }else {
+    } else {
       this.setState(state);
     }
   }
 
   render() {
-    let className = "m-overlay";
-    if( this.props.mapViewStore.overlay === 'search' ) className += " is-showing";
+    if (!this.props.mapViewStore.modalIsVisible('search')) return <React.Fragment/>;
 
-    if( this.state.showing_results || this.props.trayViewStore.loading ) {
-      return <span></span>;
-    }
+    let className = "m-overlay is-showing";
+    // if( this.state.showing_results || this.props.trayViewStore.loading ) {
+    //   return <span></span>;
+    // }
 
-    const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} isCheckedMethod={this.isChecked.bind(this)} />);
+    // const taxonomies = Object.entries(window.__TAXONOMIES).map((taxonomy) => <SearchViewTaxonomy key={taxonomy[0]} taxonomy={taxonomy} toggleMethod={this.toggleTerm.bind(this)} isCheckedMethod={this.isChecked.bind(this)} />);
 
     const toggle_classname = (this.state.geobounding !== 'london') ? 'is-toggled' : "";
     return (
@@ -259,7 +341,7 @@ import {recordEvent} from "../../../config/data_layer";
         <div className="s-overlay--search is-showing">
 
           <div className="close">
-            <Link to="/map" className="close">Close</Link>
+            <Link to={closeModalLink(this.props.router.location, 'search')} className="close" onClick={() => this.props.mapViewStore.searchModal = false}>Close</Link>
           </div>
 
           <div className="m-search-overlay">
@@ -270,31 +352,33 @@ import {recordEvent} from "../../../config/data_layer";
               <div className={`form-group form-group--toggle-switch ${toggle_classname}`}>
                 <label>
                   <span>Search all of London</span>
-                  <input type="checkbox" onChange={this.toggleSearchBounds.bind(this)} checked={this.state.geobounding !== 'london'} />
+                  <input type="checkbox" onChange={this.toggleSearchBounds.bind(this)} checked={this.state.geobounding !== 'london'}/>
                   <span className="toggle"></span>
                   <span>Search visible area</span>
                 </label>
               </div>
 
               <div className="form-group form-group--primary-field">
-                <input placeholder="Enter a topic…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)} />
+                <input placeholder="Enter a topic…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)}/>
               </div>
 
               <div className="date-range">
 
                 <div className="subsection-header">
                   <h1 className="label">Date range</h1>
-                  <button onClick={() => this.setState({era_picker_visible: !this.state.era_picker_visible})}>Pick an era</button>
+                  <button onClick={() => this.setState({era_picker_visible: !this.state.era_picker_visible})}>Pick an
+                    era
+                  </button>
                 </div>
 
                 <div className="date-box date-box--start">
                   <h2 className="label">Start year</h2>
-                  <input placeholder="Start year" type="text" name="start_year" value={this.state.start_year} onChange={this.handleOnChange.bind(this)} />
+                  <input placeholder="Start year" type="text" name="start_year" value={this.state.start_year} onChange={this.handleOnChange.bind(this)}/>
                 </div>
 
                 <div className="date-box date-box--start">
                   <h2 className="label">End year</h2>
-                  <input placeholder="End year" type="text" name="end_year" value={this.state.end_year} onChange={this.handleOnChange.bind(this)} />
+                  <input placeholder="End year" type="text" name="end_year" value={this.state.end_year} onChange={this.handleOnChange.bind(this)}/>
                 </div>
 
                 {this.state.era_picker_visible &&
@@ -302,67 +386,61 @@ import {recordEvent} from "../../../config/data_layer";
                   <h2>Choose an era:</h2>
 
                   <ul className="eras">
-                    <li><a href="#" onClick={() => this.setState({start_year: '', end_year: 55})}>Pre-Roman<span>Pre-55AD</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 55, end_year: 410})}>Roman<span>55-410</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 410, end_year: 1216})}>Early Medieval <span>410-1216</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1216, end_year: 1398})}>High Medieval <span>1216-1398</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1398, end_year: 1485})}>Late Medieval <span>1398-1485</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1485, end_year: 1603})}>Tudor <span>1485-1603</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1558, end_year: 1603})}>Elizabethan <span>1558-1603</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1603, end_year: 1714})}>Stuart <span>1603-1714</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1714, end_year: 1837})}>Hanoverian <span>1714-1837</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1837, end_year: 1901})}>Victorian <span>1837-1901</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1901, end_year: 1914})}>Edwardian <span>1901-1914</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1914, end_year: 1918})}>World War I <span>1914-1918</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1918, end_year: 1939})}>Interwar <span>1918-1939</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1939, end_year: 1945})}>World War II <span>1939-1945</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 1945, end_year: 1999})}>Post World War II <span>1945-1999</span></a></li>
-                    <li><a href="#" onClick={() => this.setState({start_year: 2000, end_year: ''})}>21st Century <span>2000-Now</span></a></li>
+                    <li><a href="#" onClick={() => this.setState({start_year: '', end_year: 55})}>Pre-Roman<span>Pre-55AD</span></a>
+                    </li>
+                    <li><a href="#" onClick={() => this.setState({
+                      start_year: 55,
+                      end_year: 410
+                    })}>Roman<span>55-410</span></a></li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 410, end_year: 1216})}>Early Medieval
+                      <span>410-1216</span></a></li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1216, end_year: 1398})}>High Medieval
+                      <span>1216-1398</span></a></li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1398, end_year: 1485})}>Late Medieval
+                      <span>1398-1485</span></a></li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1485, end_year: 1603})}>Tudor <span>1485-1603</span></a>
+                    </li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1558, end_year: 1603})}>Elizabethan <span>1558-1603</span></a>
+                    </li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1603, end_year: 1714})}>Stuart <span>1603-1714</span></a>
+                    </li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1714, end_year: 1837})}>Hanoverian <span>1714-1837</span></a>
+                    </li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1837, end_year: 1901})}>Victorian <span>1837-1901</span></a>
+                    </li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1901, end_year: 1914})}>Edwardian <span>1901-1914</span></a>
+                    </li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1914, end_year: 1918})}>World War I <span>1914-1918</span></a>
+                    </li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1918, end_year: 1939})}>Interwar <span>1918-1939</span></a>
+                    </li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1939, end_year: 1945})}>World War II
+                      <span>1939-1945</span></a></li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 1945, end_year: 1999})}>Post World War II
+                      <span>1945-1999</span></a></li>
+                    <li><a href="#" onClick={() => this.setState({start_year: 2000, end_year: ''})}>21st Century <span>2000-Now</span></a>
+                    </li>
                   </ul>
                 </div>
                 }
               </div>
 
-              {/*TODO this needs to work. Hiding for now*/}
-              {/*<div className="filters">*/}
-
-                {/*<div className="filters-show">*/}
-                  {/*<button onClick={() => this.setState({type_picker_visible: !this.state.type_picker_visible})}>Filter by Media, Type, Theme</button>*/}
-                {/*</div>*/}
-
-                {/*{this.state.type_picker_visible &&*/}
-                {/*<div className="filters-content">*/}
-                  {/*<div className="form-group form-group--checklist form-group--replaced-checkboxes">*/}
-                    {/*<h2 className="label">Media</h2>*/}
-                    {/*<label>*/}
-                      {/*<input type="checkbox"/>*/}
-                      {/*<span>Images</span>*/}
-                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
-                    {/*</label>*/}
-                    {/*<label>*/}
-                      {/*<input type="checkbox"/>*/}
-                      {/*<span>Video</span>*/}
-                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
-                    {/*</label>*/}
-                    {/*<label>*/}
-                      {/*<input type="checkbox"/>*/}
-                      {/*<span>Audio</span>*/}
-                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
-                    {/*</label>*/}
-                    {/*<label>*/}
-                      {/*<input type="checkbox"/>*/}
-                      {/*<span>Documents</span>*/}
-                      {/*<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>*/}
-                    {/*</label>*/}
-                  {/*</div>*/}
-
-
-                  {/*{taxonomies}*/}
-
-                {/*</div>*/}
-                {/*}*/}
-
-              {/*</div>*/}
+              <div className="filter-by-tag">
+                <h2>Tags</h2>
+                <div className="parent-tags">
+                  {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
+                    return <TagGroup
+                      key={`tag-group-${tagGroup.id}`}
+                      tagGroup={tagGroup}
+                      isVisible={this.state.visibleTagGroup === tagGroup.id}
+                      enabledTagIds={this.enabledTagIdsInGroup(tagGroup.id)}
+                      toggleTag={this.toggleTag}
+                      tagIsChecked={this.tagIsChecked}
+                      setVisibleTagGroup={this.toggleTagGroup}
+                    />
+                  })}
+                </div>
+              </div>
 
               <div className="form-group">
                 <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search</button>

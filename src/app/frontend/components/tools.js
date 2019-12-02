@@ -3,6 +3,7 @@ import {observer, inject} from "mobx-react";
 import PropTypes from 'prop-types';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import Img from 'react-image';
+import {appendQueryString, openModalLink} from '../helpers/modals';
 
 @inject('userPresent', 'adminUserPresent', 'mapViewStore', 'trayViewStore', 'currentUser')
 @withRouter
@@ -31,29 +32,29 @@ import Img from 'react-image';
 
   accountLink() {
       if (this.props.userPresent && this.props.currentUser.role !== "student" ) {
-        return <Link to="/map/account/account" data-label="Your profile"><span>Your profile</span></Link>
+        return <Link to={openModalLink(this.props.location, {key: 'account', value: true})} data-label="Your profile"><span>Your profile</span></Link>
       }else if ( this.props.userPresent && this.props.currentUser.role === "student" ) {
-        return <Link to="/map/account/records" data-label="Your profile"><span>Your profile</span></Link>
+        return <Link to={openModalLink(this.props.location, {key: 'account', value: true})} data-label="Your profile"><span>Your profile</span></Link>
       } else {
-          return <a data-label="Sign in" href="/users/sign_in?return_to=/map/account/account"><span>Sign in</span></a>
+          return <a data-label="Sign in" href="/users/sign_in?return_to=/map"><span>Sign in</span></a>
       }
   }
 
-
-
   createCollectionLink() {
       if (this.props.userPresent) {
-          return <Link to='/map/collections/new' data-label="Create collection" onClick={this.handleHamburgerOnClick.bind(this)}><span>Create collection</span></Link>
+        return <Link to={openModalLink(this.props.location, {key: 'newCollection', value: true}, {remove: ['choose-place', 'record']})} data-label="Create collection" onClick={this.handleHamburgerOnClick.bind(this)}><span>Create collection</span></Link>
       } else {
-          return <a data-label="Create collection" href="/users/sign_in?return_to=/map/collections/new"><span>Create collection</span></a>
+        return <a data-label="Create collection" href="/users/sign_in?return_to=/map?newCollection=true"><span>Create collection</span></a>
       }
   }
 
   addRecordLink() {
+      const path = openModalLink(this.props.location, {key: 'choose-place', value: true});
+      
       if (this.props.userPresent) {
-          return <Link to='/map/choose-place' data-label="Add record" onClick={this.handleHamburgerOnClick.bind(this)}><span>Add record</span></Link>
+          return <Link to={path} data-label="Add record" onClick={this.handleHamburgerOnClick.bind(this)}><span>Add record</span></Link>
       } else {
-          return <a data-label="Add record" href="/users/sign_in?return_to=/map/choose-place"><span>Add record</span></a>
+          return <a data-label="Add record" href={`/users/sign_in?return_to=${path}`}><span>Add record</span></a>
       }
   }
 
@@ -88,15 +89,18 @@ import Img from 'react-image';
 
               <div className="m-smartphone-menu-wrapper">
                   <div className="m-tools">
+                      <div className="m-tool-button m-tool-button--getting-started">
+                        <Link to='/map' data-label="Getting started" onClick={this.handleHamburgerOnClick.bind(this)}><span>Getting Started</span></Link>
+                      </div>
                       <div className="m-tool-button m-tool-button--search">
-                          <Link to='/map/search' data-label="Search records" onClick={this.handleHamburgerOnClick.bind(this)}><span>Search records</span></Link>
+                          <Link to={openModalLink(this.props.location, {key: 'search', value: true})} data-label="Search records" onClick={this.handleHamburgerOnClick.bind(this)}><span>Search records</span></Link>
                       </div>
                       <div className="m-tool-button m-tool-button--layers">
-                          <Link to='/map/layers' data-label="Layers" onClick={this.handleHamburgerOnClick.bind(this)}><span>Layers</span></Link>
+                          <Link to={openModalLink(this.props.location, {key: 'layers', value: true})} data-label="Layers" onClick={this.handleHamburgerOnClick.bind(this)}><span>Layers</span></Link>
                       </div>
-                    <div className="m-tool-button m-tool-button--collections">
-                      <Link to='/map/search?results=true&collections=true' data-label="Collections" onClick={this.handleHamburgerOnClick.bind(this)}><span>Collections</span></Link>
-                    </div>
+                      <div className="m-tool-button m-tool-button--collections">
+                        <Link to='/map/collections' data-label="Collections" onClick={this.handleHamburgerOnClick.bind(this)}><span>Collections</span></Link>
+                      </div>
                       <div className="m-tool-button m-tool-button--add-collection">
                           {this.createCollectionLink()}
                       </div>

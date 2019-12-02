@@ -1,9 +1,9 @@
 import React,{Component} from 'react';
-import Img from 'react-image';
 import {observer, inject} from "mobx-react";
-import { Map, Marker, TileLayer } from 'react-leaflet'
 import RecordViewComponentState from './record_view_component_state';
 import {Link} from 'react-router-dom';
+import {openModalLink} from '../../helpers/modals';
+
 @inject('mapboxStaticMapsKey', 'userPresent')
 @observer class RecordViewSidebar extends Component {
   constructor(props) {
@@ -11,10 +11,12 @@ import {Link} from 'react-router-dom';
   }
 
   addToCollectionLink() {
+    const path = openModalLink(this.props.location, {key: 'addToCollection', value: true});
+
     if (this.props.userPresent) {
-      return <Link to={`/map/records/${this.props.trayViewStore.record.id}/add-to-collection`}>Add to collection</Link>
+      return <Link to={path}>Add to collection</Link>
     } else {
-      return <a href={`/users/sign_in?return_to=/map/records/${this.props.trayViewStore.record.id}/add-to-collection`}><span>Add to collection</span></a>
+      return <a href={`/users/sign_in?return_to=${path}`}><span>Add to collection</span></a>
     }
   }
 

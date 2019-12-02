@@ -1,18 +1,14 @@
 import React,{Component, Fragment} from 'react';
 import {observer} from "mobx-react";
 import Helmet from 'react-helmet';
+import {Link} from 'react-router-dom';
+import {inject} from "mobx-react";
+import {closeModalLink} from '../helpers/modals';
 
-import {inject} from "mobx-react/index";
-
-@inject('router')
+@inject('router', 'mapViewStore')
 @observer export default class NotFound extends Component {
   constructor(props) {
     super(props);
-  }
-
-  handleCloseOnClick(event) {
-    event.preventDefault();
-    this.props.router.history.push('/map');
   }
 
   render() {
@@ -24,7 +20,7 @@ import {inject} from "mobx-react/index";
         </Helmet>
         <div className='m-overlay'>
           <div className="close">
-            <a href="#" className="close" onClick={this.handleCloseOnClick.bind(this)}>Close</a>
+            <Link to={closeModalLink(this.props.router.location, 'record')} className="close">Close</Link>
           </div>
 
           <div className="m-add-record">

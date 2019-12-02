@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
 import {NavLink, Link, withRouter} from 'react-router-dom';
-import { Route } from 'react-router';
 import Img from 'react-image';
+import {appendQueryString, removeQueryStringParams, closeModalLink} from '../helpers/modals';
 
-@inject('router', 'trayViewStore')
+@inject('router', 'trayViewStore', 'mapViewStore')
 @withRouter
 @observer export default class MediaView extends Component {
   constructor(props) {
@@ -13,14 +13,9 @@ import Img from 'react-image';
     this.scrollingPaneRef = React.createRef();
   }
 
-  componentWillReceiveProps() {
-  }
-
-  componentDidMount() {
-    const active_item = this.scrollingPaneRef.current.querySelector('.active');
-
-    if( active_item ) {
-      this.scrollingPaneRef.current.scrollLeft = active_item.parentElement.offsetLeft;
+  componentWillUpdate() {
+    if(this.scrollingPaneRef.current) {
+      this.scrollingPaneRef.current.scrollLeft = this.scrollingPaneRef.current.querySelector('.active');
     }
   }
 
@@ -29,28 +24,34 @@ import Img from 'react-image';
     if( event.target.dataset.direction === "left" ) {
       scroll_by = -150;
     }
+
     this.scrollingPaneRef.current.scrollLeft += scroll_by;
   }
 
-  render() {
-    const in_gallery_view = this.props.trayViewStore.record.view_type === 'gallery';
+  handleOnClick() {
+    this.props.mapViewStore.toggleModal('media', false);
+  }
 
+  render() {
+    if(!this.props.trayViewStore.record || !this.props.mapViewStore.mediaModal) return <React.Fragment />
+
+    const in_gallery_view = this.props.trayViewStore.record.view_type === 'gallery';
     const media_list = this.props.trayViewStore.record.media_and_videos.map((media) => {
       const classes = media.attachable.content_type.split('/').join(' ');
+      const path = appendQueryString(this.props.router.location, [{key: 'media-item-id', value: media.id}])
       return <div key={media.id} className={`thumb ${classes}`}>
-        <NavLink to={`/map/records/${this.props.match.params.id}/media/${media.id}`}>
+        <NavLink to={`?${path}`}>
           <Img src={media.attachable.thumb} alt="" loader={<span className="is-loading" /> }/>
         </NavLink>
       </div>;
     });
 
-    const link = this.props.match.params.collection_id ? `/map/collections/${this.props.match.params.collection_id}/records/${this.props.match.params.id}` : `/map/records/${this.props.match.params.id}`;
-
+    const search = removeQueryStringParams(this.props.router.location, ['media', 'media-item-id']);
     return <div className="m-overlay is-showing" style={{zIndex: 12341234, top: 0, left: 0}}>
       <div className="s-overlay--media is-showing">
         <div className="m-media-viewer *m-media-viewer--basic">
           <div className="close">
-            <Link to={link}>Close</Link>
+            <Link to={closeModalLink(this.props.router.location, ['media', 'media-item-id'])} onClick={this.handleOnClick.bind(this)}>Close</Link>
           </div>
 
           <div className="wrap">

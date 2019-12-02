@@ -3,7 +3,7 @@ class RecordsIndex < Chewy::Index
     "Record"
   end
   
-  define_type Record.includes(:user, :attachments, collections: [:owner]) do
+  define_type Record.includes(:user, :attachments, :tag_groups, :tags, collections: [:owner]) do
     include FieldDefinitions::Record
   end
 
@@ -22,7 +22,6 @@ class RecordsIndex < Chewy::Index
         }
       }
     )
-    q = Chewy::Search::Request.new(RecordsIndex).query({nested: {path: "user", query: {bool: {must: [{match: {"user.id" => 57 }}]}}}}) ; q.limit(200) ; q.size
 
     es_query.filter(terms: {state: record_states}).limit(limit)
   end
@@ -33,5 +32,13 @@ class RecordsIndex < Chewy::Index
 
   def self.in_state(states)
     filter(terms: {state: states})
+  end
+
+  def self.with_tags(tag_ids, limit: 200)
+    filter(terms: {tag_ids: tag_ids}).limit(limit)
+  end
+
+  def self.with_tag_groups(tag_group_ids, limit: 200)
+    filter(terms: {tag_group_ids: tag_group_ids}).limit(limit)
   end
 end

@@ -2,14 +2,15 @@
 
 .m-hero {
   clear: both;
-  min-height: 820px;
-  height: 820px;
   position: relative;
-  margin-bottom: 15px;
+  min-height: 670px;
+  @include mq(tablet) {
+    min-height: 600px;
+  }
   @include mq(small-tablet) {
     @include clearfix;
-    height:auto;
-    min-height:0;
+    height: auto;
+    min-height: 0;
   }
 }
 
@@ -21,27 +22,37 @@
 }
 
 .m-hero .text-content {
-  width: 50%;
+  width: 61%;
+  float: left;
   height: 100%;
   position: relative;
-  padding: 230px 80px 140px;
-  background: rgba(0, 0, 0, 0.4);
+  padding: 180px 80px 140px 0;
+  color: white;
+  // TODO
   @include mq(tablet) {
-    padding-left:40px;
-    padding-right:40px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
   @include mq(small-tablet) {
-    width:100%;
+    width: 100%;
     padding: 40px;
-    height:auto;
+    height: auto;
   }
 }
 
 .m-hero--home .text-content {
-  float: right;
   @include mq(small-tablet) {
     text-align: center;
-    padding:20px;
+    padding: 20px;
+  }
+  @include mq(smartphone) {
+    max-width: 550px;
+    margin: 0 auto;
+    float: none;
+    padding-bottom: 100px;
+  }
+  @media screen and (max-width: 660px) {
+    padding-bottom: 20px;
   }
 }
 
@@ -51,7 +62,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: asset-url('map-2.png') center/cover no-repeat !important;
+  //background: asset-url('map-light.jpg') center/cover no-repeat !important;
 }
 
 .t-homepage .m-hero .image {
@@ -64,32 +75,39 @@
   font-size: 64px;
   margin-top: 20px;
   color: $green;
+  margin-bottom: 50px;
   @include mq(tablet) {
     font-size: 46px;
   }
   @include mq(small-tablet) {
-    font-size: 44px;
-    margin-top:0;
+    font-size: 34px;
+    margin-top: 0;
+  }
+  @include mq(smartphone) {
   }
   @include mq(small-smartphone) {
-    font-size: 34px;
+    font-size: 24px;
   }
 }
 
+.m-hero--home h1 {
+  color: white;
+}
+
 .m-hero a {
-  background: transparentize($green, 0.5);
-  color: #ffffff;
-  padding: 17px 25px;
-  border-radius: 100px;
-  text-transform: uppercase;
-  font-weight: bold;
-  margin-top: -1px;
-  display: inline-block;
-  transition: all .2s;
-  @include mq(smartphone) {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
+  /*  background: transparentize($green, 0.5);
+    color: #ffffff;
+    padding: 17px 25px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: -1px;
+    display: inline-block;
+    transition: all .2s;
+    @include mq(smartphone) {
+      padding: 10px 20px;
+      font-size: 14px;
+    }*/
 }
 
 .m-hero a:hover {
@@ -98,10 +116,99 @@
 }
 
 .m-hero a:before {
+  /*  content: "\f0da";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1em;
+    margin-right: 10px;
+    z-index: 1;*/
+}
+
+.m-hero .search {
+  margin-bottom: 20px;
+}
+
+.m-hero input[type="text"] {
+  font-size: 20px;
+  background: transparent;
+  padding: 15px 18px 17px;
+  border: 3px solid $green;
+  width: 478px;
+  color: white;
+  @include mq(tablet) {
+    font-size: 15px;
+    padding: 15px 15px 15px;
+    width: 392px;
+  }
+  @include mq(smartphone) {
+    font-size: 17px;
+    width: calc(100% - 89px);
+  }
+  @include mq(small-smartphone) {
+    font-size: 11px;
+    padding: 15px 10px;
+    width: 100%;
+    color: white;
+    margin-bottom: 10px;
+  }
+}
+
+.m-hero {
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: white;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: white;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: white;
+  }
+}
+
+.m-hero input[type="submit"] {
+  border: 0;
+  padding: 21px 18px;
+  background: white;
+  color: #549a77;
+  border-radius: 100px;
+  margin-left: 18px;
+  float: none;
+  width: auto;
+  font-weight: 600;
+  font-size: 20px;
+  position: relative;
+  top: 1px;
+  @include mq(tablet) {
+    padding: 18px 16px;
+    margin-left: 10px;
+  }
+  @include mq(small-smartphone) {
+    padding: 11px 9px;
+  }
+}
+
+.m-hero .links {
+  @include unlist;
+  margin-left: 2px;
+}
+
+.m-hero .links li {
+  display: inline-block;
+  margin-right:15px;
+}
+
+.m-hero .links a {
+  text-transform: uppercase;
+  font-size:14px;
+}
+
+.m-hero .links a:before {
   content: "\f0da";
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: 1em;
-  margin-right: 10px;
-  z-index: 1;
+  margin-right: 5px;
 }

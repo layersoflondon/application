@@ -16,6 +16,7 @@
     "transform-decorators-legacy",
     "transform-class-properties",
     "syntax-dynamic-import",
+    "url-search-params-polyfill",
     "transform-object-rest-spread",
     [
       "transform-class-properties",

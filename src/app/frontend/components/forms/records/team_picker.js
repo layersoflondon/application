@@ -52,7 +52,12 @@ import Select from 'react-select';
 
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='team' ? 'block' : 'none'};
-    const pane_classname = (this.props.recordFormStore.visible_pane==='team') ? 'is-open' : '';
+    let pane_classname = (this.props.recordFormStore.visible_pane==='team') ? 'is-open' : '';
+
+    if(!this.props.recordFormStore.record.id) {
+      pane_classname = `${pane_classname} is-disabled`;
+    }
+    
     const toggled_classname = (this.state.allow_team_editing) ? "is-toggled" : "";
 
     return (

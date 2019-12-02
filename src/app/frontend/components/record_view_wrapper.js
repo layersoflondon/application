@@ -13,7 +13,12 @@ import RecordView from './record_view/record_view';
   }
 
   render() {
-    return <RecordView {...this.props} />
+    if(this.props.mapViewStore.modalIsVisible('record')) {
+      return <RecordView {...this.props} />
+    }else {
+      return <React.Fragment>
+      </React.Fragment>
+    }
   }
 }
 

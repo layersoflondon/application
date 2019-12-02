@@ -27,6 +27,15 @@
   }
 }
 
+.m-accordion .section.is-disabled {
+  color: grey;
+  opacity: 0.5;
+
+  h2:hover {
+    cursor: default;
+  }
+}
+
 .m-accordion .section.is-open + .section {
   border: 0;
 }

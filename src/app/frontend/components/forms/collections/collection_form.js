@@ -6,9 +6,8 @@ import CollectionModel from '../../../models/collection';
 import {inject} from "mobx-react/index";
 import Team from "../../../sources/team";
 import Select from 'react-select'
-import Record from "../../../sources/record";
-import RecordModel from "../../../models/record";
 import {recordEvent} from "../../../config/data_layer";
+import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers/modals';
 
 @inject('router', 'mapViewStore', 'collectionStore', 'layersStore', 'trayViewStore', 'collectionFormStore')
 @withRouter
@@ -18,13 +17,28 @@ import {recordEvent} from "../../../config/data_layer";
 
     // todo: set owner type either in the controller, or when the write state is changed
     this.state = {id: null, title: "", description: "", read_state: 'public_read', write_state: "creator", write_state_team_id: null, owner_type: "User", teams: null, errors: []};
-
   }
 
   componentWillMount() {
+    this.initializeCollectionState();
+  }
 
-    if( this.props.match.params.id && this.props.match.params.id !== 'new'  ) {
-      Collection.show(null, this.props.match.params.id).then((response) => {
+  componentDidUpdate(props) {
+    if(props.location.key !== this.props.location.key) {
+      this.initializeCollectionState();
+    }
+  }
+
+  initializeCollectionState() {
+    const newCollection = getQueryStringParam(this.props.router.location, 'newCollection') === "true";
+    const editCollection = getQueryStringParam(this.props.router.location, 'editCollection');
+
+    if(!(newCollection || editCollection)) return;
+
+    if(newCollection) {
+      this.props.collectionFormStore.collection = CollectionModel.fromJS({}, this.props.trayViewStore);
+    }else if(editCollection) {
+      Collection.show(null, editCollection).then((response) => {
         this.setState(response.data);
         this.props.collectionFormStore.collection = CollectionModel.fromJS(response.data, this.props.trayViewStore);
       });
@@ -35,13 +49,6 @@ import {recordEvent} from "../../../config/data_layer";
       teams = response.data.map((team) => ({value: team.id, label: team.name}));
       this.setState({teams: teams});
     });
-
-    //TODO why do we do this?
-    if( this.props.trayViewStore.cards.size === 0 && !this.props.trayViewStore.locked ) {
-      setTimeout(() => {
-        this.props.trayViewStore.restoreRootState();
-      }, 10);
-    }
   }
 
   handleOnChange(event) {
@@ -66,8 +73,14 @@ import {recordEvent} from "../../../config/data_layer";
       recordEvent('createCollection', {
         'collection': collection.title
       });
+      
+      this.props.mapViewStore.inAddCollectionMode  = false;
+      this.props.mapViewStore.inEditCollectionMode = false;
+      this.props.mapViewStore.newCollectionModal   = false;
+      this.props.mapViewStore.editCollectionModal  = false;
       this.props.router.push(`/map/collections/${collection.id}`);
     }).catch((response) => {
+      console.log(response, response.data);
       this.props.router.push(`/map`);
     });
   }
@@ -87,11 +100,20 @@ import {recordEvent} from "../../../config/data_layer";
     if( this.state.teams === null) {
       return <div/> // wait for the teams to be loaded
     }
+    
+    if(!(this.props.mapViewStore.inEditCollectionMode || this.props.mapViewStore.inAddCollectionMode)) {
+      return <React.Fragment />;
+    }
 
-    let className = "m-overlay";
-    if( this.props.mapViewStore.overlay === 'collection_form' ) className+=" is-showing";
-
+    let className = "m-overlay is-showing";
     const formTitle = this.props.collectionFormStore.collection.is_persisted ? "Edit collection" : "Create collection";
+    
+    const handleOnClick = () => {
+      removeModal(this.props.router.location, 'newCollection', this.props.mapViewStore);
+      removeModal(this.props.router.location, 'editCollection', this.props.mapViewStore);
+    }
+
+    const closeLink = <Link to={closeModalLink(this.props.router.location, ['newCollection', 'editCollection'])} className="close" onClick={handleOnClick}>Close</Link>;
 
     if (!this.props.collectionFormStore.collection.is_editable) {
       return (
@@ -99,11 +121,10 @@ import {recordEvent} from "../../../config/data_layer";
           <div className="s-overlay--add-collection is-showing">
 
             <div className="close">
-              <Link to="/map" className="close">Close</Link>
+              {closeLink}
             </div>
 
             <div className="m-add-collection">
-
               <h1>{formTitle}</h1>
               <p>You don't have permission to edit this collection.</p>
             </div>
@@ -116,7 +137,7 @@ import {recordEvent} from "../../../config/data_layer";
           <div className="s-overlay--add-collection is-showing">
 
             <div className="close">
-              <Link to="/map" className="close">Close</Link>
+              {closeLink}
             </div>
 
             <div className="m-add-collection">
@@ -167,16 +188,10 @@ import {recordEvent} from "../../../config/data_layer";
 
                 <input value="Save" type="submit" />
               </form>
-
-
-
             </div>
           </div>
         </div>
       );
     }
-    
-
-
   }
 }

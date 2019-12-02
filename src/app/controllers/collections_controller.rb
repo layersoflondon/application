@@ -3,6 +3,8 @@ class CollectionsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   skip_after_action :verify_authorized, only: %i[index show]
 
+  after_action :increment_view_count, only: :show
+
   decorates_assigned :collection, :collections
 
   def index
@@ -49,7 +51,7 @@ class CollectionsController < ApplicationController
 
   def show
     # todo query ES to order by
-    @collection = CollectionsIndex.filter(ids: {values: [params[:id]]}).first.tap {|c| c.records.sort! {|r1,r2| r1["title"] <=> r2["title"]}}
+    @collection = CollectionsIndex.find_with_ordered_records(params[:id])
     raise Pundit::NotAuthorizedError, "Not allowed to show this Collection" unless CollectionPolicy.new(current_user, @collection).show?
   end
 
@@ -95,5 +97,16 @@ class CollectionsController < ApplicationController
       :owner_id,
       :owner_type
     )
+  end
+
+  def increment_view_count
+    cookie = ActiveSupport::JSON.decode(cookies[:collection_views]) rescue []
+
+    unless cookie.include?(@collection.id.to_i)
+      cookie << @collection.id.to_i
+      cookies[:collection_views] = {value: JSON.generate(cookie), expires: 1.year.from_now}
+
+      Collection.update_view_count!(@collection.id)
+    end
   end
 end

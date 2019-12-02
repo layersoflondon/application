@@ -4,6 +4,7 @@
   padding: 80px;
   clear: both;
   font-size: 14px;
+  background:$black;
   @include mq(tablet) {
     padding:40px;
   }

@@ -1,4 +1,5 @@
-import React from 'react';
+// import React from 'react';
+import {removeModal} from '../../helpers/modals';
 
 export default class RecordViewComponentState {
   static bindComponent(component) {
@@ -14,17 +15,9 @@ export default class RecordViewComponentState {
       handleCloseOnClick(event) {
         event.preventDefault();
 
-        this.props.trayViewStore.record_id = false;
-        this.props.trayViewStore.record = false;
-
-        if(this.props.match.params.collection_id) {
-          this.props.router.push(`/map/collections/${this.props.match.params.collection_id}`);
-        }else if( this.props.router.history.previousLocalStates>0 ) {
-          // this.props.router.goBack();
-          this.props.router.push(`/map`);
-        }else {
-          this.props.router.push(`/map`);
-        }
+        const search = removeModal(this.props.router.location, 'record', this.props.mapViewStore);
+        
+        this.props.router.push(`/map?${search}`);
       }
 
       render() {

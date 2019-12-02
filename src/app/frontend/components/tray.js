@@ -15,20 +15,6 @@ import TrayHeader from "./tray_header";
     this.props.trayViewStore.tray_list_ref = this.tray_list;
   }
 
-  componentWillMount() {
-    if (this.props.router.history.location.pathname === "/map") {
-      setTimeout(() => {
-        this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
-      }, 2);
-    }
-  }
-
-  componentWillReceiveProps() {
-    if(this.props.router.history.location.pathname === "/map" && !this.props.trayViewStore.root ) {
-      this.props.trayViewStore.restoreRootState();
-    }
-  }
-
   render() {
     const cards = this.props.trayViewStore.cards.values().map( (c) => {
       const key = `${c.is_collection ? 'collection' : 'record'}_${c.id}`;
@@ -51,9 +37,9 @@ import TrayHeader from "./tray_header";
 
       <div className="window" ref={this.tray_list}>
         <div className="s-tray-area--default is-showing">
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <TrayHeader showTrayHeader={!this.props.trayViewStore.root} {...this.props}/>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           <div className="m-tray-records-list">
             {cards}

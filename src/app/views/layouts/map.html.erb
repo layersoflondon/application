@@ -6,10 +6,17 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
+    <meta name="device" content="<%= browser.device.tablet? ? browser.device.id : ''  %>">
+    <meta name="device-tablet" content="<%= browser.device.tablet? %>">
+
     <%= stylesheet_link_tag 'map' %>
+
     <!--<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>-->
+
     <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:400,600,700|Muli:400,600,700" rel="stylesheet">
+
     <%= render partial: "shared/rollbar" if Rails.env.production? %>
+
     <script type="text/javascript" charset="utf-8">
         <%# Redirect the old site structure, which uses hash anchors %>
         if (window.location.toString().match(/#\/?(collections|pins)\/\d+/)) {
@@ -20,6 +27,7 @@
     <script type="text/javascript" charset="utf-8">
       window.dataLayerParams = window.dataLayerParams || [];
     </script>
+
     <% if params[:new_signup] %>
         <script type="text/javascript" charset="utf-8">
           dataLayerParams.push({
@@ -28,14 +36,15 @@
           })
         </script>
     <% end %>
+
     <%= stylesheet_pack_tag 'styles', media: 'all' %>
+
     <%= javascript_pack_tag 'application' %>
-
-
 
     <%= render partial: "shared/favicon" %>
 
     <%= render partial: "shared/gtm" %>
+
 </head>
 
 <body>

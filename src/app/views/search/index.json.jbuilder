@@ -4,6 +4,4 @@ json.array! @results do |result|
   elsif result.is_a?(CollectionsIndex::Collection)
     json.partial! 'search/collection', locals: {collection: result}
   end
-
-  
 end

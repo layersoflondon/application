@@ -1,11 +1,18 @@
 Rails.application.routes.draw do
+  get 'tag_groups/index'
+  get 'tag_groups/show'
   # Robot gem renders env-specific robots.txt files
   mount_roboto
 
   # Alpha redirects
-  get '/map/pins/:id', to: redirect('/map/records/%{id}')
+  get '/map/pins/:id', to: redirect('/map?record=%{id}')
   get '/the-map', to: redirect('/map')
   get '/search', to: redirect('/map/search')
+  
+  get '/map/records/:id', to: redirect('/map?record=%{id}')
+  get '/map/choose-place', to: redirect('/map?choose-place=true')
+  get '/map/layers', to: redirect('/map?layers=true')
+  get '/map/collections/new', to: redirect('/map?newCollection=true')
 
   #Redirect for trailing slash on map
   get '/map/', to: redirect("/map"), constraints: ->(req) { req.original_fullpath == "/map/"}
@@ -49,6 +56,7 @@ Rails.application.routes.draw do
       post 'report'
       patch 'collections', to: 'records#add_to_collections'
       delete 'collections', to: 'records#remove_from_collections'
+      get 'related'
     end
 
     resources :comments, controller: 'comments', only: [:index, :create, :update, :destroy]
@@ -77,7 +85,10 @@ Rails.application.routes.draw do
   end
 
   resources :georeferencer_projects, only: :show, path: 'layermaker'
-  
+
+  resources :tag_groups, only: [:index, :show], defaults: {format: :json} do
+    resources :tags, only: [:index, :show]
+  end
 
   resource :map, controller: 'maps' do
     match '/state', via: :get, to: 'maps#state', as: :map_state, format: :json

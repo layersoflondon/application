@@ -1,7 +1,9 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:update, :destroy, :like, :report]
-  skip_before_action :authenticate_user!, only: [:show, :index, :report, :for_user]
-  skip_after_action :verify_authorized, only: [:index, :show, :report, :for_user] #show is in here because we authorize in the method
+  skip_before_action :authenticate_user!, only: [:show, :index, :report, :for_user, :related]
+  skip_after_action :verify_authorized, only: [:index, :show, :report, :for_user, :related] #show is in here because we authorize in the method
+
+  after_action :increment_view_count, only: :show
 
   decorates_assigned :record, :records, with: RecordDecorator
 
@@ -42,6 +44,8 @@ class RecordsController < ApplicationController
 
     raise ActiveRecord::RecordNotFound, "Record not found" unless @record.present?
     raise Pundit::NotAuthorizedError unless RecordPolicy.new(current_user, @record).show?
+
+    
     # TODO create a RecordViewJob which increments async.
     # @record.increment!(:view_count) unless cookies[:viewed_records].present? && cookies[:viewed_records].include?(@record.id)
   end
@@ -52,6 +56,16 @@ class RecordsController < ApplicationController
       user_id: params[:id],
       record_states: (current_user.try(:id) == params[:id].to_i) ? ['published', 'draft'] : ['published']
     )
+  end
+
+  def related
+    record = RecordsIndex.published.filter(ids: {values: [params[:id]]}).first
+
+    raise ActiveRecord::RecordNotFound, "Record not found" unless record.present?
+    raise Pundit::NotAuthorizedError unless RecordPolicy.new(current_user, record).show?
+
+    related = RecordsIndex.published.filter(ids: {values: record.related_record_ids}).limit(6)
+    render json: related
   end
 
   def update
@@ -73,9 +87,9 @@ class RecordsController < ApplicationController
     if @record.state == 'deleted' && @result == true
       return render json: '', status: :ok
     end
-
+    
     unless @result.present?
-      render json: @record.errors, status: :unprocessable_entity
+      return render json: @record.errors, status: :unprocessable_entity
     end
   end
 
@@ -182,6 +196,7 @@ class RecordsController < ApplicationController
         :credit,
         :allow_team_editing,
         :team_id,
+        tag_ids: [],
         location: %i[
           address
         ]
@@ -258,6 +273,17 @@ class RecordsController < ApplicationController
     if session[:teacher_classroom_user] && current_user.teacher_token_expires < Time.now
       record.errors.add(:user, "Your classroom session has finished")
       nil
+    end
+  end
+
+  def increment_view_count
+    cookie = ActiveSupport::JSON.decode(cookies[:record_views]) rescue []
+    
+    unless cookie.include?(@record.id.to_i)
+      cookie << @record.id
+      cookies[:record_views] = {value: JSON.generate(cookie), expires: 1.year.from_now}
+
+      Record.update_view_count!(@record.id)
     end
   end
 end

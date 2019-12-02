@@ -109,12 +109,10 @@ import RecordModel from "../models/record";
   }
 
   render() {
-
-
     const toggled_classname = (this.state.showing === "user_collections") ? "" : "is-toggled";
     const collection_options = this.state[`${this.state.showing}_options`];
+    
     return  <div className="m-add-to-collection">
-
       <div className="form">
 
         <div className={`form-group form-group--toggle-switch ${toggled_classname}`}>
@@ -138,7 +136,6 @@ import RecordModel from "../models/record";
           {this.state.record.user_collections.length>0 && (
             <div className="belongs-to">
               <h4>Your collections</h4>
-
               {this.state.record.user_collections.map((c, i) => (
                 <button className='m-record-collection-button' value={c.id} name='user_collections'
                         onClick={this.removeFromCollections.bind(this)} key={`user_collections_${i}`}>
@@ -147,24 +144,19 @@ import RecordModel from "../models/record";
               ))}
             </div>
           )}
-
           {this.state.record.everyone_collections.length>0 && (
             <div className="belongs-to">
               <h4>Other public collections</h4>
 
               {this.state.record.everyone_collections.map((c, i) => (
-
-                <button className={`m-record-collection-button ${c.user_can_remove_from ? '' : 'm-record-collection-button--read-only'}`} value={c.id} name='everyone_collections' onClick={c.user_can_remove_from ? this.removeFromCollections.bind(this) : null} key={`everyone_collections_${i}`} title={c.user_can_remove_from ? '' : "You can't remove because you didn't add"}>
+                <button className={`m-record-collection-button ${c.user_can_remove_from ? '' : 'm-record-collection-button--read-only'}`} value={c.id} name='everyone_collections' onClick={c.user_can_remove_from ? this.removeFromCollections.bind(this) : null} key={`everyone_collections_${i}`} title={c.user_can_remove_from ? '' : "You can't remove because you didn't add it"}>
                   {c.title}
                 </button>
               ))}
             </div>
           )}
-
         </div>
-
       )}
-
     </div>
   }
 

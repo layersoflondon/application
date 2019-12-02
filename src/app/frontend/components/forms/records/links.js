@@ -22,6 +22,11 @@ import ErrorBoundary from "../../error_boundary";
 
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='links' ? 'block' : 'none'};
+    let pane_classname = (this.props.recordFormStore.visible_pane==='links') ? 'is-open' : '';
+    
+    if(!this.props.recordFormStore.record.id) {
+      pane_classname = `${pane_classname} is-disabled`;
+    }
 
     let links = this.props.recordFormStore.record.links.map((link, i) => {
       let index = this.props.recordFormStore.record.attachments.indexOf(link);
@@ -33,7 +38,7 @@ import ErrorBoundary from "../../error_boundary";
     });
 
     return (
-      <div className="section">
+      <div className={`section ${pane_classname}`}>
         <h2 className="title" data-name="links" onClick={this.togglePaneVisibility}>Links</h2>
 
         <div className="pane" style={pane_styles}>

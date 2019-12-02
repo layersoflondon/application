@@ -1,8 +1,7 @@
 import LoLHTTPBase from './lol_http_base';
 import axios from 'axios';
-window.axios = axios;
 
-export default class Collection extends LoLHTTPBase {
+class Collection extends LoLHTTPBase {
   static resource_path = '/collections'; static path = '/collections';
 
   static writable_by_everyone() {
@@ -58,3 +57,6 @@ export default class Collection extends LoLHTTPBase {
     return axios.get('/collections', params);
   }
 }
+
+window.Collection = Collection;
+export default Collection;

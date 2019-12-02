@@ -3,6 +3,8 @@ import {inject, observer} from "mobx-react";
 import RecordViewComponentState from './record_view_component_state';
 import Record from '../../sources/record';
 import {Link, withRouter} from 'react-router-dom';
+import {getQueryStringParam} from '../../helpers/modals';
+
 @inject('currentUser', 'router', 'userPresent')
 @withRouter
 @observer class RecordViewReport extends Component {
@@ -15,16 +17,16 @@ import {Link, withRouter} from 'react-router-dom';
     }
 
     this.issues = {copyright: "Copyright", inappropriate: "Inappropriate or offensive", inaccurate: "Inaccurate"};
-
-    const params = new URLSearchParams(this.props.router.location.search);
     let form = {issue: Object.keys(this.issues)[0], message: '', email: email};
+    const commentId = getQueryStringParam(this.props.location, 'comment');
 
-    if( params.get('comment') ) {
+    if( commentId ) {
       this.issues = {...this.issues, comment: "Comment"};
-      form = {...form, comment_id: params.get('comment'), issue: Object.keys(this.issues)[Object.keys(this.issues).length-1]};
+      form = {...form, comment_id: commentId, issue: Object.keys(this.issues)[Object.keys(this.issues).length-1]};
     }
 
-    this.state = {form: form, errors: [], record_id: this.props.router.location.pathname.split("/").slice(-2,-1), report_sent: false};
+    const recordId = getQueryStringParam(this.props.location, 'record');
+    this.state = {form: form, errors: [], record_id: recordId, report_sent: false};
   }
 
   
@@ -40,8 +42,6 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   sendReport(event) {
-    const path = this.props.router.location.pathname.split("/");
-    path.splice(-1, 1);
     Record.report(null, {report: this.state.form}).then((response) => {
       this.setState({report_sent: true});
     }).catch((error) => {
@@ -49,11 +49,9 @@ import {Link, withRouter} from 'react-router-dom';
         this.setState({errors: error.response.data, report_sent: false});
       }
     });
-
   }
 
   formContent() {
-
     const choices = Object.keys(this.issues).map((key, i) => {
       return<label key={i}>
         <input type='radio' name='issue' value={key} checked={this.state.form.issue === key} onChange={this.handleChange.bind(this)} />
@@ -95,7 +93,6 @@ import {Link, withRouter} from 'react-router-dom';
         )}
 
         <button onClick={this.sendReport.bind(this)}>Send</button>
-
       </div>
     </div>
     )
@@ -112,6 +109,9 @@ import {Link, withRouter} from 'react-router-dom';
   }
 
   render() {
+    const showReportForm = getQueryStringParam(this.props.location, 'reportRecord');
+
+    if(!showReportForm) return <React.Fragment />;
 
     let content;
     if (this.state.report_sent) {
@@ -124,10 +124,9 @@ import {Link, withRouter} from 'react-router-dom';
     return <Fragment>
       <div className="m-overlay is-showing" style={{zIndex: 12341234, top: 0, left: 0}}>
         <div className="close">
-          <Link to={`/map/records/${this.state.record_id}`}>Close</Link>
+          <Link to={`/map`}>Close</Link>
         </div>
         { content }
-
       </div>
     </Fragment>
   }

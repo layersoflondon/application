@@ -8,7 +8,6 @@ import {observe} from "mobx";
 import {observer} from "mobx-react";
 
 @observer class CollectionsEditor extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +22,11 @@ import {observer} from "mobx-react";
 
   render() {
     const pane_styles = {display: this.props.recordFormStore.visible_pane==='collection' ? 'block' : 'none'};
-    const pane_classname = (this.props.recordFormStore.visible_pane==='collection') ? 'is-open' : '';
+    let pane_classname = (this.props.recordFormStore.visible_pane==='collection') ? 'is-open' : '';
+    if(!this.props.recordFormStore.record.id) {
+      pane_classname = `${pane_classname} is-disabled`;
+    }
+    
     const title = ((this.state.record.collection_ids || []).length) ? 'Manage collections' : 'Add to collections';
 
     return (

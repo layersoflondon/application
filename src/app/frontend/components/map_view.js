@@ -8,17 +8,16 @@ import ErrorBoundary from './error_boundary';
 import MapSearchContainer from './map_search_container';
 import pluralize from "pluralize";
 import MapLayerGroup from "./map_layer_group";
+import {openModalLink} from '../helpers/modals';
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'layersStore', 'recordFormStore')
 @observer export default class MapView extends Component {
   constructor(props) {
     super(props);
 
-    this.mapRef = null;
     this.setMapRef = element => {
-      this.mapRef = element;
-      this.props.mapViewStore.map_ref = this.mapRef;
-      this.props.trayViewStore.map_ref = this.mapRef;
+      this.props.mapViewStore.mapRef = element;
+      this.props.trayViewStore.mapRef = element;
     };
 
     this.state = {headerShowing: false};
@@ -32,37 +31,45 @@ import MapLayerGroup from "./map_layer_group";
     });
   }
 
-
-
   componentDidMount() {
-    this.initial_bounds = this.props.mapViewStore.current_bounds;
+    this.props.mapViewStore.getMapBounds().then((bounds) => {
+      this.initial_bounds = bounds;
+    });
   }
 
   handleOnDragEnd() {
     if(!this.props.trayViewStore.locked) {
-      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+      this.props.mapViewStore.getMapBounds().then((bounds) => {
+        this.props.router.push(`/map/${bounds.center.lat},${bounds.center.lng}`);
+      });
     }
   }
 
   handleOnZoomEnd() {
     if(!this.props.trayViewStore.locked) {
-      this.props.trayViewStore.reloadTrayDataForBounds(this.props.mapViewStore.current_bounds);
+      this.props.mapViewStore.getMapBounds().then((bounds) => {
+        this.props.router.push(`/map/${bounds.center.lat},${bounds.center.lng}`);
+      });
     }
   }
 
   handleOnClick(event) {
     this.props.mapViewStore.latlng = event.latlng;
 
-    if( this.props.mapViewStore.add_record_mode ) {
+    if( this.props.mapViewStore.inChoosePlaceMode ) {
       const {lat, lng} = event.latlng;
 
       this.props.recordFormStore.latlng = event.latlng;
       this.props.recordFormStore.record.lat = lat;
       this.props.recordFormStore.record.lng = lng;
+
+      this.props.mapViewStore.inChoosePlaceMode = false;
+      this.props.mapViewStore.inEditRecordMode = true;
+
       if (!!this.props.recordFormStore.record.id) {
-        this.props.router.push(`/map/records/${this.props.recordFormStore.record.id}/edit`)
+        this.props.router.push(openModalLink(this.props.router.location, {key: 'editRecord', value: this.props.recordFormStore.record.id}));
       } else {
-        this.props.router.push('/map/records/new');
+        this.props.router.push(openModalLink(this.props.router.location, {key: 'newRecord', value: true}, {remove: ['choose-place']}));
       }
 
     }
@@ -91,20 +98,18 @@ import MapLayerGroup from "./map_layer_group";
     const map_zoom = this.props.mapViewStore.zoom;
 
     let markers = [];
-
-    if( this.props.trayViewStore.cards.size ) {
-      this.props.trayViewStore.cards.values().map((c) => {
-        let key;
-        if( c.is_collection ) {
-          c.data.records.map((r)=> {
-            key = `collection_${c.id}_record_${r.id}`;
-            markers.push( <ErrorBoundary key={key}><MarkerContainer position={r.position} record={r} cardComponent={c} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
-          })
-        }else {
-          markers.push( <ErrorBoundary key={c.id}><MarkerContainer position={c.data.position} record={c.data} cardComponent={c} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
-        }
-      });
-    }
+    
+    this.props.trayViewStore.cardsToRenderOnMap.values().map((card, i) => {
+      let key;
+      if( card.is_collection ) {
+        card.data.records.map((record, i)=> {
+          key = `collection_${card.id}_record_${record.id}_${i}`;
+          markers.push( <ErrorBoundary key={key}><MarkerContainer position={record.position} record={record} cardComponent={card} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
+        })
+      }else {
+        markers.push( <ErrorBoundary key={`${card.id}_${i}`}><MarkerContainer position={card.data.position} record={card.data} cardComponent={card} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
+      }
+    });
 
     const layers = <span className="tile-layers">
       <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
@@ -115,16 +120,16 @@ import MapLayerGroup from "./map_layer_group";
       })}
     </span>;
 
-    const headerContent = this.props.trayViewStore.header_content;
+    // const headerContent = this.props.trayViewStore.header_content;
     const headerMeta = <div className="meta">
       {[
-        headerContent.tray_view_type,
+        // headerContent.tray_view_type,
         (!!this.props.trayViewStore.recordsCount && pluralize('record', this.props.trayViewStore.recordsCount, true)) || null,
         (!!this.props.trayViewStore.collectionsCount && pluralize('collection',this.props.trayViewStore.collectionsCount,true)) || null].filter((e) => {return e}).join(", ")}
     </div>;
 
     return <ErrorBoundary>
-      {
+      {/* {
         this.state.headerShowing && !this.props.mapViewStore.add_record_mode && (
           <div className="m-map-view-title-area">
             { (headerContent.title) &&
@@ -138,7 +143,7 @@ import MapLayerGroup from "./map_layer_group";
             {headerMeta}
           </div>
         )
-      }
+      } */}
 
       <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
         <div className={`m-map ${this.props.mapViewStore.add_record_mode ? 'is-adding' : ''}`}>

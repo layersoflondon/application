@@ -75,8 +75,6 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-
-
 /* Buttons */
 
 body {
@@ -85,7 +83,11 @@ body {
 }
 
 body.iframe-view {
-  min-width:260px;
+  min-width: 260px;
+}
+
+.m-map-wrapper body.iframe-view {
+  min-width: 260px;
 }
 
 a {
@@ -96,26 +98,6 @@ a {
 
 a:hover {
   color: $link-hover-color;
-}
-
-.grid {
-  @include grid;
-}
-
-.grid > div {
-  @include grid-item (1, 5);
-  margin-bottom: 20px
-}
-
-.grid > div:first-child {
-  @include grid-item (2, 5);
-  @include grid-item-offset (2, 5);
-}
-
-.grid a {
-  background: red;
-  display: block;
-  height: 100px;
 }
 
 .container-thing {
@@ -235,20 +217,19 @@ input[type="submit"] {
   padding: 20px;
   width: 100%;
   @include mq(smartphone) {
-    padding:10px;
+    padding: 10px;
   }
 }
-
 
 .form--chunky input {
   padding: 20px 10px;
   @include mq(smartphone) {
-    padding:10px;
+    padding: 10px;
   }
 }
 
 .form--chunky input[type="radio"] {
-  padding:0;
+  padding: 0;
 }
 
 .form--chunky input[type="submit"],
@@ -310,8 +291,6 @@ input[type="submit"] {
   margin: 0 6px;
 }
 
-
-
 .form--chunky .form-actions {
   @include clearfix;
 }
@@ -319,7 +298,7 @@ input[type="submit"] {
 .form--chunky .form-actions .primary-actions {
   float: right;
   @include mq(smartphone) {
-    clear:right;
+    clear: right;
     text-align: right;
   }
 }
@@ -327,45 +306,45 @@ input[type="submit"] {
 .form--chunky .form-actions .secondary-actions {
   float: left;
   @include mq(smartphone) {
-    float:right;
+    float: right;
   }
 }
 
 .form--chunky .form-actions button,
 .form--chunky .form-actions input[type="submit"] {
   @include big-square-button;
-  float:none;
+  float: none;
 }
 
 .form--chunky .form-actions button:before,
 .form--chunky .form-actions input[type="submit"]:before {
   content: "\f00d";
   // Temporarily hide all icons
-  content:none !important;
+  content: none !important;
 }
 
 .form--chunky .form-actions .primary-actions button,
 .form--chunky .form-actions .primary-actions input[type="submit"] {
-  margin-left:10px;
+  margin-left: 10px;
   @include mq(smartphone) {
-    margin-bottom:10px;
+    margin-bottom: 10px;
   }
 }
 
 .form--chunky .form-actions .primary-actions button:last-child,
 .form--chunky .form-actions .primary-actions input[type="submit"]:last-child {
   @include mq(smartphone) {
-    margin-bottom:0;
+    margin-bottom: 0;
   }
 }
 
 .form--chunky .form-actions .secondary-actions button,
 .form--chunky .form-actions .secondary-actions input[type="submit"] {
-  margin-right:10px;
+  margin-right: 10px;
   @include mq(smartphone) {
-    margin-right:0;
-    margin-left:10px;
-    margin-bottom:10px;
+    margin-right: 0;
+    margin-left: 10px;
+    margin-bottom: 10px;
   }
 }
 

@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import {observer} from "mobx-react";
-import {NavLink} from 'react-router-dom';
 import RecordViewComponentState from "./record_view_component_state";
 
 @observer class RecordViewLinks extends Component {
@@ -10,7 +9,7 @@ import RecordViewComponentState from "./record_view_component_state";
 
   render() {
     const links = this.props.trayViewStore.record.links.map((link, i) => (
-      <li key={`link_${i}`}><NavLink to={link.attachable.url} target='_blank'>{link.title}</NavLink></li>
+      <li key={`link_${i}`}><a href={link.attachable.url} target='_blank'>{link.title}</a></li>
     ));
     return <div className="links">
       <h3>Related Links</h3>

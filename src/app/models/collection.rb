@@ -58,4 +58,27 @@ class Collection < ApplicationRecord
     end
   end
 
+  def is_discoverable?
+    has_image = primary_image.present?
+    has_description = description.length>10
+    has_records = records.any?
+
+    has_image && has_description && has_records
+  end
+
+  def self.update_view_count!(id)
+    object = self.find(id)
+    object.update_column(:view_count, object.view_count+=1)
+    
+    self.update_index_value!(id, :view_count, object.view_count)
+  end
+
+  def self.update_index_value!(id, field, value)
+    object = self.find(id)
+    object.update_column(field, value)
+
+    Chewy.strategy(:atomic) do 
+      CollectionsIndex.import self.where(id: id), update_fields: [field]
+    end
+  end
 end

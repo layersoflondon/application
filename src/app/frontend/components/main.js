@@ -1,19 +1,26 @@
 import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
 import { Route, Switch } from 'react-router';
-import {Redirect, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import Helmet from 'react-helmet';
 
+import TrayContainer from './tray_container';
+import TrayRecordsIndex from './tray/records_index';
+import TrayCollectionsIndex from './tray/collections_index';
+import TrayCollection from './tray/collection';
+import TrayUserRecordsIndex from './tray/user_records_index';
+import TrayTeamRecordsIndex from './tray/team_records_index';
+import TrayGettingStarted from './tray/getting_started';
+import TraySearchResults from './tray/search_results';
+
 import Tools from './tools';
-import Tray from './tray';
 import MapView from './map_view';
 import SearchView from './forms/search/search_view';
 import RecordView from './record_view_wrapper';
 import RecordViewReport from './record_view/record_view_report';
 import MediaView from './media_view';
 import MediaItem from './media_item';
-import CollectionView from './collection_view';
 import UserView from './user_view';
 import TeamView from './team_view';
 import PlacePicker from './place_picker';
@@ -47,103 +54,76 @@ import AddToCollection from "./record_view/add_to_collection";
         <meta name='keywords' content="layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study" />
       </Helmet>
 
-
       {/*permanantly visible components */}
 
       <ErrorBoundary><Tools/></ErrorBoundary>
-      <ErrorBoundary><Tray/></ErrorBoundary>
-        <Route path='/map' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
-        <Route exact path='/map?:lat/:lng' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
+      <ErrorBoundary>
+        <TrayContainer>
+          <Switch>
+            <Route exact path='/map' component={TrayGettingStarted} />
+            <Route exact path='/map/search' component={TraySearchResults} />
+            <Route exact path='/map/collections' component={TrayCollectionsIndex} />
+            <Route exact path='/map/:lat,:lng' render={({match})=> {
+              return <TrayRecordsIndex type='geobounded' lat={match.params.lat} lng={match.params.lng} />
+            }} />
+            <Route exact path='/map/:type' render={({match}) => {
+              let title = "";
+              switch(match.params.type) {
+                case 'highlighted':
+                  title = "Highlights"
+                  break;
+                case 'popular':
+                  title = "Popular";
+                  break;
+              }
+              return <TrayRecordsIndex type={match.params.type} title={title} />
+            }} />
 
-        {/* Various Overlays ... */}
-        <Route exact path='/map/account' component={UserForm} />
-        <Route exact path='/map/account/:tab' component={UserForm} />
-        <Route exact path='/map/account/:tab/:id' component={UserForm} />
-        <Route path='/map/layers' component={LayersOverlay} />
-        <Route path='/map/layers/:id' component={LayerDetailsOverlay} />
-        <Route exact path='/map/search' component={SearchView} />
-        <Route path='/map/search?results=true&q=:query' component={Tray} />
+            <Route exact path='/map/collections/:id' component={TrayCollection} />
+            <Route exact path='/map/teams/:id' component={TrayTeamRecordsIndex} />
+            <Route exact path='/map/users/:id' component={TrayUserRecordsIndex} />
+          </Switch>
+        </TrayContainer>
+      </ErrorBoundary>
 
-        {/* show the collections form */}
-        <Route exact path='/map/collections/new' component={CollectionForm} />
-        <Route exact path='/map/collections/:id/edit' component={CollectionForm} />
+      {/* <Route component={RecordView} /> */}
 
-
-        {/* the route we go to when '+ Add record' is clicked to allow the user to choose a place */}
-        <Route path='/map/choose-place' component={PlacePicker} />
-        {/* once the user has chosen a place on the map, we show the form */}
-        <Route path='/map/records/new' component={RecordForm} />
-
-        {/* edit an existing record */}
-        <Route exact path='/map/records/:id/edit' component={RecordForm} />
-        <Route exact path='/map/collections/:collection_id/records/:id/edit' component={RecordForm} />
-
-
-
-        {/* view a record */}
-        <Route exact path='/map/records/:id' component={RecordView} />
-        <Route exact path='/map/records/:id/report' render={({match, location}) => (
-          <ErrorBoundary>
-            <RecordView match={match}>
-              <ErrorBoundary>
-                <RecordViewReport />
-              </ErrorBoundary>
-            </RecordView>
-          </ErrorBoundary>
-        )} />
-
-      <Route exact path='/map/collections/:collection_id/records/:id/report' render={({match, location}) => (
-          <ErrorBoundary>
-            <RecordView match={match}>
-              <ErrorBoundary>
-                <RecordViewReport />
-              </ErrorBoundary>
-            </RecordView>
-          </ErrorBoundary>
+      <Route render={({location}) => (
+        <ErrorBoundary>
+          <RecordView>
+            <RecordViewReport />
+          </RecordView>
+        </ErrorBoundary>
       )} />
 
-        <Route exact path='/map/records/:id/add-to-collection' render={({match, location}) => (
-          <ErrorBoundary>
-            <RecordView>
-              <ErrorBoundary>
-                <AddToCollection match={match}/>
-              </ErrorBoundary>
-            </RecordView>
-          </ErrorBoundary>
-        )} />
+      <MediaView>
+        <TransitionGroup>
+          <CSSTransition timeout={100} classNames={'media-item'} key={location.key} >
+            <Route component={MediaItem} />
+          </CSSTransition>
+        </TransitionGroup>
+      </MediaView>
 
-        {/*<Route exact={true} path='/map/' render={() => (*/}
-          {/*<Redirect to='/map' />*/}
-        {/*)} />*/}
+        <Route path='/map' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
 
-        <Route exact={true} path='/map/records/:id/media/:media_item_id' render={( {match, location} ) => (
-          <RecordView>
-            <MediaView>
-              <TransitionGroup>
-                <CSSTransition timeout={100} classNames={'media-item'} key={location.key} >
-                  <Route exact={true} path='/map/records/:id/media/:media_item_id' component={MediaItem} />
-                </CSSTransition>
-              </TransitionGroup>
-            </MediaView>
-          </RecordView>
-        )} />
+        {/* Various Overlays ... */}
+        <Route component={SearchView} />
+        <Route component={LayersOverlay} />
+        <Route component={LayerDetailsOverlay} />
+        <Route component={UserForm} />
 
-        {/* fixme: dry this route up later*/}
-        <Route exact={true} path='/map/collections/:collection_id/records/:id/media/:media_item_id' render={( {match, location} ) => (
-          <RecordView>
-            <MediaView>
-              <TransitionGroup>
-                <CSSTransition timeout={100} classNames={'media-item'} key={location.key} >
-                  <Route exact={true} path='/map/collections/:collection_id/records/:id/media/:media_item_id' component={MediaItem} />
-                </CSSTransition>
-              </TransitionGroup>
-            </MediaView>
-          </RecordView>
-        )} />
+        {/* the route we go to when '+ Add record' is clicked to allow the user to choose a place */}
+        <Route component={PlacePicker} />
 
-        {/* view a collection */}
-        <Route exact path='/map/collections/:id' component={CollectionView} />
+        {/* once the user has chosen a place on the map, we show the form */}
+        <Route component={RecordForm} />
 
+        {/* create/edit a collectiomn */}
+        <Route component={CollectionForm} />
+
+        {/* Add a record to a collection */}
+        <Route component={AddToCollection} />
+        
         {/* view a team */}
         <Route exact path='/map/teams/:id' component={TeamView} />
 

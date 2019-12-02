@@ -1,4 +1,5 @@
-import {observe, observable, computed} from "mobx";
+import {action, extendObservable, runInAction, observable, computed, observe} from "mobx";
+import {MODAL_NAMES} from '../helpers/modals';
 
 /**
  * Handle's map attributes like initial position (center), the zoom level, currently visible overlay
@@ -11,6 +12,10 @@ export default class MapViewStore {
   @observable lightsOut = false;
 
   @observable add_record_mode = false;
+  @observable edit_record_mode = false;
+
+  @observable add_collection_mode  = false;
+  @observable edit_collection_mode = false;
 
   initial_position = null;
 
@@ -18,24 +23,43 @@ export default class MapViewStore {
   // map_ref = null;
 
   constructor() {
-    // if we render the record_form, we should hide the place_picker component by exiting 'add_record_mode'
-    // observe(this, 'overlay', (change) => {
-    //   if( change.newValue === "record_form" ) {
-    //
-    //     this.add_record_mode = false;
-    //   }
+    // make any modals defined in modals::MODAL_NAMES observable props
+    const modalNames = {};
+    MODAL_NAMES.map((m) => modalNames[`${m}Modal`] = false);
+    
+    extendObservable(this, modalNames);
+    // console.log(modalNames);
+    
+    // MODAL_NAMES.map((m) => {
+    //   observe(this, `${m}Modal`, (change) => {
+    //     console.log(`Got this modal: ${m}`);
+    //   });
     // });
 
-    // observe(this, 'center', (change) => {
-      // this.map_ref.leafletElement.panTo(new L.LatLng(...(change.newValue.toJS())))
-    // });
+    observe(this, 'editRecordModal', (change) => {
+      if(change.newValue) {
+        runInAction(() => this.recordModal = false)
+      }
+    });
+
+    observe(this, 'newCollectionModal', (change) => {
+      runInAction(() => {
+        this.inAddCollectionMode = change.newValue;
+      })
+    });
+
+    observe(this, 'editCollectionModal', (change) => {
+      runInAction(() => {
+        this.inEditCollectionMode = change.newValue;
+      })
+    });
   }
 
-  @computed get current_bounds() {
-    let center = this.map_ref.leafletElement.getBounds().getCenter();
-    let radius = this.map_ref.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
-    const north_west = this.map_ref.leafletElement.getBounds().getNorthWest();
-    const south_east = this.map_ref.leafletElement.getBounds().getSouthEast();
+  @computed get mapBounds() {
+    let center = this.mapRef.leafletElement.getBounds().getCenter();
+    let radius = this.mapRef.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
+    const north_west = this.mapRef.leafletElement.getBounds().getNorthWest();
+    const south_east = this.mapRef.leafletElement.getBounds().getSouthEast();
     
     return {
       top_left: north_west,
@@ -43,6 +67,22 @@ export default class MapViewStore {
       center: center,
       radius: radius
     };
+  }
+
+  @action.bound getMapBounds() {
+    return new Promise((resolve) => {
+      const waitForMapRef = () => {
+        
+        if (this.mapRef) {
+          const bounds = this.mapBounds;
+          resolve(bounds);
+        } else {
+          setTimeout(waitForMapRef, 10)
+        }
+      };
+      
+      waitForMapRef();
+    });
   }
 
   panTo(lat, lng, zoom = null) {
@@ -59,5 +99,46 @@ export default class MapViewStore {
     Object.assign(map_view_store, object);
 
     return map_view_store;
+  }
+
+  modalIsVisible(modal) {
+    return this[`${modal}Modal`];
+  }
+
+  @action.bound toggleModal(modal, value) {
+    runInAction(() => {
+      this[`${modal}Modal`] = value;
+    });
+  }
+
+  @computed get inChoosePlaceMode() {
+    return this.add_record_mode;
+  }set inChoosePlaceMode(value) {
+    runInAction(() => {
+      this.add_record_mode = value;
+      this.trayViewStore.toggleTrayVisibility();
+    });
+  }
+
+  @computed get inEditRecordMode() {
+    return this.edit_record_mode;
+  }set inEditRecordMode(value) {
+    this.edit_record_mode = value;
+  }
+
+  @computed get inAddCollectionMode() {
+    return this.add_collection_mode;
+  }set inAddCollectionMode(value) {
+    this.add_collection_mode = value;
+  }
+
+  @computed get inEditCollectionMode() {
+    return this.edit_collection_mode;
+  }set inEditCollectionMode(value) {
+    this.edit_collection_mode = value;
+  }
+
+  @computed get isTabletDevice() {
+    return document.querySelector("meta[name=device-tablet]").content === "true";
   }
 }

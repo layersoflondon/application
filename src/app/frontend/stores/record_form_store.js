@@ -1,5 +1,6 @@
-import {observable, computed, observe} from 'mobx';
+import {observable, computed, observe, action, runInAction} from 'mobx';
 import GoogleMapsClient from '../sources/google_maps_client';
+window.GoogleMapsClient = GoogleMapsClient;
 
 import RecordModel from '../models/record';
 
@@ -22,6 +23,8 @@ export default class RecordFormStore {
   // 200 = lookup finished, success.
   // other http code = lookup failed.
   @observable place_lookup_status = null;
+  @observable visible_tag_group = null;
+  clickEventListener = null;
 
   constructor() {
     observe(this, 'latlng', (update) => {
@@ -30,6 +33,27 @@ export default class RecordFormStore {
         this.record.lng = update.newValue.lng;
 
         this.startLookup();
+      }
+    });
+
+    observe(this, 'visible_tag_group', (change) => {
+      if(change.newValue) {
+        const tagsContainer = document.querySelector(`.section--add-tags [data-tag-group-id='${change.newValue}']`);
+
+        this.clickEventListener = (event) => {
+          const clickedContainer = event.target.classList.toString() === tagsContainer.classList.toString();
+          const clickedChildElement = tagsContainer.contains(event.target);
+
+          if(!clickedContainer && !clickedChildElement || event.target.contains(tagsContainer)) {
+            runInAction(() => {
+              this.visible_tag_group = null;
+            });
+          }
+        }
+        
+        document.addEventListener('click', this.clickEventListener);
+      }else if(this.clickEventListener) {
+        document.removeEventListener('click', this.clickEventListener);
       }
     });
   }
@@ -42,6 +66,7 @@ export default class RecordFormStore {
 
   startLookup() {
     this.place_lookup_status = true;
+    
     GoogleMapsClient.addressLookUp(this.record.lat, this.record.lng).then((response)=> {
       this.place_lookup_status = response.status;
 
@@ -51,12 +76,41 @@ export default class RecordFormStore {
       }else {
         this.place_lookup_status = 404
       }
-    }).catch((error)=>{console.log("Google error:", error)});
+    }).catch((error)=>{
+      console.log("Google error:", error);
+      this.record.location = {address: ''};
+      this.found_places = [];
+    });
   }
 
   static fromJS(object) {
     const store = new RecordFormStore();
     Object.assign(store, object);
     return store;
+  }
+
+  @action toggleTag(tag_id) {
+    tag_id = parseInt(tag_id, 10);
+    let tag_ids = (this.record.tag_ids || []).slice();
+    let added = true;
+
+    if( this.tagIsChecked(tag_id) ) {
+      tag_ids = tag_ids.filter((id) => id !== tag_id);
+      added = false;
+    }else {
+      tag_ids.push(tag_id);
+    }
+
+    this.record.tag_ids = tag_ids;
+
+    return added;
+  }
+
+  tagIsChecked(id) {
+    return (this.record.tag_ids || []).indexOf(id)>-1;
+  }
+
+  @action setVisibleTagGroup(id) {
+    this.visible_tag_group = parseInt(id, 10);
   }
 }

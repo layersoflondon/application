@@ -1,6 +1,6 @@
 <div class="m-home-cta-block <%= local_assigns.include?(:class) ? local_assigns[:class] : ""  %>">
-    <div class="image" style="background-image: url(<%= homepage_cta.image %>)"></div>
-    <div class="text-content viewable">
+    <div class="image"><img src="<%= homepage_cta.image %>" /></div>
+    <div class="text-content">
         <h3><%= homepage_cta.title %></h3>
         <div class="description">
             <p><%= homepage_cta.description %>

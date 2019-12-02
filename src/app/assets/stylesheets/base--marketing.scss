@@ -80,8 +80,8 @@ main {
   position: relative;
   padding-bottom: 100px;
   @include mq(smartphone) {
-    padding-top:1px;
-    padding-bottom:50px;
+    padding-top: 1px;
+    padding-bottom: 50px;
   }
 }
 
@@ -94,6 +94,7 @@ main {
   padding-top: 50px;
 }
 
+.main--home .background,
 .main--content .background,
 .main--help-centre .background,
 .main--faq-list .background,
@@ -106,6 +107,7 @@ main {
   overflow: hidden;
 }
 
+.main--home #motion-background,
 .main--content #motion-background,
 .main--faq-list #motion-background,
 .main--help-centre #motion-background,
@@ -119,6 +121,37 @@ main {
   background-position: center;
   filter: brightness(30%);
 }
+
+.main--home {
+  padding-bottom:0;
+  position:relative;
+  padding-top: 1px;
+  background:rgba(0,0,0,0.5);
+  margin-top: 180px;
+  @include mq(smartphone) {
+    margin-top: 110px;
+  }
+}
+
+.main--home:before {
+  content:"";
+ // background:red;
+  top:-100px;
+  left:0;
+  right:0;
+  height:100px;
+  position:absolute;
+
+    width: 0;
+    height: 0;
+    border-bottom: 100px solid rgba(0,0,0,0.5);
+    border-left: 1500px solid transparent;
+
+  @media screen and(max-width:1500px) {
+    border-left: 100vw solid transparent;
+  }
+}
+
 
 .main--articles {
   margin-top: -70px;
@@ -143,26 +176,6 @@ a {
 
 a:hover {
   color: $link-hover-color;
-}
-
-.grid {
-  @include grid;
-}
-
-.grid > div {
-  @include grid-item (1, 5);
-  margin-bottom: 20px
-}
-
-.grid > div:first-child {
-  @include grid-item (2, 5);
-  @include grid-item-offset (2, 5);
-}
-
-.grid a {
-  background: red;
-  display: block;
-  height: 100px;
 }
 
 .container-thing {
@@ -220,7 +233,7 @@ input[type="submit"] {
   margin-top: -1px;
   display: inline-block;
   @include transition(all .2s);
-  border:0;
+  border: 0;
   &:hover {
     background: darken($green, 10%);
   }
@@ -252,8 +265,8 @@ input[type="submit"] {
 }
 
 .form--chunky .nb {
-  font-size:12px;
-  color:#888;
+  font-size: 12px;
+  color: #888;
 }
 
 .form--chunky input,

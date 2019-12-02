@@ -6,6 +6,7 @@ export default class CollectionModel {
   @observable id;
   @observable title;
   @observable description;
+  @observable excerpt;
   @observable read_state;
   @observable write_state;
   @observable write_state_team_id;
@@ -59,6 +60,7 @@ export default class CollectionModel {
       id: this.id,
       title: this.title,
       description: this.description,
+      excerpt: this.excerpt,
       read_state: this.read_state,
       write_state: this.write_state,
       write_state_team_id: this.write_state_team_id,
@@ -79,6 +81,7 @@ export default class CollectionModel {
     collection.id = attributes.id;
     collection.title = attributes.title;
     collection.description = attributes.description;
+    collection.excerpt = attributes.excerpt;
     collection.read_state = attributes.read_state;
     collection.write_state = attributes.write_state;
     collection.write_state_team_id = attributes.write_state_team_id;

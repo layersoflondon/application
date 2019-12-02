@@ -1,11 +1,10 @@
 import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
-import { NavLink, Link, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Tabs from '../../../components/tabs';
 import TeamForm from './team_form';
 import RecordsCollections from './records_collections_form';
 import TeachersForm from "./teachers_form";
-import NotFound from "../../not_found";
 
 @inject('mapViewStore', 'currentUser')
 @withRouter
@@ -16,23 +15,16 @@ import NotFound from "../../not_found";
     // this.state = {};
     this.state = {active: 'account'};
   }
-
-  componentWillMount() {
-    this.setState({
-      active: this.props.match.params.tab,
-      id: this.props.match.params.id
-    });
-  }
-
+  
   setActiveTab(active) {
     // active => this.setState({active})
     this.setState({active: active});
-      if (active == "sign_out") {
-          window.location = "/users/sign_out";
 
-      } else {
-        history.pushState({}, '', `/map/account/${active}`);
-      }
+    if (active == "sign_out") {
+        window.location = "/users/sign_out";
+    } else {
+      // history.pushState({}, '', `/map/account/${active}`);
+    }
   }
 
   handleChange(event) {
@@ -46,9 +38,11 @@ import NotFound from "../../not_found";
   }
 
   render() {
+    if(!this.props.mapViewStore.accountModal) return <React.Fragment />
+
     let tabs;
 
-    if ( this.props.currentUser.role === "student" ) {
+    if( this.props.currentUser.role === "student" ) {
       tabs = <Tabs active={this.state.active} onChange={this.setActiveTab.bind(this)}>
         <span key="records">Records & Collections</span>
         <span key="sign_out">Sign out</span>
@@ -71,13 +65,12 @@ import NotFound from "../../not_found";
       records: <RecordsCollections/>,
       teachers: <TeachersForm user={this.props.currentUser} />,
       sign_out: <h2>Signing you out of your account</h2>
-
     };
 
     return (
       <div className={className}>
           <div className="close">
-              <Link to="/map" className="close">Close</Link>
+              <Link to="/map" className="close" onClick={()=>this.props.mapViewStore.accountModal = false}>Close</Link>
           </div>
           <div className="m-overlay-subnavigation">
               <h1>Your Profile</h1>

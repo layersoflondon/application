@@ -3,18 +3,18 @@ class Record < ApplicationRecord
   include AASM
   include SortFields
 
-
-
   update_index('records#record') { self }
- 
+  
   has_many :collection_records, dependent: :destroy
   has_many :collections, through: :collection_records
   has_many :attachments, dependent: :destroy
   # update_index('attachments#attachment') { attachments }
   belongs_to :user
+  
   update_index 'users#user' do
     previous_changes['user_id'] || user
   end
+
   has_one :primary_image, class_name: 'Attachments::Image', foreign_key: :id, primary_key: :primary_image_id
   has_many :record_taxonomy_terms, class_name: 'RecordTaxonomyTerm', dependent: :destroy
   has_many :taxonomy_terms, through: :record_taxonomy_terms
@@ -37,7 +37,7 @@ class Record < ApplicationRecord
   accepts_nested_attributes_for :comments, allow_destroy: true
 
   has_many :taggings, as: :tagger
-  has_many :tags, through: :taggings
+  has_many :tags, through: :taggings, after_add: :update_tags_index, after_remove: :update_tags_index
   has_many :tag_groups, through: :tags
 
   before_validation do
@@ -91,7 +91,6 @@ class Record < ApplicationRecord
     if primary_image.nil? && attachments.image.any?
       attachments.image.first.attachable.set_as_only_primary!
     end
-
   end
 
   # check whether the record is valid for publishing. If it's not, we record what needs to happen to make it so
@@ -231,11 +230,52 @@ class Record < ApplicationRecord
     comments.includes(:user).references(:user).collect(&:user).uniq
   end
 
+  def is_discoverable?
+    has_image = primary_image.present?
+    has_description = description.length>10
+    has_attachments = attachments.size>1
+    is_in_collections = collections.any?
+
+    has_image && has_description && has_attachments && is_in_collections
+  end
+
+  def related
+    # get Tagger objects that are tagged with some of the same tags from this records,
+    # grouped by tag_id and ordered by the ones with the most matches first
+    matching_tagged_records = Hash[Tagging.includes(:tag).where(tags: {tag_group_id: tag_group_ids}).where.not(tagger_id: id).group_by{|tagger| tagger.tag.tag_group_id}.sort_by{|k,v| v.size}.reverse]
+
+    # get the polymorphic tagger(record) instance
+    tagger_ids = matching_tagged_records.values[0..10].flatten.collect(&:tagger_id).uniq
+    return [] unless tagger_ids.any?
+
+    Record.where(id: tagger_ids)
+  end
+
+  def self.update_view_count!(id)
+    object = self.find(id)
+    object.update_column(:view_count, object.view_count+=1)
+
+    self.update_index_value!(id, :view_count, object.view_count)
+  end
+
+  def self.update_index_value!(id, field, value)
+    object = self.find(id)
+    object.update_column(field, value)
+
+    Chewy.strategy(:atomic) do 
+      RecordsIndex.import self.where(id: id), update_fields: [field]
+    end
+  end
+
   private
 
   def user_is_member_of_team
     if editing_team.present? && !user.teams.include?(editing_team)
       errors[:team] << "must be one you're a member of"
     end
+  end
+
+  def update_tags_index(tag)
+    update_index("tag_groups#tag_group") {tag.tag_group}
   end
 end

@@ -1,7 +1,6 @@
 import React,{Component, Fragment} from 'react';
-import { Map, Marker, TileLayer } from 'react-leaflet'
+import {Link} from 'react-router-dom';
 import {observer} from "mobx-react";
-import {NavLink} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 
 import RecordViewMediaList from './record_view_media_list';
@@ -12,29 +11,37 @@ import RecordViewContent from './record_view_content';
 import RecordViewFooter from './record_view_footer';
 import NotFound from '../not_found'
 
-import {recordEvent, recordPageView} from "../../config/data_layer";
+import {recordPageView} from "../../config/data_layer";
+import {removeModal, getValueForModal, closeModalLink} from '../../helpers/modals';
 
 @observer class RecordView extends Component {
   constructor(props) {
     super(props);
 
     this.state = {loading: true};
-  }
 
-  componentWillMount() {
-    const fetch_nearby_data = this.props.trayViewStore.cards.size === 0;
-
-    if( this.props.match.params.collection_id ) {
-      this.props.trayViewStore.fetchCollectionAndRecord(this.props.match.params.collection_id, this.props.match.params.id);
-    }else if( this.props.match.params.id ) {
-      this.props.trayViewStore.fetchRecord(this.props.match.params.id, fetch_nearby_data);
+    this.fetchRecord = () => {
+      const id = getValueForModal(this.props.location, 'record');
+      return this.props.trayViewStore.fetchRecord(id)
     }
   }
 
-  componentWillUnmount() {
-    if( this.props.router.location.pathname.search(/\/edit$/) > -1 ) {
-    }else {
+  componentDidMount() {
+    this.fetchRecord();
+  }
+
+  componentDidUpdate(oldProps) {
+    const previousId = getValueForModal(oldProps.location, 'record');
+    const id = getValueForModal(this.props.router.location, 'record');
+    
+    if(id && previousId !== id) {
+      this.fetchRecord();
     }
+  }
+
+  handleOnClick(event) {
+    this.props.mapViewStore.toggleModal('record', false);
+    this.props.trayViewStore.record = null;
   }
   
   render() {
@@ -42,7 +49,7 @@ import {recordEvent, recordPageView} from "../../config/data_layer";
       return <NotFound {...this.props} />
     }
 
-    if( this.props.trayViewStore.record ) {
+    if( this.props.trayViewStore.record && this.props.mapViewStore.recordModal ) {
       if (this.props.router.location.pathname.search(/\/media/) === -1) {
         recordPageView(this.props.trayViewStore.record.title);
       }
@@ -51,9 +58,9 @@ import {recordEvent, recordPageView} from "../../config/data_layer";
       let content_gallery_component = null;
 
       if( this.props.trayViewStore.record.view_type === 'gallery' ) {
-        header_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} numberOfItems={4} />;
+        header_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} numberOfItems={4} router={this.props.router} />;
       }else {
-        content_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} />;
+        content_gallery_component = <RecordViewMediaList record={this.props.trayViewStore.record} router={this.props.router} />;
       }
 
       return(
@@ -64,8 +71,8 @@ import {recordEvent, recordPageView} from "../../config/data_layer";
             <meta name='description' content={`Read about ${this.props.trayViewStore.record.title} and thousands of other fascinating records on Layers of London. Add your own records, and help us build more layers.`}/>
             <meta name='og:description' content={`Read about ${this.props.trayViewStore.record.title} and thousands of other fascinating records on Layers of London. Add your own records, and help us build more layers.`}/>
             <meta name='keywords' content={`${this.props.trayViewStore.record.title}, layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`} />
-            <link rel='canonical' href={`${window.location.protocol}//${window.location.host}/map/records/${this.props.trayViewStore.record.id}`} />
-            <meta name='og:url' content={`${window.location.protocol}//${window.location.host}/map/records/${this.props.trayViewStore.record.id}`} />
+            <link rel='canonical' href={`${window.location.protocol}//${window.location.host}/map?record=${this.props.trayViewStore.record.id}`} />
+            <meta name='og:url' content={`${window.location.protocol}//${window.location.host}/map?record=${this.props.trayViewStore.record.id}`} />
             {this.props.trayViewStore.record.has_hero_image &&
             <meta name='og:image' content={this.props.trayViewStore.record.hero_image.primary}/>
             }
@@ -76,11 +83,10 @@ import {recordEvent, recordPageView} from "../../config/data_layer";
           <div className="m-overlay is-showing">
             <div className="s-overlay--record is-showing">
               <div className={header_classes}>
-
                 <div className="close">
-                  <a href="#" className="close" onClick={this.handleCloseOnClick}>Close</a>
+                  <Link onClick={this.handleOnClick.bind(this)} to={closeModalLink(this.props.router.location, 'record')} className="close">Close</Link>
                 </div>
-
+                
                 <div className="wrap">
                   <RecordViewHeader  {...this.props} gallery={header_gallery_component} />
                   <RecordViewContent {...this.props} gallery={content_gallery_component} />

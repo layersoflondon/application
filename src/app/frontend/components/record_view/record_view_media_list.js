@@ -29,14 +29,14 @@ import {Link} from 'react-router-dom';
     let media_components = <span />;
 
     if( media_container_class === 'thumbs' ) {
-      media_components = thumbs.map((media) => <RecordViewMediaListItem key={`media_${media.id}`} media={media} record={this.props.record} />);
+      media_components = thumbs.map((media) => <RecordViewMediaListItem key={`media_${media.id}`} media={media} record={this.props.record} router={this.props.router} />);
     }
 
     let expandable_media_list = false;
 
     if( media.length > this.props.numberOfItems ) {
       expandable_media_list =  <div className="extra-count">
-        <Link to={`/map/records/${this.props.record.id}/media/${media[0].id}`}>
+        <Link to={`/map?record=${this.props.record.id}/media/${media[0].id}`}>
           + <span>{media_items_total - this.props.numberOfItems}</span>
         </Link>
       </div>

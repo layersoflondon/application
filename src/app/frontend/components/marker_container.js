@@ -4,9 +4,8 @@ import {inject, observer} from "mobx-react";
 import { Marker, Popup } from 'react-leaflet'
 import {withRouter} from 'react-router-dom';
 import Img from 'react-image';
-
-import {Leaflet} from 'react-leaflet';
 import LeafletDataIcon from './leaflet_data_icon';
+import {openModalLink} from '../helpers/modals';
 
 @inject('router')
 @withRouter
@@ -19,7 +18,9 @@ import LeafletDataIcon from './leaflet_data_icon';
 
   handleOnClick(event) {
     event.preventDefault();
-    this.props.history.push(`/map/records/${this.props.record.id}`);
+    
+    const cardLink = openModalLink(this.props.location, {key: 'record', value: this.props.record.id});
+    this.props.history.push(cardLink);
   }
 
   toggleHighlightCard() {

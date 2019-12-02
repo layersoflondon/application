@@ -1,0 +1,17 @@
+<div class="m-layers-slideshow">
+    <div class="text-content">
+        <h3><%= page.slideshow_title %></h3>
+        <div class="description">
+            <p><%= page.slideshow_subtitle %></p>
+        </div>
+        <%= link_to page.slideshow_button_text, page.slideshow_link, class: "button" %>
+    </div>
+    <ul class="rslides">
+        <%= page.slides.each do |slide| %>
+            <li>
+                <%= image_tag(slide.image) %>
+                <span class="caption"><%= slide.caption %></span>
+            </li>
+        <% end %>
+    </ul>
+</div>

@@ -1,6 +1,7 @@
 json.id collection.id
 json.title collection.title
 json.description collection.description
+json.excerpt strip_tags(collection.description).try(:truncate,80) || ""
 json.attachment_id collection.attachment_id
 json.read_state collection.read_state
 json.write_state collection.write_state
