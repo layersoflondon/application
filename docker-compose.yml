@@ -79,6 +79,7 @@ services:
       - "9200:9200"
       - "8080:8080"
     environment:
+      xpack.security.enabled: 'false'
       # LOGSPOUT: 'ignore'
       # ES_JAVA_OPTS: '-Xms1024m -Xmx1024m'
       # bootstrap.memory_lock: 'false'
