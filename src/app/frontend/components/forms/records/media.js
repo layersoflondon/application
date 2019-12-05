@@ -24,7 +24,7 @@ import {observer} from "mobx-react";
   }
 
   onFileInputChange(event) {
-    const files = Array.from(event.target.files).fiter((file) => file.size < this.MAX_FILE_SIZE*1024*1024);
+    const files = Array.from(event.target.files).filter((file) => file.size < this.MAX_FILE_SIZE*1024*1024);
 
     this.onDrop(files, []);
   }
