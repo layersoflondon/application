@@ -3,6 +3,10 @@ class Attachments::Image < ApplicationRecord
   include Attachments::AttachedFile
   has_one :attachment, as: :attachable
 
+  after_save do
+    attachment.try(:record).try(:touch)
+  end
+
   validate :validate_image_file
 
   after_save :set_as_only_primary!, if: -> {self.primary?}
@@ -35,7 +39,7 @@ class Attachments::Image < ApplicationRecord
   end
 
   def generate_variants
-   Rails.configuration.x.image_variants.each do |name, configuration|
+    Rails.configuration.x.image_variants.each do |name, configuration|
       file.variant(configuration).processed
     end
   end

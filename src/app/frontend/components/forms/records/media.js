@@ -119,7 +119,7 @@ import {observer} from "mobx-react";
     const media_items = this.props.recordFormStore.record.documents_images_and_video.map((item,i) => {
       const media_item = Attachment.fromJS(item, this.props.recordFormStore.record.id);
       const index = this.props.recordFormStore.record.attachments.indexOf(item);
-      return <MediaItem {...item} {...this.props} object={media_item} key={`media_item_${index}`} index={index} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
+      return <MediaItem {...item} {...this.props} object={media_item} key={`media_item_${item.id}-${i}`} index={index} current_attachment_item_index={this.props.recordFormStore.current_attachment_item_index} />
     });
 
     // const youtube_videos = this.props.recordFormStore.record.videos.map((item, i) => {
