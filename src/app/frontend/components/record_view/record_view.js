@@ -45,6 +45,8 @@ import {removeModal, getValueForModal, closeModalLink} from '../../helpers/modal
   }
   
   render() {
+    if( this.props.mapViewStore.inEditRecordMode ) return <React.Fragment />;
+    
     if (this.props.trayViewStore.loading_error) {
       return <NotFound {...this.props} />
     }
