@@ -68,7 +68,7 @@ export default class MapView extends React.Component {
     switch (feature.properties.state) {
       case "done":
         checkedFillColor = "#FFCF00";
-        checkedFillOpacity = 0.3;
+        checkedFillOpacity = (this.props.mapToolsStore.mapRef.leafletElement.getZoom() <= 10) ? 0.3 : 0;
         break;
       case "verified":
         checkedFillColor = "#00FF0B";
