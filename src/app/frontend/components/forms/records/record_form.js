@@ -141,7 +141,7 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
       return <NotFound/>
     }
 
-    if(!this.props.mapViewStore.inEditRecordMode) {
+    if(!this.props.mapViewStore.inEditRecordMode || this.props.mapViewStore.inChoosePlaceMode) {
       return <React.Fragment />
     }
     

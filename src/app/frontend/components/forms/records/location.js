@@ -2,18 +2,20 @@ import React,{Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
 import {observer, inject} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
+import {openModalLink} from '../../../helpers/modals';
 
 @inject('mapboxStaticMapsKey')
 @withRouter
 @observer class Credits extends Component {
   constructor(props) {
     super(props);
-
   }
 
   changeLocation(event) {
     event.preventDefault();
-    this.props.router.push('/map/choose-place');
+
+    const path = openModalLink(this.props.location, {key: 'choose-place', value: true});
+    this.props.router.push(path);
   }
 
   render() {
