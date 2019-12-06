@@ -295,13 +295,14 @@ export default class TrayViewStore {
   }
 
   @action.bound fetchData(params, options = {}) {
-    this.mainResults.clear();
     this.loading = true;
     
     const lockTray = options.lockTray || this.locked;
 
     runInAction(async() => {
       const mainContentData = await Search.perform(params);
+      this.mainResults.clear();
+      
       const mainResults = observable.map();
       
       mainContentData.data.map((result) => {
