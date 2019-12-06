@@ -5,6 +5,7 @@ class Attachment < ApplicationRecord
   after_save do
     record.touch
   end
+  
   after_destroy do
     record.touch
   end

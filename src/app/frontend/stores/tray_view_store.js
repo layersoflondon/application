@@ -295,13 +295,14 @@ export default class TrayViewStore {
   }
 
   @action.bound fetchData(params, options = {}) {
-    this.mainResults.clear();
     this.loading = true;
     
-    const lockTray = options.lockTray || false;
+    const lockTray = options.lockTray || this.locked;
 
     runInAction(async() => {
       const mainContentData = await Search.perform(params);
+      this.mainResults.clear();
+      
       const mainResults = observable.map();
       
       mainContentData.data.map((result) => {
@@ -400,7 +401,6 @@ export default class TrayViewStore {
     console.log("Assigning goBackTo = ", value);
     this.previousPath = value;
     if(value === null) {
-      console.log("unlocking tray");
       this.locked = false;
     }
   }

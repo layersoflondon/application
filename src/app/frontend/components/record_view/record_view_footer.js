@@ -38,6 +38,7 @@ import {appendQueryString} from '../../helpers/modals';
 
   render() {
     const reportLinkPath = appendQueryString(this.props.location, [{key: 'reportRecord', value: true}]);
+    const editLinkPath   = appendQueryString(this.props.location, [{key: 'editRecord', value: this.props.trayViewStore.record.id}]);
     
     return <Fragment>
       <div className="footer">
@@ -52,7 +53,7 @@ import {appendQueryString} from '../../helpers/modals';
           <NavLink to={`${this.props.router.location.pathname}?${reportLinkPath}`}>Report this record</NavLink>
           {
             this.props.trayViewStore.record.user_can_edit_record &&
-            <NavLink to={`/map?editRecord=${this.props.trayViewStore.record.id}`} className="edit">Edit</NavLink>
+            <NavLink to={`?${editLinkPath}`} className="edit">Edit</NavLink>
           }
         </div>
       </div>

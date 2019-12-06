@@ -28,12 +28,6 @@ const getStyle = (colour) => {
     case 'yellow':
       style.fillColor = '#eaa349';
       break;
-    case 'yellow-hatched':
-      style.fillColor = '#eaa349';
-      style.color = '#ef8a29';
-      // style.dashArray = '5 5';
-      style.opacity = 0.9;
-      break;
     case 'unknown':
       style.fillColor = 'white';
       break;

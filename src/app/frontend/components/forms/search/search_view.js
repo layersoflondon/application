@@ -234,6 +234,7 @@ window.queryString = queryString;
 
     Search.perform(search_params).then((response) => {
       this.props.trayViewStore.loading = false;
+      this.props.trayViewStore.trayLocked = true;
       this.props.trayViewStore.searchParams = search_params;
 
       const {push} = {...this.props.router};
@@ -264,8 +265,7 @@ window.queryString = queryString;
 
         this.props.mapViewStore.panTo(lat, lng);
       }
-
-      this.props.trayViewStore.locked = true;
+      
       this.props.trayViewStore.root = false;
 
       this.props.router.history.push(`/map/search?show_results=true&${params}`)

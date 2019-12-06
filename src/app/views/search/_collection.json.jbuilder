@@ -27,6 +27,9 @@ json.records do
     json.collection_ids record['collection_ids'].try(:uniq)
     json.tag_groups record['tag_groups']
     json.tag_ids record['tag_ids']
+    json.image do 
+      json.card record.try(:[], 'image').try(:[], 'card')
+    end
   end
 end
 

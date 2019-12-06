@@ -22,7 +22,11 @@ import {observer} from "mobx-react";
       this.props.object.destroy().then((result) => {
         this.setState({deleting: false, deleted: true});
         //remove the deleted attachment from the record we are holding in the recordFormStore.
-        this.props.recordFormStore.record.attachments.splice(this.props.index, 1)
+        const attachments = this.props.recordFormStore.record.attachments.slice();
+        const index = this.props.recordFormStore.record.attachments.findIndex((a) => a.id === this.props.object.id);
+
+        attachments.splice(index, 1);
+        this.props.recordFormStore.record.attachments = attachments;
       }).catch((error) => {
         console.log("error destroying", error)
       });
@@ -47,14 +51,14 @@ import {observer} from "mobx-react";
     const removeLinkClass = (this.state.deleting) ? "fa fa-circle-o-notch fa-spin is-deleting" : "fa fa-times";
 
     return (
-      this.state.deleted ? null : (<li className={container_classes}>
+      <li className={container_classes}>
         <a className="remove-attachment" title="Remove attachment" onClick={this.handleRemoveAttachment.bind(this)}>
           <i className={removeLinkClass}></i>
         </a>
         <a onClick={this.setCurrentMediaItem.bind(this)}>
           <span className={classes} style={style} />
         </a>
-      </li>)
+      </li>
     )
   }
 }

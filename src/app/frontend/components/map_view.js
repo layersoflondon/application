@@ -67,7 +67,7 @@ import {openModalLink} from '../helpers/modals';
       this.props.mapViewStore.inEditRecordMode = true;
 
       if (!!this.props.recordFormStore.record.id) {
-        this.props.router.push(openModalLink(this.props.router.location, {key: 'editRecord', value: this.props.recordFormStore.record.id}));
+        // this.props.router.push(openModalLink(this.props.router.location, {key: 'editRecord', value: this.props.recordFormStore.record.id}));
       } else {
         this.props.router.push(openModalLink(this.props.router.location, {key: 'newRecord', value: true}, {remove: ['choose-place']}));
       }

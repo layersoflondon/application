@@ -92,8 +92,3 @@
 .m-color-picker button[data-colour="black"]:before { background: $booth-black; }
 
 .m-color-picker button[data-colour="yellow"]:before { background: $booth-yellow; }
-
-.m-color-picker button[data-colour="yellow-hatched"]:before {
-  background-image: linear-gradient(135deg, $booth-paper 25%, $booth-yellow 25%, $booth-yellow 50%, $booth-paper 50%, $booth-paper 75%, $booth-yellow 75%, $booth-yellow 100%);
-  background-size: 8.49px 8.49px;
-}

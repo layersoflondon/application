@@ -92,7 +92,6 @@ export default class PolygonContainer extends React.Component {
                 <button onClick={this.setColour.bind(this)} className={'red-hatched'} data-colour='red-hatched'>Red hatched</button>
                 <button onClick={this.setColour.bind(this)} className={'red'} data-colour='red'>Red</button>
                 <button onClick={this.setColour.bind(this)} className={'yellow'} data-colour='yellow'>Yellow</button>
-                <button onClick={this.setColour.bind(this)} className={'yellow-hatched'} data-colour='yellow-hatched'>Yellow hatched</button>
                 <button onClick={this.setColour.bind(this)} className={'unknown'} data-colour='unknown'>Too difficult to tell</button>
             </div>
         </Popup>;

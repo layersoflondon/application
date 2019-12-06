@@ -23,6 +23,7 @@ export default class TrayUserRecordsIndex extends Component {
   fetchRecords() {
     this.state = {loading: true};
     User.show(null, this.props.match.params.id).then((response) => {
+      this.props.trayViewStore.trayLocked = true;
       this.user = response.data;
       this.props.trayViewStore.fetchData({user_id: this.props.match.params.id});
     }).finally(() => {
@@ -46,6 +47,7 @@ export default class TrayUserRecordsIndex extends Component {
         metaDescription={`View records by ${this.user.name}`}
         metaData={`User, ${pluralize('record', this.props.trayViewStore.mainResults.size, true)}`} 
         closePath={`/map`}
+        closeOnClick={() => this.props.trayViewStore.trayLocked = false }
       />
       
       <div className="m-tray-records-list">
