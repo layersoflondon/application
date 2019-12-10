@@ -146,7 +146,8 @@ export default class RecordModel {
       this.date_from_object = {date: '', month: '', year: ''};
     }
   }
-  get date_to() {
+
+  @computed get date_to() {
     const values = new Set( Object.values(this.date_to_object) );
     if( values.size === 1 && values.has("") ) return null;
 
