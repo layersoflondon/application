@@ -151,6 +151,7 @@ gem 'rubyXL'
 
 gem 'rinku'
 
+# gem 'layers_of_london-booth-map_tool', path: "../../layers_of_london-booth-map_tool"
 gem 'layers_of_london-booth-map_tool', git: "https://github.com/layersoflondon/booth-maptools"
 
 gem 'natural_sort'
