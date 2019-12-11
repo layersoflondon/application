@@ -7,9 +7,9 @@ GIT
 
 GIT
   remote: https://github.com/layersoflondon/booth-maptools
-  revision: 6a3b5af5d8774d4309a1d75dd453d3aaadf39930
+  revision: 11b72b8b4e933d292a2d0ac355f4333c109af764
   specs:
-    layers_of_london-booth-map_tool (0.1.2.1)
+    layers_of_london-booth-map_tool (0.1.2.2)
       aasm (~> 5.0)
       geokit
       pundit (~> 2.0)
