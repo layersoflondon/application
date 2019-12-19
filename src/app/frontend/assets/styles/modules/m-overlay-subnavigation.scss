@@ -37,6 +37,9 @@
   margin: 0px 3px 0px 0px;
   display: inline-block;
   vertical-align:bottom;
+  @include mq(tablet) {
+    padding: 16px 14px;
+  }
   @include mq(smartphone) {
     font-size:16px;
     margin-bottom:6px;

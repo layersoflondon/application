@@ -251,9 +251,14 @@
   font-size: 13px;
   color: $red;
   top: 42%;
+  @include mq(tablet) {
+    padding: 0 10px;
+    font-size: 10px;
+  }
   @include mq(smartphone) {
     top: 31%;
     padding: 0 17%;
+    font-size: 13px;
   }
   @include mq(small-smartphone) {
     top: 34%;

@@ -1,0 +1,36 @@
+// Overlay error
+
+.m-overlay-error {
+  @include overlay-wrap-white;
+  max-width: 900px;
+  margin-top: 130px;
+  @include mq(tablet) {
+    margin-top: 130px;
+  }
+  @include mq(small-smartphone) {
+    margin-top: 132px;
+  }
+}
+
+.m-overlay-error h1 {
+  @include font-display;
+  @include polygon-background(yellow, top, true);
+  padding: 20px 30px;
+  font-size: 36px;
+  color: $black;
+  margin-left: -20px;
+  margin-top: -120px;
+  float: left;
+  @include mq(small-smartphone) {
+    font-size: 26px;
+    margin-top: -80px;
+  }
+}
+
+.m-overlay-error a {
+  color: $green;
+}
+
+.m-overlay-error .button {
+  @include big-square-button;
+}

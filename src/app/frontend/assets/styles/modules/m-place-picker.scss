@@ -24,7 +24,7 @@
 }
 
 .m-place-picker .wrap {
-  padding: 20px 200px 20px 25px;
+  padding: 20px 72px 20px 25px;
   font-size:26px;
   background:rgba(0,0,0,0.8);
   display:inline-block;
@@ -35,6 +35,7 @@
   @include mq(smartphone) {
     font-size: 16px;
     padding: 10px 50px 10px 15px;
+    width:100%;
   }
 }
 
@@ -46,4 +47,8 @@
   position:absolute;
   top: 24px;
   right: 24px;
+  @include mq(smartphone) {
+    top: 13px;
+    right: 13px;
+  }
 }

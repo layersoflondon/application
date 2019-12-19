@@ -2,6 +2,7 @@
 
 .m-tag-groups {
   @include tags-list;
+  padding-bottom:40px;
 }
 
 @media screen and (min-width: 1151px) {
