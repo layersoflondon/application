@@ -56,6 +56,7 @@ import {observer} from "mobx-react";
       <label>Add YouTube video with URL</label>
       <input type="text" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" name='youtube_id' value={this.state.youtube_id} onChange={this.handleOnChange.bind(this)} />
       <button onClick={this.saveUrl.bind(this)}>+</button>
+      <span className="video-tip">Please add videos from other sources as a link, in the next section.</span>
     </div>
   }
 }

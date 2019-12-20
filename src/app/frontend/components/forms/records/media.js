@@ -150,7 +150,7 @@ import {observer} from "mobx-react";
               <div className="form-group add-file">
                 <a href="#" onClick={this.showFileInput.bind(this)}><span className="image"></span>
                   <em>Upload a file</em>
-                  <span><br/>{this.MAX_FILE_SIZE}Mb max size</span>
+                  <span className="upload-tip"><br/>Any images or documents should be suitable. {this.MAX_FILE_SIZE}Mb max size.</span>
                 </a>
                 <input type="file" ref={this.fileInputRef} onChange={this.onFileInputChange.bind(this)} style={{display: 'none'}} />
               </div>

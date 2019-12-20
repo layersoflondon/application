@@ -145,7 +145,6 @@
   min-height: 122px;
 }
 
-
 .m-add-record button.delete,
 .m-add-record button.cancel,
 .m-add-record button.unpublish {
@@ -171,7 +170,6 @@
   min-height: 202px;
 }
 
-
 .ql-container.ql-container {
   font-family: inherit;
   font-size: inherit;
@@ -192,7 +190,6 @@
     padding: 9px !important;
   }
 }
-
 
 .m-add-record label.errors-on-publish {
   position: relative;
@@ -237,4 +234,49 @@
     margin: 15px -15px -40px -15px;
     padding: 15px;
   }
+}
+
+.m-add-record .help-link {
+  float: right;
+  margin-top: -82px;
+  @include mq(smartphone) {
+    float: right;
+    margin-top:0;
+    padding-bottom: 16px;
+  }
+  @include mq(small-smartphone) {
+    float: left;
+  }
+}
+
+.m-add-record .help-link a {
+  @include mq(smartphone) {
+    color:$green;
+  }
+}
+
+.m-add-record .help-link span {
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  font-weight: bold;
+  color: white;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  top: 1px;
+  margin-right: 4px;
+  @include mq(smartphone) {
+    border: 1px solid rgb(169, 208, 188);
+    color:$green;
+  }
+}
+
+
+.m-add-record .video-tip {
+  display: inline-block;
+  font-size: 12px;
+  margin-top: 10px;
 }
