@@ -185,7 +185,7 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
             <h1>{form_title}</h1>
 
             <div className="help-link">
-              <a href="/help-centre/faqs/how-do-i-add-things-to-the-website"><span>?</span> Learn more about adding records</a>
+              <a href="/help-centre/faqs/how-do-i-add-things-to-the-website" target="_blank"><span>?</span> Learn more about adding records</a>
             </div>
 
             <form action="" className="form--chunky form--over-white">

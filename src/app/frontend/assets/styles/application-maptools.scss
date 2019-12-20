@@ -263,6 +263,9 @@ a:hover {
   border: 0;
   margin-left: 20px;
   margin-top: 20px;
+  @include mq(smartphone) {
+    display:none;
+  }
 }
 
 .leaflet-touch .leaflet-bar.leaflet-control-zoom a {

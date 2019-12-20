@@ -276,7 +276,8 @@
 
 
 .m-add-record .video-tip {
-  display: inline-block;
   font-size: 12px;
-  margin-top: 10px;
+  display: block;
+  padding-top: 10px;
+  clear: both;
 }
