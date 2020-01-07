@@ -2,6 +2,9 @@
 
 .main--user-function-form {
   padding-top: 200px;
+  @include mq(smartphone) {
+    padding-top: 70px;
+  }
 }
 
 .main--user-function-form .background {
@@ -23,6 +26,10 @@
   margin: 0 auto;
   position: relative;
   @include clearfix;
+  @include mq(smartphone) {
+    width:auto;
+    padding:15px;
+  }
 }
 
 .m-user-function-form h1 {
@@ -32,6 +39,9 @@
   margin-top: 0;
   margin-bottom: 50px;
   font-size: 54px;
+  @include mq(smartphone) {
+    font-size:34px;
+  }
 }
 
 .m-user-function-form label {

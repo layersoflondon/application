@@ -118,7 +118,7 @@
     box-decoration-break: clone;
     font-weight: bold;
     transition: all .2s;
-    //padding: 1px 4px;
+    padding: 1px 4px;
   }
 
   .child-tags li a:hover {
@@ -140,7 +140,8 @@
   .child-tags label input {
     float: left;
     width: auto;
-    padding: 0px 4px 0px 20px;
+    //padding: 0px 4px 0px 20px;
+    padding: 0;
     margin: 2px 0 0 -20px;
   }
 

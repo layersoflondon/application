@@ -78,7 +78,7 @@ export default class MapView extends React.Component {
 
     return {
       weight: (this.props.mapToolsStore.mapRef.leafletElement.getZoom() <= 10) ? 1 : 2,
-      color: "#666666",
+      color: "#bf0000",
       fillOpacity: checkedFillOpacity,
       fillColor: checkedFillColor,
       className: "masking-square"
@@ -185,7 +185,7 @@ export default class MapView extends React.Component {
 
     return <React.Fragment>
       <div className="m-map-area" data-zoom={this.props.mapToolsStore.zoom}>
-        <Map ref={this.setMapRef} zoomControl={false}
+        <Map ref={this.setMapRef} zoomControl={true}
               center={this.props.mapToolsStore.centre.toJS()} zoom={this.props.mapToolsStore.zoom}
               dragging={draggingEnabled} touchZoom={zoomingEnabled} doubleClickZoom={zoomingEnabled}
               scrollWheelZoom={zoomingEnabled} onClick={this.handleOnClick.bind(this)} key={this.props.mapToolsStore.square ? `maptools-square-${this.props.mapToolsStore.square.id}` : 'maptools-squares'}>
@@ -195,14 +195,12 @@ export default class MapView extends React.Component {
 
           { !this.props.mapToolsStore.square &&
             <GeoJSON data={this.props.mapToolsStore.squares} style={this.gridStyle.bind(this)} />
-
           }
 
           {this.props.mapToolsStore.square &&
             <React.Fragment>
               <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
               {immutablePolygons}
-
             </React.Fragment>
           }
 

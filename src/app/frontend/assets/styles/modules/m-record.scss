@@ -8,6 +8,7 @@
   position: relative;
   @include mq(tablet) {
     margin-top:70px;
+    z-index:0;
   }
   @include mq(smartphone) {
     margin:15px;
@@ -234,6 +235,10 @@
   margin-right: 20px;
   display: inline-block;
   margin-bottom: 20px;
+  @include mq(small-smartphone) {
+    margin-right: 0;
+    width:90px;
+  }
 }
 
 .m-record .social > div.add-to-collection {

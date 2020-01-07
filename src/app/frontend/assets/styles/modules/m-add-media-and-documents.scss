@@ -84,6 +84,8 @@
   font-size: 14px;
   text-transform: uppercase;
   font-style: normal;
+  margin-top: 10px;
+  display: inline-block;
   @include mq(smartphone) {
     font-size: 16px;
     line-height: 4.3;
@@ -92,6 +94,16 @@
 
 .m-add-media-and-documents .add-tools .add-file span {
   font-size: 12px;
+}
+
+.m-add-media-and-documents .add-tools .add-file .upload-tip {
+  font-size: 12px;
+  margin-top: -10px;
+  line-height: 1.3;
+  display: inline-block;
+  @include mq(smartphone) {
+    display:block;
+  }
 }
 
 .m-add-media-and-documents .add-tools .add-url {
@@ -251,9 +263,14 @@
   font-size: 13px;
   color: $red;
   top: 42%;
+  @include mq(tablet) {
+    padding: 0 10px;
+    font-size: 10px;
+  }
   @include mq(smartphone) {
     top: 31%;
     padding: 0 17%;
+    font-size: 13px;
   }
   @include mq(small-smartphone) {
     top: 34%;

@@ -1,43 +1,45 @@
 .m-site-header {
-  background:black;
-  width:100%;
+  background: black;
+  width: 100%;
   height: 74px;
   padding: 22px 26px;
-  color:$yellow;
+  color: $yellow;
   @include mq(smartphone) {
     height: 70px;
   }
 }
 
 .m-site-header h1 {
-  margin:0;
-  float:left;
-  font-size:20px;
+  margin: 0;
+  float: left;
+  font-size: 20px;
   @include mq(smartphone) {
     font-size: 14px;
   }
 }
 
-.m-site-header .help-link {
-  float:right;
+.m-site-header .links {
+  float: right;
 }
 
-.m-site-header .help-link a, 
-.m-site-header .help-link button {
-  font-weight:bold;
+.m-site-header .links a,
+.m-site-header .links button {
   color: $yellow;
-  transition:all .2s;
+  transition: all .2s;
+  margin-left: 10px;
+  margin-top: 4px;
+  display: inline-block;
   @include mq(smartphone) {
     position: relative;
     top: -4px;
   }
 }
 
-.m-site-header .help-link button {
-  border-radius:100px;
+.m-site-header .links button {
+  border-radius: 100px;
   background: #404040;
 }
 
-.m-site-header .help-link button:hover {
+.m-site-header .linkslink button:hover {
   background: lighten(#404040, 15%);
 }

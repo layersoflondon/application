@@ -3,10 +3,17 @@
 .m-comment-form {
   padding: 40px 44px 40px 44px;
   overflow: hidden;
+  @include mq(tablet) {
+    padding: 30px;
+  }
+  @include mq(smartphone) {
+    padding:15px;
+  }
 }
 
 .m-comment-form .errors {
   list-style-type: none;
+  padding:0;
 
   li {
     color: $red;

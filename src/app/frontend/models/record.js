@@ -338,7 +338,7 @@ export default class RecordModel {
   @computed get date_to_formatting_string() {
     const yearFormat = "YYYY";
     const monthFormat = "MMMM";
-    const dayFormat = "dddd do";
+    const dayFormat = "dddd Do";
 
     let format = [];
 
