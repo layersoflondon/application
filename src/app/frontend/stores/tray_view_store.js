@@ -14,8 +14,7 @@ export default class TrayViewStore {
   @observable root = true;
   @observable locked = false;
   @observable loading = false;
-
-  // the TrayViewStore is given its data source (the cards attribute) and it renders it as a list in the tray
+  
   @observable tray_is_visible = true;
 
   @observable cards = observable.map();

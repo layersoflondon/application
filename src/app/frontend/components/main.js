@@ -6,7 +6,7 @@ import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import Helmet from 'react-helmet';
 
 import { Steps } from 'intro.js-react';
-import {steps, showIntro, introExited, SHOW_TRAY_AT_INDEX, introOptions} from '../stores/intro';
+import {steps, showIntro, introExited, SHOW_TRAY_AT_INDEX} from '../stores/intro';
 
 import TrayContainer from './tray_container';
 import TrayRecordsIndex from './tray/records_index';
@@ -46,8 +46,8 @@ import AddToCollection from "./record_view/add_to_collection";
     this.trayExpandedToShowStep = false;
     this.props.trayViewStore.tray_is_visible = !showIntro;
   }
-
-  handleOnBeforeChange(index) {
+  
+  beforeIntroStepChangeCallback(index) {
     if(index === SHOW_TRAY_AT_INDEX && !this.trayExpandedToShowStep) {
       this.props.trayViewStore.setTrayVisibility(true);
       this.stepsRef.updateStepElement(index);
@@ -149,12 +149,11 @@ import AddToCollection from "./record_view/add_to_collection";
       {/* Add a record to a collection */}
       <Route component={AddToCollection} />
 
-      <Steps
-        options={introOptions}
+      <Steps 
         enabled={showIntro} 
         steps={steps} 
         initialStep={0} 
-        onBeforeChange={this.handleOnBeforeChange.bind(this)}
+        onBeforeChange={this.beforeIntroStepChangeCallback.bind(this)}
         onExit={this.handleOnExit.bind(this)}
         ref={steps => this.stepsRef = steps} />
       
