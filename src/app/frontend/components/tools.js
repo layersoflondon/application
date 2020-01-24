@@ -1,9 +1,7 @@
 import React,{Component, Fragment} from 'react';
 import {observer, inject} from "mobx-react";
-import PropTypes from 'prop-types';
-import { NavLink, Link, withRouter } from 'react-router-dom';
-import Img from 'react-image';
-import {appendQueryString, openModalLink} from '../helpers/modals';
+import { Link, withRouter } from 'react-router-dom';
+import {openModalLink} from '../helpers/modals';
 
 @inject('userPresent', 'adminUserPresent', 'mapViewStore', 'trayViewStore', 'currentUser')
 @withRouter
