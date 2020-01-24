@@ -11,6 +11,12 @@ body .introjs-tooltip {
   max-width: none;
 }
 
+body .introjs-tooltip {
+  width: 100%;
+  min-width: 350px;
+  max-width: none;
+}
+
 .leaflet-container {
   height: 100%;
   width: 100%;
