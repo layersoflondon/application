@@ -22,8 +22,6 @@
   }
 }
 
-
-
 .m-tray-area.is-loading {
   @include loading-spinner;
   background: rgba(0, 0, 0, 0.8);
@@ -36,6 +34,11 @@
     visibility:none;
   }
 }
+
+.tray-is-closed .m-tray-area.introjs-fixParent {
+  display: none;
+}
+
 @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
   .tray-is-closed .m-tray-area {
     transform: translateX(-100%) translateX(20px);
