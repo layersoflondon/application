@@ -16,17 +16,17 @@ class VisualHelpers {
 
     $(".m-tag-groups-list .child-tags").hide();
 
-    $(".m-tag-groups-list > li").on( {
-      'mouseenter':function() {
+    $(".m-tag-groups-list > li").on({
+      'mouseenter': function () {
         var elem = $(this).find('.child-tags');
         elem.css('transform', 'translate3d(0,0,0)');
         elem.find('.spike').css('transform', 'translate3d(0,0,0)');
         elem.fadeIn(200);
 
-        var elemOffset =  elem.offset();
+        var elemOffset = elem.offset();
         var overhangRight = (elemOffset.left + elem.outerWidth()) - elem.closest('.m-home-tags').outerWidth();
 
-        if (overhangRight < 0 ) {
+        if (overhangRight < 0) {
           overhangRight = 0;
         } else {
           elem.css('transform', 'translate3d(' + (overhangRight * -1) + 'px,0,0)');
@@ -35,7 +35,7 @@ class VisualHelpers {
 
         var overhangLeft = elemOffset.left;
 
-        if (overhangLeft > 0 ) {
+        if (overhangLeft > 0) {
           overhangLeft = 0;
         } else {
           console.log(overhangLeft);
@@ -43,7 +43,7 @@ class VisualHelpers {
           elem.find('.spike').css('transform', 'translate3d(' + overhangLeft + 'px,0,0)');
         }
       },
-      'mouseleave':function() {
+      'mouseleave': function () {
         $(this).find('.child-tags').fadeOut(200);
       }
     });
@@ -52,7 +52,8 @@ class VisualHelpers {
   slideshows() {
 
     $(".rslides").responsiveSlides({
-      pager:true
+      pager: true,
+      navContainer: ".m-layers-slideshow .controls"
     });
 
   }
