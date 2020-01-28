@@ -106,6 +106,16 @@ export default class RecordFormStore {
     return added;
   }
 
+  @action clearTags() {
+    this.record.tag_ids = [];
+  }
+
+  @action checkTags(ids) {
+    ids.map((id) => {
+      this.toggleTag(id);
+    });
+  }
+
   tagIsChecked(id) {
     return (this.record.tag_ids || []).indexOf(id)>-1;
   }

@@ -53,7 +53,30 @@ window.queryString = queryString;
       }
 
       this.setState({visibleTagGroup: value});
-    }
+    };
+
+    this.clearTagGroup = () => {
+      this.setState({
+        tag_ids: []
+      });
+    };
+
+    this.allTagsChecked = (tagGroupId) => {
+      const group = this.props.tagGroupsStore.tag_groups.get(tagGroupId);
+      const groupTagIds = group.tags.map((tag) => tag.id).map((i) => parseFloat(i, 10)).sort();
+      const currentTagIds = this.state.tag_ids.map((i) => parseFloat(i, 10)).sort();
+
+      return groupTagIds.join(",") === currentTagIds.join(",");
+    };
+
+    this.selectAllTags = (tagGroupId) => {
+      const group = this.props.tagGroupsStore.tag_groups.get(tagGroupId);
+      const groupTagIds = group.tags.map((tag) => tag.id).map((i) => parseFloat(i, 10)).sort();
+
+      this.setState({
+        tag_ids: groupTagIds
+      });
+    };
 
     this.toggleTag = (id) => {
       const value = parseInt(id, 10);
@@ -68,7 +91,7 @@ window.queryString = queryString;
       }
 
       this.setState({tag_ids: ids});
-    }
+    };
 
     this.tagIsChecked = (id) => {
       const value = parseInt(id, 10);
@@ -78,7 +101,7 @@ window.queryString = queryString;
       }
 
       return false;
-    }
+    };
 
     this.enabledTagIdsInGroup = (id) => {
       this.state.tag_ids;
@@ -88,7 +111,7 @@ window.queryString = queryString;
       const enabledTagIds = this.state.tag_ids.filter((id) => groupTagIds.indexOf(id) > -1);
 
       return enabledTagIds;
-    }
+    };
   }
 
   componentWillMount() {
@@ -436,7 +459,10 @@ window.queryString = queryString;
                       enabledTagIds={this.enabledTagIdsInGroup(tagGroup.id)}
                       toggleTag={this.toggleTag}
                       tagIsChecked={this.tagIsChecked}
-                      setVisibleTagGroup={this.toggleTagGroup}
+                      setTagGroupVisibility={this.toggleTagGroup}
+                      allTagsChecked={this.allTagsChecked(tagGroup.id)}
+                      selectAllTags={() => this.selectAllTags(tagGroup.id)}
+                      clearSelectedTags={this.clearTagGroup}
                     />
                   })}
                 </div>
