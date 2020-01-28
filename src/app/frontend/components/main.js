@@ -46,8 +46,8 @@ import AddToCollection from "./record_view/add_to_collection";
     this.trayExpandedToShowStep = false;
     this.props.trayViewStore.tray_is_visible = !showIntro;
   }
-  
-  beforeIntroStepChangeCallback(index) {
+
+  handleOnBeforeChange(index) {
     if(index === SHOW_TRAY_AT_INDEX && !this.trayExpandedToShowStep) {
       this.props.trayViewStore.setTrayVisibility(true);
       this.stepsRef.updateStepElement(index);
@@ -59,6 +59,11 @@ import AddToCollection from "./record_view/add_to_collection";
 
       return false;
     }
+  }
+
+  handleOnExit() {
+    introExited();
+    this.props.trayViewStore.setTrayVisibility(true);
   }
 
   render() {
@@ -148,8 +153,8 @@ import AddToCollection from "./record_view/add_to_collection";
         enabled={showIntro} 
         steps={steps} 
         initialStep={0} 
-        onBeforeChange={this.beforeIntroStepChangeCallback.bind(this)} 
-        onExit={(index) => this.props.trayViewStore.setTrayVisibility(true)} 
+        onBeforeChange={this.handleOnBeforeChange.bind(this)}
+        onExit={this.handleOnExit.bind(this)}
         ref={steps => this.stepsRef = steps} />
       
       {/* view a team */}
