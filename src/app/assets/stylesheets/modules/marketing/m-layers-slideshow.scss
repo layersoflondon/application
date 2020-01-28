@@ -39,7 +39,7 @@
   padding: 40px;
   padding-left: 80px;
   z-index: 10;
-  background: rgba(0, 0, 0, 0.77);
+  background: rgba(0, 0, 0, 0.9);
   @include mq(tablet) {
     left: 390px;
   }
@@ -162,7 +162,7 @@
 }
 
 .m-layers-slideshow .text-content {
-  background: rgba(0, 0, 0, 0.67);
+  background: rgba(0, 0, 0, 0.75);
   padding: 50px;
   padding-left: 80px;
 

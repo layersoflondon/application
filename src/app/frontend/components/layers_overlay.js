@@ -124,6 +124,9 @@ const LAYERS_PER_PAGE = 6;
             <div className="m-layers-picker">
               <div className="header">
                 <h1>Layers</h1>
+                <div className="status">
+                  <span>1 layer currently selected</span> <a href="#"><i class="fa fa-times" aria-hidden="true"></i> Clear all</a>
+                </div>
                 <div className="search">
                   <input placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onKeyUp={this.handleReturn.bind(this)} onChange={this.updateLayerGroupFilter.bind(this)}/>
                   <button className="btn" disabled={this.state.query.length ? false : true} onClick={this.filter}>Go
@@ -132,9 +135,9 @@ const LAYERS_PER_PAGE = 6;
               </div>
 
               {highlightedLayers.length > 0 && (
-                <div className="layers">
+                <div className="layers layers--featured">
                   <div className="section-title">
-                    <h2>Highlighted layers</h2>
+                    <h2>Featured layers</h2>
                   </div>
                   <Equalizer selector="a:first-child">
                     {highlightedLayers.map((layer_group) =>
@@ -145,14 +148,62 @@ const LAYERS_PER_PAGE = 6;
               )}
 
               {layerDirectoryLayers.length > 0 && (
-                <div className="secondary-layers">
+                <div className="layers layers--all">
                   <div className="section-title">
-                    <h2>Layer directory</h2>
+                    <h2>All layers</h2>
+                  </div>
+                  <div className="section-navigation">
+                    <h3>Showing:</h3>
+                    <ul>
+                      <li><a href="#">All</a></li>
+                      <li><a href="#">London maps</a></li>
+                      <li className="is-current"><a href="#">Borough maps</a>
+                        <ul>
+                          <li><a href="#">Camden</a></li>
+                          <li><a href="#">Greenwich</a></li>
+                          <li><a href="#">Hackney</a></li>
+                          <li><a href="#">Hammersmith and Fulham</a></li>
+                          <li><a href="#">Islington</a></li>
+                          <li><a href="#">Royal Borough of Kensington and Chelsea</a></li>
+                          <li><a href="#">Lambeth</a></li>
+                          <li><a href="#">Lewisham</a></li>
+                          <li><a href="#">Southwark</a></li>
+                          <li><a href="#">Tower Hamlets</a></li>
+                          <li><a href="#">Wandsworth</a></li>
+                          <li><a href="#">Westminster</a></li>
+                          <li><a href="#">Barking and Dagenham</a></li>
+                          <li><a href="#">Barnet</a></li>
+                          <li><a href="#">Bexley</a></li>
+                          <li className="is-current"><a href="#">Brent</a></li>
+                          <li><a href="#">Bromley</a></li>
+                          <li><a href="#">Croydon</a></li>
+                          <li><a href="#">Ealing</a></li>
+                          <li><a href="#">Enfield</a></li>
+                          <li><a href="#">Haringey</a></li>
+                          <li><a href="#">Harrow</a></li>
+                          <li><a href="#">Havering</a></li>
+                          <li><a href="#">Hillingdon</a></li>
+                          <li><a href="#">Hounslow</a></li>
+                          <li><a href="#">Kingston upon Thames</a></li>
+                          <li><a href="#">Merton</a></li>
+                          <li><a href="#">Newham</a></li>
+                          <li><a href="#">Redbridge</a></li>
+                          <li><a href="#">Richmond upon Thames</a></li>
+                          <li><a href="#">Sutton</a></li>
+                          <li><a href="#">Waltham Forest</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#">Datasets</a></li>
+                    </ul>
                   </div>
 
                   {layerDirectoryLayers.map((layer_group) =>
                     <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
                   }
+
+                  <div className="section-load-more">
+                    <a href="#">Load more</a>
+                  </div>
                 </div>
               )}
 
