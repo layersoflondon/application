@@ -47,20 +47,18 @@ import tags from "../../tray/tags";
         <h2>Tags</h2>
         <div className="parent-tags">
           {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
-            const tagsStore = new TagsStore(tagGroup, this.tagIds);
 
             return <TagGroup
                 key={`tag-group-${tagGroup.id}`}
-                tagsStore={tagsStore}
                 tagGroup={tagGroup}
                 isVisible={this.state.visibleTagGroup === tagGroup.id}
-                enabledTagIds={tagsStore.checkedTagIds}
-                toggleTag={tagsStore.toggleTag}
-                tagIsChecked={tagsStore.tagIsChecked}
+                enabledTagIds={tagGroup.checkedTagIds}
+                toggleTag={tagGroup.toggleTag}
+                tagIsChecked={tagGroup.tagIsChecked}
                 setTagGroupVisibility={this.toggleTagGroup}
-                allTagsChecked={tagsStore.allTagsChecked}
-                selectAllTags={tagsStore.selectAll}
-                clearSelectedTags={() => tagsStore.clearAll}
+                allTagsChecked={tagGroup.allTagsChecked}
+                selectAllTags={tagGroup.selectAll}
+                clearSelectedTags={tagGroup.clearAll}
             />
           })}
         </div>

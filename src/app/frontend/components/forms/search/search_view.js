@@ -31,6 +31,7 @@ window.queryString = queryString;
 
     this.closeEventHandler = (event) => {
       if (event.target.classList.contains('s-overlay--search')) {
+        console.log("Closing");
         this.setState({visibleTagGroup: null});
       }
     };
@@ -170,7 +171,7 @@ window.queryString = queryString;
       search_params.collections = true;
     }
 
-    search_params.tag_ids = this.state.tag_ids.join(',');
+    search_params.tag_ids = this.props.tagGroupsStore.checkedTagIds.join(',');
 
     function serializeQuery(params, prefix) {
       const query = Object.keys(params).map((key) => {
@@ -298,6 +299,11 @@ window.queryString = queryString;
     }
   }
 
+  handleClearTags(event) {
+    this.setState({visibleTagGroup: null});
+    this.props.tagGroupsStore.uncheckTagsInAllGroups();
+  }
+
   render() {
     console.log(this.state.selectedTagCount);
     if (!this.props.mapViewStore.modalIsVisible('search')) return <React.Fragment/>;
@@ -399,10 +405,10 @@ window.queryString = queryString;
                 }
               </div>
 
-              <SearchTagGroups ref={this.tagGroupsRef} toggleTagGroup={this.toggleTagGroup} updateTagCount={this.handleUpdateTagCount} />
+              <SearchTagGroups toggleTagGroup={this.toggleTagGroup} updateTagCount={this.handleUpdateTagCount} />
 
-              { this.state.selectedTagCount>0 &&
-                <span onClick={this.clearSelectedTags}>Clear {pluralize('tag', this.state.selectedTagCount, true)}</span>
+              { this.props.tagGroupsStore.totalCheckedCount > 0 &&
+                <span onClick={this.handleClearTags.bind(this)}>Clear {pluralize('tag', this.props.tagGroupsStore.totalCheckedCount, true)}</span>
               }
 
               <div className="form-group">
