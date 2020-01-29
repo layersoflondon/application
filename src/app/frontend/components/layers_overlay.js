@@ -19,7 +19,7 @@ const LAYERS_PER_PAGE = 6;
       query: "",
       ids: null,
       searching: false,
-      current_page: 1,
+      page: 1,
       query_params: {}
     };
 
@@ -70,7 +70,7 @@ const LAYERS_PER_PAGE = 6;
     };
 
     this.showMore = () => {
-      return (!this.state.totalPages || this.state.page<this.state.totalPages);
+      return (typeof this.state.totalPages === "undefined" || this.state.page<this.state.totalPages);
     }
   }
 
