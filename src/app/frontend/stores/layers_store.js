@@ -23,7 +23,12 @@ export default class LayersStore {
           let layer_group = LayerGroupModel.fromJS(response.data, this);
           let current_group = this.layer_groups.get(layer_group.id);
           this.layer_group = layer_group;
-          this.layer_group.is_active = current_group.is_active;
+
+          if(current_group) {
+            this.layer_group.highlighted = current_group.highlighted;
+            this.layer_group.is_active = current_group.is_active;
+          }
+          
           this.layer_groups.set(layer_group.id, layer_group);
         });
       }else {
@@ -71,7 +76,10 @@ export default class LayersStore {
 
   @action.bound search(query, replaceResults, doneCallback) {
     Layer.search(query).then((response) => {
-      const layerGroups = response.data.map((layer) => LayerGroupModel.fromJS(layer, this));
+      const layerGroups = response.data.map((layer) => {
+        layer.highlighted = false; // ensure all results are rendered in the same list, without a highlighted section
+        return LayerGroupModel.fromJS(layer, this);
+      });
 
       if(replaceResults) {
         this.layer_groups.clear();

@@ -15,10 +15,8 @@ class LayersController < ApplicationController
     # if page isn't present, perform a full search (if page is present, we want to preserve
     # the highlighted layer groups) so we handle that in the next condition...
     if params[:query].present? && !params[:page].present?
-      highlighted_layers = LayerGroupsIndex.highlighted(is_highlighted: true).search(params[:query]).limit(MAX_HIGHLIGHTED_LAYERS)
-      directory_layers   = LayerGroupsIndex.highlighted(is_highlighted: false).search(params[:query]).limit(MAX_DIRECTORY_LAYERS).limit(per_page).offset(offset)
-      @layer_groups = [highlighted_layers, directory_layers].flatten
-      response.set_header("X-Total-Pages", directory_layers.total_pages)
+      @layer_groups = LayerGroupsIndex.search(params[:query]).limit(MAX_DIRECTORY_LAYERS).limit(per_page).offset(offset)
+      response.set_header("X-Total-Pages", @layer_groups.total_pages)
     elsif params[:query].present? && params[:page].present?
       @layer_groups = LayerGroupsIndex.highlighted(is_highlighted: false).search(params[:query]).limit(per_page).offset(offset)
     elsif params.has_key?(:overview) # set this to return limited highlights & directory results
