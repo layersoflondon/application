@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
-import SearchViewTaxonomy from "./_search_view_taxonomy";
 import Search from "../../../sources/search";
+import SearchTagGroups from "./search_tag_groups";
 import {recordEvent} from "../../../config/data_layer";
 import {closeModalLink} from '../../../helpers/modals';
-import TagGroup from '../tag_groups/tag_group';
-import tag from '../tag_groups/tag';
 import queryString from 'query-string';
+import pluralize from 'pluralize';
 
 window.queryString = queryString;
 
@@ -17,12 +16,7 @@ window.queryString = queryString;
   constructor(props) {
     super(props);
 
-    const search = queryString.parse(this.props.router.location.search, {arrayFormat: 'comma'});
-    let tag_ids = [];
-
-    if (search.tag_ids) {
-      tag_ids = search.tag_ids.split(',').map((id) => parseInt(id, 10));
-    }
+    this.tagGroupsRef = React.createRef();
 
     this.state = {
       q: "",
@@ -32,8 +26,7 @@ window.queryString = queryString;
       showing_results: false,
       terms: {type: [], theme: []},
       collections: false,
-      visibleTagGroup: null,
-      tag_ids: tag_ids
+      selectedTagCount: 0
     };
 
     this.closeEventHandler = (event) => {
@@ -55,63 +48,20 @@ window.queryString = queryString;
       this.setState({visibleTagGroup: value});
     };
 
-    this.clearTagGroup = () => {
+    this.handleUpdateTagCount = (count) => {
       this.setState({
-        tag_ids: []
+        selectedTagCount: count
       });
     };
 
-    this.allTagsChecked = (tagGroupId) => {
-      const group = this.props.tagGroupsStore.tag_groups.get(tagGroupId);
-      const groupTagIds = group.tags.map((tag) => tag.id).map((i) => parseFloat(i, 10)).sort();
-      const currentTagIds = this.state.tag_ids.map((i) => parseFloat(i, 10)).sort();
-
-      return groupTagIds.join(",") === currentTagIds.join(",");
+    this.clearSelectedTags = () => {
+      console.log("in parent component");
+      this.props.tagGroupsStore.clearSelectedTags();
     };
 
-    this.selectAllTags = (tagGroupId) => {
-      const group = this.props.tagGroupsStore.tag_groups.get(tagGroupId);
-      const groupTagIds = group.tags.map((tag) => tag.id).map((i) => parseFloat(i, 10)).sort();
-
-      this.setState({
-        tag_ids: groupTagIds
-      });
-    };
-
-    this.toggleTag = (id) => {
-      const value = parseInt(id, 10);
-      const index = this.state.tag_ids.indexOf(value);
-
-      let ids = this.state.tag_ids.slice();
-
-      if (index > -1) {
-        ids.splice(index, 1);
-      } else {
-        ids.push(value);
-      }
-
-      this.setState({tag_ids: ids});
-    };
-
-    this.tagIsChecked = (id) => {
-      const value = parseInt(id, 10);
-
-      if (this.state.tag_ids.length > 0) {
-        return this.state.tag_ids.indexOf(value) > -1;
-      }
-
-      return false;
-    };
-
-    this.enabledTagIdsInGroup = (id) => {
-      this.state.tag_ids;
-      const group = this.props.tagGroupsStore.tag_groups.get(id);
-      const groupTagIds = group.tags.map((tag) => tag.id);
-
-      const enabledTagIds = this.state.tag_ids.filter((id) => groupTagIds.indexOf(id) > -1);
-
-      return enabledTagIds;
-    };
+    this.clearAll = () => {
+      console.log("Clear all");
+    }
   }
 
   componentWillMount() {
@@ -349,6 +299,7 @@ window.queryString = queryString;
   }
 
   render() {
+    console.log(this.state.selectedTagCount);
     if (!this.props.mapViewStore.modalIsVisible('search')) return <React.Fragment/>;
 
     let className = "m-overlay is-showing";
@@ -448,32 +399,16 @@ window.queryString = queryString;
                 }
               </div>
 
-              <div className="filter-by-tag">
-                <h2>Tags</h2>
-                <div className="parent-tags">
-                  {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
-                    return <TagGroup
-                      key={`tag-group-${tagGroup.id}`}
-                      tagGroup={tagGroup}
-                      isVisible={this.state.visibleTagGroup === tagGroup.id}
-                      enabledTagIds={this.enabledTagIdsInGroup(tagGroup.id)}
-                      toggleTag={this.toggleTag}
-                      tagIsChecked={this.tagIsChecked}
-                      setTagGroupVisibility={this.toggleTagGroup}
-                      allTagsChecked={this.allTagsChecked(tagGroup.id)}
-                      selectAllTags={() => this.selectAllTags(tagGroup.id)}
-                      clearSelectedTags={this.clearTagGroup}
-                    />
-                  })}
-                </div>
-              </div>
+              <SearchTagGroups ref={this.tagGroupsRef} toggleTagGroup={this.toggleTagGroup} updateTagCount={this.handleUpdateTagCount} />
+
+              { this.state.selectedTagCount>0 &&
+                <span onClick={this.clearSelectedTags}>Clear {pluralize('tag', this.state.selectedTagCount, true)}</span>
+              }
 
               <div className="form-group">
                 <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search</button>
               </div>
-
             </div>
-
           </div>
         </div>
       </div>
