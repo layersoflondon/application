@@ -5,6 +5,7 @@ import LayersStore from './layers_store';
 import RecordFormStore from './record_form_store';
 import CollectionFormStore from './collection_form_store';
 import TagGroupsStore from './tag_groups_store';
+import TagsStore from './tags_store';
 
 /**
  * given a state object, instantiate our stores using the json rendered into the page
@@ -32,7 +33,7 @@ export default (state) => {
     layersStore: layersStore,
     collectionStore: collectionStore,
     collectionFormStore: collectionFormStore,
-    tagGroupsStore
+    tagGroupsStore: tagGroupsStore
   };
 
   window.stores = stores;
