@@ -7,6 +7,7 @@ export default class TagsStore {
   name = "";
 
   constructor(group) {
+    this.id = group.id;
     this.name = group.name;
     this.tags = group.tags;
   }
@@ -33,13 +34,23 @@ export default class TagsStore {
   }
 
   @computed get allTagsChecked() {
-    console.log(this.checkedTagIds, this.allTagIds);
-    return this.checkedTagIds === this.allTagIds;
+    return this.checkedTagIds.join(',') === this.allTagIds.join(',');
   }
 
   @action.bound toggleTag(id) {
-    const ids = this._tag_ids.slice();
-    ids.push(id);
+    let ids = this._tag_ids.slice();
+    ids = ids.filter((id, index, self) => self.indexOf(id) === index);
+    const id_index = ids.indexOf(id);
+
+    if(id_index>-1) {
+      ids.splice(id_index, 1);
+    }else {
+      ids.push(id);
+    }
+
+    runInAction(() => {
+      this.checkedTagIds = ids;
+    });
   }
 
   @action.bound tagIsChecked(id) {
@@ -48,12 +59,13 @@ export default class TagsStore {
 
   @action.bound selectAll() {
     runInAction(() => {
-      console.log(this.tag_ids, this.allTagIds);
-      this._tag_ids = this.allTagIds;
+      this.checkedTagIds = this.allTagIds;
     });
   }
 
   @action.bound clearAll() {
-    this._tag_ids = [];
+    runInAction(() => {
+      this.checkedTagIds = [];
+    });
   }
 }
