@@ -25,6 +25,9 @@ ActiveAdmin.register LayerGroup do
     selectable_column
 
     column :name
+    column :highlighted do |r|
+      "Highlighted Layer" if r.highlighted
+    end
     column :image do |r|
       if r.image.present?
         image_tag ApplicationController.helpers.activestorage_url_for(r.image.file.variant(Rails.configuration.x.image_variants[:thumb]))

@@ -6,12 +6,14 @@ class LayerGroup < ApplicationRecord
   update_index('layer_groups') { self }
 
   MAX_SHORT_TITLE_LENGTH = 30
+  HIGHLIGHTED_LIMIT = 4
 
   has_many :layers
   belongs_to :image, class_name: 'Attachments::Image', dependent: :destroy, optional: true
   accepts_nested_attributes_for :image
 
   validates :short_name, length: {maximum: MAX_SHORT_TITLE_LENGTH}
+  validate :highlighted_limit
 
   def generate_export
     workbook = RubyXL::Workbook.new
@@ -31,6 +33,16 @@ class LayerGroup < ApplicationRecord
     workbook.write(self.class.export_filepath(slug))
   end
 
+  def self.highlighted_limit_reached
+    where(highlighted: true).count >= HIGHLIGHTED_LIMIT
+  end
+
+  def highlighted_limit
+    if self.class.highlighted_limit_reached
+      errors.add(:highlighted_layer, "You've reached the limit of #{HIGHLIGHTED_LIMIT} highlighted layers")
+    end
+  end
+
   def self.export_filepath(slug = "")
     File.join(Rails.root, 'app', 'assets', 'exports', "#{slug}.xlsx")
   end
@@ -41,8 +53,6 @@ class LayerGroup < ApplicationRecord
     else
       nil
     end
-
-
   end
 
   def date_to
@@ -51,7 +61,5 @@ class LayerGroup < ApplicationRecord
     else
       nil
     end
-
-    
   end
 end

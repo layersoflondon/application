@@ -7,8 +7,11 @@
         <%= f.fields_for :image do |imgf| %>
                 <%= imgf.input :file, as: :file, :hint => imgf.object.file.attached? ? image_tag(activestorage_url_for(imgf.object.file.variant(Rails.configuration.x.image_variants[:thumb]))) : "" %>
         <% end %>
-
-        <%= f.input :highlighted, label: "Highlighted Layer Group" %>
+        
+        <%= f.input :highlighted, label: "Highlighted Layer Group", input_html: { disabled: (f.object.highlighted == false && LayerGroup.highlighted_limit_reached) } %>
+        <% if f.object.highlighted == false && LayerGroup.highlighted_limit_reached %>
+            <%= content_tag(:span, "You've reached the limit of #{LayerGroup::HIGHLIGHTED_LIMIT} highlighted layers") %>
+        <% end %>
     <% end %>
 
     <%= f.inputs "Layers in this group" do %>
