@@ -7,21 +7,71 @@ import Equalizer from "./Equalizer";
 import Layer from '../sources/layer';
 import {closeModalLink, removeModal} from '../helpers/modals';
 
+const LAYERS_PER_PAGE = 6;
+
 @inject('mapViewStore', 'layersStore', 'trayViewStore', 'router')
 @withRouter
 @observer export default class LayersOverlay extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {query: "", ids: null, searching: false};
-
-    this.filter = () => {
-      this.setState({searching: true});
-      Layer.search({query: this.state.query}).then((response) => {
-        const ids = response.data.map((i) => i.id);
-        this.setState({ids: ids, searching: false});
-      });
+    this.state = {
+      query: "",
+      ids: null,
+      searching: false,
+      current_page: 1,
+      query_params: {}
     };
+
+    this.filter = (replaceResults, callback) => {
+      this.setState({searching: true});
+
+      const query_params = this.state.query_params || {};
+      let query = {
+        query: this.state.query,
+        ...query_params
+      };
+
+      const updateState = (additionalState) => {
+        const state = {
+          searching: false,
+          page: 1,
+          per_page: LAYERS_PER_PAGE,
+          ...additionalState
+        };
+
+        this.setState(state);
+      };
+
+      this.props.layersStore.search(query, true, updateState);
+    };
+
+    this.handleFetchNextPageClick = () => {
+      this.setState({searching: true});
+
+      let query = {
+        query: this.state.query,
+        page: this.state.page+1,
+        per_page: LAYERS_PER_PAGE
+      };
+
+      const updateState = (additionalState) => {
+        const state = {
+          searching: false,
+          page: this.state.page+1,
+          per_page: LAYERS_PER_PAGE,
+          ...additionalState
+        };
+
+        this.setState(state);
+      };
+
+      this.props.layersStore.search(query, false, updateState);
+    };
+
+    this.showMore = () => {
+      return (!this.state.totalPages || this.state.page<this.state.totalPages);
+    }
   }
 
   updateLayerGroupFilter(event) {
@@ -50,12 +100,12 @@ import {closeModalLink, removeModal} from '../helpers/modals';
 
     let className = "m-overlay is-showing";
 
-    const highlightedLayers = this.props.layersStore.highlightedLayerGroups.filter((layer_group) => layer_group.inFilter(this.state.ids));
-    const layerDirectoryLayers = this.props.layersStore.layerGroups.filter((layer_group) => layer_group.inFilter(this.state.ids));
+    const highlightedLayers = this.props.layersStore.highlightedLayerGroups;
+    const layerDirectoryLayers = this.props.layersStore.layerGroups;
 
     const handleOnClick = () => {
       removeModal(this.props.router.location, 'layers', this.props.mapViewStore);
-    }
+    };
 
     return (
       <Fragment>
@@ -105,6 +155,12 @@ import {closeModalLink, removeModal} from '../helpers/modals';
                   }
                 </div>
               )}
+
+              {this.showMore() &&
+                <button onClick={this.handleFetchNextPageClick}>
+                  Show more
+                </button>
+              }
 
               {layerDirectoryLayers.length === 0 && highlightedLayers.length === 0 && (
                 <div className="no-results">There are no layers which match your search.</div>

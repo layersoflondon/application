@@ -1,4 +1,4 @@
-import {observable, observe, computed} from 'mobx';
+import {action, computed, observable, observe} from 'mobx';
 import LayerGroupModel from '../models/layer_group';
 import Layer from '../sources/layer';
 
@@ -12,6 +12,8 @@ export default class LayersStore {
   @observable loupe_layer_id = null;
 
   @observable loading = false;
+
+  @observable currentPage = 1;
 
   constructor() {
     observe(this, 'layer_group_id', (change) => {
@@ -44,7 +46,6 @@ export default class LayersStore {
       whether we're rendering just geojson layers and switch off all but the first one
        */
       if( layerGroup.layers.length > 1 ) {
-        console.log("Changing layer group layers...")
         const geojsonLayers = layerGroup.layers.filter((layer) => layer.layer_type === 'geojson');
 
         if( layerGroup.layers.length === geojsonLayers.length ) { // all geojson
@@ -66,6 +67,22 @@ export default class LayersStore {
    */
   fetchLayerGroup(id) {
     this.layer_group_id = id;
+  }
+
+  @action.bound search(query, replaceResults, doneCallback) {
+    Layer.search(query).then((response) => {
+      const layerGroups = response.data.map((layer) => LayerGroupModel.fromJS(layer, this));
+
+      if(replaceResults) {
+        this.layer_groups.clear();
+      }
+
+      layerGroups.map((group) => this.layer_groups.set(group.id, group));
+
+      if(doneCallback)  {
+        doneCallback({totalPages: parseInt(response.headers['x-total-pages'], 10)});
+      }
+    });
   }
 
   // layer groups that can be rendered on the overlay

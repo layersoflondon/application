@@ -55,8 +55,9 @@ class MapsController < ApplicationController
       @collections = CollectionsIndex.filter(terms: {state: ["published"]}).limit(5).order(created_at: :desc).to_a
     end
 
-
-    @layer_groups = LayerGroupsIndex.limit(999).order(:date_from)
+    highlighted_layers = LayerGroupsIndex.highlighted.limit(3)
+    directory_layers   = LayerGroupsIndex.highlighted(is_highlighted: false).limit(2)
+    @layer_groups = [highlighted_layers, directory_layers].flatten
 
     # return unless params[:resource].present?
     #
