@@ -29,6 +29,7 @@ const steps = [
     position: 'right',
     tooltipClass: 'm-tray-area-tooltip',
     highlightClass: 'm-tray-area-highlight',
+    overlayOpacity: 1,
   },
 
   {
@@ -62,7 +63,7 @@ const steps = [
     element: '.m-tools .m-tool-button.m-tool-button--search a',
     intro: `
     <h1>Search</h1>
-    <p>Search intro text</p>
+    <p>Duis accumsan ornare cursus. Curabitur sit amet commodo nisi. Etiam metus risus, laoreet in euismod nec, convallis non elit. Ut et eros dapibus, tincidunt massa.</p>
     `,
     position: 'right',
     tooltipClass: 'm-tray-area-tooltip',
@@ -73,7 +74,7 @@ const steps = [
     element: '.m-tools .m-tool-button.m-tool-button--layers a',
     intro: `
     <h1>Layers</h1>
-    <p>Layers intro text</p>
+    <p>In laoreet vitae elit vitae semper. Sed cursus orci vitae nunc accumsan, in commodo tortor volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada.</p>
     `,
     position: 'right',
     tooltipClass: 'm-tray-area-tooltip',
@@ -84,7 +85,7 @@ const steps = [
     element: '.m-tools .m-tool-button.m-tool-button--collections a',
     intro: `
     <h1>Collections</h1>
-    <p>Collections intro text</p>
+    <p>Quisque volutpat lacus eget dictum dapibus. Phasellus sit amet finibus justo, a finibus purus. Praesent fringilla, ex a bibendum semper, dui magna imperdiet sapien, quis.</p>
     `,
     position: 'right',
     tooltipClass: 'm-tray-area-tooltip',
@@ -95,12 +96,22 @@ const steps = [
     element: '.m-tools .m-tool-button.m-tool-button--add a',
     intro: `
     <h1>Add a record</h1>
-    <p>Add record intro text</p>
+    <p>Suspendisse eleifend lacus erat, id luctus lectus fermentum quis. Aenean velit dolor, gravida vitae placerat sit amet, lacinia et nisi.</p>
     `,
     position: 'right',
-    tooltipClass: 'm-tray-area-tooltip',
-    highlightClass: 'm-tray-area-highlight',
+    tooltipClass: 'm-tray-area-tooltip m-tray-area-tooltip--last',
+    highlightClass: 'm-tray-area-highlight m-tray-area-highlight--last',
   },
 ];
 
-export {steps, showIntro, introExited, SHOW_TRAY_AT_INDEX};
+const introOptions = {
+  showStepNumbers: false,
+  nextLabel: 'Next',
+  prevLabel: 'Back',
+  hidePrev: true,
+  hideNext: true,
+  showStepNumbers: false,
+  exitOnOverlayClick: false
+};
+
+export {steps, showIntro, introExited, SHOW_TRAY_AT_INDEX, introOptions};
