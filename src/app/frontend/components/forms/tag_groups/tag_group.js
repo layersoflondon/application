@@ -63,14 +63,12 @@ import CollectionPicker from "../../collection_picker";
 
       <div className={`child-tags ${this.props.isVisible ? 'is-visible' : ''}`}>
         <div className="spike"></div>
-
-        <span>{this.selectionButton()}</span>
-
         { this.props.isVisible &&
           <ul>
             {tags}
           </ul>
         }
+        <span className="select-all">{this.selectionButton()}</span>
       </div>
     </div>
   }
