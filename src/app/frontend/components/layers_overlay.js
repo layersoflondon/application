@@ -47,6 +47,8 @@ const LAYERS_PER_PAGE = 6;
     };
 
     this.handleFetchNextPageClick = () => {
+      if(this.state.searching) return false;
+
       this.setState({searching: true});
 
       let query = {
@@ -125,7 +127,7 @@ const LAYERS_PER_PAGE = 6;
               <div className="header">
                 <h1>Layers</h1>
                 <div className="status">
-                  <span>1 layer currently selected</span> <a href="#"><i class="fa fa-times" aria-hidden="true"></i> Clear all</a>
+                  <span>1 layer currently selected</span> <a href="#"><i className="fa fa-times" aria-hidden="true"></i> Clear all</a>
                 </div>
                 <div className="search">
                   <input placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onKeyUp={this.handleReturn.bind(this)} onChange={this.updateLayerGroupFilter.bind(this)}/>
@@ -201,17 +203,14 @@ const LAYERS_PER_PAGE = 6;
                     <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
                   }
 
-                  <div className="section-load-more">
-                    <a href="#">Load more</a>
-                  </div>
+
+                  {this.showMore() &&
+                    <div className="section-load-more">
+                      <a href="#" onClick={this.handleFetchNextPageClick}>Load more</a>
+                    </div>
+                  }
                 </div>
               )}
-
-              {this.showMore() &&
-                <button onClick={this.handleFetchNextPageClick}>
-                  Show more
-                </button>
-              }
 
               {layerDirectoryLayers.length === 0 && highlightedLayers.length === 0 && (
                 <div className="no-results">There are no layers which match your search.</div>
@@ -220,9 +219,9 @@ const LAYERS_PER_PAGE = 6;
               {/*{Array(this.state.total_pages).fill().map((_,i)=>i+1).map((p, i)=><div key={`layer-group-page-${i}`}>{p}</div>)}*/}
 
               {this.props.layersStore.activeLayerGroups.length > 0 &&
-              <div className="confirm">
-                <Link to={closeModalLink(this.props.router.location, 'layers')} className="btn" onClick={handleOnClick}>I'm done!</Link>
-              </div>
+                <div className="confirm">
+                  <Link to={closeModalLink(this.props.router.location, 'layers')} className="btn" onClick={handleOnClick}>I'm done!</Link>
+                </div>
               }
 
             </div>
