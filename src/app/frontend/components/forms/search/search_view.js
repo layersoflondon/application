@@ -31,7 +31,6 @@ window.queryString = queryString;
 
     this.closeEventHandler = (event) => {
       if (event.target.classList.contains('s-overlay--search')) {
-        console.log("Closing");
         this.setState({visibleTagGroup: null});
       }
     };
@@ -56,12 +55,10 @@ window.queryString = queryString;
     };
 
     this.clearSelectedTags = () => {
-      console.log("in parent component");
       this.props.tagGroupsStore.clearSelectedTags();
     };
 
     this.clearAll = () => {
-      console.log("Clear all");
     }
   }
 
@@ -305,7 +302,6 @@ window.queryString = queryString;
   }
 
   render() {
-    console.log(this.state.selectedTagCount);
     if (!this.props.mapViewStore.modalIsVisible('search')) return <React.Fragment/>;
 
     let className = "m-overlay is-showing";

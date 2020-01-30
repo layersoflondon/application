@@ -5,7 +5,6 @@ import LayersStore from './layers_store';
 import RecordFormStore from './record_form_store';
 import CollectionFormStore from './collection_form_store';
 import TagGroupsStore from './tag_groups_store';
-import TagsStore from './tags_store';
 
 /**
  * given a state object, instantiate our stores using the json rendered into the page
@@ -15,7 +14,7 @@ import TagsStore from './tags_store';
  */
 export default (state) => {
   const {tray, collections, layer_groups, map} = state.data;
-  
+
   const recordFormStore = RecordFormStore.fromJS({});
   const collectionFormStore = new CollectionFormStore.fromJS({});
   const mapViewStore = MapViewStore.fromJS(map);
