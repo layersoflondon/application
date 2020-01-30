@@ -37,12 +37,9 @@
   }
 
   .image {
-    min-height: 260px;
     @include mq(tablet) {
-      min-height: 190px;
     }
     @include mq(smartphone) {
-      min-height: 0;
       max-width: 50%;
     }
   }
@@ -143,7 +140,6 @@ $lilac: #a691c5;
 $light-blue: #afd2ff;*/
 
 .m-home-cta-block:nth-child(1) {
-  // background: darken($red, 35%);
   background: #501621;
 }
 

@@ -1,5 +1,4 @@
 <div class="m-home-tags">
-    <h2>Search content by tag</h2>
     <ul class="m-tag-groups-list">
         <% tag_groups.each do |tag_group| %>
             <li><%= link_to resources_map_path(resource: :search, tag_group_ids: tag_group.id, results: true, tag_name: tag_group.name) do %><span><%=tag_group.name%></span><% end %>
