@@ -6,6 +6,7 @@ import LayerGroup from './layer_group';
 import Equalizer from "./Equalizer";
 import LayerTypeNavigation from './layer_type_navigation';
 import {closeModalLink, removeModal} from '../helpers/modals';
+import pluralize from 'pluralize';
 
 const LAYERS_PER_PAGE = 6;
 
@@ -126,9 +127,12 @@ const LAYERS_PER_PAGE = 6;
             <div className="m-layers-picker">
               <div className="header">
                 <h1>Layers</h1>
-                <div className="status">
-                  <span>1 layer currently selected</span> <a href="#"><i className="fa fa-times" aria-hidden="true"></i> Clear all</a>
-                </div>
+                {this.props.layersStore.activeLayerGroups.length > 0 &&
+                  <div className="status">
+                      <span>{pluralize('layer', this.props.layersStore.activeLayerGroups.length, true)} currently selected</span>
+                      <a href="#" onClick={this.props.layersStore.clearActiveLayerGroups}><i className="fa fa-times" aria-hidden="true"></i> Clear all</a>
+                  </div>
+                }
                 <div className="search">
                   <input placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onKeyUp={this.handleReturn.bind(this)} onChange={this.updateLayerGroupFilter.bind(this)}/>
                   <button className="btn" disabled={this.state.query.length ? false : true} onClick={this.filter}>Go
@@ -141,7 +145,7 @@ const LAYERS_PER_PAGE = 6;
                   <div className="section-title">
                     <h2>Featured layers</h2>
                   </div>
-                  <Equalizer selector="a:first-child">
+                  <Equalizer selectcurrently selectedor="a:first-child">
                     {highlightedLayers.map((layer_group) =>
                       <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
                     }

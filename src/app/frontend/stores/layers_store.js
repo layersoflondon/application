@@ -1,4 +1,4 @@
-import {action, computed, observable, observe} from 'mobx';
+import {action, computed, observable, observe, runInAction} from 'mobx';
 import LayerGroupModel from '../models/layer_group';
 import Layer from '../sources/layer';
 
@@ -38,7 +38,7 @@ export default class LayersStore {
     });
   }
 
-  toggleLayer(layer_id) {
+  @action.bound toggleLayer(layer_id) {
     let layerGroup = this.activeLayerGroups.find((layerGroup) => layerGroup.id === layer_id);
 
     if( layerGroup ) {
@@ -64,6 +64,12 @@ export default class LayersStore {
     }
 
     return layerGroup.is_active;
+  }
+
+  @action.bound clearActiveLayerGroups() {
+    runInAction(() => {
+      return this.layer_groups.values().map((layer_group) => layer_group.is_active = false);
+    })
   }
 
   /**
