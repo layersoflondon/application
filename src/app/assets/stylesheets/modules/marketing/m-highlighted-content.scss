@@ -12,6 +12,9 @@
     right: auto;
     @include clearfix;
   }
+  @include mq(smartphone) {
+    padding:15px;
+  }
 }
 
 .m-highlighted-content .record-cards {
@@ -36,7 +39,7 @@
   @include mq(smartphone) {
     grid-column-gap: 15px;
     grid-row-gap: 30px;
-    padding: 0 15px 15px;
+    padding: 0 0 15px;
   }
 }
 
@@ -154,7 +157,6 @@
 }*/
 
 .m-highlighted-content h2 {
-
   margin: 0;
   @include font-display;
   line-height: 1.1;
@@ -171,6 +173,9 @@
   margin-bottom: 60px;
   @include mq(smartphone) {
     top: -28px;
+    font-size: 32px;
+    margin-bottom: 28px;
+    margin-top: 0px;
   }
 }
 

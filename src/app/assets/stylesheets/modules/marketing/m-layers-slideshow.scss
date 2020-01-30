@@ -29,7 +29,6 @@
   background: -o-linear-gradient(bottom, transparent 0%, #000 100%);
   background: -ms-linear-gradient(bottom, transparent 0%, #000 100%);
   background: linear-gradient(to bottom, transparent 0%, #000 100%);
-
   @include transition(all .4s);
 }
 
@@ -42,12 +41,16 @@
   background: rgba(0, 0, 0, 0.9);
   @include mq(tablet) {
     left: 390px;
+    padding: 20px 40px;
   }
   @include mq(smartphone) {
     left: auto;
     bottom: auto;
     top: 15px;
     right: 15px;
+  }
+  @include mq(small-smartphone) {
+   padding:15px;
   }
 }
 
@@ -59,10 +62,13 @@
   display: inline-block;
   margin-right: 20px;
   @include mq(tablet) {
-    margin-right: 20px;
+    margin-right: 16px;
   }
   @include mq(smartphone) {
     margin-right: 5px;
+  }
+  @include mq(small-smartphone) {
+    margin-right: 15px;
   }
 }
 
@@ -80,12 +86,12 @@
   text-indent: -9999px;
   position: relative;
   @include mq(tablet) {
-    width: 42px;
-    height: 42px;
+    //width: 42px;
+    //height: 42px;
   }
   @include mq(smartphone) {
-    width: 25px;
-    height: 25px;
+    //width: 25px;
+    //height: 25px;
   }
 }
 
@@ -102,16 +108,16 @@
   transform: scale(0);
   background: #333;
   @include mq(tablet) {
-    width: 18px;
-    height: 18px;
-    left: 12px;
-    top: 12px;
+    //width: 18px;
+    //height: 18px;
+    //left: 12px;
+    //top: 12px;
   }
   @include mq(smartphone) {
-    width: 13px;
-    height: 13px;
-    left: 6px;
-    top: 6px;
+    //width: 13px;
+    //height: 13px;
+    //left: 6px;
+    //top: 6px;
   }
 }
 
@@ -124,7 +130,6 @@
   background: darken($yellow, 40%);
 }
 
-
 .m-layers-slideshow .rslides_tabs li a:after {
   content: "";
   position: absolute;
@@ -135,16 +140,17 @@
   border-left: 13px solid transparent;
   border-right: 13px solid transparent;
   border-bottom: 20px solid $yellow;
-  transform:translate3d(0, 25px, 0);
-  transition:all .2s;
+  transform: translate3d(0, 25px, 0);
+  transition: all .2s;
   @include mq(tablet) {
+    top: 32px;
   }
   @include mq(smartphone) {
   }
 }
 
 .m-layers-slideshow .rslides_tabs li.rslides_here a:after {
-  transform:translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .m-layers-slideshow img {
@@ -156,31 +162,40 @@
 .m-layers-slideshow .sidebar {
   position: absolute;
   left: 0;
-  z-index: 100;
+  z-index: 9;
   width: 440px;
   top: 150px;
+  @include mq(tablet) {
+    width: 310px;
+  }
+  @include mq(smartphone) {
+  }
+  @include mq(small-smartphone) {
+    width:auto;
+    bottom:0;
+    top:auto;
+  }
 }
 
 .m-layers-slideshow .text-content {
   background: rgba(0, 0, 0, 0.75);
   padding: 50px;
   padding-left: 80px;
+  @include mq(tablet) {
+    padding: 30px 40px;
+  }
+  @include mq(smartphone) {
+  }
+  @include mq(small-smartphone) {
+    padding: 25px 15px 15px 15px;
+  }
 
   .logo {
     width: 200px;
     margin-bottom: 40px;
-  }
-
-  @include mq(tablet) {
-    left: 40px;
-    padding: 20px;
-    width: 300px;
-    bottom: -20px;
-  }
-
-  @include mq(smartphone) {
-    left: 15px;
-    width: 290px;
+    @include mq(tablet) {
+      margin-bottom: 20px;
+    }
   }
 
   h2 {
@@ -256,4 +271,15 @@
   padding: 20px 40px 20px 20px;
   padding-left: 80px;
   background: $yellow;
+  @include mq(tablet) {
+    font-size: 14px;
+    padding: 12px 40px;
+  }
+  @include mq(small-smartphone) {
+    padding:15px;
+  }
+}
+
+.m-layers-slideshow .current-slide-information p {
+  position: relative;
 }
