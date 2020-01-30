@@ -579,6 +579,151 @@ span.is-loading {
   }
 }
 
+/* Intro JS tweaks */
+
+
+body .introjs-tooltip {
+  width: 100%;
+  min-width: 440px;
+  max-width: none;
+}
+
+.introjs-tooltip {
+  background: $yellow;
+  border-radius: 0;
+  box-shadow: 0 1px 40px rgba(0, 0, 0, .3);
+  padding: 30px;
+}
+
+.introjs-tooltiptext {
+  @include top-and-tail;
+}
+
+.introjs-tooltiptext h1 {
+  font-family: 'Zilla Slab', serif;
+  font-weight: 600;
+}
+
+.introjs-helperNumberLayer {
+  display: none;
+}
+
+.introjs-bullets {
+  margin-bottom: 20px;
+  margin-top: 8px;
+}
+
+.introjs-bullets ul li {
+  width: 16px;
+  height: 16px;
+  background: white;
+  padding: 3px;
+  box-sizing: border-box;
+  border-radius: 100px;
+  margin: 0 4px;
+}
+
+.introjs-bullets ul li a {
+  width: 10px;
+  height: 10px;
+  background: white;
+  transition: all .2s;
+}
+
+.introjs-bullets ul li a.active {
+  background: #8a7a00;
+}
+
+.introjs-button {
+  @include big-square-button;
+  border: 0;
+  text-shadow: none;
+  font-size: 14px;
+  margin-left: 10px;
+  border: 3px solid $green;
+}
+
+.introjs-button:focus {
+  color: white;
+  background: $green;
+  box-shadow: none;
+}
+
+.introjs-button:hover {
+  color: white;
+  background: darken($green, 10%);
+  box-shadow: none;
+  border: 3px solid darken($green, 10%);
+}
+
+
+.introjs-button:hover:before,
+.introjs-button:focus:before {
+  color: white;
+}
+
+.introjs-prevbutton:before {
+  content: "\f0d9";
+}
+
+.introjs-skipbutton {
+  float: left;
+
+  background: $yellow;
+  color: $green;
+  margin: 0;
+}
+
+.introjs-skipbutton:before {
+  content: "\f00d";
+  color: $green;
+  transition:all .2s;
+}
+
+.introjs-skipbutton:hover:before {
+  color: white;
+}
+
+.m-tray-area-tooltip--last .introjs-donebutton {
+  float:right;
+  margin-left:10px;
+}
+
+.m-tray-area-tooltip--last .introjs-tooltiptext {
+  text-align:left;
+}
+
+.introjs-nextbutton.introjs-fullbutton,
+.introjs-prevbutton.introjs-fullbutton {
+  border-radius: 100px;
+  border: 3px solid $green;
+}
+
+.introjs-nextbutton.introjs-fullbutton:hover ,
+.introjs-prevbutton.introjs-fullbutton:hover {
+  border-radius: 100px;
+  border: 3px solid darken($green, 10%);
+}
+
+.introjs-button.introjs-hidden,
+.introjs-button.introjs-disabled {
+  display: none;
+}
+
+.introjs-arrow.left {
+  border-right-color: $yellow;
+}
+
+.introjs-arrow.bottom-middle {
+  border-top-color: $yellow;
+}
+
+.introjs-helperLayer {
+  box-shadow:none;
+  border-radius:0;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 /* ==========================================================================
    Print styles
    ========================================================================== */

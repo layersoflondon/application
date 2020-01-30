@@ -6,7 +6,7 @@ import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import Helmet from 'react-helmet';
 
 import { Steps } from 'intro.js-react';
-import {steps, showIntro, introExited, SHOW_TRAY_AT_INDEX} from '../stores/intro';
+import {steps, showIntro, introExited, SHOW_TRAY_AT_INDEX, introOptions} from '../stores/intro';
 
 import TrayContainer from './tray_container';
 import TrayRecordsIndex from './tray/records_index';
@@ -149,7 +149,8 @@ import AddToCollection from "./record_view/add_to_collection";
       {/* Add a record to a collection */}
       <Route component={AddToCollection} />
 
-      <Steps 
+      <Steps
+        options={introOptions}
         enabled={showIntro} 
         steps={steps} 
         initialStep={0} 
