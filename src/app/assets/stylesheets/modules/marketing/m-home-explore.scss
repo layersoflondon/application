@@ -3,6 +3,19 @@
 .m-home-explore {
   text-align: center;
   padding: 130px 100px 20px;
+  @include mq(tablet) {
+    padding: 60px 0 20px;
+  }
+  @include mq(smartphone) {
+    padding:60px 15px 20px;
+  }
+}
+
+.m-home-explore form {
+  @include mq(smartphone) {
+    max-width:500px;
+    margin:0 auto;
+  }
 }
 
 .m-home-explore h2 {
@@ -13,6 +26,9 @@
 
 .m-home-explore .search {
   margin-bottom: 52px;
+  @include mq(smartphone) {
+    margin-bottom: 22px;
+  }
 }
 
 .m-home-explore input[type="text"] {
@@ -29,12 +45,11 @@
   }
   @include mq(smartphone) {
     font-size: 17px;
-    width: calc(100% - 89px);
+    width: calc(100% - 154px);
   }
   @include mq(small-smartphone) {
     font-size: 11px;
     padding: 15px 10px;
-    width: 100%;
     color: white;
     margin-bottom: 10px;
   }
@@ -69,11 +84,12 @@
   position: relative;
   top: 1px;
   @include mq(tablet) {
-    padding: 18px 16px;
+    padding: 18px 28px;
     margin-left: 10px;
   }
   @include mq(small-smartphone) {
     padding: 11px 9px;
+    font-size: 14px;
   }
 }
 
@@ -86,6 +102,10 @@
   margin-bottom: 44px;
   display: inline-block;
   color: white;
+  @include mq(smartphone) {
+    font-size: 32px;
+    margin-bottom: 28px;
+  }
 }
 
 .m-home-explore .explore-button {
