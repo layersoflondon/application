@@ -23,12 +23,9 @@ import {closeModalLink} from '../helpers/modals';
             <Link to={closeModalLink(this.props.router.location, 'record')} className="close">Close</Link>
           </div>
 
-          <div className="m-add-record">
+          <div className="m-add-record m-add-record--not-found">
             <h1>Content not found</h1>
-
-            <p>
-              There is no content at this address. If you think this is a mistake please <a href="/contact-us">get in touch</a>
-            </p>
+            <p>There is no content at this address. If you think this is a mistake please <a href="/contact-us">get in touch</a>.</p>
           </div>
         </div>
       </Fragment>)
