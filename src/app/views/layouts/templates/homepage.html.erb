@@ -14,8 +14,6 @@
         </div>
         <div class="text-content">
             <h1 class="viewable"><%= strip_tags(page.content) %></h1>
-
-
         </div>
 
     </div>-->
@@ -39,7 +37,6 @@
 
     </div>
 
-
     <div class="m-home-explore">
 
         <h2>Explore our content</h2>
@@ -48,11 +45,13 @@
             <div class="search">
                 <%= hidden_field_tag :results, true %>
                 <%= text_field_tag :q, nil, placeholder: "Search for a place or topic you’re interested in…" %>
-                <%= submit_tag 'Go' %>
+                <%= submit_tag 'Search' %>
             </div>
         <% end %>
 
-        Or <%= link_to "explore the map", map_path %>.
+        <div class="explore-button">
+            Or <%= link_to "explore the map", map_path %>
+        </div>
 
         <%= render partial: "pages/homepage_tags" %>
 
@@ -64,8 +63,6 @@
             <%= render partial: "shared/feature_record_card", collection: featured_items %>
         </div>
     </div>
-
-
 
 <% end %>
 
