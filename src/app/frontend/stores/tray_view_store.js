@@ -52,9 +52,28 @@ export default class TrayViewStore {
 
   constructor() {
     observe(this, 'tray_is_visible', (change) => {
-      setTimeout(() => {
+      const size = this.mapRef.leafletElement.getSize();
+
+      const sizeChanged = () => {
+        const newSize = this.mapRef.leafletElement.getSize();
+        const changed = Object.values(size).join(',') !== Object.values(newSize).join(',');
+        return changed;
+      };
+
+      const resize = () => {
         this.mapRef.leafletElement.invalidateSize();
+      };
+
+      const resizeTimeout = setInterval(() => {
+        resize();
+
+        if(sizeChanged()) {
+          clearTimeout(resizeTimeout);
+        }
+
       }, 500);
+
+      return change;
     });
 
     intercept(this, "collection_ids", (change) => {
