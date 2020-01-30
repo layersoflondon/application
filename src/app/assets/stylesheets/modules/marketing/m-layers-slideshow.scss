@@ -1,21 +1,45 @@
 /* Layers slideshow */
 
 .m-layers-slideshow {
-  height: 630px;
+  height: 90vh;
+  max-height: 890px;
   position: relative;
 }
+
+// Slides
 
 .m-layers-slideshow .rslides,
 .m-layers-slideshow .rslides li {
   height: 100%;
 }
 
-.m-layers-slideshow .rslides_tabs {
+.m-layers-slideshow .rslides:after {
+  height: 26px;
+  opacity: 0.4;
+  width: 100%;
+  content: "";
   position: absolute;
-  left: 540px;
-  bottom: 40px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background: -moz-linear-gradient(bottom, transparent 0%, #000 100%);
+  background: -webkit-gradient(linear, right bottom, right top, color-stop(0%, transparent), color-stop(100%, #000));
+  background: -webkit-linear-gradient(bottom, transparent 0%, #000 100%);
+  background: -o-linear-gradient(bottom, transparent 0%, #000 100%);
+  background: -ms-linear-gradient(bottom, transparent 0%, #000 100%);
+  background: linear-gradient(to bottom, transparent 0%, #000 100%);
+
+  @include transition(all .4s);
+}
+
+// Controls
+
+.m-layers-slideshow .controls {
+  padding: 40px;
+  padding-left: 80px;
   z-index: 10;
-  @include unlist;
+  background: rgba(0, 0, 0, 0.9);
   @include mq(tablet) {
     left: 390px;
   }
@@ -27,9 +51,13 @@
   }
 }
 
+.m-layers-slideshow .rslides_tabs {
+  @include unlist;
+}
+
 .m-layers-slideshow .rslides_tabs li {
   display: inline-block;
-  margin-right: 30px;
+  margin-right: 20px;
   @include mq(tablet) {
     margin-right: 20px;
   }
@@ -39,18 +67,17 @@
 }
 
 .m-layers-slideshow .rslides_tabs li:last-child {
-  margin-right:0;
+  margin-right: 0;
 }
 
 .m-layers-slideshow .rslides_tabs li a {
   display: inline-block;
-  width: 60px;
-  height: 60px;
-  background: black;
+  width: 24px;
+  height: 24px;
+  background: white;
   border-radius: 100px;
   transition: all .2s;
   text-indent: -9999px;
-  overflow: hidden;
   position: relative;
   @include mq(tablet) {
     width: 42px;
@@ -64,11 +91,11 @@
 
 .m-layers-slideshow .rslides_tabs li a:before {
   content: "";
-  width: 28px;
-  height: 28px;
+  width: 12px;
+  height: 12px;
   position: absolute;
-  left: 16px;
-  top: 16px;
+  left: 6px;
+  top: 6px;
   background: $yellow;
   border-radius: 100px;
   transition: all .2s;
@@ -94,7 +121,30 @@
 
 .m-layers-slideshow .rslides_tabs li.rslides_here a:before {
   transform: scale(1);
-  background: $yellow;
+  background: darken($yellow, 40%);
+}
+
+
+.m-layers-slideshow .rslides_tabs li a:after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 44px;
+  width: 0;
+  height: 0;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-bottom: 20px solid $yellow;
+  transform:translate3d(0, 25px, 0);
+  transition:all .2s;
+  @include mq(tablet) {
+  }
+  @include mq(smartphone) {
+  }
+}
+
+.m-layers-slideshow .rslides_tabs li.rslides_here a:after {
+  transform:translate3d(0, 0, 0);
 }
 
 .m-layers-slideshow img {
@@ -103,14 +153,23 @@
   height: 100%;
 }
 
-.m-layers-slideshow .text-content {
+.m-layers-slideshow .sidebar {
   position: absolute;
-  bottom: -50px;
-  left: 100px;
-  background: rgba(0, 0, 0, 0.9);
-  padding: 40px;
+  left: 0;
   z-index: 100;
-  width: 400px;
+  width: 440px;
+  top: 150px;
+}
+
+.m-layers-slideshow .text-content {
+  background: rgba(0, 0, 0, 0.75);
+  padding: 50px;
+  padding-left: 80px;
+
+  .logo {
+    width: 200px;
+    margin-bottom: 40px;
+  }
 
   @include mq(tablet) {
     left: 40px;
@@ -124,11 +183,23 @@
     width: 290px;
   }
 
+  h2 {
+    color: white;
+    font-size: 26px;
+    text-transform: uppercase;
+    @include mq(tablet) {
+    }
+    @include mq(smartphone) {
+    }
+  }
+
   h3 {
     margin: 0;
     @include font-display;
     line-height: 1.1;
-    font-size: 40px;
+    font-weight: 200;
+    font-size: 45px;
+    margin-bottom: 24px;
     display: inline-block;
     color: white;
     @include mq(tablet) {
@@ -152,7 +223,7 @@
   }
 
   a.button {
-    background: darken($yellow, 10%);
+    background: $yellow;
     color: black;
     padding: 17px 25px;
     border-radius: 100px;
@@ -179,4 +250,10 @@
     margin-right: 10px;
     z-index: 1;
   }
+}
+
+.m-layers-slideshow .current-slide-information {
+  padding: 20px 40px 20px 20px;
+  padding-left: 80px;
+  background: $yellow;
 }
