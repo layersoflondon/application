@@ -5,6 +5,9 @@ import {withRouter} from 'react-router-dom';
 import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import Helmet from 'react-helmet';
 
+import { Steps } from 'intro.js-react';
+import {steps, showIntro, introExited, SHOW_TRAY_AT_INDEX, introOptions} from '../stores/intro';
+
 import TrayContainer from './tray_container';
 import TrayRecordsIndex from './tray/records_index';
 import TrayCollectionsIndex from './tray/collections_index';
@@ -39,6 +42,28 @@ import AddToCollection from "./record_view/add_to_collection";
 @observer export default class Main extends Component {
   constructor(props) {
     super(props);
+
+    this.trayExpandedToShowStep = false;
+    this.props.trayViewStore.tray_is_visible = !showIntro;
+  }
+
+  handleOnBeforeChange(index) {
+    if(index === SHOW_TRAY_AT_INDEX && !this.trayExpandedToShowStep) {
+      this.props.trayViewStore.setTrayVisibility(true);
+      this.stepsRef.updateStepElement(index);
+      
+      setTimeout(() => {
+        this.trayExpandedToShowStep = true;
+        this.stepsRef.introJs.nextStep();
+      }, 250);
+
+      return false;
+    }
+  }
+
+  handleOnExit() {
+    introExited();
+    this.props.trayViewStore.setTrayVisibility(true);
   }
 
   render() {
@@ -104,36 +129,45 @@ import AddToCollection from "./record_view/add_to_collection";
         </TransitionGroup>
       </MediaView>
 
-        <Route path='/map' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
+      <Route path='/map' render={() => (<ErrorBoundary><MapView/></ErrorBoundary>)} />
 
-        {/* Various Overlays ... */}
-        <Route component={SearchView} />
-        <Route component={LayersOverlay} />
-        <Route component={LayerDetailsOverlay} />
-        <Route component={UserForm} />
+      {/* Various Overlays ... */}
+      <Route component={SearchView} />
+      <Route component={LayersOverlay} />
+      <Route component={LayerDetailsOverlay} />
+      <Route component={UserForm} />
 
-        {/* the route we go to when '+ Add record' is clicked to allow the user to choose a place */}
-        <Route component={PlacePicker} />
+      {/* the route we go to when '+ Add record' is clicked to allow the user to choose a place */}
+      <Route component={PlacePicker} />
 
-        {/* once the user has chosen a place on the map, we show the form */}
-        <Route component={RecordForm} />
+      {/* once the user has chosen a place on the map, we show the form */}
+      <Route component={RecordForm} />
 
-        {/* create/edit a collectiomn */}
-        <Route component={CollectionForm} />
+      {/* create/edit a collectiomn */}
+      <Route component={CollectionForm} />
 
-        {/* Add a record to a collection */}
-        <Route component={AddToCollection} />
-        
-        {/* view a team */}
-        <Route exact path='/map/teams/:id' component={TeamView} />
+      {/* Add a record to a collection */}
+      <Route component={AddToCollection} />
 
-        {/*View records for a user*/}
-        <Route exact path='/map/users/:id' component={UserView} />
+      <Steps
+        options={introOptions}
+        enabled={showIntro} 
+        steps={steps} 
+        initialStep={0} 
+        onBeforeChange={this.handleOnBeforeChange.bind(this)}
+        onExit={this.handleOnExit.bind(this)}
+        ref={steps => this.stepsRef = steps} />
+      
+      {/* view a team */}
+      <Route exact path='/map/teams/:id' component={TeamView} />
 
-        {/* view a record within a collection */}
-        <Route exact path='/map/collections/:collection_id/records/:id' component={RecordView} />
+      {/*View records for a user*/}
+      <Route exact path='/map/users/:id' component={UserView} />
 
-        <Route exact path='/map/not-found' component={NotFound} />
+      {/* view a record within a collection */}
+      <Route exact path='/map/collections/:collection_id/records/:id' component={RecordView} />
+
+      <Route exact path='/map/not-found' component={NotFound} />
     </div>
   }
 }

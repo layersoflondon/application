@@ -10,11 +10,40 @@ class RecordTags extends Component {
     this.state = {
       record: this.props.recordFormStore.record,
       tagGroups: null
-    }
+    };
 
     this.setVisibleTagGroup = (id) => this.props.recordFormStore.setVisibleTagGroup(id);
     this.toggleTag = (id) => this.props.recordFormStore.toggleTag(id);
     this.tagIsChecked = (id) => this.props.recordFormStore.tagIsChecked(id);
+
+    this.allTagsChecked = (tagGroupId) => {
+      const group = this.props.tagGroupsStore.tag_groups.get(tagGroupId);
+      const groupTagIds = group.tags.map((tag) => tag.id).map((i) => parseFloat(i, 10)).sort();
+
+      // check that all of this groups tags are in the records .tag_ids collection
+      let allChecked = true;
+      for(var count = 0 ; count < groupTagIds.length ; count++) {
+        var id = groupTagIds[count];
+
+        if (this.props.recordFormStore.record.tag_ids.indexOf(id) < 0) {
+          allChecked = false;
+          break;
+        }
+      }
+
+      return allChecked;
+    };
+
+    this.selectAllTags = (tagGroupId) => {
+      const group = this.props.tagGroupsStore.tag_groups.get(tagGroupId);
+      const groupTagIds = group.tags.map((tag) => tag.id).map((i) => parseFloat(i, 10)).sort();
+
+      this.props.recordFormStore.checkTags(groupTagIds);
+    };
+
+    this.clearTagGroup = () => {
+      this.props.recordFormStore.clearTags();
+    };
   }
 
   componentWillReceiveProps() {
@@ -42,7 +71,10 @@ class RecordTags extends Component {
         enabledTagIds={enabled_tag_ids} {...this.props}
         toggleTag={this.toggleTag}
         tagIsChecked={this.tagIsChecked}
-        setVisibleTagGroup={this.setVisibleTagGroup}
+        setTagGroupVisibility={this.setVisibleTagGroup}
+        allTagsChecked={this.allTagsChecked(group.id)}
+        selectAllTags={() => this.selectAllTags(group.id)}
+        clearSelectedTags={this.clearTagGroup}
       />;
     });
 
