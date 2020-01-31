@@ -29,10 +29,10 @@
 }
 
 .m-search-overlay button.submit-button {
-  //width: 170px;
   float: right;
   @include big-square-button;
 }
+
 
 .m-search-overlay button.clear-button {
   @include big-square-button;
@@ -44,8 +44,12 @@
   }
 
   &:hover {
-    background: darken($red,10%);
+    background: darken($red, 10%);
   }
+}
+
+.m-search-overlay button.submit-button--place-search:before {
+  content: "\f041";
 }
 
 .m-search-overlay button.submit-button--search-records {
@@ -53,7 +57,7 @@
 }
 
 .m-search-overlay .form-group--primary-field {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   background: white;
   padding: 20px;
   clear: both;
@@ -70,6 +74,13 @@
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
+  @include mq(smartphone) {
+    margin-top: 29px;
+    margin-left: 20px;
+  }
+  @include mq(small-smartphone) {
+    margin-left: 0;
+  }
 }
 
 .m-search-overlay .form-group--toggle-switch label {
@@ -368,8 +379,8 @@
 .m-search-overlay .filter-by-tag {
   @include tags-list;
   margin-bottom: 50px;
-  clear:both;
-  text-align:center;
+  clear: both;
+  text-align: center;
 }
 
 .m-search-overlay .filter-by-tag h2 {

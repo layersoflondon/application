@@ -324,18 +324,18 @@ window.queryString = queryString;
 
             {/* <form> container */}
             <div className="form--chunky">
-              <h1>Place search</h1>
+                {/*<h1>Place search</h1>*/}
 
 
-              <div className="form-group form-group--primary-field">
-                <input placeholder="Enter a street, place name or landmark…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)}/>
-              </div>
+                {/*<div className="form-group form-group--primary-field">*/}
+                {/*  <input placeholder="Enter a street, place name or landmark…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)}/>*/}
+                {/*</div>*/}
 
-              <div className="form-group">
-                <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search for a place</button>
-              </div>
+                {/*<div className="form-group">*/}
+                {/*  <button className="submit-button submit-button--place-search" onClick={this.handleSearchOnClick.bind(this)}>Search for a place</button>*/}
+                {/*</div>*/}
 
-              <hr/>
+                {/*<hr/>*/}
 
               <h1>Record search</h1>
 
