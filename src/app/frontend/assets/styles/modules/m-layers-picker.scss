@@ -9,13 +9,42 @@
   @include overlay-title;
   margin-right: 40px;
   margin-bottom: 0;
-  @include mq(small-smartphone) {
+  @include mq(smartphone) {
     margin-right: 0;
   }
 }
 
 .m-layers-picker .status {
   display: inline-block;
+  @include mq(tablet) {
+    margin-bottom: -19px;
+  }
+  @include mq(smartphone) {
+    margin-left: 20px;
+  }
+  @include mq(small-smartphone) {
+    font-size:12px;
+  }
+}
+
+.m-layers-picker .status:before {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.m-layers-picker .status span {
+  @include mq(tablet) {
+    float: left;
+  }
+}
+
+.m-layers-picker .status a {
+  @include mq(tablet) {
+    float: left;
+    clear: left;
+    margin-top: 5px;
+  }
 }
 
 .m-layers-picker .status i {
@@ -34,10 +63,13 @@
   line-height: 21px;
   font-size: 13px;
   margin-left: 10px;
-  @include mq(smartphone) {
-    border: 1px solid rgb(169, 208, 188);
-    color:$green;
+  @include mq(tablet) {
+    margin-left: 0;
   }
+  /*  @include mq(smartphone) {
+      border: 1px solid rgb(169, 208, 188);
+      color: $green;
+    }*/
 }
 
 .m-layers-picker .subtitle {
@@ -48,8 +80,12 @@
 .m-layers-picker .search {
   float: right;
   margin-top: 50px;
+  @include mq(smartphone) {
+    margin-left: 20px;
+  }
   @include mq(small-smartphone) {
     margin-top: 30px;
+
   }
 }
 
@@ -61,7 +97,7 @@
   width: 220px;
   background: transparent url('../assets/images/icon-search.svg') 14px 15px/20px no-repeat;
   @include mq(small-smartphone) {
-    width: 114px;
+    //width: 114px;
   }
 }
 
@@ -108,6 +144,9 @@
 
 .m-layers-picker .layers--featured {
   padding: 40px 60px 0;
+  @include mq(tablet) {
+    padding: 40px 0 0;
+  }
 }
 
 .m-layers-picker .section-title {
@@ -170,6 +209,10 @@
 
 .m-layers-picker .layers--featured .layer {
   width: 50%;
+  @media screen and (max-width: 650px) {
+    width: 100%;
+    padding-right: 0;
+  }
 }
 
 .m-layers-picker .layer .image {
@@ -464,6 +507,11 @@
 
 .m-layers-picker .section-navigation h3 {
   display: inline-block;
+  @include mq(smartphone) {
+    display: block;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
 }
 
 .m-layers-picker .section-navigation > ul {
@@ -475,6 +523,12 @@
   position: relative;
   display: inline-block;
   margin-left: 20px;
+  @include mq(tablet) {
+    margin-left: 10px;
+  }
+  @include mq(smartphone) {
+    margin-bottom: 10px;
+  }
 }
 
 .m-layers-picker .section-navigation > ul > li > a {
@@ -487,6 +541,9 @@
   display: inline-block;
   transition: all .2s;
   border: 1px solid #ffeb574f;
+  @include mq(tablet) {
+    font-size: 14px;
+  }
 
   &:hover {
     color: white;
@@ -512,7 +569,7 @@
   background: $red;
   position: absolute;
   left: 50%;
-  margin-left: -200px !important;
+  transform: translate3d(-200px, 0, 0);
   top: 100%;
   margin-top: 15px;
   z-index: 3;
@@ -520,9 +577,9 @@
   @include mq(smartphone) {
     @include grid(1, 10px, 5px);
     width: 160px;
-    margin-left: -80px;
-    margin-top: -10px;
+    transform: translate3d(-80px, 0, 0);
     padding: 15px 10px;
+    margin-top: 10px;
   }
 }
 
@@ -578,11 +635,10 @@
   text-align: center;
 }
 
-.m-layers-picker .section-load-more a {
+.m-layers-picker .section-load-more button {
   @include big-square-button;
-
 }
 
-.m-layers-picker .section-load-more a:hover {
+.m-layers-picker .section-load-more button:hover {
   //background: #549a7624;
 }

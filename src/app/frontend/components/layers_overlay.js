@@ -149,11 +149,13 @@ const LAYERS_PER_PAGE = 6;
               <div className="header">
                 <h1>Layers</h1>
                 {this.props.layersStore.activeLayerGroups.length > 0 &&
-                  <div className="status">
+
+                <div className="status">
                       <span>{pluralize('layer', this.props.layersStore.activeLayerGroups.length, true)} currently selected</span>
                       <a href="#" onClick={this.props.layersStore.clearActiveLayerGroups}><i className="fa fa-times" aria-hidden="true"></i> Clear all</a>
                   </div>
                 }
+
                 <div className="search">
                   <input placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onKeyUp={this.handleReturn.bind(this)} onChange={this.updateLayerGroupFilter.bind(this)}/>
                   <button className="btn" disabled={this.state.query.length ? false : true} onClick={this.filter}>Go
@@ -183,14 +185,16 @@ const LAYERS_PER_PAGE = 6;
                   {layerDirectoryLayers.map((layer_group) =>
                     <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
                   }
-
-                  {this.showMore() &&
-                    <div className="section-load-more">
-                      <a href="#" onClick={this.handleFetchNextPageClick}>Load more</a>
-                    </div>
-                  }
                 </div>
               )}
+
+              {this.showMore() &&
+              <div className="section-load-more">
+                <button onClick={this.handleFetchNextPageClick}>
+                  Show more
+                </button>
+              </div>
+              }
 
               {layerDirectoryLayers.length === 0 && highlightedLayers.length === 0 && (
                 <div className="no-results">There are no layers which match your search.</div>
