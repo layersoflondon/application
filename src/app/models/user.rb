@@ -6,7 +6,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :invitable
 
   has_many :records, dependent: :nullify
-  update_index('records#record') { records }
   has_many :team_users, dependent: :destroy
   has_many :teams, through: :team_users
   has_many :collections, as: :owner
