@@ -239,7 +239,7 @@ window.queryString = queryString;
 
         this.props.mapViewStore.panTo(lat, lng);
       }
-      
+
       this.props.trayViewStore.root = false;
 
       this.props.router.history.push(`/map/search?show_results=true&${params}`)
@@ -325,10 +325,24 @@ window.queryString = queryString;
           </div>
 
           <div className="m-search-overlay">
-            <h1>Search records</h1>
 
             {/* <form> container */}
             <div className="form--chunky">
+              <h1>Place search</h1>
+
+
+              <div className="form-group form-group--primary-field">
+                <input placeholder="Enter a street, place name or landmark…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)}/>
+              </div>
+
+              <div className="form-group">
+                <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search for a place</button>
+              </div>
+
+              <hr/>
+
+              <h1>Record search</h1>
+
               <div className={`form-group form-group--toggle-switch ${toggle_classname}`}>
                 <label>
                   <span>Search all of London</span>
@@ -342,10 +356,16 @@ window.queryString = queryString;
                 <input placeholder="Enter a topic…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)}/>
               </div>
 
+              <div className="form-group">
+                <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search the records</button>
+              </div>
+
+              <SearchTagGroups toggleTagGroup={this.toggleTagGroup} updateTagCount={this.handleUpdateTagCount}/>
+
               <div className="date-range">
 
                 <div className="subsection-header">
-                  <h1 className="label">Date range</h1>
+                  <h1 className="label">Add dates or eras</h1>
                   <button onClick={() => this.setState({era_picker_visible: !this.state.era_picker_visible})}>Pick an
                     era
                   </button>
@@ -405,14 +425,12 @@ window.queryString = queryString;
                 }
               </div>
 
-              <SearchTagGroups toggleTagGroup={this.toggleTagGroup} updateTagCount={this.handleUpdateTagCount} />
-
-              { this.props.tagGroupsStore.totalCheckedCount > 0 &&
-                <span onClick={this.handleClearTags.bind(this)}>Clear {pluralize('tag', this.props.tagGroupsStore.totalCheckedCount, true)}</span>
+              {this.props.tagGroupsStore.totalCheckedCount > 0 &&
+              <span onClick={this.handleClearTags.bind(this)}>Clear {pluralize('tag', this.props.tagGroupsStore.totalCheckedCount, true)}</span>
               }
 
               <div className="form-group">
-                <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search</button>
+                <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search the records</button>
               </div>
             </div>
           </div>
