@@ -125,7 +125,7 @@ const LAYERS_PER_PAGE = 6;
               <div className="header">
                 <h1>Layers</h1>
                 <div className="status">
-                  <span>1 layer currently selected</span> <a href="#"><i class="fa fa-times" aria-hidden="true"></i> Clear all</a>
+                  <span>1 layer currently selected</span> <a href="#"><i className="fa fa-times" aria-hidden="true"></i> Clear all</a>
                 </div>
                 <div className="search">
                   <input placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onKeyUp={this.handleReturn.bind(this)} onChange={this.updateLayerGroupFilter.bind(this)}/>
@@ -201,16 +201,15 @@ const LAYERS_PER_PAGE = 6;
                     <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
                   }
 
-                  <div className="section-load-more">
-                    <a href="#">Load more</a>
-                  </div>
                 </div>
               )}
 
               {this.showMore() &&
+              <div className="section-load-more">
                 <button onClick={this.handleFetchNextPageClick}>
                   Show more
                 </button>
+              </div>
               }
 
               {layerDirectoryLayers.length === 0 && highlightedLayers.length === 0 && (

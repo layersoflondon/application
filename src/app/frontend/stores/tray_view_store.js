@@ -51,6 +51,7 @@ export default class TrayViewStore {
 
   constructor() {
     observe(this, 'tray_is_visible', (change) => {
+      if(!this.mapRef) return change;
       const size = this.mapRef.leafletElement.getSize();
 
       const sizeChanged = () => {
