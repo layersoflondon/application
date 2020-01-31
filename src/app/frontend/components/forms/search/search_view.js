@@ -336,7 +336,7 @@ window.queryString = queryString;
               </div>
 
               <div className="form-group">
-                <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search for a place</button>
+                <button className="submit-button submit-button--place-search" onClick={this.handleSearchOnClick.bind(this)}>Search for a place</button>
               </div>
 
               <hr/>
