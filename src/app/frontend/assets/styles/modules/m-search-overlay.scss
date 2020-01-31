@@ -368,16 +368,18 @@
 .m-search-overlay .filter-by-tag {
   @include tags-list;
   margin-bottom: 50px;
+  clear:both;
+  text-align:center;
 }
 
 .m-search-overlay .filter-by-tag h2 {
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 200;
+  font-size: 14px;
+  margin-bottom: 10px;
+  background: #549a77;
+  display: inline-block;
+  padding: 3px 6px 2px;
   color: white;
-  margin: 0 0 20px 0;
-  font-size: 18px;
-  width: 100%;
+  font-weight: 560;
 }
 
 .m-search-overlay .helper-text {

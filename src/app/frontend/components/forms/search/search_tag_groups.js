@@ -44,7 +44,8 @@ import tags from "../../tray/tags";
   render() {
     return <React.Fragment>
       <div className="filter-by-tag">
-        <h2>Tags</h2>
+        <h2>Add tags</h2>
+        <p className="helper-text">Use tags to add context and refine your search</p>
         <div className="parent-tags">
           {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
 
