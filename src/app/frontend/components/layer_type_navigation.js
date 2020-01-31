@@ -7,16 +7,24 @@ import SingletonUIViewStore from "../stores/singleton_ui_view_store";
 @inject('mapViewStore', 'layersStore', 'trayViewStore', 'router')
 @withRouter
 @observer export default class LayerTypeNavigation extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     const menuViewStore = new SingletonUIViewStore();
 
+    const data = [
+      {id: 1, name: "London Maps", items: [{id: 1, name: "Lambeth"}, {id: 1, name: "Lambeth"}, {id: 1, name: "Lambeth"}]},
+      {id: 2, name: "Borough Names", items: [{id: 1, name: "Camden"}, {id: 1, name: "Camden"}, {id: 1, name: "Camden"}]},
+      {id: 3, name: "Datasets", items: [{id: 1, name: "Dataset 1"}, {id: 1, name: "Dataset 1"}, {id: 1, name: "Dataset 1"}]}
+    ];
+
     return <div className="section-navigation">
       <h3>Showing:</h3>
-      <LayerType singletonUiViewStore={menuViewStore} name="All" types={[]} />
-      <LayerType singletonUiViewStore={menuViewStore} name="London maps" types={["Camden", "Greenwich", "Hackney", "Hammersmith and Fulham", "Islington", "Royal Borough of Kensington and Chelsea", "Lambeth", "Lewisham", "Southwark"]} />
-      <LayerType singletonUiViewStore={menuViewStore} name="Borough maps" types={['Borough 1', 'Borough 2', 'Borough 3']} />
-      <LayerType singletonUiViewStore={menuViewStore} name="Datasets" types={['Dataset 1', 'dataset 2', 'dataset 3']} />
+      {data.map((layerTypeData) => {
+        return <LayerType key={`layer-type-data-${layerTypeData.id}`} singletonUIViewStore={menuViewStore} data={layerTypeData} onItemClickCallback={this.props.itemClickHandler} />
+      })}
     </div>;
   }
 }

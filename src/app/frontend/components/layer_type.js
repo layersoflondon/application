@@ -12,18 +12,19 @@ import {observer} from "mobx-react";
     this.toggleRef = React.createRef();
 
     this.handleOnClick = (event) => {
-      this.props.singletonUiViewStore.visibleSingletonComponent = this;
+      this.props.singletonUIViewStore.visibleSingletonComponent = this;
     }
   }
 
   render() {
     return <ul ref={this.toggleRef} onClick={this.handleOnClick}>
       <li>
-        <a href="#">{this.props.name}</a>
+        <a href="#">{this.props.data.name}</a>
+
         {this.state.visible &&
           <ul>
-            {this.props.types.map((type, i) => {
-              return <li key={`layer-type-${i}`}><a href="#">{type}</a></li>
+            {this.props.data.items.map((item, i) => {
+              return <li key={`layer-type-${i}-${item.id}`}><a href="#" data-layer-type={this.props.data.id} data-item-id={item.id} onClick={this.props.onItemClickCallback}>{item.name}</a></li>
             })}
           </ul>
         }

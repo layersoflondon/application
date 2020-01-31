@@ -24,7 +24,7 @@ const LAYERS_PER_PAGE = 6;
       query_params: {}
     };
 
-    this.filter = (replaceResults, callback) => {
+    this.filter = () => {
       this.setState({searching: true});
 
       const query_params = this.state.query_params || {};
@@ -52,10 +52,12 @@ const LAYERS_PER_PAGE = 6;
 
       this.setState({searching: true});
 
+      const query_params = this.state.query_params || {};
       let query = {
         query: this.state.query,
         page: this.state.page+1,
-        per_page: LAYERS_PER_PAGE
+        per_page: LAYERS_PER_PAGE,
+        ...query_params
       };
 
       const updateState = (additionalState) => {
@@ -72,9 +74,29 @@ const LAYERS_PER_PAGE = 6;
       this.props.layersStore.search(query, false, updateState);
     };
 
+    this.addLayerTypeFilter = (event) => {
+      // const {layerType, itemId} = event.target.dataset;
+      //
+      // const query_params = this.state.query_params || {};
+      // const layerTypes = query_params.layerTypes || {};
+      // layerTypes[layerType] = parseInt(itemId, 10);
+      //
+      // const state = {
+      //   query_params: {
+      //     ...query_params,
+      //     layerTypes
+      //   }
+      // };
+      //
+      // this.setState(state);
+      // setTimeout(() => {
+      //   this.filter();
+      // }, 50);
+    };
+
     this.showMore = () => {
       return (typeof this.state.totalPages === "undefined" || this.state.page<this.state.totalPages);
-    }
+    };
   }
 
   updateLayerGroupFilter(event) {
@@ -159,7 +181,7 @@ const LAYERS_PER_PAGE = 6;
                     <h2>All layers</h2>
                   </div>
 
-                  <LayerTypeNavigation />
+                  <LayerTypeNavigation itemClickHandler={this.addLayerTypeFilter} />
 
                   {/*<div className="section-navigation">*/}
                   {/*  <h3>Showing:</h3>*/}

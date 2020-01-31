@@ -22,6 +22,9 @@ export default class SingletonUIViewStore {
     // document.addEventListener('click', this.closeEventHandler);
 
     intercept(this, 'visibleSingletonComponent', (update) => {
+      window.vis = this.visibleSingletonComponent;
+      window.upd = update.newValue;
+
       if(!this.visibleSingletonComponent) {
         update.newValue.setState({visible: true});
       }else if(this.visibleSingletonComponent === update.newValue) {
