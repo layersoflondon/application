@@ -73,7 +73,7 @@ export default class TrayViewStore {
           clearTimeout(resizeTimeout);
         }
 
-      }, 500);
+      }, 600);
 
       return change;
     });

@@ -34,6 +34,20 @@
   @include big-square-button;
 }
 
+.m-search-overlay button.clear-button {
+  @include big-square-button;
+
+  background: $red;
+
+  &:before {
+    content: "\f00d";
+  }
+
+  &:hover {
+    background: darken($red,10%);
+  }
+}
+
 .m-search-overlay button.submit-button--search-records {
   margin-bottom: 80px;
 }
