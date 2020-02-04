@@ -4,8 +4,8 @@ import {inject, observer} from "mobx-react";
 import Helmet from 'react-helmet';
 import LayerGroup from './layer_group';
 import Equalizer from "./Equalizer";
-import Layer from '../sources/layer';
 import {closeModalLink, removeModal} from '../helpers/modals';
+import pluralize from 'pluralize';
 
 const LAYERS_PER_PAGE = 6;
 
@@ -23,7 +23,7 @@ const LAYERS_PER_PAGE = 6;
       query_params: {}
     };
 
-    this.filter = (replaceResults, callback) => {
+    this.filter = () => {
       this.setState({searching: true});
 
       const query_params = this.state.query_params || {};
@@ -47,12 +47,16 @@ const LAYERS_PER_PAGE = 6;
     };
 
     this.handleFetchNextPageClick = () => {
+      if(this.state.searching) return false;
+
       this.setState({searching: true});
 
+      const query_params = this.state.query_params || {};
       let query = {
         query: this.state.query,
         page: this.state.page+1,
-        per_page: LAYERS_PER_PAGE
+        per_page: LAYERS_PER_PAGE,
+        ...query_params
       };
 
       const updateState = (additionalState) => {
@@ -69,9 +73,29 @@ const LAYERS_PER_PAGE = 6;
       this.props.layersStore.search(query, false, updateState);
     };
 
+    this.addLayerTypeFilter = (event) => {
+      // const {layerType, itemId} = event.target.dataset;
+      //
+      // const query_params = this.state.query_params || {};
+      // const layerTypes = query_params.layerTypes || {};
+      // layerTypes[layerType] = parseInt(itemId, 10);
+      //
+      // const state = {
+      //   query_params: {
+      //     ...query_params,
+      //     layerTypes
+      //   }
+      // };
+      //
+      // this.setState(state);
+      // setTimeout(() => {
+      //   this.filter();
+      // }, 50);
+    };
+
     this.showMore = () => {
       return (typeof this.state.totalPages === "undefined" || this.state.page<this.state.totalPages);
-    }
+    };
   }
 
   updateLayerGroupFilter(event) {
@@ -124,6 +148,12 @@ const LAYERS_PER_PAGE = 6;
             <div className="m-layers-picker">
               <div className="header">
                 <h1>Layers</h1>
+                {this.props.layersStore.activeLayerGroups.length > 0 &&
+                  <div className="status">
+                      <span>{pluralize('layer', this.props.layersStore.activeLayerGroups.length, true)} currently selected</span>
+                      <a href="#" onClick={this.props.layersStore.clearActiveLayerGroups}><i className="fa fa-times" aria-hidden="true"></i> Clear all</a>
+                  </div>
+                }
                 <div className="search">
                   <input placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onKeyUp={this.handleReturn.bind(this)} onChange={this.updateLayerGroupFilter.bind(this)}/>
                   <button className="btn" disabled={this.state.query.length ? false : true} onClick={this.filter}>Go
@@ -132,11 +162,11 @@ const LAYERS_PER_PAGE = 6;
               </div>
 
               {highlightedLayers.length > 0 && (
-                <div className="layers">
+                <div className="layers layers--featured">
                   <div className="section-title">
-                    <h2>Highlighted layers</h2>
+                    <h2>Featured layers</h2>
                   </div>
-                  <Equalizer selector="a:first-child">
+                  <Equalizer selectcurrently selectedor="a:first-child">
                     {highlightedLayers.map((layer_group) =>
                       <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
                     }
@@ -145,22 +175,22 @@ const LAYERS_PER_PAGE = 6;
               )}
 
               {layerDirectoryLayers.length > 0 && (
-                <div className="secondary-layers">
+                <div className="layers layers--all">
                   <div className="section-title">
-                    <h2>Layer directory</h2>
+                    <h2>All layers</h2>
                   </div>
-
+                  
                   {layerDirectoryLayers.map((layer_group) =>
                     <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
                   }
+
+                  {this.showMore() &&
+                    <div className="section-load-more">
+                      <a href="#" onClick={this.handleFetchNextPageClick}>Load more</a>
+                    </div>
+                  }
                 </div>
               )}
-
-              {this.showMore() &&
-                <button onClick={this.handleFetchNextPageClick}>
-                  Show more
-                </button>
-              }
 
               {layerDirectoryLayers.length === 0 && highlightedLayers.length === 0 && (
                 <div className="no-results">There are no layers which match your search.</div>
@@ -169,9 +199,9 @@ const LAYERS_PER_PAGE = 6;
               {/*{Array(this.state.total_pages).fill().map((_,i)=>i+1).map((p, i)=><div key={`layer-group-page-${i}`}>{p}</div>)}*/}
 
               {this.props.layersStore.activeLayerGroups.length > 0 &&
-              <div className="confirm">
-                <Link to={closeModalLink(this.props.router.location, 'layers')} className="btn" onClick={handleOnClick}>I'm done!</Link>
-              </div>
+                <div className="confirm">
+                  <Link to={closeModalLink(this.props.router.location, 'layers')} className="btn" onClick={handleOnClick}>I'm done!</Link>
+                </div>
               }
 
             </div>

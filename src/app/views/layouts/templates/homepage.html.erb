@@ -2,57 +2,23 @@
 <% end %>
 <% content_for :template do %>
 
-    <div class="m-homepage-background">
+    <div class="m-homepage-background"></div>
 
-    </div>
+    <%= render partial: "pages/homepage_slider" %>
 
-    <div class="m-hero m-hero--large m-hero--home">
+<!--    <div class="m-hero m-hero&#45;&#45;large m-hero&#45;&#45;home">
         <div class="image"></div>
         <div class="m-home-logo">
             <h1>Layers of London</h1>
             <%= image_tag(("logotype.svg"), :class => "viewable") %>
         </div>
         <div class="text-content">
-            <h1 class="viewable"><!--Recording London's rich heritage--><%= strip_tags(page.content) %></h1>
-            <!--<p> Explore London's stories on historic maps …and add your own!</p>-->
+            <h1 class="viewable"><%= strip_tags(page.content) %></h1>
 
-
-            <%= form_with(url: resources_map_path(resource: :search), method: :get, local: :true) do %>
-                <div class="search">
-                    <%= hidden_field_tag :results, true %>
-                    <%= text_field_tag :q, nil, placeholder: "Search for a place or topic you’re interested in…" %>
-                    <%= submit_tag 'Go' %>
-                </div>
-            <% end %>
-
-            Or <%= link_to "explore the map", map_path %>.
-
-<!--            <ul class="links">
-                <li><a href="#">View historic maps</a></li>
-                <li><a href="#">Explore stories</a></li>
-                <li><a href="#">Add your own</a></li>
-            </ul>-->
 
         </div>
 
-
-    </div>
-
-    <%#= render 'pages/big_search' %>
-
-    <main class="main--home">
-
-        <div class="m-highlighted-content">
-            <div class="record-cards">
-                <%= render partial: "shared/feature_record_card", collection: featured_items %>
-            </div>
-        </div>
-
-        <%= render partial: "pages/homepage_slider" %>
-
-        <%= render partial: "pages/homepage_tags" %>
-
-    </main>
+    </div>-->
 
     <div class="homepage-ctas-wrapper">
 
@@ -72,6 +38,34 @@
         <% end %>
 
     </div>
+
+
+    <div class="m-home-explore">
+
+        <h2>Explore our content</h2>
+
+        <%= form_with(url: resources_map_path(resource: :search), method: :get, local: :true) do %>
+            <div class="search">
+                <%= hidden_field_tag :results, true %>
+                <%= text_field_tag :q, nil, placeholder: "Search for a place or topic you’re interested in…" %>
+                <%= submit_tag 'Go' %>
+            </div>
+        <% end %>
+
+        Or <%= link_to "explore the map", map_path %>.
+
+        <%= render partial: "pages/homepage_tags" %>
+
+    </div>
+
+    <div class="m-highlighted-content">
+        <h2>Explore our collections</h2>
+        <div class="record-cards">
+            <%= render partial: "shared/feature_record_card", collection: featured_items %>
+        </div>
+    </div>
+
+
 
 <% end %>
 
