@@ -40,7 +40,7 @@ export default class TrayViewStore {
   @observable searching = false;
   @observable loading_error = false;
 
-  @observable results
+  @observable results;
 
   @observable highlightedResults = observable.map();
   @observable mainResults = observable.map();
@@ -52,6 +52,7 @@ export default class TrayViewStore {
 
   constructor() {
     observe(this, 'tray_is_visible', (change) => {
+      if(!this.mapRef) return;
       const size = this.mapRef.leafletElement.getSize();
 
       const sizeChanged = () => {
