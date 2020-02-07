@@ -56,11 +56,37 @@ class LayerGroupsIndex < Chewy::Index
     filter({term: {highlighted: is_highlighted}})
   end
 
-  def self.with_categories(layer_category_ids:)
-    filter(terms: {layer_category_ids: layer_category_ids})
+  def self.with_category(layer_category_id:)
+    query = {
+      nested: {
+        path: "layers",
+        query: {
+          bool: {
+            must: [
+              { term: { "layers.layer_category_ids": layer_category_id } }
+            ]
+          }
+        }
+      }
+    }
+
+    filter(query)
   end
 
-  def self.with_terms(layer_term_ids:)
-    filter(terms: {layer_term_ids: layer_category_ids})
+  def self.with_term(layer_term_id:)
+    query = {
+      nested: {
+        path: "layers",
+        query: {
+          bool: {
+            must: [
+              { term: { "layers.layer_term_ids": layer_term_id } }
+            ]
+          }
+        }
+      }
+    }
+
+    filter(query)
   end
 end

@@ -27,6 +27,9 @@ module FieldDefinitions
           }
         end
       }
+
+      field :layer_category_ids, value: -> {layer_category_ids}
+      field :layer_term_ids, value: -> {layer_term_ids}
     end
   end
 end
