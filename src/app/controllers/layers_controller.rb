@@ -16,6 +16,10 @@ class LayersController < ApplicationController
       layers_directory = LayerGroupsIndex.highlighted(is_highlighted: false).limit(20)
       @layer_groups = [LayerGroupsIndex.highlighted.limit(9), layers_directory].flatten
       response.set_header("X-Total-Pages", layers_directory.total_pages)
+    elsif params.has_key?(:layer_category)
+      @layer_groups = LayerGroupsIndex.with_category(layer_category_id: params[:layer_category])
+    elsif params.has_key?(:layer_term)
+      @layer_groups = LayerGroupsIndex.with_term(layer_term_id: params[:layer_term])
     else
       @layer_groups = LayerGroupsIndex.all.limit(per_page).offset(offset)
       response.set_header("X-Total-Pages", @layer_groups.total_pages)
