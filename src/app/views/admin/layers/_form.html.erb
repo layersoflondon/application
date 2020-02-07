@@ -17,5 +17,15 @@
         <%= render "admin/layers/layer_types/#{f.object.layer_type}", f: f if f.object.persisted? %>
     <% end if f.object.persisted? %>
 
+    <%= f.inputs "Layer Categories" do %>
+        <% f.input :layer_categories, as: :check_boxes, collection: LayerCategory.all %>
+    <% end %>
+
+    <%= f.inputs "Layer Category Terms" do %>
+        <% f.object.layer_categories.each do |category| %>
+            <%= f.input :layer_terms, label: category.name, as: :check_boxes, collection: category.layer_terms if category.layer_terms.any? %>
+        <% end %>
+    <% end if f.object.layer_categories.any? %>
+
     <%= f.actions %>
 <% end %>

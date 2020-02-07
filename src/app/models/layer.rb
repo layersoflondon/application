@@ -1,5 +1,11 @@
 class Layer < ApplicationRecord
   belongs_to :layer_group, optional: true
+  
+  has_many :layer_layer_categories
+  has_many :layer_categories, through: :layer_layer_categories
+  
+  has_many :layer_layer_terms
+  has_many :layer_terms, through: :layer_layer_terms
 
   enum layer_type: %i[tileserver geojson collection]
   serialize :layer_data, JSON
