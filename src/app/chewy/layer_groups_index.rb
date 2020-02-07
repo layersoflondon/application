@@ -55,4 +55,12 @@ class LayerGroupsIndex < Chewy::Index
   def self.highlighted(is_highlighted: true)
     filter({term: {highlighted: is_highlighted}})
   end
+
+  def self.with_categories(layer_category_ids:)
+    filter(terms: {layer_category_ids: layer_category_ids})
+  end
+
+  def self.with_terms(layer_term_ids:)
+    filter(terms: {layer_term_ids: layer_category_ids})
+  end
 end

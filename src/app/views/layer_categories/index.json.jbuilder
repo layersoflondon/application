@@ -1,0 +1,1 @@
+json.partial! 'layer_categories/layer_category', collection: @layer_categories, as: :layer_category
