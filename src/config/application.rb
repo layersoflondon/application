@@ -20,7 +20,7 @@ module LayersApp
     config.eager_load_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
 
     config.x.default_highlighted_layers = 4
-    config.x.default_directory_layers   = 6
+    config.x.default_directory_layers   = 12
 
     config.x.map_centre = {
       lat: 51.5074, lng: 0.1278
