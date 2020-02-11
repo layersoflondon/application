@@ -64,9 +64,9 @@
   }
 
   .image img {
-    width: 100%;
     margin-left: -20px;
     max-width: 280px;
+    max-height: 220px;
     @include mq(smartphone) {
       max-width: 180px;
       margin-left: 0;
@@ -194,20 +194,4 @@ $light-blue: #afd2ff;*/
 
 .m-home-cta-block:nth-child(3) {
   background: #398494;
-}
-
-.m-home-cta-block .image {
-  display: none;
-}
-
-.m-home-cta-block:nth-child(1) .image-1 {
-  display: block;
-}
-
-.m-home-cta-block:nth-child(2) .image-2 {
-  display: block;
-}
-
-.m-home-cta-block:nth-child(3) .image-3 {
-  display: block;
 }
