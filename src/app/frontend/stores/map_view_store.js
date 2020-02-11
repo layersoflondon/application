@@ -156,9 +156,13 @@ export default class MapViewStore {
         return svgUrl;
       };
 
+      const lat = parseFloat(place.lat);
+      const lon = parseFloat(place.lon);
+
       const placeObject = {
-        lat: place.lat,
-        lng: place.lng,
+        lat: lat,
+        lng: lon,
+        position: [lat, lon],
         display_name: place.display_name,
         osm_type: place.osm_type,
         svg: place.svg
