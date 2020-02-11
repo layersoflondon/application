@@ -14,3 +14,5 @@ export default class Place {
     return axios.get(url);
   }
 }
+
+window.Place = Place;

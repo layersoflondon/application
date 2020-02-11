@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet';
 import MarkerContainer from './marker_container';
+import PlaceMarkerContainer from './place_marker_container';
 import {observer, inject} from "mobx-react";
 import {observe} from 'mobx';
 import LayerToolsContainer from './layer_tools_container';
@@ -121,10 +122,10 @@ import {openModalLink} from '../helpers/modals';
     </span>;
 
     const places = <span className="tile-layers places">
-      {this.props.mapViewStore.placesForMap.map((place, index) => {
-        return <React.Fragment />
+      {this.props.mapViewStore.places.entries().map((placeEntry, index) => {
+        return <PlaceMarkerContainer key={`place-result-${placeEntry[0]}-${index}`} place={placeEntry[1]} />
       })}
-    </span>
+    </span>;
 
     // const headerContent = this.props.trayViewStore.header_content;
     const headerMeta = <div className="meta">
@@ -135,22 +136,6 @@ import {openModalLink} from '../helpers/modals';
     </div>;
 
     return <ErrorBoundary>
-      {/* {
-        this.state.headerShowing && !this.props.mapViewStore.add_record_mode && (
-          <div className="m-map-view-title-area">
-            { (headerContent.title) &&
-              <h1>{headerContent.title}<span className="close"><a  className="close" onClick={this.removeHeaderContent.bind(this)}>Close</a></span></h1>
-            }
-
-            {
-              (headerContent.subtitle) &&
-                <h2>{headerContent.subtitle}</h2>
-            }
-            {headerMeta}
-          </div>
-        )
-      } */}
-
       <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
         <div className={`m-map ${this.props.mapViewStore.add_record_mode ? 'is-adding' : ''}`}>
           <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)} zoomControl={false} >

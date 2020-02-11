@@ -148,7 +148,14 @@ export default class MapViewStore {
     return this.placeResults;
   }set places(value) {
     const places = observable.map();
+    console.log(value);
     value.map((place) => {
+      const placeSvg = (_svg) => {
+        const svg = `<svg xmlns='http://www.w3.org/2000/svg'>${_svg}</svg>`;
+        const svgUrl = encodeURI("data:image/svg+xml," + svg).replace('#','%23');
+        return svgUrl;
+      };
+
       const placeObject = {
         lat: place.lat,
         lng: place.lng,
@@ -161,14 +168,5 @@ export default class MapViewStore {
     });
 
     this.placeResults.replace(places);
-  }
-
-  @computed get placesForMap() {
-    return this.places.values().map((place) => {
-      const svg = "<svg xmlns='http://www.w3.org/2000/svg'></svg>";
-      const svgUrl = encodeURI("data:image/svg+xml," + svg).replace('#','%23');
-
-      return svgUrl;
-    });
   }
 }
