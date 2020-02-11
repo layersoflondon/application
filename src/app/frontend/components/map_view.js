@@ -120,6 +120,12 @@ import {openModalLink} from '../helpers/modals';
       })}
     </span>;
 
+    const places = <span className="tile-layers places">
+      {this.props.mapViewStore.placesForMap.map((place, index) => {
+        return <React.Fragment />
+      })}
+    </span>
+
     // const headerContent = this.props.trayViewStore.header_content;
     const headerMeta = <div className="meta">
       {[
@@ -154,6 +160,7 @@ import {openModalLink} from '../helpers/modals';
               <MapSearchContainer {...this.props} />
             </ErrorBoundary>
             {layers}
+            {places}
             {this.props.layersStore.loupe_layer && <TileLayer key={this.props.layersStore.loupe_layer.id} url={this.props.layersStore.loupe_layer.url} attribution={this.props.layersStore.loupe_layer.attribution} opacity={this.props.layersStore.loupe_layer.opacity} zIndex={1000+1} className="clipped-tilelayer" ref='clipped-tilelayer' />}
 
             {!this.props.mapViewStore.lightsOut &&

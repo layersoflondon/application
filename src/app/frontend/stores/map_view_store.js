@@ -17,6 +17,8 @@ export default class MapViewStore {
   @observable add_collection_mode  = false;
   @observable edit_collection_mode = false;
 
+  @observable placeResults = observable.map();
+
   initial_position = null;
 
   // dom reference to the leaflet map instance (is assigned in by the map_view)
@@ -140,5 +142,33 @@ export default class MapViewStore {
 
   @computed get isTabletDevice() {
     return document.querySelector("meta[name=device-tablet]").content === "true";
+  }
+
+  @computed get places() {
+    return this.placeResults;
+  }set places(value) {
+    const places = observable.map();
+    value.map((place) => {
+      const placeObject = {
+        lat: place.lat,
+        lng: place.lng,
+        display_name: place.display_name,
+        osm_type: place.osm_type,
+        svg: place.svg
+      };
+
+      places.set(place.place_id, placeObject);
+    });
+
+    this.placeResults.replace(places);
+  }
+
+  @computed get placesForMap() {
+    return this.places.values().map((place) => {
+      const svg = "<svg xmlns='http://www.w3.org/2000/svg'></svg>";
+      const svgUrl = encodeURI("data:image/svg+xml," + svg).replace('#','%23');
+
+      return svgUrl;
+    });
   }
 }
