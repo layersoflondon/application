@@ -148,22 +148,20 @@ export default class MapViewStore {
     return this.placeResults;
   }set places(value) {
     const places = observable.map();
-    console.log(value);
-    value.map((place) => {
-      const placeSvg = (_svg) => {
-        const svg = `<svg xmlns='http://www.w3.org/2000/svg'>${_svg}</svg>`;
-        const svgUrl = encodeURI("data:image/svg+xml," + svg).replace('#','%23');
-        return svgUrl;
-      };
 
+    value.map((place) => {
       const lat = parseFloat(place.lat);
       const lon = parseFloat(place.lon);
 
+      const place_type = place.address[place.type] || place.address.road;
+      const display_name = `${place_type}<br/>${place.address.city}`;
+
       const placeObject = {
         lat: lat,
-        lng: lon,
+        lon: lon,
         position: [lat, lon],
-        display_name: place.display_name,
+        name: place.namedetails.name,
+        display_name: display_name,
         osm_type: place.osm_type,
         svg: place.svg
       };

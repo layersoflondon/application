@@ -114,7 +114,6 @@ import {openModalLink} from '../helpers/modals';
 
     const layers = <span className="tile-layers">
       <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
-
       {this.props.layersStore.activeVisibleLayerGroups.map((layerGroup, index) => {
         const layerGroupIndex = 100000-((index+1)*1000);
         return <MapLayerGroup key={layerGroup.id} layerGroup={layerGroup} layerIndex={layerGroupIndex} />

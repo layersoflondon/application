@@ -3,6 +3,10 @@ import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import Place from "../sources/place";
 
+import {closeModalLink, removeModal} from "../helpers/modals";
+
+window.removeModal = removeModal;
+
 @inject('mapViewStore')
 @withRouter
 @observer export default class PlaceSearch extends Component {
@@ -20,7 +24,25 @@ import Place from "../sources/place";
     this.handleSearchOnClick = async (event) => {
       const response = await Place.search(this.state.query, {});
       this.props.mapViewStore.places = response.data;
+
+      removeModal(this.props.location, 'search', this.props.mapViewStore);
+      const path = closeModalLink(this.props.location, 'search');
+
+      this.props.history.push(path);
+
+      if(response.data.length>0) {
+        const firstResult = this.props.mapViewStore.places.values()[0];
+        this.props.mapViewStore.panTo(firstResult.lat, firstResult.lon);
+      }
     };
+
+    this.handleKeyUp = (event) => {
+      if(this.state.query.length<1) return;
+      
+      if (event.nativeEvent.key === "Enter") {
+        this.handleSearchOnClick(event);
+      }
+    }
   }
 
   render() {
@@ -28,7 +50,7 @@ import Place from "../sources/place";
       <h1>Place search</h1>
 
       <div className="form-group form-group--primary-field">
-        <input placeholder="Enter a street, place name or landmark…" type="text" name="q" value={this.state.query} onChange={this.handleChange} />
+        <input placeholder="Enter a street, place name or landmark…" type="text" name="q" value={this.state.query} onChange={this.handleChange} onKeyUp={this.handleKeyUp} />
       </div>
 
       <div className="form-group">
