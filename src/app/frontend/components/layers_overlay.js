@@ -82,10 +82,10 @@ const LAYERS_PER_PAGE = 6;
       let state;
       if(termId) {
         state = {query_params: {...this.state.query_params, layer_term:  termId}};
-        delete state.query_params.overview;
+        delete state.query_params.overview; // remove the overview param to remove the highlighted section
       }else {
         state = {query_params: {...this.state.query_params, overview: true}};
-        delete state.query_params.layer_term;
+        delete state.query_params.layer_term; // reset the layer term query
       }
 
       this.setState(state);
