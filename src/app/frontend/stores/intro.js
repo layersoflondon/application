@@ -39,7 +39,7 @@ const steps = [
       You can scroll around the map and see what records are available in the area you are viewing. You can also search for a place name in the top right corner of your screen (just in case you quickly want to search for somewhere very specific - a postcode, a building name.)
       </p>
       <p>
-      Records on the map are represented by little black and white pins. You can click each one for a summary of what it is about, and click further to see the full record in the tray. 
+      Records on the map are represented by little black pins. You can click each one for a summary of what it is about, and click further to see the full record in the tray. 
       </p>
     `,
     position: 'left',

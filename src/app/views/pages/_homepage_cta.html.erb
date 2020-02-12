@@ -1,8 +1,5 @@
 <div class="m-home-cta-block <%= local_assigns.include?(:class) ? local_assigns[:class] : ""  %>">
-    <!--<div class="image"><img src="<%= homepage_cta.image %>" /></div>-->
-    <div class="image image-1"><%= image_tag(("pic-3.png"), :class => "") %></div>
-    <div class="image image-2"><%= image_tag(("pic-1.png"), :class => "") %></div>
-    <div class="image image-3"><%= image_tag(("pic-2.png"), :class => "") %></div>
+    <div class="image"><img src="<%= homepage_cta.image %>" /></div>
     <div class="text-content viewable">
         <h3><%= homepage_cta.title %></h3>
         <div class="description">
