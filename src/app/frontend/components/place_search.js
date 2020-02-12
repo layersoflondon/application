@@ -5,8 +5,6 @@ import Place from "../sources/place";
 
 import {closeModalLink, removeModal} from "../helpers/modals";
 
-window.removeModal = removeModal;
-
 @inject('mapViewStore')
 @withRouter
 @observer export default class PlaceSearch extends Component {
@@ -32,13 +30,13 @@ window.removeModal = removeModal;
 
       if(response.data.length>0) {
         const firstResult = this.props.mapViewStore.places.values()[0];
-        this.props.mapViewStore.panTo(firstResult.lat, firstResult.lon);
+        this.props.mapViewStore.mapRef.leafletElement.setView({lat: firstResult.lat, lng: firstResult.lon}, 12);
       }
     };
 
     this.handleKeyUp = (event) => {
       if(this.state.query.length<1) return;
-      
+
       if (event.nativeEvent.key === "Enter") {
         this.handleSearchOnClick(event);
       }
