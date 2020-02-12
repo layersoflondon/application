@@ -81,9 +81,14 @@ export default class LayersStore {
   }
 
   @action.bound search(query, replaceResults, doneCallback) {
+    console.log(query);
+
     Layer.search(query).then((response) => {
+      const queryGiven = !!(query.query && query.query.length);
+      const filtersGiven = Object.keys(query).filter((k)=>k!=="query").length>0;
+
       const layerGroups = response.data.map((layer) => {
-        layer.highlighted = false; // ensure all results are rendered in the same list, without a highlighted section
+        // layer.highlighted = false; // ensure all results are rendered in the same list, without a highlighted section
         return LayerGroupModel.fromJS(layer, this);
       });
 

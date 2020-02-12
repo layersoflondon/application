@@ -505,6 +505,15 @@
   margin-bottom: 60px;
 }
 
+.m-layers-picker .section-navigation.is-loading {
+  @include loading-spinner;
+
+  &:after {
+    position: relative;
+    display: block;
+  }
+}
+
 .m-layers-picker .section-navigation h3 {
   display: inline-block;
   @include mq(smartphone) {

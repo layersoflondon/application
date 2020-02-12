@@ -6,6 +6,7 @@ import LayerGroup from './layer_group';
 import Equalizer from "./Equalizer";
 import {closeModalLink, removeModal} from '../helpers/modals';
 import pluralize from 'pluralize';
+import LayerTypeNavigation from './layer_type_navigation';
 
 const LAYERS_PER_PAGE = 6;
 
@@ -74,23 +75,22 @@ const LAYERS_PER_PAGE = 6;
     };
 
     this.addLayerTypeFilter = (event) => {
-      // const {layerType, itemId} = event.target.dataset;
-      //
-      // const query_params = this.state.query_params || {};
-      // const layerTypes = query_params.layerTypes || {};
-      // layerTypes[layerType] = parseInt(itemId, 10);
-      //
-      // const state = {
-      //   query_params: {
-      //     ...query_params,
-      //     layerTypes
-      //   }
-      // };
-      //
-      // this.setState(state);
-      // setTimeout(() => {
-      //   this.filter();
-      // }, 50);
+      this.setState({searching: true});
+
+      const termId = parseInt(event.target.dataset.termId, 10);
+
+      let state;
+      if(termId) {
+        state = {query_params: {...this.state.query_params, layer_term:  termId}};
+        delete state.query_params.overview;
+      }else {
+        state = {query_params: {...this.state.query_params, overview: true}};
+        delete state.query_params.layer_term;
+      }
+
+      this.setState(state);
+
+      setTimeout(() => this.filter(), 500);
     };
 
     this.showMore = () => {
@@ -176,12 +176,14 @@ const LAYERS_PER_PAGE = 6;
                 </div>
               )}
 
+              <LayerTypeNavigation filterCallback={this.addLayerTypeFilter} categories={this.props.layersStore.categories} />
+
               {layerDirectoryLayers.length > 0 && (
                 <div className="layers layers--all">
                   <div className="section-title">
                     <h2>All layers</h2>
                   </div>
-                  
+
                   {layerDirectoryLayers.map((layer_group) =>
                     <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
                   }

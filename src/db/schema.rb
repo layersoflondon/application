@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_25_113819) do
+ActiveRecord::Schema.define(version: 2020_02_07_164148) do
 
-  create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "attachable_id"
     t.string "attachable_type"
     t.datetime "created_at", null: false
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["record_id"], name: "index_attachments_on_record_id"
   end
 
-  create_table "attachments_audio_files", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "attachments_audio_files", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_datasets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "attachments_datasets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_documents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "attachments_documents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_geodata", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "attachments_geodata", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "attachments_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "attachments_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.datetime "created_at", null: false
@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.text "credit"
   end
 
-  create_table "attachments_urls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "attachments_urls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attachments_videos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "attachments_videos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "caption"
     t.text "credit"
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "collection_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "collection_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "collection_id"
     t.bigint "record_id"
     t.datetime "created_at", null: false
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["record_id"], name: "index_collection_records_on_record_id"
   end
 
-  create_table "collections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "collections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.string "owner_type", null: false
@@ -173,7 +173,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["owner_type", "owner_id"], name: "index_collections_on_owner_type_and_owner_id"
   end
 
-  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "record_id"
     t.text "content"
@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "featured_items", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "featured_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "item_id"
     t.string "item_type"
     t.datetime "created_at", null: false
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.integer "sort_order"
   end
 
-  create_table "friendly_id_slugs", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "friendly_id_slugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
@@ -203,7 +203,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "georeferencer_collections", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "georeferencer_collections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "georeferencer_id"
@@ -213,7 +213,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["georeferencer_id"], name: "index_georeferencer_collections_on_georeferencer_id"
   end
 
-  create_table "georeferencer_projects", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "georeferencer_projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "georeferencer_id"
@@ -224,7 +224,13 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.boolean "show_on_website", default: true
   end
 
-  create_table "layer_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layer_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "layer_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "slug"
@@ -235,7 +241,33 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.boolean "highlighted", default: false
   end
 
-  create_table "layers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layer_layer_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.bigint "layer_id"
+    t.bigint "layer_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["layer_category_id"], name: "index_layer_layer_categories_on_layer_category_id"
+    t.index ["layer_id"], name: "index_layer_layer_categories_on_layer_id"
+  end
+
+  create_table "layer_layer_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.bigint "layer_id"
+    t.bigint "layer_term_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["layer_id"], name: "index_layer_layer_terms_on_layer_id"
+    t.index ["layer_term_id"], name: "index_layer_layer_terms_on_layer_term_id"
+  end
+
+  create_table "layer_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "name"
+    t.bigint "layer_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["layer_category_id"], name: "index_layer_terms_on_layer_category_id"
+  end
+
+  create_table "layers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
     t.float "lat"
@@ -253,7 +285,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["layer_group_id"], name: "index_layers_on_layer_group_id"
   end
 
-  create_table "layers_of_london_booth_map_tool_polygons", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layers_of_london_booth_map_tool_polygons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "square_id"
     t.bigint "user_id"
     t.text "feature"
@@ -263,7 +295,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["user_id"], name: "index_layers_of_london_booth_map_tool_polygons_on_user_id"
   end
 
-  create_table "layers_of_london_booth_map_tool_squares", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layers_of_london_booth_map_tool_squares", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "aasm_state"
@@ -278,7 +310,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.integer "user_id"
   end
 
-  create_table "record_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "record_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "record_id"
     t.string "issue", null: false
     t.string "message", null: false
@@ -289,7 +321,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.integer "comment_id"
   end
 
-  create_table "record_taxonomy_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "record_taxonomy_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "record_id"
     t.bigint "taxonomy_term_id"
     t.datetime "created_at", null: false
@@ -298,7 +330,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["taxonomy_term_id"], name: "index_record_taxonomy_terms_on_taxonomy_term_id"
   end
 
-  create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "like_count", default: 0, null: false
@@ -328,7 +360,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.boolean "featured_item", default: false
   end
 
-  create_table "tag_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "tag_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.string "slug"
     t.datetime "created_at", null: false
@@ -336,7 +368,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.integer "sort_order"
   end
 
-  create_table "taggings", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "taggings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "tag_id"
     t.string "tagger_type"
     t.integer "tagger_id"
@@ -344,7 +376,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.string "slug"
     t.integer "tag_group_id"
@@ -353,7 +385,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.integer "sort_order"
   end
 
-  create_table "taxonomies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "taxonomies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
@@ -361,7 +393,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.string "title"
   end
 
-  create_table "taxonomy_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "taxonomy_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.bigint "taxonomy_id"
     t.datetime "created_at", null: false
@@ -370,7 +402,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["taxonomy_id"], name: "index_taxonomy_terms_on_taxonomy_id"
   end
 
-  create_table "team_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "team_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "team_id"
     t.bigint "user_id"
     t.integer "role"
@@ -383,21 +415,21 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["user_id"], name: "index_team_users_on_user_id"
   end
 
-  create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "unsubscribed_record_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "unsubscribed_record_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "user_id"
     t.integer "record_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_record_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "user_record_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "record_id"
     t.bigint "comment_id"
@@ -408,7 +440,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["user_id"], name: "index_user_record_comments_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: ""
     t.string "reset_password_token"
@@ -448,6 +480,10 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
   add_foreign_key "attachments", "records"
   add_foreign_key "collection_records", "collections"
   add_foreign_key "collection_records", "records"
+  add_foreign_key "layer_layer_categories", "layer_categories"
+  add_foreign_key "layer_layer_categories", "layers"
+  add_foreign_key "layer_layer_terms", "layer_terms"
+  add_foreign_key "layer_layer_terms", "layers"
   add_foreign_key "record_taxonomy_terms", "records"
   add_foreign_key "record_taxonomy_terms", "taxonomy_terms"
   add_foreign_key "taxonomy_terms", "taxonomies"

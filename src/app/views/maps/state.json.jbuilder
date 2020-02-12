@@ -15,6 +15,10 @@ json.set! :data do
     json.partial! 'maps/partials/layer_state', layer: layer_group
   end
 
+  json.set! :layer_categories, @layer_categories.collect do |layer_category|
+    json.partial! 'layer_categories/layer_category', layer_category: layer_category, as: :layer_category
+  end
+
   json.set! :map do
     json.zoom Rails.configuration.x.map_zoom
     json.center Rails.configuration.x.map_centre.values

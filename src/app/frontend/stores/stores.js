@@ -13,7 +13,7 @@ import TagGroupsStore from './tag_groups_store';
  * @returns {{recordFormStore, trayViewStore, mapViewStore, layersStore, collectionStore, recordStore}}
  */
 export default (state) => {
-  const {tray, collections, layer_groups, map} = state.data;
+  const {tray, collections, layer_groups, layer_categories, map} = state.data;
 
   const recordFormStore = RecordFormStore.fromJS({});
   const collectionFormStore = new CollectionFormStore.fromJS({});
@@ -22,6 +22,8 @@ export default (state) => {
   const trayViewStore = TrayViewStore.fromJS(tray);
   const collectionStore = CollectionStore.fromJS(collections, trayViewStore);
   const tagGroupsStore = new TagGroupsStore();
+
+  layersStore.categories = layer_categories;
 
   mapViewStore.trayViewStore = trayViewStore;
 
