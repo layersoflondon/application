@@ -6,7 +6,7 @@ import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import Helmet from 'react-helmet';
 
 import { Steps } from 'intro.js-react';
-import {steps, showIntro, introExited, SHOW_TRAY_AT_INDEX} from '../stores/intro';
+import {steps, showIntro, introExited, introOptions, SHOW_TRAY_AT_INDEX} from '../stores/intro';
 
 import TrayContainer from './tray_container';
 import TrayRecordsIndex from './tray/records_index';
@@ -155,6 +155,7 @@ import AddToCollection from "./record_view/add_to_collection";
         initialStep={0}
         onBeforeChange={this.handleOnBeforeChange.bind(this)}
         onExit={this.handleOnExit.bind(this)}
+        options={introOptions}
         ref={steps => this.stepsRef = steps} />
       
       {/* view a team */}

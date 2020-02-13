@@ -103,4 +103,14 @@ const steps = [
   },
 ];
 
-export {steps, showIntro, introExited, SHOW_TRAY_AT_INDEX};
+const introOptions = {
+  showStepNumbers: false,
+  nextLabel: 'Next',
+  prevLabel: 'Back',
+  hidePrev: true,
+  hideNext: true,
+  exitOnOverlayClick: false
+};
+
+
+export {steps, showIntro, introExited, introOptions, SHOW_TRAY_AT_INDEX};
