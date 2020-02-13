@@ -19,9 +19,9 @@ export default class TagsStore {
   }
 
   @computed get checkedTagIds() {
-    return this.tag_ids.map((id) => id).map((id) => parseFloat(id, 10)).sort();
+    return this.tag_ids.map((id) => id).map((id) => parseInt(id, 10)).sort();
   }set checkedTagIds(ids) {
-    this._tag_ids = ids;
+    this._tag_ids = ids.map((id) => parseInt(id, 10));
   }
 
   @computed get checkedTagCount() {
@@ -38,14 +38,16 @@ export default class TagsStore {
   }
 
   @action.bound toggleTag(id) {
+    const tagId = parseInt(id, 10);
     let ids = this._tag_ids.slice();
-    ids = ids.filter((id, index, self) => self.indexOf(id) === index);
-    const id_index = ids.indexOf(id);
+
+    ids = ids.filter((_id, index, self) => self.indexOf(_id) === index); // build uniq array of ids
+    const id_index = ids.indexOf(tagId);
 
     if(id_index>-1) {
       ids.splice(id_index, 1);
     }else {
-      ids.push(id);
+      ids.push(tagId);
     }
 
     runInAction(() => {
