@@ -8,7 +8,7 @@ import {closeModalLink, removeModal} from '../helpers/modals';
 import pluralize from 'pluralize';
 import LayerTypeNavigation from './layer_type_navigation';
 
-const LAYERS_PER_PAGE = 6;
+const LAYERS_PER_PAGE = 9;
 
 @inject('mapViewStore', 'layersStore', 'trayViewStore', 'router')
 @withRouter

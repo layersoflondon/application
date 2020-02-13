@@ -8,18 +8,18 @@ class LayersController < ApplicationController
 
   def index
     page = params[:page].present? ? params[:page].to_i : 1
-    per_page = params[:per_page].present? ? params[:per_page].to_i : 999
+    per_page = params[:per_page].present? ? params[:per_page].to_i : MAX_DIRECTORY_LAYERS
 
     offset = per_page * (page-1)
 
     if params[:query].present? && !params[:page].present?
-      @layer_groups = LayerGroupsIndex.search(params[:query]).limit(MAX_DIRECTORY_LAYERS).limit(per_page).offset(offset)
+      @layer_groups = LayerGroupsIndex.search(params[:query]).limit(per_page).limit(per_page).offset(offset)
       response.set_header("X-Total-Pages", @layer_groups.total_pages)
     elsif params[:query].present? && params[:page].present?
       @layer_groups = LayerGroupsIndex.highlighted(is_highlighted: false).search(params[:query]).limit(per_page).offset(offset)
       response.set_header("X-Total-Pages", @layer_groups.total_pages)
     elsif params.has_key?(:overview) # set this to return limited highlights & directory results
-      directory_layers   = LayerGroupsIndex.highlighted(is_highlighted: false).limit(MAX_DIRECTORY_LAYERS)
+      directory_layers   = LayerGroupsIndex.highlighted(is_highlighted: false).limit(per_page)
       highlighted_layers = LayerGroupsIndex.highlighted.limit(MAX_HIGHLIGHTED_LAYERS)
       @layer_groups = [highlighted_layers, directory_layers].flatten
       response.set_header("X-Total-Pages", directory_layers.total_pages)
