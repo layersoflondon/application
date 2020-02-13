@@ -55,8 +55,9 @@ class VisualHelpers {
       pager: true,
       navContainer: ".m-layers-slideshow .controls",
       before: function(index) {
-        if($(".rslides").data().before && VisualHelpers[$(".rslides").data().before]) {
-          VisualHelpers.updateCurrentSlide(index);
+        const beforeCallback = $(".rslides").data().before;
+        if(beforeCallback && VisualHelpers[beforeCallback]) {
+          VisualHelpers[beforeCallback](index);
         }
       }
     });
