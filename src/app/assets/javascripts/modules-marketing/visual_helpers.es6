@@ -53,9 +53,18 @@ class VisualHelpers {
 
     $(".rslides").responsiveSlides({
       pager: true,
-      navContainer: ".m-layers-slideshow .controls"
+      navContainer: ".m-layers-slideshow .controls",
+      before: function(index) {
+        if($(".rslides").data().before && VisualHelpers[$(".rslides").data().before]) {
+          VisualHelpers.updateCurrentSlide(index);
+        }
+      }
     });
+  }
 
+  static updateCurrentSlide(index) {
+    const text = $(".rslides").find("li[data-slide-index="+index+"] .caption").text();
+    $(".m-layers-slideshow .sidebar .current-slide-information p span").text(text).fadeIn();
   }
 
   setupVisibleTriggers() {

@@ -8,12 +8,14 @@
         </div>
         <div class="controls"></div>
         <div class="current-slide-information">
-            <p>Vestibulum massa erat, gravida vitae mattis venenatis, vestibulum non purus.</p>
+            <p>
+              <span><%= page.slides.first.caption %></span>
+            </p>
         </div>
     </div>
-    <ul class="rslides">
-        <%= page.slides.each do |slide| %>
-            <li>
+    <ul class="rslides" data-before="updateCurrentSlide">
+        <% page.slides.each_with_index do |slide, index| %>
+            <li data-slide-index="<%= index %>">
                 <%= image_tag(slide.image) %>
                 <span class="caption"><%= slide.caption %></span>
             </li>
