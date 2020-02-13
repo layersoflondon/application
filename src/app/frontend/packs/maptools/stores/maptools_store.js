@@ -95,7 +95,7 @@ export default class MapToolsStore {
 
   @computed get editableFeatures() {
     return this.featureData.values().filter((feature) => {
-      return feature.properties.id && feature.properties.userCanEdit && (this.squareId === feature.properties.square.id);
+      return feature.properties.id && feature.properties.userCanEdit;
     });
   }
 
@@ -104,7 +104,7 @@ export default class MapToolsStore {
       return this.featureData.values();
     } else {
       return this.featureData.values().filter((feature) => {
-        return !feature.properties.userCanEdit || (this.squareId !== feature.properties.square.id);
+        return !feature.properties.userCanEdit;
       });
     }
   }
