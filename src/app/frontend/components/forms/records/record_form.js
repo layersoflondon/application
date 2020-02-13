@@ -239,7 +239,7 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
                 </div>
 
               </div>
-              { !this.props.recordFormStore.record.valid_for_publishing &&
+              { !this.props.recordFormStore.record.valid_for_publishing && this.props.recordFormStore.record.errors_on_publishing.length>0 &&
                 <div className="form-validation-errors">
                   <p>Before you can publish this record, you need to add some information:</p>
                   <ul>
