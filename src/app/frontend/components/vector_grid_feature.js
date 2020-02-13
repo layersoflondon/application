@@ -15,11 +15,23 @@ export default class VectorGridFeature extends Component {
         this.props.onClickHandler();
     }
 
+    contentFor(key) {
+        let content = this.state.properties[key];
+
+        if(/^(href|hyperlink)$/i.test(key) && /^https?:\/\//i.test(content)) {
+            const link = dcocument.createElement('a');
+            link.href = content;
+            content = link.toString();
+        }
+
+        return content;
+    }
+
     render() {
         const content = Object.keys(this.state.properties).map((key, index) => {
             return <tr key={`feature-property-${key}-${index}-${this.props.featureId}`}>
                 <th className="key">{key}</th>
-                <td className="value">{this.state.properties[key]}</td>
+                <td className="value" dangerouslySetInnerHTML={{__html: this.contentFor(key)}} />
             </tr>
         });
 
@@ -30,7 +42,6 @@ export default class VectorGridFeature extends Component {
                         <table>
                             <tbody>
                                 {content}
-
                             </tbody>
                         </table>
                     </div>
