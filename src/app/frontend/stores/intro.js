@@ -10,7 +10,12 @@ const introExited = () => {
   cookies.set("introDone", true, {path: '/map', expires: expiryDate});
 };
 
-let showIntro = cookies.get("introDone") !== "true";
+const showIntro = (() => {
+  const done = cookies.get("introDone") === "true";
+  const desktopLayout = window.innerWidth>1150;
+  
+  return desktopLayout && !done;
+})();
 
 const steps = [
   {
