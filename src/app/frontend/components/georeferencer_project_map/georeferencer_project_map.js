@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {Map, Marker, Popup, TileLayer, ZoomControl} from 'react-leaflet';
+import {Map, TileLayer, ZoomControl} from 'react-leaflet';
 import React from "react";
 import ProjectMapMarker from "./project_map_marker";
 

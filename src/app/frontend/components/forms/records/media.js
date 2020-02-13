@@ -4,7 +4,6 @@ import MediaItem from './media_item';
 import YoutubeForm from './youtube_form';
 import MediaItemEditor from './media_item_editor';
 import Attachment from '../../../models/attachment';
-import Image from 'react-image';
 
 import Dropzone from 'react-dropzone';
 import {observer} from "mobx-react";

@@ -1,5 +1,4 @@
-import React,{Component} from 'react';
-import Record from '../../../sources/record';
+import React from 'react';
 import RecordModel from "../../../models/record";
 
 export default class RecordFormComponentState {

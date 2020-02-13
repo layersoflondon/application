@@ -3,9 +3,6 @@ import Teacher from '../../../sources/teacher';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
-window.m = moment;
-// import 'react-datepicker/dist/react-datepicker.css';
-
 class TeachersTokenForm extends React.Component {
     constructor(props) {
         super(props);

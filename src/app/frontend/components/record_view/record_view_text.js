@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import {observer} from "mobx-react";
-import {NavLink} from 'react-router-dom';
 import RecordViewComponentState from "./record_view_component_state";
 
 @observer class RecordViewText extends Component {

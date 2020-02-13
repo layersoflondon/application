@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import {inject, observer} from "mobx-react";
-import {Redirect} from 'react-router';
 import Details from './details';
 import Credits from './credits'
 import Location from './location'

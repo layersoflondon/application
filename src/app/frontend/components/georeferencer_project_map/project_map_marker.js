@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import { Marker, Popup } from 'react-leaflet'
-
-import {Leaflet} from 'react-leaflet';
 import LeafletDataIcon from '../leaflet_data_icon';
 
 export default class ProjectMapMarker extends Component {

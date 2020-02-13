@@ -3,7 +3,6 @@ import RecordFormComponentState from '../records/record_form_component_state';
 import {observer} from "mobx-react";
 import Tag from './tag';
 import PropTypes from 'prop-types';
-import CollectionPicker from "../../collection_picker";
 
 @observer class TagGroup extends Component {
   constructor(props) {

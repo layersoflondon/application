@@ -1,6 +1,4 @@
 import React from 'react';
-import {ConfigEnv} from "../../../config/environment";
-
 
 class RecordsCollections extends React.Component {
     constructor(props) {

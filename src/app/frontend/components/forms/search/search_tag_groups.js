@@ -2,8 +2,6 @@ import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import React, {Component} from "react";
 import TagGroup from "../tag_groups/tag_group";
-import TagsStore from "../../../stores/tags_store";
-import tags from "../../tray/tags";
 
 @inject('router', 'tagGroupsStore')
 @withRouter

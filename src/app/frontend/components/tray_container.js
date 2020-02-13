@@ -1,12 +1,8 @@
 import React,{Component} from 'react';
 import {observer} from "mobx-react";
-
 import Card from './card';
 import {inject} from "mobx-react";
 import ErrorBoundary from "./error_boundary";
-import TrayHeader from "./tray_header";
-
-import { Route } from 'react-router';
 
 @inject('router', 'trayViewStore', 'mapViewStore')
 @observer export default class TrayContainer extends Component {

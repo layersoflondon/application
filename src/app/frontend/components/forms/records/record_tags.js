@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import RecordFormComponentState from './record_form_component_state';
-import {observer, inject} from "mobx-react";
+import {observer} from "mobx-react";
 import TagGroup from '../tag_groups/tag_group';
 
 @observer

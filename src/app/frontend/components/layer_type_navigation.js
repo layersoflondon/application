@@ -3,7 +3,6 @@ import {withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import LayerType from './layer_type';
 import SingletonUIViewStore from "../stores/singleton_ui_view_store";
-import axios from 'axios';
 
 @inject('mapViewStore', 'layersStore', 'trayViewStore', 'router')
 @withRouter

@@ -5,11 +5,8 @@ import Search from "../../../sources/search";
 import SearchTagGroups from "./search_tag_groups";
 import {recordEvent} from "../../../config/data_layer";
 import {closeModalLink} from '../../../helpers/modals';
-import queryString from 'query-string';
 import pluralize from 'pluralize';
 import PlaceSearch from "../../place_search";
-
-window.queryString = queryString;
 
 @inject('router', 'mapViewStore', 'trayViewStore', 'tagGroupsStore')
 @withRouter
