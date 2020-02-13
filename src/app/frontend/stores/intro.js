@@ -67,7 +67,8 @@ const steps = [
     element: '.m-tools .m-tool-button.m-tool-button--search a',
     intro: `
     <h1>Search</h1>
-    <p>Search intro text</p>
+    <p>You can search for records and collections here. There are also options to filter your search by time period and tag.</p>
+    <p>When you search, the results will include anything in the Layers of London database. If you just want to find a place on the map, use the box on the map itself. That searches places in modern London.</p>
     `,
     position: 'right',
     tooltipClass: 'm-tray-area-tooltip',
@@ -78,7 +79,8 @@ const steps = [
     element: '.m-tools .m-tool-button.m-tool-button--layers a',
     intro: `
     <h1>Layers</h1>
-    <p>Layers intro text</p>
+    <p>Here you can choose what layers to put on your map. We've got a list of hundreds of historic maps, datasets and other interesting content for you to explore.</p>
+    <p>You can choose more than one layer to put on the map at the same time.</p>
     `,
     position: 'right',
     tooltipClass: 'm-tray-area-tooltip',
@@ -89,7 +91,7 @@ const steps = [
     element: '.m-tools .m-tool-button.m-tool-button--collections a',
     intro: `
     <h1>Collections</h1>
-    <p>Collections intro text</p>
+    <p>Collections are groups of records around a theme. You can see all of them in a list, here.</p>
     `,
     position: 'right',
     tooltipClass: 'm-tray-area-tooltip',
@@ -100,7 +102,8 @@ const steps = [
     element: '.m-tools .m-tool-button.m-tool-button--add a',
     intro: `
     <h1>Add a record</h1>
-    <p>Add record intro text</p>
+    <p>Add your own records here. You can add text, videos, audio, and documents, as well as text content.</p>
+    <p>You'll need to be logged in to do this. Setting up an account is instant, and free.</p>
     `,
     position: 'right',
     tooltipClass: 'm-tray-area-tooltip',
