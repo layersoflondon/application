@@ -100,7 +100,7 @@ import {getQueryStringValue, removeModal, closeModalLink} from '../helpers/modal
             </div>
 
             {
-              this.props.layersStore.layer_group && (
+              !!!this.props.layersStore.loading && this.props.layersStore.layer_group && (
                 <div className="m-layer-details">
                   <div className="header">
                     <h1>{this.props.layersStore.layer_group.name}</h1>

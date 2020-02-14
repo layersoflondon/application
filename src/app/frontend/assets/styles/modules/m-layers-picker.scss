@@ -5,6 +5,10 @@
   max-width: 1080px;
 }
 
+.m-layers-picker.is-loading {
+  @include loading-spinner;
+}
+
 .m-layers-picker h1 {
   @include overlay-title;
   margin-right: 40px;

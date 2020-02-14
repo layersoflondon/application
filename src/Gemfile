@@ -158,4 +158,8 @@ gem 'natural_sort'
 
 gem 'browser'
 
+
 gem 'sidekiq'
+
+gem "skylight"
+

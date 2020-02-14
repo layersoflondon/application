@@ -4,6 +4,7 @@ import Layer from '../sources/layer';
 
 export default class LayersStore {
   @observable layer_groups = observable.map();
+  @observable all_layer_groups = observable.map();
 
   @observable layer_group = null;
   @observable layer_group_id = null;
@@ -15,17 +16,22 @@ export default class LayersStore {
 
   @observable currentPage = 1;
 
-  category_id = null;
-  term_id = null;
-  selected_category = null;
+  @observable category_id = null;
+  @observable term_id = null;
+  @observable free_text_query = null;
+  @observable total_search_result_pages = 1;
+  @observable search_page = 1;
 
+  @observable active_layer_group_ids = [];
+
+  query_params = {};
   constructor() {
     observe(this, 'layer_group_id', (change) => {
       if( change.newValue ) {
         this.loading = true;
         Layer.show(change.newValue).then((response) => {
           let layer_group = LayerGroupModel.fromJS(response.data, this);
-          let current_group = this.layer_groups.get(layer_group.id);
+          let current_group = this.all_layer_groups.get(layer_group.id);
           this.layer_group = layer_group;
 
           if(current_group) {
@@ -34,18 +40,55 @@ export default class LayersStore {
           }
           
           this.layer_groups.set(layer_group.id, layer_group);
+          this.all_layer_groups.set(layer_group.id, layer_group);
+          this.loading = false;
         });
       }else {
         this.loading = false;
         this.layer_group_id = null;
       }
     });
+
+    observe(this, 'category_id', (change) => {
+        // if there's a term_id we should nullify it because they're mutually exclusive
+        this.term_id = null;
+        this.search()
+    });
+
+    observe(this, 'term_id', (change) => {
+      //  if there's a term ID, we need to nullify category_id, because they're mutually exclusive and term id should 'win'
+        this.category_id = null;
+        this.search();
+    });
+
+    observe(this, 'free_text_query', (change) => {
+        this.search();
+    });
+    observe(this, 'search_page', (change) => {
+      if (change.oldValue !== null) {
+        this.search(true);
+      }
+    });
+
+    observe(this,'active_layer_group_ids', (change) => {
+      this.all_layer_groups.map((g) => {
+        group.is_active = this.active_layer_group_ids.includes(group.id)
+      });
+      this.all_layer_groups.map((g) => {
+        group.is_active = this.active_layer_group_ids.includes(group.id)
+      })
+    })
+
   }
 
   @action.bound toggleLayer(layer_id) {
     let layerGroup = this.activeLayerGroups.find((layerGroup) => layerGroup.id === layer_id);
 
     if( layerGroup ) {
+      const index = this.active_layer_group_ids.indexOf(layerGroup.id);
+      if (index > -1) {
+        this.active_layer_group_ids.splice(index, 1);
+      }
       layerGroup.is_active = false;
     }else {
       layerGroup = this.layer_groups.get(layer_id);
@@ -64,7 +107,12 @@ export default class LayersStore {
         }
       }
 
-      layerGroup.is_active = true;
+      if (this.active_layer_group_ids.indexOf(layerGroup.id) === -1) {
+        this.active_layer_group_ids.push(layerGroup.id);
+      }
+
+     layerGroup.is_active = true
+
     }
 
     return layerGroup.is_active;
@@ -84,31 +132,45 @@ export default class LayersStore {
     this.layer_group_id = id;
   }
 
-  @action.bound search(query, replaceResults, doneCallback) {
-    Layer.search(query).then((response) => {
-      const queryGiven = !!(query.query && query.query.length);
-      const filtersGiven = Object.keys(query).filter((k)=>k!=="query").length>0;
+  /** Search for layer groups, using the category id, term id and free-text search**/
+  /** We build up a list of all layer groups we've ever seen, and a separate observable map which is reset to only show the results from this particular search **/
+  @action.bound async search(append) {
+    this.loading = true;
+    const query = {
+      category_id: this.category_id,
+      term_id: this.term_id,
+      query: this.free_text_query,
+      page: this.search_page
+    };
 
+    await Layer.search(query).then((response) => {
       const layerGroups = response.data.map((layer) => {
-        // layer.highlighted = false; // ensure all results are rendered in the same list, without a highlighted section
         return LayerGroupModel.fromJS(layer, this);
       });
 
-      if(replaceResults) {
-        this.layer_groups.clear();
+      if (!!!append) {
+        this.layer_groups.clear()
       }
+      layerGroups.map((group) => {
+        group.is_active = this.active_layer_group_ids.includes(group.id);
+        this.layer_groups.set(group.id, group);
+        this.all_layer_groups.set(group.id, group);
+      });
 
-      layerGroups.map((group) => this.layer_groups.set(group.id, group));
 
-      if(doneCallback)  {
-        doneCallback({totalPages: parseInt(response.headers['x-total-pages'], 10)});
-      }
+      this.total_search_result_pages = parseInt(response.headers['x-total-pages'], 10);
+      this.search_page = parseInt(response.headers['x-page'],10);
+      this.loading = false;
     });
+  }
+
+  @computed get searchQueriesPresent() {
+    return (this.category_id || this.term_id || this.free_text_query)
   }
 
   // layer groups that can be rendered on the overlay
   @computed get activeLayerGroups() {
-    return this.layer_groups.values().filter((layer_group) => layer_group.is_active).reverse();
+    return this.all_layer_groups.values().filter((layer_group) => this.active_layer_group_ids.includes(layer_group.id)).reverse();
   }
 
   // layer groups that the user has activated
@@ -135,10 +197,6 @@ export default class LayersStore {
 
   // layers that aren't highlighted
   @computed get layerGroups() {
-    return this.layer_groups.values().filter((l) => !l.highlighted);
-  }
-
-  @computed get allLayerGroups() {
     return this.layer_groups.values();
   }
 
@@ -153,6 +211,7 @@ export default class LayersStore {
     layer_groups.map((layer_group) => {
       let layer = LayerGroupModel.fromJS(layer_group);
       layers_store.layer_groups.set(layer.id, layer);
+      layers_store.all_layer_groups.set(layer.id, layer);
     });
 
     return layers_store;

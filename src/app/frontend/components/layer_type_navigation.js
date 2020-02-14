@@ -20,11 +20,9 @@ import axios from 'axios';
     const handleFilterRestOnClick = (event) => {
       this.props.layersStore.term_id = null;
       this.props.layersStore.category_id = null;
-      this.props.layersStore.selected_category = null;
-      this.props.filterCallback(event)
     };
 
-    const isAllShowing = (!!!this.props.layersStore.term_id && !!!this.props.layersStore.categoryId && !!!this.props.layersStore.selected_category);
+    const isAllShowing = (!!!this.props.layersStore.searchQueriesPresent);
 
     return <div className="section-navigation">
       <h3>Showing:</h3>
@@ -35,7 +33,7 @@ import axios from 'axios';
       </ul>
 
       {
-        this.props.categories.map((category) => <LayerType key={`category-${category.id}`} filterCallback={this.props.filterCallback} singletonUiViewStore={menuViewStore} name={category.name} terms={category.layer_terms} id={category.id} />)
+        this.props.categories.map((category) => <LayerType key={`category-${category.id}`} singletonUiViewStore={menuViewStore} name={category.name} terms={category.layer_terms} id={category.id} />)
       }
     </div>;
   }

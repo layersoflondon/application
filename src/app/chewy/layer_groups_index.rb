@@ -51,11 +51,11 @@ class LayerGroupsIndex < Chewy::Index
           })
   end
 
-  def self.highlighted(is_highlighted: true)
-    filter({term: {highlighted: is_highlighted}})
+  def self.highlighted
+    filter({term: {highlighted: true}})
   end
 
-  def self.with_category(layer_category_id:)
+  def self.with_category_id(layer_category_id)
     query = {
       nested: {
         path: "layers",
@@ -72,7 +72,7 @@ class LayerGroupsIndex < Chewy::Index
     filter(query)
   end
 
-  def self.with_term(layer_term_id:)
+  def self.with_term_id(layer_term_id)
     query = {
       nested: {
         path: "layers",

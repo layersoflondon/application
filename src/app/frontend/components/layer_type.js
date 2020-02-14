@@ -16,21 +16,16 @@ import {inject, observer} from "mobx-react";
     this.handleOnClick = (event) => {
 
       this.props.singletonUiViewStore.visibleSingletonComponent = this;
-      console.log("terms length", this.props.terms.length, "event", event);
+
       if (this.props.terms.length === 0) {
         const categoryId = parseInt(event.target.dataset.categoryId, 10);
-        console.log('category id', categoryId, 'target', event.target, 'category id', event.target.dataset);
 
-      //  need to actually filter the contents of the layers by the category ID, not term id.
-        setTimeout(() => this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: false}), 50);
-        this.props.layersStore.term_id = null;
-        if(this.props.layersStore.category_id === categoryId) {
+        // setTimeout(() => this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: false}), 50);
+        if (this.props.layersStore.category_id === categoryId) {
           this.props.layersStore.category_id = null;
-        }else {
+        } else {
           this.props.layersStore.category_id = categoryId;
-          this.props.layersStore.selected_category = categoryId;
         }
-        this.props.filterCallback(event)
       }
     };
 
@@ -47,15 +42,13 @@ import {inject, observer} from "mobx-react";
         this.props.layersStore.selected_category = categoryId;
       }
       
-      setTimeout(() => this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: false}), 50);
 
-      this.props.filterCallback(event);
     };
   }
 
   render() {
     const isSelected = (id) => this.props.layersStore.term_id === id ? 'is-current' : '';
-    const categoryIsSelected = (this.props.layersStore.selected_category === this.props.id);
+    const categoryIsSelected = (this.props.layersStore.category_id === this.props.id || this.props.terms.map((t) => t.id).includes(this.props.layersStore.term_id));
 
     return <ul ref={this.toggleRef} onClick={this.handleOnClick}>
       <li className={categoryIsSelected ? 'is-current' : ''}>

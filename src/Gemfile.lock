@@ -442,6 +442,10 @@ GEM
       redis (>= 4.1.0)
     sitemap_generator (6.0.2)
       builder (~> 3.0)
+    skylight (4.2.1)
+      skylight-core (= 4.2.1)
+    skylight-core (4.2.1)
+      activesupport (>= 4.2.0)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -537,6 +541,7 @@ DEPENDENCIES
   sidekiq
   simple_errors!
   sitemap_generator
+  skylight
   sprockets-es6
   switch_user
   tzinfo-data

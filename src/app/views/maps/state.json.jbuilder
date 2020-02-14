@@ -11,10 +11,10 @@ json.set! :data do
   # end
   json.set! :collections, []
 
-  json.set! :layer_groups, @layer_groups.collect do |layer_group|
-    json.partial! 'maps/partials/layer_state', layer: layer_group
-  end
-
+  # json.set! :layer_groups, @layer_groups.collect do |layer_group|
+  #   json.partial! 'maps/partials/layer_state', layer: layer_group
+  # end
+  #
   json.set! :layer_categories, @layer_categories.collect do |layer_category|
     json.partial! 'layer_categories/layer_category', layer_category: layer_category, as: :layer_category
   end

@@ -17,105 +17,31 @@ const LAYERS_PER_PAGE = 9;
     super(props);
 
     this.state = {
-      query: "",
-      ids: null,
-      searching: false,
-      page: 1,
-      query_params: {}
+      free_text_query: ""
     };
 
-    this.filter = () => {
-      this.setState({searching: true});
-
-      const query_params = this.state.query_params || {};
-      let query = {
-        query: this.state.query,
-        ...query_params
-      };
-
-      const updateState = (additionalState) => {
-        const state = {
-          searching: false,
-          page: 1,
-          per_page: LAYERS_PER_PAGE,
-          ...additionalState
-        };
-
-        this.setState(state);
-      };
-
-      this.props.layersStore.search(query, true, updateState);
-    };
-
-    this.handleFetchNextPageClick = () => {
-      if(this.state.searching) return false;
-
-      this.setState({searching: true});
-
-      const query_params = this.state.query_params || {};
-      let query = {
-        query: this.state.query,
-        page: this.state.page+1,
-        per_page: LAYERS_PER_PAGE,
-        ...query_params
-      };
-
-      const updateState = (additionalState) => {
-        const state = {
-          searching: false,
-          page: this.state.page+1,
-          per_page: LAYERS_PER_PAGE,
-          ...additionalState
-        };
-
-        this.setState(state);
-      };
-
-      this.props.layersStore.search(query, false, updateState);
-    };
-
-    this.addLayerTypeFilter = (event) => {
-      this.setState({searching: true});
-
-      //determine if we're doing a terms lookup or a category lookup
-
-
-      const termId = parseInt(this.props.layersStore.term_id, 10);
-      const categoryId = parseInt(this.props.layersStore.category_id, 10);
-      let state;
-
-      if(termId) {
-        state = {query_params: {...this.state.query_params, layer_term:  termId}};
-        delete state.query_params.layer_category; // reset the layer category query
-      } else if (categoryId) {
-        state = {query_params: {...this.state.query_params, layer_category:  categoryId}};
-        delete state.query_params.layer_term; // reset the layer term query
-      } else {
-        console.log("Reset")
-        state = {query_params: {...this.state.query_params, overview: true}};
-        delete state.query_params.layer_term; // reset the layer term query
-        delete state.query_params.layer_category; // reset the layer category query
-        delete state.query_params.selected_category; // reset the layer category query
-        state.query_params.overview = true;
-      }
-
-      // console.log('state',{...state.query_params});
-
-      // delete state.query_params.overview; // remove the overview param to remove the highlighted section
-
-      this.setState(state);
-
-      setTimeout(() => this.filter(), 500);
-    };
-
-    this.showMore = () => {
-      return (typeof this.state.totalPages === "undefined" || this.state.page<this.state.totalPages);
-    };
   }
 
-  updateLayerGroupFilter(event) {
-    this.setState({...this.state, query: event.currentTarget.value});
+  componentWillMount() {
+    this.freeTextSearch();
   }
+
+  freeTextSearch() {
+      this.props.layersStore.free_text_query = this.state.free_text_query;
+  }
+
+  setFreeTextQuery(event) {
+    this.setState({free_text_query: event.currentTarget.value})
+  }
+
+  clearFreeTextQuery() {
+    this.props.layersStore.free_text_query = this.state.free_text_query = ""
+  }
+
+  handleFetchNextPageClick() {
+
+    this.props.layersStore.search_page += 1;
+  };
 
   handleModalBgClick(event) {
     if (event.target.className === "m-overlay") {
@@ -123,8 +49,8 @@ const LAYERS_PER_PAGE = 9;
   }
 
   handleReturn(event) {
-    if (event.key === 'Enter' && this.state.searching === false) {
-      this.filter();
+    if (event.key === 'Enter' && !!!this.props.layersStore.loading ) {
+      this.freeTextSearch();
     }
   }
 
@@ -134,131 +60,175 @@ const LAYERS_PER_PAGE = 9;
     }
   }
 
+
+
+
+
+  renderHeader() {
+
+
+    
+    const activeLayerGroups = (this.props.layersStore.activeLayerGroups.length > 0) ? (
+      <div className="status">
+        <span>{pluralize('layer', this.props.layersStore.activeLayerGroups.length, true)} currently selected</span>
+        <a href="#" onClick={this.props.layersStore.clearActiveLayerGroups}><i className="fa fa-times"
+  aria-hidden="true"/> Clear
+          all</a>
+      </div>
+    ) : (<React.Fragment />);
+
+    const clearButton = (this.state.free_text_query.length) ? (
+      <span className="clear-search" onClick={this.clearFreeTextQuery.bind(this)}>
+        &times;
+      </span>
+    ) : (<React.Fragment />);
+
+    return(
+      <React.Fragment>
+        <h1>Layers</h1>
+
+        { activeLayerGroups }
+
+        <div className="search">
+          <input placeholder="Search layers" type="text" name="search_layers" value={this.state.free_text_query}
+                 onKeyUp={this.handleReturn.bind(this)} onChange={this.setFreeTextQuery.bind(this)}/>
+          <button className="btn" disabled={this.props.layersStore.loading}
+                  onClick={this.freeTextSearch.bind(this)}>Go
+          </button>
+
+          { clearButton }
+        </div>
+      </React.Fragment>
+
+    )
+  }
+
+  renderHighlighted() {
+
+    if (!!!this.props.layersStore.loading && !!!this.props.layersStore.searchQueriesPresent && this.props.layersStore.highlightedLayerGroups.length) {
+      return (
+
+        <div className="layers layers--featured">
+
+          <div className="section-title">
+            <h2>Featured layers</h2>
+          </div>
+
+
+          <Equalizer selector="a:first-child">
+            {this.props.layersStore.highlightedLayerGroups.slice(0,4).map((layer_group) =>
+              <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
+            }
+          </Equalizer>
+        </div>
+      )
+    } else {
+      return(
+        <React.Fragment />
+      )
+    }
+
+  }
+
+  renderSearchResults() {
+
+    if (this.props.layersStore.layerGroups.length) {
+      return(
+            <div className="layers layers--all">
+
+              <div className="section-title">
+                <h2>
+                  All layers
+                </h2>
+              </div>
+
+
+              <LayerTypeNavigation categories={this.props.layersStore.categories} />
+              <Equalizer selector="a:first-child">
+                {this.props.layersStore.layerGroups.map((layer_group) =>
+                  <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
+                }
+              </Equalizer>
+            </div>
+      )
+    } else {
+      return(
+        <React.Fragment />
+      )
+    }
+  }
+
+
   render() {
-    if(!this.props.mapViewStore.modalIsVisible('layers')) return <React.Fragment />;
 
-    let className = "m-overlay is-showing";
 
-    const highlightedLayers = this.props.layersStore.highlightedLayerGroups;
-    const layerDirectoryLayers = this.props.layersStore.layerGroups;
+    if (!this.props.mapViewStore.modalIsVisible('layers')) return <React.Fragment/>;
 
-    const handleOnClick = () => {
+    const handleCloseOnClick = () => {
       removeModal(this.props.router.location, 'layers', this.props.mapViewStore);
     };
 
-    const handleResetSearchOnClick = () => {
-      this.setState( {
-        query: '',
-        query_params: {overview: true}
-      });
-
-      setTimeout(() => {
-        this.filter();
-      }, 250);
-    };
-
-    const searchBeingPerformed = (this.props.layersStore.category_id || this.props.layersStore.term_id || this.state.query);
-
-    const title =  searchBeingPerformed ? "Layer Results" : "Layers"
     return (
 
 
       <Fragment>
         <Helmet>
           <title>View Layers | Layers of London | Recording the Layers of London's Rich Heritage</title>
-          <meta name='description' content={`Add historical layers to your map, and explore thousands of other fascinating records and collections on Layers of London. Add your own records, and help us build more layers.`}/>
-          <meta name='keywords' content={`layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`}/>
+          <meta name='description'
+                content={`Add historical layers to your map, and explore thousands of other fascinating records and collections on Layers of London. Add your own records, and help us build more layers.`}/>
+          <meta name='keywords'
+                content={`layers of london, london, history, maps, records, collections, history, historical accounts, university of london, school of advanced study`}/>
         </Helmet>
-        <div className={className} onClick={this.handleModalBgClick.bind(this)}>
-          <div className={`s-overlay--layers is-showing ${this.props.layersStore.activeVisibleLayerGroups.length}-active-layers`}>
+        <div className="m-overlay is-showing" onClick={this.handleModalBgClick.bind(this)}>
+          <div
+            className={`s-overlay--layers is-showing ${this.props.layersStore.activeVisibleLayerGroups.length}-active-layers`}>
 
             <div className="close">
-              <Link to={closeModalLink(this.props.router.location, 'layers')} className="close" onClick={handleOnClick}>Close</Link>
+              <Link to={closeModalLink(this.props.router.location, 'layers')} className="close"
+                    onClick={handleCloseOnClick}>Close</Link>
             </div>
 
-            <div className="m-layers-picker">
+            <div className={`m-layers-picker ${this.props.layersStore.loading ? 'is-loading' : ''}`}>
               <div className="header">
-                <h1>{title}</h1>
-                {this.props.layersStore.activeLayerGroups.length > 0 &&
-
-                <div className="status">
-                      <span>{pluralize('layer', this.props.layersStore.activeLayerGroups.length, true)} currently selected</span>
-                      <a href="#" onClick={this.props.layersStore.clearActiveLayerGroups}><i className="fa fa-times" aria-hidden="true"></i> Clear all</a>
-                  </div>
+                {
+                  this.renderHeader()
                 }
-
-                <div className="search">
-                  <input placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onKeyUp={this.handleReturn.bind(this)} onChange={this.updateLayerGroupFilter.bind(this)}/>
-                  <button className="btn" disabled={this.state.query.length > 0 ? false : true} onClick={this.filter}>Go</button>
-
-                  {this.state.query.length > 0 &&
-                    <span className="clear-search" onClick={handleResetSearchOnClick}>
-                      &times;
-                    </span>
-                  }
-                </div>
               </div>
 
-              {highlightedLayers.length > 0 && (
-                <div className="layers layers--featured">
+              {
+                this.renderHighlighted()
+              }
 
-                    <div className="section-title">
-                      <h2>Featured layers</h2>
-                    </div>
-
-
-                  <Equalizer selectcurrently selectedor="a:first-child">
-                    {highlightedLayers.map((layer_group) =>
-                      <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
-                    }
-                  </Equalizer>
-                </div>
-              )}
+              {
+                this.renderSearchResults()
+              }
 
 
 
-              {layerDirectoryLayers.length > 0 && (
-                <div className="layers layers--all">
-
-                    <div className="section-title">
-                      <h2>All layers</h2>
-                    </div>
-
-                  {
-                    !!!this.state.query &&
-                  <LayerTypeNavigation filterCallback={this.addLayerTypeFilter} categories={this.props.layersStore.categories} />
-                  }
-
-                  {layerDirectoryLayers.map((layer_group) =>
-                    <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
-                  }
-                </div>
-              )}
-
-              {this.showMore() &&
+              {(this.props.layersStore.search_page < this.props.layersStore.total_search_result_pages) &&
               <div className="section-load-more">
-                <button onClick={this.handleFetchNextPageClick}>
+                <button onClick={this.handleFetchNextPageClick.bind(this)}>
                   Show more
                 </button>
               </div>
               }
 
-              {layerDirectoryLayers.length === 0 && highlightedLayers.length === 0 && (
+              {this.props.layersStore.searchQueriesPresent && this.props.layersStore.layerGroups.length === 0 && this.props.layersStore.highlightedLayerGroups.length === 0 && (
                 <React.Fragment>
-                  <LayerTypeNavigation filterCallback={this.addLayerTypeFilter} categories={this.props.layersStore.categories} />
+                  <LayerTypeNavigation categories={this.props.layersStore.categories}/>
                   <div className="no-results">There are no layers which match your search.</div>
 
                 </React.Fragment>
-                )}
+              )}
 
               {/*{Array(this.state.total_pages).fill().map((_,i)=>i+1).map((p, i)=><div key={`layer-group-page-${i}`}>{p}</div>)}*/}
 
               {this.props.layersStore.activeLayerGroups.length > 0 &&
-                <div className="confirm">
-                  <Link to={closeModalLink(this.props.router.location, 'layers')} className="btn" onClick={handleOnClick}>I'm done!</Link>
-                </div>
+              <div className="confirm">
+                <Link to={closeModalLink(this.props.router.location, 'layers')} className="btn" onClick={handleCloseOnClick}>I'm
+                  done!</Link>
+              </div>
               }
-
             </div>
           </div>
         </div>
