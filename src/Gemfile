@@ -158,3 +158,4 @@ gem 'natural_sort'
 
 gem 'browser'
 
+gem "skylight"
