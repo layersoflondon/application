@@ -37,8 +37,8 @@ set :nginx_custom_server_context, ""
 set :deploy_domain, fetch(:primary_domain)
 
 set :passenger_port, 8002
-set :passenger_max_pool_size, 200
-set :passenger_min_instances, 150
+set :passenger_max_pool_size, 100
+set :passenger_min_instances, 75
 
 #SSL settings
 set :ssl_required, true

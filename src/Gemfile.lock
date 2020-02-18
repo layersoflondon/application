@@ -427,6 +427,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    scout_apm (2.6.6)
+      parser
     select2-rails (4.0.3)
       thor (~> 0.14)
     selenium-webdriver (3.141.0)
@@ -529,6 +531,7 @@ DEPENDENCIES
   rubocop
   rubyXL
   sassc-rails
+  scout_apm
   selenium-webdriver
   simple_errors!
   sitemap_generator
