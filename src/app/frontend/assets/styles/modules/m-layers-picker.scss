@@ -112,6 +112,15 @@
   }
 }
 
+.m-layers-picker .search span.clear-search {
+  position: absolute;
+  margin: 14px -4.4em;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .m-layers-picker .search input:focus {
   border: 2px solid white;
 }

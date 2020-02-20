@@ -411,11 +411,11 @@ window.queryString = queryString;
                 }
               </div>
 
-              {this.props.tagGroupsStore.totalCheckedCount > 0 &&
-                <span onClick={this.handleClearTags.bind(this)}>Clear {pluralize('tag', this.props.tagGroupsStore.totalCheckedCount, true)}</span>
-              }
-
               <div className="form-group">
+                {this.props.tagGroupsStore.totalCheckedCount > 0 &&
+                  <button className="clear-button" onClick={this.handleClearTags.bind(this)}>Clear {pluralize('tag', this.props.tagGroupsStore.totalCheckedCount, true)}</button>
+                }
+
                 <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search the records</button>
               </div>
             </div>

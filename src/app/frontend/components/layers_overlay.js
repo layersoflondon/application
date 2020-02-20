@@ -131,6 +131,17 @@ const LAYERS_PER_PAGE = 9;
       removeModal(this.props.router.location, 'layers', this.props.mapViewStore);
     };
 
+    const handleResetSearchOnClick = () => {
+      this.setState( {
+        query: '',
+        query_params: {overview: true}
+      });
+
+      setTimeout(() => {
+        this.filter();
+      }, 250);
+    };
+
     return (
       <Fragment>
         <Helmet>
@@ -158,8 +169,13 @@ const LAYERS_PER_PAGE = 9;
 
                 <div className="search">
                   <input placeholder="Search layers" type="text" name="search_layers" value={this.state.query} onKeyUp={this.handleReturn.bind(this)} onChange={this.updateLayerGroupFilter.bind(this)}/>
-                  <button className="btn" disabled={this.state.query.length ? false : true} onClick={this.filter}>Go
-                  </button>
+                  <button className="btn" disabled={this.state.query.length > 0 ? false : true} onClick={this.filter}>Go</button>
+
+                  {this.state.query.length > 0 &&
+                    <span className="clear-search" onClick={handleResetSearchOnClick}>
+                      &times;
+                    </span>
+                  }
                 </div>
               </div>
 
