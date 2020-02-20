@@ -21,7 +21,14 @@ import {inject, observer} from "mobx-react";
       this.props.filterCallback(event);
 
       const termId = parseInt(event.target.dataset.termId, 10);
-      this.props.layersStore.category_id = termId;
+      
+      if(this.props.layersStore.category_id === termId) {
+        this.props.layersStore.category_id = null;
+      }else {
+        this.props.layersStore.category_id = termId
+      }
+      
+      this.props.singletonUiViewStore.visibleSingletonComponent = null;
     };
   }
 
