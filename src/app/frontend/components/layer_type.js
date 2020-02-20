@@ -18,8 +18,6 @@ import {inject, observer} from "mobx-react";
     };
 
     this.handleTermClick = (event) => {
-      this.props.filterCallback(event);
-
       const termId = parseInt(event.target.dataset.termId, 10);
       
       if(this.props.layersStore.category_id === termId) {
@@ -27,8 +25,10 @@ import {inject, observer} from "mobx-react";
       }else {
         this.props.layersStore.category_id = termId
       }
-      
-      this.props.singletonUiViewStore.visibleSingletonComponent = null;
+
+      this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: false});
+
+      this.props.filterCallback(event);
     };
   }
 

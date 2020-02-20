@@ -77,7 +77,7 @@ const LAYERS_PER_PAGE = 9;
     this.addLayerTypeFilter = (event) => {
       this.setState({searching: true});
 
-      const termId = parseInt(event.target.dataset.termId, 10);
+      const termId = parseInt(this.props.layersStore.category_id, 10);
 
       let state;
       if(termId) {
