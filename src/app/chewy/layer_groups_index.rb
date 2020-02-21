@@ -27,8 +27,7 @@ class LayerGroupsIndex < Chewy::Index
                   multi_match: {
                     query: query,
                     fields: multi_match_fields,
-                    type: 'best_fields',
-                    fuzziness: 'AUTO'
+                    type: 'best_fields'
                   }
                 },
                 {
