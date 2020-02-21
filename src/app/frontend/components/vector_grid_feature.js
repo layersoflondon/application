@@ -18,10 +18,12 @@ export default class VectorGridFeature extends Component {
     contentFor(key) {
         let content = this.state.properties[key];
 
-        if(/^(href|hyperlink)$/i.test(key) && /^https?:\/\//i.test(content)) {
-            const link = dcocument.createElement('a');
+        if(/^https?:\/\//i.test(content)) {
+            const link = document.createElement('a');
+            const text = document.createTextNode(content);
             link.href = content;
-            content = link.toString();
+            link.appendChild(text);
+            content = link.outerHTML;
         }
 
         return content;
