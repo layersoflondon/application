@@ -15,20 +15,20 @@ import {inject, observer} from "mobx-react";
 
     this.handleOnClick = (event) => {
       this.props.singletonUiViewStore.visibleSingletonComponent = this;
+      console.log(this.props.singletonUiViewStore.visibleSingletonComponent);
     };
 
     this.handleTermClick = (event) => {
+
       const termId = parseInt(event.target.dataset.termId, 10);
-      
+
       if(this.props.layersStore.category_id === termId) {
         this.props.layersStore.category_id = null;
       }else {
         this.props.layersStore.category_id = termId
       }
-
-      if(this.props.singletonUiViewStore.visibleSingletonComponent) {
-        this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: false});
-      }
+      
+      setTimeout(() => this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: false}), 50);
 
       this.props.filterCallback(event);
     };
