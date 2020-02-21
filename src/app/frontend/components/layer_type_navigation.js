@@ -17,11 +17,16 @@ import axios from 'axios';
 
     const menuViewStore = new SingletonUIViewStore();
 
+    const handleFilterRestOnClick = (event) => {
+      this.props.layersStore.category_id = null;
+      this.props.filterCallback(event)
+    }
+
     return <div className="section-navigation">
       <h3>Showing:</h3>
       <ul>
         <li>
-          <a href="#" data-term-id="" onClick={this.props.filterCallback}>All</a>
+          <a href="#" data-term-id="" onClick={handleFilterRestOnClick}>All</a>
         </li>
       </ul>
 

@@ -26,7 +26,9 @@ import {inject, observer} from "mobx-react";
         this.props.layersStore.category_id = termId
       }
 
-      this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: false});
+      if(this.props.singletonUiViewStore.visibleSingletonComponent) {
+        this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: false});
+      }
 
       this.props.filterCallback(event);
     };
