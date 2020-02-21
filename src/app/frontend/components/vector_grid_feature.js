@@ -22,6 +22,7 @@ export default class VectorGridFeature extends Component {
             const link = document.createElement('a');
             const text = document.createTextNode(content);
             link.href = content;
+            link.target = "_blank";
             link.appendChild(text);
             content = link.outerHTML;
         }
