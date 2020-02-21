@@ -9,7 +9,7 @@ export default class MapToolsStore {
   editableFeatureGroup = null;
 
   DEFAULT_ZOOM = 13;
-  FULL_ZOOM = 18;
+  FULL_ZOOM = 19;
   WELCOME_ZOOM = 15;
 
   cachedFeatureData = observable.map();
