@@ -28,12 +28,21 @@ const handle = (props) => {
   constructor(props) {
     super(props);
 
-    this.state = {is_open: false};
+    this.state = {is_open: false, manually_closed: false};
   }
 
   handleOnClick(event) {
     this.setState({is_open: !this.state.is_open});
+    if (this.state.is_open) {
+      this.setState({manually_closed: true})
+    }
   }
+
+  componentWillUpdate(nextProps, nextState, nextContext) {
+    if (nextProps.layersStore.activeLayerGroups.length > 0 && !this.state.is_open && !this.state.manually_closed) {
+      this.setState({is_open: true});
+    }
+  };
 
   onDragEnd(result) {
     if( !result.destination ) {
