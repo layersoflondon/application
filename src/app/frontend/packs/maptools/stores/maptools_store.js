@@ -171,7 +171,7 @@ export default class MapToolsStore {
         features.set(feature.properties.id, feature);
       });
 
-      this.cachedFeatureData = features;
+      this.featureData = features;
     });
 
     return true;

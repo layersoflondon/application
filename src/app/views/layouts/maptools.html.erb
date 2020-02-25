@@ -19,7 +19,7 @@
 
     <script type="text/javascript" charset="utf-8">
       window.dataLayerParams = window.dataLayerParams || [];
-      window.__EDITABLE_ADJACENT_RANGE = <%= LayersOfLondon::Booth::MapTool.configuration.editable_adjacent_range || 0 %>;
+      window.__EDITABLE_ADJACENT_RANGE = <%= Rails.configuration.x.editable_adjacent_range || 0 %>;
       window.__MAPTOOLS_GRID_WIDTH = <%= LayersOfLondon::Booth::MapTool.configuration.squares_x %>;
     </script>
     <% if params[:new_signup] %>
