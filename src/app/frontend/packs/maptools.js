@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const mapToolsStore = new MapToolsStore();
     const userSession = await getUserSession();
 
-    await mapToolsStore.fetchPolygons();
+    // await mapToolsStore.fetchPolygons();
     await mapToolsStore.fetchSquares();
     await mapToolsStore.fetchSquareGrid();
     await mapToolsStore.fetchSquareCoordinates();

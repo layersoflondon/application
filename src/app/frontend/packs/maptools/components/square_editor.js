@@ -11,6 +11,8 @@ export default class SquareEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {loading: true};
+
+    this.props.mapToolsStore.fetchPolygons();
   }
 
   updateSquareState(state) {
