@@ -193,13 +193,15 @@ const LAYERS_PER_PAGE = 9;
                 </div>
               )}
 
-              <LayerTypeNavigation filterCallback={this.addLayerTypeFilter} categories={this.props.layersStore.categories} />
+
 
               {layerDirectoryLayers.length > 0 && (
                 <div className="layers layers--all">
                   <div className="section-title">
                     <h2>All layers</h2>
                   </div>
+
+                  <LayerTypeNavigation filterCallback={this.addLayerTypeFilter} categories={this.props.layersStore.categories} />
 
                   {layerDirectoryLayers.map((layer_group) =>
                     <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
