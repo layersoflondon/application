@@ -318,7 +318,7 @@ GEM
     mysql2 (0.4.10)
     natural_sort (0.3.0)
     nio4r (2.3.1)
-    nokogiri (1.10.1)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     oj (3.7.11)
     orm_adapter (0.5.0)
