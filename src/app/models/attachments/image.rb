@@ -11,7 +11,7 @@ class Attachments::Image < ApplicationRecord
 
   after_save :set_as_only_primary!, if: -> {self.primary?}
   # after_save :generate_variants
-  after_save do
+  after_commit on: [:create, :update] do
     ImageProcessingJob.perform_later(id)
   end
 
