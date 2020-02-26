@@ -97,6 +97,8 @@ module LayersApp
     # 1400x700 record hero
     # 1400x1400 large
     # 200x150 pin
+    #
+    config.active_job.queue_adapter     = :sidekiq
 
   end
 end

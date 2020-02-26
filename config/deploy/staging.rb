@@ -50,3 +50,8 @@ set :ssl_dh, "dhparams.pem.gpg" #this should be a gpg-encrypted key
 set :basic_auth_required, true
 set :basic_auth_username, 'lol'
 set :basic_auth_password, 'lolstaging'
+
+set :upstart_scripts, [
+  File.join(File.dirname(__FILE__),"templates","sidekiq.erb"),
+  File.join(File.dirname(__FILE__),"templates","sidekiq_workers.erb")
+]
