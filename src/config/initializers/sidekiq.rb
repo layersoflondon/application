@@ -8,7 +8,7 @@ url = case Rails.env
 namespace = "application_#{Rails.env}_sidekiq"
 
 Sidekiq.configure_server do |config|
-  config.redis = { url: url, namespace: namespace }
+  config.redis = { url: url}
 end
 
 
@@ -16,11 +16,11 @@ end
 if defined?(PhusionPassenger)
   PhusionPassenger.on_event(:starting_worker_process) do |forked|
     Sidekiq.configure_client do |config|
-      config.redis = { url: url, namespace: namespace }
+      config.redis = { url: url}
     end if forked
   end
 else
   Sidekiq.configure_client do |config|
-    config.redis = { url: url, namespace: namespace }
+    config.redis = { url: url}
   end
 end
