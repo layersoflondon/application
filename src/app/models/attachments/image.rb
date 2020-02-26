@@ -10,7 +10,10 @@ class Attachments::Image < ApplicationRecord
   validate :validate_image_file
 
   after_save :set_as_only_primary!, if: -> {self.primary?}
-  after_save :generate_variants
+  # after_save :generate_variants
+  after_save do
+    ImageProcessingJob.perform_later(id)
+  end
 
   # set any sibling images primary attribute to false, set the associated
   # record's primary_image_id, and set this image as the only primary one
@@ -33,14 +36,15 @@ class Attachments::Image < ApplicationRecord
     )
   end
 
+  def generate_variants!
+    Rails.configuration.x.image_variants.each do |name, configuration|
+      file.variant(configuration).processed
+    end
+  end
+
   private
   def validate_image_file
     # errors.add(:attachment, 'File is not image') unless file.try(:image?)
   end
 
-  def generate_variants
-    Rails.configuration.x.image_variants.each do |name, configuration|
-      file.variant(configuration).processed
-    end
-  end
 end
