@@ -54,6 +54,8 @@ instance $index
 
 console log
 
+env RAILS_ENV=<%= fetch(:rails_env) %>
+
 script
 # this script runs in /bin/sh by default
 # respawn as bash so we can source in rbenv
