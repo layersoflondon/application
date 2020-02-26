@@ -202,6 +202,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
+    connection_pool (2.2.2)
     crass (1.0.4)
     devise (4.6.1)
       bcrypt (~> 3.0)
@@ -331,6 +332,8 @@ GEM
     pundit (2.0.1)
       activesupport (>= 3.0.0)
     rack (2.0.6)
+    rack-protection (2.0.8.1)
+      rack
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -432,6 +435,11 @@ GEM
     selenium-webdriver (3.141.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2, >= 1.2.2)
+    sidekiq (6.0.5)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      rack-protection (>= 2.0.0)
+      redis (>= 4.1.0)
     sitemap_generator (6.0.2)
       builder (~> 3.0)
     sprockets (3.7.2)
@@ -526,6 +534,7 @@ DEPENDENCIES
   rubyXL
   sassc-rails
   selenium-webdriver
+  sidekiq
   simple_errors!
   sitemap_generator
   sprockets-es6
