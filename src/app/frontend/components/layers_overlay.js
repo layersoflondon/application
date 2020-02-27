@@ -75,7 +75,6 @@ const LAYERS_PER_PAGE = 9;
     };
 
     this.addLayerTypeFilter = (event) => {
-      console.log('the event', event);
       this.setState({searching: true});
 
       //determine if we're doing a terms lookup or a category lookup

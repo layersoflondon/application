@@ -4,7 +4,7 @@ json.short_name layer_group.short_name.present? ? layer_group.short_name : strip
 json.description layer_group.description
 json.image layer_group.image
 json.slug layer_group.slug
-json.highlighted layer_group_highlighted(layer_group)
+json.highlighted layer_group.highlighted
 
 json.layers do
   json.array! layer_group.layers, partial: 'layers/layer', as: :layer
