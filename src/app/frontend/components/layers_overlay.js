@@ -96,11 +96,12 @@ const LAYERS_PER_PAGE = 9;
         delete state.query_params.layer_term; // reset the layer term query
         delete state.query_params.layer_category; // reset the layer category query
         delete state.query_params.selected_category; // reset the layer category query
+        state.query_params.overview = true;
       }
 
-      console.log('state',{...state.query_params});
+      // console.log('state',{...state.query_params});
 
-      delete state.query_params.overview; // remove the overview param to remove the highlighted section
+      // delete state.query_params.overview; // remove the overview param to remove the highlighted section
 
       this.setState(state);
 
@@ -156,7 +157,12 @@ const LAYERS_PER_PAGE = 9;
       }, 250);
     };
 
+    const searchBeingPerformed = (this.props.layersStore.category_id || this.props.layersStore.term_id || this.state.query);
+
+    const title =  searchBeingPerformed ? "Layer Results" : "Layers"
     return (
+
+
       <Fragment>
         <Helmet>
           <title>View Layers | Layers of London | Recording the Layers of London's Rich Heritage</title>
@@ -172,7 +178,7 @@ const LAYERS_PER_PAGE = 9;
 
             <div className="m-layers-picker">
               <div className="header">
-                <h1>Layers</h1>
+                <h1>{title}</h1>
                 {this.props.layersStore.activeLayerGroups.length > 0 &&
 
                 <div className="status">
@@ -210,9 +216,13 @@ const LAYERS_PER_PAGE = 9;
 
               {layerDirectoryLayers.length > 0 && (
                 <div className="layers layers--all">
-                  <div className="section-title">
-                    <h2>All layers</h2>
-                  </div>
+                  {
+                    !!!searchBeingPerformed &&
+                    <div className="section-title">
+                      <h2>All layers</h2>
+                    </div>
+                  }
+
 
                   <LayerTypeNavigation filterCallback={this.addLayerTypeFilter} categories={this.props.layersStore.categories} />
 

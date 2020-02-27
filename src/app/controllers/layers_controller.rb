@@ -24,15 +24,11 @@ class LayersController < ApplicationController
       @layer_groups = [highlighted_layers, directory_layers].flatten
       response.set_header("X-Total-Pages", directory_layers.total_pages)
     elsif params.has_key?(:layer_category)
-      highlighted_layers = LayerGroupsIndex.highlighted.limit(MAX_HIGHLIGHTED_LAYERS)
-      directory_layers = LayerGroupsIndex.with_category(layer_category_id: params[:layer_category]).limit(per_page).offset(offset)
-      response.set_header("X-Total-Pages", directory_layers.total_pages)
-      @layer_groups = [highlighted_layers, directory_layers].flatten
+      @layer_groups = LayerGroupsIndex.with_category(layer_category_id: params[:layer_category]).limit(per_page).offset(offset)
+      response.set_header("X-Total-Pages", @layer_groups.total_pages)
     elsif params.has_key?(:layer_term)
-      highlighted_layers = LayerGroupsIndex.highlighted.limit(MAX_HIGHLIGHTED_LAYERS)
-      directory_layers = LayerGroupsIndex.with_term(layer_term_id: params[:layer_term]).limit(per_page).offset(offset)
-      response.set_header("X-Total-Pages", directory_layers.total_pages)
-      @layer_groups = [highlighted_layers, directory_layers].flatten
+      @layer_groups = LayerGroupsIndex.with_term(layer_term_id: params[:layer_term]).limit(per_page).offset(offset)
+      response.set_header("X-Total-Pages", @layer_groups.total_pages)
     else
       @layer_groups = LayerGroupsIndex.highlighted(is_highlighted: false).limit(per_page).offset(offset)
       response.set_header("X-Total-Pages", @layer_groups.total_pages)

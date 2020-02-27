@@ -138,6 +138,10 @@ export default class LayersStore {
     return this.layer_groups.values().filter((l) => !l.highlighted);
   }
 
+  @computed get allLayerGroups() {
+    return this.layer_groups.values();
+  }
+
   @computed get sortedLayerGroups() {
     const active = this.activeLayerGroups;
     return active;
