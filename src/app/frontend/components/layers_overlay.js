@@ -201,12 +201,11 @@ const LAYERS_PER_PAGE = 9;
 
               {highlightedLayers.length > 0 && (
                 <div className="layers layers--featured">
-                  {
-                    !!!searchBeingPerformed &&
+
                     <div className="section-title">
                       <h2>Featured layers</h2>
                     </div>
-                  }
+
 
                   <Equalizer selectcurrently selectedor="a:first-child">
                     {highlightedLayers.map((layer_group) =>
@@ -220,15 +219,15 @@ const LAYERS_PER_PAGE = 9;
 
               {layerDirectoryLayers.length > 0 && (
                 <div className="layers layers--all">
-                  {
-                    !!!searchBeingPerformed &&
+
                     <div className="section-title">
                       <h2>All layers</h2>
                     </div>
-                  }
 
-
+                  {
+                    !!!this.state.query &&
                   <LayerTypeNavigation filterCallback={this.addLayerTypeFilter} categories={this.props.layersStore.categories} />
+                  }
 
                   {layerDirectoryLayers.map((layer_group) =>
                     <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
