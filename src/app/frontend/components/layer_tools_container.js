@@ -29,6 +29,10 @@ const handle = (props) => {
     super(props);
 
     this.state = {is_open: false, manually_closed: false};
+
+    this.handleOnBeforeCapture = (event, a,b,c) => {
+      console.log(event, a,b,c)
+    }
   }
 
   handleOnClick(event) {
@@ -72,18 +76,9 @@ const handle = (props) => {
 
         <div className="layers">
           <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
-            <Droppable style={{ transform: "none" }} droppableId="droppable">
-              {(provided, snapshot) => (
-                <div {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                  {this.props.layersStore.activeLayerGroups.map((layerGroup, index) => (
-                    <div key={layerGroup.id}>
-                      <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} index={index} />
-                    </div>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
+            {this.props.layersStore.activeLayerGroups.map((layerGroup, index) => (
+              <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} />
+            ))}
           </DragDropContext>
 
           <Link className={lightsOutClasses} to="#" onClick={()=>this.props.mapViewStore.lightsOut = !this.props.mapViewStore.lightsOut}>{lightsOutLabel}</Link>

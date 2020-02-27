@@ -3,6 +3,8 @@ import {observer, inject} from 'mobx-react';
 import Slider from 'rc-slider';
 import LayerTool from './layer_tool';
 
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 const handle = (props) => {
   const {value, dragging, index, ...otherProps} = props;
   return <Slider.Handle value={value} {...otherProps} />;
@@ -61,7 +63,24 @@ const getItemStyle = (isDragging, draggableStyle) => ({
         <span className="name" onClick={()=>this.props.layerGroup.toggleIsOpen()}>{this.props.layerGroup.name}</span>
 
         <div className="layer-components">
-          {this.props.layerGroup.allLayers.map((layer, index) => <LayerTool key={layer.id} layer={layer} layerGroup={this.props.layerGroup} index={index} />)}
+          <DragDropContext>
+            <Droppable style={{ transform: "none" }} droppableId="layer-droppable">
+              {(provided, snapshot) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+
+                  {this.props.layerGroup.allLayers.map((layer, index) => (
+                    <div key={`draggable-tool-${index}`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                      <LayerTool key={layer.id} layer={layer} index={index} />
+                    </div>
+                  ))}
+                  
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+
+
         </div>
       </div>
     );

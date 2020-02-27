@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {observer, inject} from 'mobx-react';
 import Slider from 'rc-slider';
-import { Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const handle = (props) => {
   const {value, dragging, index, ...otherProps} = props;
@@ -14,6 +14,10 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   position: isDragging ? 'static' : 'relative',
   height: isDragging ? '0' : 'auto',
   display: 'block',
+});
+
+const getListStyle = isDraggingOver => ({
+  width: '100%',
 });
 
 @inject('trayViewStore', 'layersStore')
@@ -73,21 +77,22 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
     return <div className={`layer-component ${layer_visibility}`}>
       <span className={`key-symbol key-symbol--outline`} style={this.layerSymbolColorStyle(this.props.layer)}></span>
-        <Draggable key={this.props.layerGroup.id} draggableId={`${this.props.layerGroup.id}-${this.props.layer.id}`} index={this.props.index} isDragDisabled={this.props.layersStore.activeLayerGroups.length===1}>
-          {(provided, snapshot) => (
-            <div key={this.props.layerGroup.id} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
-              <span className="name" onClick={this.handleLayerClick.bind(this)}>{this.props.layer.title} {this.props.layer.is_loading && <span className="is-loading"></span>}</span>
-            </div>
-          )}
-        </Draggable>
 
-        <div className="view-controls">
-          <span className={`show-hide ${layer_visibility}`} onClick={this.toggleLayerVisibility.bind(this)}>
-          </span>
-          <span className="slider">
-            <Slider min={0} max={1} step={0.1} handle={handle} defaultValue={this.props.layer.opacity} ref={this.sliderRef} onChange={this.setLayerOpacity.bind(this)} />
-          </span>
-        </div>
+      <Draggable key={this.props.layer.id} draggableId={this.props.layer.id} index={this.props.index}>
+        {(provided, snapshot) => (
+          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
+            <span className="name" onClick={this.handleLayerClick.bind(this)}>{this.props.layer.title} {this.props.layer.is_loading && <span className="is-loading"></span>}</span>
+          </div>
+        )}
+      </Draggable>
+      
+      <div className="view-controls">
+        <span className={`show-hide ${layer_visibility}`} onClick={this.toggleLayerVisibility.bind(this)}>
+        </span>
+        <span className="slider">
+          <Slider min={0} max={1} step={0.1} handle={handle} defaultValue={this.props.layer.opacity} ref={this.sliderRef} onChange={this.setLayerOpacity.bind(this)} />
+        </span>
+      </div>
     </div>;
   }
 }
