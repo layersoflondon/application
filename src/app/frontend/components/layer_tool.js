@@ -1,11 +1,20 @@
 import React,{Component} from 'react';
 import {observer, inject} from 'mobx-react';
 import Slider from 'rc-slider';
+import { Draggable } from 'react-beautiful-dnd';
 
 const handle = (props) => {
   const {value, dragging, index, ...otherProps} = props;
   return <Slider.Handle value={value} {...otherProps} />;
 };
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+  ...draggableStyle,
+  userSelect: 'none',
+  position: isDragging ? 'static' : 'relative',
+  height: isDragging ? '0' : 'auto',
+  display: 'block',
+});
 
 @inject('trayViewStore', 'layersStore')
 @observer export default class LayerTool extends Component {
@@ -64,15 +73,21 @@ const handle = (props) => {
 
     return <div className={`layer-component ${layer_visibility}`}>
       <span className={`key-symbol key-symbol--outline`} style={this.layerSymbolColorStyle(this.props.layer)}></span>
-      <span className="name" onClick={this.handleLayerClick.bind(this)}>{this.props.layer.title} {this.props.layer.is_loading && <span className="is-loading"></span>}</span>
+        <Draggable key={this.props.layerGroup.id} draggableId={`${this.props.layerGroup.id}-${this.props.layer.id}`} index={this.props.index} isDragDisabled={this.props.layersStore.activeLayerGroups.length===1}>
+          {(provided, snapshot) => (
+            <div key={this.props.layerGroup.id} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
+              <span className="name" onClick={this.handleLayerClick.bind(this)}>{this.props.layer.title} {this.props.layer.is_loading && <span className="is-loading"></span>}</span>
+            </div>
+          )}
+        </Draggable>
 
-      <div className="view-controls">
-        <span className={`show-hide ${layer_visibility}`} onClick={this.toggleLayerVisibility.bind(this)}>
-        </span>
-        <span className="slider">
-          <Slider min={0} max={1} step={0.1} handle={handle} defaultValue={this.props.layer.opacity} ref={this.sliderRef} onChange={this.setLayerOpacity.bind(this)} />
-        </span>
-      </div>
+        <div className="view-controls">
+          <span className={`show-hide ${layer_visibility}`} onClick={this.toggleLayerVisibility.bind(this)}>
+          </span>
+          <span className="slider">
+            <Slider min={0} max={1} step={0.1} handle={handle} defaultValue={this.props.layer.opacity} ref={this.sliderRef} onChange={this.setLayerOpacity.bind(this)} />
+          </span>
+        </div>
     </div>;
   }
 }

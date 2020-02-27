@@ -8,8 +8,21 @@ const handle = (props) => {
   return <Slider.Handle value={value} {...otherProps} />;
 };
 
+const getItemStyle = (isDragging, draggableStyle) => ({
+  ...draggableStyle,
+  userSelect: 'none',
+  position: isDragging ? 'static' : 'relative',
+  height: isDragging ? '0' : 'auto',
+  display: 'block',
+});
+
 @inject('layersStore')
 @observer export default class LayerGroupTool extends Component {
+  constructor(props) {
+    console.log(props);
+    super(props)
+  }
+
   handleLoupeToolClick(event) {
     event.preventDefault();
 
@@ -48,7 +61,7 @@ const handle = (props) => {
         <span className="name" onClick={()=>this.props.layerGroup.toggleIsOpen()}>{this.props.layerGroup.name}</span>
 
         <div className="layer-components">
-          {this.props.layerGroup.allLayers.map((layer, index) => <LayerTool key={layer.id} layer={layer} />)}
+          {this.props.layerGroup.allLayers.map((layer, index) => <LayerTool key={layer.id} layer={layer} layerGroup={this.props.layerGroup} index={index} />)}
         </div>
       </div>
     );

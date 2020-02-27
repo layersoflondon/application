@@ -109,7 +109,9 @@ export default class LayersStore {
 
   // layer groups that the user has activated
   @computed get activeVisibleLayerGroups() {
-    const layers = this.activeLayerGroups.filter((layer_group) => layer_group.is_visible);
+    console.log(this.activeLayerGroups)
+    
+    const layers = this.activeLayerGroups.filter((layer_group) => layer_group && layer_group.is_visible);
 
     if( this.layer_group_order.length && this.layer_group_order.length === layers.length ) {
       layers.sort((a,b) => {
