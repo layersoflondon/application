@@ -96,38 +96,34 @@ export default class MapToolsStore {
   @computed get editableFeatures() {
     return this.featureData.values().filter((feature) => {
 
-      let withinEditableRange = false;
+      
 
-      if(window.__EDITABLE_ADJACENT_RANGE > 0 ) {
-        var width = parseInt(window.__MAPTOOLS_GRID_WIDTH, 10);
-        var range = parseInt(window.__EDITABLE_ADJACENT_RANGE, 10);
-
-        var currentRow = Math.ceil(this.squareId/width);
-        
-        var previousRowWindow = 5;
-        var northWestSquareId = 1;
-
-        if(this.squareId > width) {
-          northWestSquareId = this.squareId - (width * range) - range;
-        }
-
-        if(currentRow <= range) {
-          previousRowWindow = previousRowWindow-range;
-        }
-
-        for(var i = 0; i<previousRowWindow ; i++) {
-          var previousRange_min = northWestSquareId + (i * width)
-          var previousRange_max = northWestSquareId + ((i * width) + width/2-1)
-
-          if( feature.properties.square.id >= previousRange_min && feature.properties.square.id <= previousRange_max) {
-            withinEditableRange = true;
-            break;
-          }
-        }
-      }
-
-      return feature.properties.id && feature.properties.userCanEdit && withinEditableRange;
+      return feature.properties.id && feature.properties.userCanEdit && this.withinEditableRange(feature);
     });
+  }
+
+  withinEditableRange(feature) {
+    let withinEditableRange = false;
+
+    if(window.__EDITABLE_ADJACENT_RANGE > 0 ) {
+      var width = parseInt(window.__MAPTOOLS_GRID_WIDTH, 10);
+      var range = parseInt(window.__EDITABLE_ADJACENT_RANGE, 10)+1;
+
+      let topLeft = this.squareId - width - range;
+      let topRight = this.squareId - width + range;
+      let bottomLeft = this.squareId + width - range;
+      let bottomRight = this.squareId + width + range; 
+      let currentRowLeft = this.squareId - range;
+      let currentRowRight = this.squareId + range;
+
+      let withinAbove = feature.properties.square.id > topLeft && feature.properties.square.id < topRight;
+      let onSameRow = feature.properties.square.id > currentRowLeft && feature.properties.square.id < currentRowRight;
+      let withinBelow = feature.properties.square.id > bottomLeft && feature.properties.square.id < bottomRight;
+
+      withinEditableRange = withinAbove || withinBelow || onSameRow;
+    }
+
+    return withinEditableRange;
   }
 
   @computed get immutableFeatures() {
@@ -135,7 +131,7 @@ export default class MapToolsStore {
       return this.featureData.values();
     } else {
       return this.featureData.values().filter((feature) => {
-        return !feature.properties.userCanEdit;
+        return !feature.properties.userCanEdit || !this.withinEditableRange(feature)
       });
     }
   }

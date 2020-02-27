@@ -27,6 +27,7 @@ services:
       - irb_history:/root/irb_history
       - ./docker/web/.irbrc:/root/.irbrc
       - ./docker/web/entrypoint.sh:/entrypoint.sh
+      # - ../layers_of_london-booth-map_tool:/layers_of_london-booth-map_tool
     stdin_open: true
     tty: true
   web:
