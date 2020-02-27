@@ -201,9 +201,13 @@ const LAYERS_PER_PAGE = 9;
 
               {highlightedLayers.length > 0 && (
                 <div className="layers layers--featured">
-                  <div className="section-title">
-                    <h2>Featured layers</h2>
-                  </div>
+                  {
+                    !!!searchBeingPerformed &&
+                    <div className="section-title">
+                      <h2>Featured layers</h2>
+                    </div>
+                  }
+
                   <Equalizer selectcurrently selectedor="a:first-child">
                     {highlightedLayers.map((layer_group) =>
                       <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
