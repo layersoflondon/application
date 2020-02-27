@@ -15,6 +15,10 @@ export default class LayersStore {
 
   @observable currentPage = 1;
 
+  category_id = null;
+  term_id = null;
+  selected_category = null;
+
   constructor() {
     observe(this, 'layer_group_id', (change) => {
       if( change.newValue ) {

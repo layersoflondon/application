@@ -75,19 +75,33 @@ const LAYERS_PER_PAGE = 9;
     };
 
     this.addLayerTypeFilter = (event) => {
+      console.log('the event', event);
       this.setState({searching: true});
 
-      const termId = parseInt(this.props.layersStore.category_id, 10);
+      //determine if we're doing a terms lookup or a category lookup
 
+
+      const termId = parseInt(this.props.layersStore.term_id, 10);
+      const categoryId = parseInt(this.props.layersStore.category_id, 10);
       let state;
+
       if(termId) {
         state = {query_params: {...this.state.query_params, layer_term:  termId}};
-        delete state.query_params.overview; // remove the overview param to remove the highlighted section
-      }else {
+        delete state.query_params.layer_category; // reset the layer category query
+      } else if (categoryId) {
+        state = {query_params: {...this.state.query_params, layer_category:  categoryId}};
+        delete state.query_params.layer_term; // reset the layer term query
+      } else {
         console.log("Reset")
         state = {query_params: {...this.state.query_params, overview: true}};
         delete state.query_params.layer_term; // reset the layer term query
+        delete state.query_params.layer_category; // reset the layer category query
+        delete state.query_params.selected_category; // reset the layer category query
       }
+
+      console.log('state',{...state.query_params});
+
+      delete state.query_params.overview; // remove the overview param to remove the highlighted section
 
       this.setState(state);
 
@@ -218,7 +232,11 @@ const LAYERS_PER_PAGE = 9;
               }
 
               {layerDirectoryLayers.length === 0 && highlightedLayers.length === 0 && (
-                <div className="no-results">There are no layers which match your search.</div>
+                <React.Fragment>
+                  <LayerTypeNavigation filterCallback={this.addLayerTypeFilter} categories={this.props.layersStore.categories} />
+                  <div className="no-results">There are no layers which match your search.</div>
+
+                </React.Fragment>
                 )}
 
               {/*{Array(this.state.total_pages).fill().map((_,i)=>i+1).map((p, i)=><div key={`layer-group-page-${i}`}>{p}</div>)}*/}

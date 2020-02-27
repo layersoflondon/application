@@ -18,19 +18,25 @@ import axios from 'axios';
     const menuViewStore = new SingletonUIViewStore();
 
     const handleFilterRestOnClick = (event) => {
+      this.props.layersStore.term_id = null;
       this.props.layersStore.category_id = null;
+      this.props.layersStore.selected_category = null;
       this.props.filterCallback(event)
-    }
+    };
+
+    const isAllShowing = (!!!this.props.layersStore.term_id && !!!this.props.layersStore.categoryId && !!!this.props.layersStore.selected_category);
 
     return <div className="section-navigation">
       <h3>Showing:</h3>
       <ul>
-        <li>
-          <a href="#" data-term-id="" onClick={handleFilterRestOnClick}>All</a>
+        <li className={isAllShowing ? 'is-current' : ''}>
+          <a href="#" data-term-id={null} data-category-id={null} onClick={handleFilterRestOnClick}>All</a>
         </li>
       </ul>
 
-      {this.props.categories.map((category) => <LayerType key={`category-${category.id}`} filterCallback={this.props.filterCallback} singletonUiViewStore={menuViewStore} name={category.name} terms={category.layer_terms} />)}
+      {
+        this.props.categories.map((category) => <LayerType key={`category-${category.id}`} filterCallback={this.props.filterCallback} singletonUiViewStore={menuViewStore} name={category.name} terms={category.layer_terms} id={category.id} />)
+      }
     </div>;
   }
 }

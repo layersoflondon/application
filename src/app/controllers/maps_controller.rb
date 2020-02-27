@@ -60,7 +60,7 @@ class MapsController < ApplicationController
 
     @layer_groups = [highlighted_layers, directory_layers].flatten
 
-    @layer_categories = LayerCategoriesIndex.all.reject{|lc| lc.layer_terms.empty?}
+    @layer_categories = LayerCategoriesIndex.all#.reject{|lc| lc.layer_terms.empty?}
 
     # return unless params[:resource].present?
     #
