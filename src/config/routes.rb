@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
 Rails.application.routes.draw do
   get 'tag_groups/index'
   get 'tag_groups/show'
@@ -132,6 +134,10 @@ Rails.application.routes.draw do
         match "edit", via: [:get], to: "maptools#edit", constraints: {id: /[0-9A-Za-z\-\.,]+/}
       end
     end
+  end
+
+  authenticate :admin_user do
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   # IMPORTANT: this is a greedy catchall route - it needs to be the last route in the file.

@@ -54,4 +54,8 @@ set :cron_scripts,  {
 }
 
 
+set :upstart_scripts, [
+  File.join(File.dirname(__FILE__),"templates","sidekiq.erb"),
+  File.join(File.dirname(__FILE__),"templates","sidekiq_workers.erb")
+]
 
