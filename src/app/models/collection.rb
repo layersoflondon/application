@@ -93,7 +93,7 @@ class Collection < ApplicationRecord
     object = self.find(id)
     object.update_column(field, value)
 
-    Chewy.strategy(:atomic) do 
+    Chewy.strategy(:active_job) do
       CollectionsIndex.import self.where(id: id), update_fields: [field]
     end
   end
