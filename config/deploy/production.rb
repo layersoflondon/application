@@ -38,7 +38,7 @@ set :deploy_domain, fetch(:primary_domain)
 
 set :passenger_port, 8002
 set :passenger_max_pool_size, 100
-set :passenger_min_instances, 75
+set :passenger_min_instances, 25
 
 #SSL settings
 set :ssl_required, true
