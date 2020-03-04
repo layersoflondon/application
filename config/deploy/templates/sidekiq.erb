@@ -64,7 +64,7 @@ script
 exec /bin/bash <<'EOT'
 cd <%= current_path %>
 
-<%= fetch(:rvm1_auto_script_path)%>/rvm-auto.sh . bundle exec sidekiq -e <%= fetch(:rails_env) %> -q default -q chewy -q workers
+<%= fetch(:rvm1_auto_script_path)%>/rvm-auto.sh . bundle exec sidekiq -e <%= fetch(:rails_env) %> -q default -q chewy
 
 EOT
 end script
