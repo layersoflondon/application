@@ -38,6 +38,8 @@ env MALLOC_ARENA_MAX=2
 respawn
 respawn limit 3 30
 
+limit as 6442451000 8589935000
+
 # TERM is used when stopping sidekiq. Without declaring these as
 # normal exit codes, it just respawns.
 normal exit 0 TERM
@@ -61,6 +63,8 @@ script
 # respawn as bash so we can source in rbenv
 exec /bin/bash <<'EOT'
 cd <%= current_path %>
-<%= fetch(:rvm1_auto_script_path)%>/rvm-auto.sh . bundle exec sidekiq -e <%= fetch(:rails_env) %>
+
+<%= fetch(:rvm1_auto_script_path)%>/rvm-auto.sh . bundle exec sidekiq -e <%= fetch(:rails_env) %> -q default -q chewy -q workers
+
 EOT
 end script

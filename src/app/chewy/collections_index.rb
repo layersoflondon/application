@@ -4,11 +4,8 @@ class CollectionsIndex < Chewy::Index
     "Collection"
   end
 
-  define_type Collection.includes(:records).references(:records) do
+  define_type Collection.including_users_and_records, name: :collection do
     include FieldDefinitions::Collection
-    field :records, type: :nested do
-      include FieldDefinitions::Record
-    end
   end
 
   def self.published(limit: 200)
