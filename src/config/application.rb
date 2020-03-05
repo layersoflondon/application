@@ -104,5 +104,7 @@ module LayersApp
     #
     config.active_job.queue_adapter     = :sidekiq
 
+    config.skylight.probes << 'delayed_job'
+
   end
 end
