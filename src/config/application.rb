@@ -104,6 +104,8 @@ module LayersApp
     #
     config.active_job.queue_adapter     = :sidekiq
 
+
+    config.skylight.environments += ["staging"]
     config.skylight.probes << 'delayed_job'
 
   end
