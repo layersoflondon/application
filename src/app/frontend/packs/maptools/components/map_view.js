@@ -191,7 +191,7 @@ export default class MapView extends React.Component {
               scrollWheelZoom={zoomingEnabled} onClick={this.handleOnClick.bind(this)} key={this.props.mapToolsStore.square ? `maptools-square-${this.props.mapToolsStore.square.id}` : 'maptools-squares'}>
           <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03"
                       attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
-          <TileLayer url="http://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png"/>
+          <TileLayer url="https://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png"/>
 
           { !this.props.mapToolsStore.square &&
             <GeoJSON data={this.props.mapToolsStore.squares} style={this.gridStyle.bind(this)} />
