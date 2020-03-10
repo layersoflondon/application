@@ -19,7 +19,7 @@ module LayersApp
     config.autoload_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
     config.eager_load_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
 
-    config.x.editable_adjacent_range = 2 # how many rows/columns either side of the current square should be editable
+    config.x.editable_adjacent_range = 1 # how many rows/columns either side of the current square should be editable
     config.x.default_highlighted_layers = 4
     config.x.default_directory_layers   = 9
 
