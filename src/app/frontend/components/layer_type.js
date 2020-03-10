@@ -16,11 +16,12 @@ import {inject, observer} from "mobx-react";
     this.handleOnClick = (event) => {
 
       this.props.singletonUiViewStore.visibleSingletonComponent = this;
+      this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: !this.props.singletonUiViewStore.visibleSingletonComponent.state.visible});
+
 
       if (this.props.terms.length === 0) {
         const categoryId = parseInt(event.target.dataset.categoryId, 10);
 
-        // setTimeout(() => this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: false}), 50);
         if (this.props.layersStore.category_id === categoryId) {
           this.props.layersStore.category_id = null;
         } else {
