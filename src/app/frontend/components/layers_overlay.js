@@ -27,7 +27,7 @@ const LAYERS_PER_PAGE = 9;
   }
 
   freeTextSearch() {
-      this.props.layersStore.free_text_query = this.state.free_text_query;
+    this.props.layersStore.free_text_query = this.state.free_text_query;
   }
 
   setFreeTextQuery(event) {
@@ -49,7 +49,7 @@ const LAYERS_PER_PAGE = 9;
   }
 
   handleReturn(event) {
-    if (event.key === 'Enter' && !!!this.props.layersStore.loading ) {
+    if (event.key === 'Enter' && !!!this.props.layersStore.loading) {
       this.freeTextSearch();
     }
   }
@@ -61,33 +61,29 @@ const LAYERS_PER_PAGE = 9;
   }
 
 
-
-
-
   renderHeader() {
 
 
-    
     const activeLayerGroups = (this.props.layersStore.activeLayerGroups.length > 0) ? (
       <div className="status">
         <span>{pluralize('layer', this.props.layersStore.activeLayerGroups.length, true)} currently selected</span>
         <a href="#" onClick={this.props.layersStore.clearActiveLayerGroups}><i className="fa fa-times"
-  aria-hidden="true"/> Clear
+                                                                               aria-hidden="true"/> Clear
           all</a>
       </div>
-    ) : (<React.Fragment />);
+    ) : (<React.Fragment/>);
 
     const clearButton = (this.state.free_text_query.length) ? (
       <span className="clear-search" onClick={this.clearFreeTextQuery.bind(this)}>
         &times;
       </span>
-    ) : (<React.Fragment />);
+    ) : (<React.Fragment/>);
 
-    return(
+    return (
       <React.Fragment>
         <h1>Layers</h1>
 
-        { activeLayerGroups }
+        {activeLayerGroups}
 
         <div className="search">
           <input placeholder="Search layers" type="text" name="search_layers" value={this.state.free_text_query}
@@ -96,7 +92,7 @@ const LAYERS_PER_PAGE = 9;
                   onClick={this.freeTextSearch.bind(this)}>Go
           </button>
 
-          { clearButton }
+          {clearButton}
         </div>
       </React.Fragment>
 
@@ -116,15 +112,15 @@ const LAYERS_PER_PAGE = 9;
 
 
           <Equalizer selector="a:first-child">
-            {this.props.layersStore.highlightedLayerGroups.slice(0,4).map((layer_group) =>
+            {this.props.layersStore.highlightedLayerGroups.slice(0, 4).map((layer_group) =>
               <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
             }
           </Equalizer>
         </div>
       )
     } else {
-      return(
-        <React.Fragment />
+      return (
+        <React.Fragment/>
       )
     }
 
@@ -132,24 +128,40 @@ const LAYERS_PER_PAGE = 9;
 
   renderSearchResults() {
 
+    const title = (
+      <div className="section-title">
+        <h2>
+          All layers
+        </h2>
+      </div>
+    );
+
     if (this.props.layersStore.layerGroups.length) {
-      return(
-            <div className="layers layers--all">
-
-              <div className="section-title">
-                <h2>
-                  All layers
-                </h2>
-              </div>
+      return (
+        <div className="layers layers--all">
+          {title}
 
 
-              <LayerTypeNavigation categories={this.props.layersStore.categories} />
-              <Equalizer selector="a:first-child">
-                {this.props.layersStore.layerGroups.map((layer_group) =>
-                  <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
-                }
-              </Equalizer>
-            </div>
+          <LayerTypeNavigation categories={this.props.layersStore.categories}/>
+          <Equalizer selector="a:first-child">
+            {this.props.layersStore.layerGroups.map((layer_group) =>
+              <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
+            }
+          </Equalizer>
+        </div>
+      )
+    } else if (this.props.layersStore.searchQueriesPresent && this.props.layersStore.layerGroups.length === 0 && this.props.layersStore.highlightedLayerGroups.length === 0) {
+
+      return (
+
+        <div className="layers layers--all">
+          {title}
+          <React.Fragment>
+            <LayerTypeNavigation categories={this.props.layersStore.categories}/>
+            <div className="no-results">There are no layers which match your search.</div>
+
+          </React.Fragment>
+        </div>
       )
     } else {
       return(
@@ -204,7 +216,6 @@ const LAYERS_PER_PAGE = 9;
               }
 
 
-
               {(this.props.layersStore.search_page < this.props.layersStore.total_search_result_pages) &&
               <div className="section-load-more">
                 <button onClick={this.handleFetchNextPageClick.bind(this)}>
@@ -213,19 +224,13 @@ const LAYERS_PER_PAGE = 9;
               </div>
               }
 
-              {this.props.layersStore.searchQueriesPresent && this.props.layersStore.layerGroups.length === 0 && this.props.layersStore.highlightedLayerGroups.length === 0 && (
-                <React.Fragment>
-                  <LayerTypeNavigation categories={this.props.layersStore.categories}/>
-                  <div className="no-results">There are no layers which match your search.</div>
-
-                </React.Fragment>
-              )}
 
               {/*{Array(this.state.total_pages).fill().map((_,i)=>i+1).map((p, i)=><div key={`layer-group-page-${i}`}>{p}</div>)}*/}
 
               {this.props.layersStore.activeLayerGroups.length > 0 &&
               <div className="confirm">
-                <Link to={closeModalLink(this.props.router.location, 'layers')} className="btn" onClick={handleCloseOnClick}>I'm
+                <Link to={closeModalLink(this.props.router.location, 'layers')} className="btn"
+                      onClick={handleCloseOnClick}>I'm
                   done!</Link>
               </div>
               }
