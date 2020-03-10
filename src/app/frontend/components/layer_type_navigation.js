@@ -17,18 +17,18 @@ import axios from 'axios';
 
     const menuViewStore = new SingletonUIViewStore();
 
-    const handleFilterRestOnClick = (event) => {
+    const handleFilterResetOnClick = (event) => {
       this.props.layersStore.term_id = null;
       this.props.layersStore.category_id = null;
     };
 
-    const isAllShowing = (!!!this.props.layersStore.searchQueriesPresent);
+    const isAllShowing = (!!!this.props.layersStore.searchFiltersPresent);
 
     return <div className="section-navigation">
       <h3>Showing:</h3>
       <ul>
         <li className={isAllShowing ? 'is-current' : ''}>
-          <a href="#" data-term-id={null} data-category-id={null} onClick={handleFilterRestOnClick}>All</a>
+          <a href="#" data-term-id={null} data-category-id={null} onClick={handleFilterResetOnClick}>All</a>
         </li>
       </ul>
 

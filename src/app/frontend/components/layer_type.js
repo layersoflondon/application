@@ -22,11 +22,8 @@ import {inject, observer} from "mobx-react";
       if (this.props.terms.length === 0) {
         const categoryId = parseInt(event.target.dataset.categoryId, 10);
 
-        if (this.props.layersStore.category_id === categoryId) {
-          this.props.layersStore.category_id = null;
-        } else {
-          this.props.layersStore.category_id = categoryId;
-        }
+        this.props.layersStore.category_id = categoryId;
+
       }
     };
 

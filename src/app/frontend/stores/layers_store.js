@@ -51,14 +51,19 @@ export default class LayersStore {
 
     observe(this, 'category_id', (change) => {
         // if there's a term_id we should nullify it because they're mutually exclusive
+
+      if (change.newValue !== null || !this.searchFiltersPresent) {
         this.term_id = null;
-        this.search()
+        this.search();
+      }
     });
 
     observe(this, 'term_id', (change) => {
       //  if there's a term ID, we need to nullify category_id, because they're mutually exclusive and term id should 'win'
+      if (change.newValue !== null || !this.searchFiltersPresent) {
         this.category_id = null;
         this.search();
+      }
     });
 
     observe(this, 'free_text_query', (change) => {
@@ -120,7 +125,9 @@ export default class LayersStore {
 
   @action.bound clearActiveLayerGroups() {
     runInAction(() => {
-      return this.layer_groups.values().map((layer_group) => layer_group.is_active = false);
+      this.layer_groups.values().map((layer_group) => layer_group.is_active = false);
+      this.all_layer_groups.values().map((layer_group) => layer_group.is_active = false);
+      this.active_layer_group_ids = [];
     })
   }
 
@@ -166,6 +173,10 @@ export default class LayersStore {
 
   @computed get searchQueriesPresent() {
     return (this.category_id || this.term_id || this.free_text_query)
+  }
+
+  @computed get searchFiltersPresent() {
+    return (this.category_id || this.term_id)
   }
 
   // layer groups that can be rendered on the overlay
