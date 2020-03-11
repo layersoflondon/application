@@ -10,7 +10,7 @@ import {observer} from "mobx-react";
 
     this.handleKeyUpWithDebounce = debounce(() => {
       this.props.recordFormStore.current_attachment_item.persist();
-    }, 250);
+    }, 1000);
   }
 
   handleOnChange(event) {
@@ -62,12 +62,12 @@ import {observer} from "mobx-react";
 
         <div className="form-group">
           <label>Title</label>
-          <input placeholder="Title" type="text" onChange={this.handleOnChange.bind(this)} name="title" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.title) ? this.props.recordFormStore.current_attachment_item.title : ''} onBlur={this.handleOnBlur.bind(this)} />
+          <input placeholder="Title" type="text" onChange={this.handleOnChange.bind(this)} name="title" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.title) ? this.props.recordFormStore.current_attachment_item.title : ''} onBlur={this.handleOnBlur.bind(this)} onKeyUp={this.handleKeyUp.bind(this)} />
         </div>
 
         <div className="form-group">
           <label>Caption</label>
-          <textarea rows="5" placeholder="Caption" onChange={this.handleOnChange.bind(this)} name="caption" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.caption) ? this.props.recordFormStore.current_attachment_item.caption : ''} onBlur={this.handleOnBlur.bind(this)}  >
+          <textarea rows="5" placeholder="Caption" onChange={this.handleOnChange.bind(this)} name="caption" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.caption) ? this.props.recordFormStore.current_attachment_item.caption : ''} onBlur={this.handleOnBlur.bind(this)} onKeyUp={this.handleKeyUp.bind(this)}  >
             </textarea>
         </div>
 
