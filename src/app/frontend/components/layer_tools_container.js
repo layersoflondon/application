@@ -78,8 +78,8 @@ const handle = (props) => {
                   {this.props.layersStore.activeLayerGroups.map((layerGroup, index) => (
                     <Draggable key={layerGroup.id} draggableId={layerGroup.id} index={index} isDragDisabled={this.props.layersStore.activeLayerGroups.length===1}>
                       {(provided, snapshot) => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
-                          <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} />
+                        <div ref={provided.innerRef} {...provided.draggableProps} style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
+                          <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} dragHandleProps={provided.dragHandleProps} />
                         </div>
                       )}
                     </Draggable>
