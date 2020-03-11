@@ -15,12 +15,12 @@ import VectorGridFeature from "./vector_grid_feature";
   }
 
   tileserverLayer(layer, index) {
-    return <TileLayer key={`layer-${layer.id}`} url={layer.layer_data.url} opacity={layer.getOpacity} zIndex={this.props.layerIndex - index} />
+    return <TileLayer key={`layer-${layer.id}`} url={layer.layer_data.url} opacity={layer.getOpacity} zIndex={this.props.layerIndex - index} maxZoom={this.props.maxZoom} />
   }
 
   geojsonLayer(layer, index) {
     let feature;
-    const vectorLayer = <VectorGridLayer key={`layer-${layer.id}`} layer={layer} layerIndex={this.props.layerIndex} index={index} opacity={layer.getOpacity} />;
+    const vectorLayer = <VectorGridLayer key={`layer-${layer.id}`} layer={layer} layerIndex={this.props.layerIndex} index={index} opacity={layer.getOpacity} maxZoom={this.props.maxZoom} />;
 
     const handleFeatureClick = (event) => layer.highlightedFeature = null;
     if( layer.highlightedFeature ) {

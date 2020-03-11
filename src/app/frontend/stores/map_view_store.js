@@ -21,6 +21,8 @@ export default class MapViewStore {
 
   initial_position = null;
 
+  MAX_ZOOM = 19;
+
   // dom reference to the leaflet map instance (is assigned in by the map_view)
   // map_ref = null;
 
@@ -55,6 +57,7 @@ export default class MapViewStore {
         this.inEditCollectionMode = change.newValue;
       })
     });
+
   }
 
   @computed get mapBounds() {
