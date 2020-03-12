@@ -191,9 +191,9 @@ export default class LayersStore {
     if( this.layer_group_order.length && this.layer_group_order.length === layers.length ) {
       layers.sort((a,b) => {
         if(this.layer_group_order.indexOf(a.id) > this.layer_group_order.indexOf(b.id)) {
-          return 1;
+          return true;
         }else {
-          return -1;
+          return false;
         }
       });
     }
