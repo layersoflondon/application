@@ -191,6 +191,13 @@ class MultiIndexSearch
     query.query(terms: {tag_ids: tag_ids})
   end
 
+  def self.tag_grouped(tag_ids, indexes: INDEXES, limit: 100)
+    query = Chewy::Search::Request.new(*indexes)
+    query = query.filter(terms: {state: ['published']})
+
+    query.query(terms: {tag_group_ids: tag_ids})
+  end
+
   def self.boost_collections(query)
     boost = case Rails.env
             when 'production'
