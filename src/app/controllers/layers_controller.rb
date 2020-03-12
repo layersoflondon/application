@@ -12,7 +12,7 @@ class LayersController < ApplicationController
 
     offset = per_page * (page-1)
 
-    @layer_groups = LayerGroupsIndex.all.order(:date_to)
+    @layer_groups = LayerGroupsIndex.all.order(:date_from)
 
     if params[:query].present?
       @layer_groups = @layer_groups.search(params[:query])
