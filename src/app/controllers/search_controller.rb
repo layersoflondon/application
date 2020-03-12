@@ -3,6 +3,11 @@ class SearchController < ApplicationController
   skip_after_action :verify_authorized, only: [:index]
 
   def index
+    # if Rails.env.development?
+    #   @results = []
+    #   render and return
+    # end
+
     if params[:q].present? && !params[:geobounding].present?
       @results = MultiIndexSearch.query(params)
     elsif params[:geobounding].present? # also checks for params[:q]
