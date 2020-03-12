@@ -1,5 +1,5 @@
 class LayerGroupsIndex < Chewy::Index
-  define_type LayerGroup do
+  define_type LayerGroup.includes(layers: [:layer_terms, layer_categories: [:layer_terms]]).references(layers: [:layer_terms, layer_categories: [:layer_terms]]) do
     field :id, type: 'integer'
     field :name, type: 'text', analyzer: :english
     field :short_name, type: 'text', analyzer: :english
