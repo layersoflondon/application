@@ -1,0 +1,1 @@
+0 */6 * * * root cd <%= current_path %> && (RAILS_ENV=<%= fetch(:rails_env) %> <%= fetch(:rvm1_auto_script_path)%>/rvm-auto.sh . bundle exec rake georeferencer:reset_cache > /dev/null 2>&1)

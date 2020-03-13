@@ -49,7 +49,8 @@ set :ssl_dh, "dhparams.pem.gpg" #this should be a gpg-encrypted key
 
 set :cron_scripts,  {
   d: [
-    File.join(File.expand_path(File.dirname(__FILE__)), "templates", "sitemap.sh.erb")
+    File.join(File.expand_path(File.dirname(__FILE__)), "templates", "sitemap.sh.erb"),
+    File.join(File.expand_path(File.dirname(__FILE__)), "templates", "georeferencer_cache.sh.erb")
   ]
 }
 
