@@ -4,7 +4,7 @@ module FieldDefinitions
 
     included do
       field :id, type: 'integer'
-      field :name, type: 'text', analyzer: :english
+      field :title, type: 'text', analyzer: :english
       field :description, type: 'text', analyzer: :english
       field :credit, type: 'text', analyzer: :english
       field :pin, type: 'geo_point', value: ->{ {lat: lat||0, lon: lng||0} }
