@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_25_113819) do
+ActiveRecord::Schema.define(version: 2020_02_07_164148) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -224,6 +224,12 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.boolean "show_on_website", default: true
   end
 
+  create_table "layer_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "layer_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -233,6 +239,32 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.datetime "updated_at", null: false
     t.string "short_name"
     t.boolean "highlighted", default: false
+  end
+
+  create_table "layer_layer_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.bigint "layer_id"
+    t.bigint "layer_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["layer_category_id"], name: "index_layer_layer_categories_on_layer_category_id"
+    t.index ["layer_id"], name: "index_layer_layer_categories_on_layer_id"
+  end
+
+  create_table "layer_layer_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.bigint "layer_id"
+    t.bigint "layer_term_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["layer_id"], name: "index_layer_layer_terms_on_layer_id"
+    t.index ["layer_term_id"], name: "index_layer_layer_terms_on_layer_term_id"
+  end
+
+  create_table "layer_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "name"
+    t.bigint "layer_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["layer_category_id"], name: "index_layer_terms_on_layer_category_id"
   end
 
   create_table "layers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -445,18 +477,13 @@ ActiveRecord::Schema.define(version: 2019_10_25_113819) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "view_counts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.string "viewable_type"
-    t.bigint "viewable_id"
-    t.integer "count", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["viewable_type", "viewable_id"], name: "index_view_counts_on_viewable_type_and_viewable_id"
-  end
-
   add_foreign_key "attachments", "records"
   add_foreign_key "collection_records", "collections"
   add_foreign_key "collection_records", "records"
+  add_foreign_key "layer_layer_categories", "layer_categories"
+  add_foreign_key "layer_layer_categories", "layers"
+  add_foreign_key "layer_layer_terms", "layer_terms"
+  add_foreign_key "layer_layer_terms", "layers"
   add_foreign_key "record_taxonomy_terms", "records"
   add_foreign_key "record_taxonomy_terms", "taxonomy_terms"
   add_foreign_key "taxonomy_terms", "taxonomies"

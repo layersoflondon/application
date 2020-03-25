@@ -1,5 +1,5 @@
 class LayerGroupsIndex < Chewy::Index
-  define_type LayerGroup do
+  define_type LayerGroup.includes(layers: [:layer_terms, layer_categories: [:layer_terms]]).references(layers: [:layer_terms, layer_categories: [:layer_terms]]) do
     field :id, type: 'integer'
     field :name, type: 'text', analyzer: :english
     field :short_name, type: 'text', analyzer: :english
@@ -27,8 +27,7 @@ class LayerGroupsIndex < Chewy::Index
                   multi_match: {
                     query: query,
                     fields: multi_match_fields,
-                    type: 'best_fields',
-                    fuzziness: 'AUTO'
+                    type: 'best_fields'
                   }
                 },
                 {
@@ -52,7 +51,41 @@ class LayerGroupsIndex < Chewy::Index
           })
   end
 
-  def self.highlighted(is_highlighted: true)
-    filter({term: {highlighted: is_highlighted}})
+  def self.highlighted
+    filter({term: {highlighted: true}})
+  end
+
+  def self.with_category_id(layer_category_id)
+    query = {
+      nested: {
+        path: "layers",
+        query: {
+          bool: {
+            must: [
+              { term: { "layers.layer_category_ids": layer_category_id } }
+            ]
+          }
+        }
+      }
+    }
+
+    filter(query)
+  end
+
+  def self.with_term_id(layer_term_id)
+    query = {
+      nested: {
+        path: "layers",
+        query: {
+          bool: {
+            must: [
+              { term: { "layers.layer_term_ids": layer_term_id } }
+            ]
+          }
+        }
+      }
+    }
+
+    filter(query)
   end
 end

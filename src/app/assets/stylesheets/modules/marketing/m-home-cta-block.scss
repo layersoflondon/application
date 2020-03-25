@@ -1,14 +1,20 @@
 /* Home CTA Block */
 
 .homepage-ctas-wrapper {
-  padding: 100px 60px 60px 60px;
-  background: $green;
+  //padding: 100px 60px 60px 60px;
+  //background: $green;
   @include clearfix;
   @include mq(tablet) {
-    padding: 40px 40px 40px 40px;
+    //padding: 40px 40px 40px 40px;
   }
   @include mq(smartphone) {
-    padding: 30px 15px;
+    //padding: 30px 15px;
+    margin-top: -20px;
+    position: relative;
+    z-index: 5;
+  }
+  @include mq(small-smartphone) {
+    margin-top: -10px;
   }
 }
 
@@ -17,42 +23,56 @@
   position: relative;
   width: 33.333333%;
   float: left;
-  padding: 40px;
-
+  padding: 100px 60px;
   @include mq(tablet) {
-    padding: 0 20px 0 0;
+    padding: 40px;
+  }
+  @include mq(small-tablet) {
+    width: 100%;
+    float: none;
+    padding: 40px;
   }
   @include mq(smartphone) {
-    width: 100%;
     max-width: 500px;
-    padding: 0;
-    margin: 0 auto 45px;
-    float: none;
+    padding: 30px;
+    margin: 0 auto 20px;
+  }
+  @include mq(small-smartphone) {
+    margin: 0 auto;
   }
 
   &:last-child {
     @include mq(smartphone) {
-      margin-bottom:0;
+      margin-bottom: 0;
     }
   }
 
   .image {
-    min-height: 260px;
-    @include mq(tablet) {
-      min-height: 190px;
+    @include mq(small-tablet) {
+      float: left;
+      width: 280px;
     }
     @include mq(smartphone) {
-      min-height: 0;
-      max-width: 50%;
+      width: 180px;
+      margin-left: -50px;
+    }
+    @include mq(small-smartphone) {
+      float:none;
+      width: 230px;
+      margin: 0 auto;
     }
   }
 
   .image img {
-    width: 100%;
     margin-left: -20px;
     max-width: 280px;
+    max-height: 220px;
     @include mq(smartphone) {
-      margin-left:0;
+      max-width: 180px;
+      margin-left: 0;
+    }
+    @include mq(small-smartphone) {
+      max-width: 230px;
     }
   }
 
@@ -66,10 +86,10 @@
     min-height: 70px;
     @include mq(tablet) {
       font-size: 30px;
+      min-height: 0;
     }
     @include mq(smartphone) {
       font-size: 26px;
-      min-height: 0;
     }
   }
 
@@ -85,9 +105,25 @@
     }
   }
 
+  .text-content {
+    @include mq(small-tablet) {
+      float: left;
+      width: calc(100% - 280px);
+    }
+    @include mq(smartphone) {
+      width: calc(100% - 150px);
+      padding-left:20px;
+    }
+    @include mq(small-smartphone) {
+      float:none;
+      padding:0;
+      width:auto;
+    }
+  }
+
   a.button {
-    background: darken($green, 10%);
-    color: #ffffff;
+    background: rgba(0, 0, 0, 0.3);
+    color: $yellow;
     padding: 17px 25px;
     border-radius: 100px;
     text-transform: uppercase;
@@ -105,7 +141,7 @@
   }
 
   a.button:hover {
-    background: $red;
+    background: $yellow;
     color: $black;
   }
 
@@ -118,4 +154,44 @@
     z-index: 1;
   }
 
+}
+
+.m-home-cta-block:nth-child(1) {
+  background: #6f2331;
+}
+
+.m-home-cta-block:nth-child(2) {
+  background: #323332;
+}
+
+.m-home-cta-block:nth-child(3) {
+  background: #327F90;
+}
+
+/*$black: #111111;
+$yellow: #ffeb57;
+$orange: #ffbe64;
+$red: #ff0041;
+$navy: #282878;
+$gray: #dfdfde;
+$green: #549a77;
+$lilac: #a691c5;
+$light-blue: #afd2ff;*/
+
+.m-home-cta-block:nth-child(1) {
+  background: #501621;
+}
+
+.m-home-cta-block:nth-child(2) {
+  background: darken($gray, 70%);
+  background: #30443b;
+  margin-top: -40px;
+  z-index: 100;
+  @include mq(small-tablet) {
+    margin-top: 0;
+  }
+}
+
+.m-home-cta-block:nth-child(3) {
+  background: #398494;
 }

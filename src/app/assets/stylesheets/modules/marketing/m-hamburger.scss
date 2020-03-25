@@ -153,10 +153,14 @@ $hamburger-hover-filter    : opacity(80%) !default;
 
   @include mq(tablet) {
     display:block !important;
-    top: 10px;
-    right: 5px;
+    top: 42px;
+    right: 29px;
     @include transform(scale(0.7));
     transform-origin: top right;
+  }
+  @include mq(smartphone) {
+    top: 10px;
+    right: 5px;
   }
 }
 

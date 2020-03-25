@@ -28,12 +28,21 @@ const handle = (props) => {
   constructor(props) {
     super(props);
 
-    this.state = {is_open: false};
+    this.state = {is_open: false, manually_closed: false};
   }
 
   handleOnClick(event) {
     this.setState({is_open: !this.state.is_open});
+    if (this.state.is_open) {
+      this.setState({manually_closed: true})
+    }
   }
+
+  componentWillUpdate(nextProps, nextState, nextContext) {
+    if (nextProps.layersStore.activeLayerGroups.length > 0 && !this.state.is_open && !this.state.manually_closed) {
+      this.setState({is_open: true});
+    }
+  };
 
   onDragEnd(result) {
     if( !result.destination ) {
@@ -69,8 +78,8 @@ const handle = (props) => {
                   {this.props.layersStore.activeLayerGroups.map((layerGroup, index) => (
                     <Draggable key={layerGroup.id} draggableId={layerGroup.id} index={index} isDragDisabled={this.props.layersStore.activeLayerGroups.length===1}>
                       {(provided, snapshot) => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
-                          <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} />
+                        <div ref={provided.innerRef} {...provided.draggableProps} style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
+                          <LayerGroupTool key={layerGroup.id} layerGroup={layerGroup} dragHandleProps={provided.dragHandleProps} />
                         </div>
                       )}
                     </Draggable>

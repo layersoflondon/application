@@ -104,6 +104,8 @@ Rails.application.routes.draw do
     get 'export'
   end
 
+  resources :layer_categories, only: [:index], defaults: {format: :json}
+
   resources :unsubscribed_record_comments, only: [:show] do
     member do
       get :unsubscribe, to: "unsubscribed_record_comments#unsubscribe!", as: :unsubscribe

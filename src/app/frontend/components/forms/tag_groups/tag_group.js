@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import RecordFormComponentState from '../records/record_form_component_state';
 import {observer} from "mobx-react";
 import Tag from './tag';
+import PropTypes from 'prop-types';
+import CollectionPicker from "../../collection_picker";
 
 @observer class TagGroup extends Component {
   constructor(props) {
@@ -17,8 +19,26 @@ import Tag from './tag';
 
   toggleVisibility(event) {
     const {tagGroupId} = event.target.dataset;
-    this.props.setVisibleTagGroup(tagGroupId);
+    this.props.setTagGroupVisibility(tagGroupId);
   }
+
+  selectionButton = () => {
+    let selectionLabel = "";
+    let selectionButton;
+
+    if(this.props.allTagsChecked) {
+      selectionLabel = "Clear all";
+      selectionButton = <span onClick={this.props.clearSelectedTags}>{selectionLabel}</span>;
+    }else if(this.props.enabledTagIds.length>0) {
+      selectionLabel = "Clear";
+      selectionButton = <span onClick={this.props.clearSelectedTags}>{selectionLabel}</span>
+    }else {
+      selectionLabel = "Select all";
+      selectionButton = <span onClick={this.props.selectAllTags}>{selectionLabel}</span>
+    }
+
+    return selectionButton;
+  };
 
   render() {
     const toggleInput = (event) => {
@@ -48,9 +68,16 @@ import Tag from './tag';
             {tags}
           </ul>
         }
+        <span className="select-all">{this.selectionButton()}</span>
       </div>
     </div>
   }
 }
+
+TagGroup.propTypes = {
+  allTagsChecked: PropTypes.bool.isRequired,
+  selectAllTags: PropTypes.func.isRequired,
+  clearSelectedTags: PropTypes.func.isRequired,
+};
 
 export default RecordFormComponentState.bindComponent(TagGroup);

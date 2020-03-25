@@ -55,8 +55,9 @@ class MapsController < ApplicationController
       @collections = CollectionsIndex.filter(terms: {state: ["published"]}).limit(5).order(created_at: :desc).to_a
     end
 
+    # @layer_groups   = LayerGroupsIndex.order(:date_to).limit(Rails.configuration.x.default_highlighted_layers + Rails.configuration.x.default_directory_layers)
 
-    @layer_groups = LayerGroupsIndex.limit(999).order(:date_from)
+    @layer_categories = LayerCategoriesIndex.all#.reject{|lc| lc.layer_terms.empty?}
 
     # return unless params[:resource].present?
     #

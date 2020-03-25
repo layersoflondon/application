@@ -1,3 +1,6 @@
+MAX_HIGHLIGHTED_LAYERS = 4
+MAX_DIRECTORY_LAYERS = 9
+
 class LayersController < ApplicationController
   # before_action :set_layer, only: %i[show]
   skip_before_action :authenticate_user!, only: %i[index show]
@@ -5,23 +8,53 @@ class LayersController < ApplicationController
 
   def index
     page = params[:page].present? ? params[:page].to_i : 1
-    per_page = params[:per_page].present? ? params[:per_page].to_i : 999
+    per_page = params[:per_page].present? ? params[:per_page].to_i : MAX_DIRECTORY_LAYERS
 
     offset = per_page * (page-1)
 
-    if params[:query].present?
-      @layer_groups = LayerGroupsIndex.search(params[:query]).limit(per_page).offset(offset)
-      response.set_header("X-Total-Pages", @layer_groups.total_pages)
-    elsif params.has_key?(:overview) # set this to return limited highlights & directory results
-      layers_directory = LayerGroupsIndex.highlighted(is_highlighted: false).limit(20)
-      @layer_groups = [LayerGroupsIndex.highlighted.limit(9), layers_directory].flatten
-      response.set_header("X-Total-Pages", layers_directory.total_pages)
-    else
-      @layer_groups = LayerGroupsIndex.all.limit(per_page).offset(offset)
-      response.set_header("X-Total-Pages", @layer_groups.total_pages)
-    end
-  end
+    @layer_groups = LayerGroupsIndex.all.order(:date_from)
 
+    if params[:query].present?
+      @layer_groups = @layer_groups.search(params[:query])
+    end
+
+    if params[:category_id].present?
+      @layer_groups = @layer_groups.with_category_id(params[:category_id])
+    end  
+    
+    if params[:term_id].present?
+      @layer_groups = @layer_groups.with_term_id(params[:term_id])
+    end
+
+    @layer_groups = @layer_groups.limit(per_page).offset(offset)
+    response.set_header("X-Total-Pages", @layer_groups.total_pages)
+    response.set_header("X-Page", page)
+
+
+      # if params[:query].present? && !params[:page].present?
+      #   @layer_groups = LayerGroupsIndex.search(params[:query]).limit(per_page).limit(per_page).offset(offset)
+      #   response.set_header("X-Total-Pages", @layer_groups.total_pages)
+      # elsif params[:query].present? && params[:page].present?
+      #   @layer_groups = LayerGroupsIndex.highlighted(is_highlighted: false).search(params[:query]).limit(per_page).offset(offset)
+      #   response.set_header("X-Total-Pages", @layer_groups.total_pages)
+      # elsif params.has_key?(:overview) # set this to return limited highlights & directory results
+      #   directory_layers   = LayerGroupsIndex.highlighted(is_highlighted: false).limit(per_page)
+      #   highlighted_layers = LayerGroupsIndex.highlighted.limit(MAX_HIGHLIGHTED_LAYERS)
+      #   @layer_groups = [highlighted_layers, directory_layers].flatten
+      #   response.set_header("X-Total-Pages", directory_layers.total_pages)
+      # elsif params.has_key?(:layer_category)
+      #   @layer_groups = LayerGroupsIndex.with_category(layer_category_id: params[:layer_category]).limit(per_page).offset(offset)
+      #   response.set_header("X-Total-Pages", @layer_groups.total_pages)
+      # elsif params.has_key?(:layer_term)
+      #   @layer_groups = LayerGroupsIndex.with_term(layer_term_id: params[:layer_term]).limit(per_page).offset(offset)
+      #   response.set_header("X-Total-Pages", @layer_groups.total_pages)
+      # else
+      #   @layer_groups = LayerGroupsIndex.highlighted(is_highlighted: false).limit(per_page).offset(offset)
+      #   response.set_header("X-Total-Pages", @layer_groups.total_pages)
+      # end
+    #
+  end
+  
   def show
     slug = "#{params[:id]}"
     @layer_group = LayerGroupsIndex.query{match(slug: slug)}.first

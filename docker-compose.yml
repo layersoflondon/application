@@ -27,6 +27,7 @@ services:
       - irb_history:/root/irb_history
       - ./docker/web/.irbrc:/root/.irbrc
       - ./docker/web/entrypoint.sh:/entrypoint.sh
+      # - ../layers_of_london-booth-map_tool:/layers_of_london-booth-map_tool
     stdin_open: true
     tty: true
   web:
@@ -80,7 +81,6 @@ services:
       dockerfile: docker/elasticsearch/Dockerfile
     ports:
       - "9200:9200"
-      - "8080:8080"
     environment:
       xpack.security.enabled: 'false'
       # LOGSPOUT: 'ignore'

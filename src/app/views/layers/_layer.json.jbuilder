@@ -10,3 +10,4 @@ json.layer_type layer['layer_type']
 json.layer_type_name t("layer_types.#{layer['layer_type']}")
 json.layer_data layer['layer_data']
 json.data layer['data']
+json.layer_categories layer['layer_categories']

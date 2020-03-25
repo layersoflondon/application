@@ -71,17 +71,15 @@ import {openModalLink} from '../helpers/modals';
     }
 
     return <Marker position={this.props.position} icon={icon} opacity={this.props.cardComponent.opacity}>
-
       <Popup>
-
         <div className="m-map-popover" onClick={this.handleOnClick.bind(this)}>
           <div className={`m-record-card ${this.props.record.placeholder_class}`}>
             <div className="wrapper">
-                {this.props.record.image &&
+              {this.props.record.image &&
                 <div className="image">
-                  <Img src={this.props.record.image.marker} loader={<span className="is-loading"></span>} />
+                  <Img src={this.props.record.image.marker} loader={<span className="is-loading"></span>}/>
                 </div>
-                }
+              }
 
               <div className="text-content">
                 <h1>{this.props.record.title}</h1>

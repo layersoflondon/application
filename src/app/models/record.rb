@@ -10,9 +10,17 @@ class Record < ApplicationRecord
   has_many :attachments, dependent: :destroy
   # update_index('attachments#attachment') { attachments }
   belongs_to :user
+
+  before_save do
+    if user_id_was != user.id
+      @old_user_id = user_id_was
+    else
+      @old_user_id = user.id
+    end
+  end
   
   update_index 'users#user' do
-    previous_changes['user_id'] || user
+    user if @old_user_id != user.id
   end
 
   has_one :primary_image, class_name: 'Attachments::Image', foreign_key: :id, primary_key: :primary_image_id

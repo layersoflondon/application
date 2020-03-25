@@ -158,8 +158,5 @@ gem 'natural_sort'
 
 gem 'browser'
 
-gem "skylight"
-
-gem 'scout_apm'
 
 gem 'sidekiq'

@@ -188,16 +188,14 @@ class MultiIndexSearch
     query = Chewy::Search::Request.new(*indexes)
     query = query.filter(terms: {state: ['published']})
 
-    query.query(
-      terms_set: {
-        tag_ids: {
-          terms: tag_ids,
-          minimum_should_match_script: {
-            source: "params.num_terms"
-          }
-        }
-      }
-    ).limit(limit)
+    query.query(terms: {tag_ids: tag_ids})
+  end
+
+  def self.tag_grouped(tag_ids, indexes: INDEXES, limit: 100)
+    query = Chewy::Search::Request.new(*indexes)
+    query = query.filter(terms: {state: ['published']})
+
+    query.query(terms: {tag_group_ids: tag_ids})
   end
 
   def self.boost_collections(query)

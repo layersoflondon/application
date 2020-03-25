@@ -1,0 +1,143 @@
+/* Home explore */
+
+.m-home-explore {
+  text-align: center;
+  padding: 130px 100px 20px;
+  @include mq(tablet) {
+    padding: 60px 0 20px;
+  }
+  @include mq(smartphone) {
+    padding:60px 15px 20px;
+  }
+}
+
+.m-home-explore form {
+  @include mq(smartphone) {
+    max-width:500px;
+    margin:0 auto;
+  }
+}
+
+.m-home-explore h2 {
+  color: white;
+  font-size: 22px;
+  margin-bottom: 44px;
+}
+
+.m-home-explore .search {
+  margin-bottom: 52px;
+  @include mq(smartphone) {
+    margin-bottom: 22px;
+  }
+}
+
+.m-home-explore input[type="text"] {
+  font-size: 20px;
+  background: transparent;
+  padding: 15px 18px 17px;
+  border: 3px solid $green;
+  width: 478px;
+  color: white;
+  @include mq(tablet) {
+    font-size: 15px;
+    padding: 15px 15px 15px;
+    width: 392px;
+  }
+  @include mq(smartphone) {
+    font-size: 17px;
+    width: calc(100% - 154px);
+  }
+  @include mq(small-smartphone) {
+    font-size: 11px;
+    padding: 15px 10px;
+    color: white;
+    margin-bottom: 10px;
+  }
+}
+
+.m-home-explore {
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: white;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: white;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: white;
+  }
+}
+
+.m-home-explore input[type="submit"] {
+  border: 0;
+  padding: 21px 28px;
+  background: white;
+  color: #549a77;
+  border-radius: 100px;
+  margin-left: 18px;
+  float: none;
+  width: auto;
+  font-weight: 600;
+  font-size: 20px;
+  position: relative;
+  top: 1px;
+  @include mq(tablet) {
+    padding: 18px 28px;
+    margin-left: 10px;
+  }
+  @include mq(small-smartphone) {
+    padding: 11px 9px;
+    font-size: 14px;
+  }
+}
+
+.m-home-explore h2 {
+  margin: 0;
+  @include font-display;
+  line-height: 1.1;
+  font-weight: 200;
+  font-size: 45px;
+  margin-bottom: 44px;
+  display: inline-block;
+  color: white;
+  @include mq(smartphone) {
+    font-size: 32px;
+    margin-bottom: 28px;
+  }
+}
+
+.m-home-explore .explore-button {
+  color: white;
+}
+
+.m-home-explore .explore-button a {
+  background: $yellow;
+  color: black;
+  padding: 17px 25px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: inline-block;
+  transition: all .2s;
+  margin-left: 10px;
+  @include mq(smartphone) {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+.m-home-explore .explore-button a:hover {
+  background: $yellow;
+  color: $black;
+}
+
+.m-home-explore .explore-button a:before {
+  content: "\f0da";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 1em;
+  margin-right: 10px;
+  z-index: 1;
+}

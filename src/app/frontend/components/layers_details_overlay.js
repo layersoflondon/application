@@ -77,7 +77,7 @@ import {getQueryStringValue, removeModal, closeModalLink} from '../helpers/modal
       imgStyle.backgroundImage = `url(${this.props.layersStore.layer_group.image['large']})`;
     }
 
-    const label_prefix = (this.props.layersStore.layer_group && this.props.layersStore.layer_group.slug === this.props.match.params.id && this.props.layersStore.layer_group.is_active) ? "Remove" : "Use";
+    const label_prefix = this.props.layersStore.layer_group && this.props.layersStore.layer_group.is_active ? "Remove" : "Use";
 
     const closePath = removeModal(this.props.router.location, 'layer');
     const handleOnClick = () => {
@@ -100,7 +100,7 @@ import {getQueryStringValue, removeModal, closeModalLink} from '../helpers/modal
             </div>
 
             {
-              this.props.layersStore.layer_group && (
+              !!!this.props.layersStore.loading && this.props.layersStore.layer_group && (
                 <div className="m-layer-details">
                   <div className="header">
                     <h1>{this.props.layersStore.layer_group.name}</h1>

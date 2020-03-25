@@ -11,7 +11,6 @@ import L from "leaflet";
   }
 
   render() {
-
     const icon = new L.Icon({
       iconUrl: require('../assets/images/place-marker.png'),
       iconRetinaUrl: require('../assets/images/place-marker-2x.png'),

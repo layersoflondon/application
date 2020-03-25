@@ -1,13 +1,9 @@
 /* Highlighted content */
 
 .m-highlighted-content {
-  top: 720px;
-  right: 0;
   z-index: 1;
   text-align: center;
-  margin-top: -180px;
   @include mq(small-tablet) {
-    margin-top: -70px;
     position: relative;
     width: 100%;
     transform: none !important;
@@ -16,17 +12,21 @@
     right: auto;
     @include clearfix;
   }
+  @include mq(smartphone) {
+    padding:15px;
+  }
 }
 
 .m-highlighted-content .record-cards {
   display: grid;
   padding: 0 100px 100px 100px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto;
-  grid-column-gap: 80px;
-  grid-row-gap: 80px;
+  grid-column-gap: 30px;
+  grid-row-gap: 0;
   text-align: left;
   @include mq(tablet) {
+    grid-template-columns: 1fr 1fr;
     grid-column-gap: 40px;
     grid-row-gap: 40px;
     padding: 0 40px 40px 40px;
@@ -39,7 +39,7 @@
   @include mq(smartphone) {
     grid-column-gap: 15px;
     grid-row-gap: 30px;
-    padding: 0 15px 15px;
+    padding: 0 0 15px;
   }
 }
 
@@ -74,6 +74,8 @@
     width: 100%;
     height: 100%;
     position: absolute;
+    background-position:center;
+    background-size:cover;
   }
 
   .image:before {
@@ -93,16 +95,9 @@
   .text-content {
     @include top-and-tail;
     position: relative;
-    /*    bottom: 0;
-        left: 0;*/
     padding: 0;
     width: 100%;
     @include transition(all .4s);
-    //@include transform(translate3d(0, 100%, 0));
-  }
-
-  .wrapper:hover .text-content {
-    //@include transform(translate3d(0, 0, 0));
   }
 
   h1 {
@@ -152,31 +147,35 @@
 
 }
 
-.m-highlighted-content .m-record-card:last-child {
-  margin-bottom: 0;
-  @include mq(tablet) {
-    margin-bottom: 15px;
-  }
+.m-highlighted-content .m-record-card:nth-child(4) {
+  display: none;
 }
 
-.m-highlighted-content .m-record-card .image {
+
+/*.m-highlighted-content .m-record-card .image {
   background: #2f2f2f url(/example/4-large.jpg) center/cover no-repeat;
-}
+}*/
 
 .m-highlighted-content h2 {
-  text-align: center;
+  margin: 0;
+  @include font-display;
+  line-height: 1.1;
+  font-weight: 200;
+  font-size: 45px;
+  margin-bottom: 44px;
   display: inline-block;
-  position: relative;
   color: white;
+  text-align: center;
+  position: relative;
   z-index: 1;
   top: -60px;
-  text-transform: uppercase;
-  font-size: 16px;
-  font-weight: 600;
   margin-top: 80px;
-  margin-bottom: 100px;
+  margin-bottom: 60px;
   @include mq(smartphone) {
     top: -28px;
+    font-size: 32px;
+    margin-bottom: 28px;
+    margin-top: 0px;
   }
 }
 

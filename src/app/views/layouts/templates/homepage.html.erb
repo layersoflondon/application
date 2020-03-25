@@ -2,59 +2,23 @@
 <% end %>
 <% content_for :template do %>
 
-    <div class="m-homepage-background">
+    <div class="m-homepage-background"></div>
 
-    </div>
+    <%= render partial: "pages/homepage_slider" %>
 
-    <div class="m-hero m-hero--large m-hero--home">
+<!--    <div class="m-hero m-hero&#45;&#45;large m-hero&#45;&#45;home">
         <div class="image"></div>
         <div class="m-home-logo">
             <h1>Layers of London</h1>
             <%= image_tag(("logotype.svg"), :class => "viewable") %>
         </div>
         <div class="text-content">
-            <h1 class="viewable"><!--Recording London's rich heritage--><%= strip_tags(page.content) %></h1>
-            <!--<p> Explore London's stories on historic maps …and add your own!</p>-->
-
-
-            <%= form_with(url: resources_map_path(resource: :search), method: :get, local: :true) do %>
-                <div class="search">
-                    <%= hidden_field_tag :results, true %>
-                    <%= text_field_tag :q, nil, placeholder: "Search for a place or topic you’re interested in…" %>
-                    <%= submit_tag 'Go' %>
-                </div>
-            <% end %>
-
-            Or <%= link_to "explore the map", map_path %>.
-
-<!--            <ul class="links">
-                <li><a href="#">View historic maps</a></li>
-                <li><a href="#">Explore stories</a></li>
-                <li><a href="#">Add your own</a></li>
-            </ul>-->
-
+            <h1 class="viewable"><%= strip_tags(page.content) %></h1>
         </div>
 
+    </div>-->
 
-    </div>
-
-    <%#= render 'pages/big_search' %>
-
-    <main class="main--home">
-
-        <div class="m-highlighted-content">
-            <div class="record-cards">
-                <%= render partial: "shared/feature_record_card", collection: featured_items %>
-            </div>
-        </div>
-
-        <%= render partial: "pages/homepage_slider" %>
-
-        <%= render partial: "pages/homepage_tags" %>
-
-    </main>
-
-    <div class="homepage-ctas-wrapper">
+    <div class="homepage-ctas-wrapper" style="display:none">
 
         <% page.homepage_ctas.each_with_index do |cta, i| %>
             <%
@@ -71,6 +35,73 @@
             <%= render partial: "pages/homepage_cta", locals: {class: class_name, homepage_cta: cta} %>
         <% end %>
 
+    </div>
+
+    <div class="homepage-ctas-wrapper">
+
+        <div class="m-home-cta-block">
+            <div class="image image-2"><img class="" src="/assets/pic-1-eb02315b876e31a218bff58d08ac05563655ab1febb35026aee18190fbf4053a.png"></div>
+
+            <div class="text-content viewable has-viewable-action is-viewable">
+                <h3>Tell your story</h3>
+                <div class="description">
+                    <p>Everyone can take part. You might have something interesting to say about the history of your area or people you know.
+                    </p>
+                </div>
+                <a class="button" href="/help-centre/guides/records">Add your story</a>
+            </div>
+        </div>
+
+        <div class="m-home-cta-block">
+            <div class="image image-3"><img class="" src="/assets/pic-2-1780e681f71baf05d4c63b56118d81ebd3491790eb037c84cca73d789a580695.png"></div>
+            <div class="text-content viewable has-viewable-action is-viewable">
+                <h3>Become a map maker</h3>
+                <div class="description">
+                    <p>Help Layer of London stitch together the layers we’ve digitised. Rotate and shape a part of a map or have a go at matching an old aerial photograph to a part of London.</p>
+                </div>
+                <a class="button" href="https://www.layersoflondon.org/help-centre/guides/layer-making-georeferencer">Help make a map</a>
+            </div>
+        </div>
+
+        <div class="m-home-cta-block">
+            <div class="image image-1"><%= image_tag('pic-4.png') %><!--<img class="" src="/assets/pic-4.png">--></div>
+            <div class="text-content viewable has-viewable-action is-viewable">
+                <h3>Help us trace Booth's map of London</h3>
+                <div class="description">
+                    <p>Booth's map has poverty classifications for different buildings, but there's been no way to read the locations as data. You can help to trace the colours and label them, so researchers can use the data in the future.
+                    </p>
+                </div>
+                <a class="button" href="https://www.layersoflondon.org/news-events/the-booth-poverty-maps-crowd-sourcing-application">Start tracing</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="m-home-explore">
+
+        <h2>Explore our content</h2>
+
+        <%= form_with(url: resources_map_path(resource: :search), method: :get, local: :true) do %>
+            <div class="search">
+                <%= hidden_field_tag :results, true %>
+                <%= text_field_tag :q, nil, placeholder: "Search for a place or topic you’re interested in…" %>
+                <%= submit_tag 'Search' %>
+            </div>
+        <% end %>
+
+        <div class="explore-button">
+            Or <%= link_to "explore the map", map_path %>
+        </div>
+
+        <%= render partial: "pages/homepage_tags" %>
+
+    </div>
+
+    <div class="m-highlighted-content">
+        <h2>Explore our collections</h2>
+        <div class="record-cards">
+            <%= render partial: "shared/feature_record_card", collection: featured_items %>
+        </div>
     </div>
 
 <% end %>

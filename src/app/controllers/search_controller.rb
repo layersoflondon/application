@@ -3,6 +3,11 @@ class SearchController < ApplicationController
   skip_after_action :verify_authorized, only: [:index]
 
   def index
+    # if Rails.env.development?
+    #   @results = []
+    #   render and return
+    # end
+
     if params[:q].present? && !params[:geobounding].present?
       @results = MultiIndexSearch.query(params)
     elsif params[:geobounding].present? # also checks for params[:q]
@@ -22,6 +27,9 @@ class SearchController < ApplicationController
     elsif params[:tag_ids].present?
       tag_ids = params[:tag_ids].split(',').map(&:to_i)
       @results = MultiIndexSearch.tagged(tag_ids)
+    elsif params[:tag_group_ids].present?
+      tag_group_ids = params[:tag_group_ids].split(',').map(&:to_i)
+      @results = MultiIndexSearch.tag_grouped(tag_group_ids)
     else
       render json: '', status: :bad_request
     end

@@ -130,7 +130,7 @@ class User < ApplicationRecord
       options = {
         thumbnail: "250x250"
       }
-      ApplicationController.helpers.activestorage_url_for(avatar.variant(options))
+      ApplicationController.helpers.activestorage_url_for(avatar.variant(options)) rescue nil 
     end
   end
 

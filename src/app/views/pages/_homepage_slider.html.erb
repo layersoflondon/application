@@ -1,14 +1,21 @@
 <div class="m-layers-slideshow">
-    <div class="text-content">
-        <h3><%= page.slideshow_title %></h3>
-        <div class="description">
-            <p><%= page.slideshow_subtitle %></p>
+    <div class="sidebar">
+        <div class="text-content">
+            <%= image_tag(("logo-text.svg"), :class => "logo viewable") %>
+            <h3><%= page.slideshow_title %></h3>
+            <%#= link_to page.slideshow_button_text, page.slideshow_link, class: "button" %>
+            <a class="button" href="/map?layers=true">Get started</a>
         </div>
-        <%= link_to page.slideshow_button_text, page.slideshow_link, class: "button" %>
+        <div class="controls"></div>
+        <div class="current-slide-information">
+            <p>
+              <span><%= page.slides.first.caption %></span>
+            </p>
+        </div>
     </div>
-    <ul class="rslides">
-        <%= page.slides.each do |slide| %>
-            <li>
+    <ul class="rslides" data-before="updateCurrentSlide">
+        <% page.slides.each_with_index do |slide, index| %>
+            <li data-slide-index="<%= index %>">
                 <%= image_tag(slide.image) %>
                 <span class="caption"><%= slide.caption %></span>
             </li>

@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
-import SearchViewTaxonomy from "./_search_view_taxonomy";
 import Search from "../../../sources/search";
+import SearchTagGroups from "./search_tag_groups";
 import {recordEvent} from "../../../config/data_layer";
 import {closeModalLink} from '../../../helpers/modals';
-import TagGroup from '../tag_groups/tag_group';
-import tag from '../tag_groups/tag';
 import queryString from 'query-string';
+import pluralize from 'pluralize';
+import PlaceSearch from "../../place_search";
 
 window.queryString = queryString;
 
@@ -17,12 +17,7 @@ window.queryString = queryString;
   constructor(props) {
     super(props);
 
-    const search = queryString.parse(this.props.router.location.search, {arrayFormat: 'comma'});
-    let tag_ids = [];
-
-    if (search.tag_ids) {
-      tag_ids = search.tag_ids.split(',').map((id) => parseInt(id, 10));
-    }
+    this.tagGroupsRef = React.createRef();
 
     this.state = {
       q: "",
@@ -32,8 +27,7 @@ window.queryString = queryString;
       showing_results: false,
       terms: {type: [], theme: []},
       collections: false,
-      visibleTagGroup: null,
-      tag_ids: tag_ids
+      selectedTagCount: 0
     };
 
     this.closeEventHandler = (event) => {
@@ -53,41 +47,19 @@ window.queryString = queryString;
       }
 
       this.setState({visibleTagGroup: value});
-    }
+    };
 
-    this.toggleTag = (id) => {
-      const value = parseInt(id, 10);
-      const index = this.state.tag_ids.indexOf(value);
+    this.handleUpdateTagCount = (count) => {
+      this.setState({
+        selectedTagCount: count
+      });
+    };
 
-      let ids = this.state.tag_ids.slice();
+    this.clearSelectedTags = () => {
+      this.props.tagGroupsStore.clearSelectedTags();
+    };
 
-      if (index > -1) {
-        ids.splice(index, 1);
-      } else {
-        ids.push(value);
-      }
-
-      this.setState({tag_ids: ids});
-    }
-
-    this.tagIsChecked = (id) => {
-      const value = parseInt(id, 10);
-
-      if (this.state.tag_ids.length > 0) {
-        return this.state.tag_ids.indexOf(value) > -1;
-      }
-
-      return false;
-    }
-
-    this.enabledTagIdsInGroup = (id) => {
-      this.state.tag_ids;
-      const group = this.props.tagGroupsStore.tag_groups.get(id);
-      const groupTagIds = group.tags.map((tag) => tag.id);
-
-      const enabledTagIds = this.state.tag_ids.filter((id) => groupTagIds.indexOf(id) > -1);
-
-      return enabledTagIds;
+    this.clearAll = () => {
     }
   }
 
@@ -197,7 +169,7 @@ window.queryString = queryString;
       search_params.collections = true;
     }
 
-    search_params.tag_ids = this.state.tag_ids.join(',');
+    search_params.tag_ids = this.props.tagGroupsStore.checkedTagIds.join(',');
 
     function serializeQuery(params, prefix) {
       const query = Object.keys(params).map((key) => {
@@ -265,7 +237,7 @@ window.queryString = queryString;
 
         this.props.mapViewStore.panTo(lat, lng);
       }
-      
+
       this.props.trayViewStore.root = false;
 
       this.props.router.history.push(`/map/search?show_results=true&${params}`)
@@ -325,6 +297,11 @@ window.queryString = queryString;
     }
   }
 
+  handleClearTags(event) {
+    this.setState({visibleTagGroup: null});
+    this.props.tagGroupsStore.uncheckTagsInAllGroups();
+  }
+
   render() {
     if (!this.props.mapViewStore.modalIsVisible('search')) return <React.Fragment/>;
 
@@ -345,10 +322,13 @@ window.queryString = queryString;
           </div>
 
           <div className="m-search-overlay">
-            <h1>Search records</h1>
 
             {/* <form> container */}
             <div className="form--chunky">
+              <PlaceSearch />
+
+              <h1>Record search</h1>
+
               <div className={`form-group form-group--toggle-switch ${toggle_classname}`}>
                 <label>
                   <span>Search all of London</span>
@@ -362,10 +342,16 @@ window.queryString = queryString;
                 <input placeholder="Enter a topic…" type="text" name="q" onKeyUp={this.handleKeyUp.bind(this)} value={this.state.q} onChange={this.handleOnChange.bind(this)}/>
               </div>
 
+              <div className="form-group">
+                <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search the records</button>
+              </div>
+
+              <SearchTagGroups toggleTagGroup={this.toggleTagGroup} updateTagCount={this.handleUpdateTagCount}/>
+
               <div className="date-range">
 
                 <div className="subsection-header">
-                  <h1 className="label">Date range</h1>
+                  <h1 className="label">Add dates or eras</h1>
                   <button onClick={() => this.setState({era_picker_visible: !this.state.era_picker_visible})}>Pick an
                     era
                   </button>
@@ -425,29 +411,14 @@ window.queryString = queryString;
                 }
               </div>
 
-              <div className="filter-by-tag">
-                <h2>Tags</h2>
-                <div className="parent-tags">
-                  {this.props.tagGroupsStore.tag_groups.values().map((tagGroup) => {
-                    return <TagGroup
-                      key={`tag-group-${tagGroup.id}`}
-                      tagGroup={tagGroup}
-                      isVisible={this.state.visibleTagGroup === tagGroup.id}
-                      enabledTagIds={this.enabledTagIdsInGroup(tagGroup.id)}
-                      toggleTag={this.toggleTag}
-                      tagIsChecked={this.tagIsChecked}
-                      setVisibleTagGroup={this.toggleTagGroup}
-                    />
-                  })}
-                </div>
-              </div>
-
               <div className="form-group">
-                <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search</button>
+                {this.props.tagGroupsStore.totalCheckedCount > 0 &&
+                  <button className="clear-button" onClick={this.handleClearTags.bind(this)}>Clear {pluralize('tag', this.props.tagGroupsStore.totalCheckedCount, true)}</button>
+                }
+
+                <button className="submit-button" onClick={this.handleSearchOnClick.bind(this)}>Search the records</button>
               </div>
-
             </div>
-
           </div>
         </div>
       </div>

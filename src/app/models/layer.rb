@@ -1,5 +1,11 @@
 class Layer < ApplicationRecord
   belongs_to :layer_group, optional: true
+  
+  has_many :layer_layer_categories, dependent: :destroy
+  has_many :layer_categories, through: :layer_layer_categories
+  
+  has_many :layer_layer_terms, dependent: :destroy
+  has_many :layer_terms, through: :layer_layer_terms
 
   enum layer_type: %i[tileserver geojson collection]
   serialize :layer_data, JSON
@@ -57,6 +63,8 @@ class Layer < ApplicationRecord
           url: @tileserver_url
       }
     end
+
+    remove_orphan_terms
   end
 
   def collection
@@ -97,5 +105,15 @@ class Layer < ApplicationRecord
         date: [date_from, date_to].map(&:to_s).reject(&:empty?).join(' - '),
         credit: credit
     }.merge(row_layer_data)
+  end
+
+  def has_category_with_terms
+    layer_categories.map { |category| category.layer_terms.any? }.include? true
+  end
+
+  def remove_orphan_terms
+    layer_terms.each do |term|
+      term.destroy unless layer_categories.include? term.layer_category
+    end
   end
 end
