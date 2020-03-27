@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # Alpha redirects
   get '/map/pins/:id', to: redirect('/map?record=%{id}')
   get '/the-map', to: redirect('/map')
-  get '/search', to: redirect('/map/search')
+  get '/search', to: redirect('/map/search?search=true')
   
   get '/map/records/:id', to: redirect('/map?record=%{id}')
   get '/map/choose-place', to: redirect('/map?choose-place=true')

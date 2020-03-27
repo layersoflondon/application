@@ -17,7 +17,8 @@ class SearchController < ApplicationController
     elsif params[:user_id].present?
       @results = RecordsIndex.user_records(params)
     elsif params[:collections].present? && params[:collections].in?(["true", true])
-      @results = CollectionsIndex.published
+      @summary_only = true
+      @results = CollectionsIndex.published.order(updated_at: :desc)
     elsif params[:type].present? && params[:type] === 'highlighted'
       args = type_search_params.to_hash.without('type').with_indifferent_access
       @results = MultiIndexSearch.highlighted(args)

@@ -37,6 +37,8 @@ module FieldDefinitions
           mid_lat = lats.min + ((lats.max - lats.min) / 2)
           mid_lng = lngs.min + ((lngs.max - lngs.min) / 2)
           {lat: mid_lat, lon: mid_lng}
+        else
+          {lat: 0, lon: 0}
         end
 
       }

@@ -18,8 +18,12 @@ import {openModalLink} from '../helpers/modals';
 
   handleOnClick(event) {
     event.preventDefault();
-    
-    const cardLink = openModalLink(this.props.location, {key: 'record', value: this.props.record.id});
+    let cardLink;
+    if (this.props.isCollection) {
+      cardLink = `/map/collections/${this.props.record.id}`
+    } else {
+      cardLink = openModalLink(this.props.location, {key: 'record', value: this.props.record.id});
+    }
     this.props.history.push(cardLink);
   }
 
@@ -69,6 +73,7 @@ import {openModalLink} from '../helpers/modals';
     if(this.props.cardComponent.highlighted || this.state.marker_hovered) {
       icon = highlighted_icon;
     }
+   
 
     return <Marker position={this.props.position} icon={icon} opacity={this.props.cardComponent.opacity}>
       <Popup>

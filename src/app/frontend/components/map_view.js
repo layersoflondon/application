@@ -102,14 +102,9 @@ import {openModalLink} from '../helpers/modals';
     
     this.props.trayViewStore.cardsToRenderOnMap.values().map((card, i) => {
       let key;
-      if( card.is_collection ) {
-        card.data.records.map((record, i)=> {
-          key = `collection_${card.id}_record_${record.id}_${i}`;
-          markers.push( <ErrorBoundary key={key}><MarkerContainer position={record.position} record={record} cardComponent={card} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
-        })
-      }else {
-        markers.push( <ErrorBoundary key={`${card.id}_${i}`}><MarkerContainer position={card.data.position} record={card.data} cardComponent={card} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
-      }
+
+
+      markers.push( <ErrorBoundary key={`${card.id}_${i}`}><MarkerContainer position={card.data.position} record={card.data} cardComponent={card} trayViewStore={this.props.trayViewStore} isCollection={card.is_collection} /></ErrorBoundary> )
     });
 
     const layers = <span className="tile-layers">

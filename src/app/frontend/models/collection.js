@@ -17,11 +17,13 @@ export default class CollectionModel {
   @observable user_can_edit = false;
   @observable user_can_remove_from = false;
   @observable user_is_owner = false;
+  @observable lat;
+  @observable lng;
 
 
 
   @computed get position() {
-    return [0, 0];
+    return [this.lat, this.lng];
   }
 
   @computed get is_editable() {
@@ -90,6 +92,8 @@ export default class CollectionModel {
     collection.user_can_edit = attributes.user_can_edit;
     collection.user_can_remove_from = attributes.user_can_remove_from;
     collection.user_is_owner = attributes.user_is_owner;
+    collection.lat = attributes.lat;
+    collection.lng = attributes.lng;
 
     if( !from_record && attributes.hasOwnProperty('records') && build_records ) {
       // iterate over this collection's records and either fetch the existing record from the store, or build a new one
