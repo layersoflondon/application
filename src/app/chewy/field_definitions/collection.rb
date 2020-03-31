@@ -63,7 +63,7 @@ module FieldDefinitions
         field :state, type: 'keyword'
         field :pin, type: 'geo_point', value: ->{ {lat: lat, lon: lng} }
 
-        field :collection_ids, type: 'object', value: -> { collections.collect(&:id)}
+        field :collection_ids
 
         field :tag_group_ids, value: -> {tag_group_ids}
         field :tag_ids, value: -> {tag_ids}
