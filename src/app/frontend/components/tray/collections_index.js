@@ -9,7 +9,12 @@ import pluralize from 'pluralize';
 export default class TrayCollectionsIndex extends Component {
   constructor(props) {
     super(props);
+
+  }
+
+  componentWillMount() {
     this.props.trayViewStore.fetchCollections();
+    this.props.trayViewStore.trayLocked = true;
   }
 
   render() {
@@ -20,10 +25,10 @@ export default class TrayCollectionsIndex extends Component {
     return <React.Fragment>
 
       <TrayHeader
-        title="Results for your collection search"
+        title="Collections"
         // subtitle={this.props.trayViewStore.collection.title} 
         metaDescription={`Collections index`}
-        metaData={`Collection, ${pluralize('collection', this.props.trayViewStore.mainResults.size, true)}`}
+        metaData={`${pluralize('collection', this.props.trayViewStore.mainResults.size, true)}`}
         closePath={`/map`}
       />
 
