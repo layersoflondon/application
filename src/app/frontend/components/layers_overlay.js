@@ -206,10 +206,10 @@ const LAYERS_PER_PAGE = 9;
                   this.renderHeader()
                 }
               </div>
-
-              {
-                this.renderHighlighted()
-              }
+              
+              {/*{*/}
+              {/*  this.renderHighlighted()*/}
+              {/*}*/}
 
               {
                 this.renderSearchResults()
