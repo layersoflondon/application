@@ -84,7 +84,7 @@ module FieldDefinitions
             credit: attachment.credit,
             attachable_type: attachment.attachable_type,
             attachable: attachment.attachable.data,
-            is_primary: attachment.attachable.primary
+            is_primary: attachment.attachable.try(:primary)
 
           }
         end
