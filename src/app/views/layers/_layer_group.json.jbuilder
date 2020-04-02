@@ -5,7 +5,13 @@ json.description layer_group.description
 json.image layer_group.image
 json.slug layer_group.slug
 json.highlighted layer_group.highlighted
+json.date_from layer_group.date_from
 
 json.layers do
   json.array! layer_group.layers, partial: 'layers/layer', as: :layer
 end
+
+if layer_group._explanation.present?
+  json.explanation layer_group._explanation
+end
+
