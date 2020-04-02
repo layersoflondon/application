@@ -20,10 +20,11 @@ const LAYERS_PER_PAGE = 9;
       free_text_query: ""
     };
 
+
   }
 
   componentWillMount() {
-    this.freeTextSearch();
+    this.props.layersStore.category_id = 1;
   }
 
   freeTextSearch() {

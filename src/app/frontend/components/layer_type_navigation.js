@@ -26,15 +26,17 @@ import axios from 'axios';
 
     return <div className="section-navigation">
       <h3>Showing:</h3>
+
+      {
+        this.props.categories.map((category) => <LayerType key={`category-${category.id}`} singletonUiViewStore={menuViewStore} name={category.name} terms={category.layer_terms} id={category.id} />)
+      }
+
       <ul>
         <li className={isAllShowing ? 'is-current' : ''}>
           <a href="#" data-term-id={null} data-category-id={null} onClick={handleFilterResetOnClick}>All</a>
         </li>
       </ul>
 
-      {
-        this.props.categories.map((category) => <LayerType key={`category-${category.id}`} singletonUiViewStore={menuViewStore} name={category.name} terms={category.layer_terms} id={category.id} />)
-      }
     </div>;
   }
 }

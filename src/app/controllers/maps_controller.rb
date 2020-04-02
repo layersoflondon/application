@@ -57,7 +57,7 @@ class MapsController < ApplicationController
 
     # @layer_groups   = LayerGroupsIndex.order(:date_to).limit(Rails.configuration.x.default_highlighted_layers + Rails.configuration.x.default_directory_layers)
 
-    @layer_categories = LayerCategoriesIndex.all#.reject{|lc| lc.layer_terms.empty?}
+    @layer_categories = LayerCategoriesIndex.all.order(:id)#.reject{|lc| lc.layer_terms.empty?}
 
     # return unless params[:resource].present?
     #
