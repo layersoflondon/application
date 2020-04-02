@@ -27,7 +27,6 @@ class RecordAttachmentsController < ApplicationController
     authorize(@record)
 
     @attachment = @record.attachments.find(params[:id])
-    Rails.logger.info("\n\nUpdating attachment attributes #{@attachment.id}\n\n")
 
     unless @attachment.attachable.update_attributes(attachment_params[:attachable_attributes]) && @attachment.attachable.reload
       render json: @attachment.errors.full_messages, status: :unprocessable_entity
