@@ -1,6 +1,10 @@
 import {action, extendObservable, runInAction, observable, computed, observe} from "mobx";
 import {MODAL_NAMES} from '../helpers/modals';
 
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
 /**
  * Handle's map attributes like initial position (center), the zoom level, currently visible overlay
  */
@@ -18,6 +22,7 @@ export default class MapViewStore {
   @observable edit_collection_mode = false;
 
   @observable placeResults = observable.map();
+  @observable isIntroDone = false;
 
   initial_position = null;
 
@@ -58,6 +63,15 @@ export default class MapViewStore {
       })
     });
 
+    observe(this, 'isIntroDone', (change) => {
+      const date = new Date();
+      const year = date.getUTCFullYear();
+      const expiryDate = new Date(year+1, date.getMonth(), date.getDate());
+      cookies.set("introDone", change.newValue, {path: '/map', expires: expiryDate});
+    });
+
+    this.isIntroDone = cookies.get('introDone') === 'true';
+
   }
 
   @computed get mapBounds() {
@@ -89,6 +103,14 @@ export default class MapViewStore {
       waitForMapRef();
     });
   }
+
+  @computed get shouldShowIntro() {
+    const desktopLayout = window.innerWidth>1150;
+
+    return desktopLayout && !this.isIntroDone;
+  }
+
+
 
   panTo(lat, lng, zoom = null) {
     this.initial_position = this.center;
