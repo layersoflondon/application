@@ -21,12 +21,16 @@ import RecordViewRelatedRecord from "./record_view_related_record";
   }
 
   fetchRelatedRecords() {
-    Record.related(this.props.record.id).then((response) => {
-      this.props.record.related = response.data;
-      this.setState({status: 'loaded'});
-    }).catch(() => {
-      this.setState({status: 'loaded'});
-    });
+    if (this.props.record.state === "published") {
+      Record.related(this.props.record.id).then((response) => {
+        this.props.record.related = response.data;
+        this.setState({status: 'loaded'});
+      }).catch(() => {
+        this.setState({status: 'loaded'});
+      });
+    }
+    this.setState({status: 'loaded'});
+
   }
 
   render() {
