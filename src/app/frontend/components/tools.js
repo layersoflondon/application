@@ -131,7 +131,7 @@ import {openModalLink} from '../helpers/modals';
                     <div className="m-tool-button m-tool-button--help">
                       <a href="/help-centre" data-label="Help"><span>Help</span></a>
                     </div>
-                    { window.innerWidth>1150 &&
+                    { window.innerWidth>this.props.mapViewStore.INTRO_BREAK_POINT &&
                     <div className="m-tool-button m-tool-button--intro">
                       <a href="#" onClick={this.handleOnClickShowIntro.bind(this)} data-label="Show intro"><span>Show intro</span></a>
                     </div>
