@@ -224,7 +224,7 @@ ActiveRecord::Schema.define(version: 2020_02_07_164148) do
     t.boolean "show_on_website", default: true
   end
 
-  create_table "layer_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layer_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -241,7 +241,7 @@ ActiveRecord::Schema.define(version: 2020_02_07_164148) do
     t.boolean "highlighted", default: false
   end
 
-  create_table "layer_layer_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layer_layer_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "layer_id"
     t.bigint "layer_category_id"
     t.datetime "created_at", null: false
@@ -250,7 +250,7 @@ ActiveRecord::Schema.define(version: 2020_02_07_164148) do
     t.index ["layer_id"], name: "index_layer_layer_categories_on_layer_id"
   end
 
-  create_table "layer_layer_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layer_layer_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "layer_id"
     t.bigint "layer_term_id"
     t.datetime "created_at", null: false
@@ -259,7 +259,7 @@ ActiveRecord::Schema.define(version: 2020_02_07_164148) do
     t.index ["layer_term_id"], name: "index_layer_layer_terms_on_layer_term_id"
   end
 
-  create_table "layer_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "layer_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.bigint "layer_category_id"
     t.datetime "created_at", null: false
