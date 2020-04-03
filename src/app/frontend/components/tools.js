@@ -132,7 +132,7 @@ import {openModalLink} from '../helpers/modals';
                       <a href="/help-centre" data-label="Help"><span>Help</span></a>
                     </div>
                     <div className="m-tool-button m-tool-button--intro">
-                      <a href="#" onClick={this.handleOnClickShowIntro.bind(this)}>Show intro</a>
+                      <a href="#" onClick={this.handleOnClickShowIntro.bind(this)} data-label="Show intro"><span>Show intro</span></a>
                     </div>
                   </div>
 
