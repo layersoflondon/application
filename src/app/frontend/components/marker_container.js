@@ -69,9 +69,24 @@ import {openModalLink} from '../helpers/modals';
       trackingMarker: trackingMarker
     });
 
+    const collection_icon = new LeafletDataIcon({
+      iconUrl: require('../assets/images/collection-marker.png'),
+      iconRetinaUrl: require('../assets/images/collection-marker@2x.png'),
+
+      iconSize: [30, 40],
+      shadowSize: [0, 0],
+      iconAnchor: [15, 20],
+      popupAnchor: [0, -33],
+      trackingMarker: trackingMarker
+    });
+
     let icon = default_icon;
     if(this.props.cardComponent.highlighted || this.state.marker_hovered) {
       icon = highlighted_icon;
+    }
+
+    if(this.props.record.is_collection) {
+      icon = collection_icon;
     }
    
 

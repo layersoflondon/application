@@ -28,6 +28,8 @@ export default class MapViewStore {
 
   MAX_ZOOM = 18;
 
+  INTRO_BREAK_POINT = 1150;
+
   // dom reference to the leaflet map instance (is assigned in by the map_view)
   // map_ref = null;
 
@@ -105,7 +107,7 @@ export default class MapViewStore {
   }
 
   @computed get shouldShowIntro() {
-    const desktopLayout = window.innerWidth>1150;
+    const desktopLayout = window.innerWidth>this.INTRO_BREAK_POINT;
 
     return desktopLayout && !this.isIntroDone;
   }
