@@ -139,17 +139,23 @@ const LAYERS_PER_PAGE = 9;
 
     if (this.props.layersStore.layerGroups.length) {
       return (
+
         <div className="layers layers--all">
+
           {title}
 
-
           <LayerTypeNavigation categories={this.props.layersStore.categories}/>
-          <Equalizer selector="a:first-child">
-            {this.props.layersStore.layerGroups.map((layer_group) =>
-              <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
-            }
-          </Equalizer>
+
+          <div className="layers-results-list">
+            <Equalizer selector="a:first-child">
+              {this.props.layersStore.layerGroups.map((layer_group) =>
+                <LayerGroup key={layer_group.id} layerGroup={layer_group} {...this.props} />)
+              }
+            </Equalizer>
+          </div>
+
         </div>
+
       )
     } else if (this.props.layersStore.searchQueriesPresent && this.props.layersStore.layerGroups.length === 0 && this.props.layersStore.highlightedLayerGroups.length === 0) {
 
@@ -207,7 +213,11 @@ const LAYERS_PER_PAGE = 9;
                   this.renderHeader()
                 }
               </div>
-              
+
+              <div className="intro">
+                <p>Choose historical maps of London, and overlay them with  information about a range of topics and themes.</p>
+              </div>
+
               {/*{*/}
               {/*  this.renderHighlighted()*/}
               {/*}*/}
@@ -216,7 +226,6 @@ const LAYERS_PER_PAGE = 9;
                 this.renderSearchResults()
               }
 
-
               {(this.props.layersStore.search_page < this.props.layersStore.total_search_result_pages) &&
               <div className="section-load-more">
                 <button onClick={this.handleFetchNextPageClick.bind(this)}>
@@ -224,7 +233,6 @@ const LAYERS_PER_PAGE = 9;
                 </button>
               </div>
               }
-
 
               {/*{Array(this.state.total_pages).fill().map((_,i)=>i+1).map((p, i)=><div key={`layer-group-page-${i}`}>{p}</div>)}*/}
 
