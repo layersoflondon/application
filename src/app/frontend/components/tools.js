@@ -24,6 +24,11 @@ import {openModalLink} from '../helpers/modals';
     }
   }
 
+  handleOnClickShowIntro(event) {
+    event.preventDefault();
+    this.props.mapViewStore.isIntroDone = false;
+  }
+
   handleHamburgerOnClick(event) {
     this.setState({show_menu: !this.state.show_menu});
   }
@@ -125,6 +130,9 @@ import {openModalLink} from '../helpers/modals';
                     </div>
                     <div className="m-tool-button m-tool-button--help">
                       <a href="/help-centre" data-label="Help"><span>Help</span></a>
+                    </div>
+                    <div className="m-tool-button m-tool-button--intro">
+                      <a href="#" onClick={this.handleOnClickShowIntro.bind(this)}>Show intro</a>
                     </div>
                   </div>
 

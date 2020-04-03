@@ -1,21 +1,4 @@
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
 const SHOW_TRAY_AT_INDEX = 2;
-
-const introExited = () => {
-  const date = new Date();
-  const year = date.getUTCFullYear();
-  const expiryDate = new Date(year+1, date.getMonth(), date.getDate());
-  cookies.set("introDone", true, {path: '/map', expires: expiryDate});
-};
-
-const showIntro = (() => {
-  const done = cookies.get("introDone") === "true";
-  const desktopLayout = window.innerWidth>1150;
-  
-  return desktopLayout && !done;
-})();
 
 const steps = [
   {
@@ -121,4 +104,4 @@ const introOptions = {
 };
 
 
-export {steps, showIntro, introExited, introOptions, SHOW_TRAY_AT_INDEX};
+export {steps, introOptions, SHOW_TRAY_AT_INDEX};
