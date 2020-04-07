@@ -62,7 +62,7 @@ import {getQueryStringValue} from '../helpers/modals';
 
                   {this.state.media_item.caption && (
                     <div className="caption *is-expanded">
-                      <div class="pane">
+                      <div className="pane">
                         <p>
                           <span dangerouslySetInnerHTML={{__html: this.state.media_item.caption}}></span>
                         </p>
