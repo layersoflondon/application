@@ -26,12 +26,17 @@ import {observer} from "mobx-react";
       return;
     }
 
+    this.props.recordFormStore.record_is_loading = true;
+
     const current_attachment_item = this.props.recordFormStore.current_attachment_item;
 
     current_attachment_item.persist().then((response) => {
       this.props.recordFormStore.current_attachment_item.id = response.data.id;
+      this.props.recordFormStore.record_is_loading = false;
     }).catch((error) => {
       console.log("Error saving image", error);
+      this.props.recordFormStore.record_is_loading = false;
+
     });
   }
 
@@ -48,8 +53,10 @@ import {observer} from "mobx-react";
     this.props.recordFormStore.record.media.map((i) => i.is_primary = false);
 
     this.props.recordFormStore.current_attachment_item.is_primary = true;
+    this.props.recordFormStore.record_is_loading = true;
     this.props.recordFormStore.current_attachment_item.persist().then((response) => {
       this.props.trayViewStore.record.image = response.data.attachable;
+      this.props.recordFormStore.record_is_loading = false;
     });
   }
 
