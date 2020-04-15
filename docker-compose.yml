@@ -61,6 +61,7 @@ services:
       - ./config/docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
       - db_data:/var/lib/mysql
       - ./src/database/import:/docker-entrypoint-initdb.d
+      - ./src:/app
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=layers-app_development
