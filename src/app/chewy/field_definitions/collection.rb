@@ -72,6 +72,10 @@ module FieldDefinitions
           primary_image.try(:data)
         }
 
+        field :user, type: 'nested' do
+          field :id, type: 'integer'
+        end
+
       end
     end
 
