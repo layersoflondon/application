@@ -18,16 +18,6 @@ GIT
       rails (>= 4.2, < 6.0.0)
 
 GIT
-  remote: https://github.com/layersoflondon/booth-maptools
-  revision: 11b72b8b4e933d292a2d0ac355f4333c109af764
-  specs:
-    layers_of_london-booth-map_tool (0.1.2.2)
-      aasm (~> 5.0)
-      geokit
-      pundit (~> 2.0)
-      rails (~> 5.2)
-
-GIT
   remote: https://github.com/layersoflondon/georeferencer-ruby
   revision: 064d629fd2ba2c65786294c2bf5ec0c7e26485c7
   specs:
@@ -67,6 +57,15 @@ GIT
       her (~> 1.0)
       mime-types (~> 3)
       require_all (~> 1.3)
+
+PATH
+  remote: vendor/booth-maptools
+  specs:
+    layers_of_london-booth-map_tool (0.1.2.2)
+      aasm (~> 5.0)
+      geokit
+      pundit (~> 2.0)
+      rails (~> 5.2)
 
 GEM
   remote: https://rubygems.org/
