@@ -18,8 +18,7 @@ import axios from 'axios';
     const menuViewStore = new SingletonUIViewStore();
 
     const handleFilterResetOnClick = (event) => {
-      this.props.layersStore.term_id = null;
-      this.props.layersStore.category_id = null;
+      this.props.layersStore.setFilters({term_id: null, category_id: null});
     };
 
     const isAllShowing = (!!!this.props.layersStore.searchFiltersPresent);

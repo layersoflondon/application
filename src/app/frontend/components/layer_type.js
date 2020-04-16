@@ -22,7 +22,7 @@ import {inject, observer} from "mobx-react";
       if (this.props.terms.length === 0) {
         const categoryId = parseInt(event.target.dataset.categoryId, 10);
 
-        this.props.layersStore.category_id = categoryId;
+        this.props.layersStore.setFilters({category_id: categoryId});
 
       }
     };
@@ -32,21 +32,22 @@ import {inject, observer} from "mobx-react";
       const termId = parseInt(event.target.dataset.termId, 10);
       const categoryId = parseInt(event.target.dataset.categoryId, 10);
       // ensure there is never a category ID and term ID set on the store at the same time.
-      this.props.layersStore.category_id = null;
-      if(this.props.layersStore.term_id === termId) {
-        this.props.layersStore.term_id = null;
+      let filters = {category_id: null};
+      if(this.props.layersStore.category_and_term_filters.term_id === termId) {
+        filters.term_id = null;
       }else {
-        this.props.layersStore.term_id = termId;
+        filters.term_id = termId;
         this.props.layersStore.selected_category = categoryId;
       }
-      
+
+      this.props.layersStore.setFilters(filters);
 
     };
   }
 
   render() {
-    const isSelected = (id) => this.props.layersStore.term_id === id ? 'is-current' : '';
-    const categoryIsSelected = (this.props.layersStore.category_id === this.props.id || this.props.terms.map((t) => t.id).includes(this.props.layersStore.term_id));
+    const isSelected = (id) => this.props.layersStore.category_and_term_filters.term_id === id ? 'is-current' : '';
+    const categoryIsSelected = (this.props.layersStore.category_and_term_filters.category_id === this.props.id || this.props.terms.map((t) => t.id).includes(this.props.layersStore.category_and_term_filters.term_id));
 
     return <ul ref={this.toggleRef} onClick={this.handleOnClick}>
       <li className={categoryIsSelected ? 'is-current' : ''}>

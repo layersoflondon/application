@@ -24,7 +24,7 @@ const LAYERS_PER_PAGE = 9;
   }
 
   componentWillMount() {
-    this.props.layersStore.category_id = 1;
+    this.props.layersStore.setFilters({category_id: 1})
   }
 
   freeTextSearch() {

@@ -16,15 +16,15 @@ export default class LayersStore {
 
   @observable currentPage = 1;
 
-  @observable category_id = null;
-  @observable term_id = null;
   @observable free_text_query = null;
   @observable total_search_result_pages = 1;
   @observable search_page = 1;
 
   @observable active_layer_group_ids = [];
 
-  query_params = {};
+  @observable category_and_term_filters = {term_id: null, category_id: null};
+
+  
   constructor() {
     observe(this, 'layer_group_id', (change) => {
       if( change.newValue ) {
@@ -48,24 +48,7 @@ export default class LayersStore {
         this.layer_group_id = null;
       }
     });
-
-    observe(this, 'category_id', (change) => {
-        // if there's a term_id we should nullify it because they're mutually exclusive
-
-      if (change.newValue !== null || !this.searchFiltersPresent) {
-        this.term_id = null;
-        this.search();
-      }
-    });
-
-    observe(this, 'term_id', (change) => {
-      //  if there's a term ID, we need to nullify category_id, because they're mutually exclusive and term id should 'win'
-      if (change.newValue !== null || !this.searchFiltersPresent) {
-        this.category_id = null;
-        this.search();
-      }
-    });
-
+    
     observe(this, 'free_text_query', (change) => {
         this.search();
     });
@@ -76,13 +59,14 @@ export default class LayersStore {
     });
 
     observe(this,'active_layer_group_ids', (change) => {
-      this.all_layer_groups.map((g) => {
+      this.all_layer_groups.values().map((group) => {
         group.is_active = this.active_layer_group_ids.includes(group.id)
       });
-      this.all_layer_groups.map((g) => {
-        group.is_active = this.active_layer_group_ids.includes(group.id)
-      })
-    })
+    });
+
+    observe(this, 'category_and_term_filters', (change) => {
+      this.search();
+    });
 
   }
 
@@ -144,8 +128,8 @@ export default class LayersStore {
   @action.bound async search(append) {
     this.loading = true;
     const query = {
-      category_id: this.category_id,
-      term_id: this.term_id,
+      category_id: this.category_and_term_filters.category_id,
+      term_id: this.category_and_term_filters.term_id,
       query: this.free_text_query,
       page: this.search_page
     };
@@ -171,12 +155,17 @@ export default class LayersStore {
     });
   }
 
+  @action.bound setFilters(filters) {
+    const defaults = {term_id: null, category_id: null};
+    this.category_and_term_filters = {...defaults, ...filters};
+  }
+
   @computed get searchQueriesPresent() {
-    return (this.category_id || this.term_id || this.free_text_query)
+    return (this.searchFiltersPresent || this.free_text_query)
   }
 
   @computed get searchFiltersPresent() {
-    return (this.category_id || this.term_id)
+    return (this.category_and_term_filters.category_id || this.category_and_term_filters.term_id)
   }
 
   // layer groups that can be rendered on the overlay
