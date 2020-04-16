@@ -55,7 +55,9 @@ import {observer} from "mobx-react";
     this.props.recordFormStore.current_attachment_item.is_primary = true;
     this.props.recordFormStore.record_is_loading = true;
     this.props.recordFormStore.current_attachment_item.persist().then((response) => {
-      this.props.trayViewStore.record.image = response.data.attachable;
+      if (this.props.trayViewStore.record) {
+        this.props.trayViewStore.record.image = response.data.attachable;
+      }
       this.props.recordFormStore.record_is_loading = false;
     });
   }
