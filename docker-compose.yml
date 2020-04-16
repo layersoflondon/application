@@ -27,7 +27,6 @@ services:
       - irb_history:/root/irb_history
       - ./docker/web/.irbrc:/root/.irbrc
       - ./docker/web/entrypoint.sh:/entrypoint.sh
-      # - ../layers_of_london-booth-map_tool:/layers_of_london-booth-map_tool
     stdin_open: true
     tty: true
   web:
@@ -110,6 +109,12 @@ services:
     ports:
       - 2525:2525
       - 8025:8025
+  tippecanoe:
+    build:
+      context: .
+      dockerfile: ./docker/tippecanoe/Dockerfile
+    volumes:
+      - ./src:/app
 
 
 
