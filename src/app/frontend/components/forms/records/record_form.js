@@ -176,6 +176,8 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
       });
     });
 
+    const disabled = (this.props.recordFormStore.record_is_loading) ? {disabled: true} : {};
+
     return (
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
@@ -211,18 +213,18 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
                 <div className="secondary-actions">
 
                   {(this.props.recordFormStore.record.id && this.props.recordFormStore.record.state === "draft") && (
-                    <button type="submit" disabled={this.props.recordFormStore.record_is_loading === false} className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
+                    <button type="submit" {...disabled} className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
                       Delete
                     </button>
                   )}
 
                   {(this.props.recordFormStore.record.id && this.props.recordFormStore.record.state === 'published') && (
                     <React.Fragment>
-                      <button type="submit" disabled={this.props.recordFormStore.record_is_loading === false} className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
+                      <button type="submit" {...disabled} className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
                         Delete
                       </button>
 
-                      <button type="submit" disabled={this.props.recordFormStore.record_is_loading === false} className="draft" data-state="draft" onClick={this.handleStateChange.bind(this)}>
+                      <button type="submit" {...disabled} className="draft" data-state="draft" onClick={this.handleStateChange.bind(this)}>
                         Unpublish
                       </button>
                     </React.Fragment>
@@ -231,12 +233,12 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
 
                 <div className="primary-actions">
                   {/(draft|pending_review)/.test(this.props.recordFormStore.record.state) &&  (
-                    <input type="submit" disabled={this.props.recordFormStore.record_is_loading === true} data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save as draft" />
+                    <input type="submit" {...disabled} data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save as draft" />
                   )}
 
                   {
                     this.props.recordFormStore.record.valid_for_publishing && this.props.recordFormStore.record.user_can_publish &&
-                    <input type="submit" disabled={this.props.recordFormStore.record_is_loading === true} data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
+                    <input type="submit" {...disabled} data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
                   }
                 </div>
 
