@@ -20,6 +20,8 @@ RUN cd /root \
 
 RUN apk del git g++ make sqlite-dev
 
+COPY ./docker/tippecanoe/entrypoint.sh /
+
 USER tippecanoe
 WORKDIR /home/tippecanoe
-ENTRYPOINT /bin/bash
+ENTRYPOINT ["/entrypoint.sh"]
