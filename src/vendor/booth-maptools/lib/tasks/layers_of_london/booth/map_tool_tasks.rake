@@ -18,7 +18,7 @@ namespace :booth do
 
     LayersOfLondon::Booth::MapTool::Polygon.colours.keys.each do |colour|
       puts "\t#{colour}"
-      
+
       filename = "#{colour}.geojson"
       filepath = File.join(tmp_folder, filename)
       File.open(filepath, "w+") do |file|
@@ -34,9 +34,14 @@ namespace :booth do
     end
 
     puts "creating vector tiles"
-    
-    `docker run -it --rm  -v #{tmp_folder}:/data -v #{public_folder}:/public application_tippecanoe`
 
+    docker = IO.popen(["docker", "run", "-it", "--rm", "-v","#{tmp_folder}:/data", "-v","#{public_folder}:/public", "application_tippecanoe"])
+
+
+    until docker.eof?
+      line = docker.gets
+      puts line
+    end
   end
 
 end
