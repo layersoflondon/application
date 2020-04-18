@@ -115,6 +115,18 @@ services:
       dockerfile: ./docker/tippecanoe/Dockerfile
     volumes:
       - ./src:/app
+    command: bash
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    volumes:
+      - ./src/public/booth-polygons:/usr/share/nginx/html
+      
+    ports:
+      - 1234:80
+    
+
 
 
 
