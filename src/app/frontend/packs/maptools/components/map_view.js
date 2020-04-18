@@ -4,7 +4,8 @@ import {Map, TileLayer, GeoJSON, FeatureGroup, Polygon} from 'react-leaflet';
 import {EditControl} from "react-leaflet-draw";
 import {inject, observer} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
-import PolygonContainer from './polygon_container';
+// import PolygonContainer from './polygon_container';
+import PolygonVectorLayer from "./polygon_vector_layer";
 import {getStyle} from '../helpers/styles';
 
 @inject('mapToolsStore', 'userSession')
@@ -145,11 +146,11 @@ export default class MapView extends React.Component {
       return <PolygonContainer key={`editable-polygon-${i}`} feature={feature} mapToolsStore={this.props.mapToolsStore}/>;
     });
 
-    const immutablePolygons = this.props.mapToolsStore.immutableFeatures.map((feature, i) => {
-      const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
-      const style = getStyle(feature.properties.colour);
-      return <Polygon key={`polygon-${i}`} positions={coords} {...style} />;
-    });
+    // const immutablePolygons = this.props.mapToolsStore.immutableFeatures.map((feature, i) => {
+    //   const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
+    //   const style = getStyle(feature.properties.colour);
+    //   return <Polygon key={`polygon-${i}`} positions={coords} {...style} />;
+    // });
 
     const isSignedIn = typeof this.props.userSession.id !== "undefined";
 
@@ -200,7 +201,8 @@ export default class MapView extends React.Component {
           {this.props.mapToolsStore.square &&
             <React.Fragment>
               <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
-              {immutablePolygons}
+              <PolygonVectorLayer/>
+              {/*{immutablePolygons}*/}
             </React.Fragment>
           }
 
