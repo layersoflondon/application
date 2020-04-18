@@ -11,7 +11,7 @@ namespace :booth do
   task generate_vectors: :environment do
     tmp_folder = File.join(Rails.root, 'tmp', 'polygons')
     FileUtils.mkdir_p(tmp_folder)
-    public_folder = File.join(Rails.root, 'public')
+    public_folder = File.join(Rails.root, 'public', 'booth-polygons')
 
 
     puts "Getting GeoJSON"
@@ -35,7 +35,7 @@ namespace :booth do
 
     puts "creating vector tiles"
 
-    docker = IO.popen(["docker", "run", "-it", "--rm", "-v","#{tmp_folder}:/data", "-v","#{public_folder}:/public", "application_tippecanoe"])
+    docker = IO.popen(["docker", "run", "-it", "--rm", "-v","#{tmp_folder}:/in", "-v","#{public_folder}:/out", "application_tippecanoe"])
 
 
     until docker.eof?

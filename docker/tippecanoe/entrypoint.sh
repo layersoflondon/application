@@ -1,4 +1,5 @@
 #!/bin/bash
 
 set -e
-find /data/*.geojson | xargs /usr/local/bin/tippecanoe --force -e /public/polygons
+rm -rf /out/booth-tiles
+find /in/*.geojson | xargs /usr/local/bin/tippecanoe --no-tile-compression --force -z 18 -e /out
