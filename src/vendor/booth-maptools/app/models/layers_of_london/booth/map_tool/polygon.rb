@@ -5,7 +5,7 @@ module LayersOfLondon::Booth::MapTool
 
     serialize :feature, JSON
 
-    enum colour: %w(black blue-hatched red-soft red-hatched red yellow unknown)
+    enum colour: %w(black blue blue-hatched red-soft red-hatched red yellow unknown)
 
     before_save do
       colour = feature["properties"]["colour"]

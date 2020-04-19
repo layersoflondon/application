@@ -1,5 +1,6 @@
 const styleNames = [
   'black',
+  'blue',
   'blue-hatched',
   'bluehatched',
   'red-soft',
@@ -19,6 +20,7 @@ const getStyle = (colour) => {
       style.fillColor = '#302b27';
       style.className = 'drawn-polygon-black';
       break;
+    case 'blue':
     case 'blue-hatched':
     case 'bluehatched':
       style.fillColor = '#43585d';
