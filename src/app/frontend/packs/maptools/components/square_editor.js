@@ -16,6 +16,10 @@ export default class SquareEditor extends React.Component {
   updateSquareState(state) {
     updateSquare(this.props.match.params.id, {state: state}).then((response) => {
       this.props.mapToolsStore.square = response.data;
+      if (state === 'in_progress' || state === "back_in_progress") {
+
+        this.props.mapToolsStore.showShapes = false;
+      }
     });
   }
 
@@ -65,6 +69,7 @@ export default class SquareEditor extends React.Component {
       <hr/>
       <p>Please trace all coloured areas which are within, or touching, the square using the tools below.</p>
       <p>Click 'Edit shape' to change the existing ones.</p>
+      <p>Your shapes might take a few minutes to appear on the map.</p>
       <button onClick={() => this.updateSquareState('done')}>I'm done!</button>
       or go <Link to='/maptools/squares' onClick={this.handleGoBackClick.bind(this)}>back to the map</Link>.
     </div>
@@ -76,6 +81,7 @@ export default class SquareEditor extends React.Component {
       <hr/>
       <h1>You traced this square!</h1>
       <p>Now another user needs to check that it's correct.</p>
+      <p>Your shapes might take a few minutes to appear on the map.</p>
       <hr/>
       <button onClick={() => this.updateSquareState('back_in_progress')}>Reopen for editing</button>
       <br/>
@@ -132,6 +138,7 @@ export default class SquareEditor extends React.Component {
       <hr/>
       <h1>All done!</h1>
       <p>This square has been traced and checked. If you can see any obvious errors you can reopen it for editing.</p>
+      <p>Your shapes might take a few minutes to appear on the map.</p>
       <hr/>
       <button onClick={() => this.updateSquareState('back_in_progress')}>Reopen for editing</button>
       <br/>

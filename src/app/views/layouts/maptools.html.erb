@@ -20,6 +20,7 @@
       window.dataLayerParams = window.dataLayerParams || [];
       window.__EDITABLE_ADJACENT_RANGE = <%= Rails.configuration.x.editable_adjacent_range || 0 %>;
       window.__MAPTOOLS_GRID_WIDTH = <%= LayersOfLondon::Booth::MapTool.configuration.squares_x %>;
+      window.__POLYGONS_URL = '<%= LayersOfLondon::Booth::MapTool.configuration.polygons_url %>';
     </script>
     <% if params[:new_signup] %>
         <script type="text/javascript" charset="utf-8">

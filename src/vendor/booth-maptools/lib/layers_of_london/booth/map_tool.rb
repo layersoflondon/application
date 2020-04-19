@@ -15,7 +15,7 @@ module LayersOfLondon
       end
 
       class Configuration
-        attr_accessor :square_size, :north_west_extent, :south_east_extent
+        attr_accessor :square_size, :north_west_extent, :south_east_extent, :polygons_url
 
         def north_west
           @north_west ||= Geokit::LatLng.new(*@north_west_extent)

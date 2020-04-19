@@ -4,7 +4,7 @@ module LayersOfLondon::Booth::MapTool
   class PolygonsController < ApplicationController
     def index
       skip_authorization
-      features = LayersOfLondon::Booth::MapTool::Polygon.all.collect do |poly|
+      features = LayersOfLondon::Booth::MapTool::Polygon.where(square_id: params[:square_id]).collect do |poly|
         user_can_edit = LayersOfLondon::Booth::MapTool::PolygonPolicy.new(current_user, poly).update?
         poly.to_json(user_can_edit: user_can_edit)
       end

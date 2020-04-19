@@ -57,6 +57,7 @@ export default class MapToolsStore {
       };
 
       if (change.newValue) {
+        this.fetchPolygonsForSquare(change.newValue);
         setCenter();
 
         this.setRenderStateForSquare(change.newValue, this.user);
@@ -172,6 +173,22 @@ export default class MapToolsStore {
 
     return true;
   }
+
+  @action.bound
+  async fetchPolygonsForSquare(square) {
+    const result = await getPolygons(square.id);
+
+    runInAction(() => {
+      const features = observable.map();
+
+      result.data.features.map((feature) => {
+        features.set(feature.properties.id, feature);
+      });
+
+      this.featureData = features;
+    })
+  }
+
 
   @action.bound
   async fetchSquares() {

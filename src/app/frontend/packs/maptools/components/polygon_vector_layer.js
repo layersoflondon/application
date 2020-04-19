@@ -21,7 +21,7 @@ import {styleNames, getStyle} from '../helpers/styles';
           weight=1;
         }
         return {
-          opacity: 0.6,
+          opacity: 0.5,
           fillOpacity: 0.5,
           fill: true,
           weight: weight,
@@ -34,11 +34,12 @@ import {styleNames, getStyle} from '../helpers/styles';
     console.log("styles", styles);
     let options = {
       type: 'protobuf',
-      url: "http://localhost:1234/{z}/{x}/{y}.pbf",
+      url: window.__POLYGONS_URL,
       key: `booth-polygons`,
       subdomains: '*',
       vectorTileLayerStyles: styles,
-      zIndex: 1000
+      zIndex: 1000,
+      interactive: false
     };
 
     console.log("options",options);

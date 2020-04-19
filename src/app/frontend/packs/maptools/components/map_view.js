@@ -4,7 +4,7 @@ import {Map, TileLayer, GeoJSON, FeatureGroup, Polygon} from 'react-leaflet';
 import {EditControl} from "react-leaflet-draw";
 import {inject, observer} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
-// import PolygonContainer from './polygon_container';
+import PolygonContainer from './polygon_container';
 import PolygonVectorLayer from "./polygon_vector_layer";
 import {getStyle} from '../helpers/styles';
 
@@ -201,7 +201,9 @@ export default class MapView extends React.Component {
           {this.props.mapToolsStore.square &&
             <React.Fragment>
               <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
-              <PolygonVectorLayer/>
+              {this.props.mapToolsStore.showShapes &&
+                <PolygonVectorLayer/>
+              }
               {/*{immutablePolygons}*/}
             </React.Fragment>
           }

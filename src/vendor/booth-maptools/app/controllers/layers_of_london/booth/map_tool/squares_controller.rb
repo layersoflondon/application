@@ -43,14 +43,18 @@ module LayersOfLondon::Booth::MapTool
     end
 
     def polygons
-      features = LayersOfLondon::Booth::MapTool::PolygonPolicy::Scope.new(current_user, LayersOfLondon::Booth::MapTool::Polygon).resolve
-
-      feature_collection = {
+      # features = LayersOfLondon::Booth::MapTool::PolygonPolicy::Scope.new(current_user, LayersOfLondon::Booth::MapTool::Polygon).resolve
+      #
+      # feature_collection = {
+      #   type: "FeatureCollection",
+      #   features: features
+      # }
+      #
+      # render json: feature_collection
+      render json: {
         type: "FeatureCollection",
-        features: features
+        features: []
       }
-
-      render json: feature_collection
     end
 
     def update
