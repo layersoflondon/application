@@ -21,6 +21,8 @@ const getStyle = (colour) => {
       style.className = 'drawn-polygon-black';
       break;
     case 'blue':
+      style.fillColor = '#22425D';
+      break;
     case 'blue-hatched':
     case 'bluehatched':
       style.fillColor = '#43585d';
