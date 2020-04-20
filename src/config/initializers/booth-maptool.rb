@@ -9,5 +9,6 @@ if defined?(LayersOfLondon::Booth)
                           else
                             "/booth-polygons/{z}/{x}/{y}.pbf"
                           end
+    config.editable_adjacent_range = 1
   end
 end

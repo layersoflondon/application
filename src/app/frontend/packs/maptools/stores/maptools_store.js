@@ -99,41 +99,15 @@ export default class MapToolsStore {
 
       
 
-      return feature.properties.id && feature.properties.userCanEdit && this.withinEditableRange(feature);
+      return feature.properties.id;
     });
-  }
-
-  withinEditableRange(feature) {
-    let withinEditableRange = false;
-
-    if(window.__EDITABLE_ADJACENT_RANGE > 0 ) {
-      var width = parseInt(window.__MAPTOOLS_GRID_WIDTH, 10);
-      var range = parseInt(window.__EDITABLE_ADJACENT_RANGE, 10)+1;
-
-      let topLeft = this.squareId - width - range;
-      let topRight = this.squareId - width + range;
-      let bottomLeft = this.squareId + width - range;
-      let bottomRight = this.squareId + width + range; 
-      let currentRowLeft = this.squareId - range;
-      let currentRowRight = this.squareId + range;
-
-      let withinAbove = feature.properties.square.id > topLeft && feature.properties.square.id < topRight;
-      let onSameRow = feature.properties.square.id > currentRowLeft && feature.properties.square.id < currentRowRight;
-      let withinBelow = feature.properties.square.id > bottomLeft && feature.properties.square.id < bottomRight;
-
-      withinEditableRange = withinAbove || withinBelow || onSameRow;
-    }
-
-    return withinEditableRange;
   }
 
   @computed get immutableFeatures() {
     if( !this.atEditableSquare ) {
       return this.featureData.values();
     } else {
-      return this.featureData.values().filter((feature) => {
-        return !feature.properties.userCanEdit || !this.withinEditableRange(feature)
-      });
+      return [];
     }
   }
 
@@ -285,7 +259,7 @@ export default class MapToolsStore {
     });
   }
 
-  @action.bound deletedPolygons(event) {
+  @action.bound async deletedPolygons(event) {
     event.layers.eachLayer((layer) => {
       deletePolygon(this.squareId, layer.properties.id);
     });

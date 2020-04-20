@@ -16,7 +16,7 @@ module LayersOfLondon::Booth::MapTool
       json_feature = {'properties' => {}}.merge(feature)
       json_feature.inject({}) do |hash, (k,v)|
         if k === 'properties'
-          v.merge!({'id' => id, 'userCanEdit': user_can_edit, 'square' => square.try(:to_json)})
+          v.merge!({'id' => id, 'userCanEdit': user_can_edit, 'square' => square.try(:to_json), 'square_id' => square.try(:id), 'adjacent_square_ids' => Square.adjacent_range_for_id(square.try(:id))})
         end
 
         hash[k] = v

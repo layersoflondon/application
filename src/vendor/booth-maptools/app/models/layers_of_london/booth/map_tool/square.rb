@@ -71,6 +71,29 @@ module LayersOfLondon::Booth::MapTool
       down + across
     end
 
+    def self.adjacent_range_for_id(id, range=LayersOfLondon::Booth::MapTool.configuration.editable_adjacent_range)
+      id = id.to_i
+      if range > 0
+        width = LayersOfLondon::Booth::MapTool.configuration.squares_x
+
+        ids = []
+
+
+        ids << (id - width - range) #top left
+        ids << (id - width) #top mid
+        ids << (id - width + range) #top right
+        ids << (id + width - range) #bottom left
+        ids << (id + width) #bottom mid
+        ids << (id + width + range) #bottom right
+        ids << (id - range) #left
+        ids << (id + range) #right
+
+        ids
+      else
+        []
+      end
+    end
+
     def to_json(padding: 0)
       # {id: id, state: {label: aasm_state, description: aasm_state.humanize}, geojson: to_geojson(padding: padding)}
       #

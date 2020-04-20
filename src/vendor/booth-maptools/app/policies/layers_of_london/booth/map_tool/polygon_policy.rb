@@ -18,7 +18,7 @@ module LayersOfLondon::Booth::MapTool
 
     class Scope < Scope
       def resolve
-        features = scope.all.includes(:user, square: [:user]).all.collect do |poly|
+        features = scope.includes(:square).references(:square).all.collect do |poly|
           # user_can_edit = LayersOfLondon::Booth::MapTool::PolygonPolicy.new(user, poly).update?
           poly.to_json(user_can_edit: user.present?)
         end

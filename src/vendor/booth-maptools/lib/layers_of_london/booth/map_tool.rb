@@ -17,6 +17,12 @@ module LayersOfLondon
       class Configuration
         attr_accessor :square_size, :north_west_extent, :south_east_extent, :polygons_url
 
+        attr_writer :editable_adjacent_range
+
+        def editable_adjacent_range
+          @editable_adjacent_range || 0
+        end
+
         def north_west
           @north_west ||= Geokit::LatLng.new(*@north_west_extent)
         end
