@@ -16,10 +16,7 @@ export default class SquareEditor extends React.Component {
   updateSquareState(state) {
     updateSquare(this.props.match.params.id, {state: state}).then((response) => {
       this.props.mapToolsStore.square = response.data;
-      if (state === 'in_progress' || state === "back_in_progress") {
-
-        this.props.mapToolsStore.showShapes = false;
-      }
+     
     });
   }
 

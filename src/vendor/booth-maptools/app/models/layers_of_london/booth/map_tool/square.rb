@@ -162,7 +162,7 @@ module LayersOfLondon::Booth::MapTool
     end
 
     def editable?
-      !aasm_state.in?(["done", "flagged", "verified"])
+      !aasm_state.in?(["verified"])
     end
 
   end
