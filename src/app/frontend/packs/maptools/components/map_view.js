@@ -206,16 +206,16 @@ export default class MapView extends React.Component {
           { !this.props.mapToolsStore.square &&
             <React.Fragment>
               <GeoJSON data={this.props.mapToolsStore.squares} style={this.gridStyle.bind(this)} />
-                <PolygonVectorLayer/>
+                {/*<PolygonVectorLayer/>*/}
             </React.Fragment>
           }
 
           {this.props.mapToolsStore.square &&
             <React.Fragment>
               <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
-              {this.props.mapToolsStore.showShapes &&
-                <PolygonVectorLayer/>
-              }
+              {/*{this.props.mapToolsStore.showShapes &&*/}
+              {/*  <PolygonVectorLayer/>*/}
+              {/*}*/}
               {immutablePolygons}
             </React.Fragment>
           }
