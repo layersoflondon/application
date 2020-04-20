@@ -146,24 +146,33 @@ export default class MapView extends React.Component {
       return <PolygonContainer key={`editable-polygon-${i}`} feature={feature} mapToolsStore={this.props.mapToolsStore}/>;
     });
 
-    // const immutablePolygons = this.props.mapToolsStore.immutableFeatures.map((feature, i) => {
-    //   const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
-    //   const style = getStyle(feature.properties.colour);
-    //   return <Polygon key={`polygon-${i}`} positions={coords} {...style} />;
-    // });
+    const immutablePolygons = this.props.mapToolsStore.immutableFeatures.map((feature, i) => {
+      const coords = feature.geometry.coordinates[0].toJS().map((lnglat) => [lnglat[1], lnglat[0]]);
+      const style = getStyle(feature.properties.colour);
+      return <Polygon key={`polygon-${i}`} positions={coords} {...style} />;
+    });
 
     const isSignedIn = typeof this.props.userSession.id !== "undefined";
 
     const drawingControl = isSignedIn && this.props.mapToolsStore.atEditableSquare ? <FeatureGroup ref={this.setFeatureGroupRef}>
+
       <EditControl
         ref={this.setEditControlRef}
         position='bottomleft'
         onCreated={this.props.mapToolsStore.createdPolygon}
-        onEdited={this.props.mapToolsStore.editedPolygons}
-        onDeleted={this.props.mapToolsStore.deletedPolygons}
-
-        onEditResize={this.props.mapToolsStore.editedPolygons}
-        onEditMove={this.props.mapToolsStore.editedPolygons}
+        onEdited={(event) => {
+          this.props.mapToolsStore.editedPolygons(event);
+        }}
+        onDeleted={(event) => {
+          this.props.mapToolsStore.deletedPolygons(event);
+        }}
+        // onDeleted={(event) => { console.log('deleted', event, event.layers)}}
+        onEditResize={(event) => {
+          this.props.mapToolsStore.editedPolygons(event);
+        }}
+        onEditMove={(event) => {
+          this.props.mapToolsStore.editedPolygons(event);
+        }}
 
         onEditStart={() => this.props.mapToolsStore.setEditingMode(true)}
         onEditStop={() => this.props.mapToolsStore.setEditingMode(false)}
@@ -195,7 +204,10 @@ export default class MapView extends React.Component {
           <TileLayer url="https://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png"/>
 
           { !this.props.mapToolsStore.square &&
-            <GeoJSON data={this.props.mapToolsStore.squares} style={this.gridStyle.bind(this)} />
+            <React.Fragment>
+              <GeoJSON data={this.props.mapToolsStore.squares} style={this.gridStyle.bind(this)} />
+                <PolygonVectorLayer/>
+            </React.Fragment>
           }
 
           {this.props.mapToolsStore.square &&
@@ -204,7 +216,7 @@ export default class MapView extends React.Component {
               {this.props.mapToolsStore.showShapes &&
                 <PolygonVectorLayer/>
               }
-              {/*{immutablePolygons}*/}
+              {immutablePolygons}
             </React.Fragment>
           }
 
