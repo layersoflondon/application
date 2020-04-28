@@ -184,6 +184,7 @@ const LAYERS_PER_PAGE = 9;
     if (!this.props.mapViewStore.modalIsVisible('layers')) return <React.Fragment/>;
 
     const handleCloseOnClick = () => {
+      this.props.layersStore.clearSearch();
       removeModal(this.props.router.location, 'layers', this.props.mapViewStore);
     };
 

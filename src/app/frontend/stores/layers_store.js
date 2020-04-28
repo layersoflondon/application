@@ -50,10 +50,12 @@ export default class LayersStore {
     });
     
     observe(this, 'free_text_query', (change) => {
+      if (change.newValue !== null) {
         this.search();
+      }
     });
     observe(this, 'search_page', (change) => {
-      if (change.oldValue !== null) {
+      if (change.oldValue !== null && change.newValue !== null) {
         this.search(true);
       }
     });
@@ -65,7 +67,9 @@ export default class LayersStore {
     });
 
     observe(this, 'category_and_term_filters', (change) => {
-      this.search();
+      if (!(Object.values(change.newValue).every((v) => v === null))) {
+        this.search();
+      }
     });
 
   }
@@ -123,6 +127,12 @@ export default class LayersStore {
     this.layer_group_id = id;
   }
 
+  @action.bound clearSearch() {
+    this.setFilters({});
+    this.search_page = null;
+    this.free_text_query = null;
+  }
+
   /** Search for layer groups, using the category id, term id and free-text search**/
   /** We build up a list of all layer groups we've ever seen, and a separate observable map which is reset to only show the results from this particular search **/
   @action.bound async search(append) {
@@ -131,7 +141,7 @@ export default class LayersStore {
       category_id: this.category_and_term_filters.category_id,
       term_id: this.category_and_term_filters.term_id,
       query: this.free_text_query,
-      page: this.search_page
+      page: this.search_page || 1
     };
 
     await Layer.search(query).then((response) => {

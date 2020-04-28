@@ -15,6 +15,7 @@ import {inject, observer} from "mobx-react";
 
     this.handleOnClick = (event) => {
 
+      this.props.layersStore.clearSearch();
       this.props.singletonUiViewStore.visibleSingletonComponent = this;
       this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: !this.props.singletonUiViewStore.visibleSingletonComponent.state.visible});
 
@@ -28,7 +29,7 @@ import {inject, observer} from "mobx-react";
     };
 
     this.handleTermClick = (event) => {
-
+      this.props.layersStore.clearSearch();
       const termId = parseInt(event.target.dataset.termId, 10);
       const categoryId = parseInt(event.target.dataset.categoryId, 10);
       // ensure there is never a category ID and term ID set on the store at the same time.
