@@ -17,6 +17,18 @@ class Record < ApplicationRecord
     else
       @old_user_id = user.id
     end
+
+    @state_changed = state_changed?
+  end
+
+  after_commit on: :update do
+    # we need to kick off a job to touch all collection models associated with this record,
+    # because we otherwise miss indexing the collection after a state change on the record.
+    if @state_changed
+      self.collection_ids.each do |id|
+        ModelToucherJob.perform_later("Collection",id)
+      end
+    end
   end
   
   update_index 'users#user' do
