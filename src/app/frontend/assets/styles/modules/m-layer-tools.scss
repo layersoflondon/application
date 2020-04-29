@@ -250,8 +250,6 @@
   top: -2px;
   text-align: center;
   opacity: 0.4;
-  //margin-left: 1px;
-  //margin-right: 6px;
 }
 
 .m-layer-tools .layer.has-components > .name:before {
@@ -263,6 +261,21 @@
 
 .m-layer-tools .layer.has-components.is-open > .name:before {
   content: "\f0d8";
+}
+
+.m-layer-tools .layer.has-components > .remove {
+  float: right;
+  position: relative;
+  right: -9px;
+}
+
+.m-layer-tools .layer.has-components > .remove:before {
+  content: "\f00d";
+  font-size: 14px;
+  top: 0;
+  opacity: 0.6;
+  font: normal normal normal 14px/1 FontAwesome;
+  padding: 6px;
 }
 
 .m-layer-tools .layer.has-components:not(.is-open) {

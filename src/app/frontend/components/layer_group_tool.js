@@ -46,6 +46,7 @@ const handle = (props) => {
     return (
       <div className={classes}>
         <span className="name" onClick={()=>this.props.layerGroup.toggleIsOpen()} {...this.props.dragHandleProps}>{this.props.layerGroup.name}</span>
+        <span className="remove"></span>
 
         <div className="layer-components">
           {this.props.layerGroup.allLayers.map((layer, index) => <LayerTool key={layer.id} layer={layer} />)}
