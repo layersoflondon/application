@@ -144,34 +144,6 @@
   opacity: 0.8;
 }
 
-.m-layer-tools .layer > .name {
-  width: 100%;
-  padding-right: 40px;
-  position: relative;
-}
-
-.m-layer-tools .delete {
-  height: 12px;
-  display: inline-block;
-  width: 18px;
-  margin-right: 2px;
-  vertical-align: top;
-  font-weight: bold;
-  font-size: 16px;
-  position: absolute;
-  top: -1px;
-  right: 0;
-  margin-right: 0;
-}
-
-.m-layer-tools .delete:after {
-  content: "x";
-  height: 22px;
-  width: 16px;
-  display: block;
-  opacity: 0.8;
-}
-
 .m-layer-tools .show-hide.collection:after {
   background: url('../assets/images/icon-collection.svg') center no-repeat;
 }
@@ -187,15 +159,6 @@
   position: relative;
   top: 2px;
 }
-
-/*.m-layer-tools .slider:before {
-  content: "";
-  width: 100px;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  border-bottom: 2px solid #333;
-}*/
 
 .m-layer-tools .rc-slider-rail {
   background-color: #333;
@@ -220,15 +183,11 @@
 }
 
 .m-layer-tools .rc-slider-handle:focus {
-  //border-color:$yellow;
   box-shadow: 0 0 0 2px $yellow;
 }
 
 .m-layer-tools .layer-components {
   position: relative;
-
-  .layer-component {
-  }
 }
 
 .m-layer-tools .layer-components .name {
@@ -322,14 +281,3 @@
 .m-layer-tools .key-symbol--outline {
   background: none;
 }
-
-/*
-.m-layer-tools .layer {
-  border-top:1px solid #666;
-}
-
-.m-layer-tools .layer-component {
-  border-top:1px solid #666;
-}*/
-
-
