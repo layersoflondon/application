@@ -38,12 +38,9 @@
     align-items: center;
     transition: all .4s;
     cursor: pointer;
-    @include mq(small-tablet) {
-      font-size: 16px;
-      padding: 17px 15px;
-    }
-    @include mq(smartphone) {
+    @media screen and (max-width:1150px){
       font-size: 14px;
+      padding: 17px 15px;
     }
   }
 
@@ -899,7 +896,7 @@ $element-border-radius-small: 3px;
       @content;
     }
   } @else if $point==tablet {
-    @media (max-width: 1150px) {
+    @media (max-width: 1023px) {
       @content;
     }
   } @else if $point==small-tablet {

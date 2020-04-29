@@ -3,6 +3,9 @@
 .m-actions {
   position:absolute;
   bottom: 65px;
+  @media screen and (max-height:643px) {
+    bottom: 58px;
+  }
   @include mq(tablet) {
     position:static;
   }

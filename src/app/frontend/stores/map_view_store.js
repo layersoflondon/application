@@ -28,7 +28,7 @@ export default class MapViewStore {
 
   MAX_ZOOM = 18;
 
-  INTRO_BREAK_POINT = 1150;
+  INTRO_BREAK_POINT = 1023;
 
   // dom reference to the leaflet map instance (is assigned in by the map_view)
   // map_ref = null;

@@ -8,6 +8,9 @@
   position: relative;
   display: block;
   @include transition(all .2s);
+  @media screen and (max-height:643px) {
+    padding:9px 10px;
+  }
   @include mq(tablet) {
     padding-bottom: 25px;
   }
@@ -28,6 +31,9 @@
   width: 170px;
   opacity: 0;
   transition: opacity .2s;
+  @media screen and (max-height:643px) {
+    padding:9px 0 9px 50px;
+  }
   @include mq(tablet) {
     font-size: 24px;
     width: 280px;
@@ -56,13 +62,6 @@
   opacity: 0.7;
   margin-top: -2px;
   @include transition(all .2s);
-}
-
-.m-tool-button--getting-started a:before {
-/*  content: "\f015";
-  font-size: 1.9em;
-  margin-left: -3px;
-  color: #fff;*/
 }
 
 .m-tool-button--getting-started a:before {
@@ -111,12 +110,6 @@
 .m-tool-button--intro a:before {
   background: url('../assets/images/icon-intro.svg') center no-repeat;
 }
-
-/*
-.m-tool-button--your-content a:before {
-  content: "\f2c0";
-}
-*/
 
 .m-tool-button a:hover {
   opacity: 0.5;
