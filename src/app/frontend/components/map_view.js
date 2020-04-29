@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet';
 import MarkerContainer from './marker_container';
+import PlaceMarkerContainer from './place_marker_container';
 import {observer, inject} from "mobx-react";
 import {observe} from 'mobx';
 import LayerToolsContainer from './layer_tools_container';
@@ -101,22 +102,22 @@ import {openModalLink} from '../helpers/modals';
     
     this.props.trayViewStore.cardsToRenderOnMap.values().map((card, i) => {
       let key;
-      if( card.is_collection ) {
-        card.data.records.map((record, i)=> {
-          key = `collection_${card.id}_record_${record.id}_${i}`;
-          markers.push( <ErrorBoundary key={key}><MarkerContainer position={record.position} record={record} cardComponent={card} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
-        })
-      }else {
-        markers.push( <ErrorBoundary key={`${card.id}_${i}`}><MarkerContainer position={card.data.position} record={card.data} cardComponent={card} trayViewStore={this.props.trayViewStore} /></ErrorBoundary> )
-      }
+
+
+      markers.push( <ErrorBoundary key={`${card.id}_${i}`}><MarkerContainer position={card.data.position} record={card.data} cardComponent={card} trayViewStore={this.props.trayViewStore} isCollection={card.is_collection} /></ErrorBoundary> )
     });
 
     const layers = <span className="tile-layers">
-      <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
-
+      <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03" attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" maxZoom={this.props.mapViewStore.MAX_ZOOM} />
       {this.props.layersStore.activeVisibleLayerGroups.map((layerGroup, index) => {
         const layerGroupIndex = 100000-((index+1)*1000);
-        return <MapLayerGroup key={layerGroup.id} layerGroup={layerGroup} layerIndex={layerGroupIndex} />
+        return <MapLayerGroup key={layerGroup.id} layerGroup={layerGroup} layerIndex={layerGroupIndex} maxZoom={this.props.mapViewStore.MAX_ZOOM} />
+      })}
+    </span>;
+
+    const places = <span className="tile-layers places">
+      {this.props.mapViewStore.places.entries().map((placeEntry, index) => {
+        return <PlaceMarkerContainer key={`place-result-${placeEntry[0]}-${index}`} place={placeEntry[1]} />
       })}
     </span>;
 
@@ -129,22 +130,6 @@ import {openModalLink} from '../helpers/modals';
     </div>;
 
     return <ErrorBoundary>
-      {/* {
-        this.state.headerShowing && !this.props.mapViewStore.add_record_mode && (
-          <div className="m-map-view-title-area">
-            { (headerContent.title) &&
-              <h1>{headerContent.title}<span className="close"><a  className="close" onClick={this.removeHeaderContent.bind(this)}>Close</a></span></h1>
-            }
-
-            {
-              (headerContent.subtitle) &&
-                <h2>{headerContent.subtitle}</h2>
-            }
-            {headerMeta}
-          </div>
-        )
-      } */}
-
       <div className="m-map-area" onMouseMove={this.updateLoupeLayer.bind(this)}>
         <div className={`m-map ${this.props.mapViewStore.add_record_mode ? 'is-adding' : ''}`}>
           <Map center={position} zoom={map_zoom} ref={this.setMapRef} onDragEnd={this.handleOnDragEnd.bind(this)} onZoomEnd={this.handleOnZoomEnd.bind(this)} onClick={this.handleOnClick.bind(this)} zoomControl={false} >
@@ -153,7 +138,10 @@ import {openModalLink} from '../helpers/modals';
             <ErrorBoundary>
               <MapSearchContainer {...this.props} />
             </ErrorBoundary>
+
             {layers}
+            {places}
+
             {this.props.layersStore.loupe_layer && <TileLayer key={this.props.layersStore.loupe_layer.id} url={this.props.layersStore.loupe_layer.url} attribution={this.props.layersStore.loupe_layer.attribution} opacity={this.props.layersStore.loupe_layer.opacity} zIndex={1000+1} className="clipped-tilelayer" ref='clipped-tilelayer' />}
 
             {!this.props.mapViewStore.lightsOut &&

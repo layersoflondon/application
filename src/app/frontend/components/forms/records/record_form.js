@@ -23,9 +23,11 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
 
     this.state = {errors: [], loadingError: false};
     this.fetchRecord = (id) => {
+      this.props.recordFormStore.record_is_loading = true;
       Record.show(null, id).then((response) => {
         this.props.mapViewStore.inEditRecordMode = true;
         this.props.recordFormStore.record = RecordModel.fromJS(response.data);
+        this.props.recordFormStore.record_is_loading = false;
       });
     }
   }
@@ -174,6 +176,8 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
       });
     });
 
+    const disabled = (this.props.recordFormStore.record_is_loading) ? {disabled: true} : {};
+
     return (
       <div className={className}>
         <div className="s-overlay--add-record is-showing">
@@ -208,19 +212,19 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
               <div className="form-actions">
                 <div className="secondary-actions">
 
-                  {(this.props.recordFormStore.record.id && this.props.recordFormStore.record.state == "draft") && (
-                    <button type="submit" className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
+                  {(this.props.recordFormStore.record.id && this.props.recordFormStore.record.state === "draft") && (
+                    <button type="submit" {...disabled} className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
                       Delete
                     </button>
                   )}
 
                   {(this.props.recordFormStore.record.id && this.props.recordFormStore.record.state === 'published') && (
                     <React.Fragment>
-                      <button type="submit" className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
+                      <button type="submit" {...disabled} className="delete" data-state="deleted" onClick={this.handleStateChange.bind(this)}>
                         Delete
                       </button>
 
-                      <button type="submit" className="draft" data-state="draft" onClick={this.handleStateChange.bind(this)}>
+                      <button type="submit" {...disabled} className="draft" data-state="draft" onClick={this.handleStateChange.bind(this)}>
                         Unpublish
                       </button>
                     </React.Fragment>
@@ -228,18 +232,18 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
                 </div>
 
                 <div className="primary-actions">
-                  {/(draft|pending_review)/.test(this.props.recordFormStore.record.state) && (
-                    <input type="submit" data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save as draft" />
+                  {/(draft|pending_review)/.test(this.props.recordFormStore.record.state) &&  (
+                    <input type="submit" {...disabled} data-state="draft" onClick={this.handleClickedOnSave.bind(this)} value="Save as draft" />
                   )}
 
                   {
                     this.props.recordFormStore.record.valid_for_publishing && this.props.recordFormStore.record.user_can_publish &&
-                    <input type="submit" data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
+                    <input type="submit" {...disabled} data-state="published" onClick={this.handleClickedOnSave.bind(this)} value={this.props.recordFormStore.record.saveButtonLabel} />
                   }
                 </div>
 
               </div>
-              { !this.props.recordFormStore.record.valid_for_publishing &&
+              { !this.props.recordFormStore.record.valid_for_publishing && this.props.recordFormStore.record.errors_on_publishing.length>0 &&
                 <div className="form-validation-errors">
                   <p>Before you can publish this record, you need to add some information:</p>
                   <ul>
@@ -248,7 +252,7 @@ import {closeModalLink, getQueryStringParam} from '../../../helpers/modals';
                 </div>
               }
 
-              { (!this.props.recordFormStore.record.user_can_publish && this.props.recordFormStore.record.state == "published" && this.props.currentUser.token) && (
+              { (!this.props.recordFormStore.record.user_can_publish && this.props.recordFormStore.record.state === "published" && this.props.currentUser.token) && (
                 <div>
                   <div className="form-publishing-note">
                     <span>To make changes to this record you need to unpublish it first</span>

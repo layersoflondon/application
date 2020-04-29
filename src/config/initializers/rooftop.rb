@@ -19,7 +19,7 @@ if defined?(Rooftop)
     #   config.ssl_options = {
     #     verify: false
     #   }
-    #   config.proxy = "https://localhost:9998"
+    #   config.proxy = "https://host.docker.internal:9998"
     # end
 
   end

@@ -57,6 +57,7 @@ export default class MapToolsStore {
       };
 
       if (change.newValue) {
+        this.fetchPolygonsForSquare(change.newValue);
         setCenter();
 
         this.setRenderStateForSquare(change.newValue, this.user);
@@ -95,7 +96,10 @@ export default class MapToolsStore {
 
   @computed get editableFeatures() {
     return this.featureData.values().filter((feature) => {
-      return feature.properties.id && feature.properties.userCanEdit && (this.squareId === feature.properties.square.id);
+
+      
+
+      return feature.properties.id;
     });
   }
 
@@ -103,9 +107,7 @@ export default class MapToolsStore {
     if( !this.atEditableSquare ) {
       return this.featureData.values();
     } else {
-      return this.featureData.values().filter((feature) => {
-        return !feature.properties.userCanEdit || (this.squareId !== feature.properties.square.id);
-      });
+      return [];
     }
   }
 
@@ -140,11 +142,27 @@ export default class MapToolsStore {
         features.set(feature.properties.id, feature);
       });
 
-      this.cachedFeatureData = features;
+      this.featureData = features;
     });
 
     return true;
   }
+
+  @action.bound
+  async fetchPolygonsForSquare(square) {
+    const result = await getPolygons(square.id);
+
+    runInAction(() => {
+      const features = observable.map();
+
+      result.data.features.map((feature) => {
+        features.set(feature.properties.id, feature);
+      });
+
+      this.featureData = features;
+    })
+  }
+
 
   @action.bound
   async fetchSquares() {
@@ -241,7 +259,7 @@ export default class MapToolsStore {
     });
   }
 
-  @action.bound deletedPolygons(event) {
+  @action.bound async deletedPolygons(event) {
     event.layers.eachLayer((layer) => {
       deletePolygon(this.squareId, layer.properties.id);
     });

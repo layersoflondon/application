@@ -1,6 +1,10 @@
 import {action, extendObservable, runInAction, observable, computed, observe} from "mobx";
 import {MODAL_NAMES} from '../helpers/modals';
 
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
 /**
  * Handle's map attributes like initial position (center), the zoom level, currently visible overlay
  */
@@ -17,7 +21,14 @@ export default class MapViewStore {
   @observable add_collection_mode  = false;
   @observable edit_collection_mode = false;
 
+  @observable placeResults = observable.map();
+  @observable isIntroDone = false;
+
   initial_position = null;
+
+  MAX_ZOOM = 18;
+
+  INTRO_BREAK_POINT = 1150;
 
   // dom reference to the leaflet map instance (is assigned in by the map_view)
   // map_ref = null;
@@ -53,6 +64,16 @@ export default class MapViewStore {
         this.inEditCollectionMode = change.newValue;
       })
     });
+
+    observe(this, 'isIntroDone', (change) => {
+      const date = new Date();
+      const year = date.getUTCFullYear();
+      const expiryDate = new Date(year+1, date.getMonth(), date.getDate());
+      cookies.set("introDone", change.newValue, {path: '/map', expires: expiryDate});
+    });
+
+    this.isIntroDone = cookies.get('introDone') === 'true';
+
   }
 
   @computed get mapBounds() {
@@ -84,6 +105,14 @@ export default class MapViewStore {
       waitForMapRef();
     });
   }
+
+  @computed get shouldShowIntro() {
+    const desktopLayout = window.innerWidth>this.INTRO_BREAK_POINT;
+
+    return desktopLayout && !this.isIntroDone;
+  }
+
+
 
   panTo(lat, lng, zoom = null) {
     this.initial_position = this.center;
@@ -140,5 +169,33 @@ export default class MapViewStore {
 
   @computed get isTabletDevice() {
     return document.querySelector("meta[name=device-tablet]").content === "true";
+  }
+
+  @computed get places() {
+    return this.placeResults;
+  }set places(value) {
+    const places = observable.map();
+
+    value.map((place) => {
+      const lat = parseFloat(place.lat);
+      const lon = parseFloat(place.lon);
+
+      const place_type = place.address[place.type] || place.address.road;
+      const display_name = `${place_type}<br/>${place.address.city}`;
+
+      const placeObject = {
+        lat: lat,
+        lon: lon,
+        position: [lat, lon],
+        name: place.namedetails.name,
+        display_name: display_name,
+        osm_type: place.osm_type,
+        svg: place.svg
+      };
+
+      places.set(place.place_id, placeObject);
+    });
+
+    this.placeResults.replace(places);
   }
 }

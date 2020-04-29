@@ -1,4 +1,4 @@
-Chewy.strategy(:atomic)
+Chewy.strategy(:active_job)
 Chewy.logger = Logger.new(STDOUT)
 Chewy.settings = {
   prefix: Rails.env,

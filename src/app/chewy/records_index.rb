@@ -3,7 +3,7 @@ class RecordsIndex < Chewy::Index
     "Record"
   end
   
-  define_type Record.includes(:user, :attachments, :tag_groups, :tags, collections: [:owner]) do
+  define_type Record.includes(:user, :attachments, :tag_groups, :tags, collections: [:owner]).preload(attachments: :attachable) do
     include FieldDefinitions::Record
   end
 

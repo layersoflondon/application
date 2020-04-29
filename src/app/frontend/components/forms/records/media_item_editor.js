@@ -10,7 +10,7 @@ import {observer} from "mobx-react";
 
     this.handleKeyUpWithDebounce = debounce(() => {
       this.props.recordFormStore.current_attachment_item.persist();
-    }, 250);
+    }, 1000);
   }
 
   handleOnChange(event) {
@@ -26,12 +26,17 @@ import {observer} from "mobx-react";
       return;
     }
 
+    this.props.recordFormStore.record_is_loading = true;
+
     const current_attachment_item = this.props.recordFormStore.current_attachment_item;
 
     current_attachment_item.persist().then((response) => {
       this.props.recordFormStore.current_attachment_item.id = response.data.id;
+      this.props.recordFormStore.record_is_loading = false;
     }).catch((error) => {
       console.log("Error saving image", error);
+      this.props.recordFormStore.record_is_loading = false;
+
     });
   }
 
@@ -48,8 +53,12 @@ import {observer} from "mobx-react";
     this.props.recordFormStore.record.media.map((i) => i.is_primary = false);
 
     this.props.recordFormStore.current_attachment_item.is_primary = true;
+    this.props.recordFormStore.record_is_loading = true;
     this.props.recordFormStore.current_attachment_item.persist().then((response) => {
-      this.props.trayViewStore.record.image = response.data.attachable;
+      if (this.props.trayViewStore.record) {
+        this.props.trayViewStore.record.image = response.data.attachable;
+      }
+      this.props.recordFormStore.record_is_loading = false;
     });
   }
 
@@ -62,12 +71,12 @@ import {observer} from "mobx-react";
 
         <div className="form-group">
           <label>Title</label>
-          <input placeholder="Title" type="text" onChange={this.handleOnChange.bind(this)} name="title" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.title) ? this.props.recordFormStore.current_attachment_item.title : ''} onBlur={this.handleOnBlur.bind(this)} />
+          <input placeholder="Title" type="text" onChange={this.handleOnChange.bind(this)} name="title" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.title) ? this.props.recordFormStore.current_attachment_item.title : ''} onBlur={this.handleOnBlur.bind(this)} onKeyUp={this.handleKeyUp.bind(this)} />
         </div>
 
         <div className="form-group">
           <label>Caption</label>
-          <textarea rows="5" placeholder="Caption" onChange={this.handleOnChange.bind(this)} name="caption" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.caption) ? this.props.recordFormStore.current_attachment_item.caption : ''} onBlur={this.handleOnBlur.bind(this)}  >
+          <textarea rows="5" placeholder="Caption" onChange={this.handleOnChange.bind(this)} name="caption" value={(this.props.recordFormStore.current_attachment_item && this.props.recordFormStore.current_attachment_item.caption) ? this.props.recordFormStore.current_attachment_item.caption : ''} onBlur={this.handleOnBlur.bind(this)} onKeyUp={this.handleKeyUp.bind(this)}  >
             </textarea>
         </div>
 

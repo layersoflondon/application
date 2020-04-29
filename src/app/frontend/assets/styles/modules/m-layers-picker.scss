@@ -5,6 +5,10 @@
   max-width: 1080px;
 }
 
+.m-layers-picker.is-loading {
+  @include loading-spinner;
+}
+
 .m-layers-picker h1 {
   @include overlay-title;
   margin-right: 40px;
@@ -23,7 +27,7 @@
     margin-left: 20px;
   }
   @include mq(small-smartphone) {
-    font-size:12px;
+    font-size: 12px;
   }
 }
 
@@ -85,7 +89,7 @@
   }
   @include mq(small-smartphone) {
     margin-top: 30px;
-
+    margin-left: 0;
   }
 }
 
@@ -98,6 +102,7 @@
   background: transparent url('../assets/images/icon-search.svg') 14px 15px/20px no-repeat;
   @include mq(small-smartphone) {
     //width: 114px;
+    width: 192px;
   }
 }
 
@@ -109,6 +114,15 @@
   padding: 13px;
   &:disabled {
     color: #bdc8c4;
+  }
+}
+
+.m-layers-picker .search span.clear-search {
+  position: absolute;
+  margin: 14px -4.4em;
+
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -131,12 +145,32 @@
   }
 }
 
+.m-layers-picker .intro {
+  text-align: center;
+  clear: both;
+}
+
+.m-layers-picker .intro p {
+  max-width: 510px;
+  margin: 0 auto;
+  padding: 30px 0;
+  @include mq(smartphone) {
+    padding: 15px 0;
+  }
+}
+
 // Featured layers
 
 .m-layers-picker .layers {
   clear: both;
-  margin-right: -38px;
   padding: 23px 0px 0px 0;
+  @media screen and (max-width: 650px) {
+    margin-right: 0;
+  }
+}
+
+.m-layers-picker .layers .layers-results-list {
+  margin-right: -38px;
   @media screen and (max-width: 650px) {
     margin-right: 0;
   }
@@ -503,6 +537,15 @@
 .m-layers-picker .section-navigation {
   text-align: center;
   margin-bottom: 60px;
+}
+
+.m-layers-picker .section-navigation.is-loading {
+  @include loading-spinner;
+
+  &:after {
+    position: relative;
+    display: block;
+  }
 }
 
 .m-layers-picker .section-navigation h3 {

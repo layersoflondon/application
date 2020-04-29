@@ -15,23 +15,38 @@ json.contributor_ids collection.contributor_ids
 # json.records do
 #   json.array! collection.records.collect {|r| OpenStruct.new(r)}.select {|r| RecordPolicy.new(current_user, r).show?}, partial: 'search/record', as: :record
 # end
-json.records do 
-  json.array!(collection.records.select{|r| RecordPolicy.new(current_user, OpenStruct.new(r)).show?}) do |record|
-    json.id record['id']
-    json.title record['title']
-    json.description record['description']
-    json.excerpt record['excerpt']
-    json.lat record['pin']['lat']
-    json.lng record['pin']['lon']
-    json.state record['state']
-    json.collection_ids record['collection_ids'].try(:uniq)
-    json.tag_groups record['tag_groups']
-    json.tag_ids record['tag_ids']
-    json.image do 
-      json.card record.try(:[], 'image').try(:[], 'card')
+  json.lat collection.pin.present? ? collection.pin["lat"].to_f.round(5) : 0
+  json.lng collection.pin.present? ? collection.pin["lon"].to_f.round(5) : 0
+if @summary_only
+  # json.records do
+  #   json.array!(collection.records.select { |r| RecordPolicy.new(current_user, OpenStruct.new(r)).show? }) do |record|
+  #     json.id record['id']
+  #     json.lat record['pin']['lat']
+  #     json.lng record['pin']['lon']
+  #   end
+  # end
+  json.records []
+end
+#
+unless @summary_only
+  json.records do
+    json.array!(collection.records.select { |r| RecordPolicy.new(current_user, OpenStruct.new(r)).show? }) do |record|
+      json.id record['id']
+      json.title record['title']
+      json.description record['description']
+      json.excerpt record['excerpt']
+      json.lat record['pin']['lat']
+      json.lng record['pin']['lon']
+      json.state record['state']
+      json.collection_ids record['collection_ids'].try(:uniq)
+      json.tag_groups record['tag_groups']
+      json.tag_ids record['tag_ids']
+      json.image do
+        json.card record.try(:[], 'image').try(:[], 'card')
+      end
     end
   end
 end
 
 json.image collection.image
-json.user_can_edit user_signed_in? ? CollectionPolicy.new(current_user,collection).edit? : false
+json.user_can_edit user_signed_in? ? CollectionPolicy.new(current_user, collection).edit? : false

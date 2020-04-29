@@ -39,6 +39,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'faker'
+
+  gem 'errorstudio_capistrano_recipes', git: 'https://github.com/errorstudio/errorstudio_capistrano_recipes'
 end
 
 group :development do
@@ -151,10 +153,12 @@ gem 'rubyXL'
 
 gem 'rinku'
 
-# gem 'layers_of_london-booth-map_tool', path: "../../layers_of_london-booth-map_tool"
-gem 'layers_of_london-booth-map_tool', git: "https://github.com/layersoflondon/booth-maptools"
+gem 'layers_of_london-booth-map_tool', path: "vendor/booth-maptools"
+# gem 'layers_of_london-booth-map_tool', git: "https://github.com/layersoflondon/booth-maptools"
 
 gem 'natural_sort'
 
 gem 'browser'
 
+
+gem 'sidekiq'

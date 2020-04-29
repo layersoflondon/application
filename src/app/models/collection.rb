@@ -2,10 +2,19 @@ class Collection < ApplicationRecord
   include SortFields
   has_many :collection_records, dependent: :destroy
   has_many :records, through: :collection_records
-  update_index('records#record') { records }
+  # update_index('records#record') { records.preload(:taxonomy_terms, attachments: :attachable) }
   update_index('collections#collection') {self}
-  update_index('teams#team') { self.owner if owner.is_a?(Team) }
+  # update_index('teams#team') { self.owner if owner.is_a?(Team) }
   belongs_to :owner, polymorphic: true
+
+  after_commit on: :update do
+    self.records.each do |record|
+      ModelToucherJob.perform_later(record.class.to_s,record.id)
+    end
+    if owner.is_a?(Team)
+      ModelToucherJob.perform_later(owner.class.to_s, owner.id)
+    end
+  end
 
   # TODO: permissions for reading and writing should go in a Pundit policy (see https://github.com/varvet/pundit).
   # I think we still need these enums though.
@@ -30,6 +39,13 @@ class Collection < ApplicationRecord
     else
       where(read_state: [:public_read])
     end
+  }
+
+  RECORD_INCLUDES = {records: [:user, :taxonomy_terms, :tags, collection_records: [:collection], tag_groups: [:tags], primary_image: [:file_blob]]}
+  RECORD_PRELOADS = [:owner, records: {attachments: [:attachable]}]
+
+  scope :including_users_and_records, -> {
+    includes(RECORD_INCLUDES).references(RECORD_INCLUDES).preload(RECORD_PRELOADS)
   }
 
   def contributing_users
@@ -77,7 +93,7 @@ class Collection < ApplicationRecord
     object = self.find(id)
     object.update_column(field, value)
 
-    Chewy.strategy(:atomic) do 
+    Chewy.strategy(:active_job) do
       CollectionsIndex.import self.where(id: id), update_fields: [field]
     end
   end

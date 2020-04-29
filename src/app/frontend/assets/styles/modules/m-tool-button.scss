@@ -108,6 +108,10 @@
   background: url('../assets/images/icon-help.svg') center no-repeat;
 }
 
+.m-tool-button--intro a:before {
+  background: url('../assets/images/icon-intro.svg') center no-repeat;
+}
+
 /*
 .m-tool-button--your-content a:before {
   content: "\f2c0";

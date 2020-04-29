@@ -26,6 +26,8 @@ export default class RecordFormStore {
   @observable visible_tag_group = null;
   clickEventListener = null;
 
+  @observable record_is_loading = false;
+
   constructor() {
     observe(this, 'latlng', (update) => {
       if( update.newValue && update.newValue.lat && update.newValue.lng ) {

@@ -83,7 +83,9 @@ module FieldDefinitions
             caption: attachment.caption,
             credit: attachment.credit,
             attachable_type: attachment.attachable_type,
-            attachable: attachment.attachable.data
+            attachable: attachment.attachable.data,
+            is_primary: attachment.attachable.try(:primary)
+
           }
         end
       }

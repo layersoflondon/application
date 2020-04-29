@@ -24,6 +24,11 @@ import {openModalLink} from '../helpers/modals';
     }
   }
 
+  handleOnClickShowIntro(event) {
+    event.preventDefault();
+    this.props.mapViewStore.isIntroDone = false;
+  }
+
   handleHamburgerOnClick(event) {
     this.setState({show_menu: !this.state.show_menu});
   }
@@ -126,6 +131,12 @@ import {openModalLink} from '../helpers/modals';
                     <div className="m-tool-button m-tool-button--help">
                       <a href="/help-centre" data-label="Help"><span>Help</span></a>
                     </div>
+                    { window.innerWidth>this.props.mapViewStore.INTRO_BREAK_POINT &&
+                    <div className="m-tool-button m-tool-button--intro">
+                      <a href="#" onClick={this.handleOnClickShowIntro.bind(this)} data-label="Show intro"><span>Show intro</span></a>
+                    </div>
+                    }
+
                   </div>
 
                   <div className="m-error-logo">

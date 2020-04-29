@@ -10,9 +10,29 @@ class Record < ApplicationRecord
   has_many :attachments, dependent: :destroy
   # update_index('attachments#attachment') { attachments }
   belongs_to :user
+
+  before_save do
+    if user_id_was != user.id
+      @old_user_id = user_id_was
+    else
+      @old_user_id = user.id
+    end
+
+    @state_changed = state_changed?
+  end
+
+  after_commit on: :update do
+    # we need to kick off a job to touch all collection models associated with this record,
+    # because we otherwise miss indexing the collection after a state change on the record.
+    if @state_changed
+      self.collection_ids.each do |id|
+        ModelToucherJob.perform_later("Collection",id)
+      end
+    end
+  end
   
   update_index 'users#user' do
-    previous_changes['user_id'] || user
+    user if @old_user_id != user.id
   end
 
   has_one :primary_image, class_name: 'Attachments::Image', foreign_key: :id, primary_key: :primary_image_id
@@ -270,7 +290,7 @@ class Record < ApplicationRecord
     object = self.find(id)
     object.update_column(field, value)
 
-    Chewy.strategy(:atomic) do 
+    Chewy.strategy(:active_job) do
       RecordsIndex.import self.where(id: id), update_fields: [field]
     end
   end

@@ -9,7 +9,6 @@
     <%= stylesheet_link_tag 'map' %>
     <!--<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>-->
     <link href="https://fonts.googleapis.com/css?family=Zilla+Slab:400,600,700|Muli:400,600,700" rel="stylesheet">
-    <%= render partial: "shared/rollbar" if Rails.env.production? %>
     <script type="text/javascript" charset="utf-8">
         <%# Redirect the old site structure, which uses hash anchors %>
         if (window.location.toString().match(/#\/?(collections|pins)\/\d+/)) {
@@ -19,6 +18,9 @@
 
     <script type="text/javascript" charset="utf-8">
       window.dataLayerParams = window.dataLayerParams || [];
+      window.__EDITABLE_ADJACENT_RANGE = <%= LayersOfLondon::Booth::MapTool.configuration.editable_adjacent_range %>;
+      window.__MAPTOOLS_GRID_WIDTH = <%= LayersOfLondon::Booth::MapTool.configuration.squares_x %>;
+      window.__POLYGONS_URL = '<%= LayersOfLondon::Booth::MapTool.configuration.polygons_url %>';
     </script>
     <% if params[:new_signup] %>
         <script type="text/javascript" charset="utf-8">

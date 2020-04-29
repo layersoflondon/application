@@ -23,9 +23,8 @@ class Collection extends LoLHTTPBase {
     //console.log(`${method}: ${this.resource_path}\n\n`);
   }
 
-  static index(resource_id, id) {
-    this.setResourcePath(resource_id, id, 'INDEX');
-    return axios.get(`${this.resource_path}`);
+  static index(params={}) {
+    return axios.get(`${this.resource_path}`, {params: params});
   }
   //
   // static create(resource_id, params) {

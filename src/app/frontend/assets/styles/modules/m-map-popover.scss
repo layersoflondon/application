@@ -32,6 +32,10 @@
   height: 150px;
   overflow: hidden;
   outline:7px solid $black;
+
+  &.place-result {
+    height: 66px;
+  }
 }
 
 .m-map-popover .m-record-card p {

@@ -12,13 +12,7 @@ export default class ErrorBoundary extends Component {
   componentDidCatch(error, info) {
     this.setState({hasError: true, errorInfo: info});
 
-    if (typeof Rollbar !== "undefined") {
-      Rollbar.error(error);
-
-      if (window.__USER_PRESENT) {
-        Rollbar.configure({payload: {person: window.__USER}});
-      }
-    }
+    
   }
 
   render() {

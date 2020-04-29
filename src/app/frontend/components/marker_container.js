@@ -18,8 +18,12 @@ import {openModalLink} from '../helpers/modals';
 
   handleOnClick(event) {
     event.preventDefault();
-    
-    const cardLink = openModalLink(this.props.location, {key: 'record', value: this.props.record.id});
+    let cardLink;
+    if (this.props.isCollection) {
+      cardLink = `/map/collections/${this.props.record.id}`
+    } else {
+      cardLink = openModalLink(this.props.location, {key: 'record', value: this.props.record.id});
+    }
     this.props.history.push(cardLink);
   }
 
@@ -65,23 +69,37 @@ import {openModalLink} from '../helpers/modals';
       trackingMarker: trackingMarker
     });
 
+    const collection_icon = new LeafletDataIcon({
+      iconUrl: require('../assets/images/collection-marker.png'),
+      iconRetinaUrl: require('../assets/images/collection-marker@2x.png'),
+
+      iconSize: [30, 40],
+      shadowSize: [0, 0],
+      iconAnchor: [15, 20],
+      popupAnchor: [0, -33],
+      trackingMarker: trackingMarker
+    });
+
     let icon = default_icon;
     if(this.props.cardComponent.highlighted || this.state.marker_hovered) {
       icon = highlighted_icon;
     }
 
+    if(this.props.record.is_collection) {
+      icon = collection_icon;
+    }
+   
+
     return <Marker position={this.props.position} icon={icon} opacity={this.props.cardComponent.opacity}>
-
       <Popup>
-
         <div className="m-map-popover" onClick={this.handleOnClick.bind(this)}>
           <div className={`m-record-card ${this.props.record.placeholder_class}`}>
             <div className="wrapper">
-                {this.props.record.image &&
+              {this.props.record.image &&
                 <div className="image">
-                  <Img src={this.props.record.image.marker} loader={<span className="is-loading"></span>} />
+                  <Img src={this.props.record.image.marker} loader={<span className="is-loading"></span>}/>
                 </div>
-                }
+              }
 
               <div className="text-content">
                 <h1>{this.props.record.title}</h1>

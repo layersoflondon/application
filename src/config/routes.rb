@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
 Rails.application.routes.draw do
   get 'tag_groups/index'
   get 'tag_groups/show'
@@ -7,7 +9,7 @@ Rails.application.routes.draw do
   # Alpha redirects
   get '/map/pins/:id', to: redirect('/map?record=%{id}')
   get '/the-map', to: redirect('/map')
-  get '/search', to: redirect('/map/search')
+  get '/search', to: redirect('/map/search?search=true')
   
   get '/map/records/:id', to: redirect('/map?record=%{id}')
   get '/map/choose-place', to: redirect('/map?choose-place=true')
@@ -102,6 +104,8 @@ Rails.application.routes.draw do
     get 'export'
   end
 
+  resources :layer_categories, only: [:index], defaults: {format: :json}
+
   resources :unsubscribed_record_comments, only: [:show] do
     member do
       get :unsubscribe, to: "unsubscribed_record_comments#unsubscribe!", as: :unsubscribe
@@ -130,6 +134,10 @@ Rails.application.routes.draw do
         match "edit", via: [:get], to: "maptools#edit", constraints: {id: /[0-9A-Za-z\-\.,]+/}
       end
     end
+  end
+
+  authenticate :admin_user do
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   # IMPORTANT: this is a greedy catchall route - it needs to be the last route in the file.

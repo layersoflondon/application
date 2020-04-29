@@ -8,7 +8,9 @@ ActiveAdmin.register Layer do
                 :layer_type,
                 :date_from,
                 :date_to,
-                layer_data: [:url, :collection_id, :vector_tiles, :vector_layer_colour, :feature_name]
+                layer_data: [:url, :collection_id, :vector_tiles, :vector_layer_colour, :feature_name],
+                layer_term_ids: [],
+                layer_category_ids: []
 
   controller do
     def new

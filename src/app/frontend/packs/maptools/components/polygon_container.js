@@ -80,11 +80,15 @@ export default class PolygonContainer extends React.Component {
                 currentButton.classList.remove('is-current');
             }
 
+            if( !popup) {
+                return;
+            }
+
             popup.querySelector(`button.${this.polygonElement.leafletElement.properties.colour}`).classList.add('is-current');
         };
 
         const popup = <Popup autoClose={true} closeOnClick={false} autoOpen={false} ref={this.popupRef} onOpen={setPopupButtonClass}>
-            <div className="m-color-picker" feature={this.props.feature}>
+            <div className="m-color-picker">
                 <button onClick={this.setColour.bind(this)} className={'black'} data-colour='black'>Black</button>
                 <button onClick={this.setColour.bind(this)} className={'blue'} data-colour='blue'>Blue</button>
                 <button onClick={this.setColour.bind(this)} className={'blue-hatched'} data-colour='blue-hatched'>Blue hatched</button>

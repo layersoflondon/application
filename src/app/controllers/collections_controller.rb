@@ -23,7 +23,8 @@ class CollectionsController < ApplicationController
                      CollectionsIndex.filter(query).to_a
                    else
                      # Collection.includes(:owner, records: [:user, record_taxonomy_terms: [:taxonomy_term]]).public_read
-                     CollectionsIndex.published.limit(params[:per_page])
+                     @summary_only = true
+                     CollectionsIndex.published.limit(params[:per_page]).order(updated_at: :desc)
                    end
   end
 

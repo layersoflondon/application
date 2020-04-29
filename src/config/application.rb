@@ -19,8 +19,9 @@ module LayersApp
     config.autoload_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
     config.eager_load_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
 
+    config.x.editable_adjacent_range = 1 # how many rows/columns either side of the current square should be editable
     config.x.default_highlighted_layers = 4
-    config.x.default_directory_layers   = 12
+    config.x.default_directory_layers   = 9
 
     config.x.map_centre = {
       lat: 51.5074, lng: 0.1278
@@ -100,6 +101,9 @@ module LayersApp
     # 1400x700 record hero
     # 1400x1400 large
     # 200x150 pin
+    #
+    config.active_job.queue_adapter     = :sidekiq
+
 
   end
 end

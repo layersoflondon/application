@@ -5,6 +5,7 @@ import {EditControl} from "react-leaflet-draw";
 import {inject, observer} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import PolygonContainer from './polygon_container';
+import PolygonVectorLayer from "./polygon_vector_layer";
 import {getStyle} from '../helpers/styles';
 
 @inject('mapToolsStore', 'userSession')
@@ -154,15 +155,24 @@ export default class MapView extends React.Component {
     const isSignedIn = typeof this.props.userSession.id !== "undefined";
 
     const drawingControl = isSignedIn && this.props.mapToolsStore.atEditableSquare ? <FeatureGroup ref={this.setFeatureGroupRef}>
+
       <EditControl
         ref={this.setEditControlRef}
         position='bottomleft'
         onCreated={this.props.mapToolsStore.createdPolygon}
-        onEdited={this.props.mapToolsStore.editedPolygons}
-        onDeleted={this.props.mapToolsStore.deletedPolygons}
-
-        onEditResize={this.props.mapToolsStore.editedPolygons}
-        onEditMove={this.props.mapToolsStore.editedPolygons}
+        onEdited={(event) => {
+          this.props.mapToolsStore.editedPolygons(event);
+        }}
+        onDeleted={(event) => {
+          this.props.mapToolsStore.deletedPolygons(event);
+        }}
+        // onDeleted={(event) => { console.log('deleted', event, event.layers)}}
+        onEditResize={(event) => {
+          this.props.mapToolsStore.editedPolygons(event);
+        }}
+        onEditMove={(event) => {
+          this.props.mapToolsStore.editedPolygons(event);
+        }}
 
         onEditStart={() => this.props.mapToolsStore.setEditingMode(true)}
         onEditStop={() => this.props.mapToolsStore.setEditingMode(false)}
@@ -191,15 +201,21 @@ export default class MapView extends React.Component {
               scrollWheelZoom={zoomingEnabled} onClick={this.handleOnClick.bind(this)} key={this.props.mapToolsStore.square ? `maptools-square-${this.props.mapToolsStore.square.id}` : 'maptools-squares'}>
           <TileLayer url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=23hrAY6lilqs9xizcz03"
                       attribution="&copy; Maptiler and <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
-          <TileLayer url="http://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png"/>
+          <TileLayer url="https://tiles.layersoflondon.org/booth/{z}/{x}/{y}.png"/>
 
           { !this.props.mapToolsStore.square &&
-            <GeoJSON data={this.props.mapToolsStore.squares} style={this.gridStyle.bind(this)} />
+            <React.Fragment>
+              <GeoJSON data={this.props.mapToolsStore.squares} style={this.gridStyle.bind(this)} />
+                {/*<PolygonVectorLayer/>*/}
+            </React.Fragment>
           }
 
           {this.props.mapToolsStore.square &&
             <React.Fragment>
               <GeoJSON data={this.props.mapToolsStore.square.geojson} style={this.squareStyle.bind(this)}/>
+              {/*{this.props.mapToolsStore.showShapes &&*/}
+              {/*  <PolygonVectorLayer/>*/}
+              {/*}*/}
               {immutablePolygons}
             </React.Fragment>
           }

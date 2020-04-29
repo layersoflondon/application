@@ -381,7 +381,7 @@ export default class TrayViewStore {
     this.loading = true;
 
     runInAction(async() => {
-      const response = await Search.perform({collections: true});
+      const response = await Collection.index({per_page: 500, all: true});
       this.showCollectionOfCards(response.data);
 
       this.loading = false;
