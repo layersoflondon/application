@@ -899,7 +899,7 @@ $element-border-radius-small: 3px;
       @content;
     }
   } @else if $point==tablet {
-    @media (max-width: 1023px) {
+    @media (max-width: 1150px) {
       @content;
     }
   } @else if $point==small-tablet {
