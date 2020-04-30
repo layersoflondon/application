@@ -78,10 +78,17 @@ class RecordTags extends Component {
       />;
     });
 
+    const inputErrors = this.inputErrors('tags');
+
     return (
       <div className={`section section--add-tags ${pane_classname}`}>
-        <h2 className="title" data-name="tags" onClick={this.togglePaneVisibility}>{title}</h2>
-
+        <h2 className={this.appendErrorClassNameToField('tags', 'title')} data-name="tags" onClick={this.togglePaneVisibility}>
+          {title}
+          {
+            inputErrors.length > 0 &&
+              <small>{ inputErrors.join(', ')}</small>
+          }
+        </h2>
         <div className="pane" style={pane_styles}>
           <div className="m-tag-groups">
             <div className="parent-tags">

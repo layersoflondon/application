@@ -49,9 +49,10 @@ export default class RecordFormStore {
           if(!clickedContainer && !clickedChildElement || event.target.contains(tagsContainer)) {
             runInAction(() => {
               this.visible_tag_group = null;
+              this.persistRecord();
             });
           }
-        }
+        };
         
         document.addEventListener('click', this.clickEventListener);
       }else if(this.clickEventListener) {
@@ -124,5 +125,17 @@ export default class RecordFormStore {
 
   @action setVisibleTagGroup(id) {
     this.visible_tag_group = parseInt(id, 10);
+  }
+  
+  @action persistRecord() {
+
+    this.record.persist().then((response) => {
+      this.record = RecordModel.fromJS(response.data);
+      this.record.errors = {};
+    }).catch((error) => {
+      this.record.errors = error.response.data;
+      this.record.errors_on_publishing = error.response.data;
+      this.record.valid_for_publishing = false;
+    })
   }
 }
