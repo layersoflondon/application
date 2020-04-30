@@ -144,6 +144,34 @@
   opacity: 0.8;
 }
 
+.m-layer-tools .layer > .name {
+  width: 100%;
+  padding-right: 40px;
+  position: relative;
+}
+
+.m-layer-tools .delete {
+  height: 12px;
+  display: inline-block;
+  width: 18px;
+  margin-right: 2px;
+  vertical-align: top;
+  font-weight: bold;
+  font-size: 16px;
+  position: absolute;
+  top: -1px;
+  right: 0;
+  margin-right: 0;
+}
+
+.m-layer-tools .delete:after {
+  content: "x";
+  height: 22px;
+  width: 16px;
+  display: block;
+  opacity: 0.8;
+}
+
 .m-layer-tools .show-hide.collection:after {
   background: url('../assets/images/icon-collection.svg') center no-repeat;
 }
@@ -220,21 +248,34 @@
   margin-right: 8px;
   position: relative;
   top: -2px;
-  text-align:center;
-  opacity:0.4;
-  //margin-left: 1px;
-  //margin-right: 6px;
+  text-align: center;
+  opacity: 0.4;
 }
 
 .m-layer-tools .layer.has-components > .name:before {
   content: "\f0d7";
   font-size: 14px;
   top: 0;
-  opacity:1;
+  opacity: 1;
 }
 
 .m-layer-tools .layer.has-components.is-open > .name:before {
   content: "\f0d8";
+}
+
+.m-layer-tools .layer.has-components > .remove {
+  float: right;
+  position: relative;
+  right: -9px;
+}
+
+.m-layer-tools .layer.has-components > .remove:before {
+  content: "\f00d";
+  font-size: 14px;
+  top: 0;
+  opacity: 0.6;
+  font: normal normal normal 14px/1 FontAwesome;
+  padding: 6px;
 }
 
 .m-layer-tools .layer.has-components:not(.is-open) {
