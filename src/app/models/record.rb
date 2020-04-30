@@ -87,6 +87,7 @@ class Record < ApplicationRecord
     # validates_format_of :date_from, with: /\d{4}-\d{2}-\d{2}/, message: "Date isn't in day / month / year format"
     # validates_format_of :date_to, with: /\d{4}-\d{2}-\d{2}/, message: "End date isn't in day / month / year format", if: -> {date_to.present?}
     validate :date_is_in_the_past
+    validates :tags, presence: { message: "You need to include at least 1 tag"}
   end
 
   validates :user, presence: true # , unless: ->(r) {r.orphan?}
