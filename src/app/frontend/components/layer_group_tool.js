@@ -38,6 +38,11 @@ const handle = (props) => {
     this.props.layerGroup.toggleVisibility();
   }
 
+  removeLayerGroup(event) {
+    const layerGroupId = parseInt(event.target.dataset.layerGroupId, 10);
+    this.props.layersStore.toggleLayer(layerGroupId);
+  }
+
   render() {
     let classes = 'layer';
     if(this.props.layerGroup.is_open) classes += ' is-open';
@@ -46,6 +51,7 @@ const handle = (props) => {
     return (
       <div className={classes}>
         <span className="name" onClick={()=>this.props.layerGroup.toggleIsOpen()} {...this.props.dragHandleProps}>{this.props.layerGroup.name}</span>
+        <span className="remove" onClick={this.removeLayerGroup.bind(this)} data-layer-group-id={this.props.layerGroup.id}></span>
 
         <div className="layer-components">
           {this.props.layerGroup.allLayers.map((layer, index) => <LayerTool key={layer.id} layer={layer} />)}

@@ -160,15 +160,6 @@
   top: 2px;
 }
 
-/*.m-layer-tools .slider:before {
-  content: "";
-  width: 100px;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  border-bottom: 2px solid #333;
-}*/
-
 .m-layer-tools .rc-slider-rail {
   background-color: #333;
   height: 2px;
@@ -192,15 +183,11 @@
 }
 
 .m-layer-tools .rc-slider-handle:focus {
-  //border-color:$yellow;
   box-shadow: 0 0 0 2px $yellow;
 }
 
 .m-layer-tools .layer-components {
   position: relative;
-
-  .layer-component {
-  }
 }
 
 .m-layer-tools .layer-components .name {
@@ -220,21 +207,34 @@
   margin-right: 8px;
   position: relative;
   top: -2px;
-  text-align:center;
-  opacity:0.4;
-  //margin-left: 1px;
-  //margin-right: 6px;
+  text-align: center;
+  opacity: 0.4;
 }
 
 .m-layer-tools .layer.has-components > .name:before {
   content: "\f0d7";
   font-size: 14px;
   top: 0;
-  opacity:1;
+  opacity: 1;
 }
 
 .m-layer-tools .layer.has-components.is-open > .name:before {
   content: "\f0d8";
+}
+
+.m-layer-tools .layer.has-components > .remove {
+  float: right;
+  position: relative;
+  right: -9px;
+}
+
+.m-layer-tools .layer.has-components > .remove:before {
+  content: "\f00d";
+  font-size: 14px;
+  top: 0;
+  opacity: 0.6;
+  font: normal normal normal 14px/1 FontAwesome;
+  padding: 6px;
 }
 
 .m-layer-tools .layer.has-components:not(.is-open) {
@@ -281,14 +281,3 @@
 .m-layer-tools .key-symbol--outline {
   background: none;
 }
-
-/*
-.m-layer-tools .layer {
-  border-top:1px solid #666;
-}
-
-.m-layer-tools .layer-component {
-  border-top:1px solid #666;
-}*/
-
-
