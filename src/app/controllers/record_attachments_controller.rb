@@ -10,7 +10,7 @@ class RecordAttachmentsController < ApplicationController
 
   def create
     Rails.logger.info(params)
-    authorize(@record)
+    authorize(@record, :update?)
 
     @attachment = @record.attachments.build(attachment_params)
     @attachment.credit = attachment_params[:attachable_attributes][:credit]
@@ -24,7 +24,7 @@ class RecordAttachmentsController < ApplicationController
   end
 
   def update
-    authorize(@record)
+    authorize(@record, :update?)
 
     @attachment = @record.attachments.find(params[:id])
 
@@ -34,7 +34,7 @@ class RecordAttachmentsController < ApplicationController
   end
 
   def destroy
-    authorize(@record)
+    authorize(@record, :update?)
     # remove the file from the file system
     @attachment.file.purge if @attachment.file
     # delete the association
