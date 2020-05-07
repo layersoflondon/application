@@ -1,6 +1,6 @@
 function resizeIFrameToFitContent( iframe ) {
   iframe.width  = iframe.contentWindow.document.body.scrollWidth;
-  iframe.height = iframe.contentWindow.document.body.scrollHeight;
+  iframe.height = iframe.contentWindow.document.body.scrollHeight + 40;
 }
 
 window.addEventListener('DOMContentLoaded', function(e) {
