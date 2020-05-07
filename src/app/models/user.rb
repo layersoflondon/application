@@ -37,6 +37,7 @@ class User < ApplicationRecord
   # end
   #
 
+  update_index('records#record') { self.records }
 
   def name
     "#{first_name} #{last_name}"
