@@ -31,9 +31,8 @@ export default class RecordFormComponentState {
       }
 
       handleOnBlur() {
-        setTimeout(this.props.recordFormStore.persistRecord(), 10);
+        setTimeout(() => {this.props.recordFormStore.persistRecord()}, 1000);
       }
-
       appendErrorClassNameToField(fieldName, classes="") {
           if (this.inputErrors(fieldName).length) {
               classes += " has-errors";
