@@ -4,6 +4,8 @@ class MultiIndexSearch
     CollectionsIndex
   ]
 
+  LIMIT=200
+
   def self.highlighted(params = {})
     es_query = Chewy::Search::Request.new(*INDEXES).filter(terms: {state: ['published']})
     es_query = es_query.query({term: {featured_item: true}}).limit(100)
@@ -23,7 +25,7 @@ class MultiIndexSearch
     es_query
   end
 
-  def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: 100)
+  def self.filter_by_geobounds(search_params, indexes: INDEXES, limit: LIMIT)
     if search_params[:q]
       es_query = self.query(search_params, indexes: indexes, limit: limit)
     else
@@ -38,7 +40,7 @@ class MultiIndexSearch
     es_query.limit(limit)
   end
 
-  def self.filter_by_date_range(search_params, indexes: INDEXES, limit: 100)
+  def self.filter_by_date_range(search_params, indexes: INDEXES, limit: LIMIT)
     if search_params[:q]
       es_query = self.query(search_params, indexes: indexes, limit: limit)
     else
@@ -66,7 +68,7 @@ class MultiIndexSearch
     es_query
   end
 
-  def self.query(search_params, indexes: INDEXES, limit: 100)
+  def self.query(search_params, indexes: INDEXES, limit: LIMIT)
     multi_match_fields = %w[title^10 description]
 
 
@@ -184,14 +186,14 @@ class MultiIndexSearch
     query.filter(terms: {state: states})
   end
   
-  def self.tagged(tag_ids, indexes: INDEXES, limit: 100)
+  def self.tagged(tag_ids, indexes: INDEXES, limit: LIMIT)
     query = Chewy::Search::Request.new(*indexes)
     query = query.filter(terms: {state: ['published']})
 
     query.query(terms: {tag_ids: tag_ids}).limit(limit)
   end
 
-  def self.tag_grouped(tag_ids, indexes: INDEXES, limit: 100)
+  def self.tag_grouped(tag_ids, indexes: INDEXES, limit: LIMIT)
     query = Chewy::Search::Request.new(*indexes)
     query = query.filter(terms: {state: ['published']})
 
