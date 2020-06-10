@@ -9,6 +9,24 @@ volumes:
   es_data:
     driver: local
   irb_history:
+  source:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":${PWD}/src"
+  db_import:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":${PWD}/src/database/import"
+  polygons:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":${PWD}/src/public/booth-polygons"
 
 services:
   rails_base: &rails_base
@@ -18,7 +36,7 @@ services:
     tmpfs:
       - /tmp
     volumes:
-      - ./src:/app
+      - source:/app
       - bundle:/bundle
       - node_modules:/app/node_modules
       - packs:/app/public/packs
@@ -59,8 +77,8 @@ services:
     volumes:
       - ./config/docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
       - db_data:/var/lib/mysql
-      - ./src/database/import:/docker-entrypoint-initdb.d
-      - ./src:/app
+      - db_import:/docker-entrypoint-initdb.d
+      - source:/app
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=layers-app_development
@@ -114,14 +132,14 @@ services:
       context: .
       dockerfile: ./docker/tippecanoe/Dockerfile
     volumes:
-      - ./src:/app
+      - source:/app
     command: bash
   nginx:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
     volumes:
-      - ./src/public/booth-polygons:/usr/share/nginx/html
+      - polygons:/usr/share/nginx/html
       
     ports:
       - 1234:80
