@@ -138,8 +138,6 @@ gem 'acts_as_list'
 
 gem 'activeadmin-orderable'
 
-gem 'rubyXL'
-
 gem 'switch_user'
 
 gem 'georeferencer', git: "https://github.com/layersoflondon/georeferencer-ruby"
