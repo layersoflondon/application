@@ -26,7 +26,7 @@ export default class MapViewStore {
 
   initial_position = null;
 
-  MAX_ZOOM = 18;
+  MAX_ZOOM = 19;
 
   INTRO_BREAK_POINT = 1023;
 
