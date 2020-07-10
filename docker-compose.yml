@@ -127,22 +127,22 @@ services:
     ports:
       - 2525:2525
       - 8025:8025
-  tippecanoe:
-    build:
-      context: .
-      dockerfile: ./docker/tippecanoe/Dockerfile
-    volumes:
-      - source:/app
-    command: bash
-  nginx:
-    build:
-      context: .
-      dockerfile: ./docker/nginx/Dockerfile
-    volumes:
-      - polygons:/usr/share/nginx/html
-      
-    ports:
-      - 1234:80
+#  tippecanoe:
+#    build:
+#      context: .
+#      dockerfile: ./docker/tippecanoe/Dockerfile
+#    volumes:
+#      - source:/app
+#    command: bash
+#  nginx:
+#    build:
+#      context: .
+#      dockerfile: ./docker/nginx/Dockerfile
+#    volumes:
+#      - polygons:/usr/share/nginx/html
+#
+#    ports:
+#      - 1234:80
     
 
 
