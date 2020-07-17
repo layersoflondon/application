@@ -1,7 +1,8 @@
-import {action, extendObservable, runInAction, observable, computed, observe} from "mobx";
+import {action, extendObservable, runInAction, observable, computed, observe, toJS, intercept} from "mobx";
 import {MODAL_NAMES} from '../helpers/modals';
 
 import Cookies from 'universal-cookie';
+import queryString from "query-string";
 
 const cookies = new Cookies();
 
@@ -30,6 +31,12 @@ export default class MapViewStore {
 
   INTRO_BREAK_POINT = 1023;
 
+  URL_ATTRIBUTES = [
+    "center",
+    "zoom",
+    "lightsOut"
+  ]
+
   // dom reference to the leaflet map instance (is assigned in by the map_view)
   // map_ref = null;
 
@@ -46,6 +53,22 @@ export default class MapViewStore {
     //     console.log(`Got this modal: ${m}`);
     //   });
     // });
+    
+    // Round the center to 5dp.
+    intercept(this, 'center', (change) => {
+      if (change.newValue) {
+        change.newValue = change.newValue.map((v) => parseFloat(parseFloat(v).toFixed(5)))
+      }
+
+      return change;
+    })
+
+    intercept(this, 'zoom', (change) => {
+      if (change.newValue) {
+        change.newValue = parseInt(change.newValue);
+      }
+      return change;
+    })
 
     observe(this, 'editRecordModal', (change) => {
       if(change.newValue) {
@@ -74,20 +97,57 @@ export default class MapViewStore {
 
     this.isIntroDone = cookies.get('introDone') === 'true';
 
+    if (this.URL_ATTRIBUTES) {
+      this.URL_ATTRIBUTES.forEach((attr) => {
+        observe(this, attr, (change) => {
+          if (change.newValue) {
+            this.pushUrlParam()
+          }
+        })
+      })
+    }
+
+  }
+
+  @computed get urlAttributes() {
+    let attrs = {}
+    this.URL_ATTRIBUTES.forEach((attr) => {
+      attrs[attr] = this[attr]
+    })
+    return attrs
+  }
+
+  pushUrlParam() {
+    // Get the current params
+    let params = queryString.parse(location.search)
+    // replace the param for the name of the class this is mixed into
+    params[this.constructor.name] = btoa(JSON.stringify(this.urlAttributes))
+    // set the search querystring to this new thing.
+    window.history.pushState({},window.title, `${location.pathname}?${queryString.stringify(params)}`)
   }
 
   @computed get mapBounds() {
-    let center = this.mapRef.leafletElement.getBounds().getCenter();
+    let center = this.mapRef.leafletElement.getCenter();
     let radius = this.mapRef.leafletElement.getBounds().getNorthEast().distanceTo(center)/1000;
     const north_west = this.mapRef.leafletElement.getBounds().getNorthWest();
     const south_east = this.mapRef.leafletElement.getBounds().getSouthEast();
+    const zoom = this.mapRef.leafletElement.getZoom();
+
+    for(const [k,v] of Object.entries(center)) {
+      center[k] = parseFloat(parseFloat(v).toFixed(5))
+    }
     
     return {
       top_left: north_west,
       bottom_right: south_east,
       center: center,
-      radius: radius
+      radius: radius,
+      zoom: zoom
     };
+  }
+
+  @computed get mapZoom() {
+    return this.mapRef.leafletElement.getZoom();
   }
 
   @action.bound getMapBounds() {
@@ -106,17 +166,34 @@ export default class MapViewStore {
     });
   }
 
+  @action.bound getMapZoom() {
+    return new Promise((resolve) => {
+      const waitForMapRef = () => {
+
+        if (this.mapRef) {
+          const zoom = this.mapZoom;
+          resolve(zoom);
+        } else {
+          setTimeout(waitForMapRef, 10)
+        }
+      };
+
+      waitForMapRef();
+    });
+  }
+
+
+
+
   @computed get shouldShowIntro() {
     const desktopLayout = window.innerWidth>this.INTRO_BREAK_POINT;
 
     return desktopLayout && !this.isIntroDone;
   }
 
-
-
   panTo(lat, lng, zoom = null) {
     this.initial_position = this.center;
-    this.center = [lat, lng];
+    this.center.replace([lat, lng]);
 
     if(zoom) {
       this.zoom = zoom;

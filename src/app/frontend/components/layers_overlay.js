@@ -183,9 +183,12 @@ const LAYERS_PER_PAGE = 9;
 
     if (!this.props.mapViewStore.modalIsVisible('layers')) return <React.Fragment/>;
 
-    const handleCloseOnClick = () => {
+    const handleCloseOnClick = (e) => {
+      // instead of using a <Link> element for the close button, we use an onclick so we don't accidentally destroy the state in the url.
+      e.preventDefault();
       this.props.layersStore.clearSearch();
       removeModal(this.props.router.location, 'layers', this.props.mapViewStore);
+      this.props.router.push(closeModalLink(window.location, 'layers'))
     };
 
     return (
@@ -239,9 +242,9 @@ const LAYERS_PER_PAGE = 9;
 
               {this.props.layersStore.activeLayerGroups.length > 0 &&
               <div className="confirm">
-                <Link to={closeModalLink(this.props.router.location, 'layers')} className="btn"
+                <a href="#" className="btn"
                       onClick={handleCloseOnClick}>I'm
-                  done!</Link>
+                  done!</a>
               </div>
               }
             </div>

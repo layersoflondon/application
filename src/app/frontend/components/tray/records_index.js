@@ -20,6 +20,12 @@ export default class TrayRecordsIndex extends Component {
     }
   }
 
+  componentDidMount() {
+    if (!this.props.trayViewStore.locked) {
+      this.props.mapViewStore.panTo(this.props.lat,this.props.lng,this.props.zoom)
+    }
+  }
+
   componentDidUpdate(oldProps) {
     const geobounded = this.props.type === "geobounded";
     const lat = this.props.lat;

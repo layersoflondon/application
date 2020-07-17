@@ -47,7 +47,7 @@ development:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: /node_modules/
-      poll: true
+      poll: 200
 
 
 test:
