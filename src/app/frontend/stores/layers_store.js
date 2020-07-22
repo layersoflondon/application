@@ -131,7 +131,7 @@ export default class LayersStore {
         window.__URL_MUTATION_LOCK = true;
         let params = queryString.parse(location.search)
         // replace the param for the name of the class this is mixed into
-        params[this.constructor.name] = btoa(JSON.stringify(this.urlAttributes))
+        params['l'] = btoa(JSON.stringify(this.urlAttributes))
         // set the search querystring to this new thing.
         window.history.pushState({}, window.title, `${location.pathname}?${queryString.stringify(params)}`)
         window.__URL_MUTATION_LOCK = false;

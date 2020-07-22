@@ -52,12 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let stateData = response.data.data;
 
-        if (queryParams.MapViewStore) {
-            stateData.map = Object.assign(stateData.map, deserialize(queryParams.MapViewStore));
+        if (queryParams.m) {
+            stateData.map = Object.assign(stateData.map, deserialize(queryParams.m));
         }
 
-        if (queryParams.LayersStore) {
-            stateData.layers = deserialize(queryParams.LayersStore);
+        if (queryParams.l) {
+            stateData.layers = deserialize(queryParams.l);
         }
 
         const stores = initStore(stateData);
