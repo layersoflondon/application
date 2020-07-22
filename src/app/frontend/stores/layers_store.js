@@ -1,6 +1,8 @@
-import {action, computed, observable, observe, runInAction} from 'mobx';
+import {action, computed, observable, observe, runInAction, toJS} from 'mobx';
 import LayerGroupModel from '../models/layer_group';
 import Layer from '../sources/layer';
+import queryString from "query-string";
+import {layer} from "react-leaflet/lib/propTypes";
 
 export default class LayersStore {
   @observable layer_groups = observable.map();
@@ -19,13 +21,25 @@ export default class LayersStore {
   @observable free_text_query = null;
   @observable total_search_result_pages = 1;
   @observable search_page = 1;
+  request_layer_ids = null; // this is used to request specific IDs, when we're reloading this store from JS.
+  layers_were_reloaded = false;
+  per_page = 9;
 
   @observable active_layer_group_ids = [];
 
   @observable category_and_term_filters = {term_id: null, category_id: null};
 
+  URL_ATTRIBUTES = [
+    'free_text_query',
+    'search_page',
+    'category_and_term_filters',
+    'active_layer_group_ids'
+  ]
+
   
   constructor() {
+
+    window.toJS = toJS;
     observe(this, 'layer_group_id', (change) => {
       if( change.newValue ) {
         this.loading = true;
@@ -47,30 +61,77 @@ export default class LayersStore {
         this.loading = false;
         this.layer_group_id = null;
       }
+
+      this.pushUrlParam();
     });
     
     observe(this, 'free_text_query', (change) => {
       if (change.newValue !== null) {
-        this.search();
+        this.search().then(() => {
+          this.pushUrlParam()
+        });
       }
     });
     observe(this, 'search_page', (change) => {
       if (change.oldValue !== null && change.newValue !== null) {
-        this.search(true);
+        this.search(true).then(() => {
+          this.pushUrlParam()
+        });
       }
     });
 
     observe(this,'active_layer_group_ids', (change) => {
       this.all_layer_groups.values().map((group) => {
-        group.is_active = this.active_layer_group_ids.includes(group.id)
+        group.is_active = this.active_layer_group_ids.peek().includes(group.id)
       });
+
+      this.pushUrlParam();
     });
 
     observe(this, 'category_and_term_filters', (change) => {
       if (!(Object.values(change.newValue).every((v) => v === null))) {
-        this.search();
+        this.search().then(() => {
+          this.pushUrlParam();
+        });
       }
     });
+
+  }
+
+  @computed get urlAttributes() {
+    // let attrs = {}
+    // URL_ATTRIBUTES = [
+    //   'free_text_query',
+    //   'search_page',
+    //   'category_and_term_filters',
+    //   'active_layer_group_ids'
+    // ]
+
+    let attrs = {
+      free_text_query: this.free_text_query,
+      search_page: this.search_page,
+      category_and_term_filters: toJS(this.category_and_term_filters),
+      active_layer_group_ids: this.active_layer_group_ids.peek()
+
+    }
+
+    // this.URL_ATTRIBUTES.forEach((attr) => {
+    //   if (typeof(this[attr].peek === 'function ')) {
+    //     attrs[attr] = this[attr].peek()
+    //   } else {
+    //     attrs[attr] = this[attr]
+    //   }
+    // })
+    return attrs
+  }
+
+  pushUrlParam() {
+    // Get the current params
+    let params = queryString.parse(location.search)
+    // replace the param for the name of the class this is mixed into
+    params[this.constructor.name] = btoa(JSON.stringify(this.urlAttributes))
+    // set the search querystring to this new thing.
+    window.history.pushState({},window.title, `${location.pathname}?${queryString.stringify(params)}`)
 
   }
 
@@ -115,7 +176,7 @@ export default class LayersStore {
     runInAction(() => {
       this.layer_groups.values().map((layer_group) => layer_group.is_active = false);
       this.all_layer_groups.values().map((layer_group) => layer_group.is_active = false);
-      this.active_layer_group_ids = [];
+      this.active_layer_group_ids = observable([]);
     })
   }
 
@@ -131,6 +192,7 @@ export default class LayersStore {
     this.setFilters({});
     this.search_page = null;
     this.free_text_query = null;
+    this.request_layer_ids = null;
   }
 
   /** Search for layer groups, using the category id, term id and free-text search**/
@@ -141,7 +203,9 @@ export default class LayersStore {
       category_id: this.category_and_term_filters.category_id,
       term_id: this.category_and_term_filters.term_id,
       query: this.free_text_query,
-      page: this.search_page || 1
+      page: this.search_page || 1,
+      ids: this.request_layer_ids,
+      per_page: this.per_page || 9
     };
 
     await Layer.search(query).then((response) => {
@@ -153,7 +217,7 @@ export default class LayersStore {
         this.layer_groups.clear()
       }
       layerGroups.map((group) => {
-        group.is_active = this.active_layer_group_ids.includes(group.id);
+        group.is_active = this.active_layer_group_ids.peek().includes(group.id);
         this.layer_groups.set(group.id, group);
         this.all_layer_groups.set(group.id, group);
       });
@@ -180,7 +244,7 @@ export default class LayersStore {
 
   // layer groups that can be rendered on the overlay
   @computed get activeLayerGroups() {
-    return this.all_layer_groups.values().filter((layer_group) => this.active_layer_group_ids.includes(layer_group.id)).reverse();
+    return this.all_layer_groups.values().filter((layer_group) => this.active_layer_group_ids.peek().includes(layer_group.id)).reverse();
   }
 
   // layer groups that the user has activated
@@ -215,14 +279,27 @@ export default class LayersStore {
     return active;
   }
 
-  static fromJS(layer_groups) {
+  static fromJS(object={}) {
     let layers_store = new LayersStore();
 
-    layer_groups.map((layer_group) => {
-      let layer = LayerGroupModel.fromJS(layer_group);
-      layers_store.layer_groups.set(layer.id, layer);
-      layers_store.all_layer_groups.set(layer.id, layer);
-    });
+    Object.assign(layers_store, object);
+    layers_store.active_layer_group_ids = observable(layers_store.active_layer_group_ids)
+    // determine if we need to load of the active IDs from a search
+    const commonValues = layers_store.all_layer_groups.keys().filter((id) => {
+      return layers_store.active_layer_group_ids.map(i => parseInt(i)).indexOf(parseInt(id)) > -1;
+    })
+
+    if (layers_store.active_layer_group_ids.length > commonValues.length) {
+    //  we're loading from json state which includes a bunch of active layer group IDs, but we don't have those IDs in our cache. So we need to load them.
+      layers_store.request_layer_ids = layers_store.active_layer_group_ids.peek();
+      layers_store.per_page = 100;
+      layers_store.search().then(() => {
+        layers_store.per_page = 9
+        return layers_store
+      });
+    } else {
+      return layers_store
+    }
 
     return layers_store;
   }

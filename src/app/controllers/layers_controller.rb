@@ -30,6 +30,10 @@ class LayersController < ApplicationController
       @layer_groups = @layer_groups.with_term_id(params[:term_id]).boost_highlight
     end
 
+    if params[:ids].present?
+      @layer_groups = @layer_groups.filter(ids: {values: params[:ids]})
+    end
+
     @layer_groups = @layer_groups.limit(per_page).offset(offset)
     response.set_header("X-Total-Pages", @layer_groups.total_pages)
     response.set_header("X-Page", page)

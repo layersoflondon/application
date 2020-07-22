@@ -3,7 +3,7 @@ import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet';
 import MarkerContainer from './marker_container';
 import PlaceMarkerContainer from './place_marker_container';
 import {observer, inject} from "mobx-react";
-import {observe} from 'mobx';
+import {observe, toJS, observable} from 'mobx';
 import LayerToolsContainer from './layer_tools_container';
 import ErrorBoundary from './error_boundary';
 import MapSearchContainer from './map_search_container';
@@ -41,17 +41,23 @@ import {openModalLink} from '../helpers/modals';
   handleOnDragEnd() {
     if(!this.props.trayViewStore.locked) {
       this.props.mapViewStore.getMapBounds().then((bounds) => {
-        this.props.router.push(`/map/${bounds.center.lat},${bounds.center.lng}`);
+        this.props.mapViewStore.center = observable([bounds.center.lat, bounds.center.lng]);
+        // this.props.router.push(`/map/${bounds.center.lat},${bounds.center.lng},${this.props.mapViewStore.mapZoom}`);
       });
     }
   }
 
-  handleOnZoomEnd() {
+  handleOnZoomEnd(event) {
     if(!this.props.trayViewStore.locked) {
       this.props.mapViewStore.getMapBounds().then((bounds) => {
-        this.props.router.push(`/map/${bounds.center.lat},${bounds.center.lng}`);
+        this.props.mapViewStore.zoom = bounds.zoom;
+        this.props.mapViewStore.center = observable([bounds.center.lat, bounds.center.lng]);
+        // this.props.router.push(`/map/${bounds.center.lat},${bounds.center.lng},${bounds.zoom}`);
       });
     }
+
+
+
   }
 
   handleOnClick(event) {
@@ -95,7 +101,8 @@ import {openModalLink} from '../helpers/modals';
   }
 
   render() {
-    const position = this.props.mapViewStore.center.toJS();
+    const position = this.props.mapViewStore.center.map(i => i);
+
     const map_zoom = this.props.mapViewStore.zoom;
 
     let markers = [];

@@ -19,6 +19,7 @@ import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
 import {Router} from 'react-router';
 import axios from 'axios';
 import initStore from '../stores/stores';
+import queryString from 'query-string';
 
 import {getQueryStringValue, getCurrentModals} from '../helpers/modals';
 
@@ -36,7 +37,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // fetch the initial app state then initialize the stores and components
     axios.get('/map/state.json').then((response) => {
-        const stores = initStore(response.data);
+
+        const deserialize = (string) => {
+            try {
+                return JSON.parse(atob(string))
+            } catch(e) {
+                return {};
+            }
+        }
+
+        const queryParams = queryString.parse(location.search);
+        console.log('parsed query params',queryParams);
+
+        let stateData = response.data.data;
+
+        if (queryParams.MapViewStore) {
+            stateData.map = Object.assign(stateData.map, deserialize(queryParams.MapViewStore));
+        }
+
+        if (queryParams.LayersStore) {
+            stateData.layers = deserialize(queryParams.LayersStore);
+        }
+
+        const stores = initStore(stateData);
         stores.router = routerStore;
         stores.currentUser = window.__USER;
         

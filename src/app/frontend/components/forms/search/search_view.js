@@ -99,32 +99,24 @@ window.queryString = queryString;
     return this.state.terms[name].indexOf(value) > -1 ? true : '';
   }
 
-  getBounds() {
-    let map = this.props.trayViewStore.map_ref;
-    let center = map.leafletElement.getBounds().getCenter();
-    let radius = map.leafletElement.getBounds().getNorthEast().distanceTo(center) / 1000;
-
-    let north_west = map.leafletElement.getBounds().getNorthWest();
-    let south_east = map.leafletElement.getBounds().getSouthEast();
-
-    return {
-      // center: {lat: center.lat, lng: center.lng},
-      top_left: {lat: north_west.lat, lng: north_west.lng},
-      bottom_right: {lat: south_east.lat, lng: south_east.lng},
-      // radius: radius
-    };
-  }
 
   handleOnChange(event) {
     const {target: {name, value}} = event;
     this.setState({[name]: value});
   }
 
-  toggleSearchBounds(event) {
-    if (event.target.checked) {
-      this.setState({geobounding: this.getBounds()});
+  toggleSearchBounds() {
+    if (this.state.geobounding === 'london') {
+      this.props.mapViewStore.getMapBounds().then((bounds) => {
+        this.setState({
+          geobounding: {
+            top_left: {lat: bounds.top_left.lat, lng: bounds.top_left.lng},
+            bottom_right: {lat: bounds.bottom_right.lat, lng: bounds.bottom_right.lng}
+          }
+        })
+      })
     } else {
-      this.setState({geobounding: 'london'});
+      this.setState({geobounding: 'london'})
     }
   }
 
@@ -162,7 +154,7 @@ window.queryString = queryString;
     }
 
     if (this.state.geobounding !== 'london') {
-      search_params.geobounding = this.getBounds()
+      search_params.geobounding = this.state.geobounding;
     }
 
     if (this.state.collections) {
