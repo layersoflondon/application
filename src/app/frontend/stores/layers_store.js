@@ -126,12 +126,21 @@ export default class LayersStore {
   }
 
   pushUrlParam() {
-    // Get the current params
-    let params = queryString.parse(location.search)
-    // replace the param for the name of the class this is mixed into
-    params[this.constructor.name] = btoa(JSON.stringify(this.urlAttributes))
-    // set the search querystring to this new thing.
-    window.history.pushState({},window.title, `${location.pathname}?${queryString.stringify(params)}`)
+    const updateUrl = () => {
+      if (!window.__URL_MUTATION_LOCK) {
+        window.__URL_MUTATION_LOCK = true;
+        let params = queryString.parse(location.search)
+        // replace the param for the name of the class this is mixed into
+        params[this.constructor.name] = btoa(JSON.stringify(this.urlAttributes))
+        // set the search querystring to this new thing.
+        window.history.pushState({}, window.title, `${location.pathname}?${queryString.stringify(params)}`)
+        window.__URL_MUTATION_LOCK = false;
+      } else {
+        setTimeout(updateUrl, 10)
+      }
+    }
+
+    updateUrl();
 
   }
 

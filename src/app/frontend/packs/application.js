@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminUserPresent = window.__ADMIN_USER_PRESENT;
     const mapBounds = window.__MAP_BOUNDS;
     const mapboxStaticMapsKey = window.__MAPBOX_STATIC_MAPS_KEY;
+    window.__URL_MUTATION_LOCK = false;
 
     const browserHistory = createBrowserHistory();
     const routerStore = new RouterStore();
