@@ -88,9 +88,6 @@ import AddToCollection from "./record_view/add_to_collection";
             <Route exact path='/map' component={TrayGettingStarted} />
             <Route exact path='/map/search' component={TraySearchResults} />
             <Route exact path='/map/collections' component={TrayCollectionsIndex} />
-            <Route exact path='/map/:lat,:lng,:zoom' render={({match})=> {
-              return <TrayRecordsIndex type='geobounded' lat={match.params.lat} lng={match.params.lng} zoom={match.params.zoom} />
-            }} />
             <Route exact path='/map/:type' render={({match}) => {
               let title = "";
               switch(match.params.type) {
@@ -99,6 +96,9 @@ import AddToCollection from "./record_view/add_to_collection";
                   break;
                 case 'popular':
                   title = "Popular";
+                  break;
+                case 'geobounded':
+                  title = "Records and Collections";
                   break;
               }
               return <TrayRecordsIndex type={match.params.type} title={title} />

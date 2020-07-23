@@ -15,7 +15,7 @@ export default class RecordViewComponentState {
       handleCloseOnClick(event) {
         event.preventDefault();
 
-        const search = removeModal(this.props.router.location, 'record', this.props.mapViewStore);
+        const search = removeModal(window.location, 'record', this.props.mapViewStore);
         
         this.props.router.push(`/map?${search}`);
       }

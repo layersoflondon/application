@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const queryParams = queryString.parse(location.search);
-        console.log('parsed query params',queryParams);
 
         let stateData = response.data.data;
 

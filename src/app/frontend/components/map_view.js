@@ -42,7 +42,8 @@ import {openModalLink} from '../helpers/modals';
     if(!this.props.trayViewStore.locked) {
       this.props.mapViewStore.getMapBounds().then((bounds) => {
         this.props.mapViewStore.center = observable([bounds.center.lat, bounds.center.lng]);
-        // this.props.router.push(`/map/${bounds.center.lat},${bounds.center.lng},${this.props.mapViewStore.mapZoom}`);
+        this.props.trayViewStore.reloadTrayDataForBounds(bounds)
+        this.props.router.push(`/map/geobounded${window.location.search}`);
       });
     }
   }
@@ -52,7 +53,8 @@ import {openModalLink} from '../helpers/modals';
       this.props.mapViewStore.getMapBounds().then((bounds) => {
         this.props.mapViewStore.zoom = bounds.zoom;
         this.props.mapViewStore.center = observable([bounds.center.lat, bounds.center.lng]);
-        // this.props.router.push(`/map/${bounds.center.lat},${bounds.center.lng},${bounds.zoom}`);
+        this.props.trayViewStore.reloadTrayDataForBounds(bounds)
+        this.props.router.push(`/map/geobounded${window.location.search}`);
       });
     }
 

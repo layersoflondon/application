@@ -9,7 +9,7 @@ import TrayHeader from '../tray_header';
 export default class TrayRecordsIndex extends Component {
   constructor(props) {
     super(props);
-    this.props.trayViewStore.showHighlightedResuts = false;
+    this.props.trayViewStore.showHighlightedResults = false;
 
     if (this.props.type === "geobounded") {
       this.props.mapViewStore.getMapBounds().then((bounds) => {
@@ -17,24 +17,6 @@ export default class TrayRecordsIndex extends Component {
       });
     } else {
       this.props.trayViewStore.fetchData({type: this.props.type}, {lockTray: true});
-    }
-  }
-
-  componentDidMount() {
-    if (!this.props.trayViewStore.locked) {
-      this.props.mapViewStore.panTo(this.props.lat,this.props.lng,this.props.zoom)
-    }
-  }
-
-  componentDidUpdate(oldProps) {
-    const geobounded = this.props.type === "geobounded";
-    const lat = this.props.lat;
-    const lng = this.props.lng;
-
-    if(geobounded && (lat !== oldProps.lat || lng !== oldProps.lng)) {
-      this.props.mapViewStore.getMapBounds().then((bounds) => {
-        this.props.trayViewStore.reloadTrayDataForBounds(bounds);
-      });
     }
   }
 
