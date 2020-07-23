@@ -90,7 +90,7 @@ const handle = (props) => {
             </Droppable>
           </DragDropContext>
 
-          <Link className={lightsOutClasses} to="#" onClick={()=>this.props.mapViewStore.lightsOut = !this.props.mapViewStore.lightsOut}>{lightsOutLabel}</Link>
+          <Link className={lightsOutClasses} to="#" onClick={(e)=> {e.preventDefault(); this.props.mapViewStore.lightsOut = !this.props.mapViewStore.lightsOut}}>{lightsOutLabel}</Link>
 
           <Link to={openModalLink(this.props.router.location, {key: 'layers', value: true})}>Choose new layers</Link>
         </div>

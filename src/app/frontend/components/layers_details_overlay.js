@@ -39,35 +39,55 @@ import {getQueryStringValue, removeModal, closeModalLink} from '../helpers/modal
     this.props.layersStore.layer_group = null;
   }
 
-  toggleLayer() {
-    const showing = this.props.layersStore.toggleLayer(this.props.layersStore.layer_group.id);
+  render() {
 
-    const layerGroup = this.props.layersStore.layer_groups.get(this.props.layersStore.layer_group.id);
-    const collectionLayers = layerGroup.layers.filter((layer)=>layer.layer_type === 'collection');
-    let layerGroupCollectionIds = collectionLayers.map((layer) => layer.layer_data.collection_id);
-    layerGroupCollectionIds = [].concat(...layerGroupCollectionIds).map((id) => parseInt(id, 10));
+    const toggleLayer = () => {
+      const showing = this.props.layersStore.toggleLayer(this.props.layersStore.layer_group.id);
 
-    if( showing ) {
-      this.props.trayViewStore.collection_ids = layerGroupCollectionIds;
-    }else {
-      let currentCollectionIds = this.props.trayViewStore.collection_ids || [];
+      const layerGroup = this.props.layersStore.layer_groups.get(this.props.layersStore.layer_group.id);
+      const collectionLayers = layerGroup.layers.filter((layer)=>layer.layer_type === 'collection');
+      let layerGroupCollectionIds = collectionLayers.map((layer) => layer.layer_data.collection_id);
+      layerGroupCollectionIds = [].concat(...layerGroupCollectionIds).map((id) => parseInt(id, 10));
 
-      layerGroupCollectionIds.forEach((id) => {
-        let index = currentCollectionIds.indexOf(id);
-        if( index > -1 ) {
-          currentCollectionIds.splice(index, 1);
-        }
+      if( showing ) {
+        this.props.trayViewStore.collection_ids = layerGroupCollectionIds;
+      }else {
+        let currentCollectionIds = this.props.trayViewStore.collection_ids || [];
+
+        layerGroupCollectionIds.forEach((id) => {
+          let index = currentCollectionIds.indexOf(id);
+          if( index > -1 ) {
+            currentCollectionIds.splice(index, 1);
+          }
+        });
+      }
+
+      this.props.layersStore.pushUrlParam();
+
+      recordEvent('layerSelected', {
+        'layerSelected': this.props.layersStore.activeLayerGroups.map((layer) => layer.title).join(" | ")
       });
     }
 
-    removeModal(this.props.router.location, 'layer', this.props.mapViewStore);
+    const handleCloseOnClick = (e) => {
+      // instead of using a <Link> element for the close button, we use an onclick so we don't accidentally destroy the state in the url.
+      e.preventDefault();
 
-    recordEvent('layerSelected', {
-      'layerSelected': this.props.layersStore.activeLayerGroups.map((layer) => layer.title).join(" | ")
-    });
-  }
+      removeModal(window.location, 'layer', this.props.mapViewStore);
+      this.props.router.push(closeModalLink(window.location, 'layer'))
+    };
 
-  render() {
+    const toggleLayerAndClose = (e) => {
+      e.preventDefault();
+
+      toggleLayer();
+      handleCloseOnClick(e);
+
+
+
+
+    }
+
     if(!this.props.mapViewStore.modalIsVisible('layer')) return <React.Fragment />;
 
     let className = "m-overlay is-showing";
@@ -78,12 +98,6 @@ import {getQueryStringValue, removeModal, closeModalLink} from '../helpers/modal
     }
 
     const label_prefix = this.props.layersStore.layer_group && this.props.layersStore.layer_group.is_active ? "Remove" : "Use";
-
-    const closePath = removeModal(this.props.router.location, 'layer');
-    const handleOnClick = () => {
-      removeModal(this.props.router.location, 'layer', this.props.mapViewStore);
-      this.props.router.push(`/map?${closePath}`);
-    }
 
     return (
       <Fragment>
@@ -96,7 +110,7 @@ import {getQueryStringValue, removeModal, closeModalLink} from '../helpers/modal
           <div className={`s-overlay--layers is-showing ${(this.props.layersStore.layer_group && this.props.layersStore.layer_group.is_active) ? "is-selected" : ""}`}>
 
             <div className="close">
-              <Link to={`/map?${closePath}`} className="close" onClick={handleOnClick}>Close</Link>
+              <a href="#" className="close" onClick={handleCloseOnClick}>Close</a>
             </div>
 
             {
@@ -125,7 +139,7 @@ import {getQueryStringValue, removeModal, closeModalLink} from '../helpers/modal
                   </div>
 
                   <div className="footer">
-                    <Link to={closeModalLink(this.props.router.location, 'layer')} className="use-this-layer" onClick={this.toggleLayer.bind(this)}>{label_prefix} this layer</Link>
+                    <a href="#" className="use-this-layer" onClick={toggleLayerAndClose}>{label_prefix} this layer</a>
                   </div>
                 </div>
               )
