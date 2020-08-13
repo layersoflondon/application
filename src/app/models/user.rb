@@ -37,7 +37,22 @@ class User < ApplicationRecord
   # end
   #
 
-  update_index('records#record') { self.records }
+  # update_index('records#record') { self.records }
+  #
+  #
+  # if a user's name has changed, we need to touch all their records so we can update their name in the indices
+  before_update do
+    if first_name_changed? || last_name_changed?
+      @name_changed = true
+    end
+  end
+  after_commit on: :update do
+    if @name_changed
+      self.records.each do |record|
+        ModelToucherJob.perform_later(record.class.to_s,record.id)
+      end
+    end
+  end
 
   def name
     "#{first_name} #{last_name}"
