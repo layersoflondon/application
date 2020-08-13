@@ -56,7 +56,7 @@ services:
       - WEBPACKER_DEV_SERVER_HOST=webpacker
   sidekiq:
     <<: *rails_base
-    command: sidekiq -e development -q default -q chewy
+    command: sidekiq -e development -q default -q chewy -q mailers
 
   webpacker:
     <<: *rails_base
