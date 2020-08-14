@@ -1,11 +1,11 @@
-<div class="m-home-cta-block <%= local_assigns.include?(:class) ? local_assigns[:class] : ""  %>">
-    <div class="image"><img src="<%= homepage_cta.image %>" /></div>
-    <div class="text-content viewable">
+<div class="m-home-cta-block">
+    <div class="image"><%= image_tag homepage_cta.image %></div>
+
+    <div class="text-content viewable has-viewable-action is-viewable">
         <h3><%= homepage_cta.title %></h3>
         <div class="description">
-            <p><%= homepage_cta.description %>
-            </p>
+            <p><%= homepage_cta.description %></p>
         </div>
-        <a class="button" href="<%= homepage_cta.url %>"><%= homepage_cta.link_text %></a>
+        <%= link_to homepage_cta.link_text, homepage_cta.url, class: 'button' %>
     </div>
 </div>
