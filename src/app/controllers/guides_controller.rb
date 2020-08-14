@@ -5,5 +5,6 @@ class GuidesController < ApplicationController
 
   def show
     @guide = Rooftop::Guide.where(slug: params[:id]).first
+    raise Rooftop::RecordNotFoundError, "No guide found" if @guide.nil?
   end
 end
