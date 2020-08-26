@@ -20,6 +20,7 @@ import {inject, observer} from "mobx-react";
 
 
       if (this.props.terms.length === 0) {
+        this.props.layersStore.search_page = null;
         const categoryId = parseInt(event.target.dataset.categoryId, 10);
 
         this.props.layersStore.setFilters({category_id: categoryId});
