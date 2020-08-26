@@ -15,7 +15,6 @@ import {inject, observer} from "mobx-react";
 
     this.handleOnClick = (event) => {
 
-      this.props.layersStore.clearSearch();
       this.props.singletonUiViewStore.visibleSingletonComponent = this;
       this.props.singletonUiViewStore.visibleSingletonComponent.setState({visible: !this.props.singletonUiViewStore.visibleSingletonComponent.state.visible});
 
