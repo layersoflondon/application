@@ -36,7 +36,7 @@ ActiveAdmin.register LayerGroup do
     actions
   end
 
-  filter :title
+  filter :name
 
   form partial: "form"
 
