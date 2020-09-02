@@ -31,9 +31,9 @@ import {openModalLink} from '../helpers/modals';
 
     let cardLink = '/';
     if( this.props.card.is_collection ) {
-      cardLink = `/map/collections/${this.props.card.data.id}`;
+      cardLink = `/map/collections/${this.props.card.data.id}${window.location.search}`;
     }else {
-      cardLink = openModalLink(this.props.location, {key: 'record', value: this.props.card.data.id});
+      cardLink = openModalLink(window.location, {key: 'record', value: this.props.card.data.id});
     }
 
     if( this.props.card.highlighted_by_marker) {
