@@ -114,6 +114,7 @@ services:
     #     hard: 262144
     volumes:
       - es_data:/usr/share/elasticsearch/data
+      - ./backups:/opt/elasticsearch/backups
     healthcheck:
       test: ["CMD", "curl", "-SsfL", "127.0.0.1:9200/_cat/health?h=status"]
       interval: 10s
