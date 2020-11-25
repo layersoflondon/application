@@ -1,5 +1,6 @@
 class Layer < ApplicationRecord
-  belongs_to :layer_group, optional: true
+  has_many :layer_group_layers
+  has_many :layer_groups, through: :layer_group_layers
   
   has_many :layer_layer_categories, dependent: :destroy
   has_many :layer_categories, through: :layer_layer_categories

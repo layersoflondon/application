@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_17_183557) do
+ActiveRecord::Schema.define(version: 2020_11_25_150101) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "namespace"
@@ -230,6 +230,15 @@ ActiveRecord::Schema.define(version: 2020_04_17_183557) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "layer_group_layers", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.bigint "layer_group_id"
+    t.bigint "layer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["layer_group_id"], name: "index_layer_group_layers_on_layer_group_id"
+    t.index ["layer_id"], name: "index_layer_group_layers_on_layer_id"
+  end
+
   create_table "layer_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -281,8 +290,6 @@ ActiveRecord::Schema.define(version: 2020_04_17_183557) do
     t.integer "image_id"
     t.text "credit"
     t.string "short_title"
-    t.bigint "layer_group_id"
-    t.index ["layer_group_id"], name: "index_layers_on_layer_group_id"
   end
 
   create_table "layers_of_london_booth_map_tool_polygons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -481,6 +488,8 @@ ActiveRecord::Schema.define(version: 2020_04_17_183557) do
   add_foreign_key "attachments", "records"
   add_foreign_key "collection_records", "collections"
   add_foreign_key "collection_records", "records"
+  add_foreign_key "layer_group_layers", "layer_groups"
+  add_foreign_key "layer_group_layers", "layers"
   add_foreign_key "layer_layer_categories", "layer_categories"
   add_foreign_key "layer_layer_categories", "layers"
   add_foreign_key "layer_layer_terms", "layer_terms"
