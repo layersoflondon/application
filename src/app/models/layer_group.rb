@@ -7,7 +7,9 @@ class LayerGroup < ApplicationRecord
 
   MAX_SHORT_TITLE_LENGTH = 30
 
-  has_many :layers
+  has_many :layer_group_layers
+  has_many :layers, through: :layer_group_layers
+
   belongs_to :image, class_name: 'Attachments::Image', dependent: :destroy, optional: true
   accepts_nested_attributes_for :image
 
