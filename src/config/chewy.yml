@@ -5,3 +5,4 @@ test:
   prefix: 'test'
 development:
   host: 'elasticsearch:9200'
+  prefix: <%= ENV['ELASTIC_SEARCH_PREFIX'] || Rails.env %>

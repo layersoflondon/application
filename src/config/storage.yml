@@ -12,7 +12,7 @@ amazon:
   access_key_id: <%= Rails.application.secrets.aws_access_key_id %>
   secret_access_key: <%= Rails.application.secrets.aws_secret_access_key %>
   region: eu-west-1
-  bucket: <%= "assets-#{Rails.env}.layersoflondon.org" %>
+  bucket: <%= ENV['S3_BUCKET'] || "assets-#{Rails.env}.layersoflondon.org" %>
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
