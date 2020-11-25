@@ -10,7 +10,7 @@ import RecordViewComponentState from "./record_view_component_state";
 
   render() {
     const documents = this.props.trayViewStore.record.documents.map((document, i) => (
-      <li key={`document_${i}`} className={`file-type-${document.attachable.suffix}`}><NavLink to={document.attachable.url} target='_blank'>{document.title}</NavLink></li>
+      <li key={`document_${i}`} className={`file-type-${document.attachable.suffix}`}><a href={document.attachable.url} target='_blank'>{document.title}</a></li>
     ));
     return <div className='downloads'>
       <h3>Files for download</h3>
