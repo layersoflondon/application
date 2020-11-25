@@ -13,7 +13,7 @@ class CreateLayerGroupLayers < ActiveRecord::Migration[5.2]
     #   LayerGroupLayer.create(layer: layer, layer_group: layer.layer_group)
     # end
 
-    remove_column :layers, :layer_group_id
+    # remove_column :layers, :layer_group_id
   end
 
   def down
