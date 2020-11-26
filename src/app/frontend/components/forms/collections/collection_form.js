@@ -172,10 +172,19 @@ import {closeModalLink, getQueryStringParam, removeModal} from '../../../helpers
                   </label>
 
                   {this.state.teams.length>0 && this.state.read_state === "public_read" && (
-                    <label>
-                      <input type="radio" name="write_state" checked={this.state.write_state ==="team"} value="team" onChange={this.handleOnChange.bind(this)} /><span>Members of</span>
-                      <Select placeholder='' options={this.state.teams} hideSelectedOptions={true} isMulti={false} searchable={true} onChange={this.handleSelectOnChange.bind(this)} closeMenuOnSelect={true} ref={this.selectRef} value={this.state.teams.find((t) => t.value === this.props.collectionFormStore.collection.write_state_team_id)} />
-                    </label>
+                    <div className='label-like' onClick={() => {this.teamRadioRef.click()}}>
+                      <input type="radio" name="write_state" checked={this.state.write_state ==="team"} value="team" onChange={this.handleOnChange.bind(this)} ref={(input) => { this.teamRadioRef = input}} />
+                      <span>Members of</span>
+                      <Select placeholder=''
+                              options={this.state.teams}
+                              hideSelectedOptions={false}
+                              isMulti={false} searchable={true}
+                              onChange={this.handleSelectOnChange.bind(this)}
+                              closeMenuOnSelect={false}
+                              ref={this.selectRef}
+                              value={this.state.teams.find((t) => t.value === this.props.collectionFormStore.collection.write_state_team_id)}
+                      />
+                    </div>
                   )}
 
                   { this.state.read_state === "public_read" && (
