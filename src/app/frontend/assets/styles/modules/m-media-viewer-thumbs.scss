@@ -75,7 +75,7 @@
 
 .m-media-viewer-thumbs .controls .scroll-left {
   left: -60px;
-  @include mq(tablet) {
+  @media screen and (max-width:1220px) {
     left:-42px;
   }
   @include mq(smartphone) {
@@ -90,7 +90,7 @@
 
 .m-media-viewer-thumbs .controls .scroll-right {
   right: -60px;
-  @include mq(tablet) {
+  @media screen and (max-width:1220px) {
     right:-42px;
   }
   @include mq(smartphone) {
