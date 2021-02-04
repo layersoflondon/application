@@ -87,48 +87,7 @@ import { openModalLink } from '../helpers/modals';
                         <span className="hamburger-box">
                             <span className="hamburger-inner"></span>
                         </span>
-<<<<<<< Updated upstream
-                  </button>
-              </div>
-
-              <div className="m-smartphone-menu-wrapper">
-                  <div className="m-tools">
-                      <div className="m-tool-button m-tool-button--getting-started">
-                        <Link to='/map' data-label="Getting started" onClick={this.handleHamburgerOnClick.bind(this)}><span>Getting Started</span></Link>
-                      </div>
-                      <div className="m-tool-button m-tool-button--search">
-                          <Link to={openModalLink(window.location, {key: 'search', value: true})} data-label="Search records" onClick={this.handleHamburgerOnClick.bind(this)}><span>Search records</span></Link>
-                      </div>
-                      <div className="m-tool-button m-tool-button--layers">
-                          <Link to={openModalLink(window.location, {key: 'layers', value: true})} data-label="Layers" onClick={this.handleHamburgerOnClick.bind(this)}><span>Layers</span></Link>
-                      </div>
-                      <div className="m-tool-button m-tool-button--collections">
-                        <Link to={`/map/collections${window.location.search}`} data-label="Collections" onClick={this.handleHamburgerOnClick.bind(this)}><span>Collections</span></Link>
-                      </div>
-                      <div className="m-tool-button m-tool-button--add-collection">
-                          {this.createCollectionLink()}
-                      </div>
-                      <div className="m-tool-button m-tool-button--add">
-                          {this.addRecordLink()}
-                      </div>
-                      <div className="m-tool-button m-tool-button--admin">
-                        {
-                          this.props.adminUserPresent &&
-                          <a data-label="Admin" href="/admin"><span>Admin</span></a>
-                        }
-                      </div>
-                  </div>
-
-                  <div className="m-actions">
-                    <div className="m-tool-button m-tool-button--your-records">
-                      {
-                        this.props.userPresent &&
-                        <Link to={`/map/users/${this.props.currentUser.id}`} data-label="Your records" onClick={this.handleHamburgerOnClick.bind(this)}><span>Your records</span></Link>
-                      }
-                    </div>
-                    <div className="m-tool-button m-tool-button--your-account">
-                        {this.accountLink()}
-=======
+                        <
                     </button>
                 </div>
 
@@ -158,7 +117,6 @@ import { openModalLink } from '../helpers/modals';
                                 <a data-label="Admin" href="/admin"><span>Admin</span></a>
                             }
                         </div>
->>>>>>> Stashed changes
                     </div>
 
                     <div className="m-actions">

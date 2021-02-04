@@ -1,0 +1,47 @@
+/* Humap logo */
+
+.m-humap-logo {
+  position: absolute;
+  bottom: 20px;
+  left: 27px;
+  width: 170px;
+  height: 40px;
+  opacity: 0;
+  transition: opacity .2s;
+
+  font-size: 14px;
+  @include mq(small-tablet) {
+    display:none;
+  }
+}
+
+.m-sidebar:hover .m-humap-logo {
+  opacity: 1;
+}
+
+.m-humap-logo a {
+  color: #545d65;
+  display: block;
+  transition: all .1s;
+}
+
+.m-humap-logo a:hover {
+  color: #9ea2a7;
+}
+
+.m-humap-logo b {
+  display: none;
+}
+
+.m-humap-logo img {
+  opacity: 0.3;
+  width: 71px;
+  margin-left: 4px;
+  margin-top: 0;
+  margin-right: 7px;
+  transition: all .1s;
+}
+
+.m-humap-logo a:hover img {
+  opacity: 0.6;
+}
