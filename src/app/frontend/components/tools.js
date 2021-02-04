@@ -87,7 +87,6 @@ import { openModalLink } from '../helpers/modals';
                         <span className="hamburger-box">
                             <span className="hamburger-inner"></span>
                         </span>
-                        <
                     </button>
                 </div>
 
@@ -97,13 +96,13 @@ import { openModalLink } from '../helpers/modals';
                             <Link to='/map' data-label="Getting started" onClick={this.handleHamburgerOnClick.bind(this)}><span>Getting Started</span></Link>
                         </div>
                         <div className="m-tool-button m-tool-button--search">
-                            <Link to={openModalLink(this.props.location, {key: 'search', value: true})} data-label="Search records" onClick={this.handleHamburgerOnClick.bind(this)}><span>Search records</span></Link>
+                            <Link to={openModalLink(window.location, {key: 'search', value: true})} data-label="Search records" onClick={this.handleHamburgerOnClick.bind(this)}><span>Search records</span></Link>
                         </div>
                         <div className="m-tool-button m-tool-button--layers">
-                            <Link to={openModalLink(this.props.location, {key: 'layers', value: true})} data-label="Layers" onClick={this.handleHamburgerOnClick.bind(this)}><span>Layers</span></Link>
+                            <Link to={openModalLink(window.location, {key: 'layers', value: true})} data-label="Layers" onClick={this.handleHamburgerOnClick.bind(this)}><span>Layers</span></Link>
                         </div>
                         <div className="m-tool-button m-tool-button--collections">
-                            <Link to='/map/collections' data-label="Collections" onClick={this.handleHamburgerOnClick.bind(this)}><span>Collections</span></Link>
+                            <Link to={`/map/collections${window.location.search}`} data-label="Collections" onClick={this.handleHamburgerOnClick.bind(this)}><span>Collections</span></Link>
                         </div>
                         <div className="m-tool-button m-tool-button--add-collection">
                             {this.createCollectionLink()}
