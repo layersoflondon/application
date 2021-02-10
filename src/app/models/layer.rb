@@ -51,8 +51,8 @@ class Layer < ApplicationRecord
     layer_data['vector_layer_colour'] = self.class.vector_layer_colours.values.first unless layer_data.has_key?('vector_layer_colour')
   }
 
-  after_save -> {layer_group.save}, if: -> {layer_group.present?}
-  after_destroy -> {layer_group.save}, if: -> {layer_group.present?}
+  after_save -> {layer_groups.each(&:save)}, if: -> {layer_groups.any?}
+  after_destroy -> {layer_groups.each(&:save)}, if: -> {layer_groups.any?}
 
   before_validation do
     unless self.layer_type.present?
