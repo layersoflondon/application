@@ -9,11 +9,15 @@
     </div>
     <div class="credentials">
         <ul>
-            <li><a href="https://creativecommons.org/"><%= image_tag('logo-cc.svg', alt: "Creative Commons") %></a></li>
+            <li><a href="https://creativecommons.org/licenses/by/4.0/"><%= image_tag('logo-cc-by.svg', alt: "Creative Commons") %></a></li>
         </ul>
+        <p>Except where noted and excluding company and organisation logos this work is shared under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 (CC BY 4.0) Licence</a></p>
+
+        <p>Please attribute as: "Layers of London (<%= Date.today.year %>) supported by <a href="https://www.heritagefund.org.uk">The National Lottery Heritage Fund</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 40</a>"</p>
     </div>
     <div class="footer-navigation">
         <%= menu_for(@footer_navigation_menu, class: 'user-actions', current_class: 'is-current') %>
+        <div class="copyright"><%= Date.today.year %> &copy; Layers of London</div>
     </div>
-    <div class="copyright"><%= Date.today.year %> &copy; Layers of London</div>
+
 </div>

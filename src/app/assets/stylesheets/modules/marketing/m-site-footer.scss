@@ -14,7 +14,6 @@
 }
 
 .m-site-footer .copyright {
-  float: right;
   opacity: 0.3;
   color:white;
   @include mq(small-smartphone) {
@@ -45,7 +44,7 @@
   clear: both;
   margin-bottom: 50px;
   float: left;
-  width: 75%;
+  width: 60%;
   @include mq(small-tablet) {
     width:auto;
     float:none;
@@ -118,13 +117,16 @@
 }
 
 .m-site-footer .credentials {
-  margin-bottom: 50px;
   float: left;
-  width: 25%;
+  width: 40%;
+  padding-left: 7%;
+  border-left: 1px solid darken($white, 70%);
   @include mq(small-tablet) {
     float:none;
     width:auto;
     display:inline;
+    padding-left: 0;
+    border-left: none;
   }
 }
 
@@ -137,7 +139,6 @@
 }
 
 .m-site-footer .credentials ul li {
-  padding-left: 70px;
   @include mq(small-tablet) {
     width:50%;
     margin-right: -2px;
@@ -164,4 +165,12 @@
 .m-site-footer .credentials li a:hover img {
   opacity: 1;
 
+}
+
+.m-site-footer .credentials p {
+  color: darken($white, 70%);
+  font-size: 0.8em;
+  @include mq(small-tablet) {
+    max-width: 70%;
+  }
 }
