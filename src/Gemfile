@@ -160,3 +160,9 @@ gem 'browser'
 
 
 gem 'sidekiq'
+
+gem 'mimemagic', '0.3.9'
+
+gem 'ed25519'
+
+gem 'bcrypt_pbkdf'

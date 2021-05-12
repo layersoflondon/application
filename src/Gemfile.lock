@@ -171,6 +171,7 @@ GEM
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
     bcrypt (3.1.12)
+    bcrypt_pbkdf (1.1.0)
     bindex (0.5.0)
     bootsnap (1.4.1)
       msgpack (~> 1.0)
@@ -246,6 +247,7 @@ GEM
       activemodel-serializers-xml (>= 1.0)
       activesupport (>= 5.0)
       request_store (>= 1.0)
+    ed25519 (1.2.4)
     elasticsearch (6.2.0)
       elasticsearch-api (= 6.2.0)
       elasticsearch-transport (= 6.2.0)
@@ -333,7 +335,9 @@ GEM
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2018.0812)
-    mimemagic (0.3.3)
+    mimemagic (0.3.9)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.9.3)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
@@ -529,6 +533,7 @@ DEPENDENCIES
   acts_as_list
   awesome_print
   aws-sdk-s3
+  bcrypt_pbkdf
   bootsnap (>= 1.1.0)
   browser
   bullet
@@ -542,6 +547,7 @@ DEPENDENCIES
   devise
   devise_invitable
   draper
+  ed25519
   errorstudio_capistrano_recipes!
   faker
   friendly_id
@@ -552,6 +558,7 @@ DEPENDENCIES
   jquery-rails
   layers_of_london-booth-map_tool!
   listen (>= 3.0.5, < 3.2)
+  mimemagic (= 0.3.9)
   mini_magick
   mini_racer
   mysql2 (~> 0.4.4)
