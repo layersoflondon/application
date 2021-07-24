@@ -16,8 +16,8 @@ module LayersApp
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.autoload_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
-    config.eager_load_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage')]
+    config.autoload_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage'), Rails.root.join("lib/humap_migration")]
+    config.eager_load_paths += [Rails.root.join('lib/alpha_migration'), Rails.root.join('lib/active_storage'), Rails.root.join("lib/humap_migration")]
 
     config.x.editable_adjacent_range = 1 # how many rows/columns either side of the current square should be editable
     config.x.default_highlighted_layers = 4

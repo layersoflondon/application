@@ -61,3 +61,4 @@ src/alpha
 /vendor/booth-maptools
 /backups/
 docker-compose.override.yml
+src/export
