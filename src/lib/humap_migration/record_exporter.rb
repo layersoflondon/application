@@ -8,19 +8,25 @@ module HumapMigration
 
     def export!(dir = nil)
       count = RECORDS.count
-      folder = dir ? File.expand_path(dir) : Rails.root.join("export")
+      folder = dir ? File.expand_path(dir) : Rails.root.join("export", "records")
       puts "Exporting to #{folder}"
+      FileUtils.mkdir_p(folder)
       RECORDS.all.each_with_index do |record, i|
-        print "\r #{i + 1} / #{count}"
-        FileUtils.mkdir_p(folder)
-        file = File.join(folder, "#{record.id}.json")
-        File.open(file, "w+") { |f| f.write data_for(record).to_json }
+        begin
+          print "\r #{i + 1} / #{count}"
+          file = File.join(folder, "#{record.id}.json")
+          next if File.exists?(file)
+          File.open(file, "w+") { |f| f.write data_for(record).to_json }
+        rescue => e
+          $stderr.puts "Error exporting ID #{record.id}: #{e}"
+          next
+        end
       end
     end
 
     def data_for(record)
       data = record.attributes.except(:description).merge({
-                                                            user: record.user.attributes.except(:primary_image),
+                                                            user: (record.try(:user).try(:attributes) || {}).except(:primary_image),
                                                             image: record.primary_image.try(:data).try(:dig, *[:title, :url, :credit, :caption])
                                                           })
       data.merge!({
@@ -52,7 +58,7 @@ module HumapMigration
                   })
 
       data.merge!({
-                    collections: record.collections.includes(:owner).preload(:owner).collect { |c| {title: c.title, description: c.description, owner: c.owner.attributes} }.compact
+                    collections: record.collections.includes(:owner).preload(:owner).collect { |c| {id: c.id, title: c.title, description: c.description, state: (c.public_read? ? "published" : "draft"), owner: c.owner.attributes.merge({type: c.owner.class.to_s.underscore})} }.compact
                   })
 
       data
