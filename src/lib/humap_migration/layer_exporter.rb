@@ -53,7 +53,7 @@ module HumapMigration
       layer_group.layers.collect do |layer|
         begin
           # Using the z/x/y URL, list the contents of the bucket for that tileset. Get the highest and lowest zoom values.
-          #  at zoom level 12 (which is a representatively small size) get the highest and lowest number, and then from each of those, get the highest and lowest numbers.
+          #  at zoom level 13 (which is a representatively small size of tile for accuracy) get the highest and lowest number, and then from each of those, get the highest and lowest numbers.
           # (lowest x, highest y+1) = soutwest extent
           # (highest x+1, lowest y) = north-east extent
           # Then we can get the lat/lng for the top left corner from get_lat_lng_for_number.
@@ -62,8 +62,8 @@ module HumapMigration
           #
           #
           zoomlevels = list_zoomlevels(layer)
-          x_folders = list_x_folders(layer, zoom: 12)
-          raise ArgumentError, "No x folders (probably a bad URL reference)" unless x_folders.any?
+          x_folders = list_x_folders(layer, zoom: 13)
+          raise ArgumentError, "No x folders at zoom level 13 (possibly a bad URL reference)" unless x_folders.any?
           y_files_min_x = list_y_files(layer, x: x_folders.min)
           raise ArgumentError, "No y files for x: #{x_folders.min}" unless y_files_min_x.any?
           y_files_max_x = list_y_files(layer, x: x_folders.max)
@@ -117,7 +117,7 @@ module HumapMigration
       result.common_prefixes.collect(&:prefix).collect {|p| p.split("/").last.to_i}.sort
     end
 
-    def list_x_folders(layer, zoom: 12)
+    def list_x_folders(layer, zoom: 13)
       # Get a list of folders for a given zoomlevel, return the integer names of those, sorted.
       raise ArgumentError, "Layer is not on tiles.layersoflondon.org: #{layer.layer_data["url"]}" unless layer.layer_data["url"].match(%r{tiles.layersoflondon.org})
       prefix = layer.layer_data["url"].split("/")[3..-4].join("/") << "/#{zoom}/"
@@ -125,7 +125,7 @@ module HumapMigration
       result.common_prefixes.collect(&:prefix).collect {|p| p.split("/").last.to_i}.sort
     end
 
-    def list_y_files(layer, zoom: 12, x:)
+    def list_y_files(layer, zoom: 13, x:)
       # Get a list of files in a folder in the form 1234.pbf or 1234.png (any suffix A-z, 3 or 4 chars)
       # Return the integers of those file names, sorted
       raise ArgumentError, "Layer is not on tiles.layersoflondon.org: #{layer.layer_data["url"]}" unless layer.layer_data["url"].match(%r{tiles.layersoflondon.org})
