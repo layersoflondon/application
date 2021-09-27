@@ -43,7 +43,7 @@ module HumapMigration
                   })
 
       data.merge!({
-                    layers: layers_with_metadata(layer_group)
+                    layers: Array.wrap(layers_with_metadata(layer_group))
                   })
 
       data
