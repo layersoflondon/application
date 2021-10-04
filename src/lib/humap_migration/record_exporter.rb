@@ -2,16 +2,18 @@ module HumapMigration
   class RecordExporter
     RECORDS = Record.includes(:user, :attachments, :tag_groups, :tags).preload(attachments: :attachable, collections: :owner)
 
-    def self.export!(dir = nil)
-      self.new.export!(dir)
+    def self.export!(dir = nil, limit = nil)
+      self.new.export!(dir, limit)
     end
 
-    def export!(dir = nil)
+    def export!(dir = nil, limit = nil)
       count = RECORDS.count
+      records = limit ? RECORDS.limit(limit) : RECORDS.all
       folder = dir ? File.expand_path(dir) : Rails.root.join("export", "records")
       puts "Exporting to #{folder}"
       FileUtils.mkdir_p(folder)
-      RECORDS.all.each_with_index do |record, i|
+
+      records.each_with_index do |record, i|
         begin
           print "\r #{i + 1} / #{count}"
           file = File.join(folder, "#{record.id}.json")
@@ -25,8 +27,11 @@ module HumapMigration
     end
 
     def data_for(record)
+      user = (record.try(:user).try(:attributes) || {}).except(:primary_image)
+      user.merge!({teams: record.try(:user).team_users.joins(:team).collect {|tu| tu.team.attributes.merge(state: tu.state)}})
       data = record.attributes.except(:description).merge({
-                                                            user: (record.try(:user).try(:attributes) || {}).except(:primary_image),
+                                                            user: user,
+                                                            team: record.editing_team.try(:attributes),
                                                             image: record.primary_image.try(:data).try(:dig, *[:title, :url, :credit, :caption])
                                                           })
       data.merge!({
