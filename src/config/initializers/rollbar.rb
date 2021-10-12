@@ -30,6 +30,7 @@ Rollbar.configure do |config|
   # Valid levels: 'critical', 'error', 'warning', 'info', 'debug', 'ignore'
   # 'ignore' will cause the exception to not be reported at all.
   config.exception_level_filters.merge!(
+    'ActionController::InvalidAuthenticityToken' => 'ignore',
     'Rooftop::RecordNotFoundError' => 'ignore',
     'ActionController::RoutingError' => 'ignore',
     'ActiveRecord::RecordNotFound' => 'ignore'
