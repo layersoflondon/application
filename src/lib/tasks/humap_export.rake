@@ -7,4 +7,9 @@ namespace :humap_export do
   task :layers, [:output_dir] => :environment do |task, args|
     HumapMigration::LayerExporter.export!(args[:output_dir])
   end
+
+  task :users, [:output_dir] => :environment do |task, args|
+    HumapMigration::UserExporter.export!(args[:output_dir])
+  end
+
 end
