@@ -14,19 +14,19 @@ volumes:
     driver_opts:
       type: nfs
       o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
-      device: ":${PWD}/src"
+      device: ":/Users/edj/dev/lol/application/src"
   db_import:
     driver: local
     driver_opts:
       type: nfs
       o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
-      device: ":${PWD}/src/database/import"
+      device: ":/Users/edj/dev/lol/application/src/database/import"
   polygons:
     driver: local
     driver_opts:
       type: nfs
       o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
-      device: ":${PWD}/src/public/booth-polygons"
+      device: ":/Users/edj/dev/lol/application/src/public/booth-polygons"
 
 services:
   rails_base: &rails_base
@@ -81,11 +81,9 @@ services:
       - source:/app
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=layers-app_development
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
-    labels:
-      - maintainer='jordi@error.agency'
+#      - MYSQL_DATABASE=layers-app_development
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
   redis:
     image: redis:4.0
     ports:
@@ -115,6 +113,7 @@ services:
     volumes:
       - es_data:/usr/share/elasticsearch/data
       - ./backups:/opt/elasticsearch/backups
+      - ./config/docker/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     healthcheck:
       test: ["CMD", "curl", "-SsfL", "127.0.0.1:9200/_cat/health?h=status"]
       interval: 10s
