@@ -64,3 +64,4 @@ docker-compose.override.yml
 src/export
 lol_users
 src/lol_records
+lol_collections

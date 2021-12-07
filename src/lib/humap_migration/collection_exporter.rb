@@ -29,7 +29,7 @@ module HumapMigration
       { id: collection.id,
         title: collection.title,
         description: collection.description,
-        state: (collection.public_read? ? "published" : "draft"),
+        state: (collection.public_read? ? "published" : "unpublished"),
         owner: collection.owner.attributes.merge({ type: collection.owner.class.to_s.underscore }),
         record_ids: collection.record_ids
       }
