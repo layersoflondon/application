@@ -12,4 +12,8 @@ namespace :humap_export do
     HumapMigration::UserExporter.export!(args[:output_dir])
   end
 
+  task :collections, [:output_dir] => :environment do |task, args|
+    HumapMigration::CollectionExporter.export!(args[:output_dir])
+  end
+
 end
