@@ -69,6 +69,8 @@ services:
   shell:
     <<: *rails_base
     command: bash
+    depends_on:
+      - mysql
 
   mysql:
     image: mysql:5.7

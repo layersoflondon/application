@@ -20,6 +20,7 @@ module HumapMigration
           next if File.exists?(file)
           File.open(file, "w+") { |f| f.write data_for(record).to_json }
         rescue => e
+          FileUtils.rm(file, force: true)
           $stderr.puts "Error exporting ID #{record.id}: #{e}"
           next
         end
@@ -47,23 +48,23 @@ module HumapMigration
                           caption: attachable.caption,
                           credit: attachable.credit,
                           url: attachable.try(:file).try(:service_url) || attachable.try(:url)
-                        }
-                      end
+                        } rescue next
+                      end.compact
 
 
                     })
       end
 
       data.merge!({
-                    videos: record.attachments.video.collect(&:attachable).collect { |v| {title: v.title, youtube_id: v.youtube_id, caption: v.caption, credit: v.credit} }.compact
+                    videos: record.attachments.video.collect(&:attachable).collect { |v| {title: v.title, youtube_id: v.youtube_id, caption: v.caption, credit: v.credit} rescue next }.compact
                   })
 
       data.merge!({
-                    tags: record.tags.includes(:tag_group).references(:tag_group).collect { |t| {name: t.name, tag_group: t.tag_group.name} }.compact
+                    tags: record.tags.includes(:tag_group).references(:tag_group).collect { |t| {name: t.name, tag_group: t.tag_group.name} rescue next}.compact
                   })
 
       data.merge!({
-                    collections: record.collections.includes(:owner).preload(:owner).collect { |c| {id: c.id, title: c.title, description: c.description, state: (c.public_read? ? "published" : "draft"), owner: c.owner.attributes.merge({type: c.owner.class.to_s.underscore})} }.compact
+                    collections: record.collections.includes(:owner).preload(:owner).collect { |c| {id: c.id, title: c.title, description: c.description, state: (c.public_read? ? "published" : "draft"), owner: c.owner.attributes.merge({type: c.owner.class.to_s.underscore})} rescue next }.compact
                   })
 
       data

@@ -18,6 +18,7 @@ module HumapMigration
           next if File.exists?(file)
           File.open(file, "w+") { |f| f.write data_for(user).to_json }
         rescue => e
+          FileUtils.rm(file, force: true)
           $stderr.puts "Error exporting layer ID #{user.id}: #{e}"
           next
         end
