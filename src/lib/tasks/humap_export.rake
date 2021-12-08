@@ -16,4 +16,23 @@ namespace :humap_export do
     HumapMigration::CollectionExporter.export!(args[:output_dir])
   end
 
+  task record_checksums: :environment do
+    hash = User.includes(:records).references(:records).inject({}) do |hash, user|
+      STDERR.puts user.id
+      hash[user.id] = Digest::MD5.hexdigest(user.records.collect(&:id).compact.sort.to_json)
+      hash
+    end
+
+    puts hash.to_yaml
+  end
+
+  task collection_checksums: :environment do
+    hash = User.includes(:collections).references(:collections).inject({}) do |hash, user|
+      STDERR.puts user.id
+      hash[user.id] = Digest::MD5.hexdigest(user.collections.collect(&:id).compact.sort.to_json)
+      hash
+    end
+
+    puts hash.to_yaml
+  end
 end
